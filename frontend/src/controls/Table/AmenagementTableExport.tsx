@@ -31,6 +31,8 @@ import {
 import { RoleValues } from "../../lib/Utilisateur";
 import { ModeAffichageAmenagement } from "../../routes/gestionnaire/beneficiaires/Amenagements";
 import { env } from "../../env";
+import SplitFetcher from "../../api/SplitFetcher";
+import { ExportOutlined } from "@ant-design/icons";
 
 const headers = [
    { label: "Nom", key: "nom" },
@@ -91,7 +93,8 @@ function getAmenagementsData(
          fin: amenagement.fin ? dayjs(amenagement.fin).format("DD/MM/YYYY") : undefined,
          commentaire: amenagement.commentaire?.replaceAll('"', '""'),
          suivi: suivis?.find((s) => s["@id"] === amenagement.suivi)?.libelle?.replaceAll('"', '""'),
-         composante: (beneficiaire?.inscriptions || [])[0]?.formation?.composante?.libelle?.replaceAll('"', '""'),
+         composante: (beneficiaire?.inscriptions ||
+            [])[0]?.formation?.composante?.libelle?.replaceAll('"', '""'),
          formation: (beneficiaire?.inscriptions || [])[0]?.formation?.libelle?.replaceAll(
             '"',
             '""',
@@ -125,6 +128,7 @@ export default function AmenagementTableExport({
    const [exportSubmit, setExportSubmit] = useState(false);
    const [downloaded, setDownloaded] = useState(false);
    const [loading, setLoading] = useState(false);
+   const [fetchingAmenagements, setFetchingAmenagements] = useState(false);
    const { data: categories, isFetching: isFetchingCategories } = useApi().useGetCollection({
       ...PREFETCH_CATEGORIES_AMENAGEMENTS,
       enabled: exportSubmit,
@@ -149,24 +153,17 @@ export default function AmenagementTableExport({
       enabled: exportSubmit,
    });
 
-   const { data: amenagements, isFetching: isFetchingAmenagements } =
-      useApi().useGetCollectionPaginated({
-         path: "/amenagements",
-         page: 1,
-         itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-         query: {
-            ...filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParAmenagement),
-            page: 1,
-            itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-         },
-         enabled: exportSubmit,
-      });
+   const [amenagements, setAmenagements] = useState<IAmenagement[] | null>(null);
+
+   useEffect(() => {
+      setAmenagements(null)
+   }, [filtreAmenagement])
 
    useEffect(() => {
       if (
          categories?.items &&
          types?.items &&
-         amenagements?.items &&
+         fetchingAmenagements &&
          suivis?.items &&
          cas?.items &&
          tags?.items
@@ -176,7 +173,7 @@ export default function AmenagementTableExport({
          setLoading(
             isFetchingCategories ||
                isFetchingTypes ||
-               isFetchingAmenagements ||
+               fetchingAmenagements ||
                isFetchingSuivis ||
                isFetchingTags ||
                isFetchingCas,
@@ -184,8 +181,7 @@ export default function AmenagementTableExport({
       }
    }, [
       exportSubmit,
-      isFetchingAmenagements,
-      amenagements?.items,
+      amenagements,
       categories?.items,
       types?.items,
       isFetchingCategories,
@@ -198,15 +194,15 @@ export default function AmenagementTableExport({
       isFetchingTags,
    ]);
 
-   return (
+   return amenagements ? (
       <TableExportButton
          loading={loading}
          setLoading={setLoading}
-         submitted={exportSubmit}
+         submitted={true}
          setSubmitted={setExportSubmit}
          getData={() =>
             getAmenagementsData(
-               amenagements?.items || [],
+               amenagements || [],
                categories?.items,
                types?.items,
                suivis?.items,
@@ -219,5 +215,19 @@ export default function AmenagementTableExport({
          headers={headers}
          filename="amenagements"
       />
+   ) : (
+      <>
+         <SplitFetcher
+            itemsPerPage={200}
+            query={filtreAmenagementToApi(
+               filtreAmenagement,
+               ModeAffichageAmenagement.ParAmenagement,
+            )}
+            setData={setAmenagements}
+            setIsFetching={setFetchingAmenagements}
+            icon={<ExportOutlined />}
+            label={"Exporter"}
+         />
+      </>
    );
 }
