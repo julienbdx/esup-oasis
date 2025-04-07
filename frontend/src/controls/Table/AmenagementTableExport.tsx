@@ -10,7 +10,6 @@
 import {
    IAmenagement,
    ICategorieAmenagement,
-   IComposante,
    ITag,
    ITypeAmenagement,
    ITypeSuiviAmenagement,
@@ -25,7 +24,6 @@ import { getDomaineAmenagement } from "../../lib/amenagements";
 import dayjs from "dayjs";
 import {
    PREFETCH_CATEGORIES_AMENAGEMENTS,
-   PREFETCH_COMPOSANTES,
    PREFETCH_TAGS,
    PREFETCH_TYPES_AMENAGEMENTS,
    PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
@@ -59,23 +57,20 @@ function getAmenagementsData(
    amenagements: IAmenagement[],
    categories: ICategorieAmenagement[] | undefined,
    types: ITypeAmenagement[] | undefined,
-   beneficiaires: IUtilisateur[] | undefined,
    suivis: ITypeSuiviAmenagement[] | undefined,
-   composantes: IComposante[] | undefined,
    cas: IUtilisateur[] | undefined,
    tags: ITag[] | undefined,
 ) {
    return amenagements.map((amenagement) => {
+      const beneficiaire = amenagement.beneficiaire;
+
       return {
          key: amenagement["@id"],
          "@id": amenagement["@id"],
-         nom: beneficiaires
-            ?.find((b) => b["@id"] === amenagement.beneficiaire)
-            ?.nom?.toLocaleUpperCase(),
-         prenom: beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)?.prenom,
-         email: beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)?.email,
-         numeroEtudiant: beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)
-            ?.numeroEtudiant,
+         nom: beneficiaire?.nom?.toLocaleUpperCase(),
+         prenom: beneficiaire?.prenom,
+         email: beneficiaire?.email,
+         numeroEtudiant: beneficiaire?.numeroEtudiant,
          domaine:
             getDomaineAmenagement(
                types?.find((ta) => ta["@id"] === amenagement.typeAmenagement),
@@ -96,33 +91,19 @@ function getAmenagementsData(
          fin: amenagement.fin ? dayjs(amenagement.fin).format("DD/MM/YYYY") : undefined,
          commentaire: amenagement.commentaire?.replaceAll('"', '""'),
          suivi: suivis?.find((s) => s["@id"] === amenagement.suivi)?.libelle?.replaceAll('"', '""'),
-         composante: composantes
-            ?.find(
-               (c) =>
-                  c["@id"] ===
-                  (
-                     beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)
-                        ?.inscriptions || []
-                  ).sort((i1, i2) => i2.debut?.localeCompare(i1.debut || "") || 0)[0]?.formation
-                     ?.composante,
-            )
-            ?.libelle?.replaceAll('"', '""'),
-         formation: (
-            beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)?.inscriptions || []
-         )
-            .sort((i1, i2) => i2.debut?.localeCompare(i1.debut || "") || 0)[0]
-            ?.formation?.libelle?.replaceAll('"', '""'),
-         chargeAccompagnement: (
-            beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)
-               ?.gestionnairesActifs || []
-         )
+         composante: (beneficiaire?.inscriptions || [])[0]?.formation?.composante?.libelle?.replaceAll('"', '""'),
+         formation: (beneficiaire?.inscriptions || [])[0]?.formation?.libelle?.replaceAll(
+            '"',
+            '""',
+         ),
+         chargeAccompagnement: (beneficiaire?.gestionnairesActifs || [])
             .map((g) => {
                const ca = cas?.find((c) => c["@id"] === g);
                return ca ? `${ca.nom?.toLocaleUpperCase()} ${ca.prenom}` : "";
             })
             .join(", "),
-         avisESE: beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)?.etatAvisEse,
-         tags: (beneficiaires?.find((b) => b["@id"] === amenagement.beneficiaire)?.tags || [])
+         avisESE: beneficiaire?.etatAvisEse,
+         tags: (beneficiaire?.tags || [])
             ?.map((tag) => {
                return tags?.find((t) => t["@id"] === tag);
             })
@@ -152,13 +133,6 @@ export default function AmenagementTableExport({
       ...PREFETCH_TYPES_AMENAGEMENTS,
       enabled: exportSubmit,
    });
-   const { data: beneficiaires, isFetching: isFetchingBeneficiaires } =
-      useApi().useGetCollectionPaginated({
-         path: "/beneficiaires",
-         page: 1,
-         itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-         enabled: exportSubmit,
-      });
    const { data: suivis, isFetching: isFetchingSuivis } = useApi().useGetCollection({
       ...PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
       enabled: exportSubmit,
@@ -168,10 +142,6 @@ export default function AmenagementTableExport({
       page: 1,
       itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
       parameters: { roleId: `/roles/${RoleValues.ROLE_GESTIONNAIRE}` },
-      enabled: exportSubmit,
-   });
-   const { data: composantes, isFetching: isFetchingComposantes } = useApi().useGetCollection({
-      ...PREFETCH_COMPOSANTES,
       enabled: exportSubmit,
    });
    const { data: tags, isFetching: isFetchingTags } = useApi().useGetCollection({
@@ -197,9 +167,7 @@ export default function AmenagementTableExport({
          categories?.items &&
          types?.items &&
          amenagements?.items &&
-         beneficiaires?.items &&
          suivis?.items &&
-         composantes?.items &&
          cas?.items &&
          tags?.items
       ) {
@@ -209,9 +177,7 @@ export default function AmenagementTableExport({
             isFetchingCategories ||
                isFetchingTypes ||
                isFetchingAmenagements ||
-               isFetchingBeneficiaires ||
                isFetchingSuivis ||
-               isFetchingComposantes ||
                isFetchingTags ||
                isFetchingCas,
          );
@@ -224,12 +190,8 @@ export default function AmenagementTableExport({
       types?.items,
       isFetchingCategories,
       isFetchingTypes,
-      beneficiaires?.items,
-      isFetchingBeneficiaires,
       suivis?.items,
       isFetchingSuivis,
-      composantes?.items,
-      isFetchingComposantes,
       cas?.items,
       isFetchingCas,
       tags?.items,
@@ -247,9 +209,7 @@ export default function AmenagementTableExport({
                amenagements?.items || [],
                categories?.items,
                types?.items,
-               beneficiaires?.items,
                suivis?.items,
-               composantes?.items,
                cas?.items,
                tags?.items,
             )
