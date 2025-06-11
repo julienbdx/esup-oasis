@@ -46,7 +46,7 @@ export const VERSIONS: IVersion[] = [
       description: "Accompagnement des bénéficiaires",
       changes: [
          {
-            description: "GEstion de l'accompagnement des bénéficiaires : filtre + modification",
+            description: "Gestion de l'accompagnement des bénéficiaires : filtre + modification",
             type: "add",
          },
       ],
