@@ -13,6 +13,7 @@
 namespace App\Entity;
 
 use App\Repository\BilanRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -71,7 +72,7 @@ class Bilan
 
     public function setDateDemande(DateTimeInterface $dateDemande): static
     {
-        $this->dateDemande = $dateDemande;
+        $this->dateDemande = DateTime::createFromInterface($dateDemande);
 
         return $this;
     }
@@ -95,7 +96,7 @@ class Bilan
 
     public function setDebut(DateTimeInterface $debut): static
     {
-        $this->debut = $debut;
+        $this->debut = DateTime::createFromInterface($debut);
 
         return $this;
     }
@@ -107,7 +108,7 @@ class Bilan
 
     public function setFin(DateTimeInterface $fin): static
     {
-        $this->fin = $fin;
+        $this->fin = DateTime::createFromInterface($fin);
 
         return $this;
     }
@@ -119,7 +120,10 @@ class Bilan
 
     public function setDateGeneration(?DateTimeInterface $dateGeneration): static
     {
-        $this->dateGeneration = $dateGeneration;
+        $this->dateGeneration = match ($dateGeneration) {
+            null => null,
+            default => DateTime::createFromInterface($dateGeneration)
+        };
 
         return $this;
     }

@@ -13,6 +13,7 @@
 namespace App\Entity;
 
 use App\Repository\BeneficiaireRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -57,7 +58,7 @@ class Beneficiaire
     #[ORM\Column(options: ['default' => true])]
     private ?bool $avecAccompagnement = true;
 
-    #[ORM\OneToOne(inversedBy: 'beneficiaire', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'beneficiaire', cascade: ['persist'])]
     private ?Demande $demande = null;
 
     #[ORM\ManyToMany(targetEntity: Amenagement::class, mappedBy: 'beneficiaires')]
@@ -100,7 +101,7 @@ class Beneficiaire
 
     public function setDebut(DateTimeInterface $debut): self
     {
-        $this->debut = $debut;
+        $this->debut = DateTime::createFromInterface($debut);
 
         return $this;
     }
@@ -112,7 +113,10 @@ class Beneficiaire
 
     public function setFin(?DateTimeInterface $fin): self
     {
-        $this->fin = $fin;
+        $this->fin = match ($fin) {
+            null => null,
+            default => DateTime::createFromInterface($fin)
+        };
 
         return $this;
     }
@@ -295,7 +299,7 @@ class Beneficiaire
         return $this;
     }
 
-    public function getAmenagementsActifs()
+    public function getAmenagementsActifs(): array
     {
         return array_filter(
             $this->getAmenagements()->toArray(),

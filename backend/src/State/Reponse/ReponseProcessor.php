@@ -15,8 +15,8 @@ namespace App\State\Reponse;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\ApiResource\Demande;
-use App\ApiResource\Telechargement;
 use App\ApiResource\Reponse;
+use App\ApiResource\Telechargement;
 use App\Entity\EtatDemande;
 use App\Entity\Question;
 use App\Message\EtatDemandeModifieMessage;
@@ -35,6 +35,7 @@ use Override;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Clock\ClockAwareTrait;
 use Symfony\Component\Clock\DatePoint;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class ReponseProcessor implements ProcessorInterface
@@ -55,14 +56,11 @@ class ReponseProcessor implements ProcessorInterface
     }
 
     /**
-     * @param Reponse   $data
-     * @param Operation $operation
-     * @param array     $uriVariables
-     * @param array     $context
-     * @return Reponse
+     * @param Reponse $data
      * @throws Exception
+     * @throws ExceptionInterface
      */
-    #[Override] public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
+    #[Override] public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Reponse
     {
         $demande = $this->demandeRepository->find($uriVariables['demandeId']);
         $question = $this->questionRepository->find($uriVariables['questionId']);
@@ -128,6 +126,7 @@ class ReponseProcessor implements ProcessorInterface
         /**
          * Est-ce qu'on a validé tout le questionnaire?
          */
+        $demandeResource = $this->transformerService->transform($demande, Demande::class);
         if ($question->getTypeReponse() == Question::TYPE_SUBMIT) {
             //vérification faite en amont par ValidationDemandePossibleConstraintValidator
             $etatPrecedent = $demande->getEtat();
@@ -145,9 +144,10 @@ class ReponseProcessor implements ProcessorInterface
                 )
             );
 
-            $demandeResource = $this->transformerService->transform($demande, Demande::class);
-            $this->messageBus->dispatch(new RessourceModifieeMessage($demandeResource));
         }
+
+        //la demande doit être invalidée dans tous les cas - recalcul du champ 'complete"
+        $this->messageBus->dispatch(new RessourceModifieeMessage($demandeResource));
 
         $resource = $this->transformerService->transform($reponse, Reponse::class);
         if ($new) {
