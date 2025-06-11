@@ -24,12 +24,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class BilanActiviteNormalizer implements NormalizerInterface
 {
 
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         if ($format === 'customcsv') {
-            return $this->toArray($object);
+            return $this->toArray($data);
         }
-        return [$object];
+        return [$data];
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
@@ -105,13 +105,13 @@ class BilanActiviteNormalizer implements NormalizerInterface
 
     /**
      * @param UtilisateurBilanActivite $beneficiaire
-     * @param BeneficiaireProfil       $profil
-     * @param array                    $pedagogiques
-     * @param array                    $typesPedagogiques
-     * @param array                    $aideHumaine
-     * @param array                    $typesAideHumaine
-     * @param array                    $examens
-     * @param array                    $typesExamens
+     * @param BeneficiaireProfil $profil
+     * @param array $pedagogiques
+     * @param array $typesPedagogiques
+     * @param array $aideHumaine
+     * @param array $typesAideHumaine
+     * @param array $examens
+     * @param array $typesExamens
      * @return array
      */
     protected function ligneProfil(UtilisateurBilanActivite $beneficiaire, BeneficiaireProfil $profil, array $pedagogiques,
@@ -137,7 +137,7 @@ class BilanActiviteNormalizer implements NormalizerInterface
                 default => implode(' - ', array_map(fn($typo) => $typo->libelle, $profil->typologies))
             },
             match ($profil->profil->id) {
-                ProfilBeneficiaire::HANDICAP_PERMANENT, ProfilBeneficiaire::INCAPACITE_TEMPORAIRE => 'oui',
+                ProfilBeneficiaire::INCAPACITE_TEMPORAIRE => 'oui',
                 default => 'non'
             },
             '', //com
@@ -173,8 +173,7 @@ class BilanActiviteNormalizer implements NormalizerInterface
         /**
          * Le reste est non renseignable : autae, session différée, niveau de suivi, autres....
          */
-        $ligne = [...$ligne, '', '', '', $beneficiaire->nbEntretiens];
-        return $ligne;
+        return [...$ligne, '', '', '', $beneficiaire->nbEntretiens];
     }
 
     /**
@@ -194,14 +193,15 @@ class BilanActiviteNormalizer implements NormalizerInterface
             'format formation', "Année d'étude cursus", 'Diplôme présenté', 'Discipline', 'Typologie de handicap', 'Profil permanent/temporaire',
             'commentaire libre', "niveau de formalisation du plan d'accompagnement", 'aménagements pédagogiques?', 'amenagement EDT'];
         //ajout items types pédago
-        $i = 0;
         foreach ($typesPedagogiques as $type) {
             $entete[] = $type->libelle;
+            $enteteLibelles[] = $type->libelle;
         }
         $entete[] = 'codmeahF';
         $enteteLibelles[] = 'Aménagement avec aide humaine?';
         foreach ($typesAideHumaine as $type) {
             $entete[] = $type->libelle;
+            $enteteLibelles[] = $type->libelle;
         }
         $entete[] = 'aidhnat';
         $enteteLibelles[] = 'Autre aide humaine?';
@@ -209,6 +209,7 @@ class BilanActiviteNormalizer implements NormalizerInterface
         $enteteLibelles[] = "Aménagement d'examen?";
         foreach ($typesExamens as $type) {
             $entete[] = $type->libelle;
+            $enteteLibelles[] = $type->libelle;
         }
         return [
             [...$entete, 'précisions modalités évaluation', 'autae', 'session différée', 'codmeaa',
