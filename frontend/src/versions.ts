@@ -41,7 +41,19 @@ export interface IVersion {
  */
 export const VERSIONS: IVersion[] = [
    {
-      version: "2.2.1",
+      version: "2.2.3",
+      date: "2025-06-11",
+      description: "Bugfix et améliorations mineures",
+      changes: [
+         {
+            description:
+               "Correction de l'affichage du montant d'une intervention (modale intervention)",
+            type: "fix",
+         },
+      ],
+   },
+   {
+      version: "2.2.2",
       date: "2025-06-11",
       description: "Bugfix et améliorations mineures",
       changes: [
