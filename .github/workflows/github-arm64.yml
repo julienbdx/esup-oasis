@@ -139,10 +139,11 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
 
       - name: Create and push Multi-Arch Manifest
-        uses: docker/build-push-action@v6
-        with:
-          images: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-amd64
+        # On récupère les tags générés par l'étape meta et on les préfixe par -t
+        # pour la commande imagetools create
+        run: |
+          TAGS=$(echo "${{ steps.meta.outputs.tags }}" | xargs -I {} echo "-t {}")
+          
+          docker buildx imagetools create $TAGS \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-amd64 \
             ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-arm64
-          tags: ${{ steps.meta.outputs.tags }}
-          push: true
