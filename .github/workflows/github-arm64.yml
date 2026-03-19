@@ -1,0 +1,155 @@
+name: Docker Build and Publish (Native Multi-Arch)
+
+on:
+  push:
+    branches: [ "main", "feat-installation-simplifiee-test" ]
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_BASE: ${{ github.repository }}
+
+# Définit les permissions nécessaires pour écrire sur GHCR
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  # ========================================================
+  # JOB 1 & 2 : Builds natifs en parallèle (AMD64 et ARM64)
+  # ========================================================
+  build-native:
+    name: Build ${{ matrix.arch }} - ${{ matrix.image_suffix }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Configuration AMD64 (sur runner Intel)
+          - arch: amd64
+            runner: ubuntu-latest
+            image_suffix: backend
+            context: ./backend
+            dockerfile: ./backend/Dockerfile
+          - arch: amd64
+            runner: ubuntu-latest
+            image_suffix: backend-worker
+            context: ./backend
+            dockerfile: ./backend/Dockerfile-worker
+          - arch: amd64
+            runner: ubuntu-latest
+            image_suffix: frontend
+            context: ./frontend
+            dockerfile: ./frontend/Dockerfile
+
+          # Configuration ARM64 (sur runner ARM natif - standard 2026)
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+            image_suffix: backend
+            context: ./backend
+            dockerfile: ./backend/Dockerfile
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+            image_suffix: backend-worker
+            context: ./backend
+            dockerfile: ./backend/Dockerfile-worker
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+            image_suffix: frontend
+            context: ./frontend
+            dockerfile: ./frontend/Dockerfile
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        # On ne se connecte pas sur les Pull Requests car on ne push pas
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}
+          # On génère un tag spécifique à l'architecture (ex: sha-amd64)
+          tags: |
+            type=sha,suffix=-${{ matrix.arch }}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          # Push actif sauf sur PR
+          push: ${{ github.event_name != 'pull_request' }}
+          # On build uniquement l'architecture native du runner
+          platforms: linux/${{ matrix.arch }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Optimisation maximale du cache (local au runner natif)
+          cache-from: type=gha,scope=build-${{ matrix.image_suffix }}-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=build-${{ matrix.image_suffix }}-${{ matrix.arch }}
+
+  # ========================================================
+  # JOB 3 : Fusion des manifests (uniquement après push sur main/tag)
+  # ========================================================
+  merge-manifests:
+    name: Merge Manifests - ${{ matrix.image_suffix }}
+    runs-on: ubuntu-latest
+    needs: build-native
+    # Ce job ne tourne pas sur les Pull Requests
+    if: github.event_name != 'pull_request'
+    strategy:
+      fail-fast: false
+      matrix:
+        image_suffix: [backend, backend-worker, frontend]
+
+    steps:
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata (Final Tags)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}
+          # Ces tags s'appliqueront au manifest final "fusionné"
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+
+      - name: Create and push Multi-Arch Manifest
+        uses: docker/build-push-action@v6
+        with:
+          # Ici, on ne build rien, on utilise 'imagetools create' via Buildx
+          # pour assembler les images existantes.
+          push: true
+          context: "data:text/plain,noop" # Hack pour build-push-action sans contexte
+          # On liste les images sources à fusionner (en utilisant le tag SHA généré au job précédent)
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            "ANNOTATE=true"
+          # L'étape clé : lister les images spécifiques à chaque arch
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-amd64
+            ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-arm64
