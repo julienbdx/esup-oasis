@@ -141,15 +141,8 @@ jobs:
       - name: Create and push Multi-Arch Manifest
         uses: docker/build-push-action@v6
         with:
-          # Ici, on ne build rien, on utilise 'imagetools create' via Buildx
-          # pour assembler les images existantes.
-          push: true
-          context: "data:text/plain,noop" # Hack pour build-push-action sans contexte
-          # On liste les images sources à fusionner (en utilisant le tag SHA généré au job précédent)
-          tags: ${{ steps.meta.outputs.tags }}
-          build-args: |
-            "ANNOTATE=true"
-          # L'étape clé : lister les images spécifiques à chaque arch
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-amd64
             ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          push: true
