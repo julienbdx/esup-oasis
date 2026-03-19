@@ -125,25 +125,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Docker metadata (Final Tags)
+      - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}
-          # Ces tags s'appliqueront au manifest final "fusionné"
           tags: |
-            type=ref,event=branch
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+            # On ajoute format=long ici pour correspondre à ${{ github.sha }}
+            type=sha,format=long,suffix=-${{ matrix.arch }}
 
       - name: Create and push Multi-Arch Manifest
-        # On récupère les tags générés par l'étape meta et on les préfixe par -t
-        # pour la commande imagetools create
         run: |
-          TAGS=$(echo "${{ steps.meta.outputs.tags }}" | xargs -I {} echo "-t {}")
+          # On transforme la liste de tags en une suite de -t tag1 -t tag2
+          TAG_LIST=$(echo "${{ steps.meta.outputs.tags }}" | xargs -I {} echo "-t {}" | xargs)
           
-          docker buildx imagetools create $TAGS \
+          docker buildx imagetools create $TAG_LIST \
             ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-amd64 \
             ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/${{ matrix.image_suffix }}:sha-${{ github.sha }}-arm64
