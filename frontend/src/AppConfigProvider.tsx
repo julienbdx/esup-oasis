@@ -113,10 +113,14 @@ export function AppConfigProvider({ children }: { children: React.ReactNode }) {
    }
 
    function getFontWeight() {
-        if (appAccessibilite.dyslexieArial || appAccessibilite.dyslexieOpenDys || appAccessibilite.dyslexieLexend) {
-             return undefined;
-        }
-        return 500;
+      if (
+         appAccessibilite.dyslexieArial ||
+         appAccessibilite.dyslexieOpenDys ||
+         appAccessibilite.dyslexieLexend
+      ) {
+         return undefined;
+      }
+      return 500;
    }
 
    return (

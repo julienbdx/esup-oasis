@@ -9,7 +9,7 @@
 
 import { useApi } from "../../../context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { App, Button, Popconfirm, Table, Tag, Typography } from "antd";
+import { App, Button, Popconfirm, Space, Table, Tag, Typography } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { ISportifHautNiveau } from "../../../api/ApiTypeHelpers";
@@ -150,7 +150,7 @@ export function SportifsHautNiveauTable({ onEdit }: SportifsHautNiveauTableProps
                   className: "text-right commandes",
                   width: 150,
                   render: (_, record) => (
-                     <Button.Group>
+                     <Space.Compact>
                         <Button
                            icon={<EditOutlined />}
                            onClick={() => {
@@ -169,7 +169,7 @@ export function SportifsHautNiveauTable({ onEdit }: SportifsHautNiveauTableProps
                         >
                            <Button icon={<DeleteOutlined />} className="text-danger" />
                         </Popconfirm>
-                     </Button.Group>
+                     </Space.Compact>
                   ),
                },
             ] as ColumnsType<ISportifHautNiveau>

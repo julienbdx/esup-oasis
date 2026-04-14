@@ -266,7 +266,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
                   "@id": utilisateur?.["@id"] as string,
                   data: {
                      ...{ ...values, nom: undefined, prenom: undefined, email: undefined },
-                     roles: [...utilisateur?.roles, getRole() as RoleValues]
+                     roles: [...(utilisateur?.roles || []), getRole() as RoleValues]
                         .filter((r) => r !== RoleValues.ROLE_DEMANDEUR && r !== "ROLE_USER")
                         .filter(arrayUnique),
                   },

@@ -14,9 +14,9 @@ import { RoleValues } from "../../lib/Utilisateur";
 export const setDrawerUtilisateur = (
    value:
       | {
-      utilisateur: string | undefined;
-      role?: RoleValues;
-   }
+           utilisateur: string | undefined;
+           role?: RoleValues;
+        }
       | undefined,
 ): AnyAction => {
    return {

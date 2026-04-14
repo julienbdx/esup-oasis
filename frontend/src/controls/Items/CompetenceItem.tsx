@@ -39,13 +39,13 @@ interface IItemCompetence {
  * @returns {ReactElement} The rendered competence item component.
  */
 export default function CompetenceItem({
-                                          competence,
-                                          competenceId,
-                                          showAvatar = true,
-                                          responsive,
-                                          className,
-                                          styleLibelle,
-                                       }: IItemCompetence): ReactElement {
+   competence,
+   competenceId,
+   showAvatar = true,
+   responsive,
+   className,
+   styleLibelle,
+}: IItemCompetence): ReactElement {
    const [item, setItem] = useState(competence);
    const { data: dataCompetence, isFetching } = useApi().useGetCollection(PREFETCH_COMPETENCES);
    const screens = useBreakpoint();

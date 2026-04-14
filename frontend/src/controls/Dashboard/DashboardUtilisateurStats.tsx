@@ -108,7 +108,7 @@ export default function DashboardUtilisateurStats({
                      <Col xl={8} lg={12} xs={24} sm={12}>
                         <Card
                            className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                           variant={"borderless"}
+                           variant="borderless"
                            onClick={() => {
                               navigate(`/beneficiaires`);
                            }}
@@ -142,7 +142,7 @@ export default function DashboardUtilisateurStats({
                      <Col xl={8} lg={12} xs={24} sm={12}>
                         <Card
                            className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                           variant={"borderless"}
+                           variant="borderless"
                            onClick={() => {
                               navigate(`/amenagements?mode=beneficiaire`);
                            }}
@@ -162,7 +162,7 @@ export default function DashboardUtilisateurStats({
                      <Col xl={8} lg={12} xs={24} sm={12}>
                         <Card
                            className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                           variant={"borderless"}
+                           variant="borderless"
                            onClick={() => {
                               navigate(`/intervenants`);
                            }}
@@ -187,7 +187,7 @@ export default function DashboardUtilisateurStats({
                               <Col xl={8} lg={12} xs={24} sm={12}>
                                  <Card
                                     className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                                    variant={"borderless"}
+                                    variant="borderless"
                                     onClick={() => {
                                        navigate(
                                           `/beneficiaires?filtreType=profil&filtreValeur=${
@@ -211,7 +211,7 @@ export default function DashboardUtilisateurStats({
                               <Col xl={8} lg={12} xs={24} sm={12}>
                                  <Card
                                     className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                                    variant={"borderless"}
+                                    variant="borderless"
                                     onClick={() => {
                                        navigate(
                                           `/beneficiaires?filtreType=etatAvisEse&filtreValeur=${
@@ -231,7 +231,7 @@ export default function DashboardUtilisateurStats({
                               <Col xl={8} lg={12} xs={24} sm={12}>
                                  <Card
                                     className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                                    variant={"borderless"}
+                                    variant="borderless"
                                     onClick={() => {
                                        navigate(
                                           `/beneficiaires?filtreType=etatDecisionAmenagement&filtreValeur=${
@@ -283,7 +283,7 @@ export default function DashboardUtilisateurStats({
                   <Col xl={6} lg={12} xs={24} sm={12}>
                      <Card
                         className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                        variant={"borderless"}
+                        variant="borderless"
                         onClick={() => {
                            navigate(`/demandeurs`);
                         }}
@@ -317,8 +317,12 @@ export default function DashboardUtilisateurStats({
                                        const etatInfos = getEtatDemandeInfo(key);
                                        return {
                                           value: parseInt(
-                                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                             stats?.nbDemandesParEtat?.[key as any] || "0",
+                                             (
+                                                stats?.nbDemandesParEtat as unknown as Record<
+                                                   string,
+                                                   string
+                                                >
+                                             )?.[key] || "0",
                                           ),
                                           tooltip: etat?.libelle || "",
                                           color: etatInfos?.hexColor || etatInfos?.color || "grey",
@@ -357,7 +361,7 @@ export default function DashboardUtilisateurStats({
                                        <Col key={key} xl={6} lg={12} xs={24} sm={12}>
                                           <Card
                                              className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                                             variant={"borderless"}
+                                             variant="borderless"
                                              onClick={() => {
                                                 navigate(
                                                    `/demandeurs?filtreType=etat&filtreValeur=${key}`,
@@ -378,8 +382,12 @@ export default function DashboardUtilisateurStats({
                                                    </Flex>
                                                 }
                                                 value={parseInt(
-                                                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                                   stats?.nbDemandesParEtat?.[key as any] || "0",
+                                                   (
+                                                      stats?.nbDemandesParEtat as unknown as Record<
+                                                         string,
+                                                         string
+                                                      >
+                                                   )?.[key] || "0",
                                                 )}
                                                 precision={0}
                                                 isFetching={isFetching}
@@ -401,7 +409,7 @@ export default function DashboardUtilisateurStats({
                   <Col xl={6} lg={12} xs={24} sm={12}>
                      <Card
                         className="pointer ant-card-stats-hoverable"
-                        variant={"borderless"}
+                        variant="borderless"
                         onClick={() => {
                            goToCalendar("day", AffectationFilterValues.Tous);
                         }}
@@ -420,7 +428,7 @@ export default function DashboardUtilisateurStats({
                   <Col xl={6} lg={12} xs={24} sm={12}>
                      <Card
                         className="pointer ant-card-stats-hoverable"
-                        variant={"borderless"}
+                        variant="borderless"
                         onClick={() => {
                            goToCalendar("work_week", AffectationFilterValues.Tous);
                         }}
@@ -440,7 +448,7 @@ export default function DashboardUtilisateurStats({
                   <Col xl={6} lg={12} xs={24} sm={12}>
                      <Card
                         className="pointer ant-card-stats-hoverable"
-                        variant={"borderless"}
+                        variant="borderless"
                         onClick={() => {
                            goToCalendar("month", AffectationFilterValues.Tous);
                         }}
@@ -460,7 +468,7 @@ export default function DashboardUtilisateurStats({
                      <Col xl={6} lg={12} xs={24} sm={12}>
                         <Card
                            className="pointer ant-card-stats-numeric ant-card-stats-hoverable"
-                           variant={"borderless"}
+                           variant="borderless"
                            onClick={() => {
                               navigate(`/interventions/renforts`);
                            }}

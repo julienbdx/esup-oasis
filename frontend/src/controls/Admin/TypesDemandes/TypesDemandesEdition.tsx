@@ -28,9 +28,9 @@ interface TypesDemandesEditionProps {
  * @returns {ReactElement} - The rendered component.
  */
 export function TypesDemandesEdition({
-                                        editedItem,
-                                        setEditedItem,
-                                     }: TypesDemandesEditionProps): ReactElement {
+   editedItem,
+   setEditedItem,
+}: TypesDemandesEditionProps): ReactElement {
    const [form] = Form.useForm();
    const { data: profils, isFetching } = useApi().useGetCollection(PREFETCH_PROFILS);
 

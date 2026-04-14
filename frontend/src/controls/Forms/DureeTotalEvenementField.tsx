@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { Input } from "antd";
+import { Button, Input, Space } from "antd";
 import dayjs from "dayjs";
 import { IEvenement } from "../../api/ApiTypeHelpers";
 
@@ -24,12 +24,12 @@ export default function DureeTotaleEvenementField({ evenement }: IDureeTotaleEve
 
    return (
       <>
-         <Input
-            addonAfter={dureeTotale > 1 ? "minutes" : "minute"}
-            className="text-center text-primary semi-bold"
-            disabled
-            value={dureeTotale}
-         />
+         <Space.Compact className="w-100">
+            <Input className="text-center text-primary semi-bold" disabled value={dureeTotale} />
+            <Button disabled className="bg-light text-dark border-left-0">
+               {dureeTotale > 1 ? "minutes" : "minute"}
+            </Button>
+         </Space.Compact>
          <br />
          <div className="legende">= {(dureeTotale / 60).toFixed(1)} heure(s)</div>
       </>

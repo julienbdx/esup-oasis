@@ -27,10 +27,10 @@ interface ISuiviAmenagementItemProps {
  * @returns {ReactElement} - The rendered list of suivi items.
  */
 export default function SuiviAmenagementItem({
-                                                suiviId,
-                                                className,
-                                                couleur,
-                                             }: ISuiviAmenagementItemProps): ReactElement {
+   suiviId,
+   className,
+   couleur,
+}: ISuiviAmenagementItemProps): ReactElement {
    const { data: suivis, isFetching: isFetchingSuivis } = useApi().useGetCollection(
       PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
    );

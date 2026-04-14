@@ -10,7 +10,7 @@
 
 import React, { useEffect, useState } from "react";
 import { IDemande } from "../../api/ApiTypeHelpers";
-import { Button, Flex, Table, Tooltip } from "antd";
+import { Button, Flex, Space, Table, Tooltip } from "antd";
 import { useApi } from "../../context/api/ApiProvider";
 import { useAuth } from "../../auth/AuthProvider";
 import { useDispatch } from "react-redux";
@@ -172,7 +172,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
             <span className="legende">{getCountLibelle(count, "demande")}</span>
             <div>
                {JSON.stringify(FILTRE_DEMANDE_DEFAULT) !== JSON.stringify(filtreDemande) && (
-                  <Button.Group>
+                  <Space.Compact>
                      <FiltreDescription
                         filtre={filtreDemande}
                         as="modal"
@@ -185,7 +185,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
                            onClick={() => setFiltreDemande(FILTRE_DEMANDE_DEFAULT)}
                         />
                      </Tooltip>
-                  </Button.Group>
+                  </Space.Compact>
                )}
                <DemandeTableExport filtreDemande={filtreDemande} />
             </div>
@@ -224,7 +224,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
                      }, 500);
                   },
                   onDemandeSelected: (demande: IDemande) => {
-                      navigate(`/demandes/${demande.id}` as string);
+                     navigate(`/demandes/${demande.id}` as string);
                   },
                })}
                onChange={(

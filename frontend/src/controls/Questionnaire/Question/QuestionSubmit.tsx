@@ -42,7 +42,9 @@ export function QuestionSubmit(props: { question: QuestionnaireQuestion }) {
                         () => {
                            queryClient.invalidateQueries({ queryKey: ["/demandes"] }).then();
                            queryClient
-                              .invalidateQueries({ queryKey: ["/utilisateurs/{uid}/demandes"] })
+                              .invalidateQueries({
+                                 queryKey: ["/utilisateurs/{uid}/demandes"],
+                              })
                               .then();
                            navigate("/demandes");
                         },

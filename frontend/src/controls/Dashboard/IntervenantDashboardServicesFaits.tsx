@@ -40,7 +40,7 @@ export function IntervenantDashboardServicesFaits() {
             </Col>
             <Col xs={24} sm={12} lg={16}>
                <Card
-                  variant={"borderless"}
+                  variant="borderless"
                   loading={isLoading}
                   title={<h3>3 derniers relevés de services faits</h3>}
                >

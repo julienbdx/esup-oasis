@@ -43,8 +43,8 @@ export function TabProfils({ utilisateur, title }: ITabProfilsProps): ReactEleme
          <Form.List name="profils">
             {(fields, { add, remove }, { errors }) => (
                <>
-                  {fields.map((field) => (
-                     <Form.Item className="mb-2" required key={field.key}>
+                  {fields.map(({ key, ...field }) => (
+                     <Form.Item className="mb-2" required key={key}>
                         <Form.Item
                            {...field}
                            validateTrigger={["onChange", "onBlur"]}
@@ -70,7 +70,7 @@ export function TabProfils({ utilisateur, title }: ITabProfilsProps): ReactEleme
                                        cancelText="Non"
                                        onConfirm={() => {
                                           mutationDeleteProfil.mutate({
-                                             "@id": utilisateur.profils?.at(field.key) as string,
+                                             "@id": utilisateur.profils?.at(key) as string,
                                           });
                                        }}
                                     >

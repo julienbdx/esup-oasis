@@ -8,7 +8,13 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { IComposante, IDemande, IEtatDemande, IProfil, ITypeDemande } from "../../api/ApiTypeHelpers";
+import {
+   IComposante,
+   IDemande,
+   IEtatDemande,
+   IProfil,
+   ITypeDemande,
+} from "../../api/ApiTypeHelpers";
 import { useApi } from "../../context/api/ApiProvider";
 import dayjs from "dayjs";
 import { TableExportButton } from "../Buttons/TableExportButton";
@@ -53,19 +59,19 @@ function getDemandesExportData(
                return composantes?.find((c) => c["@id"] === composante);
             })
             .map((composante) => {
-               return composante?.libelle?.replaceAll("\"", "\"\"");
+               return composante?.libelle?.replaceAll('"', '""');
             })
             .join(", "),
          formations: demande.demandeur?.inscriptions
-            ?.map((inscription) => inscription.formation?.libelle?.replaceAll("\"", "\"\""))
+            ?.map((inscription) => inscription.formation?.libelle?.replaceAll('"', '""'))
             .join(", "),
          typeDemande: typesDemandes
             ?.find((t) => t["@id"] === demande.typeDemande)
-            ?.libelle?.replaceAll("\"", "\"\""),
+            ?.libelle?.replaceAll('"', '""'),
          etat: etats?.find((e) => e["@id"] === demande.etat)?.libelle,
          profilAttribue: profils
             ?.find((p) => p["@id"] === demande.profilAttribue)
-            ?.libelle?.replaceAll("\"", "\"\""),
+            ?.libelle?.replaceAll('"', '""'),
       };
    });
 }
@@ -121,10 +127,10 @@ export default function DemandeTableExport(props: { filtreDemande: FiltreDemande
       } else {
          setLoading(
             isFetchingComposantes ||
-            isFetchingEtats ||
-            isFetchingTypesDemandes ||
-            isFetchingDemandes ||
-            isFetchingProfils,
+               isFetchingEtats ||
+               isFetchingTypesDemandes ||
+               isFetchingDemandes ||
+               isFetchingProfils,
          );
       }
    }, [

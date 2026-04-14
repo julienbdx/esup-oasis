@@ -9,10 +9,10 @@
 
 import React, { ReactElement } from "react";
 import "./Calendar.scss";
-import moment from "moment";
+import dayjs from "dayjs";
 import {
    Calendar as BigCalendar,
-   momentLocalizer,
+   dayjsLocalizer,
    NavigateAction,
    stringOrDate,
    View,
@@ -63,7 +63,7 @@ interface ICalendar {
 export default function Calendar({ events, setEvent }: ICalendar): ReactElement {
    const { message } = App.useApp();
    const user = useAuth().user;
-   const localizer = momentLocalizer(moment);
+   const localizer = dayjsLocalizer(dayjs);
    const dispatch = useDispatch();
    const appAccessibilite: IAccessibilite = useSelector(
       ({ accessibilite }: IStore) => accessibilite,

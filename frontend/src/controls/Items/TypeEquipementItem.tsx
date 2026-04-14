@@ -28,9 +28,9 @@ interface IItemTypeEquipement {
  * @returns {ReactElement} The rendered TypeEquipementItem component.
  */
 export default function TypeEquipementItem({
-                                              typeEquipement,
-                                              typeEquipementId,
-                                           }: IItemTypeEquipement): ReactElement {
+   typeEquipement,
+   typeEquipementId,
+}: IItemTypeEquipement): ReactElement {
    const [item, setItem] = useState(typeEquipement);
    const { data: typeEquipementData } = useApi().useGetCollection(PREFETCH_TYPES_EQUIPEMENTS);
 

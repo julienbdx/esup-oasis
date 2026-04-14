@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { Badge, Button, Popover, Space } from "antd";
 import {
    getColor,
@@ -45,25 +45,18 @@ interface IColorPicker {
  */
 export default memo(
    function ColorPicker({ value, onChange, className, disabled }: IColorPicker): ReactElement {
-      const [couleurs, setCouleurs] = useState<ICouleur[]>([]);
-      const [couleurSelectionnee, setCouleurSelectionnee] = useState<ICouleur>();
-
-      useEffect(() => {
-         setCouleurs(
-            Object.values(MATERIAL_COLORS_NAMES).map((colorName) => {
-               return {
-                  value: colorName,
-                  label: MaterialColorsTraductions[colorName],
-                  color: getColor(colorName, EventColors.Affected),
-               } as ICouleur;
-            }),
-         );
+      const couleurs: ICouleur[] = React.useMemo(() => {
+         return Object.values(MATERIAL_COLORS_NAMES).map((colorName) => {
+            return {
+               value: colorName,
+               label: MaterialColorsTraductions[colorName],
+               color: getColor(colorName, EventColors.Affected),
+            } as ICouleur;
+         });
       }, []);
 
-      useEffect(() => {
-         if (value) {
-            setCouleurSelectionnee(couleurs.find((c) => c.value === value));
-         }
+      const couleurSelectionnee = React.useMemo(() => {
+         return value ? couleurs.find((c) => c.value === value) : undefined;
       }, [value, couleurs]);
 
       function getColorItem(color: ICouleur) {
@@ -77,7 +70,6 @@ export default memo(
                disabled={disabled}
                icon={<Badge className="big-badge w-100" color={color?.color || "black"} />}
                onClick={() => {
-                  setCouleurSelectionnee(color);
                   if (typeof onChange === "function") {
                      onChange(color.value);
                   }
@@ -99,7 +91,7 @@ export default memo(
                title="Couleur de la catégorie d'évènements"
                trigger="hover"
                placement="bottom"
-               overlayClassName="w-50"
+               classNames={{ root: "w-50" }}
             >
                <Button
                   className="ml-0 border-2"
@@ -107,7 +99,7 @@ export default memo(
                      borderColor: couleurSelectionnee ? couleurSelectionnee?.color : "black",
                   }}
                >
-                  <Space split>
+                  <Space separator>
                      <Badge
                         className="big-badge w-100"
                         color={couleurSelectionnee?.color || "black"}

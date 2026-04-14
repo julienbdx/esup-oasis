@@ -21,11 +21,11 @@ export function AccompagnementAvatar(props: {
       <Tooltip
          title={
             props.avecAccompagnement
-               ? "Bénéficiaire ayant demandé un accompagnement " + env.REACT_APP_SERVICE
-               : "Bénéficiaire n'ayant pas demandé d'accompagnement " + env.REACT_APP_SERVICE
+               ? `Bénéficiaire ayant demandé un accompagnement ${env.REACT_APP_SERVICE}`
+               : `Bénéficiaire n'ayant pas demandé d'accompagnement ${env.REACT_APP_SERVICE}`
          }
       >
-         <Space size={"small"}>
+         <Space size="small">
             <Avatar
                icon={
                   props.avecAccompagnement ? (

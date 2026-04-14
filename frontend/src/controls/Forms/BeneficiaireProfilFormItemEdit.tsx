@@ -144,7 +144,10 @@ export function BeneficiaireProfilFormItemEdit({
                   <Space orientation="vertical" className="w-100">
                      <Select
                         placeholder="Sélectionnez un profil"
-                        options={profils?.items.map((p) => ({ value: p["@id"], label: p.libelle }))}
+                        options={profils?.items.map((p) => ({
+                           value: p["@id"],
+                           label: p.libelle,
+                        }))}
                         value={profil}
                         onChange={(v) => setProfil(v)}
                         aria-required
@@ -173,14 +176,12 @@ export function BeneficiaireProfilFormItemEdit({
                            onChange={(v) => setDateDebut(v)}
                            aria-required
                            status={dateDebut ? "" : "error"}
-                           changeOnBlur
                         />
                         <CaretRightOutlined />
                         <DatePicker
                            placeholder="Fin"
                            value={dateFin}
                            onChange={(v) => setDateFin(v)}
-                           changeOnBlur
                         />
                      </Space>
                      <Space orientation="vertical" className="w-100 mt-2">
@@ -214,9 +215,7 @@ export function BeneficiaireProfilFormItemEdit({
                               setAvecAccompagnement(value.target.checked);
                            }}
                         >
-                           <span>
-                              Accompagnement par le service {env.REACT_APP_SERVICE}
-                           </span>
+                           <span>Accompagnement par le service {env.REACT_APP_SERVICE}</span>
                         </Checkbox>
                      </Space>
 

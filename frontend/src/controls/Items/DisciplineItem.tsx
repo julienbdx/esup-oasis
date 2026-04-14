@@ -33,9 +33,9 @@ interface IItemDiscipline {
  * @returns {ReactElement} The rendered discipline item component.
  */
 export default function DisciplineItem({
-                                          discipline,
-                                          disciplineId,
-                                       }: IItemDiscipline): ReactElement {
+   discipline,
+   disciplineId,
+}: IItemDiscipline): ReactElement {
    const [item, setItem] = useState(discipline);
    const { data: dataDiscipline, isFetching } = useApi().useGetCollectionPaginated({
       path: "/disciplines_sportives",

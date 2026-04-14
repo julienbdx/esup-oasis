@@ -73,18 +73,19 @@ export default function BeneficiaireIntervenantSearchDrawer({
          open={open}
          autoFocus
          allowClear={value === recherche}
-         showSearch
-         classNames={{ input: "form-control fs-1" }}
+         showSearch={{
+            filterOption: false,
+            onSearch: (term) => {
+               setValue(term);
+            },
+         }}
          suffixIcon={
-            value !== recherche && value.length > 1 ? (
-               <EnterOutlined className="text-text fs-08 p-0 m-0" />
-            ) : null
+            value !== recherche && value.length > 1 ? <EnterOutlined className="text-text" /> : null
          }
          placeholder="Rechercher..."
          className={className}
          loading={isFetchingBeneficiaire || isFetchingIntervenant || isFetchingDemandeurs}
          notFoundContent={null}
-         filterOption={false}
          listHeight={400}
          style={style}
          showAction={["focus"]}
@@ -94,9 +95,6 @@ export default function BeneficiaireIntervenantSearchDrawer({
             setOpen(false);
             onSelect(undefined, undefined);
          }}
-         onSearch={(term) => {
-            setValue(term);
-         }}
          onInputKeyDown={(e) => {
             setOpen(true);
             if (e.key === "Enter") {
@@ -104,7 +102,7 @@ export default function BeneficiaireIntervenantSearchDrawer({
                setRecherche(value);
             }
          }}
-         dropdownStyle={{ minWidth: 400 }}
+         styles={{ popup: { root: { minWidth: 400 } } }}
          onSelect={(selectedItem: string, option) => {
             if (selectedItem) {
                let role = RoleValues.ROLE_BENEFICIAIRE;

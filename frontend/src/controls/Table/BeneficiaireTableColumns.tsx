@@ -241,7 +241,7 @@ export function beneficiaireTableColumns({
                      </Tooltip>
                   </Popconfirm>
                )}
-               <Button.Group>
+               <Space.Compact>
                   <Button
                      icon={<EyeOutlined />}
                      onClick={() => {
@@ -256,12 +256,12 @@ export function beneficiaireTableColumns({
                            className="text-light"
                            icon={<Icon component={ExternalLink} className="fs-08" />}
                            onClick={() => {
-                               window.open(`/beneficiaires/${record.uid}`, "_blank");
+                              window.open(`/beneficiaires/${record.uid}`, "_blank");
                            }}
                         />
                      </Tooltip>
                   )}
-               </Button.Group>
+               </Space.Compact>
             </Space>
          ),
       },

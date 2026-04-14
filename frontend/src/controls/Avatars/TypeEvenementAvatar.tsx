@@ -60,7 +60,6 @@ export const TypeEvenementAvatar = memo(
          if (typesEvenements && typeEvenementId) {
             setTypeEvenementData(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
          }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [typesEvenements, typeEvenementId]);
 
       useEffect(() => {

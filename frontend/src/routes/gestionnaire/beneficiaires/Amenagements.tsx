@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Flex, Layout, Segmented, Typography } from "antd";
 import AmenagementTableLayout from "../../../controls/Table/AmenagementTableLayout";
 import { useAuth } from "../../../auth/AuthProvider";
@@ -25,18 +25,23 @@ export enum ModeAffichageAmenagement {
  */
 export default function Amenagements(): ReactElement {
    const user = useAuth().user;
-   const [searchParams] = useSearchParams();
-   const [modeAffichage, setModeAffichage] = useState<ModeAffichageAmenagement>(
-      user?.isGestionnaire || user?.isReferentComposante
-         ? ModeAffichageAmenagement.ParBeneficiaire
-         : ModeAffichageAmenagement.ParAmenagement,
-   );
+   const [searchParams, setSearchParams] = useSearchParams();
 
-   useEffect(() => {
-      if (searchParams.get("mode")) {
-         setModeAffichage(searchParams.get("mode") as ModeAffichageAmenagement);
-      }
-   }, [searchParams]);
+   const modeAffichage = React.useMemo(() => {
+      const modeParam = searchParams.get("mode") as ModeAffichageAmenagement;
+      if (modeParam) return modeParam;
+
+      return user?.isGestionnaire || user?.isReferentComposante
+         ? ModeAffichageAmenagement.ParBeneficiaire
+         : ModeAffichageAmenagement.ParAmenagement;
+   }, [searchParams, user]);
+
+   function setModeAffichage(value: ModeAffichageAmenagement) {
+      setSearchParams((prev) => {
+         prev.set("mode", value);
+         return prev;
+      });
+   }
 
    return (
       <Layout.Content className="amenagements" style={{ padding: "0 50px" }}>
@@ -46,8 +51,14 @@ export default function Amenagements(): ReactElement {
                <Segmented
                   className="float-right"
                   options={[
-                     { label: "Par bénéficiaire", value: ModeAffichageAmenagement.ParBeneficiaire },
-                     { label: "Par aménagement", value: ModeAffichageAmenagement.ParAmenagement },
+                     {
+                        label: "Par bénéficiaire",
+                        value: ModeAffichageAmenagement.ParBeneficiaire,
+                     },
+                     {
+                        label: "Par aménagement",
+                        value: ModeAffichageAmenagement.ParAmenagement,
+                     },
                   ]}
                   value={modeAffichage}
                   onChange={(value) => setModeAffichage(value as ModeAffichageAmenagement)}

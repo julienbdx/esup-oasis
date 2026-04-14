@@ -231,7 +231,7 @@ function EtapeDDescription(props: {
                <Button
                   size="small"
                   onClick={() => {
-                      navigate(`/beneficiaires/${props.demande.demandeur?.uid as string}`);
+                     navigate(`/beneficiaires/${props.demande.demandeur?.uid as string}`);
                   }}
                >
                   Voir bénéficiaire

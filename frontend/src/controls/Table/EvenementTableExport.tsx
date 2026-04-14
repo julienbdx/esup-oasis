@@ -42,8 +42,8 @@ function getEvenementsData(
          fin: evenement.debut ? dayjs(evenement.fin).format("DD/MM/YYYY HH:mm") : "",
          categorie: evenement.type
             ? typesEvenements
-               ?.find((t) => t["@id"] === evenement.type)
-               ?.libelle?.replaceAll("\"", "\"\"")
+                 ?.find((t) => t["@id"] === evenement.type)
+                 ?.libelle?.replaceAll('"', '""')
             : "",
          beneficiaires: evenement.beneficiaires
             ?.map((beneficiaire) => {
@@ -56,7 +56,7 @@ function getEvenementsData(
          intervenant: intervenant
             ? `${intervenant?.nom?.toLocaleUpperCase()} ${intervenant?.prenom}`
             : "",
-         campus: campus?.find((c) => c["@id"] === evenement.campus)?.libelle?.replaceAll("\"", "\"\""),
+         campus: campus?.find((c) => c["@id"] === evenement.campus)?.libelle?.replaceAll('"', '""'),
          transmisRh: evenement.isTransmisRH() ? "Oui" : "Non",
       };
    });
@@ -97,9 +97,9 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
       } else {
          setLoading(
             isFetchingBeneficiaires ||
-            isFetchingIntervenants ||
-            isFetchingCampus ||
-            isFetchingTypesEvenements,
+               isFetchingIntervenants ||
+               isFetchingCampus ||
+               isFetchingTypesEvenements,
          );
       }
    }, [

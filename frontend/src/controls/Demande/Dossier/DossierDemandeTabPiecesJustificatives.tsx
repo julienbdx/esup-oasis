@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { List, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
 
@@ -19,17 +19,16 @@ import { QuestionFileItem } from "../../Questionnaire/Question/QuestionFileItem"
 
 export function DossierDemandeTabPiecesJustificatives(): React.ReactElement {
    const { questionnaire } = useQuestionnaire();
-   const [questions, setQuestions] = useState<QuestionnaireQuestion[]>([]);
 
-   useEffect(() => {
-      setQuestions(
+   const questions: QuestionnaireQuestion[] = React.useMemo(() => {
+      return (
          questionnaire?.etapes
             ?.map((e) =>
                e.questions
                   ?.map((q) => q as QuestionnaireQuestion)
                   .filter((q) => q.typeReponse === "file"),
             )
-            .flat() || [],
+            .flat() || []
       );
    }, [questionnaire]);
 

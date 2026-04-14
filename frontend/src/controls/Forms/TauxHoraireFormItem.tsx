@@ -25,21 +25,21 @@ interface ITauxHoraireFormItem {
 }
 
 function TauxHoraireFormItem({
-                                value,
-                                typeEvenement,
-                                setTypeEvenementSavable,
-                                onCancel,
-                                disabled,
-                             }: ITauxHoraireFormItem) {
+   value,
+   typeEvenement,
+   setTypeEvenementSavable,
+   onCancel,
+   disabled,
+}: ITauxHoraireFormItem) {
    const { message } = App.useApp();
    const [editingItem, setEditingItem] = useState<ITauxHoraire | undefined>(
       value
          ? undefined
          : ({
-            debut: undefined,
-            fin: undefined,
-            montant: "",
-         } as ITauxHoraire),
+              debut: undefined,
+              fin: undefined,
+              montant: "",
+           } as ITauxHoraire),
    );
    const { data: dataTauxHoraire, isFetching: isFetchingTauxHoraire } = useApi().useGetItem({
       path: "/types_evenements/{typeId}/taux/{id}",
@@ -133,7 +133,6 @@ function TauxHoraireFormItem({
                                     debut: date?.format("YYYY-MM-DD") as string,
                                  });
                               }}
-                              changeOnBlur
                            />
                         </Space>
                         <Space>
@@ -147,25 +146,29 @@ function TauxHoraireFormItem({
                                     fin: date?.format("YYYY-MM-DD") as string,
                                  });
                               }}
-                              changeOnBlur
                            />
                         </Space>
                         <Space>
                            <span>Montant</span>
-                           <InputNumber
-                              min="1"
-                              controls={false}
-                              required
-                              addonAfter="€"
-                              decimalSeparator=","
-                              defaultValue={editingItem.montant}
-                              onChange={(montant) =>
-                                 setEditingItem({
-                                    ...editingItem,
-                                    montant: (montant || "0") as string,
-                                 })
-                              }
-                           />
+                           <Space.Compact className="w-100">
+                              <InputNumber
+                                 min="1"
+                                 controls={false}
+                                 required
+                                 className="w-100"
+                                 decimalSeparator=","
+                                 defaultValue={editingItem.montant}
+                                 onChange={(montant) =>
+                                    setEditingItem({
+                                       ...editingItem,
+                                       montant: (montant || "0") as string,
+                                    })
+                                 }
+                              />
+                              <Button disabled className="bg-light text-dark border-left-0 px-3">
+                                 €
+                              </Button>
+                           </Space.Compact>
                         </Space>
                         <Space className="mt-2">
                            <Button

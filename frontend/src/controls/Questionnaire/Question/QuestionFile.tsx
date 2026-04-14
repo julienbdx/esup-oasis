@@ -27,21 +27,15 @@ export function QuestionFile(props: { question: QuestionnaireQuestion }) {
    const { mode, form, questUtils, setSubmitting } = useQuestionnaire();
    const auth = useAuth();
    const { notification } = App.useApp();
-   const [fileList, setFileList] = useState<UploadFile[]>([]);
+   const [fileList, setFileList] = useState<UploadFile[]>(
+      props.question.reponse?.piecesJustificatives?.map((pj) => ({
+         uid: pj,
+         name: "...",
+         status: "done",
+         url: pj,
+      })) || [],
+   );
    const [uploading, setUploading] = useState<boolean>(false);
-
-   useEffect(() => {
-      setFileList(
-         props.question.reponse?.piecesJustificatives?.map((pj) => {
-            return {
-               uid: pj,
-               name: "...",
-               status: "done",
-               url: pj,
-            };
-         }) || [],
-      );
-   }, [props.question.reponse?.piecesJustificatives]);
 
    function envoyerReponse(
       pieceJustificativeId: string,
@@ -189,8 +183,7 @@ export function QuestionFile(props: { question: QuestionnaireQuestion }) {
 
    useEffect(() => {
       if (form) {
-         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-         form.setFieldValue(props.question["@id"] as any, fileList);
+         form.setFieldValue(props.question["@id"], fileList);
       }
    }, [fileList, form, props.question]);
 
@@ -246,7 +239,9 @@ export function QuestionFile(props: { question: QuestionnaireQuestion }) {
                                            !value.some(
                                               (f: string | RcFile) =>
                                                  typeof f === "string" &&
-                                                 f.startsWith(`${env.REACT_APP_API_PREFIX}/telechargements/`),
+                                                 f.startsWith(
+                                                    `${env.REACT_APP_API_PREFIX}/telechargements/`,
+                                                 ),
                                            )
                                         ) {
                                            return Promise.reject(

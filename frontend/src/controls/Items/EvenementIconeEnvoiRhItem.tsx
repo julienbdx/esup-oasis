@@ -25,8 +25,8 @@ interface IItemIconeEnvoiRHProps {
  * @return {ReactElement} - The JSX element representing the icon.
  */
 export default function EvenementIconeEnvoiRhItem({
-                                                     evenement,
-                                                  }: IItemIconeEnvoiRHProps): ReactElement {
+   evenement,
+}: IItemIconeEnvoiRHProps): ReactElement {
    if (evenement.dateEnvoiRH)
       return (
          <Tooltip title={`Envoyé à la RH le ${dayjs(evenement.dateEnvoiRH).format("DD/MM/YYYY")}`}>

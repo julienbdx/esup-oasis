@@ -46,7 +46,7 @@ export function buildAmenagementsBenefDatasource(
    return abs.map((rd) => {
       const data: {
          key: string;
-          uid: string;
+         uid: string;
          nom: string;
          prenom: string;
          email: string;
@@ -56,7 +56,7 @@ export function buildAmenagementsBenefDatasource(
          tags?: string[];
       } = {
          key: rd["@id"] as string,
-          uid: rd.uid as string,
+         uid: rd.uid as string,
          nom: rd.nom as string,
          prenom: rd.prenom as string,
          email: rd.email as string,
@@ -150,26 +150,15 @@ export function AmenagementsBeneficiaireTable(props: {
       ),
    });
 
-   const typesAmenagementsUtilises = useMemo(
-      () => {
-         return getTypesAmenagements(amenagements?.items || [], props.typesAmenagements).sort(
-            (a, b) => a.typeAmenagement?.libelle.localeCompare(b.typeAmenagement?.libelle),
-         );
-      },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [amenagements?.items, props.typesAmenagements],
-   );
+   const typesAmenagementsUtilises = useMemo(() => {
+      return getTypesAmenagements(amenagements?.items || [], props.typesAmenagements).sort((a, b) =>
+         a.typeAmenagement?.libelle.localeCompare(b.typeAmenagement?.libelle),
+      );
+   }, [amenagements?.items, props.typesAmenagements]);
 
-   const dataSource = useMemo(
-      () => {
-         return buildAmenagementsBenefDatasource(
-            amenagements?.items || [],
-            typesAmenagementsUtilises,
-         );
-      },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [amenagements?.items, typesAmenagementsUtilises],
-   );
+   const dataSource = useMemo(() => {
+      return buildAmenagementsBenefDatasource(amenagements?.items || [], typesAmenagementsUtilises);
+   }, [amenagements?.items, typesAmenagementsUtilises]);
 
    // Sticky header & Scroll horizontal
    useEffect(() => {
@@ -236,12 +225,8 @@ export function AmenagementsBeneficiaireTable(props: {
             })}
          />
          {scrollInfo.max > 0 && scrollInfo.visible && (
-            <div
-               className="scrollbar-container-horizontal"
-            >
-               <div
-                  className="scrollbar-horizontal"
-               >
+            <div className="scrollbar-container-horizontal">
+               <div className="scrollbar-horizontal">
                   <Slider
                      min={0}
                      max={scrollInfo.max}

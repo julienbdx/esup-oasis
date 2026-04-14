@@ -11,7 +11,12 @@
 import { QueryClient } from "@tanstack/react-query";
 import { PaginateResult, RequestMethod } from "../ApiProvider";
 import { buildUrl } from "./UrlBuilder";
-import { ApiPathMethodParameters, ApiPathMethodQuery, ApiPathMethodResponse, Path } from "../../../api/SchemaHelpers";
+import {
+   ApiPathMethodParameters,
+   ApiPathMethodQuery,
+   ApiPathMethodResponse,
+   Path,
+} from "../../../api/SchemaHelpers";
 
 export type UsePrefetchHook = <P extends Path>(options: {
    path: P;

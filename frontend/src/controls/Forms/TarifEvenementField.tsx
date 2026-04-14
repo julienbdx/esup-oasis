@@ -8,7 +8,7 @@
  */
 
 import React, { useEffect } from "react";
-import { Input, Skeleton, Space } from "antd";
+import { Button, Input, Skeleton, Space } from "antd";
 import dayjs from "dayjs";
 import { useApi } from "../../context/api/ApiProvider";
 import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
@@ -66,16 +66,21 @@ export default function TarifEvenementField({
    if (as === "input") {
       return (
          <>
-            <Input
-               disabled
-               addonAfter={<div style={{ width: 55 }}>€</div>}
-               placeholder="0,00"
-               className="text-center text-primary semi-bold"
-               value={montantToString((dureeTotale / 60).toString(), taux.items[0].montant)}
-            />
+            <Space.Compact className="w-100">
+               <Input
+                  disabled
+                  placeholder="0,00"
+                  className="text-center text-primary semi-bold"
+                  value={montantToString((dureeTotale / 60).toString(), taux.items[0].montant)}
+               />
+               <Button disabled className="bg-light text-dark border-left-0 px-3">
+                  €
+               </Button>
+            </Space.Compact>
             <div className="legende">
                Tarif horaire des évènements de la catégorie "
-               {typesEvenements?.items.find((t) => t["@id"] === evenement.type)?.libelle}"&nbsp;:{" "}
+               {typesEvenements?.items.find((t) => t["@id"] === evenement.type)?.libelle}
+               "&nbsp;:{" "}
                <span className="no-wrap">
                   {taux.items[0].montant || "?"}
                   &nbsp;€ brut / heure

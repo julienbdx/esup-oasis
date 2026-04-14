@@ -79,7 +79,6 @@ export interface ApiContextType {
    useInvalidation: UseInvalidationHook;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const ApiContext = React.createContext<ApiContextType>(null!);
 
 /**

@@ -87,7 +87,7 @@ export function ProfilsEdition({ editedItem, setEditedItem }: ProfilsEditionProp
          size="large"
       >
          <Card
-            title={"Catégorie d'évènement"}
+            title="Catégorie d'évènement"
             actions={[
                <Button onClick={() => setEditedItem(undefined)}>Annuler</Button>,
                <Button type="primary" onClick={form.submit}>

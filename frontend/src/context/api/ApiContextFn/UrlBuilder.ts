@@ -9,12 +9,12 @@
  */
 
 import {
-    ApiPathMethodParameters,
-    ApiPathMethodQuery,
-    Method,
-    Path,
+   ApiPathMethodParameters,
+   ApiPathMethodQuery,
+   Method,
+   Path,
 } from "../../../api/SchemaHelpers";
-import {env} from "../../../env";
+import { env } from "../../../env";
 
 export function buildUrl<P extends Path, M extends Method>(
    baseUrl: string,
@@ -49,14 +49,14 @@ export function buildUrl<P extends Path, M extends Method>(
       });
    }
 
-    const apiPrefix = env.REACT_APP_API_PREFIX.replace(/\/$/, "");
-    const normalizedResPath = resPath.startsWith("/") ? resPath : `/${resPath}`;
-    const finalPath =
-        normalizedResPath.startsWith(`${apiPrefix}/`) || normalizedResPath === apiPrefix
-            ? normalizedResPath
-            : `${apiPrefix}${normalizedResPath}`;
+   const apiPrefix = env.REACT_APP_API_PREFIX.replace(/\/$/, "");
+   const normalizedResPath = resPath.startsWith("/") ? resPath : `/${resPath}`;
+   const finalPath =
+      normalizedResPath.startsWith(`${apiPrefix}/`) || normalizedResPath === apiPrefix
+         ? normalizedResPath
+         : `${apiPrefix}${normalizedResPath}`;
 
-    const resUrl = new URL(finalPath, baseUrl);
+   const resUrl = new URL(finalPath, baseUrl);
 
    // query string
    if (query) {

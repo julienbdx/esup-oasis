@@ -31,19 +31,19 @@ export type AuthTokenPayload = {
  */
 export type ResponseTypeBasedProps<TData> =
    | {
-   responseType: "code";
-   exchangeCodeForTokenServerURL: string;
-   exchangeCodeForTokenMethod?: "POST" | "GET";
-   onSuccess?: (payload: TData) => void;
-}
+        responseType: "code";
+        exchangeCodeForTokenServerURL: string;
+        exchangeCodeForTokenMethod?: "POST" | "GET";
+        onSuccess?: (payload: TData) => void;
+     }
    | {
-   responseType: "token";
-   onSuccess?: (payload: TData) => void;
-}
+        responseType: "token";
+        onSuccess?: (payload: TData) => void;
+     }
    | {
-   responseType: never;
-   onSuccess?: (payload: TData) => void;
-};
+        responseType: never;
+        onSuccess?: (payload: TData) => void;
+     };
 
 /**
  * Oauth2 props
@@ -54,7 +54,7 @@ export type Oauth2Props<TData = AuthTokenPayload> = {
    redirectUri: string;
    clientUri: string;
    scope?: string;
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
    extraQueryParameters?: Record<string, any>;
    onError?: (error: string) => void;
 } & ResponseTypeBasedProps<TData>;

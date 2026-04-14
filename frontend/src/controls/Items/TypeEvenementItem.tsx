@@ -43,15 +43,15 @@ interface IItemTypeEvenement {
  * @returns {ReactElement} - The rendered item component.
  */
 export default function TypeEvenementItem({
-                                             typeEvenement,
-                                             typeEvenementId,
-                                             showAvatar = true,
-                                             responsive,
-                                             size,
-                                             styleLibelle,
-                                             forceBlackText = false,
-                                             className,
-                                          }: IItemTypeEvenement): ReactElement {
+   typeEvenement,
+   typeEvenementId,
+   showAvatar = true,
+   responsive,
+   size,
+   styleLibelle,
+   forceBlackText = false,
+   className,
+}: IItemTypeEvenement): ReactElement {
    const appAccessibilite: IAccessibilite = useSelector(
       ({ accessibilite }: Partial<IStore>) => accessibilite,
    ) as IAccessibilite;
@@ -63,7 +63,6 @@ export default function TypeEvenementItem({
       if (typesEvenements && typeEvenementId) {
          setItem(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [typesEvenements, typeEvenementId]);
 
    if (!item) return <Spinner />;

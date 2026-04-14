@@ -35,9 +35,9 @@ interface IAmenagementForm {
  * @returns {ReactElement} - The rendered component.
  */
 export function TypeAmenagementEdition({
-                                          editedItem,
-                                          setEditedItem,
-                                       }: AmenagementsEditionProps): ReactElement {
+   editedItem,
+   setEditedItem,
+}: AmenagementsEditionProps): ReactElement {
    const [form] = Form.useForm();
 
    const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_AMENAGEMENTS);

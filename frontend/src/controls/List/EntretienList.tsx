@@ -10,7 +10,13 @@
 import { IEntretien } from "../../api/ApiTypeHelpers";
 import { App, Button, Card, Col, Empty, Popconfirm, Row, Space } from "antd";
 import { useApi } from "../../context/api/ApiProvider";
-import { CalendarOutlined, CommentOutlined, DeleteOutlined, EditOutlined, UserOutlined } from "@ant-design/icons";
+import {
+   CalendarOutlined,
+   CommentOutlined,
+   DeleteOutlined,
+   EditOutlined,
+   UserOutlined,
+} from "@ant-design/icons";
 import { Fichier } from "../Fichier/Fichier";
 import React from "react";
 import dayjs from "dayjs";
@@ -63,7 +69,7 @@ export function EntretienList(props: {
                         </Button>,
                         <Popconfirm
                            key="delete"
-                           title={"Supprimer l'entretien ?"}
+                           title="Supprimer l'entretien ?"
                            onConfirm={() => {
                               mutateDeleteEntretien.mutate({
                                  "@id": entretien["@id"] as string,

@@ -37,7 +37,6 @@ export const CampusAvatar: React.FC<IAvatarCampus> = memo(
          if (dataCampus && campusId) {
             setCampusData(dataCampus.items.find((t) => t["@id"] === campusId));
          }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [dataCampus, campusId]);
 
       useEffect(() => {

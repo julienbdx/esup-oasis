@@ -48,7 +48,6 @@ export interface AuthContextType {
    isExpired: () => boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const AuthContext = React.createContext<AuthContextType>(null!);
 type State<TData = string> = TData | null;
 
@@ -127,19 +126,19 @@ export function AuthProvider({
          setLoadingUser(true);
 
          // Récupération des infos de l'utilisateur
-          fetch(
-              new URL(
-                  env.REACT_APP_API_PREFIX + `/utilisateurs/${impersonate || login}`,
-                  env.REACT_APP_API,
-              ),
-              {
-                  method: "GET",
-                  credentials: "include",
-                  headers: {
-                      "Content-Type": "application/ld+json",
-                  },
-              },
-          )
+         fetch(
+            new URL(
+               `${env.REACT_APP_API_PREFIX}/utilisateurs/${impersonate || login}`,
+               env.REACT_APP_API,
+            ),
+            {
+               method: "GET",
+               credentials: "include",
+               headers: {
+                  "Content-Type": "application/ld+json",
+               },
+            },
+         )
             .then((userResponse) => {
                userResponse.json().then((userData: IUtilisateur) => {
                   if (userData.roles && userData.roles.length === 1) {
@@ -202,19 +201,19 @@ export function AuthProvider({
          if (!loadingUser && payload && payload.access_token) {
             // Récupération du token d'authentification
             setLoadingUser(true);
-             fetch(
-                 new URL(env.REACT_APP_API_PREFIX + "/connect/oauth/token?json=1", env.REACT_APP_API),
-                 {
-                     method: "POST",
-                     credentials: "include",
-                     headers: {
-                         "Content-Type": "application/json",
-                     },
-                     body: JSON.stringify({
-                         accessToken: payload?.access_token,
-                     }),
-                 },
-             )
+            fetch(
+               new URL(`${env.REACT_APP_API_PREFIX}/connect/oauth/token?json=1`, env.REACT_APP_API),
+               {
+                  method: "POST",
+                  credentials: "include",
+                  headers: {
+                     "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                     accessToken: payload?.access_token,
+                  }),
+               },
+            )
                .then((response) => {
                   if (response.status === 401) {
                      // Utilisateur inconnu

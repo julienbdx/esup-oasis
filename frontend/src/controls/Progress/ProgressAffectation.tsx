@@ -25,16 +25,11 @@ interface IProgressAffectation {
  */
 export default function ProgressAffectation({ evenements }: IProgressAffectation): ReactElement {
    return useMemo(() => {
-      const evts = evenements.filter((e) => !e.dateAnnulation)
+      const evts = evenements.filter((e) => !e.dateAnnulation);
       const taux =
          evenements.length === 0
             ? 100
-            : Math.round(
-                 (100 *
-                     evts.filter((e) => e.isAffecte())
-                       .length) /
-                 evts.length,
-              );
+            : Math.round((100 * evts.filter((e) => e.isAffecte()).length) / evts.length);
 
       return (
          <Progress

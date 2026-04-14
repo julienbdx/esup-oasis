@@ -16,7 +16,6 @@ import { ColumnType } from "antd/es/table";
 import { FilterProps } from "../../utils/table";
 import { FiltreValidationInterventions } from "./ValidationInterventionTable";
 import { FilterFilled, FilterOutlined } from "@ant-design/icons";
-import moment from "moment";
 import { IEvenement, ITypeEvenement } from "../../api/ApiTypeHelpers";
 import EtudiantItem from "../Items/EtudiantItem";
 import { RoleValues } from "../../lib/Utilisateur";
@@ -42,10 +41,10 @@ export default function validationInterventionTableColumns({
          render: (date: Date, record: IEvenement) => {
             return (
                <>
-                  {moment(date).format("DD/MM/YYYY")}
+                  {dayjs(date).format("DD/MM/YYYY")}
                   <br />
                   <span className="text-legende">
-                     {moment(record.debut).format("HH:mm")} à {moment(record.fin).format("HH:mm")}
+                     {dayjs(record.debut).format("HH:mm")} à {dayjs(record.fin).format("HH:mm")}
                   </span>
                </>
             );

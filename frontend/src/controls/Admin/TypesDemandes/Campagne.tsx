@@ -86,13 +86,13 @@ export function Campagne(props: {
                     <div>{commission ? commission.libelle : <MinusOutlined />}</div>
                     <div>
                        {commission && (
-                          <Button.Group>
+                          <Space.Compact>
                              <Button
                                 icon={<EyeOutlined />}
                                 onClick={() => {
-                                    navigate(
-                                        `/administration/referentiels/commissions/${commission?.id}`,
-                                    );
+                                   navigate(
+                                      `/administration/referentiels/commissions/${commission?.id}`,
+                                   );
                                 }}
                              >
                                 Voir
@@ -103,13 +103,13 @@ export function Campagne(props: {
                                    icon={<Icon component={ExternalLink} className="fs-08" />}
                                    onClick={() => {
                                       window.open(
-                                          `/administration/referentiels/commissions/${commission?.id}`,
+                                         `/administration/referentiels/commissions/${commission?.id}`,
                                          "_blank",
                                       );
                                    }}
                                 />
                              </Tooltip>
-                          </Button.Group>
+                          </Space.Compact>
                        )}
                     </div>
                  </Flex>

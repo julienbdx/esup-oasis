@@ -8,16 +8,13 @@
  */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-   ITag,
-   ITypeAmenagement,
-} from "../../api/ApiTypeHelpers";
+import { ITag, ITypeAmenagement } from "../../api/ApiTypeHelpers";
 import { useEffect, useMemo, useState } from "react";
 import { useApi } from "../../context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
 import { TableExportButton } from "../Buttons/TableExportButton";
 import { FiltreAmenagement, filtreAmenagementToApi } from "./AmenagementTableLayout";
-import {  PREFETCH_TAGS } from "../../api/ApiPrefetchHelpers";
+import { PREFETCH_TAGS } from "../../api/ApiPrefetchHelpers";
 import {
    buildAmenagementsBenefDatasource,
    getTypesAmenagements,
@@ -157,16 +154,9 @@ export default function AmenagementsBeneficiaireTableExport({
       );
    }, [amenagements?.items, typesAmenagements]);
 
-   const data = useMemo(
-      () => {
-         return buildAmenagementsBenefDatasource(
-            amenagements?.items || [],
-            typesAmenagementsUtilises,
-         );
-      },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [amenagements?.items, typesAmenagementsUtilises],
-   );
+   const data = useMemo(() => {
+      return buildAmenagementsBenefDatasource(amenagements?.items || [], typesAmenagementsUtilises);
+   }, [amenagements?.items, typesAmenagementsUtilises]);
 
    // ---
 
