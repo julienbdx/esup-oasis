@@ -75,7 +75,7 @@ export function Fichier(props: {
                </Button>
             </Space>
          )}
-         <Button.Group>
+         <Space.Compact>
             {props.onRemove && (
                <Popconfirm
                   title="Souhaitez-vous supprimer le fichier ?"
@@ -130,7 +130,7 @@ export function Fichier(props: {
                   </Button>
                </>
             )}
-         </Button.Group>
+         </Space.Compact>
       </Flex>
    );
 }

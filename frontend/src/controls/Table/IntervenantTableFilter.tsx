@@ -12,7 +12,11 @@ import { Col, Collapse, Input, Row, Select, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { FiltresFavoris } from "./FiltresFavoris";
 import { FILTRE_INTERVENANT_DEFAULT, FiltreIntervenant } from "./IntervenantTable";
-import { PREFETCH_CAMPUS, PREFETCH_COMPETENCES, PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
+import {
+   PREFETCH_CAMPUS,
+   PREFETCH_COMPETENCES,
+   PREFETCH_TYPES_EVENEMENTS,
+} from "../../api/ApiPrefetchHelpers";
 import { useApi } from "../../context/api/ApiProvider";
 import { FiltreFavoriDropDown } from "./FiltreFavoriDropDown";
 

@@ -11,7 +11,7 @@ import React, { ReactElement } from "react";
 import { Messages } from "react-big-calendar";
 import { isSameDay } from "../../../utils/dates";
 import { CaretRightOutlined, LockOutlined } from "@ant-design/icons";
-import moment from "moment";
+import dayjs from "dayjs";
 import { Tooltip } from "antd";
 
 export const calendarMessages: Messages = {
@@ -20,7 +20,7 @@ export const calendarMessages: Messages = {
    next: ">",
    today: "Aujourd'hui",
    month: "mois",
-   // eslint-disable-next-line camelcase
+
    work_week: "5 jours",
    week: "semaine",
    day: "jour",
@@ -47,12 +47,12 @@ export function getWeekHeader(date: Date, locked: boolean): ReactElement {
             <CaretRightOutlined className="today-carret" rotate={90} />
          ) : undefined}
          <span className="jour">
-            {moment(date).format("dddd")}
+            {dayjs(date).format("dddd")}
             <br />
          </span>
 
-         <span className="date" aria-label={moment(date).format("D MMMM")}>
-            {moment(date).format("D/MM")}
+         <span className="date" aria-label={dayjs(date).format("D MMMM")}>
+            {dayjs(date).format("D/MM")}
             {locked && (
                <Tooltip title="Journée verrouillée à la modification, contactez l'administrateur">
                   <LockOutlined className="ml-1 text-warning" />
@@ -75,7 +75,7 @@ export function getMonthHeader(date: Date): ReactElement {
             <CaretRightOutlined className="today-carret" rotate={90} />
          ) : undefined}
          <span className="jour">
-            {moment(date).format("dddd")}
+            {dayjs(date).format("dddd")}
             <br />
          </span>
       </div>

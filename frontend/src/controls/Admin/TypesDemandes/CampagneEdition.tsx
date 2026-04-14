@@ -7,7 +7,20 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { App, Button, Card, Col, DatePicker, Divider, Drawer, Form, Input, InputNumber, Row, Select } from "antd";
+import {
+   App,
+   Button,
+   Card,
+   Col,
+   DatePicker,
+   Divider,
+   Drawer,
+   Form,
+   Input,
+   InputNumber,
+   Row,
+   Select,
+} from "antd";
 import React, { ReactElement, useEffect } from "react";
 import { useApi } from "../../../context/api/ApiProvider";
 import { ICampagneDemande } from "../../../api/ApiTypeHelpers";
@@ -29,10 +42,10 @@ interface CampagneEditionProps {
  * @returns {ReactElement} - The rendered component.
  */
 export function CampagneEdition({
-                                   editedItem,
-                                   setEditedItem,
-                                   typeDemandeId,
-                                }: CampagneEditionProps): ReactElement {
+   editedItem,
+   setEditedItem,
+   typeDemandeId,
+}: CampagneEditionProps): ReactElement {
    const [form] = Form.useForm();
    const { notification } = App.useApp();
 

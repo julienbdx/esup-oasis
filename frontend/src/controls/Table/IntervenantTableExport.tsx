@@ -46,7 +46,7 @@ function getIntervenantsData(
                return competences?.find((c) => c["@id"] === competence);
             })
             .map((competence) => {
-               return competence?.libelle?.replaceAll("\"", "\"\"");
+               return competence?.libelle?.replaceAll('"', '""');
             })
             .join(", "),
          campus: intervenant.campus
@@ -55,7 +55,7 @@ function getIntervenantsData(
                return campus?.find((ca) => ca["@id"] === c);
             })
             ?.map((c) => {
-               return `${c?.libelle?.replaceAll("\"", "\"\"")}`;
+               return `${c?.libelle?.replaceAll('"', '""')}`;
             })
             .join(", "),
       };
@@ -67,8 +67,8 @@ interface TableIntervenantsExportProps {
 }
 
 export default function IntervenantTableExport({
-                                                  filtreIntervenant,
-                                               }: TableIntervenantsExportProps) {
+   filtreIntervenant,
+}: TableIntervenantsExportProps) {
    const [exportSubmit, setExportSubmit] = useState(false);
    const { data: intervenants, isFetching: isFetchingIntervenants } =
       useApi().useGetCollectionPaginated({

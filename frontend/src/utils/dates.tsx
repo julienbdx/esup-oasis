@@ -7,15 +7,17 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { DayValue } from "../lib/react-modern-calendar-datepicker";
-import moment from "moment/moment";
-import { RightOutlined } from "@ant-design/icons";
 import React, { ReactElement } from "react";
+import { DayValue } from "../lib/react-modern-calendar-datepicker";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import { RightOutlined } from "@ant-design/icons";
 import { stringOrDate } from "react-big-calendar";
 import { TypeAffichageCustomValues } from "../redux/context/IAffichageFiltres";
 import { Utilisateur } from "../lib/Utilisateur";
-import dayjs from "dayjs";
 import { IPeriode } from "../api/ApiTypeHelpers";
+
+dayjs.extend(isBetween);
 
 /**
  * Counts the number of days in a month for a given date.
@@ -130,19 +132,19 @@ export function isSameDay(date1: Date, date2: Date): boolean {
  * @returns {ReactElement} - The label element.
  */
 export const rangeToLabel = (debut: Date, fin: Date): ReactElement => {
-   let from = moment(debut).format("DD");
-   const to = moment(fin).format("DD MMMM YYYY");
+   let from = dayjs(debut).format("DD");
+   const to = dayjs(fin).format("DD MMMM YYYY");
 
-   if (moment(debut).format("YYYY") !== moment(fin).format("YYYY")) {
-      from = moment(debut).format("DD MMMM YYYY");
-   } else if (moment(debut).format("MM") !== moment(fin).format("MM")) {
-      from = moment(debut).format("DD MMMM");
+   if (dayjs(debut).format("YYYY") !== dayjs(fin).format("YYYY")) {
+      from = dayjs(debut).format("DD MMMM YYYY");
+   } else if (dayjs(debut).format("MM") !== dayjs(fin).format("MM")) {
+      from = dayjs(debut).format("DD MMMM");
    }
 
    if (isSameDay(debut, fin)) {
       return (
-         <span aria-label={`Jour affiché : le ${moment(debut).format("DD MMMM YYYY")}`}>
-            {moment(debut).format("DD MMMM YYYY")}
+         <span aria-label={`Jour affiché : le ${dayjs(debut).format("DD MMMM YYYY")}`}>
+            {dayjs(debut).format("DD MMMM YYYY")}
          </span>
       );
    }
@@ -331,11 +333,11 @@ export function getLibellePeriode(
    if (!debut && !fin) return "- période non renseignée -";
 
    if (!debut) {
-      return `jusqu'au ${moment(fin).format(`DD ${formatMois} YYYY`)}`;
+      return `jusqu'au ${dayjs(fin).format(`DD ${formatMois} YYYY`)}`;
    }
 
    if (!fin) {
-      return `à compter du ${moment(debut).format(`DD ${formatMois} YYYY`)}`;
+      return `à compter du ${dayjs(debut).format(`DD ${formatMois} YYYY`)}`;
    }
 
    const dateDebut = new Date(debut);
@@ -343,11 +345,11 @@ export function getLibellePeriode(
 
    if (dateDebut.getFullYear() === dateFin.getFullYear()) {
       if (dateDebut.getMonth() === dateFin.getMonth()) {
-         return `${moment(dateDebut).format("DD")} au ${moment(dateFin).format(`DD ${formatMois} YYYY`)}`;
+         return `${dayjs(dateDebut).format("DD")} au ${dayjs(dateFin).format(`DD ${formatMois} YYYY`)}`;
       }
-      return `${moment(dateDebut).format(`DD ${formatMois}`)} au ${moment(dateFin).format(`DD ${formatMois} YYYY`)}`;
+      return `${dayjs(dateDebut).format(`DD ${formatMois}`)} au ${dayjs(dateFin).format(`DD ${formatMois} YYYY`)}`;
    }
-   return `${moment(dateDebut).format(`DD ${formatMois} YYYY`)} au ${moment(dateFin).format(
+   return `${dayjs(dateDebut).format(`DD ${formatMois} YYYY`)} au ${dayjs(dateFin).format(
       `DD ${formatMois} YYYY`,
    )}`;
 }
@@ -366,17 +368,17 @@ export function isEnCoursSurPeriode(
    if (!debut && !fin) return false;
 
    if (!debut) {
-      return moment().isBefore(fin);
+      return dayjs().isBefore(fin);
    }
 
    if (!fin) {
-      return moment().isAfter(debut);
+      return dayjs().isAfter(debut);
    }
 
    const dateDebut = new Date(debut);
    const dateFin = new Date(fin);
 
-   return moment().isBetween(dateDebut, dateFin);
+   return dayjs().isBetween(dateDebut, dateFin);
 }
 
 /**

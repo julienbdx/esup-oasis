@@ -57,10 +57,10 @@ export default function TelechargementImagePreview(props: {
          };
       }
 
-       fetch(
-           `${env.REACT_APP_API}${env.REACT_APP_API_PREFIX}${telechargement?.urlContenu}`,
-           fetchOptions,
-       )
+      fetch(
+         `${env.REACT_APP_API}${env.REACT_APP_API_PREFIX}${telechargement?.urlContenu}`,
+         fetchOptions,
+      )
          .then((response) => response.blob())
          .then((blob) => {
             setPhoto(() => {
@@ -89,9 +89,9 @@ export default function TelechargementImagePreview(props: {
          />
          <Image
             preview={{
-               visible,
+               open: visible,
                src: photo,
-               onVisibleChange: (value) => {
+               onOpenChange: (value) => {
                   setVisible(value);
                },
             }}

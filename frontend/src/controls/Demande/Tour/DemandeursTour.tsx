@@ -23,8 +23,13 @@ export function DemandeursTour(props: {
    open: boolean;
    refs: RefsTourDemandes;
 }) {
-   const [open, setOpen] = React.useState<boolean>(false);
+   const [openState, setOpenState] = React.useState<boolean>(props.open);
    const [currentStep, setCurrentStep] = React.useState<number>(0);
+
+   // Sync state during render
+   if (!props.open && openState) {
+      setOpenState(false);
+   }
 
    useEffect(() => {
       if (currentStep === 1) {
@@ -35,12 +40,12 @@ export function DemandeursTour(props: {
    useEffect(() => {
       if (props.open) {
          // on laisse le temps à la page de se charger
-         window.setTimeout(() => {
-            setOpen(true);
+         const timer = window.setTimeout(() => {
+            setOpenState(true);
          }, 750);
-      } else {
-         setOpen(false);
+         return () => window.clearTimeout(timer);
       }
+      return () => {};
    }, [props.open]);
 
    const steps: TourProps["steps"] = [
@@ -102,7 +107,7 @@ export function DemandeursTour(props: {
       },
    ];
 
-   return open ? (
+   return openState ? (
       <Tour
          disabledInteraction
          current={currentStep}

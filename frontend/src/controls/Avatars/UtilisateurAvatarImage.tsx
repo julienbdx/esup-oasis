@@ -180,7 +180,7 @@ export default function UtilisateurAvatarImage(props: {
             <Avatar
                ref={ref}
                shape="square"
-               src={photo.data ?? ""}
+               src={photo.data}
                size={props.size || props.height || "default"}
                style={props.style}
                data-testid={utilisateurData.nom}

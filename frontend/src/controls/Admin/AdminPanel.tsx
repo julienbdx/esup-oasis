@@ -9,7 +9,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { Button, Tooltip } from "antd";
-import Icon from "@ant-design/icons";
+import { default as Icon } from "@ant-design/icons";
 import React, { ReactElement } from "react";
 
 interface IAdminPanelComponent {

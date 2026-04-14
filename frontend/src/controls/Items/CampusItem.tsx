@@ -43,13 +43,13 @@ interface IItemCampus {
  * @returns {ReactElement} The rendered campus item component.
  */
 export default function CampusItem({
-                                      campus,
-                                      campusId,
-                                      showAvatar = true,
-                                      responsive,
-                                      className,
-                                      salle,
-                                   }: IItemCampus): ReactElement {
+   campus,
+   campusId,
+   showAvatar = true,
+   responsive,
+   className,
+   salle,
+}: IItemCampus): ReactElement {
    const [item, setItem] = useState(campus);
    const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
    const screens = useBreakpoint();

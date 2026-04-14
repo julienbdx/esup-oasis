@@ -9,7 +9,7 @@
 
 import { ColumnType } from "antd/es/table";
 import { Evenement } from "../../lib/Evenement";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 import TypeEvenementItem from "../Items/TypeEvenementItem";
 import CampusItem from "../Items/CampusItem";
 import EvenementIconeEnvoiRhItem from "../Items/EvenementIconeEnvoiRhItem";
@@ -26,10 +26,10 @@ interface TableCalendarColumnsProps {
 }
 
 export function evenementTableColumns({
-                                         saisieEvtRenfort = false,
-                                         afficherEtatEnvoiRh = false,
-                                         onEvenementSelected,
-                                      }: TableCalendarColumnsProps): ColumnType<Evenement>[] {
+   saisieEvtRenfort = false,
+   afficherEtatEnvoiRh = false,
+   onEvenementSelected,
+}: TableCalendarColumnsProps): ColumnType<Evenement>[] {
    return [
       {
          title: "Date",
@@ -38,10 +38,10 @@ export function evenementTableColumns({
          render: (date: Date, record: Evenement) => {
             return (
                <>
-                  {moment(date).format("DD/MM/YYYY")}
+                  {dayjs(date).format("DD/MM/YYYY")}
                   <br />
                   <span className="text-legende">
-                     {moment(record.debut).format("HH:mm")} à {moment(record.fin).format("HH:mm")}
+                     {dayjs(record.debut).format("HH:mm")} à {dayjs(record.fin).format("HH:mm")}
                   </span>
                </>
             );
@@ -84,41 +84,41 @@ export function evenementTableColumns({
       saisieEvtRenfort
          ? {}
          : {
-            title: "Intervenant",
-            dataIndex: "intervenant",
-            key: "intervenant",
-            render: (intervenant: string) => {
-               return (
-                  <EtudiantItem
-                     utilisateurId={intervenant}
-                     responsive="lg"
-                     role={RoleValues.ROLE_INTERVENANT}
-                  />
-               );
-            },
-         },
+              title: "Intervenant",
+              dataIndex: "intervenant",
+              key: "intervenant",
+              render: (intervenant: string) => {
+                 return (
+                    <EtudiantItem
+                       utilisateurId={intervenant}
+                       responsive="lg"
+                       role={RoleValues.ROLE_INTERVENANT}
+                    />
+                 );
+              },
+           },
       saisieEvtRenfort
          ? {}
          : {
-            title: "Campus",
-            dataIndex: "campus",
-            key: "campus",
-            responsive: ["xl"],
-            render: (campus: string) => {
-               return <CampusItem campusId={campus} responsive="lg" />;
-            },
-         },
+              title: "Campus",
+              dataIndex: "campus",
+              key: "campus",
+              responsive: ["xl"],
+              render: (campus: string) => {
+                 return <CampusItem campusId={campus} responsive="lg" />;
+              },
+           },
       afficherEtatEnvoiRh
          ? {
-            title: "Transmis RH",
-            dataIndex: "dateEnvoiRH",
-            className: "text-center",
-            key: "dateEnvoiRH",
-            responsive: ["lg"],
-            render: (_data: boolean, record: Evenement) => {
-               return <EvenementIconeEnvoiRhItem evenement={record} />;
-            },
-         }
+              title: "Transmis RH",
+              dataIndex: "dateEnvoiRH",
+              className: "text-center",
+              key: "dateEnvoiRH",
+              responsive: ["lg"],
+              render: (_data: boolean, record: Evenement) => {
+                 return <EvenementIconeEnvoiRhItem evenement={record} />;
+              },
+           }
          : {},
       {
          title: "",

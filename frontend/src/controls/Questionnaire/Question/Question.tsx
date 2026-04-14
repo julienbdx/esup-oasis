@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Alert, Form, Spin } from "antd";
 import { ExclamationOutlined } from "@ant-design/icons";
 import { QuestionFile } from "./QuestionFile";
@@ -30,28 +30,26 @@ export function Question(props: {
    question?: QuestionnaireQuestion;
    questionId?: string;
 }): React.ReactElement {
-   const [question, setQuestion] = useState<QuestionnaireQuestion | undefined>(props.question);
    const { data } = useApi().useGetItem({
       path: "/questions/{id}",
       url: props.questionId as string,
       enabled: !!props.questionId,
    });
 
-   useEffect(() => {
-      if (data)
-         setQuestion({
+   const question = React.useMemo(() => {
+      if (props.question) return props.question;
+      if (data) {
+         return {
             "@id": data["@id"] as string,
             libelle: data.libelle as string,
             aide: data.aide,
             typeReponse: data.typeReponse as string,
             obligatoire: data.obligatoire ?? false,
             choixMultiple: data.choixMultiple ?? false,
-         });
-   }, [data]);
-
-   useEffect(() => {
-      setQuestion(props.question);
-   }, [props.question]);
+         } as QuestionnaireQuestion;
+      }
+      return undefined;
+   }, [props.question, data]);
 
    if (!question) return <Spin />;
 
@@ -67,7 +65,7 @@ export function Question(props: {
       case "date":
          return <QuestionDate question={question} />;
       case "file":
-         return <QuestionFile question={question} />;
+         return <QuestionFile key={question["@id"]} question={question} />;
 
       case "radio":
          return <QuestionRadio question={question} />;

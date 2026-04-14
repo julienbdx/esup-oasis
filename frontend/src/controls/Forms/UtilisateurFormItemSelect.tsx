@@ -67,10 +67,10 @@ export function MailSmallButton(props: {
                },
                props.mailto
                   ? {
-                     key: "envoyer",
-                     label: "Envoyer un email",
-                     icon: <SendOutlined />,
-                  }
+                       key: "envoyer",
+                       label: "Envoyer un email",
+                       icon: <SendOutlined />,
+                    }
                   : null,
             ],
             onClick: (e) => {
@@ -152,20 +152,20 @@ function getFiltre(
 }
 
 function UtilisateurFormItemSelect({
-                                      value,
-                                      onSelect,
-                                      onChange,
-                                      style,
-                                      styleButton,
-                                      className,
-                                      classNameButton,
-                                      disabled,
-                                      placeholder,
-                                      roleUtilisateur,
-                                      intervenantArchive,
-                                      existeNumeroEtudiant,
-                                      forcerRechercheEnBase,
-                                   }: IUtilisateurFormItemSelect) {
+   value,
+   onSelect,
+   onChange,
+   style,
+   styleButton,
+   className,
+   classNameButton,
+   disabled,
+   placeholder,
+   roleUtilisateur,
+   intervenantArchive,
+   existeNumeroEtudiant,
+   forcerRechercheEnBase,
+}: IUtilisateurFormItemSelect) {
    const [utilisateurId, setUtilisateurId] = useState(value === "" ? undefined : value);
    const [tappedSearch, setTappedSearch] = useState("");
    const [search, setSearch] = useState("");
@@ -276,8 +276,12 @@ function UtilisateurFormItemSelect({
                      label: `${b.nom?.toLocaleUpperCase()} ${b.prenom} (${b.email})`,
                   }))}
                loading={isFetchingUtilisateursTrouves}
-               showSearch
-               filterOption={false}
+               showSearch={{
+                  filterOption: false,
+                  onSearch: (term) => {
+                     setTappedSearch(term);
+                  },
+               }}
                className={className}
                style={style}
                open={open && !isFetchingUtilisateursTrouves}
@@ -293,9 +297,6 @@ function UtilisateurFormItemSelect({
                   ) : undefined
                }
                placeholder={placeholder}
-               onSearch={(term) => {
-                  setTappedSearch(term);
-               }}
                onInputKeyDown={(e) => {
                   if (e.key === "Enter" && tappedSearch.length > 1) {
                      e.preventDefault();

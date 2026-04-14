@@ -105,7 +105,7 @@ export default function StatisticProgress({
                   <>
                      <Col span={21}>
                         <Progress
-                           gapPosition="bottom"
+                           gapPlacement="bottom"
                            className="w-100"
                            percent={value}
                            status={getStatus()}

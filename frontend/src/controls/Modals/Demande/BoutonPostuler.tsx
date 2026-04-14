@@ -34,7 +34,7 @@ export default function PostulerButton(props: { typeDemande: ITypeDemande; deman
       path: "/demandes",
       invalidationQueryKeys: ["/utilisateurs/{uid}/demandes", "/demandes"],
       onSuccess: (data) => {
-          navigate(`/demandes/${data.id}/saisie`);
+         navigate(`/demandes/${data.id}/saisie`);
       },
    });
 

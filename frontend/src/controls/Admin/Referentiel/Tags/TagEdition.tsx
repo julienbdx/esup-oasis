@@ -105,7 +105,10 @@ export function TagEdition({ editedItem, setEditedItem }: TagEditionProps): Reac
                <Form.Item name="categorie" label="Catégorie de tag">
                   <Select
                      disabled
-                     options={categories?.items.map((c) => ({ label: c.libelle, value: c["@id"] }))}
+                     options={categories?.items.map((c) => ({
+                        label: c.libelle,
+                        value: c["@id"],
+                     }))}
                   />
                </Form.Item>
                <Form.Item name="libelle" label="Libellé" rules={[{ required: true }]} required>

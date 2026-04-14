@@ -19,9 +19,8 @@ import { useAuth } from "./auth/AuthProvider";
 import dayjs from "dayjs";
 import BreakPoint from "./utils/Breakpoint/BreakPoint";
 import ScrollToTop from "./utils/ScrollTo/ScrollToTop";
-import "moment/locale/fr";
 import { broadcastQueryClient } from "@tanstack/query-broadcast-client-experimental";
-import Router from "./routes/ProdRouter";
+import Router from "./routes/AppRouter";
 import { AppConfigProvider } from "./AppConfigProvider";
 import { env } from "./env";
 

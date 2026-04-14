@@ -26,14 +26,14 @@ export function TypeDemandeContent(): React.ReactElement {
    const [etapeCourante, setEtapeCourante] = useState<number>(0);
    const screens = useBreakpoint();
    const [changementEtape, setChangementEtape] = React.useState<string>();
-   const [initialisation, setInitialisation] = React.useState<boolean>(false);
+   const initialisation = React.useRef<boolean>(false);
 
    useEffect(() => {
-      if (!initialisation && questionnaire) {
+      if (!initialisation.current && questionnaire) {
          form?.setFieldsValue(questUtils?.getFormInitialValues() || {});
-         setInitialisation(true);
+         initialisation.current = true;
       }
-   }, [initialisation, form, questUtils, questionnaire]);
+   }, [form, questUtils, questionnaire]);
 
    if (!questionnaire) return <Skeleton paragraph={{ rows: 6 }} active />;
 

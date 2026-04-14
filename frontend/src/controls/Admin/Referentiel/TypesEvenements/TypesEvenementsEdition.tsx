@@ -180,8 +180,8 @@ export function TypesEvenementsEdition({
                   <Form.List name="tauxHoraires">
                      {(fields, { add, remove }, { errors }) => (
                         <>
-                           {fields.map((field) => (
-                              <Form.Item className="mb-0" required key={field.key}>
+                           {fields.map(({ key, ...field }) => (
+                              <Form.Item className="mb-0" required key={key}>
                                  <Form.Item
                                     {...field}
                                     validateTrigger={["onChange", "onBlur"]}

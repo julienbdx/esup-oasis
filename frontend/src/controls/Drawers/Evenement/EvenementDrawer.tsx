@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Avatar, Button, Drawer, Form, Space, Tabs } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../../redux/Store";
@@ -23,22 +23,17 @@ interface IEvenementDrawer {
 /**
  * Renders a drawer component for displaying event details and allowing event editing.
  *
- * @param {Object} props - The props object.
+ * @param {} props - The props object.
  * @param {string} [props.id] - The ID of the event drawer.
  *
  * @returns {ReactElement} The rendered drawer component.
  */
 export default function EvenementDrawer({ id }: IEvenementDrawer): ReactElement {
    const auth = useAuth();
-   const [evenementId, setEvenementId] = useState(id);
    const appDrawers: IDrawers = useSelector(({ drawers }: Partial<IStore>) => drawers) as IDrawers;
+   const evenementId = id || appDrawers.EVENEMENT;
    const dispatch = useDispatch();
    const [form] = Form.useForm();
-
-   // Pour initialisation via appDrawers.EVENEMENT
-   useEffect(() => {
-      setEvenementId(appDrawers.EVENEMENT);
-   }, [appDrawers.EVENEMENT]);
 
    const handleClose = () => {
       dispatch(setDrawerEvenement(undefined));

@@ -75,10 +75,12 @@ export function FilterProps<T>(
          </div>
       ),
 
-      onFilterDropdownOpenChange: (visible) => {
-         if (visible) {
-            setTimeout(() => ref.current?.select(), 500);
-         }
+      filterDropdownProps: {
+         onOpenChange: (visible) => {
+            if (visible) {
+               setTimeout(() => ref.current?.select(), 500);
+            }
+         },
       },
    };
 }

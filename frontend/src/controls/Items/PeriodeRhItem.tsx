@@ -36,12 +36,12 @@ interface IItemPeriode {
  * @returns {ReactElement} The rendered period item.
  */
 export default function PeriodeRhItem({
-                                         periode,
-                                         periodeId,
-                                         showIcon = true,
-                                         showTooltip = true,
-                                         className,
-                                      }: IItemPeriode): ReactElement {
+   periode,
+   periodeId,
+   showIcon = true,
+   showTooltip = true,
+   className,
+}: IItemPeriode): ReactElement {
    const [item, setItem] = useState(periode);
    const { data: periodeData } = useApi().useGetCollectionPaginated({
       path: "/periodes",

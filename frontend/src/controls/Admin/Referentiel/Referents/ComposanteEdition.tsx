@@ -67,8 +67,8 @@ export function ComposanteEdition(props: {
                <Form.List name="referents">
                   {(fields, { add, remove }, { errors }) => (
                      <>
-                        {fields.map((field) => (
-                           <Form.Item className="mb-0" required key={field.key}>
+                        {fields.map(({ key, ...field }) => (
+                           <Form.Item className="mb-0" required key={key}>
                               <Flex justify="space-between" className="mb-1" gap={6}>
                                  <Form.Item
                                     {...field}
@@ -90,7 +90,7 @@ export function ComposanteEdition(props: {
                                  </Form.Item>
                                  <Popconfirm
                                     title="Supprimer ce référent ?"
-                                    onConfirm={() => remove(field.key)}
+                                    onConfirm={() => remove(key)}
                                  >
                                     <Button className="text-danger" icon={<DeleteOutlined />} />
                                  </Popconfirm>

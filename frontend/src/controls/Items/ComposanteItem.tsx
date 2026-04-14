@@ -40,15 +40,15 @@ interface IItemComposante {
  * @return {ReactElement} The rendered ComposanteItem component.
  */
 export default function ComposanteItem({
-                                          composante,
-                                          composanteId,
-                                          showAvatar = true,
-                                          responsive,
-                                          className,
-                                          ellipsis,
-                                          maxWidth,
-                                          popoverContent,
-                                       }: IItemComposante): ReactElement {
+   composante,
+   composanteId,
+   showAvatar = true,
+   responsive,
+   className,
+   ellipsis,
+   maxWidth,
+   popoverContent,
+}: IItemComposante): ReactElement {
    const [item, setItem] = useState(composante);
    const { data: composantes } = useApi().useGetCollection(PREFETCH_COMPOSANTES);
    const screens = useBreakpoint();

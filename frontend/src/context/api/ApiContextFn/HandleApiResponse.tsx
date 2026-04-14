@@ -121,14 +121,14 @@ export async function handleApiResponse(
                            onClick={() => {
                               navigator.clipboard.writeText(
                                  `Statut : ${response.status}\n` +
-                                 `Description : ${msg}\n\n` +
-                                 `Méthode : ${requestMethod}\n` +
-                                 `URL : ${response.url}${
-                                    options
-                                       ? `\nOptions : ${JSON.stringify(options, null, 2)}`
-                                       : ""
-                                 }\n\n` +
-                                 `Infos supplémentaires : ${additionalInfos || "-"}`,
+                                    `Description : ${msg}\n\n` +
+                                    `Méthode : ${requestMethod}\n` +
+                                    `URL : ${response.url}${
+                                       options
+                                          ? `\nOptions : ${JSON.stringify(options, null, 2)}`
+                                          : ""
+                                    }\n\n` +
+                                    `Infos supplémentaires : ${additionalInfos || "-"}`,
                               );
                            }}
                         >
@@ -141,12 +141,12 @@ export async function handleApiResponse(
          }
 
          afficherErreur(notif);
-      } catch (e) {
+      } catch {
          // Erreur inconnue
          afficherErreur({
             description: (
                <>
-                  Erreur ${response.status} : ${response.statusText || "Erreur inconnue"}
+                  Erreur {response.status} : {response.statusText || "Erreur inconnue"}
                </>
             ),
             message: "Erreur",

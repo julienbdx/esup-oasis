@@ -23,9 +23,9 @@ interface SportifsHautNiveauEditionProps {
  * @returns {ReactElement} - The rendered component.
  */
 export function SportifsHautNiveauEdition({
-                                             editedItem,
-                                             setEditedItem,
-                                          }: SportifsHautNiveauEditionProps): ReactElement {
+   editedItem,
+   setEditedItem,
+}: SportifsHautNiveauEditionProps): ReactElement {
    const [form] = Form.useForm();
 
    const mutationPost = useApi().usePost({

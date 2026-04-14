@@ -11,7 +11,7 @@ import React, { memo } from "react";
 import { CalendarEvenement, Evenement } from "../../../lib/Evenement";
 import { DeleteFilled, MinusOutlined, ToolOutlined, WarningFilled } from "@ant-design/icons";
 import { Alert, App, Popover, Space, Tooltip } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
 import TypeEvenementItem from "../../Items/TypeEvenementItem";
 import CampusItem from "../../Items/CampusItem";
 import { IModals } from "../../../redux/context/IModals";
@@ -65,9 +65,9 @@ export default memo(
          const type = typesEvenements?.items.find((t) => t["@id"] === evenement.type);
 
          // Libellé
-         let title = `Évènement ${evenement.libelle || type?.libelle || "sans titre"} du ${moment(
+         let title = `Évènement ${evenement.libelle || type?.libelle || "sans titre"} du ${dayjs(
             evenement.debut,
-         ).format("dddd DD MMMM YYYY")} de ${moment(evenement.debut).format("HH:mm")} à ${moment(
+         ).format("dddd DD MMMM YYYY")} de ${dayjs(evenement.debut).format("HH:mm")} à ${dayjs(
             evenement.fin,
          ).format("HH:mm")}. `;
 
@@ -174,14 +174,14 @@ export default memo(
                      <Space size="large">
                         <div style={{ width: 100 }}>Date</div>
                         <span className="light">
-                           {moment(event.data.debut).format("dddd DD MMM YYYY")}
+                           {dayjs(event.data.debut).format("dddd DD MMM YYYY")}
                         </span>
                      </Space>
                      <Space size="large">
                         <div style={{ width: 100 }}>Horaires</div>
                         <span className="light">
-                           de {moment(event.data.debut).format("HH:mm")} à{" "}
-                           {moment(event.data.fin).format("HH:mm")}
+                           de {dayjs(event.data.debut).format("HH:mm")} à{" "}
+                           {dayjs(event.data.fin).format("HH:mm")}
                         </span>
                      </Space>
                      <Space size="large">

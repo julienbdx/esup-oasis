@@ -17,7 +17,6 @@ import {
 import { IAffichageFiltres, initialAffichageFiltres } from "../context/IAffichageFiltres";
 
 export const AffichageFiltresReducer = (
-   // eslint-disable-next-line @typescript-eslint/default-param-last
    state = initialAffichageFiltres,
    action: AnyAction | undefined = undefined,
 ): IAffichageFiltres => {

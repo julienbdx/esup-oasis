@@ -391,7 +391,7 @@ export const getColor = (color: MaterialColorName, amount: MaterialColorAmount):
  * @param l
  */
 /* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 export function pSBC(p: number, c0: string, c1?: any, l?: any) {
    let r,
       g,

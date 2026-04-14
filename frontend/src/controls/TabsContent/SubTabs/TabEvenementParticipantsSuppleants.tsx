@@ -44,11 +44,11 @@ export function TabEvenementParticipantsSuppleants({
                {(fields, { add }, { errors }) => (
                   <>
                      <div className="semi-bold">Suppléants</div>
-                     {fields.map((field) => (
+                     {fields.map(({ key, ...field }) => (
                         <Form.Item
                            className="mb-0"
                            required={false}
-                           key={evenement?.suppleants?.at(field.key)}
+                           key={evenement?.suppleants?.at(key)}
                         >
                            <Form.Item
                               {...field}
@@ -101,12 +101,12 @@ export function TabEvenementParticipantsSuppleants({
                                     icon={<ArrowUpOutlined />}
                                     className="dynamic-delete-button m-0 p-0 mr-0"
                                     onClick={() => {
-                                       if (field.key > -1) {
+                                       if (key > -1) {
                                           setEvenement(
                                              {
-                                                intervenant: evenement?.suppleants?.at(field.key),
+                                                intervenant: evenement?.suppleants?.at(key),
                                                 suppleants: evenement?.suppleants?.filter(
-                                                   (b, index) => index !== field.key,
+                                                   (b, index) => index !== key,
                                                 ),
                                              },
                                              true,
@@ -121,11 +121,11 @@ export function TabEvenementParticipantsSuppleants({
                                  icon={<MinusCircleOutlined />}
                                  className="dynamic-delete-button m-0 p-0"
                                  onClick={() => {
-                                    if (field.key > -1) {
+                                    if (key > -1) {
                                        setEvenement(
                                           {
                                              suppleants: evenement?.suppleants?.filter(
-                                                (b, index) => index !== field.key,
+                                                (b, index) => index !== key,
                                              ),
                                           },
                                           true,

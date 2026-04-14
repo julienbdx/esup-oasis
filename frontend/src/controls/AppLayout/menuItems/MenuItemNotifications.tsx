@@ -129,11 +129,11 @@ export function menuItemNotifications(
                   }
                   size="small"
                   offset={[-17, 15]}
-                  className={"hide-on-overflow"}
+                  className="hide-on-overflow"
                >
                   <BellOutlined className="hide-on-overflow" />
                </Badge>
-               <span className={"show-on-overflow"}>Notifications</span>
+               <span className="show-on-overflow">Notifications</span>
             </Button>
          ),
          className: "menu-small-item no-indicator notifications",

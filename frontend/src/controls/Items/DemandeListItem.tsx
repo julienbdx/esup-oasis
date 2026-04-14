@@ -26,7 +26,7 @@ import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import CampagneDemandeDateItem from "./CampagneDemandeDateItem";
 
 function CampagneItem(props: { campagneId?: string }) {
-   let templateString = "";
+   let templateString: string;
    const { data: campagneDemandeData } = useApi().useGetItem({
       path: "/types_demandes/{typeId}/campagnes/{id}",
       url: props.campagneId,
@@ -84,7 +84,7 @@ export default function DemandeListItem(props: { demande?: IDemande; demandeId?:
          case ETAT_DEMANDE_EN_COURS:
             return (
                <Button
-                   onClick={() => navigate(`/demandes/${item?.id}/saisie`)}
+                  onClick={() => navigate(`/demandes/${item?.id}/saisie`)}
                   aria-label={`Continuer la saisie de la demande : ${typeDemandeData?.libelle}`}
                >
                   Continuer la saisie
@@ -93,7 +93,7 @@ export default function DemandeListItem(props: { demande?: IDemande; demandeId?:
          case ETAT_DEMANDE_NON_CONFORME:
             return (
                <Button
-                   onClick={() => navigate(`/demandes/${item?.id}/saisie`)}
+                  onClick={() => navigate(`/demandes/${item?.id}/saisie`)}
                   aria-label={`Reprendre la saisie de la demande : ${typeDemandeData?.libelle}`}
                >
                   Reprendre la saisie
@@ -114,7 +114,7 @@ export default function DemandeListItem(props: { demande?: IDemande; demandeId?:
          default:
             return (
                <Button
-                   onClick={() => navigate(`/demandes/${item?.id}`)}
+                  onClick={() => navigate(`/demandes/${item?.id}`)}
                   aria-label={`Suivre l'avancement de la demande : ${typeDemandeData?.libelle}`}
                >
                   Suivre ma demande

@@ -26,7 +26,7 @@ interface IBeneficiaireProfilFormItemProps {
    style?: React.CSSProperties;
    className?: string;
    cardClassName?: string;
-   cardSize?: "small" | "default";
+   cardSize?: "small" | "medium";
    placeholder?: string;
    extra?: React.ReactNode;
    utilisateur: IUtilisateur;
@@ -45,7 +45,7 @@ function BeneficiaireProfilCardItem({
    selected,
    onSelect,
    editable = true,
-   cardSize = "default",
+   cardSize = "medium",
 }: IBeneficiaireProfilFormItemProps) {
    const [profilEdited, setProfilEdited] = useState<IBeneficiaireProfil>();
    const { data: profils, isFetching: isFetchingProfils } =

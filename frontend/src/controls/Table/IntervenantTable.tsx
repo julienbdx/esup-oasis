@@ -8,7 +8,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Button, Flex, Table, Tooltip } from "antd";
+import { Button, Flex, Space, Table, Tooltip } from "antd";
 import { IBeneficiaire, IIntervenant } from "../../api/ApiTypeHelpers";
 import { intervenantTableColumns } from "./IntervenantTableColumns";
 import { setDrawerUtilisateur } from "../../redux/actions/Drawers";
@@ -129,7 +129,7 @@ export default function IntervenantTable() {
             <div>
                {JSON.stringify(FILTRE_INTERVENANT_DEFAULT) !==
                   JSON.stringify(filtreIntervenant) && (
-                  <Button.Group>
+                  <Space.Compact>
                      <FiltreDescription
                         filtre={filtreIntervenant}
                         as="modal"
@@ -142,7 +142,7 @@ export default function IntervenantTable() {
                            onClick={() => setFiltreIntervenant(FILTRE_INTERVENANT_DEFAULT)}
                         />
                      </Tooltip>
-                  </Button.Group>
+                  </Space.Compact>
                )}
                <IntervenantTableExport filtreIntervenant={filtreIntervenant} />
             </div>

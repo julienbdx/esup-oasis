@@ -52,7 +52,7 @@ const OAuthPopup = (props: any): ReactElement => {
          if (!window.opener) {
             throw new Error("No window opener");
          }
-         debugger;
+
          if (error) {
             window.opener.postMessage({
                type: OAUTH_RESPONSE,

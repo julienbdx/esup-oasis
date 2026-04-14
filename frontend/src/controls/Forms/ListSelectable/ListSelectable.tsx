@@ -39,16 +39,16 @@ interface IListSelectable<T extends { "@id"?: string | undefined }> {
  * @returns {ReactElement} The rendered selectable list component
  */
 export default function ListSelectable<T extends { "@id"?: string | undefined }>({
-                                                                                    items,
-                                                                                    renderItem,
-                                                                                    onSelect,
-                                                                                    selectedItemId,
-                                                                                    extra,
-                                                                                    className,
-                                                                                    classNameSelected,
-                                                                                    header,
-                                                                                    loading,
-                                                                                 }: IListSelectable<T>): ReactElement {
+   items,
+   renderItem,
+   onSelect,
+   selectedItemId,
+   extra,
+   className,
+   classNameSelected,
+   header,
+   loading,
+}: IListSelectable<T>): ReactElement {
    const getClassName = (item: T) => {
       if (selectedItemId) {
          if (item["@id"] === selectedItemId) {

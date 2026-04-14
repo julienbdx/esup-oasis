@@ -46,11 +46,11 @@ export function TabEvenementParticipantsEnseignants({
                {(fields, { add }, { errors }) => (
                   <>
                      <div className="semi-bold">Enseignants</div>
-                     {fields.map((field) => (
+                     {fields.map(({ key, ...field }) => (
                         <Form.Item
                            className="mb-0"
                            required={false}
-                           key={evenement?.enseignants?.at(field.key)}
+                           key={evenement?.enseignants?.at(key)}
                         >
                            <Form.Item
                               {...field}
@@ -102,11 +102,11 @@ export function TabEvenementParticipantsEnseignants({
                                  icon={<MinusCircleOutlined />}
                                  className="dynamic-delete-button m-0 p-0"
                                  onClick={() => {
-                                    if (field.key > -1) {
+                                    if (key > -1) {
                                        setEvenement(
                                           {
                                              enseignants: evenement?.enseignants?.filter(
-                                                (b, index) => index !== field.key,
+                                                (b, index) => index !== key,
                                              ),
                                           },
                                           true,

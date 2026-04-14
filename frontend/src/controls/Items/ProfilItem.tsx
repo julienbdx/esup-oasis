@@ -28,7 +28,12 @@ interface IItemProfilProps {
  *
  * @returns {ReactElement} - The rendered list of profil items.
  */
-export default function ProfilItem({ profil, profils, maxWidth, className }: IItemProfilProps): ReactElement {
+export default function ProfilItem({
+   profil,
+   profils,
+   maxWidth,
+   className,
+}: IItemProfilProps): ReactElement {
    const data = profil ? [profil] : profils;
    const { data: dataProfils, isFetching: isFetchingProfils } = useApi().useGetCollectionPaginated({
       path: "/profils",
@@ -45,7 +50,10 @@ export default function ProfilItem({ profil, profils, maxWidth, className }: IIt
             return (
                <Tooltip key={s} title={p?.libelle}>
                   <Tag
-                     className={(maxWidth ? "mt-1 tag-ellipsis" : "mt-1") + (className ? " " + className : "")}
+                     className={
+                        (maxWidth ? "mt-1 tag-ellipsis" : "mt-1") +
+                        (className ? ` ${className}` : "")
+                     }
                      style={{ maxWidth: maxWidth }}
                   >
                      {p?.libelle}

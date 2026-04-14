@@ -23,10 +23,10 @@ interface CategoriesAmenagementsTableProps {
 }
 
 export function CategoriesAmenagementsTable({
-                                               editedItem,
-                                               onEditCategorie,
-                                               onEditType,
-                                            }: CategoriesAmenagementsTableProps) {
+   editedItem,
+   onEditCategorie,
+   onEditType,
+}: CategoriesAmenagementsTableProps) {
    const [order, setOrder] = useState<"asc" | "desc">("asc");
    const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
    const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
@@ -133,7 +133,10 @@ export function CategoriesAmenagementsTable({
                            icon={<PlusOutlined />}
                            onClick={(event) => {
                               event.stopPropagation();
-                              onEditType({ libelle: "", categorie: record["@id"] as string });
+                              onEditType({
+                                 libelle: "",
+                                 categorie: record["@id"] as string,
+                              });
                            }}
                         >
                            Ajouter un type d'aménagement

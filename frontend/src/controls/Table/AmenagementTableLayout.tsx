@@ -9,7 +9,7 @@
 
 import React, { useEffect, useState } from "react";
 import { IAmenagementBeneficiaireQuery, IAmenagementQuery } from "../../api/ApiTypeHelpers";
-import { Button, Flex, Tooltip } from "antd";
+import { Button, Flex, Space, Tooltip } from "antd";
 import { useApi } from "../../context/api/ApiProvider";
 import { AmenagementTableFilter } from "./AmenagementTableFilter";
 import { AmenagementDomaine } from "../../lib/amenagements";
@@ -191,7 +191,7 @@ export default function AmenagementTableLayout(props: { modeAffichage: ModeAffic
             <div className="d-block">
                {JSON.stringify(getFiltreAmenagementDefault(auth.user as Utilisateur)) !==
                   JSON.stringify(filtreAmenagement) && (
-                  <Button.Group>
+                  <Space.Compact>
                      <FiltreDescription
                         filtre={filtreAmenagement}
                         as="modal"
@@ -208,7 +208,7 @@ export default function AmenagementTableLayout(props: { modeAffichage: ModeAffic
                            }
                         />
                      </Tooltip>
-                  </Button.Group>
+                  </Space.Compact>
                )}
                {auth.user?.isGestionnaire &&
                   props.modeAffichage === ModeAffichageAmenagement.ParAmenagement && (

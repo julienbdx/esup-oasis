@@ -31,7 +31,7 @@ import {
    PlusOutlined,
    TableOutlined,
 } from "@ant-design/icons";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { setModalEvenement } from "../../../redux/actions/Modals";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,7 +55,7 @@ const MesInterventionsIntro = memo(
    (): ReactElement => (
       <>
          <Typography.Title level={2}>Mes interventions</Typography.Title>
-         <Card className="mb-2 mt-2" variant={"borderless"}>
+         <Card className="mb-2 mt-2" variant="borderless">
             <Row>
                <Col span={16}>
                   <Typography.Title level={3} className="mt-1">
@@ -233,10 +233,10 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                      onClick={() =>
                         dispatch(
                            setFiltres({
-                              debut: moment(appAffichageFiltres.filtres.debut)
+                              debut: dayjs(appAffichageFiltres.filtres.debut)
                                  .subtract(step, "days")
                                  .toDate(),
-                              fin: moment(appAffichageFiltres.filtres.fin)
+                              fin: dayjs(appAffichageFiltres.filtres.fin)
                                  .subtract(step, "days")
                                  .toDate(),
                            }),
@@ -270,10 +270,10 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                      onClick={() =>
                         dispatch(
                            setFiltres({
-                              debut: moment(appAffichageFiltres.filtres.debut)
+                              debut: dayjs(appAffichageFiltres.filtres.debut)
                                  .add(step, "days")
                                  .toDate(),
-                              fin: moment(appAffichageFiltres.filtres.fin)
+                              fin: dayjs(appAffichageFiltres.filtres.fin)
                                  .add(step, "days")
                                  .toDate(),
                            }),
@@ -288,7 +288,7 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                </Space>
             </Col>
             <Col span={16} className="text-right">
-               <Space split={<MinusOutlined aria-hidden rotate={90} />}>
+               <Space separator={<MinusOutlined aria-hidden rotate={90} />}>
                   {!saisieEvtRenfort && auth.user?.isPlanificateur && (
                      <ProgressAffectation evenements={evenements} />
                   )}

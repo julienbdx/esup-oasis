@@ -96,7 +96,7 @@ export function demandeTableColumns({
                         icon={<Icon component={ExternalLink} className="fs-08" />}
                         onClick={(e) => {
                            e.stopPropagation();
-                            window.open(`/demandes/${record.id}`, "_blank");
+                           window.open(`/demandes/${record.id}`, "_blank");
                         }}
                      />
                   </Tooltip>
@@ -205,7 +205,7 @@ export function demandeTableColumns({
                      </Tooltip>
                   </Popconfirm>
                )}
-               <Button.Group>
+               <Space.Compact>
                   <Button
                      icon={<EyeOutlined />}
                      onClick={() => {
@@ -219,11 +219,11 @@ export function demandeTableColumns({
                         className="text-light"
                         icon={<Icon component={ExternalLink} className="fs-08" />}
                         onClick={() => {
-                            window.open(`/demandes/${record.id}`, "_blank");
+                           window.open(`/demandes/${record.id}`, "_blank");
                         }}
                      />
                   </Tooltip>
-               </Button.Group>
+               </Space.Compact>
             </Space>
          ),
          filteredValue: null,

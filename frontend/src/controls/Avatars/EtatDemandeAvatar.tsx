@@ -50,7 +50,6 @@ export const EtatDemandeAvatar: React.FC<IEtatDemandeAvatar> = memo(
          if (dataEtatDemande && etatDemandeId) {
             setItem(dataEtatDemande.items.find((t) => t["@id"] === etatDemandeId));
          }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [dataEtatDemande, etatDemandeId]);
 
       useEffect(() => {

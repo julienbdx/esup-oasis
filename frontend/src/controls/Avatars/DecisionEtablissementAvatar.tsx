@@ -10,7 +10,12 @@
 import React, { useEffect } from "react";
 import { useApi } from "../../context/api/ApiProvider";
 import { Space, Tooltip } from "antd";
-import { CheckCircleFilled, FileDoneOutlined, HourglassOutlined, SendOutlined } from "@ant-design/icons";
+import {
+   CheckCircleFilled,
+   FileDoneOutlined,
+   HourglassOutlined,
+   SendOutlined,
+} from "@ant-design/icons";
 import { IDecisionEtablissement } from "../../api/ApiTypeHelpers";
 
 export enum EtatDecisionEtablissement {

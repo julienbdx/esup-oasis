@@ -98,7 +98,11 @@ export function FiltresFavorisEvenements() {
                         if (nom) {
                            setPreferenceArray("filtresEvenement", [
                               ...(getPreferenceArray("filtresEvenement") || []),
-                              { filtre: { ...appAffichageFiltres.filtres }, nom, favori: false },
+                              {
+                                 filtre: { ...appAffichageFiltres.filtres },
+                                 nom,
+                                 favori: false,
+                              },
                            ]);
                            message.success("Filtre enregistré").then();
                         }

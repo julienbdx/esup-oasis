@@ -90,7 +90,7 @@ export function ButtonAddAmenagement(props: {
                         : null,
                      c.typesAmenagements.length > 1
                         ? {
-                             key: "add-category",
+                             key: `${c["@id"]}_add-category`,
                              label: "Ajouter plusieurs aménagements",
                              icon: <AppstoreFilled />,
                              onClick: () => {

@@ -259,7 +259,7 @@ export function AmenagementTableFilter(props: {
                                        label: c.libelle,
                                        value: c["@id"],
                                     }))}
-                                 optionFilterProp="label"
+                                 showSearch={{ optionFilterProp: "label" }}
                               />
                            </Col>
                         </>
@@ -309,7 +309,7 @@ export function AmenagementTableFilter(props: {
                                        label: c.libelle,
                                        value: c["@id"],
                                     }))}
-                                 optionFilterProp="label"
+                                 showSearch={{ optionFilterProp: "label" }}
                               />
                            </Col>
                         </>
@@ -371,7 +371,7 @@ export function AmenagementTableFilter(props: {
                                           label: c.libelle,
                                           value: c["@id"],
                                        }))}
-                                    optionFilterProp="label"
+                                    showSearch={{ optionFilterProp: "label" }}
                                  />
                               </Col>
                            </>
@@ -386,7 +386,10 @@ export function AmenagementTableFilter(props: {
                                     </Col>
                                     <Col xs={24} sm={24} md={18}>
                                        <Segmented
-                                          style={{ overflowX: "auto", maxWidth: "100%" }}
+                                          style={{
+                                             overflowX: "auto",
+                                             maxWidth: "100%",
+                                          }}
                                           onChange={(value) => {
                                              props.setFiltreAmenagement((prev) => ({
                                                 ...prev,
@@ -454,7 +457,7 @@ export function AmenagementTableFilter(props: {
                                        label: c.libelle,
                                        value: c["@id"],
                                     }))}
-                                 optionFilterProp="label"
+                                 showSearch={{ optionFilterProp: "label" }}
                               />
                            </Col>
                         )}
@@ -480,7 +483,7 @@ export function AmenagementTableFilter(props: {
                                  label: c.libelle,
                                  value: c["@id"],
                               }))}
-                              optionFilterProp="label"
+                              showSearch={{ optionFilterProp: "label" }}
                            />
                         </Col>
 
@@ -505,7 +508,7 @@ export function AmenagementTableFilter(props: {
                                  label: `[${c.codeExterne?.replace("#", "-")}] ${c.libelle}`,
                                  value: c["@id"],
                               }))}
-                              optionFilterProp="label"
+                              showSearch={{ optionFilterProp: "label" }}
                            />
                            <div className="legende">
                               Seules les formations ayant au moins un bénéficiaire sont proposées.

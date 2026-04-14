@@ -186,8 +186,8 @@ export default function InterventionsForfaitBulkAdd({
                <Form.List name="repartitions">
                   {(fields, { add, remove }) => (
                      <>
-                        {fields.map((field) => (
-                           <Row key={field.key} gutter={[16, 16]}>
+                        {fields.map(({ key, ...field }) => (
+                           <Row key={key} gutter={[16, 16]}>
                               <Form.Item
                                  noStyle
                                  shouldUpdate={(prevValues, curValues) =>
@@ -200,7 +200,12 @@ export default function InterventionsForfaitBulkAdd({
                                           {...field}
                                           label="Période"
                                           name={[field.name, "periode"]}
-                                          rules={[{ required: true, message: "Période requise" }]}
+                                          rules={[
+                                             {
+                                                required: true,
+                                                message: "Période requise",
+                                             },
+                                          ]}
                                        >
                                           <Select loading={isFetchingPeriodes}>
                                              {periodes?.items
@@ -228,7 +233,12 @@ export default function InterventionsForfaitBulkAdd({
                                     {...field}
                                     label="Nombre d'heures"
                                     name={[field.name, "heures"]}
-                                    rules={[{ required: true, message: "Nombre d'heures requis" }]}
+                                    rules={[
+                                       {
+                                          required: true,
+                                          message: "Nombre d'heures requis",
+                                       },
+                                    ]}
                                  >
                                     <InputNumber precision={2} decimalSeparator="," />
                                  </Form.Item>

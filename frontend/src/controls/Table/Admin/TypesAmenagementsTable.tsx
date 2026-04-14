@@ -23,10 +23,10 @@ interface TypesAmenagementsTableProps {
 }
 
 export function TypesAmenagementsTable({
-                                          categorieId,
-                                          onEdit,
-                                          afficherDesactives,
-                                       }: TypesAmenagementsTableProps) {
+   categorieId,
+   onEdit,
+   afficherDesactives,
+}: TypesAmenagementsTableProps) {
    const [order, setOrder] = useState<"asc" | "desc">("asc");
    const { data: typesAmenagements, isFetching } = useApi().useGetCollectionPaginated({
       path: "/types_amenagements",

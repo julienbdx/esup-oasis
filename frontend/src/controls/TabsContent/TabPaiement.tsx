@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Alert, Button, Col, Divider, Form, FormInstance, InputNumber, Row } from "antd";
+import { Alert, Button, Col, Divider, Form, FormInstance, InputNumber, Row, Space } from "antd";
 import React, { ReactElement, useState } from "react";
 import ColStyled from "../ColStyled/ColStyled";
 import EvenementEtatEnvoiRHItem from "../Items/EvenementEtatEnvoiRHItem";
@@ -89,20 +89,22 @@ export function TabPaiement({ evenement, form, setEvenement }: ITabPaiement): Re
                   </ColStyled>
                   <Col md={9} xs={24} sm={24}>
                      <Form.Item name="tempsPreparation">
-                        <InputNumber
-                           min={0}
-                           precision={0}
-                           addonAfter={
-                              (evenement?.tempsPreparation || 0) > 1 ? "minutes" : "minute"
-                           }
-                           className="text-center w-100"
-                           controls={false}
-                           onChange={(value) => {
-                              setEvenement({
-                                 tempsPreparation: (value as number) ?? undefined,
-                              });
-                           }}
-                        />
+                        <Space.Compact className="w-100">
+                           <InputNumber
+                              min={0}
+                              precision={0}
+                              className="text-center w-100"
+                              controls={false}
+                              onChange={(value) => {
+                                 setEvenement({
+                                    tempsPreparation: (value as number) ?? undefined,
+                                 });
+                              }}
+                           />
+                           <Button disabled className="bg-light text-dark border-left-0">
+                              {(evenement?.tempsPreparation || 0) > 1 ? "minutes" : "minute"}
+                           </Button>
+                        </Space.Compact>
                      </Form.Item>
                   </Col>
                   <Col md={3} xs={0} sm={0}>
@@ -130,20 +132,22 @@ export function TabPaiement({ evenement, form, setEvenement }: ITabPaiement): Re
                   </ColStyled>
                   <Col md={9} xs={24} sm={24}>
                      <Form.Item name="tempsSupplementaire">
-                        <InputNumber
-                           min={0}
-                           precision={0}
-                           addonAfter={
-                              (evenement?.tempsSupplementaire || 0) > 1 ? "minutes" : "minute"
-                           }
-                           className="text-center w-100"
-                           controls={false}
-                           onChange={(value) => {
-                              setEvenement({
-                                 tempsSupplementaire: (value as number) ?? undefined,
-                              });
-                           }}
-                        />
+                        <Space.Compact className="w-100">
+                           <InputNumber
+                              min={0}
+                              precision={0}
+                              className="text-center w-100"
+                              controls={false}
+                              onChange={(value) => {
+                                 setEvenement({
+                                    tempsSupplementaire: (value as number) ?? undefined,
+                                 });
+                              }}
+                           />
+                           <Button disabled className="bg-light text-dark border-left-0">
+                              {(evenement?.tempsSupplementaire || 0) > 1 ? "minutes" : "minute"}
+                           </Button>
+                        </Space.Compact>
                      </Form.Item>
                   </Col>
                   <Col md={3} xs={0} sm={0}>

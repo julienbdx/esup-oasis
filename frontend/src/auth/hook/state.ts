@@ -15,12 +15,17 @@ import { AuthTokenPayload } from "./useOAuth2";
 export type State<TData = AuthTokenPayload> = TData | null;
 
 // https://medium.com/@dazcyril/generating-cryptographic-random-state-in-javascript-in-the-browser-c538b3daae50
+const STATE_LENGTH = 40;
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+const getStateCharacter = (value: number): string => ALPHABET[value % ALPHABET.length];
+
 export const generateState = () => {
-   const validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-   let array = new Uint8Array(40) as any;
-   window.crypto.getRandomValues(array);
-   array = array.map((x: number) => validChars.codePointAt(x % validChars.length));
-   return String.fromCharCode.apply(null, array);
+   const randomValues = new Uint8Array(STATE_LENGTH);
+   window.crypto.getRandomValues(randomValues);
+
+   const stateCharacters = Array.from(randomValues, getStateCharacter);
+   return stateCharacters.join("");
 };
 export const saveState = (state: string) => {
    sessionStorage.setItem(OAUTH_STATE_KEY, state);

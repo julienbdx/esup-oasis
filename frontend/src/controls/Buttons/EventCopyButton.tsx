@@ -11,7 +11,7 @@ import React, { ReactElement, useMemo } from "react";
 import { App, Button } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
 import TypeEvenementItem from "../Items/TypeEvenementItem";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 import CampusItem from "../Items/CampusItem";
 import TypeEquipementItem from "../Items/TypeEquipementItem";
 import GestionnaireItem from "../Items/GestionnaireItem";
@@ -48,8 +48,8 @@ export default function EventCopyButton({
                {evenement.libelle ? `Libellé :${evenement.libelle}\n` : ""}
                Catégorie : <TypeEvenementItem typeEvenementId={evenement.type} showAvatar={false} />
                {"\n"}
-               Date : le {moment(evenement.debut).format("dddd DD MMM YYYY")} de{" "}
-               {moment(evenement.debut).format("HH:mm")} à {moment(evenement.fin).format("HH:mm")}
+               Date : le {dayjs(evenement.debut).format("dddd DD MMM YYYY")} de{" "}
+               {dayjs(evenement.debut).format("HH:mm")} à {dayjs(evenement.fin).format("HH:mm")}
                {"\n\n"}
                Bénéficiaire{(evenement.beneficiaires || []).length > 1 ? "s" : ""} :{" "}
                {evenement.beneficiaires?.map((b) => (

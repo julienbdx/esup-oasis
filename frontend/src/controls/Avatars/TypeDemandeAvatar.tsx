@@ -36,7 +36,10 @@ export default function TypeDemandeAvatar(props: {
       return (
          <Avatar
             icon={<UnlockOutlined aria-hidden={true} />}
-            style={{ backgroundColor: "var(--color-success-light)", color: "var(--color-text)" }}
+            style={{
+               backgroundColor: "var(--color-success-light)",
+               color: "var(--color-text)",
+            }}
          />
       );
 

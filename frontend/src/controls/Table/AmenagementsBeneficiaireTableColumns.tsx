@@ -114,7 +114,7 @@ export function amenagementsBeneficiaireTableColumns(props: {
    return [
       {
          title: "Bénéficiaire",
-         fixed: props.fixPremiereColonne ? "left": undefined,
+         fixed: props.fixPremiereColonne ? "left" : undefined,
          dataIndex: "key",
          sortDirections: ["ascend", "descend"],
          sorter: true,
@@ -127,7 +127,7 @@ export function amenagementsBeneficiaireTableColumns(props: {
                  return {
                     className: "pointer",
                     onClick: () => {
-                        props.navigate(`/beneficiaires/${record.uid as string}`);
+                       props.navigate(`/beneficiaires/${record.uid as string}`);
                     },
                  };
               }
@@ -150,7 +150,7 @@ export function amenagementsBeneficiaireTableColumns(props: {
                            icon={<Icon component={ExternalLink} className="fs-08" />}
                            onClick={(e) => {
                               e.stopPropagation();
-                               window.open(`/beneficiaires/${record.uid as string}`, "_blank");
+                              window.open(`/beneficiaires/${record.uid as string}`, "_blank");
                            }}
                         />
                      </Tooltip>

@@ -31,9 +31,9 @@ interface IAmenagementForm {
  * @returns {ReactElement} - The rendered component.
  */
 export function CategorieAmenagementEdition({
-                                               editedItem,
-                                               setEditedItem,
-                                            }: AmenagementsEditionProps): ReactElement {
+   editedItem,
+   setEditedItem,
+}: AmenagementsEditionProps): ReactElement {
    const [form] = Form.useForm();
 
    const mutationPost = useApi().usePost({

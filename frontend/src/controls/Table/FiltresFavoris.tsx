@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Alert, App, Button, Empty, Flex, List, Popconfirm, Tooltip } from "antd";
+import { Alert, App, Button, Empty, Flex, List, Popconfirm, Space, Tooltip } from "antd";
 import {
    DeleteOutlined,
    FilterOutlined,
@@ -80,7 +80,11 @@ export function FiltresFavoris(props: {
                            if (nom) {
                               setPreferenceArray(props.filtreType, [
                                  ...getPreferenceArray(props.filtreType),
-                                 { filtre: { ...props.filtre, page: 1 }, nom, favori: false },
+                                 {
+                                    filtre: { ...props.filtre, page: 1 },
+                                    nom,
+                                    favori: false,
+                                 },
                               ]);
                               message.success("Filtre enregistré").then();
                            }
@@ -99,7 +103,7 @@ export function FiltresFavoris(props: {
                   <List.Item
                      key={filtre.nom}
                      extra={
-                        <Button.Group>
+                        <Space.Compact>
                            <Button
                               icon={<FilterOutlined />}
                               onClick={() => {
@@ -154,7 +158,7 @@ export function FiltresFavoris(props: {
                            >
                               <Button icon={<DeleteOutlined />} className="text-danger" />
                            </Popconfirm>
-                        </Button.Group>
+                        </Space.Compact>
                      }
                   >
                      {filtre.nom}

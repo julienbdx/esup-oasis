@@ -12,7 +12,7 @@ import { IBeneficiaire } from "../../api/ApiTypeHelpers";
 import { beneficiaireTableColumns } from "./BeneficiaireTableColumns";
 import { setDrawerUtilisateur } from "../../redux/actions/Drawers";
 import { RoleValues } from "../../lib/Utilisateur";
-import { Button, Flex, Table, Tooltip } from "antd";
+import { Button, Flex, Space, Table, Tooltip } from "antd";
 import Icon from "@ant-design/icons";
 import { useApi } from "../../context/api/ApiProvider";
 import { useAuth } from "../../auth/AuthProvider";
@@ -189,7 +189,7 @@ export default function BeneficiaireTable() {
             <div>
                {JSON.stringify(FILTRE_BENEFICIAIRE_DEFAULT) !==
                   JSON.stringify(filtreBeneficiaire) && (
-                  <Button.Group>
+                  <Space.Compact>
                      <FiltreDescription
                         filtre={filtreBeneficiaire}
                         as="modal"
@@ -202,7 +202,7 @@ export default function BeneficiaireTable() {
                            onClick={() => setFiltreBeneficiaire(FILTRE_BENEFICIAIRE_DEFAULT)}
                         />
                      </Tooltip>
-                  </Button.Group>
+                  </Space.Compact>
                )}
                {auth.user?.isGestionnaire && (
                   <>

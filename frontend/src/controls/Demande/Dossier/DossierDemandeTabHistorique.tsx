@@ -38,52 +38,54 @@ export function DossierDemandeTabHistorique(): React.ReactElement {
          <h2>Historique des actions</h2>
 
          <Timeline
-            mode="left"
+            mode="start"
             items={histos?.items.map((histo: IModificationEtatDemande) => ({
-               label: dayjs(histo.dateModification).format("DD/MM/YYYY à HH:mm"),
-               children: (
+               title: dayjs(histo.dateModification).format("DD/MM/YYYY à HH:mm"),
+               content: (
                   <List bordered size="small" className="mb-2">
-                     <List.Item>
-                        <Space wrap>
-                           <span>Modification de l'état</span>
-                           <span>
-                              <EtatDemandeAvatar etatDemandeId={histo.etatPrecedent} />
-                           </span>
-                           <ArrowRightOutlined />
-                           <span>
-                              <EtatDemandeAvatar etatDemandeId={histo.etat} className="ml-1" />
-                           </span>
-                        </Space>
-                     </List.Item>
-                     <List.Item>
-                        <Space wrap>
-                           <span>par</span>
-                           <span>
-                              <EtudiantItem
-                                 utilisateurId={histo.utilisateurModification}
-                                 showAvatar={false}
-                              />
-                           </span>
-                        </Space>
-                     </List.Item>
-                     {histo.profil && (
+                     <ul>
                         <List.Item>
                            <Space wrap>
-                              <span>avec le profil</span>
+                              <span>Modification de l'état</span>
                               <span>
-                                 <ProfilItem profil={histo.profil} className={"mt-0"} />
+                                 <EtatDemandeAvatar etatDemandeId={histo.etatPrecedent} />
+                              </span>
+                              <ArrowRightOutlined />
+                              <span>
+                                 <EtatDemandeAvatar etatDemandeId={histo.etat} className="ml-1" />
                               </span>
                            </Space>
                         </List.Item>
-                     )}
-                     {histo.commentaire && (
                         <List.Item>
                            <Space wrap>
-                              <span>Commentaire</span>
-                              <span className="light">{histo.commentaire}</span>
+                              <span>par</span>
+                              <span>
+                                 <EtudiantItem
+                                    utilisateurId={histo.utilisateurModification}
+                                    showAvatar={false}
+                                 />
+                              </span>
                            </Space>
                         </List.Item>
-                     )}
+                        {histo.profil && (
+                           <List.Item>
+                              <Space wrap>
+                                 <span>avec le profil</span>
+                                 <span>
+                                    <ProfilItem profil={histo.profil} className="mt-0" />
+                                 </span>
+                              </Space>
+                           </List.Item>
+                        )}
+                        {histo.commentaire && (
+                           <List.Item>
+                              <Space wrap>
+                                 <span>Commentaire</span>
+                                 <span className="light">{histo.commentaire}</span>
+                              </Space>
+                           </List.Item>
+                        )}
+                     </ul>
                   </List>
                ),
             }))}

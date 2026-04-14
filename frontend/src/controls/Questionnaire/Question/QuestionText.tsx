@@ -64,8 +64,7 @@ export function QuestionText(props: { question: QuestionnaireQuestion }) {
                         // C'est principalement pour le cas des mauvais numéros PSQS
                         window.setTimeout(() => {
                            if (props.question.obligatoire && e.target.value !== "") {
-                              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                              form?.setFieldValue(props.question["@id"] as any, undefined);
+                              form?.setFieldValue(props.question["@id"], undefined);
                               (
                                  form?.getFieldInstance(props.question["@id"]) as HTMLInputElement
                               ).focus();

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Question } from "./Question/Question";
 import { QuestionnaireEtape, useQuestionnaire } from "../../context/demande/QuestionnaireProvider";
 import { Alert, Divider } from "antd";
@@ -16,15 +16,9 @@ import Spinner from "../Spinner/Spinner";
 
 export function EtapeDemande(props: { etapeIndex: number }): React.ReactElement {
    const { questionnaire } = useQuestionnaire();
-   const [loading, setLoading] = useState<boolean>(true);
-   const [etape, setEtape] = useState<QuestionnaireEtape>();
+   const etape: QuestionnaireEtape | undefined = (questionnaire?.etapes || [])[props.etapeIndex];
 
-   useEffect(() => {
-      setEtape((questionnaire?.etapes || [])[props.etapeIndex]);
-      setLoading(false);
-   }, [questionnaire, props.etapeIndex]);
-
-   if (loading) return <Spinner />;
+   if (!questionnaire) return <Spinner />;
 
    if (!etape) {
       return (

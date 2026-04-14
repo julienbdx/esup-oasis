@@ -11,7 +11,6 @@ import { AnyAction } from "redux";
 import { PARAMETER, PARAMETERS } from "../ReduxConstants";
 import { initialParameters, IParameters } from "../context/IParameters";
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 export const ParametersReducer = (
    state = initialParameters,
    action: AnyAction | undefined = undefined,

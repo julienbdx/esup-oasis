@@ -134,7 +134,9 @@ export function TabAmenagements(props: {
                                                 <div>
                                                    <h5
                                                       className="mt-0 mb-0 fs-11"
-                                                      style={{ whiteSpace: "pre-wrap" }}
+                                                      style={{
+                                                         whiteSpace: "pre-wrap",
+                                                      }}
                                                    >
                                                       {ta.libelle}
                                                    </h5>

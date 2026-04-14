@@ -37,10 +37,10 @@ export function BeneficiaireProfilItem(props: {
    if (props.masquerSiInactif && !isEnCoursSurPeriode(data?.debut, data?.fin)) return null;
 
    return (
-      <Space size={2} align={"center"}>
+      <Space size={2} align="center">
          <ProfilItem profil={data?.profil as string} maxWidth={170} />
          {data.avecAccompagnement === false && (
-            <Tooltip title={"Bénéficiaire sans accompagnement " + env.REACT_APP_SERVICE}>
+            <Tooltip title={`Bénéficiaire sans accompagnement ${env.REACT_APP_SERVICE}`}>
                <InfoCircleOutlined />
             </Tooltip>
          )}

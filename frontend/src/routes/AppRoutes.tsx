@@ -7,297 +7,262 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React from "react";
+import { ComponentType, lazy } from "react";
 import { RoleValues } from "../lib/Utilisateur";
-import { IRoute } from "./ProdRouter";
-import Parametres from "./administration/Parametres/Parametres";
-import ServicesFaits from "./administration/Bilans/ServicesFaits/ServicesFaits";
-import BilanFinancier from "./administration/Bilans/BilanFinancier/BilanFinancier";
-import Utilisateurs from "./administration/Utilisateurs/Utilisateurs";
-import { Amenagements as AmenagementsAdmin } from "./administration/Referentiel/Amenagements/Amenagements";
-import ClubsSportifs from "./administration/Referentiel/ClubsSportifs/ClubsSportifs";
-import Chartes from "./administration/Referentiel/Chartes/Chartes";
-import PeriodesRh from "./administration/Referentiel/PeriodeRh/PeriodesRh";
-import TypesEvenements from "./administration/Referentiel/TypeEvenement/TypesEvenements";
-import Profils from "./administration/Referentiel/Profils/Profils";
-import Referentiel from "./administration/Referentiel/Referentiel";
-import TypesDemandes from "./administration/TypesDemandes/TypesDemandes";
-import Commissions from "./administration/Commissions/Commissions";
-import Administration from "./administration/Administration";
-import ValidationInterventionsRenforts from "./gestionnaire/interventions/ValidationInterventionsRenforts";
-import BilanBeneficiaireIntervenant from "./administration/Bilans/BeneficiairesIntervenants/BilanBeneficiaireIntervenant";
-import Beneficiaire from "./gestionnaire/beneficiaires/Beneficiaire";
-import Bilans from "./administration/Bilans/Bilans";
-import Demande from "./gestionnaire/demandeurs/Demande";
-import Demandeurs from "./gestionnaire/demandeurs/Demandeurs";
-import Beneficiaires from "./gestionnaire/beneficiaires/Beneficiaires";
-import Amenagements from "./gestionnaire/beneficiaires/Amenagements";
-import Intervenants from "./gestionnaire/intervenants/Intervenants";
-import InterventionsForfait from "./gestionnaire/interventions/InterventionsForfait";
-import MesInterventions from "../controls/Interventions/MesInterventions";
-import Demandes from "./demandeur/Demandes";
-import TypeDemandeSoumise from "../controls/Questionnaire/TypeDemandeSoumise";
-import DemandeAvancement from "./demandeur/DemandeAvancement";
-import DemandeSaisie from "./demandeur/DemandeSaisie";
-import Version from "./commun/Version";
-import PlanningWithSider from "../controls/Calendar/PlanningWithSider";
-import PlanningTable from "../controls/Calendar/PlanningTable";
-import CategoriesTags from "./administration/Referentiel/Tags/CategoriesTags";
-import MonProfil from "./commun/MonProfil";
-import AlertCompleterProfil from "../controls/Dashboard/AlertCompleterProfil";
-import PlanningCalendar from "../controls/Calendar/PlanningCalendar";
-import { IntervenantDashboard as DashboardIntervenant } from "./intervenant/dashboard/IntervenantDashboard";
-import { GestionnaireDashboard as DashboardGestionnaire } from "./gestionnaire/dashboard/GestionnaireDashboard";
-import { ServicesFaits as MesServicesFaits } from "./intervenant/ServicesFaits/ServicesFaits";
-import Demandeur from "./gestionnaire/demandeurs/Demandeur";
-import SportifsHautNiveau from "./administration/Referentiel/SportifsHautNiveau/SportifsHautNiveau";
-import Referents from "./administration/Referentiel/Referents/Referents";
-import BilanActivites from "./administration/Bilans/BilanActivites/BilanActivites";
-import EvenementsSansBeneficiaires from "./gestionnaire/interventions/EvenementsSansBeneficiaires";
 
-// noinspection DuplicatedCode
+export interface IRoute {
+   path: string;
+   element: ComponentType;
+   roles: RoleValues[] | null;
+}
+
+// --- Imports lazy ---
 /**
  * Represents the routes configuration for the application
  * and the roles required to access them.
  *
  * @type {IRoute[]}
  */
-export const DEV_ROUTES: IRoute[] = [
+export const APP_ROUTES: IRoute[] = [
+   {
+      path: "/rgpd",
+      element: lazy(() => import("./commun/Rgpd")),
+      roles: null,
+   },
+   {
+      path: "/credits",
+      element: lazy(() => import("./commun/MentionsLegales")),
+      roles: null,
+   },
+   {
+      path: "/versions",
+      element: lazy(() => import("./commun/Version")),
+      roles: null,
+   },
    // --- Admin ---
    {
       path: "/administration/referentiels/parametres",
-      element: <Parametres />,
+      element: lazy(() => import("./administration/Parametres/Parametres")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/bilans/services-faits",
-      element: <ServicesFaits />,
+      element: lazy(() => import("./administration/Bilans/ServicesFaits/ServicesFaits")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/bilans/financier",
-      element: <BilanFinancier />,
+      element: lazy(() => import("./administration/Bilans/BilanFinancier/BilanFinancier")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/bilans/activites",
-      element: <BilanActivites />,
+      element: lazy(() => import("./administration/Bilans/BilanActivites/BilanActivites")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/utilisateurs",
-      element: <Utilisateurs />,
+      element: lazy(() => import("./administration/Utilisateurs/Utilisateurs")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/sportifs-haut-niveau",
-      element: <SportifsHautNiveau />,
+      element: lazy(
+         () => import("./administration/Referentiel/SportifsHautNiveau/SportifsHautNiveau"),
+      ),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/types-amenagements",
-      element: <AmenagementsAdmin />,
+      element: lazy(() => import("./administration/Referentiel/Amenagements/Amenagements")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/clubs-sportifs",
-      element: <ClubsSportifs />,
+      element: lazy(() => import("./administration/Referentiel/ClubsSportifs/ClubsSportifs")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/referents",
-      element: <Referents />,
+      element: lazy(() => import("./administration/Referentiel/Referents/Referents")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/chartes",
-      element: <Chartes />,
+      element: lazy(() => import("./administration/Referentiel/Chartes/Chartes")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/periodes-rh",
-      element: <PeriodesRh />,
+      element: lazy(() => import("./administration/Referentiel/PeriodeRh/PeriodesRh")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/types-evenements",
-      element: <TypesEvenements />,
+      element: lazy(() => import("./administration/Referentiel/TypeEvenement/TypesEvenements")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/profils",
-      element: <Profils />,
+      element: lazy(() => import("./administration/Referentiel/Profils/Profils")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/tags",
-      element: <CategoriesTags />,
+      element: lazy(() => import("./administration/Referentiel/Tags/CategoriesTags")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/types_demandes",
-      element: <TypesDemandes />,
-      roles: [RoleValues.ROLE_ADMIN],
-   },
-   {
-      path: "/administration/referentiels/types_demandes",
-      element: <TypesDemandes />,
+      element: lazy(() => import("./administration/TypesDemandes/TypesDemandes")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/commissions/:id",
-      element: <Commissions />,
+      element: lazy(() => import("./administration/Commissions/Commissions")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration/referentiels/commissions",
-      element: <Commissions />,
+      element: lazy(() => import("./administration/Commissions/Commissions")),
       roles: [RoleValues.ROLE_ADMIN],
    },
-
    {
       path: "/administration/referentiels/:referentielId",
-      element: <Referentiel />,
+      element: lazy(() => import("./administration/Referentiel/Referentiel")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    {
       path: "/administration",
-      element: <Administration />,
+      element: lazy(() => import("./administration/Administration")),
       roles: [RoleValues.ROLE_ADMIN],
    },
    // --- Gestionnaire / Chargé d'accompagnement ---
    {
       path: "/interventions/renforts",
-      element: <ValidationInterventionsRenforts />,
+      element: lazy(() => import("./gestionnaire/interventions/ValidationInterventionsRenforts")),
       roles: [RoleValues.ROLE_GESTIONNAIRE],
    },
    {
       path: "/bilans/intervenants",
-      element: <BilanBeneficiaireIntervenant type="intervenant" />,
+      element: lazy(() => import("./beneficiaire/BilanBeneficiaireIntervenant")),
       roles: [RoleValues.ROLE_ADMIN, RoleValues.ROLE_GESTIONNAIRE],
    },
    {
       path: "/bilans/beneficiaires",
-      element: <BilanBeneficiaireIntervenant type="bénéficiaire" />,
+      element: lazy(() => import("./beneficiaire/BilanBeneficiaireIntervenant")),
       roles: [RoleValues.ROLE_ADMIN, RoleValues.ROLE_GESTIONNAIRE],
    },
    {
       path: "/beneficiaires/:id",
-      element: <Beneficiaire />,
+      element: lazy(() => import("./gestionnaire/beneficiaires/Beneficiaire")),
       roles: [RoleValues.ROLE_ADMIN, RoleValues.ROLE_GESTIONNAIRE],
    },
    {
       path: "/bilans",
-      element: <Bilans />,
+      element: lazy(() => import("./administration/Bilans/Bilans")),
       roles: [RoleValues.ROLE_GESTIONNAIRE],
    },
    // --- Gestionnaire / Planificateur ---
    {
       path: "/demandes/:id",
-      element: <Demande />,
+      element: lazy(() => import("./gestionnaire/demandeurs/Demande")),
       roles: [RoleValues.ROLE_PLANIFICATEUR, RoleValues.ROLE_MEMBRE_COMMISSION],
    },
    {
       path: "/demandeurs/:id",
-      element: <Demandeur />,
+      element: lazy(() => import("./gestionnaire/demandeurs/Demandeur")),
       roles: [RoleValues.ROLE_PLANIFICATEUR, RoleValues.ROLE_MEMBRE_COMMISSION],
    },
    {
       path: "/demandes/:id/saisie",
-      element: <Demande />,
+      element: lazy(() => import("./gestionnaire/demandeurs/Demande")),
       roles: [RoleValues.ROLE_PLANIFICATEUR],
    },
    {
       path: "/demandeurs",
-      element: <Demandeurs />,
+      element: lazy(() => import("./gestionnaire/demandeurs/Demandeurs")),
       roles: [RoleValues.ROLE_PLANIFICATEUR, RoleValues.ROLE_MEMBRE_COMMISSION],
    },
    {
       path: "/beneficiaires",
-      element: <Beneficiaires />,
+      element: lazy(() => import("./gestionnaire/beneficiaires/Beneficiaires")),
       roles: [RoleValues.ROLE_PLANIFICATEUR],
    },
    {
       path: "/amenagements",
-      element: <Amenagements />,
+      element: lazy(() => import("./gestionnaire/beneficiaires/Amenagements")),
       roles: [RoleValues.ROLE_PLANIFICATEUR],
    },
    {
       path: "/intervenants",
-      element: <Intervenants />,
+      element: lazy(() => import("./gestionnaire/intervenants/Intervenants")),
       roles: [RoleValues.ROLE_PLANIFICATEUR],
    },
    {
       path: "/interventions/forfait",
-      element: <InterventionsForfait />,
+      element: lazy(() => import("./gestionnaire/interventions/InterventionsForfait")),
       roles: [RoleValues.ROLE_PLANIFICATEUR],
    },
    {
       path: "/mes-interventions",
-      element: <MesInterventions />,
+      element: lazy(() => import("../controls/Interventions/MesInterventions")),
       roles: [RoleValues.ROLE_PLANIFICATEUR],
    },
    {
       path: "/dashboard",
-      element: <DashboardGestionnaire />,
+      element: lazy(() => import("./gestionnaire/dashboard/GestionnaireDashboard")),
       roles: [RoleValues.ROLE_PLANIFICATEUR],
    },
    // --- Membres de commision ---
    {
       path: "/dashboard",
-      element: <Demandeurs />,
+      element: lazy(() => import("./gestionnaire/demandeurs/Demandeurs")),
       roles: [RoleValues.ROLE_MEMBRE_COMMISSION],
    },
    {
       path: "/demandes",
-      element: <Demandeurs />,
+      element: lazy(() => import("./gestionnaire/demandeurs/Demandeurs")),
       roles: [RoleValues.ROLE_MEMBRE_COMMISSION],
    },
    // --- Référents ---
    {
       path: "/amenagements",
-      element: <Amenagements />,
+      element: lazy(() => import("./gestionnaire/beneficiaires/Amenagements")),
       roles: [RoleValues.ROLE_REFERENT_COMPOSANTE],
    },
    {
       path: "/dashboard",
-      element: <Amenagements />,
+      element: lazy(() => import("./gestionnaire/beneficiaires/Amenagements")),
       roles: [RoleValues.ROLE_REFERENT_COMPOSANTE],
    },
    // --- Intervenants & bénéficiaires ---
    {
       path: "/profil",
-      element: <MonProfil />,
+      element: lazy(() => import("./commun/MonProfil")),
       roles: [RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT],
    },
    // --- Intervenants ---
    {
       path: "/dashboard",
-      element: <DashboardIntervenant />,
+      element: lazy(() => import("./intervenant/dashboard/IntervenantDashboard")),
       roles: [RoleValues.ROLE_INTERVENANT],
    },
    {
       path: "/services-faits",
-      element: <MesServicesFaits />,
+      element: lazy(() => import("./intervenant/ServicesFaits/ServicesFaits")),
       roles: [RoleValues.ROLE_INTERVENANT],
    },
    // --- Bénéficiaires ---
    {
       path: "/dashboard",
-      element: (
-         <>
-            <div className="p-2">
-               <AlertCompleterProfil />
-            </div>
-            <PlanningWithSider />
-         </>
-      ),
+      element: lazy(() => import("./beneficiaire/BeneficiaireDashboard")),
       roles: [RoleValues.ROLE_BENEFICIAIRE],
    },
    // --- Tous les utilisateurs disposant d'un rôle en rapport avec planification ---
    {
       path: "/planning/calendrier",
-      element: <PlanningCalendar />,
+      element: lazy(() => import("../controls/Calendar/PlanningCalendar")),
       roles: [
          RoleValues.ROLE_ADMIN,
          RoleValues.ROLE_PLANIFICATEUR,
@@ -307,7 +272,7 @@ export const DEV_ROUTES: IRoute[] = [
    },
    {
       path: "/planning/liste-evenements",
-      element: <PlanningTable />,
+      element: lazy(() => import("../controls/Calendar/PlanningTable")),
       roles: [
          RoleValues.ROLE_ADMIN,
          RoleValues.ROLE_PLANIFICATEUR,
@@ -317,12 +282,12 @@ export const DEV_ROUTES: IRoute[] = [
    },
    {
       path: "/planning/evenements-sans-beneficiaires",
-      element: <EvenementsSansBeneficiaires />,
+      element: lazy(() => import("./gestionnaire/interventions/EvenementsSansBeneficiaires")),
       roles: [RoleValues.ROLE_ADMIN, RoleValues.ROLE_PLANIFICATEUR],
    },
    {
       path: "/planning",
-      element: <PlanningWithSider />,
+      element: lazy(() => import("../controls/Calendar/PlanningWithSider")),
       roles: [
          RoleValues.ROLE_ADMIN,
          RoleValues.ROLE_PLANIFICATEUR,
@@ -330,36 +295,30 @@ export const DEV_ROUTES: IRoute[] = [
          RoleValues.ROLE_INTERVENANT,
       ],
    },
-   // --- Tous les utilisateurs ---
-   {
-      path: "/versions",
-      element: <Version />,
-      roles: null,
-   },
    // --- Demandes ---
    {
       path: "/demandes/:id/saisie",
-      element: <DemandeSaisie />,
+      element: lazy(() => import("./demandeur/DemandeSaisie")),
       roles: [RoleValues.ROLE_DEMANDEUR, RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT],
    },
    {
       path: "/demandes/:id",
-      element: <DemandeAvancement />,
+      element: lazy(() => import("./demandeur/DemandeAvancement")),
       roles: [RoleValues.ROLE_DEMANDEUR, RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT],
    },
    {
       path: "/demandes",
-      element: <Demandes />,
+      element: lazy(() => import("./demandeur/Demandes")),
       roles: [RoleValues.ROLE_DEMANDEUR, RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT],
    },
    {
       path: "/dashboard",
-      element: <Demandes />,
+      element: lazy(() => import("./demandeur/Demandes")),
       roles: [RoleValues.ROLE_DEMANDEUR],
    },
    {
       path: "/demande-soumise",
-      element: <TypeDemandeSoumise />,
+      element: lazy(() => import("../controls/Questionnaire/TypeDemandeSoumise")),
       roles: [RoleValues.ROLE_DEMANDEUR, RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT],
    },
 ];

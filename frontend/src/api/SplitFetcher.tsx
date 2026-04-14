@@ -4,7 +4,9 @@ import { Button, Progress } from "antd";
 
 export default function SplitFetcher(props: {
    itemsPerPage: number;
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    query: any;
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    setData: (data: any[]) => void;
    setIsFetching: (isFetching: boolean) => void;
    icon?: React.ReactNode;
@@ -13,6 +15,7 @@ export default function SplitFetcher(props: {
    const [enabled, setEnabled] = useState(false);
    const [page, setPage] = useState(1);
    const [totalItems, setTotalItems] = useState<number | null>(null);
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const [, setAllData] = useState<any[]>([]);
 
    const { data } = useApi().useGetCollectionPaginated({

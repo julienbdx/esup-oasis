@@ -24,6 +24,7 @@ export default function ScrollToTop(): null {
             const y = (element?.getBoundingClientRect().top || 0) + window.scrollY - 100;
             window.scrollTo({ top: y, behavior: "smooth" });
          } catch {
+            /* empty */
          }
       } else {
          window.scrollTo(0, 0);

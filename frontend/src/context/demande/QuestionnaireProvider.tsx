@@ -93,7 +93,7 @@ export type Questionnaire = {
 
 export interface QuestionnaireContextType {
    typeDemande?: ITypeDemande;
-   form?: FormInstance<ITypeDemande>;
+   form?: FormInstance;
    demande?: IDemande;
    etatDemande?: EtatInfo;
    questionnaire?: Questionnaire;
@@ -124,24 +124,21 @@ export interface QuestionnaireContextType {
       getFormInitialValues: () =>
          | undefined
          | FlatArray<
-         {
-            [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
-         }[][],
-         1
-      >;
+              {
+                 [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
+              }[][],
+              1
+           >;
    };
 }
 
 // Create a context for the Questionnaire with a default value of null.
 const QuestionnaireContext = createContext<QuestionnaireContextType>({
    mode: "saisie",
-   setMode: () => {
-   },
-   setSubmitting: () => {
-   },
+   setMode: () => {},
+   setSubmitting: () => {},
    blocage: false,
-   setBlocage: () => {
-   },
+   setBlocage: () => {},
 });
 
 /**
@@ -251,7 +248,7 @@ export function QuestionnaireProvider(props: {
    const [etatDemande, setEtatDemande] = useState<EtatInfo>();
    const [demande, setDemande] = useState<IDemande>();
    const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
-   const [form] = Form.useForm<ITypeDemande>();
+   const [form] = Form.useForm();
    const [mode, setMode] = useState<"preview" | "saisie">(props.mode || "saisie");
    const [blocage, setBlocage] = useState<boolean>(false);
    const [submitting, setSubmitting] = useState<boolean>(false);
@@ -419,11 +416,11 @@ export function QuestionnaireProvider(props: {
    function getFormInitialValues():
       | undefined
       | FlatArray<
-      {
-         [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
-      }[][],
-      1
-   > {
+           {
+              [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
+           }[][],
+           1
+        > {
       if (!questionnaire) return undefined;
       return questionnaire.etapes
          .map((etape: QuestionnaireEtape) => {

@@ -31,22 +31,22 @@ interface IBooleanState {
 }
 
 export default function BooleanState({
-                                        value,
-                                        className,
-                                        style,
-                                        showLabel = true,
-                                        onLabel = "Oui",
-                                        offLabel = "Non",
-                                        showIcon = true,
-                                        iconOn = <CheckOutlined aria-hidden />,
-                                        iconOff = <CloseOutlined aria-hidden />,
-                                        colorOn = "green",
-                                        colorOff = "warning",
-                                        showColor = true,
-                                        bordered = true,
-                                        showTooltip = true,
-                                        tooltip,
-                                     }: IBooleanState) {
+   value,
+   className,
+   style,
+   showLabel = true,
+   onLabel = "Oui",
+   offLabel = "Non",
+   showIcon = true,
+   iconOn = <CheckOutlined aria-hidden />,
+   iconOff = <CloseOutlined aria-hidden />,
+   colorOn = "green",
+   colorOff = "warning",
+   showColor = true,
+   bordered = true,
+   showTooltip = true,
+   tooltip,
+}: IBooleanState) {
    const getColor: () => string | undefined = () => {
       if (!showColor) return undefined;
       return value ? colorOn : colorOff;
@@ -68,7 +68,7 @@ export default function BooleanState({
             color={getColor()}
             style={style}
             icon={showIcon ? (value ? iconOn : iconOff) : undefined}
-            bordered={bordered}
+            variant={!bordered ? "filled" : undefined}
          >
             {showLabel ? (value ? onLabel : offLabel) : false}
          </Tag>

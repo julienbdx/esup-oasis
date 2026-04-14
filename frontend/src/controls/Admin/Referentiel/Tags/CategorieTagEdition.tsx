@@ -26,9 +26,9 @@ interface CategorieTagEditionProps {
  * @returns {ReactElement} - The rendered component.
  */
 export function CategorieTagEdition({
-                                       editedItem,
-                                       setEditedItem,
-                                    }: CategorieTagEditionProps): ReactElement {
+   editedItem,
+   setEditedItem,
+}: CategorieTagEditionProps): ReactElement {
    const [form] = Form.useForm();
 
    const mutationPost = useApi().usePost({

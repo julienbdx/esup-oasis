@@ -227,7 +227,7 @@ export default function AmenagementTableExport({
             setData={setAmenagements}
             setIsFetching={setFetchingAmenagements}
             icon={<ExportOutlined />}
-            label={"Exporter"}
+            label="Exporter"
          />
       </>
    );
