@@ -103,10 +103,9 @@ export default function BeneficiaireIntervenantSearchDrawer({
             }
          }}
          styles={{ popup: { root: { minWidth: 400 } } }}
-         onSelect={(selectedItem: string, option) => {
+         onSelect={(selectedItem: string, option: { key: string }) => {
             if (selectedItem) {
                let role = RoleValues.ROLE_BENEFICIAIRE;
-               // @ts-ignore
                if (option.key.split("§")[0] === "intervenant") {
                   role = RoleValues.ROLE_INTERVENANT;
                } else if (option.key.split("§")[0] === "demandeur") {

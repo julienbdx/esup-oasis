@@ -54,6 +54,7 @@ export function buildAmenagementsBenefDatasource(
          etatAvisEse: string | undefined;
          inscription: IInscription | undefined;
          tags?: string[];
+         [key: string]: unknown;
       } = {
          key: rd["@id"] as string,
          uid: rd.uid as string,
@@ -78,7 +79,6 @@ export function buildAmenagementsBenefDatasource(
             (r) => r.typeAmenagement?.["@id"] === ta.typeAmenagement?.["@id"],
          );
          if (a) {
-            // @ts-ignore
             data[ta.typeAmenagement?.["@id"] as string] = {
                "@id": a?.["@id"],
                commentaire: a?.commentaire,

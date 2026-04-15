@@ -202,12 +202,11 @@ export function ApiProvider({
          }): UseQueryResult<PaginateResult<ApiPathMethodResponse<P, "get">>> => {
             return useGetCollection(baseUrl, fetchOptions, {
                path: options.path,
-               // @ts-ignore
                query: {
                   ...options.query,
                   page: options.page,
                   itemsPerPage: options.itemsPerPage || NB_MAX_ITEMS_PER_PAGE,
-               },
+               } as ApiPathMethodQuery<P, "get">,
                parameters: options.parameters,
                enabled: options.enabled,
                onError: options.onError,
