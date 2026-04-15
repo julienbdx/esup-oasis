@@ -46,7 +46,9 @@ export default function TarifEvenementField({
       // get nb minutes between evenement.debut and evenement.fin
       const nbMinutes = dayjs(evenement.fin).diff(dayjs(evenement.debut), "minute");
       setDureeTotale(
-         nbMinutes + (evenement.tempsPreparation || 0) + (evenement.tempsSupplementaire || 0),
+         nbMinutes +
+            Number(evenement.tempsPreparation || 0) +
+            Number(evenement.tempsSupplementaire || 0),
       );
    }, [evenement.tempsPreparation, evenement.tempsSupplementaire, evenement.debut, evenement.fin]);
 

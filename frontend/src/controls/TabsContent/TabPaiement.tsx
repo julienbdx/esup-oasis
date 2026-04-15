@@ -12,13 +12,13 @@ import React, { ReactElement, useState } from "react";
 import ColStyled from "../ColStyled/ColStyled";
 import EvenementEtatEnvoiRHItem from "../Items/EvenementEtatEnvoiRHItem";
 import DureeEvenementField from "../Forms/DureeEvenementField";
-import DureeTotaleEvenementField from "../Forms/DureeTotalEvenementField";
 import { Evenement } from "../../lib/Evenement";
 import TarifEvenementField from "../Forms/TarifEvenementField";
 import { IEvenement, IPartialEvenement } from "../../api/ApiTypeHelpers";
 import EvenementEtatValidationItem from "../Items/EvenementEtatValidationItem";
 import { TYPE_EVENEMENT_RENFORT } from "../../constants";
 import { DownOutlined, InfoCircleFilled, UpOutlined } from "@ant-design/icons";
+import { DureeTotaleEvenementField } from "../Forms/DureeTotalEvenementField";
 
 interface ITabPaiement {
    evenement: IEvenement;
@@ -93,11 +93,12 @@ export function TabPaiement({ evenement, form, setEvenement }: ITabPaiement): Re
                            <InputNumber
                               min={0}
                               precision={0}
+                              value={evenement?.tempsPreparation}
                               className="text-center w-100"
                               controls={false}
                               onChange={(value) => {
                                  setEvenement({
-                                    tempsPreparation: (value as number) ?? undefined,
+                                    tempsPreparation: value !== null ? Number(value) : undefined,
                                  });
                               }}
                            />
@@ -138,9 +139,10 @@ export function TabPaiement({ evenement, form, setEvenement }: ITabPaiement): Re
                               precision={0}
                               className="text-center w-100"
                               controls={false}
+                              value={evenement?.tempsSupplementaire}
                               onChange={(value) => {
                                  setEvenement({
-                                    tempsSupplementaire: (value as number) ?? undefined,
+                                    tempsSupplementaire: value !== null ? Number(value) : undefined,
                                  });
                               }}
                            />

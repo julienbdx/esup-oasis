@@ -83,8 +83,8 @@ export class Evenement implements IEvenement {
       this.salle = event?.salle;
       this.suppleants = event?.suppleants;
       this.enseignants = event?.enseignants;
-      this.tempsPreparation = event?.tempsPreparation || 0;
-      this.tempsSupplementaire = event?.tempsSupplementaire || 0;
+      this.tempsPreparation = event?.tempsPreparation ? Number(event.tempsPreparation) : 0;
+      this.tempsSupplementaire = event?.tempsSupplementaire ? Number(event.tempsSupplementaire) : 0;
       this.type = event?.type || "";
       this.equipements = event?.equipements;
       this.dateCreation = event?.dateCreation ?? undefined;

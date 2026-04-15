@@ -16,11 +16,13 @@ interface IDureeTotaleEvenementFieldProps {
    evenement: IEvenement;
 }
 
-export default function DureeTotaleEvenementField({ evenement }: IDureeTotaleEvenementFieldProps) {
+export function DureeTotaleEvenementField({ evenement }: IDureeTotaleEvenementFieldProps) {
    // get nb minutes between evenement.debut and evenement.fin
    const nbMinutes = dayjs(evenement.fin).diff(dayjs(evenement.debut), "minute");
    const dureeTotale =
-      nbMinutes + (evenement.tempsPreparation || 0) + (evenement.tempsSupplementaire || 0);
+      nbMinutes +
+      Number(evenement.tempsPreparation || 0) +
+      Number(evenement.tempsSupplementaire || 0);
 
    return (
       <>
