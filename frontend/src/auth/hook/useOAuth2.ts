@@ -7,7 +7,6 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useRef, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD, OAUTH_RESPONSE } from "./constants";
@@ -55,7 +54,7 @@ export type Oauth2Props<TData = AuthTokenPayload> = {
    clientUri: string;
    scope?: string;
 
-   extraQueryParameters?: Record<string, any>;
+   extraQueryParameters?: Record<string, string | number | boolean>;
    onError?: (error: string) => void;
 } & ResponseTypeBasedProps<TData>;
 
@@ -78,14 +77,24 @@ const enhanceAuthorizeUrl = (
    responseType: Oauth2Props["responseType"],
    extraQueryParametersRef: React.RefObject<Oauth2Props["extraQueryParameters"]>,
 ) => {
-   const query = objectToQuery({
+   const queryObj: Record<string, string | number | boolean | undefined> = {
       response_type: responseType,
       client_id: clientId,
       redirect_uri: redirectUri,
       scope,
       state,
       ...extraQueryParametersRef.current,
+   };
+
+   // On ne conserve que les chaines de caractères
+   const cleanQueryObj: Record<string, string> = {};
+   Object.entries(queryObj).forEach(([key, value]) => {
+      if (value !== undefined) {
+         cleanQueryObj[key] = value.toString();
+      }
    });
+
+   const query = objectToQuery(cleanQueryObj);
 
    return `${authorizeUrl}?${query}`;
 };
@@ -135,8 +144,11 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
 
    const extraQueryParametersRef = useRef(extraQueryParameters);
    const popupRef = useRef<Window | null>(null);
-   const intervalRef = useRef<any>(null);
-   const [{ loading, error }, setUI] = useState({ loading: false, error: null });
+   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+   const [{ loading, error }, setUI] = useState<{ loading: boolean; error: string | null }>({
+      loading: false,
+      error: null,
+   });
    const [data, setData, { removeItem: removeLocalStorage }] =
       useLocalStorageState<State<TData> | null>(
          `${responseType}-${authorizeUrl}-${clientId}-${scope}`,
@@ -145,8 +157,8 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
       responseType === "code" && props.exchangeCodeForTokenServerURL;
    const exchangeCodeForTokenMethod = responseType === "code" && props.exchangeCodeForTokenMethod;
 
-   const cleanup = (handleMessageListener: any) => {
-      clearInterval(intervalRef.current);
+   const cleanup = (handleMessageListener: (message: MessageEvent) => void) => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
       closeAuthPopup(popupRef);
       removeState();
       removeLocalStorage();
@@ -178,7 +190,7 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
       );
 
       // 4. Gestion de la réponse : écouteur d'événements de message
-      async function handleMessageListener(message: MessageEvent<any>) {
+      async function handleMessageListener(message: MessageEvent) {
          if (!message.origin.includes(clientUri)) throw new Error("Invalid origin");
 
          const type = message?.data?.type;
@@ -222,11 +234,11 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
                   onSuccess(payload);
                }
             }
-         } catch (genericError: any) {
+         } catch (genericError: unknown) {
             console.error(genericError);
             setUI({
                loading: false,
-               error: genericError.toString(),
+               error: genericError instanceof Error ? genericError.message : String(genericError),
             });
          } finally {
             // Clear stuff ...
@@ -252,7 +264,7 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
                loading: false,
             }));
             console.warn("Warning: Popup was closed before completing authentication.");
-            clearInterval(intervalRef.current);
+            if (intervalRef.current) clearInterval(intervalRef.current);
             removeState();
             window.removeEventListener("message", handleMessageListener);
          }

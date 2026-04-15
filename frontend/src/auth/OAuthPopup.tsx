@@ -16,8 +16,7 @@ import Spinner from "../controls/Spinner/Spinner";
 const OAUTH_STATE_KEY = "react-use-oauth2-state-key";
 const OAUTH_RESPONSE = "react-use-oauth2-response";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const checkState = (receivedState: any) => {
+const checkState = (receivedState: string | null) => {
    const state = sessionStorage.getItem(OAUTH_STATE_KEY);
    return state === receivedState;
 };
@@ -32,8 +31,7 @@ const checkState = (receivedState: any) => {
  *
  * @throws {Error} - Throws an error if there is no window opener
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const OAuthPopup = (props: any): ReactElement => {
+const OAuthPopup = (props: { Component?: ReactElement }): ReactElement => {
    const {
       Component = (
          <div className="oauth-callback">

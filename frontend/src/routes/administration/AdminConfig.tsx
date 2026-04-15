@@ -40,8 +40,7 @@ export type AdminConfig = {
    title: string;
    description: string;
    disabled?: boolean;
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   icon: any;
+   icon: React.ComponentType;
    apiPath?: APIPathsReferentiel;
    categorie: string;
 };

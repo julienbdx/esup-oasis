@@ -52,8 +52,7 @@ export function useQuestionFileUpload(question: QuestionnaireQuestion) {
             setFileList((prev) => {
                return prev.filter((f) => f.uid !== pieceJustificativeId);
             });
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            form?.resetFields([question["@id"] as any]);
+            form?.resetFields([question["@id"] as string]);
          },
          () =>
             setFileList((prev) => {

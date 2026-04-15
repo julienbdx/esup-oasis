@@ -28,8 +28,7 @@ export const calendarMessages: Messages = {
    date: "date",
    time: "heure",
    event: "évènement",
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   showMore: (total: any) => `+ ${total} évènement(s) supp.`,
+   showMore: (total: number) => `+ ${total} évènement(s) supp.`,
 };
 
 /**
