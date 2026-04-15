@@ -1,7 +1,7 @@
 # Déploiement
 
 Le déploiement est recommandé via **Docker**. Un fichier `compose.yml` avec le `Dockerfile` associé sont fournis à titre
-d'exemple. Node.js 22.11 (LTS - Long Term Support) est utilisé pour construire l'image Docker.
+d'exemple. Node.js 24 (LTS - Long Term Support) est utilisé pour construire l'image Docker.
 
 ## Build
 

@@ -11,7 +11,7 @@ L'application est développée avec **React** (TypeScript). Elle utilise les pac
 - **React Query** pour la gestion des requêtes asynchrones.
 - **Ant Design** comme bibliothèque de composants UI.
 
-**Node.js 22.11 (LTS - Long Term Support)** est utilisé avec le gestionnaire de paquets **Yarn**.
+**Node.js 24 (LTS - Long Term Support)** est utilisé avec le gestionnaire de paquets **Yarn**.
 
 ## Documentation
 
