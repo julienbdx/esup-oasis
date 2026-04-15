@@ -10,13 +10,16 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 import { QuestionnaireQuestion } from "@context/demande/QuestionnaireProvider";
+import { sanitizeHtml } from "@utils/sanitize";
 
 export function QuestionAide(props: { question: QuestionnaireQuestion }) {
    return (
       props.question.aide && (
          <Space className="question-aide">
             <InfoCircleOutlined aria-hidden />
-            <span dangerouslySetInnerHTML={{ __html: props.question.aide as string }} />
+            <span
+               dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.question.aide as string) }}
+            />
          </Space>
       )
    );
