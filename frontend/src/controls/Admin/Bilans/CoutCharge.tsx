@@ -13,7 +13,7 @@ import Spinner from "../../Spinner/Spinner";
 import { Space } from "antd";
 import { montantToString } from "../../../utils/number";
 import React from "react";
-import { IActivite } from "../../../routes/administration/Bilans/BeneficiairesIntervenants/BilanBeneficiaireIntervenant";
+import { IActivite } from "../../../routes/administration/Bilans/BeneficiairesIntervenants/components/BilanTable";
 
 export function CoutCharge(props: { activite: IActivite }) {
    const { data: coef, isFetching: isFetchingCoef } = useApi().useGetItem({
