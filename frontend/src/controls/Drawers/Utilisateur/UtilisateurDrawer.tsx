@@ -10,22 +10,11 @@
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import { useApi } from "../../../context/api/ApiProvider";
 import { useDrawers } from "../../../context/drawers/DrawersContext";
-import { Alert, App, Button, Drawer, Form, Space, Tabs } from "antd";
+import { Alert, App, Drawer, Form } from "antd";
 import Spinner from "../../Spinner/Spinner";
 import { getRoleLabel, RoleValues, Utilisateur } from "../../../lib/Utilisateur";
-import { SaveOutlined, UserOutlined } from "@ant-design/icons";
 import { useAuth } from "../../../auth/AuthProvider";
-import { TabPersonneInformations } from "../../TabsContent/TabPersonneInformations";
-import { TabDisponibilites } from "../../TabsContent/TabDisponibilites";
-import { TabCompetences } from "../../TabsContent/TabCompetences";
-import { TabCampuses } from "../../TabsContent/TabCampuses";
-import { TabTypesEvenements } from "../../TabsContent/TabTypesEvenements";
-import { TabScolarite } from "../../TabsContent/TabScolarite";
-import { TabProfils } from "../../TabsContent/TabProfils";
 import { queryClient } from "../../../App";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
-import { TabAidesHumaines } from "../../TabsContent/TabAidesHumaines";
-import UtilisateurAvatarImage from "../../Avatars/UtilisateurAvatarImage";
 import { arrayUnique } from "../../../utils/array";
 import {
    QK_BENEFICIAIRES,
@@ -34,13 +23,14 @@ import {
    QK_STATISTIQUES_EVENEMENTS,
    QK_UTILISATEURS,
 } from "../../../api/queryKeys";
+import UtilisateurDrawerHeader from "./UtilisateurDrawerHeader";
+import UtilisateurDrawerTabs from "./UtilisateurDrawerTabs";
+import UtilisateurDrawerFooter from "./UtilisateurDrawerFooter";
 
 interface IUtilisateurDrawerProps {
    id?: string;
    onClose?: () => void;
 }
-
-const TabWithSaveButton = ["informations", "competences", "campus", "categories"];
 
 /**
  * Draws the user details in a drawer, allow edition
@@ -69,11 +59,11 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
       return undefined;
    }, [role, utilisateur]);
 
-   const handleClose = () => {
+   const handleClose = useCallback(() => {
       setActiveTab("informations");
       if (onClose) onClose();
       if (!id) setDrawerUtilisateur(undefined);
-   };
+   }, [id, onClose, setDrawerUtilisateur]);
 
    // ----- API
    // Récupération des données
@@ -114,7 +104,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
    // Synchronisation des données data avec la variable utilisateur
    useEffect(() => {
       if (data) setUtilisateur(new Utilisateur(data));
-   }, [form, data]);
+   }, [data]);
 
    // Synchronisation de la variable utilisateur avec le formulaire
    useEffect(() => {
@@ -158,85 +148,6 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
          </Form>
       );
 
-   function getTabsByRole() {
-      if (getRole() === RoleValues.ROLE_INTERVENANT) {
-         return [
-            {
-               key: "campus",
-               label: `Campus`,
-               children: (
-                  <TabCampuses
-                     utilisateur={utilisateur as Utilisateur}
-                     setUtilisateur={setUtilisateur}
-                  />
-               ),
-            },
-            {
-               key: "categories",
-               label: `Catégories`,
-               children: (
-                  <TabTypesEvenements
-                     utilisateur={utilisateur as Utilisateur}
-                     setUtilisateur={setUtilisateur}
-                  />
-               ),
-            },
-            {
-               key: "competences",
-               label: `Compétences`,
-               children: (
-                  <TabCompetences
-                     utilisateur={utilisateur as Utilisateur}
-                     setUtilisateur={setUtilisateur}
-                     label="Compétences de l'intervenant"
-                  />
-               ),
-            },
-            {
-               key: "disponibilites",
-               label: `Validité`,
-               children: (
-                  <TabDisponibilites
-                     utilisateur={utilisateur as IUtilisateur}
-                     setUtilisateur={setUtilisateur}
-                     onArchive={() => {
-                        message.success("Utilisateur archivé").then();
-                        handleClose();
-                     }}
-                  />
-               ),
-            },
-         ];
-      }
-
-      if (getRole() === RoleValues.ROLE_BENEFICIAIRE) {
-         const tabs = [];
-         if (auth.user?.isGestionnaire) {
-            tabs.push({
-               key: "profil",
-               label: "Profil",
-               children: <TabProfils utilisateur={utilisateur as IUtilisateur} />,
-            });
-         }
-
-         tabs.push({
-            key: "scolarite",
-            label: `Scolarité`,
-            children: <TabScolarite utilisateur={data as IUtilisateur} />,
-         });
-
-         tabs.push({
-            key: "aidesHumaines",
-            label: `Aides humaines`,
-            children: <TabAidesHumaines utilisateur={data as IUtilisateur} />,
-         });
-
-         return tabs;
-      }
-
-      return [];
-   }
-
    return (
       <Drawer
          destroyOnHidden
@@ -249,19 +160,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
          size="large"
          className="oasis-drawer"
       >
-         <Space orientation="vertical" className="text-center w-100 mb-3 mt-1">
-            <UtilisateurAvatarImage
-               utilisateurId={utilisateur["@id"] as string}
-               height={220}
-               as="img"
-               fallback={<UserOutlined />}
-               style={{ fontSize: 128 }}
-               desactiverLazyLoading
-            />
-            <span className="fs-15 semi-bold">
-               {`${utilisateur.prenom} ${utilisateur.nom?.toLocaleUpperCase()}`}
-            </span>
-         </Space>
+         <UtilisateurDrawerHeader utilisateur={utilisateur} />
          <Form<Utilisateur>
             layout="vertical"
             onFinish={(values) => {
@@ -278,53 +177,20 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
             disabled={!auth.user?.isPlanificateur}
             form={form}
          >
-            <Tabs
+            <UtilisateurDrawerTabs
+               role={getRole()}
+               utilisateur={utilisateur}
+               setUtilisateur={setUtilisateur}
                activeKey={activeTab}
                onChange={(key) => setActiveTab(key)}
-               items={[
-                  {
-                     key: "informations",
-                     label: `Informations`,
-                     children: <TabPersonneInformations />,
-                  },
-                  ...getTabsByRole(),
-               ]}
+               onClose={handleClose}
+               data={data}
             />
-            {TabWithSaveButton.some((t) => t === activeTab) && (
-               <Form.Item className="mt-2 text-center">
-                  {isBeneficiaireSansProfil && (
-                     <Alert
-                        title={
-                           <>
-                              Attention, un bénéficiaire doit au minimum avoir un <b>profil</b>.
-                           </>
-                        }
-                        className="mb-2"
-                        type="warning"
-                     />
-                  )}
-                  {isIntervenantSansTypeEvenement && (
-                     <Alert
-                        title={
-                           <>
-                              Attention, un intervenant doit au minimum être lié à une{" "}
-                              <b>catégorie</b> d'évènement.
-                           </>
-                        }
-                        className="mb-2"
-                        type="warning"
-                     />
-                  )}
-                  <Button
-                     type="primary"
-                     icon={<SaveOutlined />}
-                     htmlType="submit"
-                     disabled={isBeneficiaireSansProfil || isIntervenantSansTypeEvenement}
-                  >
-                     Enregistrer
-                  </Button>
-               </Form.Item>
-            )}
+            <UtilisateurDrawerFooter
+               activeTab={activeTab}
+               isBeneficiaireSansProfil={isBeneficiaireSansProfil}
+               isIntervenantSansTypeEvenement={isIntervenantSansTypeEvenement}
+            />
          </Form>
       </Drawer>
    );

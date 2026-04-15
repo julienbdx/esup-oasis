@@ -36,11 +36,16 @@ export function TabCampuses({ utilisateur, setUtilisateur }: ITabCampus): ReactE
             <Checkbox.Group
                className="checkbox-group-vertical"
                value={utilisateur.campus}
-               options={data?.items.map((item) => ({
-                  label: item.libelle,
-                  value: item["@id"] as string,
-                  disabled: !item.actif,
-               }))}
+               options={data?.items
+                  // on ne conserve que les campus actifs ou les campus actifs de l'utilisateur
+                  .filter(
+                     (item) => item.actif || utilisateur.campus?.includes(item["@id"] as string),
+                  )
+                  .map((item) => ({
+                     label: item.libelle,
+                     value: item["@id"] as string,
+                     disabled: !item.actif,
+                  }))}
                onChange={(checkedValues) => {
                   setUtilisateur(
                      new Utilisateur({
