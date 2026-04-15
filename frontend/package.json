@@ -62,15 +62,16 @@
       "eslint-config-prettier": "^10.1.8",
       "eslint-config-react-app": "^7.0.1",
       "eslint-import-resolver-typescript": "^4.4.4",
+      "eslint-plugin-deprecated": "^0.3.0",
       "eslint-plugin-jsx-a11y": "^6.10.2",
       "eslint-plugin-prettier": "^5.5.5",
       "eslint-plugin-react": "^7.37.5",
       "eslint-plugin-react-hooks": "^7.0.1",
-      "eslint-plugin-deprecated": "^0.3.0",
       "jest": "^29.6.0",
       "openapi-typescript": "^6.7.1",
       "prettier": "^3.8.2",
       "react-inject-env": "^2.1.0",
+      "source-map-explorer": "^2.5.3",
       "typescript-eslint": "^8.58.2"
    },
    "resolutions": {
@@ -90,6 +91,8 @@
       "start": "craco start",
       "start:https": "sudo PORT=443 HOST='appliphase.kdev.u-bordeaux.fr' HTTPS=true ./node_modules/.bin/craco start",
       "build": "GENERATE_SOURCEMAP=false craco build",
+      "build:analyze": "craco build",
+      "analyze": "yarn build:analyze && source-map-explorer 'build/static/js/*.js'",
       "eject": "react-scripts eject",
       "svg": "svgo -r -f src/assets/images && svgo -r -f public/images"
    },
@@ -101,9 +104,12 @@
    },
    "browserslist": {
       "production": [
-         ">0.2%",
-         "not dead",
-         "not op_mini all"
+         "last 2 Chrome versions",
+         "last 2 Firefox versions",
+         "last 2 Safari versions",
+         "last 2 Edge versions",
+         "not ie 11",
+         "not dead"
       ],
       "development": [
          "last 1 chrome version",
