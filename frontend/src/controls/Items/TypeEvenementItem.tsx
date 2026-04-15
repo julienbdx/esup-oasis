@@ -13,9 +13,7 @@ import Spinner from "../Spinner/Spinner";
 import { TypeEvenementAvatar } from "../Avatars/TypeEvenementAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useApi } from "../../context/api/ApiProvider";
-import { IAccessibilite } from "../../redux/context/IAccessibilite";
-import { useSelector } from "react-redux";
-import { IStore } from "../../redux/Store";
+import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
 import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
 import { ITypeEvenement } from "../../api/ApiTypeHelpers";
 
@@ -52,9 +50,7 @@ export default function TypeEvenementItem({
    forceBlackText = false,
    className,
 }: IItemTypeEvenement): ReactElement {
-   const appAccessibilite: IAccessibilite = useSelector(
-      ({ accessibilite }: Partial<IStore>) => accessibilite,
-   ) as IAccessibilite;
+   const { accessibilite: appAccessibilite } = useAccessibilite();
    const [item, setItem] = useState(typeEvenement);
    const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
    const screens = useBreakpoint();

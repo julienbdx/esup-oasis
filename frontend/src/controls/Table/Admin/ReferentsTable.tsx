@@ -11,11 +11,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Flex, Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import { EditOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "../../../context/api/ApiProvider";
-import { setAffichageFiltres } from "../../../redux/actions/AffichageFiltre";
-import { initialAffichageFiltres } from "../../../redux/context/IAffichageFiltres";
+import { initialAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { queryClient } from "../../../App";
 import { useAuth } from "../../../auth/AuthProvider";
-import { useDispatch } from "react-redux";
+import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { IComposante, IComposanteQuery, IUtilisateur } from "../../../api/ApiTypeHelpers";
 import { ColumnsType } from "antd/lib/table";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +31,7 @@ type FiltreReferent = IComposanteQuery & {
 };
 
 export default function ReferentsTable({ onEdit }: TableReferentsProps) {
-   const dispatch = useDispatch();
+   const { setAffichageFiltres } = useAffichageFiltres();
    const auth = useAuth();
    const [filtre, setFiltre] = React.useState<FiltreReferent>({
       page: 1,
@@ -61,12 +60,10 @@ export default function ReferentsTable({ onEdit }: TableReferentsProps) {
 
    useEffect(() => {
       if (auth.impersonate && hasImpersonate) {
-         dispatch(
-            setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres),
-         );
+         setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
          queryClient.clear();
       }
-   }, [hasImpersonate, auth.impersonate, dispatch]);
+   }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
    return (
       <>

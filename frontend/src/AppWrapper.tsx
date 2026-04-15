@@ -10,10 +10,12 @@
 import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { Provider } from "react-redux";
-import store from "./redux/Store";
 import { AuthProvider } from "./auth/AuthProvider";
 import Spinner from "./controls/Spinner/Spinner";
+import { AccessibiliteProvider } from "./context/accessibilite/AccessibiliteContext";
+import { ModalsProvider } from "./context/modals/ModalsContext";
+import { DrawersProvider } from "./context/drawers/DrawersContext";
+import { AffichageFiltresProvider } from "./context/affichageFiltres/AffichageFiltresContext";
 
 function AppAuthWrapper() {
    return (
@@ -27,11 +29,17 @@ export default function AppWrapper() {
    return (
       <React.StrictMode>
          <Suspense fallback={<Spinner />}>
-            <Provider store={store}>
-               <BrowserRouter>
-                  <AppAuthWrapper />
-               </BrowserRouter>
-            </Provider>
+            <BrowserRouter>
+               <AccessibiliteProvider>
+                  <DrawersProvider>
+                     <ModalsProvider>
+                        <AffichageFiltresProvider>
+                           <AppAuthWrapper />
+                        </AffichageFiltresProvider>
+                     </ModalsProvider>
+                  </DrawersProvider>
+               </AccessibiliteProvider>
+            </BrowserRouter>
          </Suspense>
       </React.StrictMode>
    );

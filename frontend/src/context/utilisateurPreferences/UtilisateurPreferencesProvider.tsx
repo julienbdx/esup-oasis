@@ -12,13 +12,7 @@ import React, { createContext, ReactNode, useContext, useEffect } from "react";
 import { useAuth } from "../../auth/AuthProvider";
 import { useApi } from "../api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import {
-   setAccessibiliteContrast,
-   setAccessibiliteDyslexieArial,
-   setAccessibiliteDyslexieOpenDys,
-   setPoliceLarge,
-} from "../../redux/actions/Accessibilite";
-import { useDispatch } from "react-redux";
+import { useAccessibilite } from "../accessibilite/AccessibiliteContext";
 import { queryClient } from "../../App";
 import { QK_UTILISATEURS_PARAMETRES_UI } from "../../api/queryKeys";
 
@@ -44,7 +38,7 @@ const UtilisateurPreferencesContext = createContext<UtilisateurPreferencesType>(
 
 export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
    const auth = useAuth();
-   const dispatch = useDispatch();
+   const { setContrast, setDyslexieArial, setDyslexieOpenDys, setPoliceLarge } = useAccessibilite();
    const [preferencesChargees, setPreferencesChargees] = React.useState<boolean>(false);
    const { data: preferences } = useApi().useGetCollectionPaginated({
       path: "/utilisateurs/{uid}/parametres_ui",
@@ -77,26 +71,24 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
          const contrast = preferences.items.find(
             (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/contrast`,
          );
-         if (contrast) dispatch(setAccessibiliteContrast(contrast?.valeur === "true"));
+         if (contrast) setContrast(contrast?.valeur === "true");
 
          const dyslexieArial = preferences.items.find(
             (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/dyslexie-arial`,
          );
-         if (dyslexieArial)
-            dispatch(setAccessibiliteDyslexieArial(dyslexieArial?.valeur === "true"));
+         if (dyslexieArial) setDyslexieArial(dyslexieArial?.valeur === "true");
 
          const dyslexieOpenDys = preferences.items.find(
             (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/dyslexie-opendys`,
          );
-         if (dyslexieOpenDys)
-            dispatch(setAccessibiliteDyslexieOpenDys(dyslexieOpenDys?.valeur === "true"));
+         if (dyslexieOpenDys) setDyslexieOpenDys(dyslexieOpenDys?.valeur === "true");
 
          const policeLarge = preferences.items.find(
             (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/police-large`,
          );
-         if (policeLarge) dispatch(setPoliceLarge(policeLarge?.valeur === "true"));
+         if (policeLarge) setPoliceLarge(policeLarge?.valeur === "true");
       }
-   }, [auth.user, dispatch, preferences]);
+   }, [auth.user, preferences, setContrast, setDyslexieArial, setDyslexieOpenDys, setPoliceLarge]);
 
    function getPreference(cle: string) {
       return preferences?.items.find(

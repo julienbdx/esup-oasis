@@ -14,10 +14,8 @@ import { Alert, App, Popover, Space, Tooltip } from "antd";
 import dayjs from "dayjs";
 import TypeEvenementItem from "../../Items/TypeEvenementItem";
 import CampusItem from "../../Items/CampusItem";
-import { IModals } from "../../../redux/context/IModals";
-import { useSelector } from "react-redux";
-import { IStore } from "../../../redux/Store";
-import { IAccessibilite } from "../../../redux/context/IAccessibilite";
+import { useModals } from "../../../context/modals/ModalsContext";
+import { useAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
 import { useApi } from "../../../context/api/ApiProvider";
 import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
 import EventCopyButton from "../../Buttons/EventCopyButton";
@@ -41,10 +39,8 @@ import { EllipsisMiddle } from "../../Typography/EllipsisMiddle";
  */
 export default memo(
    function CalendarEvent({ event }: { event: CalendarEvenement }) {
-      const appModals: IModals = useSelector(({ modals }: Partial<IStore>) => modals) as IModals;
-      const appAccessibilite: IAccessibilite = useSelector(
-         ({ accessibilite }: Partial<IStore>) => accessibilite,
-      ) as IAccessibilite;
+      const { modals: appModals } = useModals();
+      const { accessibilite: appAccessibilite } = useAccessibilite();
       const { data: intervenant } = useApi().useGetItem({
          path: "/utilisateurs/{uid}",
          url: event.data.intervenant as string,

@@ -11,8 +11,7 @@ import React, { ReactElement, useState } from "react";
 import { FloatButton, Layout, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import UtilisateurCreerDrawer from "../../../controls/Drawers/Utilisateur/UtilisateurCreerDrawer";
-import { useDispatch } from "react-redux";
-import { setDrawerUtilisateur } from "../../../redux/actions/Drawers";
+import { useDrawers } from "../../../context/drawers/DrawersContext";
 import { RoleValues } from "../../../lib/Utilisateur";
 import IntervenantTable from "../../../controls/Table/IntervenantTable";
 
@@ -21,7 +20,7 @@ import IntervenantTable from "../../../controls/Table/IntervenantTable";
  * @returns {ReactElement} The rendered Intervenants component.
  * */
 export default function Intervenants(): ReactElement {
-   const dispatch = useDispatch();
+   const { setDrawerUtilisateur } = useDrawers();
    const [ajouterIntervenant, setAjouterIntervenant] = useState(false);
 
    return (
@@ -32,12 +31,10 @@ export default function Intervenants(): ReactElement {
             setOpen={setAjouterIntervenant}
             onChange={(user) => {
                setAjouterIntervenant(false);
-               dispatch(
-                  setDrawerUtilisateur({
-                     utilisateur: user["@id"],
-                     role: RoleValues.ROLE_INTERVENANT,
-                  }),
-               );
+               setDrawerUtilisateur({
+                  utilisateur: user["@id"],
+                  role: RoleValues.ROLE_INTERVENANT,
+               });
             }}
          />
          <Typography.Title level={1}>Intervenants</Typography.Title>

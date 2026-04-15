@@ -17,12 +17,9 @@ import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../api/queryKeys";
 import {
    filtrerEvenements,
    filtreToApi,
-   IAffichageFiltres,
    PlanningLayout,
-} from "../../redux/context/IAffichageFiltres";
-import { IStore } from "../../redux/Store";
-import { useDispatch, useSelector } from "react-redux";
-import { setFiltres } from "../../redux/actions/AffichageFiltre";
+} from "../../context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
 import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
 import { useApi } from "../../context/api/ApiProvider";
 import Spinner from "../Spinner/Spinner";
@@ -49,10 +46,7 @@ export default function PlanningWithSider({
 }: IComponentWithSider): ReactElement {
    const { message } = App.useApp();
 
-   const appAffichageFiltres: IAffichageFiltres = useSelector(
-      ({ affichageFiltres }: IStore) => affichageFiltres,
-   );
-   const dispatch = useDispatch();
+   const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
    const [events, setEvents] = useState<Evenement[]>([]);
 
    // Get /types_evenements
@@ -90,14 +84,12 @@ export default function PlanningWithSider({
 
    useEffect(() => {
       if (!appAffichageFiltres.filtres.type || appAffichageFiltres.filtres.type.length === 0) {
-         dispatch(
-            setFiltres({
-               type: typesEvenements?.items
-                  .filter((t) => t.visibleParDefaut)
-                  .filter((t) => t.actif)
-                  .map((t) => t["@id"] as string),
-            }),
-         );
+         setFiltres({
+            type: typesEvenements?.items
+               .filter((t) => t.visibleParDefaut)
+               .filter((t) => t.actif)
+               .map((t) => t["@id"] as string),
+         });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [typesEvenements]);
@@ -108,7 +100,7 @@ export default function PlanningWithSider({
          appAffichageFiltres.filtres.debut,
          appAffichageFiltres.affichage.type,
       );
-      dispatch(setFiltres({ debut: range.from, fin: range.to }));
+      setFiltres({ debut: range.from, fin: range.to });
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [appAffichageFiltres.affichage.type]);
 

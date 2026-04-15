@@ -8,29 +8,27 @@
  *
  */
 
-import { Dispatch } from "redux";
 import { UseStateDispatch } from "../../../utils/utils";
 import { RoleValues, Utilisateur } from "../../../lib/Utilisateur";
 import { NavigateFunction } from "react-router-dom";
 import { Button, MenuProps, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import BeneficiaireIntervenantSearchDrawer from "../../Drawers/BeneficiaireIntervenant/BeneficiaireIntervenantSearchDrawer";
-import { setDrawerUtilisateur } from "../../../redux/actions/Drawers";
 import React from "react";
+import { IDrawersContext } from "../../../context/drawers/DrawersContext";
 
 /**
  * Returns an array containing menu item for recherche option.
  *
- * @param {Dispatch} dispatch - The dispatch function used for updating state.
+ * @param {IDrawersContext["setDrawerUtilisateur"]} setDrawerUtilisateur - Callback pour ouvrir le drawer utilisateur.
  * @param {boolean} modeRecherche - The current mode of recherche.
  * @param {UseStateDispatch<boolean>} setModeRecherche - The state setter function for updating the mode of recherche.
- *
  * @param utilisateur
  * @param navigate
  * @return {MenuProps["items"]} - An array containing menu item for Recherche option.
  */
 export const menuItemRecherche = (
-   dispatch: Dispatch,
+   setDrawerUtilisateur: IDrawersContext["setDrawerUtilisateur"],
    modeRecherche: boolean,
    setModeRecherche: UseStateDispatch<boolean>,
    utilisateur: Utilisateur,
@@ -64,12 +62,10 @@ export const menuItemRecherche = (
                   if (utilisateur.isGestionnaire) {
                      navigate(`${type}/${individuId}`);
                   } else {
-                     dispatch(
-                        setDrawerUtilisateur({
-                           utilisateur: individuId,
-                           role: role,
-                        }),
-                     );
+                     setDrawerUtilisateur({
+                        utilisateur: individuId,
+                        role: role,
+                     });
                   }
                }
 
@@ -82,12 +78,10 @@ export const menuItemRecherche = (
                      break;
                   case RoleValues.ROLE_INTERVENANT:
                      if (role)
-                        dispatch(
-                           setDrawerUtilisateur({
-                              utilisateur: individuId,
-                              role: role,
-                           }),
-                        );
+                        setDrawerUtilisateur({
+                           utilisateur: individuId,
+                           role: role,
+                        });
                }
 
                setModeRecherche(false);

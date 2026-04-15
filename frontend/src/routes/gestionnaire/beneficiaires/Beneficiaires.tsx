@@ -10,8 +10,7 @@
 import React, { ReactElement, useState } from "react";
 import { FloatButton, Layout, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { setDrawerUtilisateur } from "../../../redux/actions/Drawers";
+import { useDrawers } from "../../../context/drawers/DrawersContext";
 import UtilisateurCreerDrawer from "../../../controls/Drawers/Utilisateur/UtilisateurCreerDrawer";
 import { RoleValues } from "../../../lib/Utilisateur";
 import BeneficiaireTable from "../../../controls/Table/BeneficiaireTable";
@@ -22,7 +21,7 @@ import BeneficiaireTable from "../../../controls/Table/BeneficiaireTable";
  * @returns {ReactElement} The rendered Beneficiaires component.
  */
 export default function Beneficiaires(): ReactElement {
-   const dispatch = useDispatch();
+   const { setDrawerUtilisateur } = useDrawers();
    const [ajouterBeneficiaire, setAjouterBeneficiaire] = useState(false);
 
    return (
@@ -33,12 +32,10 @@ export default function Beneficiaires(): ReactElement {
             setOpen={setAjouterBeneficiaire}
             onChange={(utilisateur) => {
                setAjouterBeneficiaire(false);
-               dispatch(
-                  setDrawerUtilisateur({
-                     utilisateur: utilisateur["@id"],
-                     role: RoleValues.ROLE_BENEFICIAIRE,
-                  }),
-               );
+               setDrawerUtilisateur({
+                  utilisateur: utilisateur["@id"],
+                  role: RoleValues.ROLE_BENEFICIAIRE,
+               });
             }}
          />
          <Typography.Title level={1}>Bénéficiaires</Typography.Title>

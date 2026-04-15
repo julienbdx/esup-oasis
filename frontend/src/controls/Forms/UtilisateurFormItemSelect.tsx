@@ -17,8 +17,7 @@ import {
    SendOutlined,
    UserOutlined,
 } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { setDrawerUtilisateur } from "../../redux/actions/Drawers";
+import { useDrawers } from "../../context/drawers/DrawersContext";
 import { RoleValues } from "../../lib/Utilisateur";
 import { useApi } from "../../context/api/ApiProvider";
 import Spinner from "../Spinner/Spinner";
@@ -169,7 +168,7 @@ function UtilisateurFormItemSelect({
    const [utilisateurId, setUtilisateurId] = useState(value === "" ? undefined : value);
    const [tappedSearch, setTappedSearch] = useState("");
    const [search, setSearch] = useState("");
-   const dispatch = useDispatch();
+   const { setDrawerUtilisateur } = useDrawers();
    const { data: dataUtilisateur, isFetching: isFetchingUtilisateur } = useApi().useGetItem({
       path: "/utilisateurs/{uid}",
       url: utilisateurId as string,
@@ -225,12 +224,10 @@ function UtilisateurFormItemSelect({
                   className={`m-0 p-0 ${classNameButton} text-text ${getUtilisateurColor()}}`}
                   style={styleButton}
                   onClick={() => {
-                     dispatch(
-                        setDrawerUtilisateur({
-                           utilisateur: dataUtilisateur?.["@id"] as string,
-                           role: roleUtilisateur,
-                        }),
-                     );
+                     setDrawerUtilisateur({
+                        utilisateur: dataUtilisateur?.["@id"] as string,
+                        role: roleUtilisateur,
+                     });
                   }}
                />
             </Tooltip>

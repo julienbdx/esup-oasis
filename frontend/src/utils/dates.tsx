@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import { RightOutlined } from "@ant-design/icons";
 import { stringOrDate } from "react-big-calendar";
-import { TypeAffichageCustomValues } from "../redux/context/IAffichageFiltres";
+import { TypeAffichageCustomValues } from "../context/affichageFiltres/AffichageFiltresContext";
 import { Utilisateur } from "../lib/Utilisateur";
 import { IPeriode } from "../api/ApiTypeHelpers";
 

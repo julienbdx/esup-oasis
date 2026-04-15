@@ -9,12 +9,10 @@
 
 import React, { ReactElement } from "react";
 import "./AllModals.scss";
-import { IModals } from "../../redux/context/IModals";
-import { useSelector } from "react-redux";
-import { IStore } from "../../redux/Store";
 import EvenementModal from "./Evenement/EvenementModal";
 import { useAuth } from "../../auth/AuthProvider";
 import EvenementResumeModal from "./Evenement/EvenementResumeModal";
+import { useModals } from "../../context/modals/ModalsContext";
 
 /**
  * Renders app modals
@@ -23,7 +21,7 @@ import EvenementResumeModal from "./Evenement/EvenementResumeModal";
  */
 export default function AllModals(): ReactElement | null {
    const user = useAuth().user;
-   const appModals: IModals = useSelector(({ modals }: Partial<IStore>) => modals) as IModals;
+   const { modals: appModals } = useModals();
 
    if (user?.isPlanificateur) {
       return appModals.EVENEMENT || appModals.EVENEMENT_ID ? (

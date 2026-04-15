@@ -8,8 +8,7 @@
  */
 
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setModalEvenement, setModalEvenementId } from "../../../redux/actions/Modals";
+import { useModals } from "../../../context/modals/ModalsContext";
 import { App, Button, Col, Form, Modal, Row, Space, Tabs } from "antd";
 import TabEvenementInformations from "../../TabsContent/TabEvenementInformations";
 import { SaveOutlined } from "@ant-design/icons";
@@ -35,7 +34,7 @@ import {
 
 interface IEvenementModal {
    id?: string;
-   initialEvenement?: IEvenement;
+   initialEvenement?: IEvenement | IPartialEvenement;
 }
 
 /**
@@ -52,7 +51,7 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
    const [evenementId, setEvenementId] = useState(id);
    const [evenement, setEvenement] = useState<Evenement | undefined>();
    const [formIsDirty, setFormIsDirty] = useState(false);
-   const dispatch = useDispatch();
+   const { setModalEvenementId, setModalEvenement } = useModals();
    const [form] = Form.useForm<Evenement | undefined>();
    const auth = useAuth();
 
@@ -69,8 +68,8 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
       setEvenementId(undefined);
       resetSourceEvenement();
 
-      dispatch(setModalEvenementId(undefined));
-      dispatch(setModalEvenement(undefined));
+      setModalEvenementId(undefined);
+      setModalEvenement(undefined);
    };
 
    const updateSourceEvenement = useCallback(

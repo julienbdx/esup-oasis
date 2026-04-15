@@ -10,17 +10,16 @@
 import React, { useEffect, useState } from "react";
 import { IBeneficiaire } from "../../api/ApiTypeHelpers";
 import { beneficiaireTableColumns } from "./BeneficiaireTableColumns";
-import { setDrawerUtilisateur } from "../../redux/actions/Drawers";
 import { RoleValues } from "../../lib/Utilisateur";
 import { Button, Flex, Space, Table, Tooltip } from "antd";
 import Icon from "@ant-design/icons";
 import { useApi } from "../../context/api/ApiProvider";
 import { useAuth } from "../../auth/AuthProvider";
-import { useDispatch } from "react-redux";
+import { useDrawers } from "../../context/drawers/DrawersContext";
 import BeneficiaireTableExport from "./BeneficiaireTableExport";
 import { SorterResult } from "antd/es/table/interface";
-import { setAffichageFiltres } from "../../redux/actions/AffichageFiltre";
-import { initialAffichageFiltres } from "../../redux/context/IAffichageFiltres";
+import { initialAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
 import { queryClient } from "../../App";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ReactComponent as Unfilter } from "../../assets/images/unfilter.svg";
@@ -80,7 +79,8 @@ function filtreBeneficiaireDefault(
 }
 
 export default function BeneficiaireTable() {
-   const dispatch = useDispatch();
+   const { setAffichageFiltres } = useAffichageFiltres();
+   const { setDrawerUtilisateur } = useDrawers();
    const [searchParams] = useSearchParams();
    const navigate = useNavigate();
    const auth = useAuth();
@@ -141,11 +141,9 @@ export default function BeneficiaireTable() {
    useEffect(() => {
       if (auth.impersonate && hasImpersonate) {
          queryClient.clear();
-         dispatch(
-            setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres),
-         );
+         setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
       }
-   }, [hasImpersonate, auth.impersonate, dispatch]);
+   }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
    useEffect(() => {
       setCount(dataBeneficiaires?.totalItems);
@@ -155,12 +153,10 @@ export default function BeneficiaireTable() {
       if (auth.user?.isGestionnaire) {
          navigate(`/beneficiaires/${record.uid}`);
       } else {
-         dispatch(
-            setDrawerUtilisateur({
-               utilisateur: record["@id"] as string,
-               role: RoleValues.ROLE_BENEFICIAIRE,
-            }),
-         );
+         setDrawerUtilisateur({
+            utilisateur: record["@id"] as string,
+            role: RoleValues.ROLE_BENEFICIAIRE,
+         });
       }
    };
 
