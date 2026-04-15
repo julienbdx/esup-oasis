@@ -117,7 +117,7 @@ export default function EvenementDupliquerModal({
          (values.intervenant || values.beneficiaire)
       ) {
          notification.error({
-            message: "Duplication impossible",
+            title: "Duplication impossible",
             description:
                "Vous ne pouvez pas dupliquer un évènement sur le même jour avec un intervenant ou un bénéficiaire. Un utilisateur ne peut avoir 2 évènements sur le même créneau horaire.",
          });

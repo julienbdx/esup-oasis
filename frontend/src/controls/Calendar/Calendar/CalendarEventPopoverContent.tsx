@@ -137,7 +137,7 @@ export const CalendarEventPopoverContent: React.FC<CalendarEventPopoverContentPr
                   evenement={event.data}
                   onCopy={() => {
                      notification.success({
-                        message: "Informations de l'évènement copiées dans le presse-papier",
+                        title: "Informations de l'évènement copiées dans le presse-papier",
                      });
                   }}
                />

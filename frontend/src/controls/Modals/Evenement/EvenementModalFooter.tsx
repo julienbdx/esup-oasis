@@ -38,7 +38,7 @@ export default function EvenementModalFooter({
                   evenement={evenement}
                   onCopy={() => {
                      notification.success({
-                        message: "Informations de l'évènement copiées dans le presse-papier",
+                        title: "Informations de l'évènement copiées dans le presse-papier",
                      });
                   }}
                />

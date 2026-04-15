@@ -17,7 +17,7 @@ import { queryClient } from "../../../App";
 import { AuthContextType } from "../../../auth/AuthProvider";
 
 export interface IErreurNotification {
-   message: string;
+   title: string;
    description: ReactElement;
    statusText?: string;
    duration: number;
@@ -25,7 +25,7 @@ export interface IErreurNotification {
 
 // On stocke 1 sec la précédente erreur pour ne pas la représenter à l'utilisateur
 let previousError: IErreurNotification = {
-   message: "",
+   title: "",
    description: <></>,
    statusText: "",
    duration: 0,
@@ -47,10 +47,7 @@ export async function handleApiResponse(
          return;
       }
 
-      if (
-         previousError.message !== notif.message ||
-         previousError.statusText !== notif.statusText
-      ) {
+      if (previousError.title !== notif.title || previousError.statusText !== notif.statusText) {
          // Nouvelle erreur
          notification.error({ ...notif, duration: notif.duration || 5 });
          console.error(response, options);
@@ -59,7 +56,7 @@ export async function handleApiResponse(
          window.setTimeout(() => {
             // Réinitialisation de l'erreur précédente après 1 sec
             previousError = {
-               message: "",
+               title: "",
                description: <></>,
                statusText: "",
                duration: 0,
@@ -72,7 +69,7 @@ export async function handleApiResponse(
       // Gestion des erreurs
       try {
          let notif: IErreurNotification = {
-            message: "Erreur",
+            title: "Erreur",
             description: (
                <>
                   Erreur {response.status} : {response.statusText || "Erreur inconnue"}
@@ -90,7 +87,7 @@ export async function handleApiResponse(
             }, 1000);
             // Erreur d'authentification
             notif = {
-               message: "Erreur d'authentification",
+               title: "Erreur d'authentification",
                description: (
                   <Space orientation="vertical">
                      <div>Votre session a expiré. Veuillez vous reconnecter.</div>
@@ -109,7 +106,7 @@ export async function handleApiResponse(
             const msg = data["hydra:description"] || data.detail;
             // Erreur avec message emabarqué
             notif = {
-               message: "Une erreur a été détectée",
+               title: "Une erreur a été détectée",
                statusText: msg,
                duration: 5,
                description: (
@@ -149,7 +146,7 @@ export async function handleApiResponse(
                   Erreur {response.status} : {response.statusText || "Erreur inconnue"}
                </>
             ),
-            message: "Erreur",
+            title: "Erreur",
             statusText: response.statusText || "Erreur inconnue",
             duration: 5,
          });
