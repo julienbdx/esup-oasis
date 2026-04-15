@@ -46,9 +46,25 @@ export function TabDisponibilites({
          onArchive?.();
       },
    });
+   const estArchive = !utilisateur?.roles?.includes(RoleValues.ROLE_INTERVENANT);
 
    return (
       <>
+         {estArchive && (
+            <Alert
+               type="warning"
+               icon={<WarningFilled />}
+               showIcon
+               title="Intervenant archivé"
+               description={
+                  <p>
+                     Un intervenant archivé ne peut plus être affecté à des nouveaux évènements.
+                     <br />
+                     Pour le réactiver, prolongez la période de validité.
+                  </p>
+               }
+            />
+         )}
          <Divider>Période de validité</Divider>
          <p>L'intervenant est actuellement engagé avec l'établissement sur la période :</p>
          <Row>
@@ -78,7 +94,6 @@ export function TabDisponibilites({
                            }),
                         );
                      }}
-                     changeOnBlur
                   />
                </Form.Item>
             </Col>
@@ -106,7 +121,6 @@ export function TabDisponibilites({
                            }),
                         );
                      }}
-                     changeOnBlur
                   />
                </Form.Item>
             </Col>
@@ -132,42 +146,40 @@ export function TabDisponibilites({
                </Form.Item>
             </Col>
          </Row>
-         <Divider>Archivage</Divider>
-         <Alert
-            type="warning"
-            icon={<WarningFilled />}
-            showIcon
-            title="Archivage de l'intervenant"
-            description={
-               "Un intervenant archivé ne peut plus" +
-               " être affecté à des nouveaux" +
-               " évènements."
-            }
-         />
-         <div className="text-center">
-            <Popconfirm
-               title="Êtes-vous sûr de vouloir archiver cet intervenant ?"
-               okText="Oui"
-               cancelText="Non"
-               onConfirm={() => {
-                  mutation.mutate({
-                     data: {
-                        roles: utilisateur.roles?.filter((r) => r !== RoleValues.ROLE_INTERVENANT),
-                     },
-                     "@id": utilisateur["@id"] as string,
-                  });
-               }}
-            >
-               <Button
-                  type="primary"
-                  danger
-                  className="mt-2"
-                  disabled={!utilisateur?.roles?.includes(RoleValues.ROLE_INTERVENANT)}
-               >
-                  Archiver
-               </Button>
-            </Popconfirm>
-         </div>
+
+         {!estArchive && (
+            <>
+               <Divider>Archivage</Divider>
+               <Alert
+                  type="warning"
+                  icon={<WarningFilled />}
+                  showIcon
+                  title="Archivage de l'intervenant"
+                  description="Un intervenant archivé ne peut plus être affecté à des nouveaux évènements."
+               />
+               <div className="text-center">
+                  <Popconfirm
+                     title="Êtes-vous sûr de vouloir archiver cet intervenant ?"
+                     okText="Oui"
+                     cancelText="Non"
+                     onConfirm={() => {
+                        mutation.mutate({
+                           data: {
+                              roles: utilisateur.roles?.filter(
+                                 (r) => r !== RoleValues.ROLE_INTERVENANT,
+                              ),
+                           },
+                           "@id": utilisateur["@id"] as string,
+                        });
+                     }}
+                  >
+                     <Button type="primary" danger className="mt-2" disabled={estArchive}>
+                        Archiver
+                     </Button>
+                  </Popconfirm>
+               </div>
+            </>
+         )}
       </>
    );
 }
