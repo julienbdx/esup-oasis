@@ -9,10 +9,7 @@
 
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import { useApi } from "../../../context/api/ApiProvider";
-import { IDrawers } from "../../../redux/context/IDrawers";
-import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../../../redux/Store";
-import { setDrawerUtilisateur } from "../../../redux/actions/Drawers";
+import { useDrawers } from "../../../context/drawers/DrawersContext";
 import { Alert, App, Button, Drawer, Form, Space, Tabs } from "antd";
 import Spinner from "../../Spinner/Spinner";
 import { getRoleLabel, RoleValues, Utilisateur } from "../../../lib/Utilisateur";
@@ -58,8 +55,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
    const [role, setRole] = useState<RoleValues>();
    const [utilisateurId, setUtilisateurId] = useState(id);
    const [utilisateur, setUtilisateur] = useState<Utilisateur>();
-   const appDrawers: IDrawers = useSelector(({ drawers }: Partial<IStore>) => drawers) as IDrawers;
-   const dispatch = useDispatch();
+   const { drawers, setDrawerUtilisateur } = useDrawers();
    const [form] = Form.useForm();
    const auth = useAuth();
    const [isBeneficiaireSansProfil, setIsBeneficiaireSansProfil] = useState(false);
@@ -76,7 +72,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
    const handleClose = () => {
       setActiveTab("informations");
       if (onClose) onClose();
-      if (!id) dispatch(setDrawerUtilisateur(undefined));
+      if (!id) setDrawerUtilisateur(undefined);
    };
 
    // ----- API
@@ -105,15 +101,15 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
 
    // ----- FORM
 
-   // Initialisation via Redux : UTILISATEUR
+   // Initialisation via contexte : UTILISATEUR
    useEffect(() => {
-      if (!id) setUtilisateurId(appDrawers.UTILISATEUR);
-   }, [id, appDrawers.UTILISATEUR]);
+      if (!id) setUtilisateurId(drawers.UTILISATEUR);
+   }, [id, drawers.UTILISATEUR]);
 
-   // Initialisation via Redux : UTILISATEUR_ROLE
+   // Initialisation via contexte : UTILISATEUR_ROLE
    useEffect(() => {
-      if (!id) setRole(appDrawers.UTILISATEUR_ROLE);
-   }, [id, appDrawers.UTILISATEUR_ROLE]);
+      if (!id) setRole(drawers.UTILISATEUR_ROLE);
+   }, [id, drawers.UTILISATEUR_ROLE]);
 
    // Synchronisation des données data avec la variable utilisateur
    useEffect(() => {

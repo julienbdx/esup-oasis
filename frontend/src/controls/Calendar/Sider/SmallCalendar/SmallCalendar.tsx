@@ -8,15 +8,12 @@
  */
 
 import React, { ReactElement, useEffect } from "react";
-import { IAffichageFiltres } from "../../../../redux/context/IAffichageFiltres";
-import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../../../../redux/Store";
 import { Calendar, Skeleton } from "antd";
 import "./SmallCalendar.scss";
 import SmallCalendarCell from "./SmallCalendarCell";
 import dayjs, { Dayjs } from "dayjs";
 import { calculateRange, isSameDay } from "../../../../utils/dates";
-import { setFiltres } from "../../../../redux/actions/AffichageFiltre";
+import { useAffichageFiltres } from "../../../../context/affichageFiltres/AffichageFiltresContext";
 import { useWait } from "../../../../utils/Wait/useWait";
 
 /**
@@ -24,10 +21,7 @@ import { useWait } from "../../../../utils/Wait/useWait";
  * @returns {ReactElement} The small calendar component.
  */
 export default function SmallCalendar(): ReactElement {
-   const appAffichageFiltres: IAffichageFiltres = useSelector(
-      ({ affichageFiltres }: Partial<IStore>) => affichageFiltres,
-   ) as IAffichageFiltres;
-   const dispatch = useDispatch();
+   const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
    const wait = useWait(1500);
 
    // Dispatch du filtre de date
@@ -38,7 +32,7 @@ export default function SmallCalendar(): ReactElement {
          !isSameDay(appAffichageFiltres.filtres.debut, range.from) ||
          !isSameDay(appAffichageFiltres.filtres.fin, range.to)
       )
-         dispatch(setFiltres({ debut: range.from, fin: range.to }));
+         setFiltres({ debut: range.from, fin: range.to });
    }
 
    // --- Rendre le composant accessible

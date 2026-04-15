@@ -9,12 +9,15 @@
 
 import { Utilisateur } from "../../../lib/Utilisateur";
 import { NavigateFunction } from "react-router-dom";
-import { Dispatch } from "redux";
 import { IStatistiquesEvenements } from "../../../api/ApiTypeHelpers";
 import { Badge, Button, MenuProps } from "antd";
-import { PlanningLayout, TypeAffichageValues } from "../../../redux/context/IAffichageFiltres";
+import {
+   IAffichage,
+   IFiltresEvenements,
+   PlanningLayout,
+   TypeAffichageValues,
+} from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { AffectationFilterValues } from "../../Filters/Affectation/AffectationFilter";
-import { setAffichageFiltres } from "../../../redux/actions/AffichageFiltre";
 import { BellOutlined, CheckCircleFilled, WarningFilled } from "@ant-design/icons";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "../../../constants";
 import { EtatAvisEse } from "../../Avatars/BeneficiaireAvisEseAvatar";
@@ -26,7 +29,7 @@ import { env } from "../../../env";
  * Retrieves the menu items for the notifications menu
  * @param {Utilisateur} user - The user object
  * @param {NavigateFunction} navigate - The navigate function
- * @param {Dispatch} dispatch - The dispatch function
+ * @param {Function} setAffichageFiltres - Callback pour mettre à jour l'affichage et les filtres
  * @param {IStatistiquesEvenements | undefined} stats - The statistics object
  * @param {boolean} isFetchingStats - A boolean indicating whether the statistics are being fetched or not
  * @returns {MenuProps["items"]} - The menu items for the notifications menu
@@ -34,7 +37,10 @@ import { env } from "../../../env";
 export function menuItemNotifications(
    user: Utilisateur,
    navigate: NavigateFunction,
-   dispatch: Dispatch,
+   setAffichageFiltres: (
+      affichage: Partial<IAffichage>,
+      filtres: Partial<IFiltresEvenements>,
+   ) => void,
    stats: IStatistiquesEvenements | undefined,
    isFetchingStats: boolean,
 ): MenuProps["items"] | null {
@@ -77,18 +83,16 @@ export function menuItemNotifications(
       affecte: AffectationFilterValues,
       layout: PlanningLayout,
    ): void {
-      dispatch(
-         setAffichageFiltres(
-            {
-               type,
-               layout,
-            },
-            {
-               debut: new Date(),
-               fin: new Date(),
-               "exists[intervenant]": affecte,
-            },
-         ),
+      setAffichageFiltres(
+         {
+            type,
+            layout,
+         },
+         {
+            debut: new Date(),
+            fin: new Date(),
+            "exists[intervenant]": affecte,
+         },
       );
       navigate(`/planning/calendrier`);
    }

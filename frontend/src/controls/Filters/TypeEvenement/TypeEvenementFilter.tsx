@@ -12,9 +12,7 @@ import { Checkbox, Space } from "antd";
 import { TypeEvenementAvatar } from "../../Avatars/TypeEvenementAvatar";
 import { CheckOutlined } from "@ant-design/icons";
 import { useApi } from "../../../context/api/ApiProvider";
-import { IAccessibilite } from "../../../redux/context/IAccessibilite";
-import { useSelector } from "react-redux";
-import { IStore } from "../../../redux/Store";
+import { useAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
 import { PREFETCH_TYPES_EVENEMENTS } from "../../../api/ApiPrefetchHelpers";
 
 interface ICategoriesFilter {
@@ -31,9 +29,7 @@ interface ICategoriesFilter {
  */
 export default function TypeEvenementFilter({ value, setValue }: ICategoriesFilter): ReactElement {
    const { data } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-   const appAccessibilite: IAccessibilite = useSelector(
-      ({ accessibilite }: Partial<IStore>) => accessibilite,
-   ) as IAccessibilite;
+   const { accessibilite: appAccessibilite } = useAccessibilite();
 
    return (
       <>

@@ -12,8 +12,7 @@ import { Evenement } from "../../lib/Evenement";
 import { Button, Flex, Table } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
 import "./EvenementTable.scss";
-import { setModalEvenementId } from "../../redux/actions/Modals";
-import { useDispatch } from "react-redux";
+import { useModals } from "../../context/modals/ModalsContext";
 import EvenementTableExport from "./EvenementTableExport";
 import { useAuth } from "../../auth/AuthProvider";
 import { evenementTableColumns } from "./EvenementTableColumns";
@@ -25,7 +24,7 @@ interface TableCalendarProps {
 
 export default function EvenementTable({ events, saisieEvtRenfort = false }: TableCalendarProps) {
    const user = useAuth().user;
-   const dispatch = useDispatch();
+   const { setModalEvenementId } = useModals();
 
    return (
       <>
@@ -50,7 +49,7 @@ export default function EvenementTable({ events, saisieEvtRenfort = false }: Tab
                afficherEtatEnvoiRh: user?.isPlanificateur,
                saisieEvtRenfort,
                onEvenementSelected: (evenement) => {
-                  dispatch(setModalEvenementId(evenement["@id"] as string));
+                  setModalEvenementId(evenement["@id"] as string);
                },
             })}
             pagination={false}

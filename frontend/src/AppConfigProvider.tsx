@@ -8,9 +8,7 @@
  */
 
 import React, { useEffect } from "react";
-import { IAccessibilite } from "./redux/context/IAccessibilite";
-import { useSelector } from "react-redux";
-import { IStore } from "./redux/Store";
+import { useAccessibilite } from "./context/accessibilite/AccessibiliteContext";
 import { ConfigProvider } from "antd";
 import frFR from "antd/lib/locale/fr_FR";
 import {
@@ -34,9 +32,7 @@ function getColorVariant(color: string | null, fallbackColor: string, fallbackCo
 }
 
 export function AppConfigProvider({ children }: { children: React.ReactNode }) {
-   const appAccessibilite: IAccessibilite = useSelector(
-      ({ accessibilite }: Partial<IStore>) => accessibilite,
-   ) as IAccessibilite;
+   const { accessibilite: appAccessibilite } = useAccessibilite();
 
    // Ajoute les couleurs de l'application aux variables CSS
    useEffect(() => {

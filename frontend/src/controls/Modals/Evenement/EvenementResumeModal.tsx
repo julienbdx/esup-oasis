@@ -9,8 +9,7 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Col, Modal, Row, Skeleton } from "antd";
-import { useDispatch } from "react-redux";
-import { setModalEvenement, setModalEvenementId } from "../../../redux/actions/Modals";
+import { useModals } from "../../../context/modals/ModalsContext";
 import { Evenement } from "../../../lib/Evenement";
 import { useApi } from "../../../context/api/ApiProvider";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
@@ -36,7 +35,7 @@ export default function EvenementResumeModal({ id }: EvenementResumeModalProps):
    const [evenement, setEvenement] = useState<Evenement | undefined>();
    const user = useAuth().user;
 
-   const dispatch = useDispatch();
+   const { setModalEvenementId, setModalEvenement } = useModals();
 
    // GET /evenements/{id}
    const { data, isFetching: isFetchingEvenement } = useApi().useGetItem<"/evenements/{id}">({
@@ -59,8 +58,8 @@ export default function EvenementResumeModal({ id }: EvenementResumeModalProps):
    function handleClose() {
       setEvenement(() => {
          setEvenementId(undefined);
-         dispatch(setModalEvenementId(undefined));
-         dispatch(setModalEvenement(undefined));
+         setModalEvenementId(undefined);
+         setModalEvenement(undefined);
          return undefined;
       });
    }

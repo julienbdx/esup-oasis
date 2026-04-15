@@ -11,10 +11,10 @@ import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import { Menu, MenuProps } from "antd";
 import { useAuth } from "../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../../redux/Store";
 import { useApi } from "../../context/api/ApiProvider";
-import { IAccessibilite } from "../../redux/context/IAccessibilite";
+import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
+import { useDrawers } from "../../context/drawers/DrawersContext";
+import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
 import { useIsFetching } from "@tanstack/react-query";
 import PageTitle from "../../utils/PageTitle/PageTitle";
 import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
@@ -42,11 +42,17 @@ import { menuItemUtilisateur } from "./menuItems/MenuItemUtilisateur";
 export default function AppLayoutMenu(): ReactElement {
    const auth = useAuth();
    const navigate = useNavigate();
-   const dispatch = useDispatch();
+   const { setDrawerUtilisateur } = useDrawers();
+   const { setAffichageFiltres } = useAffichageFiltres();
    const apiFetching = useIsFetching();
-   const appAccessibilite: IAccessibilite = useSelector(
-      ({ accessibilite }: Partial<IStore>) => accessibilite,
-   ) as IAccessibilite;
+   const {
+      accessibilite: appAccessibilite,
+      setContrast,
+      setDyslexieArial,
+      setDyslexieOpenDys,
+      setDyslexieLexend,
+      setPoliceLarge,
+   } = useAccessibilite();
    const [selectedKey, setSelectedKey] = useState<string>();
    const [modeRecherche, setModeRecherche] = useState(false);
    const { setPreference } = usePreferences();
@@ -111,22 +117,51 @@ export default function AppLayoutMenu(): ReactElement {
       // Recherche
       if (auth.user?.isPlanificateur) {
          items.push(
-            ...(menuItemRecherche(dispatch, modeRecherche, setModeRecherche, auth.user, navigate) ||
-               []),
+            ...(menuItemRecherche(
+               setDrawerUtilisateur,
+               modeRecherche,
+               setModeRecherche,
+               auth.user,
+               navigate,
+            ) || []),
          );
       }
 
       // Accessibilité
-      items.push(...(menuItemAccessibilite(appAccessibilite, dispatch, setPreference) || []));
+      items.push(
+         ...(menuItemAccessibilite(
+            appAccessibilite,
+            setContrast,
+            setDyslexieArial,
+            setDyslexieOpenDys,
+            setDyslexieLexend,
+            setPoliceLarge,
+            setPreference,
+         ) || []),
+      );
 
       return items;
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [dispatch, modeRecherche, navigate, auth, appAccessibilite]);
+   }, [
+      setDrawerUtilisateur,
+      modeRecherche,
+      navigate,
+      auth,
+      appAccessibilite,
+      setContrast,
+      setDyslexieArial,
+      setDyslexieOpenDys,
+      setDyslexieLexend,
+      setPoliceLarge,
+   ]);
 
    const menuNotifications: MenuProps["items"] = useMemo(() => {
       if (!auth.user || !auth.user.isPlanificateur) return [];
-      return menuItemNotifications(auth.user, navigate, dispatch, stats, isFetchingStats) || [];
-   }, [auth.user, dispatch, isFetchingStats, navigate, stats]);
+      return (
+         menuItemNotifications(auth.user, navigate, setAffichageFiltres, stats, isFetchingStats) ||
+         []
+      );
+   }, [auth.user, setAffichageFiltres, isFetchingStats, navigate, stats]);
 
    // --- Rendre le menu accessible (fix ant design) ---
    useEffect(() => {

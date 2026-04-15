@@ -13,10 +13,9 @@ import { IDemande } from "../../api/ApiTypeHelpers";
 import { Button, Flex, Space, Table, Tooltip } from "antd";
 import { useApi } from "../../context/api/ApiProvider";
 import { useAuth } from "../../auth/AuthProvider";
-import { useDispatch } from "react-redux";
 import { SorterResult } from "antd/es/table/interface";
-import { setAffichageFiltres } from "../../redux/actions/AffichageFiltre";
-import { initialAffichageFiltres } from "../../redux/context/IAffichageFiltres";
+import { initialAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
 import { queryClient } from "../../App";
 import { PREFETCH_ETAT_DEMANDE } from "../../api/ApiPrefetchHelpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -79,7 +78,7 @@ function filtreDemandeDefault(
 export default function DemandeTable(props: { refs: RefsTourDemandes; affichageTour?: boolean }) {
    const auth = useAuth();
    const [searchParams] = useSearchParams();
-   const dispatch = useDispatch();
+   const { setAffichageFiltres } = useAffichageFiltres();
    const navigate = useNavigate();
    const [count, setCount] = React.useState<number>();
    const { getPreferenceArray, preferencesChargees } = usePreferences();
@@ -135,11 +134,9 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
    useEffect(() => {
       if (auth.impersonate && hasImpersonate) {
          queryClient.clear();
-         dispatch(
-            setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres),
-         );
+         setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
       }
-   }, [hasImpersonate, auth.impersonate, dispatch]);
+   }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
    useEffect(() => {
       setCount(dataDemandes?.totalItems);

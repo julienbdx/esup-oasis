@@ -26,10 +26,7 @@ import GestionnaireFilter from "../../Filters/Gestionnaire/GestionnaireFilter";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useAuth } from "../../../auth/AuthProvider";
 import { ReactComponent as Asterisk } from "../../../assets/images/asterisk.svg";
-import { IAffichageFiltres } from "../../../redux/context/IAffichageFiltres";
-import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../../../redux/Store";
-import { setFiltres } from "../../../redux/actions/AffichageFiltre";
+import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { useApi } from "../../../context/api/ApiProvider";
 import AnnulationFilter, {
    AnnulationFilterValues,
@@ -56,10 +53,7 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
    const screens = useBreakpoint();
    const [collapsedSider, setCollapsedSider] = useState(false);
    const { data: dataTypesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-   const appAffichageFiltres: IAffichageFiltres = useSelector(
-      ({ affichageFiltres }: Partial<IStore>) => affichageFiltres,
-   ) as IAffichageFiltres;
-   const dispatch = useDispatch();
+   const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
 
    // CSS pour formatage du label des filtres avec valeur
    const classNameByStatus = (
@@ -110,7 +104,7 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                            "exists[intervenant]"
                         ] as AffectationFilterValues) || AffectationFilterValues.Tous
                      }
-                     setValue={(value) => dispatch(setFiltres({ "exists[intervenant]": value }))}
+                     setValue={(value) => setFiltres({ "exists[intervenant]": value })}
                   />
                   <AnnulationFilter
                      value={
@@ -118,7 +112,7 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                            "exists[dateAnnulation]"
                         ] as AnnulationFilterValues) || AnnulationFilterValues.EnCours
                      }
-                     setValue={(value) => dispatch(setFiltres({ "exists[dateAnnulation]": value }))}
+                     setValue={(value) => setFiltres({ "exists[dateAnnulation]": value })}
                   />
                </li>
             )}
@@ -131,7 +125,7 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                      <span className="label">Campus</span>
                      <CampusFilter
                         value={appAffichageFiltres.filtres["campus[]"]}
-                        onChange={(value) => dispatch(setFiltres({ "campus[]": value }))}
+                        onChange={(value) => setFiltres({ "campus[]": value })}
                         mode="tags"
                      />
                   </Space>
@@ -153,12 +147,10 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                               : undefined
                         }
                         onChange={(utilisateurId, role) => {
-                           dispatch(
-                              setFiltres({
-                                 intervenantBeneficiaire: utilisateurId,
-                                 intervenantBeneficiaireRole: role,
-                              }),
-                           );
+                           setFiltres({
+                              intervenantBeneficiaire: utilisateurId,
+                              intervenantBeneficiaireRole: role,
+                           });
                         }}
                         mode="multiple"
                      />
@@ -182,20 +174,16 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                               size="small"
                               type="text"
                               onClick={() => {
-                                 dispatch(
-                                    setFiltres({
-                                       "utilisateurCreation[]": [auth.user?.["@id"] as string],
-                                    }),
-                                 );
+                                 setFiltres({
+                                    "utilisateurCreation[]": [auth.user?.["@id"] as string],
+                                 });
                               }}
                            />
                         </Tooltip>
                      </span>
                      <GestionnaireFilter
                         value={appAffichageFiltres.filtres["utilisateurCreation[]"]}
-                        setValue={(value) =>
-                           dispatch(setFiltres({ "utilisateurCreation[]": value }))
-                        }
+                        setValue={(value) => setFiltres({ "utilisateurCreation[]": value })}
                      />
                   </Space>
                </li>
@@ -216,13 +204,11 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                         type="link"
                         size="small"
                         onClick={() =>
-                           dispatch(
-                              setFiltres({
-                                 type: (dataTypesEvenements?.items || [])
-                                    .filter((te) => te.actif)
-                                    .map((te) => te["@id"] as string),
-                              }),
-                           )
+                           setFiltres({
+                              type: (dataTypesEvenements?.items || [])
+                                 .filter((te) => te.actif)
+                                 .map((te) => te["@id"] as string),
+                           })
                         }
                         icon={<Icon component={Asterisk} />}
                      />
@@ -237,17 +223,15 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                         type="link"
                         size="small"
                         onClick={() =>
-                           dispatch(
-                              setFiltres({
-                                 type: [],
-                              }),
-                           )
+                           setFiltres({
+                              type: [],
+                           })
                         }
                         icon={<CloseCircleFilled className="mb-1" />}
                      />
                   </span>
                   <TypeEvenementFilter
-                     setValue={(value) => dispatch(setFiltres({ type: value }))}
+                     setValue={(value) => setFiltres({ type: value })}
                      value={appAffichageFiltres.filtres.type}
                   />
                </Space>

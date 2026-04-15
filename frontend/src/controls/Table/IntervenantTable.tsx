@@ -11,14 +11,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Flex, Space, Table, Tooltip } from "antd";
 import { IBeneficiaire, IIntervenant } from "../../api/ApiTypeHelpers";
 import { intervenantTableColumns } from "./IntervenantTableColumns";
-import { setDrawerUtilisateur } from "../../redux/actions/Drawers";
 import { RoleValues } from "../../lib/Utilisateur";
 import { useApi } from "../../context/api/ApiProvider";
-import { useDispatch } from "react-redux";
+import { useDrawers } from "../../context/drawers/DrawersContext";
 import IntervenantTableExport from "./IntervenantTableExport";
 import { useAuth } from "../../auth/AuthProvider";
-import { setAffichageFiltres } from "../../redux/actions/AffichageFiltre";
-import { initialAffichageFiltres } from "../../redux/context/IAffichageFiltres";
+import { initialAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
 import { queryClient } from "../../App";
 import { SorterResult } from "antd/es/table/interface";
 import { IntervenantTableFilter } from "./IntervenantTableFilter";
@@ -51,7 +50,8 @@ export const FILTRE_INTERVENANT_DEFAULT: FiltreIntervenant = {
 };
 
 export default function IntervenantTable() {
-   const dispatch = useDispatch();
+   const { setAffichageFiltres } = useAffichageFiltres();
+   const { setDrawerUtilisateur } = useDrawers();
    const navigate = useNavigate();
    const [hasImpersonate, setHasImpersonate] = useState(false);
    const auth = useAuth();
@@ -82,12 +82,10 @@ export default function IntervenantTable() {
 
    useEffect(() => {
       if (auth.impersonate && hasImpersonate) {
-         dispatch(
-            setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres),
-         );
+         setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
          queryClient.clear();
       }
-   }, [hasImpersonate, auth.impersonate, dispatch]);
+   }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
    useEffect(() => {
       if (preferencesChargees) {
@@ -200,14 +198,12 @@ export default function IntervenantTable() {
                filter: filtreIntervenant,
                setFilter: setFiltreIntervenant,
                onIntervenantSelected: (intervenant) => {
-                  dispatch(
-                     setDrawerUtilisateur({
-                        utilisateur: intervenant["@id"],
-                        role: intervenant.roles?.includes(RoleValues.ROLE_RENFORT)
-                           ? RoleValues.ROLE_RENFORT
-                           : RoleValues.ROLE_INTERVENANT,
-                     }),
-                  );
+                  setDrawerUtilisateur({
+                     utilisateur: intervenant["@id"],
+                     role: intervenant.roles?.includes(RoleValues.ROLE_RENFORT)
+                        ? RoleValues.ROLE_RENFORT
+                        : RoleValues.ROLE_INTERVENANT,
+                  });
                },
                onImpersonate: (intervenantUid) => {
                   navigate("/");

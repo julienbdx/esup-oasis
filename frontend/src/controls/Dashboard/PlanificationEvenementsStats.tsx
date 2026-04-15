@@ -10,13 +10,12 @@
 import React, { ReactElement } from "react";
 import { Card, Col, Row, Tooltip, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { WarningFilled } from "@ant-design/icons";
 import { pluriel } from "../../utils/string";
 import { useAuth } from "../../auth/AuthProvider";
 import { IStatistiquesEvenements, ITypeEvenement } from "../../api/ApiTypeHelpers";
-import { setAffichageFiltres } from "../../redux/actions/AffichageFiltre";
-import { TypeAffichageValues } from "../../redux/context/IAffichageFiltres";
+import { TypeAffichageValues } from "../../context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
 import { AffectationFilterValues } from "../Filters/Affectation/AffectationFilter";
 import StatisticProgress from "./StatisticProgress";
 import Statistic from "./Statistic";
@@ -37,22 +36,20 @@ export default function PlanificationEvenementsStats({
 }: IPlanificationEvenementsStatsProps): ReactElement {
    const user = useAuth().user;
    const navigate = useNavigate();
-   const dispatch = useDispatch();
+   const { setAffichageFiltres } = useAffichageFiltres();
 
    function goToCalendar(type: TypeAffichageValues, affecte: AffectationFilterValues) {
-      dispatch(
-         setAffichageFiltres(
-            { type },
-            {
-               debut: new Date(),
-               fin: new Date(),
-               "exists[intervenant]": affecte,
-               type:
-                  affecte === AffectationFilterValues.NonAffectes
-                     ? typesEvenements?.map((t) => t["@id"] as string)
-                     : undefined,
-            },
-         ),
+      setAffichageFiltres(
+         { type },
+         {
+            debut: new Date(),
+            fin: new Date(),
+            "exists[intervenant]": affecte,
+            type:
+               affecte === AffectationFilterValues.NonAffectes
+                  ? typesEvenements?.map((t) => t["@id"] as string)
+                  : undefined,
+         },
       );
       navigate(`/planning/calendrier`);
    }

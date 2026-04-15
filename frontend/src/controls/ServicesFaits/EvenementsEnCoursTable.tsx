@@ -9,14 +9,13 @@
 
 import React, { ReactElement } from "react";
 import { useAuth } from "../../auth/AuthProvider";
-import { useDispatch } from "react-redux";
 import { useApi } from "../../context/api/ApiProvider";
+import { useModals } from "../../context/modals/ModalsContext";
 import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
 import Spinner from "../Spinner/Spinner";
 import { Table } from "antd";
 import { Evenement } from "../../lib/Evenement";
 import { evenementTableColumns } from "../Table/EvenementTableColumns";
-import { setModalEvenementId } from "../../redux/actions/Modals";
 
 /**
  * Returns a table component that displays ongoing events.
@@ -25,7 +24,7 @@ import { setModalEvenementId } from "../../redux/actions/Modals";
  */
 export function EvenementsEnCoursTable(): ReactElement {
    const user = useAuth().user;
-   const dispatch = useDispatch();
+   const { setModalEvenementId } = useModals();
    const { data: evenementsEnCours, isLoading } = useApi().useGetCollectionPaginated({
       path: "/evenements",
       page: 1,
@@ -52,7 +51,7 @@ export function EvenementsEnCoursTable(): ReactElement {
             saisieEvtRenfort: false,
             afficherEtatEnvoiRh: false,
             onEvenementSelected: (evenement) => {
-               dispatch(setModalEvenementId(evenement["@id"] as string));
+               setModalEvenementId(evenement["@id"] as string);
             },
          })}
       />

@@ -9,9 +9,7 @@
 
 import React, { memo, ReactElement, useEffect, useState } from "react";
 import { Avatar } from "antd";
-import { IAccessibilite } from "../../redux/context/IAccessibilite";
-import { useSelector } from "react-redux";
-import { IStore } from "../../redux/Store";
+import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
 import { useApi } from "../../context/api/ApiProvider";
 import Spinner from "../Spinner/Spinner";
 import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
@@ -52,9 +50,7 @@ export const TypeEvenementAvatar = memo(
       const { data: typesEvenements, isFetching } =
          useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
-      const appAccessibilite: IAccessibilite = useSelector(
-         ({ accessibilite }: Partial<IStore>) => accessibilite,
-      ) as IAccessibilite;
+      const { accessibilite: appAccessibilite } = useAccessibilite();
 
       useEffect(() => {
          if (typesEvenements && typeEvenementId) {

@@ -33,17 +33,14 @@ import {
 } from "@ant-design/icons";
 import dayjs from "dayjs";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { setModalEvenement } from "../../../redux/actions/Modals";
-import { useDispatch, useSelector } from "react-redux";
+import { useModals } from "../../../context/modals/ModalsContext";
 import { useAuth } from "../../../auth/AuthProvider";
 import {
    DensiteValues,
-   IAffichageFiltres,
    PlanningLayout,
    TypeAffichageValues,
-} from "../../../redux/context/IAffichageFiltres";
-import { IStore } from "../../../redux/Store";
-import { setAffichage, setFiltres } from "../../../redux/actions/AffichageFiltre";
+} from "../../../context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import ProgressAffectation from "../../Progress/ProgressAffectation";
 import { Evenement } from "../../../lib/Evenement";
 import "react-circular-progressbar/dist/styles.css";
@@ -92,11 +89,13 @@ interface IToolbar {
  */
 export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
    const screens = useBreakpoint();
-   const dispatch = useDispatch();
+   const { setModalEvenement } = useModals();
    const auth = useAuth();
-   const appAffichageFiltres: IAffichageFiltres = useSelector(
-      ({ affichageFiltres }: Partial<IStore>) => affichageFiltres,
-   ) as IAffichageFiltres;
+   const {
+      affichageFiltres: appAffichageFiltres,
+      setAffichage,
+      setFiltres,
+   } = useAffichageFiltres();
    const step = affichageNbJours(
       appAffichageFiltres.affichage.type,
       appAffichageFiltres.filtres.debut,
@@ -115,11 +114,9 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
             label: label,
             className: appAffichageFiltres.affichage.type === key ? "active" : "",
             onClick: () =>
-               dispatch(
-                  setAffichage({
-                     type: key,
-                  }),
-               ),
+               setAffichage({
+                  type: key,
+               }),
             icon: (
                <CheckOutlined
                   className={appAffichageFiltres.affichage.type === key ? "" : "v-hidden"}
@@ -134,7 +131,7 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
          {
             key: "today",
             label: "Aujourd'hui",
-            onClick: () => dispatch(setFiltres({ debut: new Date(), fin: new Date() })),
+            onClick: () => setFiltres({ debut: new Date(), fin: new Date() }),
             icon: <CalendarOutlined />,
          },
          {
@@ -180,11 +177,9 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                />
             ),
             onClick: () =>
-               dispatch(
-                  setAffichage({
-                     densite: DensiteValues.compact,
-                  }),
-               ),
+               setAffichage({
+                  densite: DensiteValues.compact,
+               }),
          },
          {
             key: "normal",
@@ -200,7 +195,7 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                   }
                />
             ),
-            onClick: () => dispatch(setAffichage({ densite: DensiteValues.normal })),
+            onClick: () => setAffichage({ densite: DensiteValues.normal }),
          },
          {
             key: "large",
@@ -214,7 +209,7 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                   }
                />
             ),
-            onClick: () => dispatch(setAffichage({ densite: DensiteValues.large })),
+            onClick: () => setAffichage({ densite: DensiteValues.large }),
          },
       ];
    }
@@ -231,16 +226,14 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                      aria-label="Consulter la période précédente"
                      icon={<ArrowLeftOutlined />}
                      onClick={() =>
-                        dispatch(
-                           setFiltres({
-                              debut: dayjs(appAffichageFiltres.filtres.debut)
-                                 .subtract(step, "days")
-                                 .toDate(),
-                              fin: dayjs(appAffichageFiltres.filtres.fin)
-                                 .subtract(step, "days")
-                                 .toDate(),
-                           }),
-                        )
+                        setFiltres({
+                           debut: dayjs(appAffichageFiltres.filtres.debut)
+                              .subtract(step, "days")
+                              .toDate(),
+                           fin: dayjs(appAffichageFiltres.filtres.fin)
+                              .subtract(step, "days")
+                              .toDate(),
+                        })
                      }
                   />
                   {screens.lg && (
@@ -254,7 +247,7 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                                  new Date(),
                                  appAffichageFiltres.affichage.type,
                               );
-                              dispatch(setFiltres({ debut: range.from, fin: range.to }));
+                              setFiltres({ debut: range.from, fin: range.to });
                            }}
                         >
                            <CalendarOutlined />
@@ -268,16 +261,12 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                      icon={<ArrowRightOutlined />}
                      className="mr-2"
                      onClick={() =>
-                        dispatch(
-                           setFiltres({
-                              debut: dayjs(appAffichageFiltres.filtres.debut)
-                                 .add(step, "days")
-                                 .toDate(),
-                              fin: dayjs(appAffichageFiltres.filtres.fin)
-                                 .add(step, "days")
-                                 .toDate(),
-                           }),
-                        )
+                        setFiltres({
+                           debut: dayjs(appAffichageFiltres.filtres.debut)
+                              .add(step, "days")
+                              .toDate(),
+                           fin: dayjs(appAffichageFiltres.filtres.fin).add(step, "days").toDate(),
+                        })
                      }
                   />
                   {screens.md &&
@@ -297,7 +286,7 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                      <Segmented
                         value={appAffichageFiltres.affichage.layout}
                         onChange={(value) => {
-                           dispatch(setAffichage({ layout: value as PlanningLayout }));
+                           setAffichage({ layout: value as PlanningLayout });
                         }}
                         options={[
                            {
@@ -324,11 +313,9 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                            ]}
                            value={appAffichageFiltres.affichage.type}
                            onChange={(value) =>
-                              dispatch(
-                                 setAffichage({
-                                    type: value as TypeAffichageValues,
-                                 }),
-                              )
+                              setAffichage({
+                                 type: value as TypeAffichageValues,
+                              })
                            }
                         />
                      </div>
@@ -359,11 +346,7 @@ export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
                   type="primary"
                   tooltip="Ajouter un évènement"
                   onClick={() => {
-                     dispatch(
-                        setModalEvenement(
-                           saisieEvtRenfort ? { intervenant: auth.user?.["@id"] } : {},
-                        ),
-                     );
+                     setModalEvenement(saisieEvtRenfort ? { intervenant: auth.user?.["@id"] } : {});
                   }}
                />
             </>

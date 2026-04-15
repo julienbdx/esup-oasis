@@ -13,11 +13,10 @@ import ServiceItem from "../../Items/ServiceItem";
 import { Button, Flex, Popconfirm, Segmented, Space, Table, Tooltip } from "antd";
 import { BellOutlined, EditOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "../../../context/api/ApiProvider";
-import { setAffichageFiltres } from "../../../redux/actions/AffichageFiltre";
-import { initialAffichageFiltres } from "../../../redux/context/IAffichageFiltres";
+import { initialAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { queryClient } from "../../../App";
 import { useAuth } from "../../../auth/AuthProvider";
-import { useDispatch } from "react-redux";
+import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { ROLES_SELECT, RoleValues } from "../../../lib/Utilisateur";
 import { IUtilisateur } from "../../../api/ApiTypeHelpers";
 import { ColumnsType } from "antd/lib/table";
@@ -38,7 +37,7 @@ type FiltreUtilisateurs = {
 };
 
 export default function UtilisateursTable({ onEdit, onAskStats }: TableUtilisateursProps) {
-   const dispatch = useDispatch();
+   const { setAffichageFiltres } = useAffichageFiltres();
    const auth = useAuth();
    const [hasImpersonate, setHasImpersonate] = useState(false);
    const [role, setRole] = useState<RoleValues>(RoleValues.ROLE_PLANIFICATEUR);
@@ -62,12 +61,10 @@ export default function UtilisateursTable({ onEdit, onAskStats }: TableUtilisate
 
    useEffect(() => {
       if (auth.impersonate && hasImpersonate) {
-         dispatch(
-            setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres),
-         );
+         setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
          queryClient.clear();
       }
-   }, [hasImpersonate, auth.impersonate, dispatch]);
+   }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
    useEffect(() => {
       if (role !== RoleValues.ROLE_MEMBRE_COMMISSION) {

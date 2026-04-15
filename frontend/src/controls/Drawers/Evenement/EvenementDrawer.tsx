@@ -9,10 +9,7 @@
 
 import React, { ReactElement } from "react";
 import { Avatar, Button, Drawer, Form, Space, Tabs } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../../../redux/Store";
-import { IDrawers } from "../../../redux/context/IDrawers";
-import { setDrawerEvenement } from "../../../redux/actions/Drawers";
+import { useDrawers } from "../../../context/drawers/DrawersContext";
 import { SaveOutlined, UserOutlined } from "@ant-design/icons";
 import { useAuth } from "../../../auth/AuthProvider";
 
@@ -30,13 +27,12 @@ interface IEvenementDrawer {
  */
 export default function EvenementDrawer({ id }: IEvenementDrawer): ReactElement {
    const auth = useAuth();
-   const appDrawers: IDrawers = useSelector(({ drawers }: Partial<IStore>) => drawers) as IDrawers;
-   const evenementId = id || appDrawers.EVENEMENT;
-   const dispatch = useDispatch();
+   const { drawers, setDrawerEvenement } = useDrawers();
+   const evenementId = id || drawers.EVENEMENT;
    const [form] = Form.useForm();
 
    const handleClose = () => {
-      dispatch(setDrawerEvenement(undefined));
+      setDrawerEvenement(undefined);
    };
 
    if (evenementId === undefined) return <Form form={form} className="d-none" />;

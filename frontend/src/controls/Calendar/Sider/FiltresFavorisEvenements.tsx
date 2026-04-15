@@ -7,28 +7,24 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useDispatch, useSelector } from "react-redux";
 import { App, Button, Dropdown, Flex, Popconfirm } from "antd";
-import { restoreFiltres, setFiltres } from "../../../redux/actions/AffichageFiltre";
-import {
-   IAffichageFiltres,
-   initialAffichageFiltres,
-} from "../../../redux/context/IAffichageFiltres";
+import { initialAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { DeleteOutlined, FilterOutlined } from "@ant-design/icons";
 import React from "react";
-import { IStore } from "../../../redux/Store";
+import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { useApi } from "../../../context/api/ApiProvider";
 import { PREFETCH_TYPES_EVENEMENTS } from "../../../api/ApiPrefetchHelpers";
 import { usePreferences } from "../../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
 
 export function FiltresFavorisEvenements() {
-   const dispatch = useDispatch();
    const { message } = App.useApp();
    const { getPreferenceArray, setPreferenceArray } = usePreferences();
    const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-   const appAffichageFiltres: IAffichageFiltres = useSelector(
-      ({ affichageFiltres }: Partial<IStore>) => affichageFiltres,
-   ) as IAffichageFiltres;
+   const {
+      affichageFiltres: appAffichageFiltres,
+      restoreFiltres,
+      setFiltres,
+   } = useAffichageFiltres();
 
    return (
       <li className="filter mb-1 mt-2">
@@ -66,14 +62,12 @@ export function FiltresFavorisEvenements() {
                         </Flex>
                      ),
                      onClick: () => {
-                        dispatch(
-                           restoreFiltres({
-                              ...filtre.filtre,
-                              debut: appAffichageFiltres.filtres.debut,
-                              fin: appAffichageFiltres.filtres.fin,
-                              page: 1,
-                           }),
-                        );
+                        restoreFiltres({
+                           ...filtre.filtre,
+                           debut: appAffichageFiltres.filtres.debut,
+                           fin: appAffichageFiltres.filtres.fin,
+                           page: 1,
+                        });
                      },
                   })),
                   getPreferenceArray("filtresEvenement").length > 0
@@ -112,19 +106,17 @@ export function FiltresFavorisEvenements() {
                      key: "reset",
                      label: "Retirer les filtres",
                      onClick: () =>
-                        dispatch(
-                           setFiltres(
-                              {
-                                 ...initialAffichageFiltres.filtres,
-                                 debut: appAffichageFiltres.filtres.debut,
-                                 fin: appAffichageFiltres.filtres.fin,
-                                 type: typesEvenements?.items
-                                    .filter((t) => t.visibleParDefaut)
-                                    .filter((t) => t.actif)
-                                    .map((t) => t["@id"] as string),
-                              },
-                              true,
-                           ),
+                        setFiltres(
+                           {
+                              ...initialAffichageFiltres.filtres,
+                              debut: appAffichageFiltres.filtres.debut,
+                              fin: appAffichageFiltres.filtres.fin,
+                              type: typesEvenements?.items
+                                 .filter((t) => t.visibleParDefaut)
+                                 .filter((t) => t.actif)
+                                 .map((t) => t["@id"] as string),
+                           },
+                           true,
                         ),
                   },
                ],

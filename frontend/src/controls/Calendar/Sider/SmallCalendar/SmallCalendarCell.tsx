@@ -12,7 +12,7 @@ import { Evenement } from "../../../../lib/Evenement";
 import {
    filtreToApiOnBackend,
    IAffichageFiltres,
-} from "../../../../redux/context/IAffichageFiltres";
+} from "../../../../context/affichageFiltres/AffichageFiltresContext";
 import dayjs from "dayjs";
 import { isSameDay } from "../../../../utils/dates";
 import { useApi } from "../../../../context/api/ApiProvider";

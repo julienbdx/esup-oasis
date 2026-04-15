@@ -29,12 +29,10 @@ import {
    stringOrDateToDate,
    stringOrDateToString,
 } from "../../../utils/dates";
-import { useDispatch, useSelector } from "react-redux";
-import { setModalEvenement, setModalEvenementId } from "../../../redux/actions/Modals";
-import { IAccessibilite } from "../../../redux/context/IAccessibilite";
-import { IStore } from "../../../redux/Store";
-import { DensiteValues, IAffichageFiltres } from "../../../redux/context/IAffichageFiltres";
-import { setAffichage, setFiltres } from "../../../redux/actions/AffichageFiltre";
+import { DensiteValues } from "../../../context/affichageFiltres/AffichageFiltresContext";
+import { useAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
+import { useModals } from "../../../context/modals/ModalsContext";
+import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
 import { useApi } from "../../../context/api/ApiProvider";
 import { useAuth } from "../../../auth/AuthProvider";
 import {
@@ -64,13 +62,13 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
    const { message } = App.useApp();
    const user = useAuth().user;
    const localizer = dayjsLocalizer(dayjs);
-   const dispatch = useDispatch();
-   const appAccessibilite: IAccessibilite = useSelector(
-      ({ accessibilite }: IStore) => accessibilite,
-   );
-   const appAffichageFiltres: IAffichageFiltres = useSelector(
-      ({ affichageFiltres }: IStore) => affichageFiltres,
-   );
+   const { setModalEvenementId, setModalEvenement } = useModals();
+   const { accessibilite: appAccessibilite } = useAccessibilite();
+   const {
+      affichageFiltres: appAffichageFiltres,
+      setAffichage,
+      setFiltres,
+   } = useAffichageFiltres();
    const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
       useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
@@ -135,12 +133,10 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
          return;
       }
 
-      dispatch(
-         setModalEvenement({
-            debut: stringOrDateToString(start),
-            fin: stringOrDateToString(end),
-         }),
-      );
+      setModalEvenement({
+         debut: stringOrDateToString(start),
+         fin: stringOrDateToString(end),
+      });
    };
 
    function handleNavigation(date: Date, view: View, navigateAction: NavigateAction) {
@@ -148,11 +144,11 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
          date,
          navigateAction === "DATE" ? "day" : appAffichageFiltres.affichage.type,
       );
-      dispatch(setFiltres({ debut: range.from, fin: range.to }));
+      setFiltres({ debut: range.from, fin: range.to });
    }
 
    function handleChangeView(view: View) {
-      dispatch(setAffichage({ type: view }));
+      setAffichage({ type: view });
    }
 
    // endregion
@@ -201,12 +197,12 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
    };
 
    function handleOpenModal(data: Evenement) {
-      dispatch(setModalEvenementId(data["@id"]));
+      setModalEvenementId(data["@id"]);
    }
 
    // Custom n'est valable que pour le layout Table
    if (appAffichageFiltres.affichage.type === "custom") {
-      dispatch(setAffichage({ type: "work_week" }));
+      setAffichage({ type: "work_week" });
       return (
          <>
             <Spinner />

@@ -7,17 +7,9 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAccessibilite } from "../../../redux/context/IAccessibilite";
-import { Dispatch } from "redux";
+import { IAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
 import { Button, MenuProps } from "antd";
 import Icon, { CheckOutlined } from "@ant-design/icons";
-import {
-   setAccessibiliteContrast,
-   setAccessibiliteDyslexieArial,
-   setAccessibiliteDyslexieLexend,
-   setAccessibiliteDyslexieOpenDys,
-   setPoliceLarge,
-} from "../../../redux/actions/Accessibilite";
 import React from "react";
 import { ReactComponent as IconeAccessibilite } from "../../../assets/images/accessibilite.svg";
 
@@ -25,13 +17,21 @@ import { ReactComponent as IconeAccessibilite } from "../../../assets/images/acc
  * Generate menu items for accessibility options.
  *
  * @param {IAccessibilite} appAccessibilite - The accessibility settings object.
- * @param {Dispatch} dispatch - The Redux dispatch function.
+ * @param setContrast
+ * @param setDyslexieArial
+ * @param setDyslexieOpenDys
+ * @param setDyslexieLexend
+ * @param setPoliceLarge
  * @param setPreference
  * @returns {MenuProps["items"]} - The generated menu items.
  */
 export function menuItemAccessibilite(
    appAccessibilite: IAccessibilite,
-   dispatch: Dispatch,
+   setContrast: (value: boolean) => void,
+   setDyslexieArial: (value: boolean) => void,
+   setDyslexieOpenDys: (value: boolean) => void,
+   setDyslexieLexend: (value: boolean) => void,
+   setPoliceLarge: (value: boolean) => void,
    setPreference: (key: string, value: string) => void,
 ): MenuProps["items"] {
    return [
@@ -64,7 +64,7 @@ export function menuItemAccessibilite(
                   />
                ),
                onClick: () => {
-                  dispatch(setAccessibiliteContrast(!appAccessibilite.contrast));
+                  setContrast(!appAccessibilite.contrast);
                   setPreference("contrast", !appAccessibilite.contrast ? "true" : "false");
                },
             },
@@ -87,7 +87,7 @@ export function menuItemAccessibilite(
                ),
                onClick: () => {
                   const value = !appAccessibilite.dyslexieLexend;
-                  dispatch(setAccessibiliteDyslexieLexend(value));
+                  setDyslexieLexend(value);
                   setPreference("dyslexie-lexend", value ? "true" : "false");
                   if (value) {
                      setPreference("dyslexie-opendys", "false");
@@ -110,7 +110,7 @@ export function menuItemAccessibilite(
                ),
                onClick: () => {
                   const value = !appAccessibilite.dyslexieArial;
-                  dispatch(setAccessibiliteDyslexieArial(value));
+                  setDyslexieArial(value);
                   setPreference("dyslexie-arial", value ? "true" : "false");
                   if (value) {
                      setPreference("dyslexie-opendys", "false");
@@ -133,7 +133,7 @@ export function menuItemAccessibilite(
                ),
                onClick: () => {
                   const value = !appAccessibilite.dyslexieOpenDys;
-                  dispatch(setAccessibiliteDyslexieOpenDys(value));
+                  setDyslexieOpenDys(value);
                   setPreference("dyslexie-opendys", value ? "true" : "false");
                   if (value) {
                      setPreference("dyslexie-arial", "false");
@@ -160,7 +160,7 @@ export function menuItemAccessibilite(
                ),
                onClick: () => {
                   const value = !appAccessibilite.policeLarge;
-                  dispatch(setPoliceLarge(value));
+                  setPoliceLarge(value);
                   setPreference("police-large", value ? "true" : "false");
                },
             },

@@ -8,9 +8,7 @@
  */
 
 import React, { ReactElement, useEffect } from "react";
-import { IAccessibilite } from "../../redux/context/IAccessibilite";
-import { useSelector } from "react-redux";
-import { IStore } from "../../redux/Store";
+import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
 
 /**
  * Gère les paramètres d'accessibilité de l'application.
@@ -20,9 +18,7 @@ import { IStore } from "../../redux/Store";
  * @returns {ReactElement} The component JSX element.
  */
 export default function Accessibilite(): ReactElement {
-   const appAccessibilite: IAccessibilite = useSelector(
-      ({ accessibilite }: Partial<IStore>) => accessibilite,
-   ) as IAccessibilite;
+   const { accessibilite: appAccessibilite } = useAccessibilite();
 
    useEffect(() => {
       if (appAccessibilite.contrast) {
