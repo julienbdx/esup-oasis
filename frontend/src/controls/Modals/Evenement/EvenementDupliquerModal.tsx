@@ -8,34 +8,18 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import {
-   Alert,
-   Button,
-   Col,
-   Empty,
-   Form,
-   List,
-   message,
-   Modal,
-   notification,
-   Row,
-   Switch,
-} from "antd";
-import { Calendar, Day } from "../../../lib/react-modern-calendar-datepicker";
-import { modernCalendarLocaleFr } from "../../../lib/react-modern-calendar-datepicker/SmallCalendarLocale";
-import { createDateAsUTC, toDate, toDayValue } from "../../../utils/dates";
-import { DeleteOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { Button, Form, message, Modal, notification } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Evenement } from "../../../lib/Evenement";
 import { useApi } from "../../../context/api/ApiProvider";
 import { queryClient } from "../../../App";
 import { arrayContainsDuplicates } from "../../../utils/array";
-import { useAuth } from "../../../auth/AuthProvider";
+import { createDateAsUTC } from "../../../utils/dates";
 import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
-import { PREFETCH_LAST_PERIODES_RH } from "../../../api/ApiPrefetchHelpers";
 import { IEvenement } from "../../../api/ApiTypeHelpers";
 import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../../api/queryKeys";
-
 import { UseStateDispatch } from "../../../utils/utils";
+import { EvenementDupliquerForm, IDuplicationOptions } from "./EvenementDupliquerForm";
 
 interface IEvenementDupliquerDrawer {
    evenement: Evenement;
@@ -43,37 +27,14 @@ interface IEvenementDupliquerDrawer {
    setOpen: UseStateDispatch<boolean>;
 }
 
-interface IDuplicationOptions {
-   horaire: boolean;
-   typeEvenement: boolean;
-   beneficiaire: boolean;
-   intervenant: boolean;
-   suppleants: boolean;
-   campus: boolean;
-   salle: boolean;
-   equipements: boolean;
-   paiement: boolean;
-}
-
 /**
- * Duplicate an event on multiple days.
- *
- * @param {IEvenementDupliquerDrawer} params - The parameters for duplicating the event.
- * @param {IEvenement} params.evenement - The event to duplicate.
- * @param {boolean} params.open - Whether the modal is open.
- * @param {Function} params.setOpen - Function to set the open state of the modal.
- *
- * @return {ReactElement} The modal JSX element for duplicating the event.
+ * Modale de duplication d'un évènement sur plusieurs jours.
  */
 export default function EvenementDupliquerModal({
    evenement,
    open,
    setOpen,
 }: IEvenementDupliquerDrawer): ReactElement {
-   const user = useAuth().user;
-   // Dernière période dont la date butoir est dépassée
-   const { data: lastPeriodes } = useApi().useGetCollection(PREFETCH_LAST_PERIODES_RH(user));
-
    const [form] = Form.useForm();
    const [afficherAide, setAfficherAide] = useState(false);
    const [datesSelectionnees, setDatesSelectionnees] = useState<Date[]>([]);
@@ -89,11 +50,11 @@ export default function EvenementDupliquerModal({
       equipements: true,
       paiement: false,
    });
+
    const postEvenement = useApi().usePost({
       path: "/evenements",
       onSuccess: () => {
          window.setTimeout(() => {
-            // Remove first element of datesSelectionnees
             setDatesSelectionnees((prev) => prev.slice(1));
          }, 500);
       },
@@ -135,9 +96,7 @@ export default function EvenementDupliquerModal({
             tempsSupplementaire: options.paiement ? evenement.tempsSupplementaire : undefined,
          };
 
-         postEvenement.mutate({
-            data: nvoEvenement,
-         });
+         postEvenement.mutate({ data: nvoEvenement });
       } else {
          message.success("Évènement dupliqué avec succès").then();
          setSubmitted(false);
@@ -200,180 +159,16 @@ export default function EvenementDupliquerModal({
          width={800}
          confirmLoading={submitted}
       >
-         {afficherAide && (
-            <Alert
-               closable={{ onClose: () => setAfficherAide(false) }}
-               title="Dupliquer un évènement"
-               description={
-                  <>
-                     Cette fonctionnalité vous permet de dupliquer un évènement sur plusieurs jours.
-                     Vous devez :
-                     <ol className="mt-0 mb-0">
-                        <li>
-                           Sélectionner les jours sur lesquels vous souhaitez copier l'évènement
-                           dans le calendrier à gauche
-                        </li>
-                        <li>
-                           Sélectionner dans la partie de droite les informations de l'évènement que
-                           vous souhaitez conserver dans les évènements à créer
-                        </li>
-                     </ol>
-                  </>
-               }
-               type="info"
-               showIcon
-               className="mb-2"
-            />
-         )}
-         <Form
+         <EvenementDupliquerForm
             form={form}
-            layout="vertical"
-            name="evenement-dupliquer"
+            evenement={evenement}
+            datesSelectionnees={datesSelectionnees}
+            setDatesSelectionnees={setDatesSelectionnees}
+            options={options}
             onFinish={handleSubmit}
-            initialValues={options}
-         >
-            <Row gutter={[16, 16]}>
-               <Col lg={12} sm={24}>
-                  <Calendar
-                     calendarClassName="small-calendar pr-2"
-                     shouldHighlightWeekends
-                     locale={modernCalendarLocaleFr}
-                     minimumDate={
-                        user?.isAdmin || !lastPeriodes || !lastPeriodes.items[0]
-                           ? undefined
-                           : (toDayValue(new Date(lastPeriodes.items[0].butoir as string)) as Day)
-                     }
-                     onChange={(v) => {
-                        if (v) {
-                           // Pas de doublons sur les dates car un bénéf ne peut pas avoir 2 évènements sur le même créneau horaire
-                           if (
-                              datesSelectionnees
-                                 .map((d) => d.toISOString())
-                                 .includes(toDate(v).toISOString())
-                           )
-                              return;
-
-                           setDatesSelectionnees([...datesSelectionnees, toDate(v)]);
-                        }
-                     }}
-                  />
-
-                  <p className="semi-bold mt-0">Date des évènements à créer</p>
-                  {datesSelectionnees.length > 0 ? (
-                     <List size="small">
-                        {datesSelectionnees.map((date, index) => (
-                           <List.Item
-                              key={index}
-                              extra={
-                                 <Button
-                                    icon={<DeleteOutlined />}
-                                    onClick={() => {
-                                       setDatesSelectionnees(
-                                          datesSelectionnees.filter((d) => d !== date),
-                                       );
-                                    }}
-                                 />
-                              }
-                           >
-                              {date.toLocaleDateString()}
-                           </List.Item>
-                        ))}
-                     </List>
-                  ) : (
-                     <Empty description="Aucune date sélectionnée" />
-                  )}
-               </Col>
-               <Col lg={12} sm={24}>
-                  <p className="semi-bold">Informations à dupliquer</p>
-                  <Row>
-                     <Col span={18} className="text-legende">
-                        Horaires (début/fin)
-                     </Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="horaire" valuePropName="checked">
-                           <Switch size="small" checked disabled className="mb-1" />
-                        </Form.Item>
-                     </Col>
-                  </Row>
-                  <Row>
-                     <Col span={18} className="text-legende">
-                        Catégorie
-                     </Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="typeEvenement" valuePropName="checked">
-                           <Switch size="small" checked disabled className="mb-1" />
-                        </Form.Item>
-                     </Col>
-                  </Row>
-
-                  <Row className="mt-2">
-                     <Col span={18} className="text-legende">
-                        Bénéficiaire
-                     </Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="beneficiaire" valuePropName="checked">
-                           <Switch size="small" checked={true} disabled className="mb-1" />
-                        </Form.Item>
-                     </Col>
-
-                     <Col
-                        span={18}
-                        className={
-                           evenement.type === TYPE_EVENEMENT_RENFORT ? "text-legende" : undefined
-                        }
-                     >
-                        Intervenant
-                     </Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="intervenant" valuePropName="checked">
-                           <Switch
-                              size="small"
-                              checked={evenement.type === TYPE_EVENEMENT_RENFORT ? true : undefined}
-                              disabled={evenement.type === TYPE_EVENEMENT_RENFORT}
-                              className="mb-1"
-                           />
-                        </Form.Item>
-                     </Col>
-                  </Row>
-
-                  <Row className="mt-2">
-                     <Col span={18} className="text-legende">
-                        Campus
-                     </Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="campus" valuePropName="checked">
-                           <Switch size="small" checked={true} disabled className="mb-1" />
-                        </Form.Item>
-                     </Col>
-
-                     <Col span={18}>Salle</Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="salle" valuePropName="checked">
-                           <Switch size="small" className="mb-1" />
-                        </Form.Item>
-                     </Col>
-                  </Row>
-
-                  <Row className="mt-2">
-                     <Col span={18}>Equipements</Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="equipements" valuePropName="checked">
-                           <Switch size="small" className="mb-1" />
-                        </Form.Item>
-                     </Col>
-                  </Row>
-
-                  <Row className="mt-2">
-                     <Col span={18}>Informations de paiement</Col>
-                     <Col span={6} className="text-right">
-                        <Form.Item name="paiement" valuePropName="checked">
-                           <Switch size="small" className="mb-1" />
-                        </Form.Item>
-                     </Col>
-                  </Row>
-               </Col>
-            </Row>
-         </Form>
+            afficherAide={afficherAide}
+            setAfficherAide={setAfficherAide}
+         />
       </Modal>
    );
 }
