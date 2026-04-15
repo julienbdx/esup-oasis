@@ -27,7 +27,7 @@ import { InfoCircleOutlined, LockOutlined, MinusOutlined, UserOutlined } from "@
 import { ScolariteListItem } from "./TabScolarite";
 import { TabProfils } from "./TabProfils";
 import UtilisateurEmailItem from "../Items/UtilisateurEmailItem";
-import { MailSmallButton } from "../Forms/UtilisateurFormItemSelect";
+import { MailSmallButton } from "../Forms/MailSmallButton";
 import { GenreItem } from "../Items/GenreItem";
 import dayjs from "dayjs";
 import { calculerAge } from "../../utils/dates";
