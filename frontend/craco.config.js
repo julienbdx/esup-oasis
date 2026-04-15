@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   webpack: {
     alias: {
+      '@assets': path.resolve(__dirname, 'src/assets'),
       '@controls': path.resolve(__dirname, 'src/controls'),
       '@context': path.resolve(__dirname, 'src/context'),
       '@lib': path.resolve(__dirname, 'src/lib'),
@@ -15,6 +16,7 @@ module.exports = {
   jest: {
     configure: {
       moduleNameMapper: {
+        '^@assets/(.*)$': '<rootDir>/src/assets/$1',
         '^@controls/(.*)$': '<rootDir>/src/controls/$1',
         '^@context/(.*)$': '<rootDir>/src/context/$1',
         '^@lib/(.*)$': '<rootDir>/src/lib/$1',
