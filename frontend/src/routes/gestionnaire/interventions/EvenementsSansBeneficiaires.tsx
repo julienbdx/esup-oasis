@@ -8,11 +8,11 @@
  */
 
 import React from "react";
-import "../../administration/Administration.scss";
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import CalendarTable from "../../../controls/Calendar/Table/CalendarTable";
-import { Evenement } from "../../../lib/Evenement";
+import "@routes/administration/Administration.scss";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import CalendarTable from "@controls/Calendar/Table/CalendarTable";
+import { Evenement } from "@lib/Evenement";
 import { Alert, Breadcrumb, Layout, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, InfoCircleFilled } from "@ant-design/icons";

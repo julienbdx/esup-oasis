@@ -8,27 +8,27 @@
  *
  */
 
-import { ascToAscend } from "../../utils/array";
-import { RoleValues, Utilisateur } from "../../lib/Utilisateur";
-import { IDemande, IEtatDemande, IUtilisateur } from "../../api/ApiTypeHelpers";
+import { ascToAscend } from "@utils/array";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { IDemande, IEtatDemande, IUtilisateur } from "@api/ApiTypeHelpers";
 import { ColumnType } from "antd/es/table";
 import { Button, Flex, Popconfirm, Space, Tooltip } from "antd";
-import { FilterProps } from "../../utils/table";
-import TypeDemandeItem from "../Items/TypeDemandeItem";
-import ComposanteItem from "../Items/ComposanteItem";
+import { FilterProps } from "@utils/table";
+import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
+import ComposanteItem from "@controls/Items/ComposanteItem";
 import dayjs from "dayjs";
-import { EtatDemandeAvatar } from "../Avatars/EtatDemandeAvatar";
+import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import Icon, { EyeOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import React from "react";
-import { FiltreDemande } from "./DemandeTable";
-import { ReactComponent as ExternalLink } from "../../assets/images/external-link.svg";
-import UtilisateurAvatarImage from "../Avatars/UtilisateurAvatarImage";
-import { EllipsisMiddle } from "../Typography/EllipsisMiddle";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
+import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
+import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 import Highlighter from "react-highlight-words";
-import { removeAccents } from "../../utils/string";
+import { removeAccents } from "@utils/string";
 
-import { UseStateDispatch } from "../../utils/utils";
-import { env } from "../../env";
+import { UseStateDispatch } from "@utils/utils";
+import { env } from "@/env";
 
 export function demandeTableColumns({
    filter,

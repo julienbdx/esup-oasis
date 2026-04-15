@@ -10,12 +10,12 @@
 import React, { useState } from "react";
 import { App, Avatar, Button, Card, DatePicker, InputNumber, Popconfirm, Space } from "antd";
 import { DeleteOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
-import { useApi } from "../../context/api/ApiProvider";
-import { ITauxHoraire, ITypeEvenement } from "../../api/ApiTypeHelpers";
-import { createDateAsUTC, getLibellePeriode, isEnCoursSurPeriode } from "../../utils/dates";
+import { useApi } from "@context/api/ApiProvider";
+import { ITauxHoraire, ITypeEvenement } from "@api/ApiTypeHelpers";
+import { createDateAsUTC, getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 import dayjs from "dayjs";
-import { queryClient } from "../../App";
-import { QK_TYPES_EVENEMENTS } from "../../api/queryKeys";
+import { queryClient } from "@/App";
+import { QK_TYPES_EVENEMENTS } from "@api/queryKeys";
 
 interface ITauxHoraireFormItem {
    value?: string;

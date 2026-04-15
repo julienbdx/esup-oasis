@@ -9,11 +9,11 @@
 
 import { Button, Card, Divider, Drawer, Form, Input, Select, Switch } from "antd";
 import React, { ReactElement, useEffect } from "react";
-import { ITypeDemande } from "../../../api/ApiTypeHelpers";
-import { useApi } from "../../../context/api/ApiProvider";
-import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "../../../constants";
-import { PREFETCH_PROFILS } from "../../../api/ApiPrefetchHelpers";
-import { QK_TYPES_DEMANDES } from "../../../api/queryKeys";
+import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
+import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
+import { QK_TYPES_DEMANDES } from "@api/queryKeys";
 
 interface TypesDemandesEditionProps {
    editedItem?: ITypeDemande;

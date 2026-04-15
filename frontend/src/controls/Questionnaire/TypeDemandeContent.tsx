@@ -11,10 +11,10 @@ import React, { useEffect } from "react";
 import {
    useQuestionnaire,
    useQuestionnaireNavigation,
-} from "../../context/demande/QuestionnaireProvider";
+} from "@context/demande/QuestionnaireProvider";
 import { App, Button, Card, Form, Layout, Skeleton, Steps, Typography } from "antd";
-import { EtapeDemande } from "./EtapeDemande";
-import "./TypeDemandeContent.scss";
+import { EtapeDemande } from "@controls/Questionnaire/EtapeDemande";
+import "@controls/Questionnaire/TypeDemandeContent.scss";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 

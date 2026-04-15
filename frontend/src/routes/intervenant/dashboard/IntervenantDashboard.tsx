@@ -9,11 +9,11 @@
 
 import React, { ReactElement } from "react";
 import { Layout, Typography } from "antd";
-import "./Dashboard.scss";
-import DashboardUtilisateurStats from "../../../controls/Dashboard/DashboardUtilisateurStats";
-import { useAuth } from "../../../auth/AuthProvider";
-import { IntervenantDashboardServicesFaits } from "../../../controls/Dashboard/IntervenantDashboardServicesFaits";
-import AlertCompleterProfil from "../../../controls/Dashboard/AlertCompleterProfil";
+import "@routes/intervenant/dashboard/Dashboard.scss";
+import DashboardUtilisateurStats from "@controls/Dashboard/DashboardUtilisateurStats";
+import { useAuth } from "@/auth/AuthProvider";
+import { IntervenantDashboardServicesFaits } from "@controls/Dashboard/IntervenantDashboardServicesFaits";
+import AlertCompleterProfil from "@controls/Dashboard/AlertCompleterProfil";
 
 /**
  * Represents the dashboard component for the intervenant.

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "../api/ApiTypeHelpers";
+import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
 
 export type DomaineAmenagementInfos = {
    id: string;

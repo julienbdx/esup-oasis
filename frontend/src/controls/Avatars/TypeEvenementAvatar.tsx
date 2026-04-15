@@ -9,11 +9,11 @@
 
 import React, { memo, ReactElement, useEffect, useState } from "react";
 import { Avatar } from "antd";
-import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
-import { useApi } from "../../context/api/ApiProvider";
-import Spinner from "../Spinner/Spinner";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
-import { ITypeEvenement } from "../../api/ApiTypeHelpers";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 interface IAvatarTypeEvenement {
    typeEvenement?: ITypeEvenement;

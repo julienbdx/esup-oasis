@@ -9,12 +9,12 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Avatar, Breakpoint, Space } from "antd";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "@controls/Spinner/Spinner";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { CrownOutlined } from "@ant-design/icons";
-import { PREFETCH_COMPETENCES } from "../../api/ApiPrefetchHelpers";
-import { ICompetence } from "../../api/ApiTypeHelpers";
+import { PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
+import { ICompetence } from "@api/ApiTypeHelpers";
 
 interface IItemCompetence {
    competence?: ICompetence;

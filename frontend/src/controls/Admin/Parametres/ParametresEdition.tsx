@@ -9,10 +9,10 @@
 
 import React, { ReactElement } from "react";
 import { App, Button, Card, Drawer, Form, Typography } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import Spinner from "../../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { PlusOutlined } from "@ant-design/icons";
-import ParametreFormItem from "./ParametreFormItem";
+import ParametreFormItem from "@controls/Admin/Parametres/ParametreFormItem";
 
 interface ParametresEditionProps {
    parametreId: string;

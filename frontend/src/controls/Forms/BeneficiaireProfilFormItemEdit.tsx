@@ -8,22 +8,22 @@
  */
 
 import { App, Avatar, Button, Card, Checkbox, DatePicker, Select, Space } from "antd";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { createDateAsUTC } from "../../utils/dates";
-import Spinner from "../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { createDateAsUTC } from "@utils/dates";
+import Spinner from "@controls/Spinner/Spinner";
 import { CaretRightOutlined, EditOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
-import { IBeneficiaireProfil, IUtilisateur } from "../../api/ApiTypeHelpers";
-import { env } from "../../env";
+import { IBeneficiaireProfil, IUtilisateur } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
 import {
    QK_BENEFICIAIRES,
    QK_INTERVENANTS,
    QK_STATISTIQUES_EVENEMENTS,
    QK_UTILISATEURS,
-} from "../../api/queryKeys";
+} from "@api/queryKeys";
 
 interface IBeneficiaireProfilFormItemEditProps {
    utilisateur: IUtilisateur;

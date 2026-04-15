@@ -9,12 +9,12 @@
 
 // --- PATCH ITEM ---
 import { QueryClient, useMutation, UseMutationResult } from "@tanstack/react-query";
-import { handleApiResponse } from "./HandleApiResponse";
-import { handleInvalidation } from "./HandleInvalidation";
-import { MutationPatchParams, RequestMethod } from "../ApiProvider";
+import { handleApiResponse } from "@context/api/ApiContextFn/HandleApiResponse";
+import { handleInvalidation } from "@context/api/ApiContextFn/HandleInvalidation";
+import { MutationPatchParams, RequestMethod } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
-import { ApiContentTypePatch, ApiPathMethodResponse, Path } from "../../../api/SchemaHelpers";
-import { useAuth } from "../../../auth/AuthProvider";
+import { ApiContentTypePatch, ApiPathMethodResponse, Path } from "@api/SchemaHelpers";
+import { useAuth } from "@/auth/AuthProvider";
 
 export type UsePatchHook = <P extends Path>(options: {
    path: P;

@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Table } from "antd";
-import { ServicesFaitsButton } from "../../Admin/Bilans/ServicesFaitsButton";
+import { ServicesFaitsButton } from "@controls/Admin/Bilans/ServicesFaitsButton";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { IPeriode } from "../../../api/ApiTypeHelpers";
-import BooleanState from "../../State/BooleanState";
+import { IPeriode } from "@api/ApiTypeHelpers";
+import BooleanState from "@controls/State/BooleanState";
 
 interface PeriodeRhTableProps {
    onEdit: (record: IPeriode) => void;

@@ -10,10 +10,10 @@
 import React from "react";
 import { Col, Segmented } from "antd";
 import { CheckCircleFilled, HourglassOutlined } from "@ant-design/icons";
-import { FiltreAmenagement } from "../AmenagementTableLayout";
-import { EtatAvisEse } from "../../Avatars/BeneficiaireAvisEseAvatar";
-import { ModeAffichageAmenagement } from "../../../routes/gestionnaire/beneficiaires/Amenagements";
-import { env } from "../../../env";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
+import { EtatAvisEse } from "@controls/Avatars/BeneficiaireAvisEseAvatar";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
+import { env } from "@/env";
 
 interface FilterFieldAvisEseProps {
    filtreAmenagement: FiltreAmenagement;

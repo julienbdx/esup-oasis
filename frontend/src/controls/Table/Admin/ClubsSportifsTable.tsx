@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Switch, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { IClubSportif } from "../../../api/ApiTypeHelpers";
-import BooleanState from "../../State/BooleanState";
+import { IClubSportif } from "@api/ApiTypeHelpers";
+import BooleanState from "@controls/State/BooleanState";
 
 interface ClubsSportifsTableProps {
    editedItem?: IClubSportif;

@@ -8,16 +8,16 @@
  */
 
 import React, { useState } from "react";
-import interventionForfaitTableColumns from "./InterventionForfaitTableColumns";
+import interventionForfaitTableColumns from "@controls/Table/InterventionForfaitTableColumns";
 import { Button, Flex, Space, Table } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FilterFilled, FilterOutlined } from "@ant-design/icons";
-import { useAuth } from "../../auth/AuthProvider";
-import InterventionForfaitTableExport from "./InterventionForfaitTableExport";
+import { useAuth } from "@/auth/AuthProvider";
+import InterventionForfaitTableExport from "@controls/Table/InterventionForfaitTableExport";
 import { SorterResult } from "antd/es/table/interface";
-import { IInterventionForfait } from "../../api/ApiTypeHelpers";
-import { Paths } from "../../api/SchemaHelpers";
+import { IInterventionForfait } from "@api/ApiTypeHelpers";
+import { Paths } from "@api/SchemaHelpers";
 
 export declare type FiltreInterventionsForfait = Exclude<
    Paths["/interventions_forfait"]["get"]["parameters"]["query"],

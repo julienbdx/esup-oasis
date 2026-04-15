@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { components, paths } from "./schema";
+import { components, paths } from "@api/schema";
 
 /**
  * Helpers pour utiliser les types générés de l'API

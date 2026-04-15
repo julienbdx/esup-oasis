@@ -9,13 +9,13 @@
 
 import React, { ReactElement } from "react";
 import { Typography } from "antd";
-import PeriodeRhItem from "../../Items/PeriodeRhItem";
-import { useApi } from "../../../context/api/ApiProvider";
+import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
+import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
-import GestionnaireItem from "../../Items/GestionnaireItem";
-import Spinner from "../../Spinner/Spinner";
-import { ServicesFaitsDetailsTable } from "../../Table/ServicesFaitsDetailsTable";
-import { IPeriode } from "../../../api/ApiTypeHelpers";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import Spinner from "@controls/Spinner/Spinner";
+import { ServicesFaitsDetailsTable } from "@controls/Table/ServicesFaitsDetailsTable";
+import { IPeriode } from "@api/ApiTypeHelpers";
 
 interface ServicesFaitsModaleProps {
    periode: IPeriode;

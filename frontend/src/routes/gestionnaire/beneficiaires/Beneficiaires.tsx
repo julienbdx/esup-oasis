@@ -10,10 +10,10 @@
 import React, { ReactElement, useState } from "react";
 import { FloatButton, Layout, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { useDrawers } from "../../../context/drawers/DrawersContext";
-import UtilisateurCreerDrawer from "../../../controls/Drawers/Utilisateur/UtilisateurCreerDrawer";
-import { RoleValues } from "../../../lib/Utilisateur";
-import BeneficiaireTable from "../../../controls/Table/BeneficiaireTable";
+import { useDrawers } from "@context/drawers/DrawersContext";
+import UtilisateurCreerDrawer from "@controls/Drawers/Utilisateur/UtilisateurCreerDrawer";
+import { RoleValues } from "@lib/Utilisateur";
+import BeneficiaireTable from "@controls/Table/BeneficiaireTable";
 
 /**
  * Renders the page for ROLE_GESTIONNAIRE to manage beneficiaries.

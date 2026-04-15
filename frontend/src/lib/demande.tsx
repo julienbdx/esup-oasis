@@ -8,8 +8,8 @@
  *
  */
 
-import { IDemande, ITypeDemande } from "../api/ApiTypeHelpers";
-import CampagneDemandeDateItem from "../controls/Items/CampagneDemandeDateItem";
+import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
+import CampagneDemandeDateItem from "@controls/Items/CampagneDemandeDateItem";
 import React from "react";
 import { Button, Space } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ import {
    HourglassOutlined,
    PaperClipOutlined,
 } from "@ant-design/icons";
-import { env } from "../env";
+import { env } from "@/env";
 
 export interface EtatInfo {
    id: string;

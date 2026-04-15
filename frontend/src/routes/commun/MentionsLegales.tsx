@@ -8,8 +8,8 @@
  */
 
 import { Card, Col, Layout, Row } from "antd";
-import PageTitle from "../../utils/PageTitle/PageTitle";
-import { env } from "../../env";
+import PageTitle from "@utils/PageTitle/PageTitle";
+import { env } from "@/env";
 
 /**
  * Page des mentions légales

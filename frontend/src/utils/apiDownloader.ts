@@ -8,8 +8,8 @@
  */
 
 import { message } from "antd";
-import { AuthContextType } from "../auth/AuthProvider";
-import { env } from "../env";
+import { AuthContextType } from "@/auth/AuthProvider";
+import { env } from "@/env";
 
 /**
  * Télécharger un fichier généré par l'API en utilisant un lien de téléchargement direct.

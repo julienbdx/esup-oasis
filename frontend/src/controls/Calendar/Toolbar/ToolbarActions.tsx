@@ -10,8 +10,8 @@
 import React from "react";
 import { FloatButton } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useModals } from "../../../context/modals/ModalsContext";
+import { useAuth } from "@/auth/AuthProvider";
+import { useModals } from "@context/modals/ModalsContext";
 
 interface IToolbarActions {
    saisieEvtRenfort?: boolean;

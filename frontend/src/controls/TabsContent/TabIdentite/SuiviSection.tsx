@@ -20,10 +20,10 @@ import {
    FormInstance,
 } from "antd";
 import { InfoCircleOutlined, LockOutlined, MinusOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
-import { RoleValues } from "../../../lib/Utilisateur";
-import { env } from "../../../env";
-import { TabProfils } from "../TabProfils";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { RoleValues } from "@lib/Utilisateur";
+import { env } from "@/env";
+import { TabProfils } from "@controls/TabsContent/TabProfils";
 
 interface SuiviSectionProps {
    utilisateur: IUtilisateur;

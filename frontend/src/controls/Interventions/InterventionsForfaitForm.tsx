@@ -11,17 +11,17 @@ import React from "react";
 import { Alert, Form, FormInstance, InputNumber, Select } from "antd";
 import { ExclamationOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
-import { useAuth } from "../../auth/AuthProvider";
-import { RoleValues } from "../../lib/Utilisateur";
-import PeriodeRhItem from "../Items/PeriodeRhItem";
-import UtilisateurFormItemSelect from "../Forms/UtilisateurFormItemSelect";
-import TypeEvenementItem from "../Items/TypeEvenementItem";
-import { TabEvenementParticipantsBeneficiaires } from "../TabsContent/SubTabs/TabEvenementParticipantsBeneficiaires";
-import { InterventionsForfaitMetadata } from "./InterventionsForfaitMetadata";
-import { IInterventionForfait } from "../../api/ApiTypeHelpers";
-import { UseStateDispatch } from "../../utils/utils";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import { RoleValues } from "@lib/Utilisateur";
+import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
+import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import { TabEvenementParticipantsBeneficiaires } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsBeneficiaires";
+import { InterventionsForfaitMetadata } from "@controls/Interventions/InterventionsForfaitMetadata";
+import { IInterventionForfait } from "@api/ApiTypeHelpers";
+import { UseStateDispatch } from "@utils/utils";
 
 interface InterventionsForfaitFormProps {
    form: FormInstance<IInterventionForfait>;

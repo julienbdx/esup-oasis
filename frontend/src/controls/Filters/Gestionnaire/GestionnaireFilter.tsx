@@ -9,8 +9,8 @@
 
 import React, { ReactElement, useState } from "react";
 import { Select } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 interface IGestionnaireFilter {
    value?: string[];

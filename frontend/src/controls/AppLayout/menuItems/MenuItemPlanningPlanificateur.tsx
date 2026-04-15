@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Utilisateur } from "../../../lib/Utilisateur";
+import { Utilisateur } from "@lib/Utilisateur";
 import { NavigateFunction } from "react-router-dom";
 import { Button, MenuProps } from "antd";
 import React from "react";

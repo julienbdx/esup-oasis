@@ -12,8 +12,8 @@ import { ExportOutlined } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import { ReactElement, useEffect, useRef } from "react";
 
-import { UseStateDispatch } from "../../utils/utils";
-import { env } from "../../env";
+import { UseStateDispatch } from "@utils/utils";
+import { env } from "@/env";
 
 interface ExportButtonProps<T extends object = object> {
    getData: () => T[];

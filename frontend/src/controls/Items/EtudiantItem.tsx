@@ -8,16 +8,16 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import { RoleValues, Utilisateur } from "../../lib/Utilisateur";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { Breakpoint, Space } from "antd";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "@controls/Spinner/Spinner";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { MinusOutlined } from "@ant-design/icons";
-import { useApi } from "../../context/api/ApiProvider";
-import { IUtilisateur } from "../../api/ApiTypeHelpers";
-import UtilisateurContent from "./UtilisateurItemContent";
-import UtilisateurAvatarImage from "../Avatars/UtilisateurAvatarImage";
-import { entiteParent } from "../../api/Utils";
+import { useApi } from "@context/api/ApiProvider";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import UtilisateurContent from "@controls/Items/UtilisateurItemContent";
+import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
+import { entiteParent } from "@api/Utils";
 
 interface IItemEtudiant {
    utilisateur?: IUtilisateur;

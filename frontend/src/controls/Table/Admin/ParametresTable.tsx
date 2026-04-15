@@ -9,11 +9,11 @@
 
 import React, { useState } from "react";
 import { Button, Space, Table } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { EditOutlined, FileOutlined } from "@ant-design/icons";
-import ParametresEdition from "../../Admin/Parametres/ParametresEdition";
-import { IParametre, IParametreValeur } from "../../../api/ApiTypeHelpers";
+import ParametresEdition from "@controls/Admin/Parametres/ParametresEdition";
+import { IParametre, IParametreValeur } from "@api/ApiTypeHelpers";
 
 export default function ParametresTable() {
    const [editedItem, setEditedItem] = useState<IParametre>();

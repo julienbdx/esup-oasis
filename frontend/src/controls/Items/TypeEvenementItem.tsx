@@ -9,13 +9,13 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Breakpoint, Space } from "antd";
-import Spinner from "../Spinner/Spinner";
-import { TypeEvenementAvatar } from "../Avatars/TypeEvenementAvatar";
+import Spinner from "@controls/Spinner/Spinner";
+import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { useApi } from "../../context/api/ApiProvider";
-import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
-import { ITypeEvenement } from "../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 interface IItemTypeEvenement {
    typeEvenement?: ITypeEvenement;

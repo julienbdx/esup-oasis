@@ -8,13 +8,13 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Avatar, Drawer, Input, List } from "antd";
-import ListSelectable from "../Forms/ListSelectable/ListSelectable";
+import ListSelectable from "@controls/Forms/ListSelectable/ListSelectable";
 import { UserOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "../../api/ApiTypeHelpers";
-import { env } from "../../env";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
 
 interface IUtilisateurSearchProps {
    visible: boolean;

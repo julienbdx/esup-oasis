@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { MaterialColorAmount } from "../utils/colors";
-import { IEvenement } from "../api/ApiTypeHelpers";
+import { MaterialColorAmount } from "@utils/colors";
+import { IEvenement } from "@api/ApiTypeHelpers";
 
-import { DateAsString } from "../utils/string";
+import { DateAsString } from "@utils/string";
 
 export interface CalendarEvenement {
    title?: string;

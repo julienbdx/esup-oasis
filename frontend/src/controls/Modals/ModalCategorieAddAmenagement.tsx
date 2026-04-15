@@ -7,15 +7,15 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAmenagement, ICategorieAmenagement } from "../../api/ApiTypeHelpers";
+import { IAmenagement, ICategorieAmenagement } from "@api/ApiTypeHelpers";
 import { Button, Checkbox, Col, DatePicker, Divider, Flex, Form, Modal, Row, Space } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { PREFETCH_TYPES_AMENAGEMENTS } from "../../api/ApiPrefetchHelpers";
-import { QK_AMENAGEMENTS, QK_UTILISATEURS_AMENAGEMENTS } from "../../api/queryKeys";
-import { useAuth } from "../../auth/AuthProvider";
-import Spinner from "../Spinner/Spinner";
+import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
+import { QK_AMENAGEMENTS, QK_UTILISATEURS_AMENAGEMENTS } from "@api/queryKeys";
+import { useAuth } from "@/auth/AuthProvider";
+import Spinner from "@controls/Spinner/Spinner";
 
 type IAmenagementForm = IAmenagement & {
    types: string[];

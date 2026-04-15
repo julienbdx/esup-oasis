@@ -10,11 +10,11 @@
 import React, { ReactElement } from "react";
 import { Button, Form, Popconfirm } from "antd";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import BeneficiaireProfilCardItem from "../Forms/BeneficiaireProfilCardItem";
-import { useApi } from "../../context/api/ApiProvider";
-import { queryClient } from "../../App";
-import { IUtilisateur } from "../../api/ApiTypeHelpers";
-import { QK_BENEFICIAIRES, QK_STATISTIQUES_EVENEMENTS } from "../../api/queryKeys";
+import BeneficiaireProfilCardItem from "@controls/Forms/BeneficiaireProfilCardItem";
+import { useApi } from "@context/api/ApiProvider";
+import { queryClient } from "@/App";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { QK_BENEFICIAIRES, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
 
 interface ITabProfilsProps {
    utilisateur: IUtilisateur;

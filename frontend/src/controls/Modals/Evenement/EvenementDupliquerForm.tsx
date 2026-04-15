@@ -9,16 +9,16 @@
 
 import React, { ReactElement } from "react";
 import { Alert, Button, Col, Empty, Form, FormInstance, List, Row, Switch } from "antd";
-import { Calendar, Day } from "../../../lib/react-modern-calendar-datepicker";
-import { modernCalendarLocaleFr } from "../../../lib/react-modern-calendar-datepicker/SmallCalendarLocale";
-import { toDate, toDayValue } from "../../../utils/dates";
+import { Calendar, Day } from "@lib/react-modern-calendar-datepicker";
+import { modernCalendarLocaleFr } from "@lib/react-modern-calendar-datepicker/SmallCalendarLocale";
+import { toDate, toDayValue } from "@utils/dates";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Evenement } from "../../../lib/Evenement";
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
-import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
-import { PREFETCH_LAST_PERIODES_RH } from "../../../api/ApiPrefetchHelpers";
-import { UseStateDispatch } from "../../../utils/utils";
+import { Evenement } from "@lib/Evenement";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import { TYPE_EVENEMENT_RENFORT } from "@/constants";
+import { PREFETCH_LAST_PERIODES_RH } from "@api/ApiPrefetchHelpers";
+import { UseStateDispatch } from "@utils/utils";
 
 export interface IDuplicationOptions {
    horaire: boolean;

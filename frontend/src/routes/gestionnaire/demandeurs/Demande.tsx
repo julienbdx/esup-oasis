@@ -10,14 +10,14 @@
 import React, { ReactElement } from "react";
 import { Breadcrumb, Button, Flex, Layout, Skeleton, Space, Typography } from "antd";
 import { NavLink, useParams } from "react-router-dom";
-import { DossierDemande as Dossier } from "../../../controls/Demande/Dossier/DossierDemande";
+import { DossierDemande as Dossier } from "@controls/Demande/Dossier/DossierDemande";
 import { HomeFilled, QuestionCircleFilled } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import Spinner from "../../../controls/Spinner/Spinner";
-import { QuestionnaireProvider } from "../../../context/demande/QuestionnaireProvider";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
+import { QuestionnaireProvider } from "@context/demande/QuestionnaireProvider";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { DemandeurTour } from "../../../controls/Demande/Tour/DemandeurTour";
-import { env } from "../../../env";
+import { DemandeurTour } from "@controls/Demande/Tour/DemandeurTour";
+import { env } from "@/env";
 
 export type RefsTourDemande = {
    avancement: React.RefObject<HTMLDivElement | null>;

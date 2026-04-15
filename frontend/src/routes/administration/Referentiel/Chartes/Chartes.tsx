@@ -11,9 +11,9 @@ import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
-import { ICharte } from "../../../../api/ApiTypeHelpers";
-import { ChartesEdition } from "../../../../controls/Admin/Referentiel/Chartes/ChartesEdition";
-import { ChartesTable } from "../../../../controls/Table/Admin/ChartesTable";
+import { ICharte } from "@api/ApiTypeHelpers";
+import { ChartesEdition } from "@controls/Admin/Referentiel/Chartes/ChartesEdition";
+import { ChartesTable } from "@controls/Table/Admin/ChartesTable";
 
 /**
  * Renders admin page for managing ClubsSportifs.

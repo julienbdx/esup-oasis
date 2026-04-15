@@ -14,24 +14,24 @@ import {
    ITypeAmenagement,
    ITypeSuiviAmenagement,
    IUtilisateur,
-} from "../../api/ApiTypeHelpers";
+} from "@api/ApiTypeHelpers";
 import { useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { TableExportButton } from "../Buttons/TableExportButton";
-import { FiltreAmenagement, filtreAmenagementToApi } from "./AmenagementTableLayout";
-import { getDomaineAmenagement } from "../../lib/amenagements";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { TableExportButton } from "@controls/Buttons/TableExportButton";
+import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
+import { getDomaineAmenagement } from "@lib/amenagements";
 import dayjs from "dayjs";
 import {
    PREFETCH_CATEGORIES_AMENAGEMENTS,
    PREFETCH_TAGS,
    PREFETCH_TYPES_AMENAGEMENTS,
    PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
-} from "../../api/ApiPrefetchHelpers";
-import { RoleValues } from "../../lib/Utilisateur";
-import { ModeAffichageAmenagement } from "../../routes/gestionnaire/beneficiaires/Amenagements";
-import { env } from "../../env";
-import SplitFetcher from "../../api/SplitFetcher";
+} from "@api/ApiPrefetchHelpers";
+import { RoleValues } from "@lib/Utilisateur";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
+import { env } from "@/env";
+import SplitFetcher from "@api/SplitFetcher";
 import { ExportOutlined } from "@ant-design/icons";
 
 const headers = [

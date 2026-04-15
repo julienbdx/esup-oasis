@@ -8,11 +8,11 @@
  */
 
 import { Button, Card, Drawer, Form, Input, Select, Switch } from "antd";
-import { useApi } from "../../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
-import { ITag } from "../../../../api/ApiTypeHelpers";
-import { PREFETCH_CATEGORIES_TAGS } from "../../../../api/ApiPrefetchHelpers";
-import { QK_CATEGORIES_TAGS, QK_CATEGORIES_TAGS_ITEMS, QK_TAGS } from "../../../../api/queryKeys";
+import { ITag } from "@api/ApiTypeHelpers";
+import { PREFETCH_CATEGORIES_TAGS } from "@api/ApiPrefetchHelpers";
+import { QK_CATEGORIES_TAGS, QK_CATEGORIES_TAGS_ITEMS, QK_TAGS } from "@api/queryKeys";
 
 interface TagEditionProps {
    editedItem?: ITag;

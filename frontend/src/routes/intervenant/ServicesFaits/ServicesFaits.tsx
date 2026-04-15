@@ -9,20 +9,20 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Alert, Button, Card, Layout, Modal, Space, Table, Tabs, Typography } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { useAuth } from "../../../auth/AuthProvider";
-import PeriodeRhItem from "../../../controls/Items/PeriodeRhItem";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useAuth } from "@/auth/AuthProvider";
+import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
 import { EyeOutlined } from "@ant-design/icons";
-import { IPeriode, IServicesFaits, IServicesFaitsLigne } from "../../../api/ApiTypeHelpers";
-import { ServicesFaitsDetailsTable } from "../../../controls/Table/ServicesFaitsDetailsTable";
-import { isEnCoursSurPeriode } from "../../../utils/dates";
+import { IPeriode, IServicesFaits, IServicesFaitsLigne } from "@api/ApiTypeHelpers";
+import { ServicesFaitsDetailsTable } from "@controls/Table/ServicesFaitsDetailsTable";
+import { isEnCoursSurPeriode } from "@utils/dates";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useSearchParams } from "react-router-dom";
-import { to2Digits } from "../../../utils/number";
-import { EvenementsEnCoursTable } from "../../../controls/ServicesFaits/EvenementsEnCoursTable";
-import { InterventionsForfaitEnCoursTable } from "../../../controls/ServicesFaits/InterventionsForfaitEnCoursTable";
-import { TimezoneAlert } from "../../../controls/Calendar/TimezoneAlert";
+import { to2Digits } from "@utils/number";
+import { EvenementsEnCoursTable } from "@controls/ServicesFaits/EvenementsEnCoursTable";
+import { InterventionsForfaitEnCoursTable } from "@controls/ServicesFaits/InterventionsForfaitEnCoursTable";
+import { TimezoneAlert } from "@controls/Calendar/TimezoneAlert";
 
 /**
  * Renders a table displaying services made by an intervenant.

@@ -8,14 +8,14 @@
  *
  */
 
-import { UseStateDispatch } from "../../../utils/utils";
-import { RoleValues, Utilisateur } from "../../../lib/Utilisateur";
+import { UseStateDispatch } from "@utils/utils";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { NavigateFunction } from "react-router-dom";
 import { Button, MenuProps, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import BeneficiaireIntervenantSearchDrawer from "../../Drawers/BeneficiaireIntervenant/BeneficiaireIntervenantSearchDrawer";
+import BeneficiaireIntervenantSearchDrawer from "@controls/Drawers/BeneficiaireIntervenant/BeneficiaireIntervenantSearchDrawer";
 import React from "react";
-import { IDrawersContext } from "../../../context/drawers/DrawersContext";
+import { IDrawersContext } from "@context/drawers/DrawersContext";
 
 /**
  * Returns an array containing menu item for recherche option.

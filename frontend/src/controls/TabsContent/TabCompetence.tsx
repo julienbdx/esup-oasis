@@ -9,8 +9,8 @@
 
 import { Form, Radio } from "antd";
 import React, { ReactElement } from "react";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
 
 interface ITabCompetence {
    defaultValue?: string;

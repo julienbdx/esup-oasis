@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { Col, Form, Row, Select } from "antd";
-import { TypeEvenementAvatar } from "../Avatars/TypeEvenementAvatar";
+import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
 import React from "react";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 

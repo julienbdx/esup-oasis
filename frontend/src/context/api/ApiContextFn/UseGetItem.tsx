@@ -9,17 +9,17 @@
 
 // --- GET ITEM ---
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { handleApiResponse } from "./HandleApiResponse";
+import { handleApiResponse } from "@context/api/ApiContextFn/HandleApiResponse";
 import { useNavigate } from "react-router-dom";
 import {
    ApiPathMethodParameters,
    ApiPathMethodQuery,
    ApiPathMethodResponse,
    Path,
-} from "../../../api/SchemaHelpers";
-import { buildUrl } from "./UrlBuilder";
-import { RequestMethod } from "../ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
+} from "@api/SchemaHelpers";
+import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
+import { RequestMethod } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
 
 /**
  * Hook for fetching a single item data from an API using GET method.

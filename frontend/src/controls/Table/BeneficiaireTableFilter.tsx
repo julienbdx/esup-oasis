@@ -9,18 +9,18 @@
 
 import React from "react";
 import { Badge, Col, Tooltip } from "antd";
-import { FILTRE_BENEFICIAIRE_DEFAULT, FiltreBeneficiaire } from "./BeneficiaireTable";
-import { useBeneficiaireFilterOptions } from "./hooks/useBeneficiaireFilterOptions";
-import { FilterFieldNomBeneficiaire } from "./filters/FilterFieldNomBeneficiaire";
-import { FilterFieldAccompagnement } from "./filters/FilterFieldAccompagnement";
-import { FilterFieldGestionnairesBeneficiaire } from "./filters/FilterFieldGestionnairesBeneficiaire";
-import { FilterFieldProfils } from "./filters/FilterFieldProfils";
-import { FilterFieldTagsBeneficiaire } from "./filters/FilterFieldTagsBeneficiaire";
-import { FilterFieldAvisEseBeneficiaire } from "./filters/FilterFieldAvisEseBeneficiaire";
-import { FilterFieldDecisionEtablissement } from "./filters/FilterFieldDecisionEtablissement";
-import { FilterFieldComposantesBeneficiaire } from "./filters/FilterFieldComposantesBeneficiaire";
-import { FilterFieldFormationsBeneficiaire } from "./filters/FilterFieldFormationsBeneficiaire";
-import { FilterPanel } from "./FilterPanel";
+import { FILTRE_BENEFICIAIRE_DEFAULT, FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { useBeneficiaireFilterOptions } from "@controls/Table/hooks/useBeneficiaireFilterOptions";
+import { FilterFieldNomBeneficiaire } from "@controls/Table/filters/FilterFieldNomBeneficiaire";
+import { FilterFieldAccompagnement } from "@controls/Table/filters/FilterFieldAccompagnement";
+import { FilterFieldGestionnairesBeneficiaire } from "@controls/Table/filters/FilterFieldGestionnairesBeneficiaire";
+import { FilterFieldProfils } from "@controls/Table/filters/FilterFieldProfils";
+import { FilterFieldTagsBeneficiaire } from "@controls/Table/filters/FilterFieldTagsBeneficiaire";
+import { FilterFieldAvisEseBeneficiaire } from "@controls/Table/filters/FilterFieldAvisEseBeneficiaire";
+import { FilterFieldDecisionEtablissement } from "@controls/Table/filters/FilterFieldDecisionEtablissement";
+import { FilterFieldComposantesBeneficiaire } from "@controls/Table/filters/FilterFieldComposantesBeneficiaire";
+import { FilterFieldFormationsBeneficiaire } from "@controls/Table/filters/FilterFieldFormationsBeneficiaire";
+import { FilterPanel } from "@controls/Table/FilterPanel";
 
 export function BeneficiaireTableFilter(props: {
    filtreBeneficiaire: FiltreBeneficiaire;

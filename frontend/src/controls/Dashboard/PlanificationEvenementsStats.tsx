@@ -11,14 +11,14 @@ import React, { ReactElement } from "react";
 import { Card, Col, Row, Tooltip, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { WarningFilled } from "@ant-design/icons";
-import { pluriel } from "../../utils/string";
-import { useAuth } from "../../auth/AuthProvider";
-import { IStatistiquesEvenements, ITypeEvenement } from "../../api/ApiTypeHelpers";
-import { TypeAffichageValues } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { AffectationFilterValues } from "../Filters/Affectation/AffectationFilter";
-import StatisticProgress from "./StatisticProgress";
-import Statistic from "./Statistic";
+import { pluriel } from "@utils/string";
+import { useAuth } from "@/auth/AuthProvider";
+import { IStatistiquesEvenements, ITypeEvenement } from "@api/ApiTypeHelpers";
+import { TypeAffichageValues } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { AffectationFilterValues } from "@controls/Filters/Affectation/AffectationFilter";
+import StatisticProgress from "@controls/Dashboard/StatisticProgress";
+import Statistic from "@controls/Dashboard/Statistic";
 
 interface IPlanificationEvenementsStatsProps {
    stats: IStatistiquesEvenements | undefined;

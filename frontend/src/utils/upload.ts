@@ -9,9 +9,9 @@
  */
 
 import { RcFile } from "antd/es/upload";
-import { ITelechargement } from "../api/ApiTypeHelpers";
-import { AuthContextType } from "../auth/AuthProvider";
-import { env } from "../env";
+import { ITelechargement } from "@api/ApiTypeHelpers";
+import { AuthContextType } from "@/auth/AuthProvider";
+import { env } from "@/env";
 
 export async function envoyerFichierXhr(
    apiUrl: string,

@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import BilanBeneficiaireIntervenant from "../administration/Bilans/BeneficiairesIntervenants/BilanBeneficiaireIntervenant";
+import BilanBeneficiaireIntervenant from "@routes/administration/Bilans/BeneficiairesIntervenants/BilanBeneficiaireIntervenant";
 
 export const BilanBeneficiaireIntervenantComponent = () => {
    const location = useLocation();

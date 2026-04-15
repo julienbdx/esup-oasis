@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Flex, Typography } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { IAvisEse } from "../../api/ApiTypeHelpers";
-import { EntretienList } from "../List/EntretienList";
-import { ModalEntretien } from "../Modals/ModalEntretien";
+import { IAvisEse } from "@api/ApiTypeHelpers";
+import { EntretienList } from "@controls/List/EntretienList";
+import { ModalEntretien } from "@controls/Modals/ModalEntretien";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 export function TabEntretiens(props: { utilisateurId: string }) {

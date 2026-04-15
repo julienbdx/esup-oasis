@@ -8,18 +8,18 @@
  */
 
 import { ColumnType } from "antd/es/table";
-import PeriodeRhItem from "../Items/PeriodeRhItem";
-import TypeEvenementItem from "../Items/TypeEvenementItem";
+import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 import { Button, Space, Tag, Tooltip } from "antd";
 import { EditOutlined, EyeOutlined, FilterFilled, FilterOutlined } from "@ant-design/icons";
 import React from "react";
-import { FilterProps } from "../../utils/table";
-import { FiltreInterventionsForfait } from "./InterventionForfaitTable";
-import { IInterventionForfait, IPeriode } from "../../api/ApiTypeHelpers";
-import EtudiantItem from "../Items/EtudiantItem";
-import { RoleValues } from "../../lib/Utilisateur";
+import { FilterProps } from "@utils/table";
+import { FiltreInterventionsForfait } from "@controls/Table/InterventionForfaitTable";
+import { IInterventionForfait, IPeriode } from "@api/ApiTypeHelpers";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import { RoleValues } from "@lib/Utilisateur";
 
-import { UseStateDispatch } from "../../utils/utils";
+import { UseStateDispatch } from "@utils/utils";
 
 interface TableInterventionForfaitColumnsProps {
    filter: FiltreInterventionsForfait;

@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICategorieTag } from "../../../api/ApiTypeHelpers";
-import { useApi } from "../../../context/api/ApiProvider";
-import { PREFETCH_CATEGORIES_TAGS } from "../../../api/ApiPrefetchHelpers";
+import { ICategorieTag } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_CATEGORIES_TAGS } from "@api/ApiPrefetchHelpers";
 import { Button, Space, Switch, Table } from "antd";
-import BooleanState from "../../State/BooleanState";
+import BooleanState from "@controls/State/BooleanState";
 import { EditOutlined } from "@ant-design/icons";
-import { Tags } from "../../Admin/Referentiel/Tags/Tags";
+import { Tags } from "@controls/Admin/Referentiel/Tags/Tags";
 import React from "react";
 
 export function CategoriesTagTable(props: {

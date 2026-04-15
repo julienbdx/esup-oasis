@@ -9,11 +9,11 @@
 
 import { App, Button, Dropdown, Popconfirm, Space } from "antd";
 import React from "react";
-import { ETAT_DEMANDE_REFUSEE, ETAT_DEMANDE_VALIDEE } from "../../lib/demande";
-import { useApi } from "../../context/api/ApiProvider";
-import { IDemande } from "../../api/ApiTypeHelpers";
+import { ETAT_DEMANDE_REFUSEE, ETAT_DEMANDE_VALIDEE } from "@lib/demande";
+import { useApi } from "@context/api/ApiProvider";
+import { IDemande } from "@api/ApiTypeHelpers";
 import { DownOutlined } from "@ant-design/icons";
-import { QK_DEMANDES } from "../../api/queryKeys";
+import { QK_DEMANDES } from "@api/queryKeys";
 
 export default function ValidationAccompagnementButton(props: {
    demande: IDemande;

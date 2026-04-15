@@ -9,12 +9,9 @@
 
 import { Form, Radio, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import { QuestionAide } from "./QuestionAide";
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
-import { IQuestion } from "../../../api/ApiTypeHelpers";
+import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { IQuestion } from "@api/ApiTypeHelpers";
 import React from "react";
 
 export function QuestionRadio(props: { question: QuestionnaireQuestion }) {

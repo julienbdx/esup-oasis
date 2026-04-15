@@ -7,9 +7,9 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IDemande } from "../../../api/ApiTypeHelpers";
+import { IDemande } from "@api/ApiTypeHelpers";
 import React, { useEffect, useState } from "react";
-import { useApi } from "../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { Flex, Space, Steps, Typography } from "antd";
 import {
    ETAT_ATTENTE_CHARTES,
@@ -23,13 +23,13 @@ import {
    EtatDescription,
    getEtatDemande,
    getEtatDemandeOrdre,
-} from "../../../lib/demande";
-import "./AvancementDemande.scss";
+} from "@lib/demande";
+import "@controls/Demande/Avancement/AvancementDemande.scss";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import ProfilItem from "../../Items/ProfilItem";
-import { DerniereModifDemandeLabel } from "../../Avatars/DerniereModifDemandeLabel";
-import Spinner from "../../Spinner/Spinner";
-import { env } from "../../../env";
+import ProfilItem from "@controls/Items/ProfilItem";
+import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemandeLabel";
+import Spinner from "@controls/Spinner/Spinner";
+import { env } from "@/env";
 
 interface IProps {
    demande?: IDemande;

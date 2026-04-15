@@ -8,8 +8,8 @@
  */
 
 import dayjs from "dayjs";
-import { IDemande, ITypeDemande } from "../../api/ApiTypeHelpers";
-import { Questionnaire, QuestionnaireEtape } from "./QuestionnaireTypes";
+import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
+import { Questionnaire, QuestionnaireEtape } from "@context/demande/QuestionnaireTypes";
 
 /**
  * Create a questionnaire from a demande.

@@ -8,10 +8,10 @@
  */
 
 import React, { ReactElement } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import Spinner from "../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { Tag } from "antd";
-import { PREFETCH_TYPES_SUIVI_AMENAGEMENTS } from "../../api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_SUIVI_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
 
 interface ISuiviAmenagementItemProps {
    suiviId?: string;

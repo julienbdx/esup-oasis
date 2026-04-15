@@ -9,8 +9,8 @@
 
 import React from "react";
 import { Col, Segmented } from "antd";
-import { FiltreBeneficiaire } from "../BeneficiaireTable";
-import { env } from "../../../env";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { env } from "@/env";
 
 function booleanToString(value: boolean | undefined): string | undefined {
    if (value === undefined) return "undefined";

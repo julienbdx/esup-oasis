@@ -11,20 +11,20 @@ import React from "react";
 import { NavigateFunction } from "react-router-dom";
 import { Badge, Button, MenuProps } from "antd";
 import { BellOutlined } from "@ant-design/icons";
-import { IStatistiquesEvenements } from "../../../api/ApiTypeHelpers";
-import { Utilisateur } from "../../../lib/Utilisateur";
+import { IStatistiquesEvenements } from "@api/ApiTypeHelpers";
+import { Utilisateur } from "@lib/Utilisateur";
 import {
    IAffichage,
    IFiltresEvenements,
    PlanningLayout,
    TypeAffichageValues,
-} from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { AffectationFilterValues } from "../../Filters/Affectation/AffectationFilter";
-import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "../../../constants";
-import { EtatAvisEse } from "../../Avatars/BeneficiaireAvisEseAvatar";
-import { EtatDecisionEtablissement } from "../../Avatars/DecisionEtablissementAvatar";
-import { env } from "../../../env";
-import { createNotificationItem } from "./MenuItemNotifications.utils";
+} from "@context/affichageFiltres/AffichageFiltresContext";
+import { AffectationFilterValues } from "@controls/Filters/Affectation/AffectationFilter";
+import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
+import { EtatAvisEse } from "@controls/Avatars/BeneficiaireAvisEseAvatar";
+import { EtatDecisionEtablissement } from "@controls/Avatars/DecisionEtablissementAvatar";
+import { env } from "@/env";
+import { createNotificationItem } from "@controls/AppLayout/menuItems/MenuItemNotifications.utils";
 
 type MenuItems = MenuProps["items"];
 

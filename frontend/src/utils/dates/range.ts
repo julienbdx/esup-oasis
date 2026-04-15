@@ -9,7 +9,7 @@
 
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
-import { TypeAffichageCustomValues } from "../../context/affichageFiltres/AffichageFiltresContext";
+import { TypeAffichageCustomValues } from "@context/affichageFiltres/AffichageFiltresContext";
 
 dayjs.extend(isBetween);
 

@@ -7,9 +7,9 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IUtilisateur } from "../api/ApiTypeHelpers";
-import { Path } from "../api/SchemaHelpers";
-import { env } from "../env";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { Path } from "@api/SchemaHelpers";
+import { env } from "@/env";
 
 export enum RoleValues {
    ROLE_BENEFICIAIRE = "ROLE_BENEFICIAIRE",

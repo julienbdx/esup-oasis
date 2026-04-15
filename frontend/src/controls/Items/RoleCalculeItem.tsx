@@ -8,7 +8,7 @@
  */
 
 import React, { ReactElement } from "react";
-import { getRoleLabel, RoleValues, Utilisateur } from "../../lib/Utilisateur";
+import { getRoleLabel, RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { Tag } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 

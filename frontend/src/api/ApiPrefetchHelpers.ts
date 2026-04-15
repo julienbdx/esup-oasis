@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { NB_MAX_ITEMS_PER_PAGE } from "../constants";
-import { createDateFromStringAsUTC } from "../utils/dates";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { createDateFromStringAsUTC } from "@utils/dates";
 import dayjs from "dayjs";
-import { Utilisateur } from "../lib/Utilisateur";
-import { ApiPathMethodParameters, ApiPathMethodQuery } from "./SchemaHelpers";
+import { Utilisateur } from "@lib/Utilisateur";
+import { ApiPathMethodParameters, ApiPathMethodQuery } from "@api/SchemaHelpers";
 
 /**
  * Helpers pour précharger les données du référentiel depuis l'API

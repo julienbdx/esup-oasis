@@ -10,16 +10,16 @@
 import React, { useEffect, useState } from "react";
 import { Button, Flex, Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import { EditOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import { initialAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "../../../App";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { IComposante, IComposanteQuery, IUtilisateur } from "../../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { queryClient } from "@/App";
+import { useAuth } from "@/auth/AuthProvider";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { IComposante, IComposanteQuery, IUtilisateur } from "@api/ApiTypeHelpers";
 import { ColumnsType } from "antd/lib/table";
 import { useNavigate } from "react-router-dom";
-import GestionnaireItem from "../../Items/GestionnaireItem";
-import { env } from "../../../env";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { env } from "@/env";
 
 interface TableReferentsProps {
    onEdit: (item: IComposante) => void;

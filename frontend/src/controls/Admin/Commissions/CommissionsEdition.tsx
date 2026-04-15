@@ -9,9 +9,9 @@
 
 import React, { ReactElement } from "react";
 import { Drawer } from "antd";
-import { ICommission } from "../../../api/ApiTypeHelpers";
-import { CommissionsForm } from "./CommissionsForm";
-import { CommissionsMembersList } from "./CommissionsMembersList";
+import { ICommission } from "@api/ApiTypeHelpers";
+import { CommissionsForm } from "@controls/Admin/Commissions/CommissionsForm";
+import { CommissionsMembersList } from "@controls/Admin/Commissions/CommissionsMembersList";
 
 interface CommissionsEditionProps {
    editedItem?: ICommission;

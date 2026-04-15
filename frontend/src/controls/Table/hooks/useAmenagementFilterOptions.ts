@@ -7,8 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import {
    PREFETCH_CATEGORIES_AMENAGEMENTS,
    PREFETCH_COMPOSANTES,
@@ -16,9 +16,9 @@ import {
    PREFETCH_TAGS,
    PREFETCH_TYPES_AMENAGEMENTS,
    PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
-} from "../../../api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { FiltreAmenagement } from "../AmenagementTableLayout";
+} from "@api/ApiPrefetchHelpers";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 
 /**
  * Hook custom pour gérer les données et la logique du filtre d'aménagements

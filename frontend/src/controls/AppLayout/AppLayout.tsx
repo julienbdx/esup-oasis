@@ -9,14 +9,14 @@
 
 import React, { ReactElement } from "react";
 import { Button, Layout } from "antd";
-import AllModals from "../Modals/AllModals";
-import AllDrawers from "../Drawers/AllDrawers";
+import AllModals from "@controls/Modals/AllModals";
+import AllDrawers from "@controls/Drawers/AllDrawers";
 import { Outlet, useNavigate } from "react-router-dom";
-import AppLayoutMenu from "./AppLayoutMenu";
-import "./AppLayout.scss";
+import AppLayoutMenu from "@controls/AppLayout/AppLayoutMenu";
+import "@controls/AppLayout/AppLayout.scss";
 import { MinusOutlined } from "@ant-design/icons";
-import { UtilisateurPreferencesProvider } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
-import { env } from "../../env";
+import { UtilisateurPreferencesProvider } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { env } from "@/env";
 
 const { Header, Content, Footer } = Layout;
 

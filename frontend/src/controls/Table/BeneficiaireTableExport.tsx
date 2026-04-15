@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IBeneficiaire, IComposante, ITag, IUtilisateur } from "../../api/ApiTypeHelpers";
+import { IBeneficiaire, IComposante, ITag, IUtilisateur } from "@api/ApiTypeHelpers";
 import { useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { TableExportButton } from "../Buttons/TableExportButton";
-import { FiltreBeneficiaire } from "./BeneficiaireTable";
-import { PREFETCH_COMPOSANTES, PREFETCH_TAGS } from "../../api/ApiPrefetchHelpers";
-import { env } from "../../env";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { TableExportButton } from "@controls/Buttons/TableExportButton";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { PREFETCH_COMPOSANTES, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
+import { env } from "@/env";
 
 const headers = [
    { label: "Nom", key: "nom" },

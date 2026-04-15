@@ -9,14 +9,14 @@
 
 import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "antd";
-import "../Administration.scss";
+import "@routes/administration/Administration.scss";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { NavLink, useParams } from "react-router-dom";
-import ADMIN_CONFIG from "../AdminConfig";
-import { IReferentielEditable } from "../../../lib/referentiels";
-import { ReferentielItemEdition } from "../../../controls/Admin/Referentiel/ReferentielItemEdition";
-import { ReferentielTable } from "../../../controls/Table/Admin/ReferentielTable";
-import { removeAccents } from "../../../utils/string";
+import ADMIN_CONFIG from "@routes/administration/AdminConfig";
+import { IReferentielEditable } from "@lib/referentiels";
+import { ReferentielItemEdition } from "@controls/Admin/Referentiel/ReferentielItemEdition";
+import { ReferentielTable } from "@controls/Table/Admin/ReferentielTable";
+import { removeAccents } from "@utils/string";
 
 /**
  * Renders a page for managing a referentiel.

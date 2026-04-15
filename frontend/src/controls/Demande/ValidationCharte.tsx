@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICharteUtilisateur, IDemande } from "../../api/ApiTypeHelpers";
+import { ICharteUtilisateur, IDemande } from "@api/ApiTypeHelpers";
 import { App, Button, Card, Checkbox, Form } from "antd";
 import React, { useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "../../api/queryKeys";
-import Spinner from "../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "@api/queryKeys";
+import Spinner from "@controls/Spinner/Spinner";
 
 export function ValidationCharte(props: { demande: IDemande }) {
    const { message } = App.useApp();

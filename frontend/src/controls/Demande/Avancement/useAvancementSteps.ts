@@ -17,8 +17,8 @@ import {
    ETAT_DEMANDE_REFUSEE,
    ETAT_DEMANDE_VALIDEE,
    EtatInfo,
-} from "../../../lib/demande";
-import { IDemande } from "../../../api/ApiTypeHelpers";
+} from "@lib/demande";
+import { IDemande } from "@api/ApiTypeHelpers";
 
 type StepStatus = StepsProps["status"];
 

@@ -10,10 +10,10 @@
 import { App, Button, Dropdown } from "antd";
 import { HeartOutlined } from "@ant-design/icons";
 import React from "react";
-import { FiltreDecrivable } from "./FiltreDescription";
-import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { FiltreDecrivable } from "@controls/Table/FiltreDescription";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 
-import { UseStateDispatch } from "../../utils/utils";
+import { UseStateDispatch } from "@utils/utils";
 
 export function FiltreFavoriDropDown<T extends FiltreDecrivable>(props: {
    setFiltre: UseStateDispatch<T>;

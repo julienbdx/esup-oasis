@@ -7,17 +7,17 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAvisEse } from "../../api/ApiTypeHelpers";
+import { IAvisEse } from "@api/ApiTypeHelpers";
 import { App, Button, Card, Col, Empty, Popconfirm, Row, Space } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { CommentOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { AvisEseAvatar } from "../Avatars/AvisEseAvatar";
-import { getLibellePeriode, isEnCoursSurPeriode } from "../../utils/dates";
-import { QK_BENEFICIAIRES, QK_UTILISATEURS_AVIS_ESE } from "../../api/queryKeys";
-import { Fichier } from "../Fichier/Fichier";
+import { AvisEseAvatar } from "@controls/Avatars/AvisEseAvatar";
+import { getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
+import { QK_BENEFICIAIRES, QK_UTILISATEURS_AVIS_ESE } from "@api/queryKeys";
+import { Fichier } from "@controls/Fichier/Fichier";
 import React from "react";
-import { EllipsisParagraph } from "../Typography/EllipsisParagraph";
-import { env } from "../../env";
+import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";
+import { env } from "@/env";
 
 export function AvisEseList(props: {
    avis: IAvisEse[];

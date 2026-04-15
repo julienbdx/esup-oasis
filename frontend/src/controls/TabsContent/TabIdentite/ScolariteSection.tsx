@@ -10,8 +10,8 @@
 import React from "react";
 import { Col, Descriptions, Flex, Skeleton, Typography } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
-import { ScolariteListItem } from "../TabScolarite";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { ScolariteListItem } from "@controls/TabsContent/TabScolarite";
 
 interface ScolariteSectionProps {
    utilisateur: IUtilisateur;

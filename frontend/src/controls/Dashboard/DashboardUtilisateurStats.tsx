@@ -9,15 +9,15 @@
 
 import React, { ReactElement } from "react";
 import { Alert, Button, Row } from "antd";
-import "../../routes/gestionnaire/dashboard/Dashboard.scss";
+import "@routes/gestionnaire/dashboard/Dashboard.scss";
 import { useNavigate } from "react-router-dom";
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_ETAT_DEMANDE, PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_ETAT_DEMANDE, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { EyeOutlined, WarningFilled } from "@ant-design/icons";
-import { useAuth } from "../../auth/AuthProvider";
-import ActiviteServiceStats from "./ActiviteServiceStats";
-import DemandesAccompagnementStats from "./DemandesAccompagnementStats";
-import PlanificationEvenementsStats from "./PlanificationEvenementsStats";
+import { useAuth } from "@/auth/AuthProvider";
+import ActiviteServiceStats from "@controls/Dashboard/ActiviteServiceStats";
+import DemandesAccompagnementStats from "@controls/Dashboard/DemandesAccompagnementStats";
+import PlanificationEvenementsStats from "@controls/Dashboard/PlanificationEvenementsStats";
 
 interface IDashboardUtilisateurProps {
    utilisateurId: string;

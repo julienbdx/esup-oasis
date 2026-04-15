@@ -8,15 +8,15 @@
  */
 
 import React, { ReactElement, useState } from "react";
-import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
+import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { Button, Form } from "antd";
-import UtilisateurFormItemSelect from "../../Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "../../../lib/Utilisateur";
+import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
+import { RoleValues } from "@lib/Utilisateur";
 import { MinusCircleOutlined, SearchOutlined } from "@ant-design/icons";
-import IntervenantRechercherDrawer from "../../Drawers/Intervenant/IntervenantRechercherDrawer";
-import { Evenement } from "../../../lib/Evenement";
-import { IPartialEvenement } from "../../../api/ApiTypeHelpers";
-import { env } from "../../../env";
+import IntervenantRechercherDrawer from "@controls/Drawers/Intervenant/IntervenantRechercherDrawer";
+import { Evenement } from "@lib/Evenement";
+import { IPartialEvenement } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
 
 interface TabEvenementParticipantsIntervenantProps {
    evenement: Evenement | undefined;

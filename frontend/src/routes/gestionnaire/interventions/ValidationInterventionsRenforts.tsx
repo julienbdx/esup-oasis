@@ -8,11 +8,11 @@
  */
 
 import React, { ReactElement } from "react";
-import "../../administration/Administration.scss";
+import "@routes/administration/Administration.scss";
 import { Layout, Typography } from "antd";
-import ValidationInterventionTable from "../../../controls/Table/ValidationInterventionTable";
-import { env } from "../../../env";
-import { TimezoneAlert } from "../../../controls/Calendar/TimezoneAlert";
+import ValidationInterventionTable from "@controls/Table/ValidationInterventionTable";
+import { env } from "@/env";
+import { TimezoneAlert } from "@controls/Calendar/TimezoneAlert";
 
 /**
  * Renders a page to validate interventions of renforts.

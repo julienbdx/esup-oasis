@@ -9,9 +9,9 @@
 
 import React from "react";
 import { Avatar, Checkbox, Col, Flex, Segmented } from "antd";
-import { FiltreAmenagement } from "../AmenagementTableLayout";
-import { AmenagementDomaine, DOMAINES_AMENAGEMENTS_INFOS } from "../../../lib/amenagements";
-import { ModeAffichageAmenagement } from "../../../routes/gestionnaire/beneficiaires/Amenagements";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
+import { AmenagementDomaine, DOMAINES_AMENAGEMENTS_INFOS } from "@lib/amenagements";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 
 interface FilterFieldDomaineProps {
    filtreAmenagement: FiltreAmenagement;

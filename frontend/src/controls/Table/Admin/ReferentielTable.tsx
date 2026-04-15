@@ -7,15 +7,15 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { APIPathsReferentiel } from "../../../api/ApiTypeHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Switch, Table } from "antd";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import ADMIN_CONFIG from "../../../routes/administration/AdminConfig";
-import { IReferentielEditable } from "../../../lib/referentiels";
-import BooleanState from "../../State/BooleanState";
+import ADMIN_CONFIG from "@routes/administration/AdminConfig";
+import { IReferentielEditable } from "@lib/referentiels";
+import BooleanState from "@controls/State/BooleanState";
 
 interface ReferentielTableProps {
    referentielConfig: (typeof ADMIN_CONFIG)[number];

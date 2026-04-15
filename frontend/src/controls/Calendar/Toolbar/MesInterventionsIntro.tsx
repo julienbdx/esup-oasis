@@ -9,8 +9,8 @@
 
 import React, { memo, ReactElement } from "react";
 import { Card, Col, Row, Typography } from "antd";
-import RenfortInterventionAddImage from "../../Images/RenfortInterventionAddImage";
-import { env } from "../../../env";
+import RenfortInterventionAddImage from "@controls/Images/RenfortInterventionAddImage";
+import { env } from "@/env";
 
 export const MesInterventionsIntro = memo(
    (): ReactElement => (

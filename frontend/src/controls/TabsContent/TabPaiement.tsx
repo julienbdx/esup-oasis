@@ -9,16 +9,16 @@
 
 import { Alert, Button, Col, Divider, Form, FormInstance, InputNumber, Row, Space } from "antd";
 import React, { ReactElement, useState } from "react";
-import ColStyled from "../ColStyled/ColStyled";
-import EvenementEtatEnvoiRHItem from "../Items/EvenementEtatEnvoiRHItem";
-import DureeEvenementField from "../Forms/DureeEvenementField";
-import { Evenement } from "../../lib/Evenement";
-import TarifEvenementField from "../Forms/TarifEvenementField";
-import { IEvenement, IPartialEvenement } from "../../api/ApiTypeHelpers";
-import EvenementEtatValidationItem from "../Items/EvenementEtatValidationItem";
-import { TYPE_EVENEMENT_RENFORT } from "../../constants";
+import ColStyled from "@controls/ColStyled/ColStyled";
+import EvenementEtatEnvoiRHItem from "@controls/Items/EvenementEtatEnvoiRHItem";
+import DureeEvenementField from "@controls/Forms/DureeEvenementField";
+import { Evenement } from "@lib/Evenement";
+import TarifEvenementField from "@controls/Forms/TarifEvenementField";
+import { IEvenement, IPartialEvenement } from "@api/ApiTypeHelpers";
+import EvenementEtatValidationItem from "@controls/Items/EvenementEtatValidationItem";
+import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { DownOutlined, InfoCircleFilled, UpOutlined } from "@ant-design/icons";
-import { DureeTotaleEvenementField } from "../Forms/DureeTotalEvenementField";
+import { DureeTotaleEvenementField } from "@controls/Forms/DureeTotalEvenementField";
 
 interface ITabPaiement {
    evenement: IEvenement;

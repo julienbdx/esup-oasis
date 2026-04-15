@@ -8,13 +8,13 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { TableExportButton } from "../Buttons/TableExportButton";
-import { Evenement } from "../../lib/Evenement";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { TableExportButton } from "@controls/Buttons/TableExportButton";
+import { Evenement } from "@lib/Evenement";
 import dayjs from "dayjs";
-import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
-import { ICampus, ITypeEvenement, IUtilisateur } from "../../api/ApiTypeHelpers";
+import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { ICampus, ITypeEvenement, IUtilisateur } from "@api/ApiTypeHelpers";
 
 const headers = [
    { label: "Début", key: "debut" },

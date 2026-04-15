@@ -11,8 +11,8 @@ import React, { ReactElement } from "react";
 import { Breadcrumb, Layout, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled } from "@ant-design/icons";
-import ParametresTable from "../../../controls/Table/Admin/ParametresTable";
-import "./Parametres.scss";
+import ParametresTable from "@controls/Table/Admin/ParametresTable";
+import "@routes/administration/Parametres/Parametres.scss";
 
 /**
  * Renders the administration page for managing application parameters.

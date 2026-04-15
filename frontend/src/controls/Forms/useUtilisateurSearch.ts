@@ -8,8 +8,8 @@
  */
 
 import { useState } from "react";
-import { RoleValues } from "../../lib/Utilisateur";
-import { useApi } from "../../context/api/ApiProvider";
+import { RoleValues } from "@lib/Utilisateur";
+import { useApi } from "@context/api/ApiProvider";
 
 export interface IUseUtilisateurSearchProps {
    utilisateurId?: string;

@@ -10,8 +10,8 @@
 import React, { ReactElement } from "react";
 import { Button, Col, Typography } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
-import EtudiantSyncEvtImage from "../Images/EtudiantSyncEvtImage";
-import { env } from "../../env";
+import EtudiantSyncEvtImage from "@controls/Images/EtudiantSyncEvtImage";
+import { env } from "@/env";
 
 /**
  * Renders the synchronization section of the user profile.

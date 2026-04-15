@@ -9,10 +9,10 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Breakpoint, Tag, Tooltip } from "antd";
-import Spinner from "../Spinner/Spinner";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { IDiscipline } from "../../api/ApiTypeHelpers";
+import Spinner from "@controls/Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { IDiscipline } from "@api/ApiTypeHelpers";
 
 interface IItemDiscipline {
    discipline?: IDiscipline;

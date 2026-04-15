@@ -8,10 +8,7 @@
  */
 
 import { Alert, Form } from "antd";
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { useEffect } from "react";
 import { WarningFilled } from "@ant-design/icons";
 

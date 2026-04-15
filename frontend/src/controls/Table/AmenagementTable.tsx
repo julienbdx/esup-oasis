@@ -7,17 +7,17 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "../../api/ApiTypeHelpers";
-import { useAuth } from "../../auth/AuthProvider";
+import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { Table } from "antd";
-import { amenagementTableColumns } from "./AmenagementTableColumns";
+import { amenagementTableColumns } from "@controls/Table/AmenagementTableColumns";
 import { SorterResult } from "antd/es/table/interface";
 import React, { useEffect, useState } from "react";
-import { FiltreAmenagement, filtreAmenagementToApi } from "./AmenagementTableLayout";
-import { ModalAmenagement } from "../Modals/ModalAmenagement";
-import { ModeAffichageAmenagement } from "../../routes/gestionnaire/beneficiaires/Amenagements";
+import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
+import { ModalAmenagement } from "@controls/Modals/ModalAmenagement";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 
 export function AmenagementTable(props: {
    filtreAmenagement: FiltreAmenagement;

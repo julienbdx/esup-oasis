@@ -11,7 +11,7 @@ import React, { ReactElement } from "react";
 import { Tooltip } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { IEvenement } from "../../api/ApiTypeHelpers";
+import { IEvenement } from "@api/ApiTypeHelpers";
 
 interface IItemIconeEnvoiRHProps {
    evenement: IEvenement;

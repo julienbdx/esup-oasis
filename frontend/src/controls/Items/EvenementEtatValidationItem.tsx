@@ -10,9 +10,9 @@
 import React, { ReactElement } from "react";
 import { Tag } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
-import { IEvenement } from "../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { IEvenement } from "@api/ApiTypeHelpers";
 
 interface IItemEtatValidationProps {
    evenement: IEvenement;

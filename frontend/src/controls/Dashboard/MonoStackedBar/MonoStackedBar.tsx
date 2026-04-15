@@ -8,9 +8,9 @@
  */
 
 import React from "react";
-import styles from "./styles.module.css";
+import styles from "@controls/Dashboard/MonoStackedBar/styles.module.css";
 import { Tooltip } from "antd";
-import "../../../routes/intervenant/dashboard/Dashboard.scss";
+import "@routes/intervenant/dashboard/Dashboard.scss";
 
 interface BarData {
    value: number;

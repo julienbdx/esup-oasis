@@ -10,12 +10,12 @@
 import React, { useEffect } from "react";
 import { Button, Collapse, Form, Tag, Typography, FormInstance } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { TabTypeEvenement } from "../../TabsContent/TabTypeEvenement";
-import { TabCompetence } from "../../TabsContent/TabCompetence";
-import { TabCampus } from "../../TabsContent/TabCampus";
-import CampusItem from "../../Items/CampusItem";
-import TypeEvenementItem from "../../Items/TypeEvenementItem";
-import CompetenceItem from "../../Items/CompetenceItem";
+import { TabTypeEvenement } from "@controls/TabsContent/TabTypeEvenement";
+import { TabCompetence } from "@controls/TabsContent/TabCompetence";
+import { TabCampus } from "@controls/TabsContent/TabCampus";
+import CampusItem from "@controls/Items/CampusItem";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import CompetenceItem from "@controls/Items/CompetenceItem";
 
 export interface IFiltreRechercheIntervenant {
    nom?: string;

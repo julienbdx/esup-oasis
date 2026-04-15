@@ -8,13 +8,13 @@
  */
 
 import { App, Button, Dropdown, Flex, Popconfirm } from "antd";
-import { initialAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
+import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { DeleteOutlined, FilterOutlined } from "@ant-design/icons";
 import React from "react";
-import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { useApi } from "../../../context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../../api/ApiPrefetchHelpers";
-import { usePreferences } from "../../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 
 export function FiltresFavorisEvenements() {
    const { message } = App.useApp();

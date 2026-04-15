@@ -9,13 +9,13 @@
 
 import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App";
-import { AuthProvider } from "./auth/AuthProvider";
-import Spinner from "./controls/Spinner/Spinner";
-import { AccessibiliteProvider } from "./context/accessibilite/AccessibiliteContext";
-import { ModalsProvider } from "./context/modals/ModalsContext";
-import { DrawersProvider } from "./context/drawers/DrawersContext";
-import { AffichageFiltresProvider } from "./context/affichageFiltres/AffichageFiltresContext";
+import App from "@/App";
+import { AuthProvider } from "@/auth/AuthProvider";
+import Spinner from "@controls/Spinner/Spinner";
+import { AccessibiliteProvider } from "@context/accessibilite/AccessibiliteContext";
+import { ModalsProvider } from "@context/modals/ModalsContext";
+import { DrawersProvider } from "@context/drawers/DrawersContext";
+import { AffichageFiltresProvider } from "@context/affichageFiltres/AffichageFiltresContext";
 
 function AppAuthWrapper() {
    return (

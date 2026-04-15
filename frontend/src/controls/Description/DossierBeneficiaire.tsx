@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { Skeleton, Space, Tabs, Typography } from "antd";
 import React from "react";
-import "./DossierBeneficiaire.scss";
+import "@controls/Description/DossierBeneficiaire.scss";
 import {
    AppstoreAddOutlined,
    CalendarOutlined,
@@ -19,21 +19,21 @@ import {
    MedicineBoxOutlined,
    UserOutlined,
 } from "@ant-design/icons";
-import { TabIdentite } from "../TabsContent/TabIdentite";
-import { TabDemandes } from "../TabsContent/TabDemandes";
-import { DOMAINES_AMENAGEMENTS_INFOS } from "../../lib/amenagements";
-import { TabAmenagements } from "../TabsContent/TabAmenagements";
-import { useAuth } from "../../auth/AuthProvider";
-import { UtilisateurTags } from "../Tags/UtilisateurTags";
+import { TabIdentite } from "@controls/TabsContent/TabIdentite";
+import { TabDemandes } from "@controls/TabsContent/TabDemandes";
+import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib/amenagements";
+import { TabAmenagements } from "@controls/TabsContent/TabAmenagements";
+import { useAuth } from "@/auth/AuthProvider";
+import { UtilisateurTags } from "@controls/Tags/UtilisateurTags";
 import { useSearchParams } from "react-router-dom";
-import { TabAvisEse } from "../TabsContent/TabAvisEse";
-import { BeneficiaireAvisEseAvatar } from "../Avatars/BeneficiaireAvisEseAvatar";
-import { TabEntretiens } from "../TabsContent/TabEntretiens";
-import AmenagementDomaineBadge from "../Badge/AmenagementDomaineBadge";
-import EntretiensBadge from "../Badge/EntretiensBadge";
-import DemandesBadge from "../Badge/DemandesBadge";
-import { TabDocuments } from "../TabsContent/TabDocuments";
-import { env } from "../../env";
+import { TabAvisEse } from "@controls/TabsContent/TabAvisEse";
+import { BeneficiaireAvisEseAvatar } from "@controls/Avatars/BeneficiaireAvisEseAvatar";
+import { TabEntretiens } from "@controls/TabsContent/TabEntretiens";
+import AmenagementDomaineBadge from "@controls/Badge/AmenagementDomaineBadge";
+import EntretiensBadge from "@controls/Badge/EntretiensBadge";
+import DemandesBadge from "@controls/Badge/DemandesBadge";
+import { TabDocuments } from "@controls/TabsContent/TabDocuments";
+import { env } from "@/env";
 
 export default function DossierBeneficiaire(props: { beneficiaireId: string }): React.ReactElement {
    const user = useAuth().user;

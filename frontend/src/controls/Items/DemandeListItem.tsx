@@ -9,21 +9,21 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { IDemande } from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
-import Spinner from "../Spinner/Spinner";
+import { IDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { Badge, Button, List, Space } from "antd";
-import TypeDemandeAvatar from "../Avatars/TypeDemandeAvatar";
+import TypeDemandeAvatar from "@controls/Avatars/TypeDemandeAvatar";
 import {
    ETAT_ATTENTE_CHARTES,
    ETAT_DEMANDE_EN_COURS,
    ETAT_DEMANDE_NON_CONFORME,
    ETAT_DEMANDE_REFUSEE,
-} from "../../lib/demande";
+} from "@lib/demande";
 import { useNavigate } from "react-router-dom";
-import { EtatDemandeAvatar } from "../Avatars/EtatDemandeAvatar";
+import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import CampagneDemandeDateItem from "./CampagneDemandeDateItem";
+import CampagneDemandeDateItem from "@controls/Items/CampagneDemandeDateItem";
 
 function CampagneItem(props: { campagneId?: string }) {
    let templateString: string;

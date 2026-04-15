@@ -11,12 +11,12 @@ import React, { useEffect, useState } from "react";
 import { Breadcrumb, FloatButton, Layout, Space, Typography } from "antd";
 import { NavLink, useParams } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import Spinner from "../../../controls/Spinner/Spinner";
-import { ICommission } from "../../../api/ApiTypeHelpers";
-import { CommissionsEdition } from "../../../controls/Admin/Commissions/CommissionsEdition";
-import { CommissionsTable } from "../../../controls/Table/Admin/CommissionsTable";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import Spinner from "@controls/Spinner/Spinner";
+import { ICommission } from "@api/ApiTypeHelpers";
+import { CommissionsEdition } from "@controls/Admin/Commissions/CommissionsEdition";
+import { CommissionsTable } from "@controls/Table/Admin/CommissionsTable";
 
 export default function Commissions(): React.ReactElement {
    const [idChargement, setIdChargement] = useState<string | undefined>(useParams<"id">().id);

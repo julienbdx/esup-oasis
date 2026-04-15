@@ -9,10 +9,10 @@
 
 import React from "react";
 import { Select } from "antd";
-import { IUtilisateur } from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
-import { RoleValues } from "../../lib/Utilisateur";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { RoleValues } from "@lib/Utilisateur";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 export default function GestionnairesField(props: {
    value?: string | string[] | undefined;

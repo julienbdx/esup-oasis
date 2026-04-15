@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
+import { IAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { Button, MenuProps } from "antd";
 import Icon, { CheckOutlined } from "@ant-design/icons";
 import React from "react";
-import { ReactComponent as IconeAccessibilite } from "../../../assets/images/accessibilite.svg";
+import { ReactComponent as IconeAccessibilite } from "@/assets/images/accessibilite.svg";
 
 /**
  * Generate menu items for accessibility options.

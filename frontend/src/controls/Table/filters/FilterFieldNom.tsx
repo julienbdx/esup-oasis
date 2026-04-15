@@ -9,7 +9,7 @@
 
 import React from "react";
 import { Col, Input } from "antd";
-import { FiltreAmenagement } from "../AmenagementTableLayout";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 
 interface FilterFieldNomProps {
    filtreAmenagement: FiltreAmenagement;

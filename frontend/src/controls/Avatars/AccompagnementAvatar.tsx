@@ -10,7 +10,7 @@
 import React from "react";
 import { Avatar, Space, Tooltip } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import { env } from "../../env";
+import { env } from "@/env";
 
 export function AccompagnementAvatar(props: {
    avecAccompagnement?: boolean;

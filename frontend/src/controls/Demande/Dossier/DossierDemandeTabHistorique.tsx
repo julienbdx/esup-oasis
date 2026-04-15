@@ -10,15 +10,15 @@
 import React from "react";
 import { List, Space, Timeline } from "antd";
 
-import { useQuestionnaire } from "../../../context/demande/QuestionnaireProvider";
-import { IModificationEtatDemande } from "../../../api/ApiTypeHelpers";
-import { useApi } from "../../../context/api/ApiProvider";
+import { useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { IModificationEtatDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
-import { EtatDemandeAvatar } from "../../Avatars/EtatDemandeAvatar";
-import EtudiantItem from "../../Items/EtudiantItem";
+import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
+import EtudiantItem from "@controls/Items/EtudiantItem";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import ProfilItem from "../../Items/ProfilItem";
-import Spinner from "../../Spinner/Spinner";
+import ProfilItem from "@controls/Items/ProfilItem";
+import Spinner from "@controls/Spinner/Spinner";
 
 export function DossierDemandeTabHistorique(): React.ReactElement {
    const { questionnaire } = useQuestionnaire();

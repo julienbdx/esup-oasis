@@ -7,6 +7,6 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-export * from "./format";
-export * from "./range";
-export * from "./calendar";
+export * from "@utils/dates/format";
+export * from "@utils/dates/range";
+export * from "@utils/dates/calendar";

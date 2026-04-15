@@ -24,13 +24,13 @@ import {
    TeamOutlined,
    ToolOutlined,
 } from "@ant-design/icons";
-import { APIPathsReferentiel } from "../../api/ApiTypeHelpers";
-import { AdminPanel } from "../../controls/Admin/AdminPanel";
+import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
+import { AdminPanel } from "@controls/Admin/AdminPanel";
 import React from "react";
-import { ReactComponent as MedalIcon } from "../../assets/images/medal.svg";
-import { ReactComponent as ReferentIcon } from "../../assets/images/referent.svg";
-import { ReactComponent as ArtIcon } from "../../assets/images/art.svg";
-import { env } from "../../env";
+import { ReactComponent as MedalIcon } from "@/assets/images/medal.svg";
+import { ReactComponent as ReferentIcon } from "@/assets/images/referent.svg";
+import { ReactComponent as ArtIcon } from "@/assets/images/art.svg";
+import { env } from "@/env";
 
 /**
  * Represents a configuration object for referentiel.

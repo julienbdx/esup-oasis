@@ -1,7 +1,7 @@
-import { useApi } from "../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect, useState } from "react";
 import { Button, Progress } from "antd";
-import { ApiPathMethodQuery, ApiPathMethodResponse } from "./SchemaHelpers";
+import { ApiPathMethodQuery, ApiPathMethodResponse } from "@api/SchemaHelpers";
 
 export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", "get">>(props: {
    itemsPerPage: number;

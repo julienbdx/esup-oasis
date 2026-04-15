@@ -9,7 +9,7 @@
 
 import { useState } from "react";
 import { FormInstance } from "antd";
-import { Questionnaire } from "./QuestionnaireTypes";
+import { Questionnaire } from "@context/demande/QuestionnaireTypes";
 
 export interface IUseQuestionnaireNavigationProps {
    questionnaire?: Questionnaire;

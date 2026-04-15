@@ -10,16 +10,16 @@
 import React from "react";
 import { Collapse, Row } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
-import { FiltresFavoris } from "./FiltresFavoris";
-import { FILTRE_INTERVENANT_DEFAULT, FiltreIntervenant } from "./IntervenantTable";
-import { FiltreFavoriDropDown } from "./FiltreFavoriDropDown";
-import { UseStateDispatch } from "../../utils/utils";
-import { useIntervenantFilterOptions } from "./hooks/useIntervenantFilterOptions";
-import { FilterFieldNomIntervenant } from "./filters/FilterFieldNomIntervenant";
-import { FilterFieldStatutIntervenant } from "./filters/FilterFieldStatutIntervenant";
-import { FilterFieldCampus } from "./filters/FilterFieldCampus";
-import { FilterFieldCompetences } from "./filters/FilterFieldCompetences";
-import { FilterFieldTypesEvenements } from "./filters/FilterFieldTypesEvenements";
+import { FiltresFavoris } from "@controls/Table/FiltresFavoris";
+import { FILTRE_INTERVENANT_DEFAULT, FiltreIntervenant } from "@controls/Table/IntervenantTable";
+import { FiltreFavoriDropDown } from "@controls/Table/FiltreFavoriDropDown";
+import { UseStateDispatch } from "@utils/utils";
+import { useIntervenantFilterOptions } from "@controls/Table/hooks/useIntervenantFilterOptions";
+import { FilterFieldNomIntervenant } from "@controls/Table/filters/FilterFieldNomIntervenant";
+import { FilterFieldStatutIntervenant } from "@controls/Table/filters/FilterFieldStatutIntervenant";
+import { FilterFieldCampus } from "@controls/Table/filters/FilterFieldCampus";
+import { FilterFieldCompetences } from "@controls/Table/filters/FilterFieldCompetences";
+import { FilterFieldTypesEvenements } from "@controls/Table/filters/FilterFieldTypesEvenements";
 
 export function IntervenantTableFilter(props: {
    filtreIntervenant: FiltreIntervenant;

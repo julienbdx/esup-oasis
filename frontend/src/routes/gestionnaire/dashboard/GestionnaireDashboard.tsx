@@ -9,14 +9,14 @@
 
 import React, { ReactElement, useEffect } from "react";
 import { Layout, Typography } from "antd";
-import "./Dashboard.scss";
-import { useApi } from "../../../context/api/ApiProvider";
-import DashboardUtilisateurStats from "../../../controls/Dashboard/DashboardUtilisateurStats";
-import { useAuth } from "../../../auth/AuthProvider";
-import { PREFETCH_LAST_PERIODES_RH } from "../../../api/ApiPrefetchHelpers";
-import { IntervenantDashboardServicesFaits } from "../../../controls/Dashboard/IntervenantDashboardServicesFaits";
-import AlertCompleterProfil from "../../../controls/Dashboard/AlertCompleterProfil";
-import DashboardUtilisateurStatsRefresh from "../../../controls/Dashboard/DashboardUtilisateurStatsRefresh";
+import "@routes/gestionnaire/dashboard/Dashboard.scss";
+import { useApi } from "@context/api/ApiProvider";
+import DashboardUtilisateurStats from "@controls/Dashboard/DashboardUtilisateurStats";
+import { useAuth } from "@/auth/AuthProvider";
+import { PREFETCH_LAST_PERIODES_RH } from "@api/ApiPrefetchHelpers";
+import { IntervenantDashboardServicesFaits } from "@controls/Dashboard/IntervenantDashboardServicesFaits";
+import AlertCompleterProfil from "@controls/Dashboard/AlertCompleterProfil";
+import DashboardUtilisateurStatsRefresh from "@controls/Dashboard/DashboardUtilisateurStatsRefresh";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 /**

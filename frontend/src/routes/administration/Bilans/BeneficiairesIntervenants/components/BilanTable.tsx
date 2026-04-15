@@ -10,14 +10,14 @@
 import React from "react";
 import { Card, Space, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import { capitalize } from "../../../../../utils/string";
-import { IActiviteBeneficiaire, IActiviteIntervenant } from "../../../../../api/ApiTypeHelpers";
-import EtudiantItem from "../../../../../controls/Items/EtudiantItem";
-import CampusItem from "../../../../../controls/Items/CampusItem";
-import TypeEvenementItem from "../../../../../controls/Items/TypeEvenementItem";
-import { to2Digits, montantToString } from "../../../../../utils/number";
-import { CoutCharge } from "../../../../../controls/Admin/Bilans/CoutCharge";
-import { RoleValues } from "../../../../../lib/Utilisateur";
+import { capitalize } from "@utils/string";
+import { IActiviteBeneficiaire, IActiviteIntervenant } from "@api/ApiTypeHelpers";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import CampusItem from "@controls/Items/CampusItem";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import { to2Digits, montantToString } from "@utils/number";
+import { CoutCharge } from "@controls/Admin/Bilans/CoutCharge";
+import { RoleValues } from "@lib/Utilisateur";
 
 export type IActivite = IActiviteBeneficiaire | IActiviteIntervenant;
 

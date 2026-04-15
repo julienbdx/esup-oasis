@@ -9,7 +9,7 @@
 
 import React, { ReactElement, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { env } from "../../env";
+import { env } from "@/env";
 
 /**
  * Changement du titre de la page en fonction de la localisation actuelle.

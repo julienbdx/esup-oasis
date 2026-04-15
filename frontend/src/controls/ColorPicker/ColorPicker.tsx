@@ -15,9 +15,9 @@ import {
    MaterialColorAmount,
    MaterialColorName,
    MaterialColorsTraductions,
-} from "../../utils/colors";
-import { EventColors } from "../../lib/Evenement";
-import "./ColorPicker.scss";
+} from "@utils/colors";
+import { EventColors } from "@lib/Evenement";
+import "@controls/ColorPicker/ColorPicker.scss";
 
 interface ICouleur {
    value: string;

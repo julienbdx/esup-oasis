@@ -10,8 +10,8 @@
 import React, { ReactElement } from "react";
 import { Breadcrumb, Layout, Space, Typography } from "antd";
 import { NavLink, useParams } from "react-router-dom";
-import DossierBeneficiaire from "../../../controls/Description/DossierBeneficiaire";
-import { useApi } from "../../../context/api/ApiProvider";
+import DossierBeneficiaire from "@controls/Description/DossierBeneficiaire";
+import { useApi } from "@context/api/ApiProvider";
 import { HomeFilled } from "@ant-design/icons";
 
 /**

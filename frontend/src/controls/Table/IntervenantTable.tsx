@@ -9,25 +9,25 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, Flex, Space, Table, Tooltip } from "antd";
-import { IBeneficiaire, IIntervenant } from "../../api/ApiTypeHelpers";
-import { intervenantTableColumns } from "./IntervenantTableColumns";
-import { RoleValues } from "../../lib/Utilisateur";
-import { useApi } from "../../context/api/ApiProvider";
-import { useDrawers } from "../../context/drawers/DrawersContext";
-import IntervenantTableExport from "./IntervenantTableExport";
-import { useAuth } from "../../auth/AuthProvider";
-import { initialAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "../../App";
+import { IBeneficiaire, IIntervenant } from "@api/ApiTypeHelpers";
+import { intervenantTableColumns } from "@controls/Table/IntervenantTableColumns";
+import { RoleValues } from "@lib/Utilisateur";
+import { useApi } from "@context/api/ApiProvider";
+import { useDrawers } from "@context/drawers/DrawersContext";
+import IntervenantTableExport from "@controls/Table/IntervenantTableExport";
+import { useAuth } from "@/auth/AuthProvider";
+import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { queryClient } from "@/App";
 import { SorterResult } from "antd/es/table/interface";
-import { IntervenantTableFilter } from "./IntervenantTableFilter";
+import { IntervenantTableFilter } from "@controls/Table/IntervenantTableFilter";
 import Icon from "@ant-design/icons";
-import { ReactComponent as Unfilter } from "../../assets/images/unfilter.svg";
-import { ascendToAsc } from "../../utils/array";
-import FiltreDescription from "./FiltreDescription";
-import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
+import { ascendToAsc } from "@utils/array";
+import FiltreDescription from "@controls/Table/FiltreDescription";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 import { useNavigate } from "react-router-dom";
-import { getCountLibelle } from "../../utils/table";
+import { getCountLibelle } from "@utils/table";
 
 export interface FiltreIntervenant {
    nom?: string;

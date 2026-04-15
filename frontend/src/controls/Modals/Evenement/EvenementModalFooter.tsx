@@ -10,9 +10,9 @@
 import React, { ReactElement } from "react";
 import { App, Button, Col, FormInstance, Row, Space } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
-import { Evenement } from "../../../lib/Evenement";
-import EventDeleteButton from "../../Buttons/EventDeleteButton";
-import EventCopyButton from "../../Buttons/EventCopyButton";
+import { Evenement } from "@lib/Evenement";
+import EventDeleteButton from "@controls/Buttons/EventDeleteButton";
+import EventCopyButton from "@controls/Buttons/EventCopyButton";
 
 interface IEvenementModalFooterProps {
    evenement: Evenement;

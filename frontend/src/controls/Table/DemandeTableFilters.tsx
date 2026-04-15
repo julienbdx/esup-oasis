@@ -8,19 +8,19 @@
  */
 
 import React from "react";
-import { FiltreDemande } from "./DemandeTable";
-import { RefsTourDemandes } from "../../routes/gestionnaire/demandeurs/Demandeurs";
-import { UseStateDispatch } from "../../utils/utils";
-import { useDemandeFilterOptions } from "./hooks/useDemandeFilterOptions";
-import { FilterFieldNomDemandeur } from "./filters/FilterFieldNomDemandeur";
-import { FilterFieldTypesDemandes } from "./filters/FilterFieldTypesDemandes";
-import { FilterFieldEtatDemande } from "./filters/FilterFieldEtatDemande";
-import { FilterFieldGestionnairesDemande } from "./filters/FilterFieldGestionnairesDemande";
-import { FilterFieldDisciplinesSportives } from "./filters/FilterFieldDisciplinesSportives";
-import { FilterFieldComposantesDemande } from "./filters/FilterFieldComposantesDemande";
-import { FilterFieldFormationsDemande } from "./filters/FilterFieldFormationsDemande";
-import { FilterFieldArchivees } from "./filters/FilterFieldArchivees";
-import { FilterPanel } from "./FilterPanel";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
+import { RefsTourDemandes } from "@routes/gestionnaire/demandeurs/Demandeurs";
+import { UseStateDispatch } from "@utils/utils";
+import { useDemandeFilterOptions } from "@controls/Table/hooks/useDemandeFilterOptions";
+import { FilterFieldNomDemandeur } from "@controls/Table/filters/FilterFieldNomDemandeur";
+import { FilterFieldTypesDemandes } from "@controls/Table/filters/FilterFieldTypesDemandes";
+import { FilterFieldEtatDemande } from "@controls/Table/filters/FilterFieldEtatDemande";
+import { FilterFieldGestionnairesDemande } from "@controls/Table/filters/FilterFieldGestionnairesDemande";
+import { FilterFieldDisciplinesSportives } from "@controls/Table/filters/FilterFieldDisciplinesSportives";
+import { FilterFieldComposantesDemande } from "@controls/Table/filters/FilterFieldComposantesDemande";
+import { FilterFieldFormationsDemande } from "@controls/Table/filters/FilterFieldFormationsDemande";
+import { FilterFieldArchivees } from "@controls/Table/filters/FilterFieldArchivees";
+import { FilterPanel } from "@controls/Table/FilterPanel";
 
 export function DemandeTableFilters(props: {
    filtreDemande: FiltreDemande;

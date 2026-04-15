@@ -9,8 +9,8 @@
 
 import React from "react";
 import { Col, Input } from "antd";
-import { FiltreIntervenant } from "../IntervenantTable";
-import { UseStateDispatch } from "../../../utils/utils";
+import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
+import { UseStateDispatch } from "@utils/utils";
 
 interface FilterFieldNomIntervenantProps {
    filtreIntervenant: FiltreIntervenant;

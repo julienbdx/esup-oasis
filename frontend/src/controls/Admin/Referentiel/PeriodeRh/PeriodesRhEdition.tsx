@@ -7,18 +7,18 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../../context/api/ApiProvider";
-import { createDateAsUTC, toDate, toDayValue } from "../../../../utils/dates";
+import { useApi } from "@context/api/ApiProvider";
+import { createDateAsUTC, toDate, toDayValue } from "@utils/dates";
 import dayjs from "dayjs";
-import { Calendar, DayRange } from "../../../../lib/react-modern-calendar-datepicker";
+import { Calendar, DayRange } from "@lib/react-modern-calendar-datepicker";
 import { Alert, Button, Card, DatePicker, Drawer, Space, Switch, Typography } from "antd";
-import { modernCalendarLocaleFr } from "../../../../lib/react-modern-calendar-datepicker/SmallCalendarLocale";
+import { modernCalendarLocaleFr } from "@lib/react-modern-calendar-datepicker/SmallCalendarLocale";
 import { SendOutlined, WarningFilled } from "@ant-design/icons";
 import React, { ReactElement } from "react";
-import "../../../Calendar/Sider/SmallCalendar/SmallCalendar.scss";
+import "@controls/Calendar/Sider/SmallCalendar/SmallCalendar.scss";
 
-import { IPeriode } from "../../../../api/ApiTypeHelpers";
-import { QK_PERIODES } from "../../../../api/queryKeys";
+import { IPeriode } from "@api/ApiTypeHelpers";
+import { QK_PERIODES } from "@api/queryKeys";
 
 interface PeriodesRhEditionProps {
    periode: IPeriode;

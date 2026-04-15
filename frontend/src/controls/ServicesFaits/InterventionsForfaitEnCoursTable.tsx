@@ -8,14 +8,14 @@
  */
 
 import React, { ReactElement } from "react";
-import { useAuth } from "../../auth/AuthProvider";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import Spinner from "../Spinner/Spinner";
+import { useAuth } from "@/auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import Spinner from "@controls/Spinner/Spinner";
 import { Table } from "antd";
-import { IInterventionForfait } from "../../api/ApiTypeHelpers";
+import { IInterventionForfait } from "@api/ApiTypeHelpers";
 import dayjs from "dayjs";
-import TypeEvenementItem from "../Items/TypeEvenementItem";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 
 /**
  * Returns a table component that displays ongoing events.

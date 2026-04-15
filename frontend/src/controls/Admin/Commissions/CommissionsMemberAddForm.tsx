@@ -10,10 +10,10 @@
 import React from "react";
 import { App, Button, Checkbox, Divider, Form, List, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import { QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS } from "../../../api/queryKeys";
-import { RoleValues } from "../../../lib/Utilisateur";
-import UtilisateurFormItemSelect from "../../Forms/UtilisateurFormItemSelect";
+import { useApi } from "@context/api/ApiProvider";
+import { QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS } from "@api/queryKeys";
+import { RoleValues } from "@lib/Utilisateur";
+import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
 
 interface CommissionsMemberAddFormProps {
    commissionId: string | undefined;

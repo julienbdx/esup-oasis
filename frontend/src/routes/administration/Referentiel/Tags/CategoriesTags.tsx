@@ -11,9 +11,9 @@ import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
-import { CategorieTagEdition } from "../../../../controls/Admin/Referentiel/Tags/CategorieTagEdition";
-import { ICategorieTag, ITag } from "../../../../api/ApiTypeHelpers";
-import { CategoriesTagTable } from "../../../../controls/Table/Admin/CategoriesTagTable";
+import { CategorieTagEdition } from "@controls/Admin/Referentiel/Tags/CategorieTagEdition";
+import { ICategorieTag, ITag } from "@api/ApiTypeHelpers";
+import { CategoriesTagTable } from "@controls/Table/Admin/CategoriesTagTable";
 
 /**
  * Renders admin page for managing Amenagements.

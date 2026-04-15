@@ -12,9 +12,9 @@ import { Button, notification, Space } from "antd";
 import { CopyOutlined, LoginOutlined } from "@ant-design/icons";
 import { NavigateFunction } from "react-router-dom";
 import { ReactElement } from "react";
-import { RequestMethod } from "../ApiProvider";
-import { queryClient } from "../../../App";
-import { AuthContextType } from "../../../auth/AuthProvider";
+import { RequestMethod } from "@context/api/ApiProvider";
+import { queryClient } from "@/App";
+import { AuthContextType } from "@/auth/AuthProvider";
 
 export interface IErreurNotification {
    title: string;

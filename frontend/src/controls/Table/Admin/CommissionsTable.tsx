@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICommission } from "../../../api/ApiTypeHelpers";
+import { ICommission } from "@api/ApiTypeHelpers";
 import React, { useState } from "react";
 import { Button, Table, Typography } from "antd";
-import { CommissionsEditionMembres } from "../../Admin/Commissions/CommissionsEdition";
-import BooleanState from "../../State/BooleanState";
+import { CommissionsEditionMembres } from "@controls/Admin/Commissions/CommissionsEdition";
+import BooleanState from "@controls/State/BooleanState";
 import { EditOutlined } from "@ant-design/icons";
 
 export function CommissionsTable(props: {

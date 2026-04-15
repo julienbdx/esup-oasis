@@ -8,26 +8,26 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { IBeneficiaire } from "../../api/ApiTypeHelpers";
-import { beneficiaireTableColumns } from "./BeneficiaireTableColumns";
-import { RoleValues } from "../../lib/Utilisateur";
+import { IBeneficiaire } from "@api/ApiTypeHelpers";
+import { beneficiaireTableColumns } from "@controls/Table/BeneficiaireTableColumns";
+import { RoleValues } from "@lib/Utilisateur";
 import { Button, Flex, Space, Table, Tooltip } from "antd";
 import Icon from "@ant-design/icons";
-import { useApi } from "../../context/api/ApiProvider";
-import { useAuth } from "../../auth/AuthProvider";
-import { useDrawers } from "../../context/drawers/DrawersContext";
-import BeneficiaireTableExport from "./BeneficiaireTableExport";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import { useDrawers } from "@context/drawers/DrawersContext";
+import BeneficiaireTableExport from "@controls/Table/BeneficiaireTableExport";
 import { SorterResult } from "antd/es/table/interface";
-import { initialAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "../../App";
+import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { queryClient } from "@/App";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ReactComponent as Unfilter } from "../../assets/images/unfilter.svg";
-import { BeneficiaireTableFilter } from "./BeneficiaireTableFilter";
-import { ascendToAsc } from "../../utils/array";
-import FiltreDescription from "./FiltreDescription";
-import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
-import { getCountLibelle } from "../../utils/table";
+import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
+import { BeneficiaireTableFilter } from "@controls/Table/BeneficiaireTableFilter";
+import { ascendToAsc } from "@utils/array";
+import FiltreDescription from "@controls/Table/FiltreDescription";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { getCountLibelle } from "@utils/table";
 
 export const FILTRE_BENEFICIAIRE_DEFAULT = {
    "order[nom]": "asc" as "asc" | "desc" | undefined,

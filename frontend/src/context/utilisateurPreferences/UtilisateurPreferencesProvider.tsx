@@ -9,12 +9,12 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, ReactNode, useContext, useEffect } from "react";
-import { useAuth } from "../../auth/AuthProvider";
-import { useApi } from "../api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useAccessibilite } from "../accessibilite/AccessibiliteContext";
-import { queryClient } from "../../App";
-import { QK_UTILISATEURS_PARAMETRES_UI } from "../../api/queryKeys";
+import { useAuth } from "@/auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { queryClient } from "@/App";
+import { QK_UTILISATEURS_PARAMETRES_UI } from "@api/queryKeys";
 
 export interface UtilisateurPreferencesType {
    getPreference: (cle: string) => string | undefined;

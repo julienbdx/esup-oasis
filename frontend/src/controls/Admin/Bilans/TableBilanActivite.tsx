@@ -7,26 +7,26 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ascendToAsc, ascToAscend } from "../../../utils/array";
+import { ascendToAsc, ascToAscend } from "@utils/array";
 import { App, Button, Descriptions, Empty, Flex, FormInstance, Space, Table } from "antd";
 import React, { useEffect } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useApi } from "../../../context/api/ApiProvider";
-import { ISuiviAcitivite } from "../../../api/ApiTypeHelpers";
+import { useAuth } from "@/auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { ISuiviAcitivite } from "@api/ApiTypeHelpers";
 import { FilterOutlined, PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { getLibellePeriode } from "../../../utils/dates";
-import { Fichier } from "../../Fichier/Fichier";
-import Spinner from "../../Spinner/Spinner";
-import { QK_SUIVIS_ACTIVITE } from "../../../api/queryKeys";
-import { operations } from "../../../api/schema";
-import ProfilItem from "../../Items/ProfilItem";
-import GestionnaireItem from "../../Items/GestionnaireItem";
-import ComposanteItem from "../../Items/ComposanteItem";
-import FormationItem from "../../Items/FormationItem";
-import { FiltreBilanActivitesForm } from "../../../routes/administration/Bilans/BilanActivites/BilanActivites";
+import { getLibellePeriode } from "@utils/dates";
+import { Fichier } from "@controls/Fichier/Fichier";
+import Spinner from "@controls/Spinner/Spinner";
+import { QK_SUIVIS_ACTIVITE } from "@api/queryKeys";
+import { operations } from "@api/schema";
+import ProfilItem from "@controls/Items/ProfilItem";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import ComposanteItem from "@controls/Items/ComposanteItem";
+import FormationItem from "@controls/Items/FormationItem";
+import { FiltreBilanActivitesForm } from "@routes/administration/Bilans/BilanActivites/BilanActivites";
 
-import { UseStateDispatch } from "../../../utils/utils";
+import { UseStateDispatch } from "@utils/utils";
 
 type BilanQuery = operations["api_suivisactivite_get_collection"]["parameters"]["query"];
 

@@ -21,13 +21,13 @@ import {
    Typography,
 } from "antd";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { ICommissionMembre, IUtilisateur } from "../../../api/ApiTypeHelpers";
-import { useApi } from "../../../context/api/ApiProvider";
-import { QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS } from "../../../api/queryKeys";
-import { RoleValues, Utilisateur } from "../../../lib/Utilisateur";
-import { UtilisateurAvatar } from "../../Avatars/UtilisateurAvatar";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { CommissionsMemberAddForm } from "./CommissionsMemberAddForm";
+import { ICommissionMembre, IUtilisateur } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS } from "@api/queryKeys";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { CommissionsMemberAddForm } from "@controls/Admin/Commissions/CommissionsMemberAddForm";
 
 interface CommissionsMembersListProps {
    commissionId: string | undefined;

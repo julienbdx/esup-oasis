@@ -9,8 +9,8 @@
 
 import React, { ReactElement, useState } from "react";
 import { Avatar, Select, Space } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { PREFETCH_CAMPUS } from "../../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
 
 interface ICampusFilter {
    value?: string[];

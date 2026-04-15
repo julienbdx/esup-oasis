@@ -9,8 +9,8 @@
 
 import React from "react";
 import { Col, Select } from "antd";
-import { FiltreBeneficiaire } from "../BeneficiaireTable";
-import { EtatDecisionEtablissement } from "../../Avatars/DecisionEtablissementAvatar";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { EtatDecisionEtablissement } from "@controls/Avatars/DecisionEtablissementAvatar";
 
 interface FilterFieldDecisionEtablissementProps {
    filtreBeneficiaire: FiltreBeneficiaire;

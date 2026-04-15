@@ -8,12 +8,12 @@
  */
 
 import { App, Col, Form, Input, Modal, Row } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect } from "react";
-import { Fichier } from "../Fichier/Fichier";
-import { FichierDepot } from "../Fichier/FichierDepot";
-import { IDocumentBeneficiaire } from "../../api/ApiTypeHelpers";
-import { QK_BENEFICIAIRES_PIECES_JOINTES } from "../../api/queryKeys";
+import { Fichier } from "@controls/Fichier/Fichier";
+import { FichierDepot } from "@controls/Fichier/FichierDepot";
+import { IDocumentBeneficiaire } from "@api/ApiTypeHelpers";
+import { QK_BENEFICIAIRES_PIECES_JOINTES } from "@api/queryKeys";
 
 type IDocumentForm = IDocumentBeneficiaire;
 

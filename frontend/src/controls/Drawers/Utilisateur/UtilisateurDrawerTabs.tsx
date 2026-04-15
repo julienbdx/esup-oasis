@@ -9,17 +9,17 @@
 
 import React from "react";
 import { App, Tabs } from "antd";
-import { RoleValues, Utilisateur } from "../../../lib/Utilisateur";
-import { useAuth } from "../../../auth/AuthProvider";
-import { TabPersonneInformations } from "../../TabsContent/TabPersonneInformations";
-import { TabCampuses } from "../../TabsContent/TabCampuses";
-import { TabTypesEvenements } from "../../TabsContent/TabTypesEvenements";
-import { TabCompetences } from "../../TabsContent/TabCompetences";
-import { TabDisponibilites } from "../../TabsContent/TabDisponibilites";
-import { TabProfils } from "../../TabsContent/TabProfils";
-import { TabScolarite } from "../../TabsContent/TabScolarite";
-import { TabAidesHumaines } from "../../TabsContent/TabAidesHumaines";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { useAuth } from "@/auth/AuthProvider";
+import { TabPersonneInformations } from "@controls/TabsContent/TabPersonneInformations";
+import { TabCampuses } from "@controls/TabsContent/TabCampuses";
+import { TabTypesEvenements } from "@controls/TabsContent/TabTypesEvenements";
+import { TabCompetences } from "@controls/TabsContent/TabCompetences";
+import { TabDisponibilites } from "@controls/TabsContent/TabDisponibilites";
+import { TabProfils } from "@controls/TabsContent/TabProfils";
+import { TabScolarite } from "@controls/TabsContent/TabScolarite";
+import { TabAidesHumaines } from "@controls/TabsContent/TabAidesHumaines";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface UtilisateurDrawerTabsProps {
    role: RoleValues | string | undefined;

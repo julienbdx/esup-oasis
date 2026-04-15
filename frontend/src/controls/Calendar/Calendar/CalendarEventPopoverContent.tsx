@@ -11,15 +11,15 @@ import React from "react";
 import { Alert, App, Space } from "antd";
 import dayjs from "dayjs";
 import { MinusOutlined } from "@ant-design/icons";
-import { CalendarEvenement } from "../../../lib/Evenement";
-import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
-import { RoleValues } from "../../../lib/Utilisateur";
-import TypeEvenementItem from "../../Items/TypeEvenementItem";
-import EtudiantItem from "../../Items/EtudiantItem";
-import GestionnaireItem from "../../Items/GestionnaireItem";
-import CampusItem from "../../Items/CampusItem";
-import TypeEquipementItem from "../../Items/TypeEquipementItem";
-import EventCopyButton from "../../Buttons/EventCopyButton";
+import { CalendarEvenement } from "@lib/Evenement";
+import { TYPE_EVENEMENT_RENFORT } from "@/constants";
+import { RoleValues } from "@lib/Utilisateur";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import CampusItem from "@controls/Items/CampusItem";
+import TypeEquipementItem from "@controls/Items/TypeEquipementItem";
+import EventCopyButton from "@controls/Buttons/EventCopyButton";
 
 interface CalendarEventPopoverContentProps {
    event: CalendarEvenement;

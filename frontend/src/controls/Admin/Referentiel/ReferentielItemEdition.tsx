@@ -8,13 +8,13 @@
  */
 
 import { Button, Card, Drawer, Form, Input, Switch } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { APIPathsReferentiel } from "../../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
 import React, { ReactElement, useEffect } from "react";
-import Spinner from "../../Spinner/Spinner";
-import { IReferentielEditable } from "../../../lib/referentiels";
+import Spinner from "@controls/Spinner/Spinner";
+import { IReferentielEditable } from "@lib/referentiels";
 import { SaveOutlined } from "@ant-design/icons";
-import { AdminConfig } from "../../../routes/administration/AdminConfig";
+import { AdminConfig } from "@routes/administration/AdminConfig";
 
 interface ReferentielItemEditionProps {
    referentielConfig: AdminConfig;

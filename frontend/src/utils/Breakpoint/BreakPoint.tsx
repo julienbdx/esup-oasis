@@ -9,7 +9,7 @@
 
 import React, { ReactElement, useState } from "react";
 import { Button, Grid, Tag } from "antd";
-import "./BreakPoint.scss";
+import "@utils/Breakpoint/BreakPoint.scss";
 import { CloseOutlined, EllipsisOutlined } from "@ant-design/icons";
 
 const { useBreakpoint } = Grid;

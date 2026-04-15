@@ -10,9 +10,9 @@
 import React, { memo, ReactElement, useEffect, useState } from "react";
 import { Avatar } from "antd";
 import { BankOutlined } from "@ant-design/icons";
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_CAMPUS } from "../../api/ApiPrefetchHelpers";
-import { ICampus } from "../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
+import { ICampus } from "@api/ApiTypeHelpers";
 
 interface IAvatarCampus {
    campus?: ICampus;

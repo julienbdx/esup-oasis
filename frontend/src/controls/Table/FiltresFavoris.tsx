@@ -16,10 +16,10 @@ import {
    StarOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import FiltreDescription, { FiltreDecrivable } from "./FiltreDescription";
-import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import FiltreDescription, { FiltreDecrivable } from "@controls/Table/FiltreDescription";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 
-import { UseStateDispatch } from "../../utils/utils";
+import { UseStateDispatch } from "@utils/utils";
 
 export function FiltresFavoris<T extends FiltreDecrivable>(props: {
    filtre: T;

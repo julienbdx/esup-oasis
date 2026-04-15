@@ -9,9 +9,9 @@
 
 import React from "react";
 import { Col, Select } from "antd";
-import { FiltreBeneficiaire } from "../BeneficiaireTable";
-import { PaginateResult } from "../../../context/api/ApiProvider";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { PaginateResult } from "@context/api/ApiProvider";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface FilterFieldGestionnairesBeneficiaireProps {
    filtreBeneficiaire: FiltreBeneficiaire;

@@ -9,29 +9,29 @@
 
 import React from "react";
 import { Button, List, Modal, Tag, Tooltip } from "antd";
-import { FiltreBeneficiaire } from "./BeneficiaireTable";
-import ProfilItem from "../Items/ProfilItem";
-import GestionnaireItem from "../Items/GestionnaireItem";
-import { UtilisateurTag } from "../Tags/UtilisateurTag";
-import ComposanteItem from "../Items/ComposanteItem";
-import FormationItem from "../Items/FormationItem";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import ProfilItem from "@controls/Items/ProfilItem";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
+import ComposanteItem from "@controls/Items/ComposanteItem";
+import FormationItem from "@controls/Items/FormationItem";
 import Icon from "@ant-design/icons";
-import { ReactComponent as FilterMore } from "../../assets/images/filter-more.svg";
-import { FiltreIntervenant } from "./IntervenantTable";
-import CampusItem from "../Items/CampusItem";
-import CompetenceItem from "../Items/CompetenceItem";
-import TypeEvenementItem from "../Items/TypeEvenementItem";
-import { FiltreDemande } from "./DemandeTable";
-import TypeDemandeItem from "../Items/TypeDemandeItem";
-import { EtatDemandeAvatar } from "../Avatars/EtatDemandeAvatar";
-import DisciplineItem from "../Items/DisciplineItem";
+import { ReactComponent as FilterMore } from "@/assets/images/filter-more.svg";
+import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
+import CampusItem from "@controls/Items/CampusItem";
+import CompetenceItem from "@controls/Items/CompetenceItem";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
+import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
+import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
+import DisciplineItem from "@controls/Items/DisciplineItem";
 import type { ButtonType } from "antd/es/button/buttonHelpers";
-import { FiltreAmenagement } from "./AmenagementTableLayout";
-import { CategorieAmenagementTag } from "../Avatars/CategorieAmenagementTag";
-import { TypeAmenagementTag } from "../Avatars/TypeAmenagementTag";
-import SuiviAmenagementItem from "../Items/SuiviAmenagementItem";
-import { DOMAINES_AMENAGEMENTS_INFOS } from "../../lib/amenagements";
-import { env } from "../../env";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
+import { CategorieAmenagementTag } from "@controls/Avatars/CategorieAmenagementTag";
+import { TypeAmenagementTag } from "@controls/Avatars/TypeAmenagementTag";
+import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
+import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib/amenagements";
+import { env } from "@/env";
 
 export type FiltreDecrivable =
    | FiltreBeneficiaire

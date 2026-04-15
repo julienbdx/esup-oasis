@@ -15,16 +15,13 @@ import {
    ETAT_DEMANDE_CONFORME,
    ETAT_DEMANDE_REFUSEE,
    EtatInfo,
-} from "../../../../lib/demande";
-import { IDemande } from "../../../../api/ApiTypeHelpers";
-import { useApi } from "../../../../context/api/ApiProvider";
-import {
-   FONCTIONNALITES,
-   useQuestionnaire,
-} from "../../../../context/demande/QuestionnaireProvider";
-import { useAuth } from "../../../../auth/AuthProvider";
-import ProfilsSelectButton from "../ProfilsSelectButton";
-import { DemandeProfilAttribue } from "../AvancementDemande";
+} from "@lib/demande";
+import { IDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import ProfilsSelectButton from "@controls/Demande/Avancement/ProfilsSelectButton";
+import { DemandeProfilAttribue } from "@controls/Demande/Avancement/AvancementDemande";
 
 interface EtapeCProfilProps {
    etatDemande: EtatInfo;

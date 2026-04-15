@@ -8,13 +8,10 @@
  */
 
 import { Checkbox, Form, Space } from "antd";
-import { QuestionAide } from "./QuestionAide";
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
+import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { MinusOutlined } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React from "react";
 
 export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {

@@ -8,14 +8,14 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { App, Form, Row, Skeleton } from "antd";
-import { useAuth } from "../../auth/AuthProvider";
-import { QK_UTILISATEURS } from "../../api/queryKeys";
-import { IdentiteSection } from "./TabIdentite/IdentiteSection";
-import { ScolariteSection } from "./TabIdentite/ScolariteSection";
-import { SuiviSection } from "./TabIdentite/SuiviSection";
-import { CommentaireDemandeSection } from "./TabIdentite/CommentaireDemandeSection";
+import { useAuth } from "@/auth/AuthProvider";
+import { QK_UTILISATEURS } from "@api/queryKeys";
+import { IdentiteSection } from "@controls/TabsContent/TabIdentite/IdentiteSection";
+import { ScolariteSection } from "@controls/TabsContent/TabIdentite/ScolariteSection";
+import { SuiviSection } from "@controls/TabsContent/TabIdentite/SuiviSection";
+import { CommentaireDemandeSection } from "@controls/TabsContent/TabIdentite/CommentaireDemandeSection";
 
 export function TabIdentite(props: {
    utilisateurId: string;

@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAmenagement, ITypeAmenagement } from "../../api/ApiTypeHelpers";
+import { IAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
 import {
    QK_AMENAGEMENTS,
    QK_AMENAGEMENTS_UTILISATEURS,
    QK_BENEFICIAIRES,
    QK_UTILISATEURS_AMENAGEMENTS,
-} from "../../api/queryKeys";
+} from "@api/queryKeys";
 import {
    App,
    Button,
@@ -30,13 +30,13 @@ import {
    Select,
    Space,
 } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { PREFETCH_TYPES_SUIVI_AMENAGEMENTS } from "../../api/ApiPrefetchHelpers";
-import { useAuth } from "../../auth/AuthProvider";
+import { PREFETCH_TYPES_SUIVI_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
+import { useAuth } from "@/auth/AuthProvider";
 import { DeleteOutlined } from "@ant-design/icons";
-import { DomaineAmenagementInfos } from "../../lib/amenagements";
+import { DomaineAmenagementInfos } from "@lib/amenagements";
 
 type IAmenagementForm = IAmenagement & { dateDebut: Dayjs | null; dateFin: Dayjs | null };
 

@@ -9,9 +9,9 @@
 
 import { Button, Checkbox, Form } from "antd";
 import React, { ReactElement } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { Utilisateur } from "../../lib/Utilisateur";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { Utilisateur } from "@lib/Utilisateur";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 
 interface ITabTypesEvenementsProps {
    utilisateur: Utilisateur;

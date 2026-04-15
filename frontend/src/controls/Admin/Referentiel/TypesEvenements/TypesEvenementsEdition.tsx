@@ -9,13 +9,13 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Button, Card, Drawer, Form, Input, Switch, Tooltip, Typography } from "antd";
-import { useApi } from "../../../../context/api/ApiProvider";
-import { TYPE_EVENEMENT_RENFORT } from "../../../../constants";
-import ColorPicker from "../../../ColorPicker/ColorPicker";
-import TauxHoraireFormItem from "../../../Forms/TauxHoraireFormItem";
+import { useApi } from "@context/api/ApiProvider";
+import { TYPE_EVENEMENT_RENFORT } from "@/constants";
+import ColorPicker from "@controls/ColorPicker/ColorPicker";
+import TauxHoraireFormItem from "@controls/Forms/TauxHoraireFormItem";
 import { PlusOutlined } from "@ant-design/icons";
-import { ITypeEvenement } from "../../../../api/ApiTypeHelpers";
-import { QK_TYPES_EVENEMENTS } from "../../../../api/queryKeys";
+import { ITypeEvenement } from "@api/ApiTypeHelpers";
+import { QK_TYPES_EVENEMENTS } from "@api/queryKeys";
 
 interface TypesEvenementsEditionProps {
    typeEvenement: ITypeEvenement;

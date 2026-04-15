@@ -10,8 +10,8 @@
 import React, { ReactElement } from "react";
 import { Col, Form, Input, Typography } from "antd";
 import { InfoCircleOutlined, MailOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
-import { useAuth } from "../../auth/AuthProvider";
-import { env } from "../../env";
+import { useAuth } from "@/auth/AuthProvider";
+import { env } from "@/env";
 
 /**
  * Render the contact section of the user profile

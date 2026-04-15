@@ -8,10 +8,10 @@
  */
 
 import { Button, Card, Divider, Drawer, Form, Input, InputNumber } from "antd";
-import { useApi } from "../../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
-import { ISportifHautNiveau } from "../../../../api/ApiTypeHelpers";
-import { QK_SPORTIFS_HAUT_NIVEAU } from "../../../../api/queryKeys";
+import { ISportifHautNiveau } from "@api/ApiTypeHelpers";
+import { QK_SPORTIFS_HAUT_NIVEAU } from "@api/queryKeys";
 
 interface SportifsHautNiveauEditionProps {
    editedItem?: ISportifHautNiveau;

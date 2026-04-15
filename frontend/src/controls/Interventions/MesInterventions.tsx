@@ -8,11 +8,11 @@
  */
 
 import React, { useEffect } from "react";
-import "../../routes/administration/Administration.scss";
-import PlanningWithSider from "../Calendar/PlanningWithSider";
-import { PlanningLayout } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAuth } from "../../auth/AuthProvider";
+import "@routes/administration/Administration.scss";
+import PlanningWithSider from "@controls/Calendar/PlanningWithSider";
+import { PlanningLayout } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAuth } from "@/auth/AuthProvider";
 
 /**
  * Renders the page for ROLE_GESTIONNAIRE to manage his own interventions.

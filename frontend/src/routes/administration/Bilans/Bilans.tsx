@@ -15,10 +15,10 @@ import {
    RadarChartOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import { AdminPanel } from "../../../controls/Admin/AdminPanel";
-import { useAuth } from "../../../auth/AuthProvider";
-import "../Administration.scss";
-import { env } from "../../../env";
+import { AdminPanel } from "@controls/Admin/AdminPanel";
+import { useAuth } from "@/auth/AuthProvider";
+import "@routes/administration/Administration.scss";
+import { env } from "@/env";
 
 /**
  * Generates the items for the BilansGestionnaire component.

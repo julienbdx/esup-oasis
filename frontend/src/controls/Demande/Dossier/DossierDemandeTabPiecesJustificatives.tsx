@@ -11,11 +11,8 @@ import React from "react";
 import { List, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
 
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
-import { QuestionFileItem } from "../../Questionnaire/Question/QuestionFileItem";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { QuestionFileItem } from "@controls/Questionnaire/Question/QuestionFileItem";
 
 export function DossierDemandeTabPiecesJustificatives(): React.ReactElement {
    const { questionnaire } = useQuestionnaire();

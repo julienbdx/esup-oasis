@@ -13,7 +13,7 @@ import { Button, Input, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import React, { useRef } from "react";
 
-import { UseStateDispatch } from "./utils";
+import { UseStateDispatch } from "@utils/utils";
 
 /**
  * Add filter props to a Table column.

@@ -7,16 +7,16 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../../context/api/ApiProvider";
-import Spinner from "../../../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { Button, Table } from "antd";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
-import BooleanState from "../../../State/BooleanState";
+import BooleanState from "@controls/State/BooleanState";
 import React, { useState } from "react";
-import { TagEdition } from "./TagEdition";
-import { ITag } from "../../../../api/ApiTypeHelpers";
-import { UtilisateurTag } from "../../../Tags/UtilisateurTag";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../../constants";
+import { TagEdition } from "@controls/Admin/Referentiel/Tags/TagEdition";
+import { ITag } from "@api/ApiTypeHelpers";
+import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 export function Tags(props: { categorieId: string; afficherDesactives: boolean }) {
    const [editedItem, setEditedItem] = useState<ITag | undefined>();

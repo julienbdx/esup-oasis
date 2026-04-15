@@ -8,8 +8,8 @@
  */
 
 import React from "react";
-import { QuestionnaireProvider } from "../../context/demande/QuestionnaireProvider";
-import { TypeDemandeContent } from "./TypeDemandeContent";
+import { QuestionnaireProvider } from "@context/demande/QuestionnaireProvider";
+import { TypeDemandeContent } from "@controls/Questionnaire/TypeDemandeContent";
 import { useParams } from "react-router-dom";
 import { Alert } from "antd";
 import { ExclamationOutlined } from "@ant-design/icons";

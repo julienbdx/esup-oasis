@@ -9,7 +9,7 @@
 
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { Space } from "antd";
-import { QuestionnaireQuestion } from "../../../context/demande/QuestionnaireProvider";
+import { QuestionnaireQuestion } from "@context/demande/QuestionnaireProvider";
 
 export function QuestionAide(props: { question: QuestionnaireQuestion }) {
    return (

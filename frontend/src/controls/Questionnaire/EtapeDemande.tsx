@@ -8,11 +8,11 @@
  */
 
 import React from "react";
-import { Question } from "./Question/Question";
-import { QuestionnaireEtape, useQuestionnaire } from "../../context/demande/QuestionnaireProvider";
+import { Question } from "@controls/Questionnaire/Question/Question";
+import { QuestionnaireEtape, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { Alert, Divider } from "antd";
 import { ExclamationOutlined } from "@ant-design/icons";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "@controls/Spinner/Spinner";
 
 export function EtapeDemande(props: { etapeIndex: number }): React.ReactElement {
    const { questionnaire } = useQuestionnaire();

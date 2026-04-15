@@ -11,8 +11,8 @@ import React, { ReactElement } from "react";
 import { Avatar, Button, Card, DatePicker, Input, Space } from "antd";
 import { EditOutlined, SaveOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { IParametreValeur } from "../../../../api/ApiTypeHelpers";
-import { getLibellePeriode, isEnCoursSurPeriode } from "../../../../utils/dates";
+import { IParametreValeur } from "@api/ApiTypeHelpers";
+import { getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 
 interface ParametreFormItemStringProps {
    valeur?: IParametreValeur;

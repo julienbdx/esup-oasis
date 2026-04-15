@@ -20,8 +20,8 @@
  openapi-typescript ./src/api/OpenApi.yml -o ./src/api/schema.d.ts
  */
 
-import { ApiPathMethodResponse, Components } from "./SchemaHelpers";
-import { components, operations } from "./schema";
+import { ApiPathMethodResponse, Components } from "@api/SchemaHelpers";
+import { components, operations } from "@api/schema";
 
 /**
  * Endpoints de l'API faisant référence à des référentiels simples du type clé/valeur.

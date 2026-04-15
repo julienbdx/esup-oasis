@@ -11,11 +11,11 @@ import React, { ReactElement, useState } from "react";
 import { Avatar, Button, Card, Col, Flex, Row, Tooltip, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
-import { pluriel } from "../../utils/string";
-import { IEtatDemande, IStatistiquesEvenements } from "../../api/ApiTypeHelpers";
-import Statistic from "./Statistic";
-import MonoStackedBar from "./MonoStackedBar/MonoStackedBar";
-import { getEtatDemandeInfo } from "../../lib/demande";
+import { pluriel } from "@utils/string";
+import { IEtatDemande, IStatistiquesEvenements } from "@api/ApiTypeHelpers";
+import Statistic from "@controls/Dashboard/Statistic";
+import MonoStackedBar from "@controls/Dashboard/MonoStackedBar/MonoStackedBar";
+import { getEtatDemandeInfo } from "@lib/demande";
 
 interface IDemandesAccompagnementStatsProps {
    stats: IStatistiquesEvenements | undefined;

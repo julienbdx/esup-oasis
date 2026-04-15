@@ -7,20 +7,17 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { Alert, Form, Space, Upload, UploadFile } from "antd";
 import { MinusOutlined, UploadOutlined } from "@ant-design/icons";
-import { QuestionAide } from "./QuestionAide";
+import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
 import { useEffect } from "react";
-import { QuestionFileItem } from "./QuestionFileItem";
+import { QuestionFileItem } from "@controls/Questionnaire/Question/QuestionFileItem";
 import { RcFile } from "antd/es/upload";
-import { MAX_FILE_SIZE } from "../../../constants";
-import Spinner from "../../Spinner/Spinner";
-import { env } from "../../../env";
-import { useQuestionFileUpload } from "./useQuestionFileUpload";
+import { MAX_FILE_SIZE } from "@/constants";
+import Spinner from "@controls/Spinner/Spinner";
+import { env } from "@/env";
+import { useQuestionFileUpload } from "@controls/Questionnaire/Question/useQuestionFileUpload";
 
 export function QuestionFile(props: { question: QuestionnaireQuestion }) {
    const { mode, form } = useQuestionnaire();

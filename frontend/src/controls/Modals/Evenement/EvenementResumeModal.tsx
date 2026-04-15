@@ -9,15 +9,15 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Col, Modal, Row, Skeleton } from "antd";
-import { useModals } from "../../../context/modals/ModalsContext";
-import { Evenement } from "../../../lib/Evenement";
-import { useApi } from "../../../context/api/ApiProvider";
+import { useModals } from "@context/modals/ModalsContext";
+import { Evenement } from "@lib/Evenement";
+import { useApi } from "@context/api/ApiProvider";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { EvenementResumeInformations } from "./EvenementResume/EvenementResumeInformations";
-import { EvenementResumeAutresInformations } from "./EvenementResume/EvenementResumeAutresInformations";
-import { EvenementResumeParticipants } from "./EvenementResume/EvenementResumeParticipants";
-import { useAuth } from "../../../auth/AuthProvider";
-import EtudiantClassroomImage from "../../Images/EtudiantClassroomImage";
+import { EvenementResumeInformations } from "@controls/Modals/Evenement/EvenementResume/EvenementResumeInformations";
+import { EvenementResumeAutresInformations } from "@controls/Modals/Evenement/EvenementResume/EvenementResumeAutresInformations";
+import { EvenementResumeParticipants } from "@controls/Modals/Evenement/EvenementResume/EvenementResumeParticipants";
+import { useAuth } from "@/auth/AuthProvider";
+import EtudiantClassroomImage from "@controls/Images/EtudiantClassroomImage";
 
 interface EvenementResumeModalProps {
    id?: string;

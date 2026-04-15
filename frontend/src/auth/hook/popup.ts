@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { POPUP_HEIGHT, POPUP_WIDTH } from "./constants";
+import { POPUP_HEIGHT, POPUP_WIDTH } from "@/auth/hook/constants";
 import React from "react";
 
 //--- Gestion du popup d'auth : ouverture et fermeture

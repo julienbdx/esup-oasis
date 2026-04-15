@@ -11,16 +11,22 @@ import { Breadcrumb, Empty, Form, Layout, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { capitalize } from "../../../../utils/string";
-import { useApi } from "../../../../context/api/ApiProvider";
-import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "../../../../api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE, PARAMETRE_COEF_COUT_CHARGE } from "../../../../constants";
-import { IPeriode } from "../../../../api/ApiTypeHelpers";
-import { ApiPathMethodQuery } from "../../../../api/SchemaHelpers";
-import { montantToString, to2Digits } from "../../../../utils/number";
-import { BilanFilterForm, BilanFilterValues } from "./components/BilanFilterForm";
-import { BilanTable, IActivite } from "./components/BilanTable";
-import { IActiviteExport } from "./components/BilanExportButton";
+import { capitalize } from "@utils/string";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { NB_MAX_ITEMS_PER_PAGE, PARAMETRE_COEF_COUT_CHARGE } from "@/constants";
+import { IPeriode } from "@api/ApiTypeHelpers";
+import { ApiPathMethodQuery } from "@api/SchemaHelpers";
+import { montantToString, to2Digits } from "@utils/number";
+import {
+   BilanFilterForm,
+   BilanFilterValues,
+} from "@routes/administration/Bilans/BeneficiairesIntervenants/components/BilanFilterForm";
+import {
+   BilanTable,
+   IActivite,
+} from "@routes/administration/Bilans/BeneficiairesIntervenants/components/BilanTable";
+import { IActiviteExport } from "@routes/administration/Bilans/BeneficiairesIntervenants/components/BilanExportButton";
 
 type FiltreBilanIntervenant = ApiPathMethodQuery<"/suivis/intervenants", "get">;
 type FiltreBilanBeneficiaire = ApiPathMethodQuery<"/suivis/beneficiaires", "get">;

@@ -9,12 +9,12 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Breakpoint, Popover, Space, Tag, Tooltip, Typography } from "antd";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "@controls/Spinner/Spinner";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { BankFilled } from "@ant-design/icons";
-import { IComposante } from "../../api/ApiTypeHelpers";
-import { PREFETCH_COMPOSANTES } from "../../api/ApiPrefetchHelpers";
-import { useApi } from "../../context/api/ApiProvider";
+import { IComposante } from "@api/ApiTypeHelpers";
+import { PREFETCH_COMPOSANTES } from "@api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
 
 interface IItemComposante {
    composante?: IComposante;

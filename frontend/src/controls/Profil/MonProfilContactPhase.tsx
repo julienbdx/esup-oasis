@@ -7,12 +7,12 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { RoleValues, Utilisateur } from "../../lib/Utilisateur";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
 import React, { ReactElement } from "react";
 import { Card, Col, Typography } from "antd";
-import GestionnaireItem from "../Items/GestionnaireItem";
-import { UtilisateurAvatar } from "../Avatars/UtilisateurAvatar";
-import { env } from "../../env";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
+import { env } from "@/env";
 
 export function MonProfilContactPhase(props: { user: Utilisateur | undefined }): ReactElement {
    return (

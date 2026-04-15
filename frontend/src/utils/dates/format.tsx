@@ -11,8 +11,8 @@ import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { RightOutlined } from "@ant-design/icons";
 import { stringOrDate } from "react-big-calendar";
-import { DayValue } from "../../lib/react-modern-calendar-datepicker";
-import { isSameDay } from "./range";
+import { DayValue } from "@lib/react-modern-calendar-datepicker";
+import { isSameDay } from "@utils/dates/range";
 
 /**
  * Converts a Date object to a DayValue object.

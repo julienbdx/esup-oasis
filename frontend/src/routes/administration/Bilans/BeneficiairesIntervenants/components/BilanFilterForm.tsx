@@ -10,12 +10,15 @@
 import React from "react";
 import { Button, Card, Form, FormInstance, Select, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
-import { capitalize } from "../../../../../utils/string";
-import UtilisateurFormItemSelect from "../../../../../controls/Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "../../../../../lib/Utilisateur";
-import PeriodeField from "../../../../../controls/Forms/PeriodeField";
-import { BilanExportButton, IActiviteExport } from "./BilanExportButton";
-import { IPeriode } from "../../../../../api/ApiTypeHelpers";
+import { capitalize } from "@utils/string";
+import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
+import { RoleValues } from "@lib/Utilisateur";
+import PeriodeField from "@controls/Forms/PeriodeField";
+import {
+   BilanExportButton,
+   IActiviteExport,
+} from "@routes/administration/Bilans/BeneficiairesIntervenants/components/BilanExportButton";
+import { IPeriode } from "@api/ApiTypeHelpers";
 
 export interface BilanFilterValues {
    utilisateur?: string;

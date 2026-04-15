@@ -10,10 +10,10 @@
 import React, { ReactElement, useState } from "react";
 import { FloatButton, Layout, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import UtilisateurCreerDrawer from "../../../controls/Drawers/Utilisateur/UtilisateurCreerDrawer";
-import { useDrawers } from "../../../context/drawers/DrawersContext";
-import { RoleValues } from "../../../lib/Utilisateur";
-import IntervenantTable from "../../../controls/Table/IntervenantTable";
+import UtilisateurCreerDrawer from "@controls/Drawers/Utilisateur/UtilisateurCreerDrawer";
+import { useDrawers } from "@context/drawers/DrawersContext";
+import { RoleValues } from "@lib/Utilisateur";
+import IntervenantTable from "@controls/Table/IntervenantTable";
 
 /**
  * Renders the page for ROLE_GESTIONNAIRE to manage intervenants.

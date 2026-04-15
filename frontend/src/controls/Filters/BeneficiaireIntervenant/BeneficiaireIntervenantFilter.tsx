@@ -9,9 +9,9 @@
 
 import React, { ReactElement, useState } from "react";
 import { Select } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { RoleValues } from "../../../lib/Utilisateur";
-import { UtilisateurAsString } from "../../Items/UtilisateurAsString";
+import { useApi } from "@context/api/ApiProvider";
+import { RoleValues } from "@lib/Utilisateur";
+import { UtilisateurAsString } from "@controls/Items/UtilisateurAsString";
 
 interface IBeneficiaireIntervenantFilterFilter {
    value?: string;

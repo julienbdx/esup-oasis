@@ -9,9 +9,9 @@
 
 import { Checkbox, Form } from "antd";
 import React, { ReactElement } from "react";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
-import { Utilisateur } from "../../lib/Utilisateur";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
+import { Utilisateur } from "@lib/Utilisateur";
 
 interface ITabCompetencesProps {
    label: string;
