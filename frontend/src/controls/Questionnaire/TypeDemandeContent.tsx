@@ -7,8 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
-import { QuestionnaireEtape, useQuestionnaire } from "../../context/demande/QuestionnaireProvider";
+import React, { useEffect } from "react";
+import {
+   useQuestionnaire,
+   useQuestionnaireNavigation,
+} from "../../context/demande/QuestionnaireProvider";
 import { App, Button, Card, Form, Layout, Skeleton, Steps, Typography } from "antd";
 import { EtapeDemande } from "./EtapeDemande";
 import "./TypeDemandeContent.scss";
@@ -23,19 +26,8 @@ export function TypeDemandeContent(): React.ReactElement {
    const { notification } = App.useApp();
    // Use the typeDemande context
    const { questionnaire, form, questUtils, submitting, blocage } = useQuestionnaire();
-   const [etapeCourante, setEtapeCourante] = useState<number>(0);
    const screens = useBreakpoint();
-   const [changementEtape, setChangementEtape] = React.useState<string>();
    const initialisation = React.useRef<boolean>(false);
-
-   useEffect(() => {
-      if (!initialisation.current && questionnaire) {
-         form?.setFieldsValue(questUtils?.getFormInitialValues() || {});
-         initialisation.current = true;
-      }
-   }, [form, questUtils, questionnaire]);
-
-   if (!questionnaire) return <Skeleton paragraph={{ rows: 6 }} active />;
 
    // eslint-disable-next-line @typescript-eslint/no-explicit-any
    function scrollToError(error: any) {
@@ -46,7 +38,7 @@ export function TypeDemandeContent(): React.ReactElement {
       }
 
       notification.error({
-         title: "Erreur lors de la soumission du formulaire",
+         message: "Erreur lors de la soumission du formulaire",
          description: (
             <>
                Veuillez corriger les erreurs du formulaire{" "}
@@ -62,41 +54,29 @@ export function TypeDemandeContent(): React.ReactElement {
       }
    }
 
-   function etapeSuivante() {
-      setChangementEtape("next");
+   const { etapeCourante, changementEtape, etapeSuivante, etapePrecedente } =
+      useQuestionnaireNavigation({
+         questionnaire,
+         form,
+         onError: scrollToError,
+      });
 
-      form
-         ?.validateFields({ validateOnly: false })
-         .then(() => {
-            setEtapeCourante((prevCurrentEtape: number) => prevCurrentEtape + 1);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            document.getElementById("etape-title")?.focus();
-            setChangementEtape(undefined);
-         })
-         .catch((e) => {
-            scrollToError(e);
-            setChangementEtape(undefined);
-         });
-   }
+   useEffect(() => {
+      if (!initialisation.current && questionnaire) {
+         form?.setFieldsValue(questUtils?.getFormInitialValues() || {});
+         initialisation.current = true;
+      }
+   }, [form, questUtils, questionnaire]);
 
-   function etapePrecedente() {
-      setChangementEtape("previous");
+   if (!questionnaire) return <Skeleton paragraph={{ rows: 6 }} active />;
 
-      form
-         ?.validateFields({ validateOnly: false })
-         .then(() => {
-            setEtapeCourante((prevCurrentEtape: number) => prevCurrentEtape - 1);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            document.getElementById("etape-title")?.focus();
-            setChangementEtape(undefined);
-         })
-         .catch((e) => {
-            scrollToError(e);
-            setChangementEtape(undefined);
-         });
-   }
-
-   const avancementAccessibilite = `Avancement dans le remplissage du questionnaire : le questionnaire contient ${questionnaire.etapes.length} étapes. Vous êtes actuellement ${etapeCourante === questionnaire.etapes.length ? "à la dernière étape de validation." : `à l'étape ${etapeCourante + 1} nommée "${questionnaire.etapes[etapeCourante].libelle}".`}`;
+   const avancementAccessibilite = `Avancement dans le remplissage du questionnaire : le questionnaire contient ${
+      questionnaire.etapes.length
+   } étapes. Vous êtes actuellement ${
+      etapeCourante === questionnaire.etapes.length
+         ? "à la dernière étape de validation."
+         : `à l'étape ${etapeCourante + 1} nommée "${questionnaire.etapes[etapeCourante].libelle}".`
+   }`;
 
    // Return the Steps component
    return (
@@ -108,6 +88,7 @@ export function TypeDemandeContent(): React.ReactElement {
             actions={[
                etapeCourante > 0 ? (
                   <Button
+                     key="prev"
                      loading={changementEtape === "previous"}
                      aria-label="Retourner à l'étape précédente du questionnaire"
                      style={{ margin: "0 8px" }}
@@ -117,10 +98,11 @@ export function TypeDemandeContent(): React.ReactElement {
                      Précédent
                   </Button>
                ) : (
-                  <span />
+                  <span key="prev-empty" />
                ),
                etapeCourante < (questionnaire.etapes || []).length - 1 ? (
                   <Button
+                     key="next"
                      loading={changementEtape === "next"}
                      aria-label="Passer à l'étape suivante du questionnaire"
                      type="primary"
@@ -130,7 +112,7 @@ export function TypeDemandeContent(): React.ReactElement {
                      Suivant
                   </Button>
                ) : (
-                  <span />
+                  <span key="next-empty" />
                ),
             ].filter((action) => action !== null)}
          >
@@ -140,7 +122,7 @@ export function TypeDemandeContent(): React.ReactElement {
                   aria-hidden={true}
                   current={etapeCourante}
                   items={[
-                     ...(questionnaire.etapes || []).map((etape: QuestionnaireEtape, index) => ({
+                     ...(questionnaire.etapes || []).map((etape, index) => ({
                         key: etape["@id"],
                         id: etape["@id"],
                         title: (

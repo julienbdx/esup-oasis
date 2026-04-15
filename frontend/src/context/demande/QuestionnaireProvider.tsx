@@ -15,122 +15,23 @@ import React, {
    useEffect,
    useState,
 } from "react";
-import { Form, FormInstance } from "antd";
-import dayjs from "dayjs";
-import { ICampagneDemande, IDemande, ITypeDemande } from "../../api/ApiTypeHelpers";
-import { RoleValues } from "../../lib/Utilisateur";
+import { Form } from "antd";
+import { IDemande, ITypeDemande } from "../../api/ApiTypeHelpers";
 import { EtatInfo, getEtatDemande } from "../../lib/demande";
 import { useAuth } from "../../auth/AuthProvider";
 import { useApi } from "../api/ApiProvider";
+import { FONCTIONNALITES, Questionnaire, QuestionnaireContextType } from "./QuestionnaireTypes";
+import { MATRICE_DROITS_ROLES } from "./QuestionnaireRights";
+import {
+   getFormInitialValues,
+   getReponseValue,
+   questionnaireFromDemande,
+   questionnaireFromTypeDemande,
+} from "./QuestionnaireUtils";
 
-export enum FONCTIONNALITES {
-   DECLARER_RECEPTIONNEE = "DECLARER_RECEPTIONNEE",
-   ATTRIBUER_PROFIL = "ATTRIBUER_PROFIL",
-   STATUER_ACCOMPAGNEMENT = "STATUER_ACCOMPAGNEMENT",
-   DECLARER_CONFORMITE_DEMANDE = "DECLARER_CONFORMITE_DEMANDE",
-   MODIFIER_QUESTIONNAIRE = "MODIFIER_QUESTIONNAIRE",
-}
-
-const MATRICE_DROITS_ROLES: {
-   [role: string]: {
-      [fonctionnalite: string]: boolean | ((rolesCommission: string[]) => boolean);
-   };
-} = {
-   [RoleValues.ROLE_GESTIONNAIRE]: {
-      [FONCTIONNALITES.DECLARER_RECEPTIONNEE]: true,
-      [FONCTIONNALITES.ATTRIBUER_PROFIL]: true,
-      [FONCTIONNALITES.DECLARER_CONFORMITE_DEMANDE]: true,
-      [FONCTIONNALITES.STATUER_ACCOMPAGNEMENT]: true,
-      [FONCTIONNALITES.MODIFIER_QUESTIONNAIRE]: true,
-   },
-   [RoleValues.ROLE_MEMBRE_COMMISSION]: {
-      [FONCTIONNALITES.DECLARER_RECEPTIONNEE]: false,
-      [FONCTIONNALITES.ATTRIBUER_PROFIL]: (roles) => roles.includes("ROLE_ATTRIBUER_PROFIL"),
-      [FONCTIONNALITES.DECLARER_CONFORMITE_DEMANDE]: (roles) =>
-         roles.includes("ROLE_VALIDER_CONFORMITE_DEMANDE"),
-      [FONCTIONNALITES.STATUER_ACCOMPAGNEMENT]: false,
-      [FONCTIONNALITES.MODIFIER_QUESTIONNAIRE]: false,
-   },
-   [RoleValues.ROLE_RENFORT]: {
-      [FONCTIONNALITES.DECLARER_RECEPTIONNEE]: false,
-      [FONCTIONNALITES.ATTRIBUER_PROFIL]: false,
-      [FONCTIONNALITES.DECLARER_CONFORMITE_DEMANDE]: true,
-      [FONCTIONNALITES.STATUER_ACCOMPAGNEMENT]: false,
-      [FONCTIONNALITES.MODIFIER_QUESTIONNAIRE]: true,
-   },
-};
-
-export type QuestionnaireReponse = {
-   optionChoisie?: string[] | null;
-   commentaire?: string | null;
-   piecesJustificatives?: string[];
-};
-
-export type QuestionnaireQuestion = {
-   "@id": string;
-   libelle: string;
-   aide?: string | null;
-   typeReponse: string;
-   obligatoire: boolean;
-   choixMultiple: boolean;
-   reponse?: QuestionnaireReponse;
-};
-
-export type QuestionnaireEtape = {
-   "@id": string;
-   libelle?: string;
-   ordre?: number;
-   questions: QuestionnaireQuestion[] | string[];
-};
-
-export type Questionnaire = {
-   "@id": string;
-   typeDemandeId: string;
-   libelle?: string;
-   complete: boolean;
-   etapes: QuestionnaireEtape[];
-};
-
-export interface QuestionnaireContextType {
-   typeDemande?: ITypeDemande;
-   form?: FormInstance;
-   demande?: IDemande;
-   etatDemande?: EtatInfo;
-   questionnaire?: Questionnaire;
-   mode: "preview" | "saisie";
-   setMode: (mode: "preview" | "saisie") => void;
-   submitting?: boolean;
-   setSubmitting: (submitting: boolean) => void;
-   campagne?: ICampagneDemande;
-   blocage?: boolean;
-   setBlocage: (blocage: boolean) => void;
-   questUtils?: {
-      isGrantedQuestionnaire: (
-         fonctionnalite: FONCTIONNALITES,
-         rolesCommission?: string[],
-      ) => boolean;
-      envoyerReponse: (
-         questionId: string,
-         type: string,
-         value: string | string[] | undefined,
-         onSuccess?: () => void,
-         onError?: (error: unknown) => void,
-      ) => void;
-      getReponseValue: (
-         type: string,
-         value: string | string[] | null | undefined,
-         commentaire: string | null | undefined,
-      ) => string | string[] | boolean | dayjs.Dayjs | null | undefined;
-      getFormInitialValues: () =>
-         | undefined
-         | FlatArray<
-              {
-                 [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
-              }[][],
-              1
-           >;
-   };
-}
+export * from "./QuestionnaireTypes";
+export { MATRICE_DROITS_ROLES } from "./QuestionnaireRights";
+export { useQuestionnaireNavigation } from "./useQuestionnaireNavigation";
 
 // Create a context for the Questionnaire with a default value of null.
 const QuestionnaireContext = createContext<QuestionnaireContextType>({
@@ -140,94 +41,6 @@ const QuestionnaireContext = createContext<QuestionnaireContextType>({
    blocage: false,
    setBlocage: () => {},
 });
-
-/**
- * Create a questionnaire from a demande.
- * @param demande
- * @param typeDemande
- */
-function questionnaireFromDemande(demande: IDemande, typeDemande: ITypeDemande): Questionnaire {
-   return {
-      "@id": demande["@id"] as string,
-      typeDemandeId: demande.typeDemande as string,
-      libelle: typeDemande.libelle,
-      complete: demande.complete || false,
-      etapes: (demande.etapes || [])?.map((etape, index) => {
-         return {
-            "@id": etape.etape as string,
-            libelle: etape.libelle,
-            ordre: index,
-            questions: (etape.questions || []).map((question) => ({
-               "@id": question.question as string,
-               libelle: question.libelle as string,
-               aide: question.aide,
-               typeReponse: question.typeReponse as string,
-               obligatoire: question.obligatoire ?? false,
-               choixMultiple: question.choixMultiple ?? false,
-               reponse: {
-                  optionChoisie: question.reponse?.optionsReponses?.map(
-                     (option) => option["@id"] as string,
-                  ),
-                  commentaire: question.reponse?.commentaire,
-                  piecesJustificatives: question.reponse?.piecesJustificatives,
-               },
-            })),
-         };
-      }),
-   };
-}
-
-/**
- * Create a questionnaire from a type demande.
- * @param typeDemande
- */
-function questionnaireFromTypeDemande(typeDemande: ITypeDemande): Questionnaire {
-   return {
-      "@id": typeDemande["@id"] as string,
-      typeDemandeId: typeDemande["@id"] as string,
-      libelle: typeDemande.libelle,
-      complete: false,
-      etapes: (typeDemande.etapes || [])?.map((td, index) => {
-         return {
-            "@id": td["@id"] as string,
-            libelle: td.libelle,
-            ordre: index,
-            questions: td.questions,
-         } as QuestionnaireEtape;
-      }),
-   };
-}
-
-/**
- * Get the value of a response.
- * @param type
- * @param value
- * @param commentaire
- * @param pieceJustificative
- */
-function getReponseValue(
-   type: string,
-   value: string | string[] | null | undefined,
-   commentaire: string | null | undefined,
-   pieceJustificative?: string | string[],
-) {
-   switch (type) {
-      case "text":
-      case "numeric":
-      case "textarea":
-         return commentaire;
-      case "date":
-         return commentaire ? dayjs(commentaire) : null;
-      case "checkbox":
-      case "select":
-         return value;
-      case "radio":
-         return Array.isArray(value) ? value[0] : value;
-      case "file":
-         return pieceJustificative;
-   }
-   return null;
-}
 
 /**
  * Provide the questionnaire context to child components.
@@ -410,39 +223,6 @@ export function QuestionnaireProvider(props: {
       );
    }
 
-   /**
-    * Get the initial values for the form.
-    */
-   function getFormInitialValues():
-      | undefined
-      | FlatArray<
-           {
-              [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
-           }[][],
-           1
-        > {
-      if (!questionnaire) return undefined;
-      return questionnaire.etapes
-         .map((etape: QuestionnaireEtape) => {
-            return etape.questions.map((question) => {
-               // si question est de type string
-               if (typeof question === "string") {
-                  return {};
-               }
-               return {
-                  [question["@id"]]: getReponseValue(
-                     question.typeReponse,
-                     question.reponse?.optionChoisie,
-                     question.reponse?.commentaire,
-                     question.reponse?.piecesJustificatives,
-                  ),
-               };
-            });
-         })
-         .flat()
-         .reduce((acc, curr) => ({ ...acc, ...curr }), {});
-   }
-
    // Provide the context to child components.
    return (
       <QuestionnaireContext.Provider
@@ -463,7 +243,7 @@ export function QuestionnaireProvider(props: {
                isGrantedQuestionnaire,
                envoyerReponse,
                getReponseValue,
-               getFormInitialValues,
+               getFormInitialValues: () => getFormInitialValues(questionnaire),
             },
          }}
       >
