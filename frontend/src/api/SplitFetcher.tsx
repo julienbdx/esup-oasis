@@ -1,5 +1,5 @@
 import { useApi } from "@context/api/ApiProvider";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Progress } from "antd";
 import { ApiPathMethodQuery, ApiPathMethodResponse } from "@api/SchemaHelpers";
 
@@ -14,7 +14,8 @@ export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", 
    const [enabled, setEnabled] = useState(false);
    const [page, setPage] = useState(1);
    const [totalItems, setTotalItems] = useState<number | null>(null);
-   const [, setAllData] = useState<T[]>([]);
+   // Ref pour accumuler les pages sans déclencher de re-rendu intermédiaire
+   const allDataRef = useRef<T[]>([]);
 
    const { data } = useApi().useGetCollectionPaginated({
       path: "/amenagements",
@@ -25,19 +26,18 @@ export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", 
    });
 
    useEffect(() => {
-      setAllData((prev) => {
-         if (data) {
-            props.setIsFetching(true);
-            setTotalItems(data?.totalItems);
-            if (page * props.itemsPerPage < data?.totalItems) {
-               setPage((prevPage) => prevPage + 1);
-            } else {
-               props.setData([...prev, ...((data?.items as T[]) || [])]);
-               props.setIsFetching(false);
-            }
-         }
-         return [...prev, ...((data?.items as T[]) || [])];
-      });
+      if (!data) return;
+
+      props.setIsFetching(true);
+      setTotalItems(data.totalItems);
+      allDataRef.current = [...allDataRef.current, ...((data.items as T[]) || [])];
+
+      if (page * props.itemsPerPage < data.totalItems) {
+         setPage((prevPage) => prevPage + 1);
+      } else {
+         props.setData(allDataRef.current);
+         props.setIsFetching(false);
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [data]);
 
