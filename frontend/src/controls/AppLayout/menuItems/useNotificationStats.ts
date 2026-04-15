@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useWait } from "../../../utils/Wait/useWait";
-import { IStatistiquesEvenements } from "../../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import { useWait } from "@utils/Wait/useWait";
+import { IStatistiquesEvenements } from "@api/ApiTypeHelpers";
 
 /**
  * Hook to retrieve the notification statistics for the current user.

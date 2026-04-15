@@ -15,15 +15,12 @@ import {
    ETAT_DEMANDE_RECEPTIONNEE,
    EtatInfo,
    getEtatDemandeInfo,
-} from "../../../../lib/demande";
-import { IDemande } from "../../../../api/ApiTypeHelpers";
-import { useApi } from "../../../../context/api/ApiProvider";
-import { queryClient } from "../../../../App";
-import {
-   FONCTIONNALITES,
-   useQuestionnaire,
-} from "../../../../context/demande/QuestionnaireProvider";
-import { QK_DEMANDES } from "../../../../api/queryKeys";
+} from "@lib/demande";
+import { IDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { queryClient } from "@/App";
+import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { QK_DEMANDES } from "@api/queryKeys";
 
 interface EtapeASaisieProps {
    etatDemande: EtatInfo;

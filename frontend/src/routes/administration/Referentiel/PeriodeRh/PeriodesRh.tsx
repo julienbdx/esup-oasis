@@ -11,9 +11,9 @@ import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
-import { PeriodesRhEdition } from "../../../../controls/Admin/Referentiel/PeriodeRh/PeriodesRhEdition";
-import { PeriodesRhTable } from "../../../../controls/Table/Admin/PeriodesRhTable";
-import { IPeriode } from "../../../../api/ApiTypeHelpers";
+import { PeriodesRhEdition } from "@controls/Admin/Referentiel/PeriodeRh/PeriodesRhEdition";
+import { PeriodesRhTable } from "@controls/Table/Admin/PeriodesRhTable";
+import { IPeriode } from "@api/ApiTypeHelpers";
 
 /**
  * Renders the Administration page for managing RH periods.

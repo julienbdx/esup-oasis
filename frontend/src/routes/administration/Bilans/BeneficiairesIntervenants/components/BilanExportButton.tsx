@@ -11,7 +11,7 @@ import React from "react";
 import { Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
-import { env } from "../../../../../env";
+import { env } from "@/env";
 
 export interface IActiviteExport {
    nom?: string;

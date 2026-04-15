@@ -8,24 +8,24 @@
  *
  */
 
-import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "../../api/ApiTypeHelpers";
-import { getDomaineAmenagement } from "../../lib/amenagements";
+import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { getDomaineAmenagement } from "@lib/amenagements";
 import React from "react";
 import { Badge, Button, Flex, Space, Tag, Tooltip } from "antd";
-import { getLibellePeriode } from "../../utils/dates";
-import SuiviAmenagementItem from "../Items/SuiviAmenagementItem";
+import { getLibellePeriode } from "@utils/dates";
+import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
 import { NavigateFunction } from "react-router-dom";
 import Icon, { EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { InscriptionItem } from "../Items/InscriptionItem";
-import { ChargesAccompagnementsItem } from "../Items/ChargesAccompagnementsItem";
-import { ListeUtilisateurTag } from "../Tags/ListeUtilisateurTag";
-import { ReactComponent as ExternalLink } from "../../assets/images/external-link.svg";
-import { EllipsisParagraph } from "../Typography/EllipsisParagraph";
-import EtudiantItem from "../Items/EtudiantItem";
-import { RoleValues } from "../../lib/Utilisateur";
-import { ascToAscend } from "../../utils/array";
-import { FilterProps } from "../../utils/table";
-import { FiltreAmenagement } from "./AmenagementTableLayout";
+import { InscriptionItem } from "@controls/Items/InscriptionItem";
+import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
+import { ListeUtilisateurTag } from "@controls/Tags/ListeUtilisateurTag";
+import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import { RoleValues } from "@lib/Utilisateur";
+import { ascToAscend } from "@utils/array";
+import { FilterProps } from "@utils/table";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 import { ColumnsType } from "antd/lib/table";
 import { ColumnType } from "antd/es/table";
 

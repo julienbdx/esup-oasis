@@ -8,7 +8,7 @@
  */
 
 import React, { ReactElement } from "react";
-import "./Calendar.scss";
+import "@controls/Calendar/Calendar/Calendar.scss";
 import dayjs from "dayjs";
 import {
    Calendar as BigCalendar,
@@ -18,29 +18,26 @@ import {
    View,
 } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import { calendarMessages, getMonthHeader, getWeekHeader } from "./utils";
-import { CalendarEvenement, Evenement } from "../../../lib/Evenement";
-import CalendarEvent from "./CalendarEvent";
-import Spinner from "../../Spinner/Spinner";
+import { calendarMessages, getMonthHeader, getWeekHeader } from "@controls/Calendar/Calendar/utils";
+import { CalendarEvenement, Evenement } from "@lib/Evenement";
+import CalendarEvent from "@controls/Calendar/Calendar/CalendarEvent";
+import Spinner from "@controls/Spinner/Spinner";
 import {
    calculateRange,
    canCreateEventOnDate,
    createDateFromStringAsUTC,
    stringOrDateToDate,
    stringOrDateToString,
-} from "../../../utils/dates";
-import { DensiteValues } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { useAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
-import { useModals } from "../../../context/modals/ModalsContext";
-import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
-import {
-   PREFETCH_LAST_PERIODES_RH,
-   PREFETCH_TYPES_EVENEMENTS,
-} from "../../../api/ApiPrefetchHelpers";
+} from "@utils/dates";
+import { DensiteValues } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useModals } from "@context/modals/ModalsContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import { PREFETCH_LAST_PERIODES_RH, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { App } from "antd";
-import { ITypeEvenement } from "../../../api/ApiTypeHelpers";
+import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 const BigCalendarDnD = withDragAndDrop(BigCalendar);
 

@@ -9,14 +9,14 @@
 
 import React, { useEffect } from "react";
 import { Button, Space, Tour, TourProps } from "antd";
-import { EtatDemandeAvatar } from "../../Avatars/EtatDemandeAvatar";
+import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import {
    ETAT_DEMANDE_ATTENTE_COMMISSION,
    ETAT_DEMANDE_CONFORME,
    ETAT_DEMANDE_VALIDEE,
-} from "../../../lib/demande";
+} from "@lib/demande";
 import { EyeOutlined } from "@ant-design/icons";
-import { RefsTourDemandes } from "../../../routes/gestionnaire/demandeurs/Demandeurs";
+import { RefsTourDemandes } from "@routes/gestionnaire/demandeurs/Demandeurs";
 
 export function DemandeursTour(props: {
    setOpen: (open: boolean) => void;

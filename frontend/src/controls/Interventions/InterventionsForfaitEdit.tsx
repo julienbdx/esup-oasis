@@ -8,15 +8,15 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import "../../routes/administration/Administration.scss";
-import { QK_INTERVENTIONS_FORFAIT } from "../../api/queryKeys";
+import "@routes/administration/Administration.scss";
+import { QK_INTERVENTIONS_FORFAIT } from "@api/queryKeys";
 import { Button, Card, Drawer, Dropdown, Form, Popconfirm, Space } from "antd";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
 import { DeleteOutlined, DownOutlined, SaveOutlined } from "@ant-design/icons";
-import { IInterventionForfait } from "../../api/ApiTypeHelpers";
-import { UseStateDispatch } from "../../utils/utils";
-import { InterventionsForfaitForm } from "./InterventionsForfaitForm";
+import { IInterventionForfait } from "@api/ApiTypeHelpers";
+import { UseStateDispatch } from "@utils/utils";
+import { InterventionsForfaitForm } from "@controls/Interventions/InterventionsForfaitForm";
 
 interface IInterventionsForfaitEditProps {
    editedItem: Partial<IInterventionForfait>;

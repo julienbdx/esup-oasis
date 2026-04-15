@@ -8,7 +8,7 @@
  */
 
 import { App, Button, Dropdown, Popconfirm, Space, Tooltip } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import {
    CheckCircleFilled,
    EyeOutlined,
@@ -17,16 +17,12 @@ import {
    SendOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import { useAuth } from "../../auth/AuthProvider";
-import {
-   QK_BENEFICIAIRES,
-   QK_UTILISATEURS_DECISIONS,
-   QK_UTILISATEURS_ITEM,
-} from "../../api/queryKeys";
-import apiDownloader from "../../utils/apiDownloader";
-import { EtatDecisionEtablissement } from "../Avatars/DecisionEtablissementAvatar";
-import { queryClient } from "../../App";
-import { env } from "../../env";
+import { useAuth } from "@/auth/AuthProvider";
+import { QK_BENEFICIAIRES, QK_UTILISATEURS_DECISIONS, QK_UTILISATEURS_ITEM } from "@api/queryKeys";
+import apiDownloader from "@utils/apiDownloader";
+import { EtatDecisionEtablissement } from "@controls/Avatars/DecisionEtablissementAvatar";
+import { queryClient } from "@/App";
+import { env } from "@/env";
 
 export function BoutonDecisionEtab(props: { utilisateurId: string }) {
    const auth = useAuth();

@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import ProfilItem from "./ProfilItem";
+import { useApi } from "@context/api/ApiProvider";
+import ProfilItem from "@controls/Items/ProfilItem";
 import React from "react";
-import { isEnCoursSurPeriode } from "../../utils/dates";
+import { isEnCoursSurPeriode } from "@utils/dates";
 import { Skeleton, Space, Tooltip } from "antd";
 import { useInView } from "react-intersection-observer";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { env } from "../../env";
+import { env } from "@/env";
 
 export function BeneficiaireProfilItem(props: {
    profilBeneficiaire: string;

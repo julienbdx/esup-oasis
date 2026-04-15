@@ -9,11 +9,11 @@
 
 import React, { ReactElement } from "react";
 import { Checkbox, Space } from "antd";
-import { TypeEvenementAvatar } from "../../Avatars/TypeEvenementAvatar";
+import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
 import { CheckOutlined } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 
 interface ICategoriesFilter {
    value?: string[];

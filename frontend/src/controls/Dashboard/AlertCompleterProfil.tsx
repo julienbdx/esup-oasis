@@ -8,7 +8,7 @@
  */
 
 import React, { ReactElement } from "react";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Alert, Button, Space, Typography } from "antd";
 

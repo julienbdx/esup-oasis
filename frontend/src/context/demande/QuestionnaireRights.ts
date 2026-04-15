@@ -7,8 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { RoleValues } from "../../lib/Utilisateur";
-import { FONCTIONNALITES } from "./QuestionnaireTypes";
+import { RoleValues } from "@lib/Utilisateur";
+import { FONCTIONNALITES } from "@context/demande/QuestionnaireTypes";
 
 export const MATRICE_DROITS_ROLES: {
    [role: string]: {

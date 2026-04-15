@@ -11,10 +11,10 @@ import React, { ReactElement } from "react";
 import { Layout, Skeleton, Space, Tabs, Typography } from "antd";
 import { useParams } from "react-router-dom";
 import { FileDoneOutlined, UserOutlined } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import { TabIdentite } from "../../../controls/TabsContent/TabIdentite";
-import DemandesBadge from "../../../controls/Badge/DemandesBadge";
-import { TabDemandes } from "../../../controls/TabsContent/TabDemandes";
+import { useApi } from "@context/api/ApiProvider";
+import { TabIdentite } from "@controls/TabsContent/TabIdentite";
+import DemandesBadge from "@controls/Badge/DemandesBadge";
+import { TabDemandes } from "@controls/TabsContent/TabDemandes";
 
 export default function Demandeur(): ReactElement {
    const { id } = useParams<"id">();

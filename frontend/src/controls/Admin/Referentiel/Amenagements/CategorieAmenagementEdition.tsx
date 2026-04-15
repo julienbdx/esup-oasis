@@ -8,10 +8,10 @@
  */
 
 import { Button, Card, Drawer, Form, Input, Switch } from "antd";
-import { useApi } from "../../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
-import { ICategorieAmenagement } from "../../../../api/ApiTypeHelpers";
-import { QK_CATEGORIES_AMENAGEMENTS } from "../../../../api/queryKeys";
+import { ICategorieAmenagement } from "@api/ApiTypeHelpers";
+import { QK_CATEGORIES_AMENAGEMENTS } from "@api/queryKeys";
 
 interface AmenagementsEditionProps {
    editedItem?: ICategorieAmenagement;

@@ -8,9 +8,9 @@
  */
 
 import React, { ReactElement } from "react";
-import "../administration/Administration.scss";
+import "@routes/administration/Administration.scss";
 import { Card, Col, Layout, List, Row, Typography } from "antd";
-import { VERSIONS } from "../../versions";
+import { VERSIONS } from "@/versions";
 import {
    ArrowRightOutlined,
    BugOutlined,
@@ -18,8 +18,8 @@ import {
    MinusOutlined,
    PlusOutlined,
 } from "@ant-design/icons";
-import RoleCalculeItem from "../../controls/Items/RoleCalculeItem";
-import { env } from "../../env";
+import RoleCalculeItem from "@controls/Items/RoleCalculeItem";
+import { env } from "@/env";
 
 /**
  * Note de version de l'application.

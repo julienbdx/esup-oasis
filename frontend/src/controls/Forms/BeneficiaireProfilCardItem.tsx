@@ -9,16 +9,16 @@
 
 import React, { useState } from "react";
 import { Avatar, Button, Card, Space, Tooltip } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
-import { IBeneficiaireProfil, IUtilisateur } from "../../api/ApiTypeHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import Spinner from "../Spinner/Spinner";
-import { getLibellePeriode, isEnCoursSurPeriode } from "../../utils/dates";
+import { useApi } from "@context/api/ApiProvider";
+import { IBeneficiaireProfil, IUtilisateur } from "@api/ApiTypeHelpers";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import Spinner from "@controls/Spinner/Spinner";
+import { getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 import { CheckOutlined, EditOutlined, InfoCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import GestionnaireItem from "../Items/GestionnaireItem";
-import { PREFETCH_PROFILS } from "../../api/ApiPrefetchHelpers";
-import { AccompagnementAvatar } from "../Avatars/AccompagnementAvatar";
-import { BeneficiaireProfilFormItemEdit } from "./BeneficiaireProfilFormItemEdit";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
+import { AccompagnementAvatar } from "@controls/Avatars/AccompagnementAvatar";
+import { BeneficiaireProfilFormItemEdit } from "@controls/Forms/BeneficiaireProfilFormItemEdit";
 
 interface IBeneficiaireProfilFormItemProps {
    value?: string;

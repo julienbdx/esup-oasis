@@ -11,10 +11,10 @@ import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
-import { TypeAmenagementEdition } from "../../../../controls/Admin/Referentiel/Amenagements/TypeAmenagementEdition";
-import { ICategorieAmenagement, ITypeAmenagement } from "../../../../api/ApiTypeHelpers";
-import { CategoriesAmenagementsTable } from "../../../../controls/Table/Admin/CategoriesAmenagementsTable";
-import { CategorieAmenagementEdition } from "../../../../controls/Admin/Referentiel/Amenagements/CategorieAmenagementEdition";
+import { TypeAmenagementEdition } from "@controls/Admin/Referentiel/Amenagements/TypeAmenagementEdition";
+import { ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { CategoriesAmenagementsTable } from "@controls/Table/Admin/CategoriesAmenagementsTable";
+import { CategorieAmenagementEdition } from "@controls/Admin/Referentiel/Amenagements/CategorieAmenagementEdition";
 
 /**
  * Renders admin page for managing Amenagements.

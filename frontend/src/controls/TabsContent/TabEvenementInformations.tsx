@@ -9,14 +9,14 @@
 
 import { Col, Form, Input, Row } from "antd";
 import React, { ReactElement, useEffect, useState } from "react";
-import CampusFilter from "../Filters/Campus/CampusFilter";
-import { useApi } from "../../context/api/ApiProvider";
-import { Evenement } from "../../lib/Evenement";
-import { IPartialEvenement } from "../../api/ApiTypeHelpers";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
-import { CategorieSelectWithAvatar } from "../Forms/CategorieSelectWithAvatar";
-import { TabEvenementParticipants } from "./SubTabs/TabEvenementParticipants";
-import { TabEvenementPlanification } from "./SubTabs/TabEvenementPlanification";
+import CampusFilter from "@controls/Filters/Campus/CampusFilter";
+import { useApi } from "@context/api/ApiProvider";
+import { Evenement } from "@lib/Evenement";
+import { IPartialEvenement } from "@api/ApiTypeHelpers";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { CategorieSelectWithAvatar } from "@controls/Forms/CategorieSelectWithAvatar";
+import { TabEvenementParticipants } from "@controls/TabsContent/SubTabs/TabEvenementParticipants";
+import { TabEvenementPlanification } from "@controls/TabsContent/SubTabs/TabEvenementPlanification";
 
 interface ITabEvenementInformations {
    evenement: Evenement | undefined;

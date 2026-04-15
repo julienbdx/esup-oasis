@@ -9,8 +9,8 @@
 
 import { Badge } from "antd";
 import React from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 /**
  * Badge pour afficher le nombre d'entretiens d'un utilisateur

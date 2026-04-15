@@ -9,26 +9,26 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { IDemande } from "../../api/ApiTypeHelpers";
+import { IDemande } from "@api/ApiTypeHelpers";
 import { Button, Flex, Space, Table, Tooltip } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
-import { useAuth } from "../../auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { SorterResult } from "antd/es/table/interface";
-import { initialAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "../../App";
-import { PREFETCH_ETAT_DEMANDE } from "../../api/ApiPrefetchHelpers";
+import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { queryClient } from "@/App";
+import { PREFETCH_ETAT_DEMANDE } from "@api/ApiPrefetchHelpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import DemandeTableExport from "./DemandeTableExport";
-import { demandeTableColumns } from "./DemandeTableColumns";
-import { DemandeTableFilters } from "./DemandeTableFilters";
-import { ReactComponent as Unfilter } from "../../assets/images/unfilter.svg";
+import DemandeTableExport from "@controls/Table/DemandeTableExport";
+import { demandeTableColumns } from "@controls/Table/DemandeTableColumns";
+import { DemandeTableFilters } from "@controls/Table/DemandeTableFilters";
+import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
 import Icon from "@ant-design/icons";
-import { ascendToAsc } from "../../utils/array";
-import { RefsTourDemandes } from "../../routes/gestionnaire/demandeurs/Demandeurs";
-import FiltreDescription from "./FiltreDescription";
-import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
-import { getCountLibelle } from "../../utils/table";
+import { ascendToAsc } from "@utils/array";
+import { RefsTourDemandes } from "@routes/gestionnaire/demandeurs/Demandeurs";
+import FiltreDescription from "@controls/Table/FiltreDescription";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { getCountLibelle } from "@utils/table";
 
 export const FILTRE_DEMANDE_DEFAULT: FiltreDemande = {
    "order[demandeur.nom]": "asc",

@@ -21,25 +21,25 @@ import {
    Typography,
 } from "antd";
 import { HomeOutlined, SaveOutlined } from "@ant-design/icons";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
-import { useAuth } from "../../auth/AuthProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { PREFETCH_CAMPUS } from "../../api/ApiPrefetchHelpers";
+import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { MonProfilContact } from "../../controls/Profil/MonProfilContact";
-import { MonProfilCampus } from "../../controls/Profil/MonProfilCampus";
-import { MonProfilCompetences } from "../../controls/Profil/MonProfilCompetences";
-import { MonProfilSynchro } from "../../controls/Profil/MonProfilSynchro";
+import { MonProfilContact } from "@controls/Profil/MonProfilContact";
+import { MonProfilCampus } from "@controls/Profil/MonProfilCampus";
+import { MonProfilCompetences } from "@controls/Profil/MonProfilCompetences";
+import { MonProfilSynchro } from "@controls/Profil/MonProfilSynchro";
 import {
    MonProfilNotification,
    notificationFrequences,
-} from "../../controls/Profil/MonProfilNotification";
-import { MonProfilContactPhase } from "../../controls/Profil/MonProfilContactPhase";
-import "./MonProfil.scss";
-import { IUtilisateur } from "../../api/ApiTypeHelpers";
-import { env } from "../../env";
-import { QK_UTILISATEURS } from "../../api/queryKeys";
+} from "@controls/Profil/MonProfilNotification";
+import { MonProfilContactPhase } from "@controls/Profil/MonProfilContactPhase";
+import "@routes/commun/MonProfil.scss";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
+import { QK_UTILISATEURS } from "@api/queryKeys";
 
 /**
  * Renders the current user's profile page.

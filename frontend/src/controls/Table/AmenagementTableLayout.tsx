@@ -8,27 +8,27 @@
  */
 
 import React from "react";
-import { IAmenagementBeneficiaireQuery, IAmenagementQuery } from "../../api/ApiTypeHelpers";
+import { IAmenagementBeneficiaireQuery, IAmenagementQuery } from "@api/ApiTypeHelpers";
 import { Button, Flex, Space, Tooltip } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
-import { AmenagementTableFilter } from "./AmenagementTableFilter";
-import { AmenagementDomaine } from "../../lib/amenagements";
+import { useApi } from "@context/api/ApiProvider";
+import { AmenagementTableFilter } from "@controls/Table/AmenagementTableFilter";
+import { AmenagementDomaine } from "@lib/amenagements";
 import {
    PREFETCH_CATEGORIES_AMENAGEMENTS,
    PREFETCH_TYPES_AMENAGEMENTS,
-} from "../../api/ApiPrefetchHelpers";
+} from "@api/ApiPrefetchHelpers";
 import Icon from "@ant-design/icons";
-import { ReactComponent as Unfilter } from "../../assets/images/unfilter.svg";
-import { useAuth } from "../../auth/AuthProvider";
-import { ModeAffichageAmenagement } from "../../routes/gestionnaire/beneficiaires/Amenagements";
-import AmenagementTableExport from "./AmenagementTableExport";
-import { AmenagementTable } from "./AmenagementTable";
-import { AmenagementsBeneficiaireTable } from "./AmenagementsBeneficiaireTable";
-import AmenagementsBeneficiaireTableExport from "./AmenagementsBeneficiaireTableExport";
-import FiltreDescription from "./FiltreDescription";
-import { Utilisateur } from "../../lib/Utilisateur";
-import { getCountLibelle } from "../../utils/table";
-import { useAmenagementFilter } from "./hooks/useAmenagementFilter";
+import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
+import { useAuth } from "@/auth/AuthProvider";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
+import AmenagementTableExport from "@controls/Table/AmenagementTableExport";
+import { AmenagementTable } from "@controls/Table/AmenagementTable";
+import { AmenagementsBeneficiaireTable } from "@controls/Table/AmenagementsBeneficiaireTable";
+import AmenagementsBeneficiaireTableExport from "@controls/Table/AmenagementsBeneficiaireTableExport";
+import FiltreDescription from "@controls/Table/FiltreDescription";
+import { Utilisateur } from "@lib/Utilisateur";
+import { getCountLibelle } from "@utils/table";
+import { useAmenagementFilter } from "@controls/Table/hooks/useAmenagementFilter";
 
 export interface FiltreAmenagement {
    "tags[]"?: string[];

@@ -8,10 +8,10 @@
  */
 
 import { Button, Card, Drawer, Form, Input, Switch } from "antd";
-import { useApi } from "../../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
-import { ICategorieTag, ITag } from "../../../../api/ApiTypeHelpers";
-import { QK_CATEGORIES_TAGS } from "../../../../api/queryKeys";
+import { ICategorieTag, ITag } from "@api/ApiTypeHelpers";
+import { QK_CATEGORIES_TAGS } from "@api/queryKeys";
 
 interface CategorieTagEditionProps {
    editedItem?: ITag;

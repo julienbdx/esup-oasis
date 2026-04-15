@@ -9,10 +9,10 @@
 
 import React from "react";
 import { Col, Select, Space } from "antd";
-import { FiltreDemande } from "../DemandeTable";
-import { UseStateDispatch } from "../../../utils/utils";
-import { IDiscipline } from "../../../api/ApiTypeHelpers";
-import { PaginateResult } from "../../../context/api/ApiProvider";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
+import { UseStateDispatch } from "@utils/utils";
+import { IDiscipline } from "@api/ApiTypeHelpers";
+import { PaginateResult } from "@context/api/ApiProvider";
 
 interface FilterFieldDisciplinesSportivesProps {
    filtreDemande: FiltreDemande;

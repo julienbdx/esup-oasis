@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Utilisateur } from "../../lib/Utilisateur";
+import { Utilisateur } from "@lib/Utilisateur";
 import React, { ReactElement } from "react";
 import { Checkbox, Col, Form, Typography } from "antd";
-import EtudiantDashboardImage from "../Images/EtudiantNotificationImage";
+import EtudiantDashboardImage from "@controls/Images/EtudiantNotificationImage";
 
 export type NotificationFrequence = {
    key: string;

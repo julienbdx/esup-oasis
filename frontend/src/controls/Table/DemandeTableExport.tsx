@@ -8,24 +8,18 @@
  */
 
 import React, { useEffect, useState } from "react";
-import {
-   IComposante,
-   IDemande,
-   IEtatDemande,
-   IProfil,
-   ITypeDemande,
-} from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
+import { IComposante, IDemande, IEtatDemande, IProfil, ITypeDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
-import { TableExportButton } from "../Buttons/TableExportButton";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { FiltreDemande } from "./DemandeTable";
+import { TableExportButton } from "@controls/Buttons/TableExportButton";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
 import {
    PREFETCH_COMPOSANTES,
    PREFETCH_ETAT_DEMANDE,
    PREFETCH_PROFILS,
    PREFETCH_TYPES_DEMANDES,
-} from "../../api/ApiPrefetchHelpers";
+} from "@api/ApiPrefetchHelpers";
 
 const headers = [
    { label: "Demandeur (nom)", key: "demandeur.nom" },

@@ -9,30 +9,30 @@
 
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import { Menu, MenuProps } from "antd";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
-import { useDrawers } from "../../context/drawers/DrawersContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useDrawers } from "@context/drawers/DrawersContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useIsFetching } from "@tanstack/react-query";
-import PageTitle from "../../utils/PageTitle/PageTitle";
-import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
-import { menuItemNotifications } from "./menuItems/MenuItemNotifications";
-import { menuItemAccessibilite } from "./menuItems/MenuItemAccessibilite";
-import { menuItemLogo } from "./menuItems/MenuItemLogo";
-import { menuItemPlanningBeneficiaireIntervenant } from "./menuItems/MenuItemPlanningBeneficiaireIntervenant";
-import { menuItemDemandeur } from "./menuItems/MenuItemDemandeur";
-import { menuItemServicesFaitsIntervenant } from "./menuItems/MenuItemServicesFaitsIntervenant";
-import { menuItemPlanningPlanificateur } from "./menuItems/MenuItemPlanningPlanificateur";
-import { menuItemBeneficiaires } from "./menuItems/MenuItemBeneficiaires";
-import { menuItemAmenagementsForReferents } from "./menuItems/MenuItemAmenagementsForReferents";
-import { menuItemDemandesForMembresCommission } from "./menuItems/MenuItemDemandesForMembresCommission";
-import { menuItemIntervenants } from "./menuItems/MenuItemIntervenants";
-import { menuItemDemandeurs } from "./menuItems/MenuItemDemandeurs";
-import { menuItemRecherche } from "./menuItems/MenuItemRecherche";
-import { menuItemUtilisateur } from "./menuItems/MenuItemUtilisateur";
+import PageTitle from "@utils/PageTitle/PageTitle";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { menuItemNotifications } from "@controls/AppLayout/menuItems/MenuItemNotifications";
+import { menuItemAccessibilite } from "@controls/AppLayout/menuItems/MenuItemAccessibilite";
+import { menuItemLogo } from "@controls/AppLayout/menuItems/MenuItemLogo";
+import { menuItemPlanningBeneficiaireIntervenant } from "@controls/AppLayout/menuItems/MenuItemPlanningBeneficiaireIntervenant";
+import { menuItemDemandeur } from "@controls/AppLayout/menuItems/MenuItemDemandeur";
+import { menuItemServicesFaitsIntervenant } from "@controls/AppLayout/menuItems/MenuItemServicesFaitsIntervenant";
+import { menuItemPlanningPlanificateur } from "@controls/AppLayout/menuItems/MenuItemPlanningPlanificateur";
+import { menuItemBeneficiaires } from "@controls/AppLayout/menuItems/MenuItemBeneficiaires";
+import { menuItemAmenagementsForReferents } from "@controls/AppLayout/menuItems/MenuItemAmenagementsForReferents";
+import { menuItemDemandesForMembresCommission } from "@controls/AppLayout/menuItems/MenuItemDemandesForMembresCommission";
+import { menuItemIntervenants } from "@controls/AppLayout/menuItems/MenuItemIntervenants";
+import { menuItemDemandeurs } from "@controls/AppLayout/menuItems/MenuItemDemandeurs";
+import { menuItemRecherche } from "@controls/AppLayout/menuItems/MenuItemRecherche";
+import { menuItemUtilisateur } from "@controls/AppLayout/menuItems/MenuItemUtilisateur";
 
-import { useNotificationStats } from "./menuItems/useNotificationStats";
+import { useNotificationStats } from "@controls/AppLayout/menuItems/useNotificationStats";
 
 /**
  * Render the application's horizontal menu layout.

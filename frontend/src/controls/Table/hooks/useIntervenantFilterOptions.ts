@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import {
    PREFETCH_CAMPUS,
    PREFETCH_COMPETENCES,
    PREFETCH_TYPES_EVENEMENTS,
-} from "../../../api/ApiPrefetchHelpers";
-import { FiltreIntervenant } from "../IntervenantTable";
+} from "@api/ApiPrefetchHelpers";
+import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 
 /**
  * Hook custom pour gérer les données et la logique du filtre d'intervenants

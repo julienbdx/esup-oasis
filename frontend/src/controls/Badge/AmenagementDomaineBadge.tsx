@@ -9,10 +9,10 @@
 
 import { Badge } from "antd";
 import React, { useMemo } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { DomaineAmenagementInfos, getDomaineAmenagement } from "../../lib/amenagements";
-import { PREFETCH_TYPES_AMENAGEMENTS } from "../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { DomaineAmenagementInfos, getDomaineAmenagement } from "@lib/amenagements";
+import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
 
 /**
  * Badge pour afficher le nombre d'aménagements d'un domaine pour un utilisateur

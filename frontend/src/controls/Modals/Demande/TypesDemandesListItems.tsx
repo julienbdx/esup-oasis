@@ -7,12 +7,12 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ITypeDemande } from "../../../api/ApiTypeHelpers";
+import { ITypeDemande } from "@api/ApiTypeHelpers";
 import { Empty, List } from "antd";
-import TypeDemandeAvatar from "../../Avatars/TypeDemandeAvatar";
-import { getTypeDemandeDescription } from "../../../lib/demande";
+import TypeDemandeAvatar from "@controls/Avatars/TypeDemandeAvatar";
+import { getTypeDemandeDescription } from "@lib/demande";
 import React from "react";
-import PostulerButton from "./BoutonPostuler";
+import PostulerButton from "@controls/Modals/Demande/BoutonPostuler";
 
 export function TypesDemandesListItems(props: {
    titre: string;

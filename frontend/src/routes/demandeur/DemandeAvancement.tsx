@@ -11,14 +11,11 @@ import React from "react";
 import { Button, Card, Layout, Typography } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 
-import AvancementDemande from "../../controls/Demande/Avancement/AvancementDemande";
-import { ETAT_ATTENTE_CHARTES } from "../../lib/demande";
-import { ValidationCharte } from "../../controls/Demande/ValidationCharte";
-import Spinner from "../../controls/Spinner/Spinner";
-import {
-   QuestionnaireProvider,
-   useQuestionnaire,
-} from "../../context/demande/QuestionnaireProvider";
+import AvancementDemande from "@controls/Demande/Avancement/AvancementDemande";
+import { ETAT_ATTENTE_CHARTES } from "@lib/demande";
+import { ValidationCharte } from "@controls/Demande/ValidationCharte";
+import Spinner from "@controls/Spinner/Spinner";
+import { QuestionnaireProvider, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 
 function Dossier(): React.ReactElement {
    const { demande } = useQuestionnaire();

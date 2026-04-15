@@ -9,15 +9,15 @@
 
 import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, Drawer, FloatButton, Layout, Row, Space, Typography } from "antd";
-import "../Administration.scss";
+import "@routes/administration/Administration.scss";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { UtilisateurSearch } from "../../../controls/Search/UtilisateurSearch";
-import DashboardUtilisateurStats from "../../../controls/Dashboard/DashboardUtilisateurStats";
-import { UtilisateurEditer } from "../../../controls/Admin/Utilisateurs/UtilisateurEditer";
-import UtilisateursTable from "../../../controls/Table/Admin/UtilisateursTable";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
-import { env } from "../../../env";
+import { UtilisateurSearch } from "@controls/Search/UtilisateurSearch";
+import DashboardUtilisateurStats from "@controls/Dashboard/DashboardUtilisateurStats";
+import { UtilisateurEditer } from "@controls/Admin/Utilisateurs/UtilisateurEditer";
+import UtilisateursTable from "@controls/Table/Admin/UtilisateursTable";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
 
 /**
  * Renders the user administration page.

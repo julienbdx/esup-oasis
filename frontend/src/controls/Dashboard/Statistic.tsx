@@ -11,7 +11,7 @@ import React, { ReactElement } from "react";
 import { Skeleton, Statistic as AntStatistic, Tooltip } from "antd";
 import CountUp from "react-countup";
 import { CaretDownOutlined, CaretUpOutlined, PauseOutlined } from "@ant-design/icons";
-import "../../routes/intervenant/dashboard/Dashboard.scss";
+import "@routes/intervenant/dashboard/Dashboard.scss";
 
 const formatter = (value: number | string) => (
    <CountUp end={typeof value === "string" ? parseInt(value) : value} separator="," />

@@ -7,8 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { OAUTH_STATE_KEY } from "./constants";
-import { AuthTokenPayload } from "./useOAuth2";
+import { OAUTH_STATE_KEY } from "@/auth/hook/constants";
+import { AuthTokenPayload } from "@/auth/hook/useOAuth2";
 
 // --- Gestion du state : permet de vérifier que la réponse de l'authentification provient bien de l'authentification
 

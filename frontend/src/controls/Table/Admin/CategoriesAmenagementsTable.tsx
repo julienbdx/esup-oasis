@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Switch, Table } from "antd";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { ICategorieAmenagement, ITypeAmenagement } from "../../../api/ApiTypeHelpers";
-import BooleanState from "../../State/BooleanState";
-import { TypesAmenagementsTable } from "./TypesAmenagementsTable";
+import { ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import BooleanState from "@controls/State/BooleanState";
+import { TypesAmenagementsTable } from "@controls/Table/Admin/TypesAmenagementsTable";
 
 interface CategoriesAmenagementsTableProps {
    editedItem?: ICategorieAmenagement;

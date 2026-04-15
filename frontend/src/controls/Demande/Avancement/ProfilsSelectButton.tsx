@@ -14,13 +14,13 @@ import {
    ETAT_DEMANDE_ATTENTE_COMMISSION,
    ETAT_DEMANDE_PROFIL_ACCEPTE,
    ETAT_DEMANDE_REFUSEE,
-} from "../../../lib/demande";
-import { useApi } from "../../../context/api/ApiProvider";
-import { queryClient } from "../../../App";
-import { IDemande } from "../../../api/ApiTypeHelpers";
-import { QK_DEMANDES } from "../../../api/queryKeys";
-import { PREFETCH_PROFILS } from "../../../api/ApiPrefetchHelpers";
-import { useQuestionnaire } from "../../../context/demande/QuestionnaireProvider";
+} from "@lib/demande";
+import { useApi } from "@context/api/ApiProvider";
+import { queryClient } from "@/App";
+import { IDemande } from "@api/ApiTypeHelpers";
+import { QK_DEMANDES } from "@api/queryKeys";
+import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
+import { useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 
 export default function ProfilsSelectButton(props: {
    demande: IDemande;

@@ -9,9 +9,9 @@
 
 import React from "react";
 import { Col, Select, Space } from "antd";
-import { FiltreDemande } from "../DemandeTable";
-import { UseStateDispatch } from "../../../utils/utils";
-import { ITypeDemande } from "../../../api/ApiTypeHelpers";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
+import { UseStateDispatch } from "@utils/utils";
+import { ITypeDemande } from "@api/ApiTypeHelpers";
 
 interface FilterFieldTypesDemandesProps {
    filtreDemande: FiltreDemande;

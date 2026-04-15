@@ -15,19 +15,19 @@ import {
    IFormation,
    IInscription,
    ITypeAmenagement,
-} from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
+} from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { FiltreAmenagement, filtreAmenagementToApi } from "./AmenagementTableLayout";
+import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { Table, Slider } from "antd";
-import { DomaineAmenagementInfos, getDomaineAmenagement } from "../../lib/amenagements";
-import { amenagementsBeneficiaireTableColumns } from "./AmenagementsBeneficiaireTableColumns";
+import { DomaineAmenagementInfos, getDomaineAmenagement } from "@lib/amenagements";
+import { amenagementsBeneficiaireTableColumns } from "@controls/Table/AmenagementsBeneficiaireTableColumns";
 import { useNavigate } from "react-router-dom";
-import { ModeAffichageAmenagement } from "../../routes/gestionnaire/beneficiaires/Amenagements";
-import { useAuth } from "../../auth/AuthProvider";
-import { Utilisateur } from "../../lib/Utilisateur";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
+import { useAuth } from "@/auth/AuthProvider";
+import { Utilisateur } from "@lib/Utilisateur";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import "./AmenagementsBeneficiaireTable.scss";
+import "@controls/Table/AmenagementsBeneficiaireTable.scss";
 
 export type TypesDomainesAmenagements = {
    typeAmenagement: ITypeAmenagement;

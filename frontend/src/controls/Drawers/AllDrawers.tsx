@@ -8,9 +8,9 @@
  */
 
 import React, { ReactElement } from "react";
-import "./AllDrawers.scss";
-import EvenementDrawer from "./Evenement/EvenementDrawer";
-import UtilisateurDrawer from "./Utilisateur/UtilisateurDrawer";
+import "@controls/Drawers/AllDrawers.scss";
+import EvenementDrawer from "@controls/Drawers/Evenement/EvenementDrawer";
+import UtilisateurDrawer from "@controls/Drawers/Utilisateur/UtilisateurDrawer";
 
 /**
  * Renders all the drawers of the application.

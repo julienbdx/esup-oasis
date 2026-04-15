@@ -8,13 +8,13 @@
  */
 
 import React, { ReactElement, useState } from "react";
-import { useApi } from "../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { App, Card } from "antd";
-import { createDateAsUTC } from "../../../utils/dates";
-import { IParametre, IParametreValeur } from "../../../api/ApiTypeHelpers";
-import { QK_PARAMETRES } from "../../../api/queryKeys";
-import { ParametreFormItemFichier } from "./items/ParametreFormItemFichier";
-import { ParametreFormItemString } from "./items/ParametreFormItemString";
+import { createDateAsUTC } from "@utils/dates";
+import { IParametre, IParametreValeur } from "@api/ApiTypeHelpers";
+import { QK_PARAMETRES } from "@api/queryKeys";
+import { ParametreFormItemFichier } from "@controls/Admin/Parametres/items/ParametreFormItemFichier";
+import { ParametreFormItemString } from "@controls/Admin/Parametres/items/ParametreFormItemString";
 
 interface ParametreFormItemProps {
    value?: string;
@@ -70,7 +70,7 @@ export default function ParametreFormItem({
          cle: `/parametres/${parametre?.["@id"]?.split("/")[2]}`,
       },
       onSuccess: () => {
-         message.success("Valeur du paramètre sauvegardée");
+         message.success("Valeur du paramètre sauvegardée").then();
          setEditingItem(undefined);
       },
    });

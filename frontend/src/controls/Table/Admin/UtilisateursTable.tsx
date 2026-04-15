@@ -8,23 +8,23 @@
  */
 
 import React, { useEffect, useState } from "react";
-import RoleCalculeItem from "../../Items/RoleCalculeItem";
-import ServiceItem from "../../Items/ServiceItem";
+import RoleCalculeItem from "@controls/Items/RoleCalculeItem";
+import ServiceItem from "@controls/Items/ServiceItem";
 import { Button, Flex, Popconfirm, Segmented, Space, Table, Tooltip } from "antd";
 import { BellOutlined, EditOutlined, UserSwitchOutlined } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import { initialAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "../../../App";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { ROLES_SELECT, RoleValues } from "../../../lib/Utilisateur";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { queryClient } from "@/App";
+import { useAuth } from "@/auth/AuthProvider";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { ROLES_SELECT, RoleValues } from "@lib/Utilisateur";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { ColumnsType } from "antd/lib/table";
 import { useNavigate } from "react-router-dom";
-import { FilterProps } from "../../../utils/table";
+import { FilterProps } from "@utils/table";
 import Highlighter from "react-highlight-words";
-import { removeAccents } from "../../../utils/string";
-import { env } from "../../../env";
+import { removeAccents } from "@utils/string";
+import { env } from "@/env";
 
 interface TableUtilisateursProps {
    onEdit: (item: IUtilisateur) => void;

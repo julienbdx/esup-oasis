@@ -9,9 +9,9 @@
 
 import { Checkbox, Form } from "antd";
 import React, { ReactElement } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { Utilisateur } from "../../lib/Utilisateur";
-import { PREFETCH_CAMPUS } from "../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { Utilisateur } from "@lib/Utilisateur";
+import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
 
 interface ITabCampus {
    utilisateur: Utilisateur;

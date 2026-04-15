@@ -9,9 +9,9 @@
 
 import { Alert, App, Button, Card, Checkbox, Drawer, Form } from "antd";
 import React, { ReactElement } from "react";
-import { FichierDepot } from "../../../Fichier/FichierDepot";
-import { useApi } from "../../../../context/api/ApiProvider";
-import { QK_SPORTIFS_HAUT_NIVEAU } from "../../../../api/queryKeys";
+import { FichierDepot } from "@controls/Fichier/FichierDepot";
+import { useApi } from "@context/api/ApiProvider";
+import { QK_SPORTIFS_HAUT_NIVEAU } from "@api/queryKeys";
 
 /**
  * Handles the creation or update of a clubSportife.

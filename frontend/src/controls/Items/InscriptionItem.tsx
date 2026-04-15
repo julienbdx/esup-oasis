@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import Spinner from "../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { MinusOutlined } from "@ant-design/icons";
 import { Space } from "antd";
-import ComposanteItem from "./ComposanteItem";
+import ComposanteItem from "@controls/Items/ComposanteItem";
 import React, { useEffect } from "react";
-import { IInscription } from "../../api/ApiTypeHelpers";
-import { EllipsisMiddle } from "../Typography/EllipsisMiddle";
+import { IInscription } from "@api/ApiTypeHelpers";
+import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 
 export function InscriptionItem(props: {
    utilisateurId?: string | undefined;

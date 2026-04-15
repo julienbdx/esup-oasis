@@ -8,21 +8,24 @@
  */
 
 import React from "react";
-import { FiltreAmenagement, getFiltreAmenagementDefault } from "./AmenagementTableLayout";
-import { ModeAffichageAmenagement } from "../../routes/gestionnaire/beneficiaires/Amenagements";
-import { Utilisateur } from "../../lib/Utilisateur";
-import { useAmenagementFilterOptions } from "./hooks/useAmenagementFilterOptions";
-import { FilterFieldNom } from "./filters/FilterFieldNom";
-import { FilterFieldDomaine } from "./filters/FilterFieldDomaine";
-import { FilterFieldCategories } from "./filters/FilterFieldCategories";
-import { FilterFieldTypes } from "./filters/FilterFieldTypes";
-import { FilterFieldGestionnaires } from "./filters/FilterFieldGestionnaires";
-import { FilterFieldTags } from "./filters/FilterFieldTags";
-import { FilterFieldAvisEse } from "./filters/FilterFieldAvisEse";
-import { FilterFieldSuivis } from "./filters/FilterFieldSuivis";
-import { FilterFieldComposantes } from "./filters/FilterFieldComposantes";
-import { FilterFieldFormations } from "./filters/FilterFieldFormations";
-import { FilterPanel } from "./FilterPanel";
+import {
+   FiltreAmenagement,
+   getFiltreAmenagementDefault,
+} from "@controls/Table/AmenagementTableLayout";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
+import { Utilisateur } from "@lib/Utilisateur";
+import { useAmenagementFilterOptions } from "@controls/Table/hooks/useAmenagementFilterOptions";
+import { FilterFieldNom } from "@controls/Table/filters/FilterFieldNom";
+import { FilterFieldDomaine } from "@controls/Table/filters/FilterFieldDomaine";
+import { FilterFieldCategories } from "@controls/Table/filters/FilterFieldCategories";
+import { FilterFieldTypes } from "@controls/Table/filters/FilterFieldTypes";
+import { FilterFieldGestionnaires } from "@controls/Table/filters/FilterFieldGestionnaires";
+import { FilterFieldTags } from "@controls/Table/filters/FilterFieldTags";
+import { FilterFieldAvisEse } from "@controls/Table/filters/FilterFieldAvisEse";
+import { FilterFieldSuivis } from "@controls/Table/filters/FilterFieldSuivis";
+import { FilterFieldComposantes } from "@controls/Table/filters/FilterFieldComposantes";
+import { FilterFieldFormations } from "@controls/Table/filters/FilterFieldFormations";
+import { FilterPanel } from "@controls/Table/FilterPanel";
 
 export function AmenagementTableFilter(props: {
    filtreAmenagement: FiltreAmenagement;

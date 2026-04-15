@@ -8,7 +8,7 @@
  */
 
 import { Form } from "antd";
-import { QuestionnaireQuestion } from "../../../context/demande/QuestionnaireProvider";
+import { QuestionnaireQuestion } from "@context/demande/QuestionnaireProvider";
 
 export function QuestionInfo(props: { question: QuestionnaireQuestion }) {
    // props.question.libelle contient du HTML

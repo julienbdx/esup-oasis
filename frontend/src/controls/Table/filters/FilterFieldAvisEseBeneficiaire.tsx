@@ -10,9 +10,9 @@
 import React from "react";
 import { Col, Segmented } from "antd";
 import { CheckCircleFilled, HourglassOutlined } from "@ant-design/icons";
-import { FiltreBeneficiaire } from "../BeneficiaireTable";
-import { EtatAvisEse } from "../../Avatars/BeneficiaireAvisEseAvatar";
-import { env } from "../../../env";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { EtatAvisEse } from "@controls/Avatars/BeneficiaireAvisEseAvatar";
+import { env } from "@/env";
 
 interface FilterFieldAvisEseBeneficiaireProps {
    filtreBeneficiaire: FiltreBeneficiaire;

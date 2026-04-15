@@ -7,8 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { RoleValues } from "./lib/Utilisateur";
-import { env } from "./env";
+import { RoleValues } from "@lib/Utilisateur";
+import { env } from "@/env";
 
 /**
  * Version de l'application.

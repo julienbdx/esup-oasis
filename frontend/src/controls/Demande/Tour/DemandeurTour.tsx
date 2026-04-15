@@ -9,7 +9,7 @@
 
 import React from "react";
 import { Tour, TourProps } from "antd";
-import { RefsTourDemande } from "../../../routes/gestionnaire/demandeurs/Demande";
+import { RefsTourDemande } from "@routes/gestionnaire/demandeurs/Demande";
 
 export function DemandeurTour(props: {
    setOpen: (value: boolean) => void;

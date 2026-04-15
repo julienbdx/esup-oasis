@@ -9,8 +9,8 @@
 
 import React from "react";
 import { Col, Select } from "antd";
-import { FiltreAmenagement } from "../AmenagementTableLayout";
-import { IComposante } from "../../../api/ApiTypeHelpers";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
+import { IComposante } from "@api/ApiTypeHelpers";
 
 interface FilterFieldComposantesProps {
    filtreAmenagement: FiltreAmenagement;

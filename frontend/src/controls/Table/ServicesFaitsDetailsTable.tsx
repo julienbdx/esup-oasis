@@ -8,18 +8,13 @@
  */
 
 import { Flex, Space, Table } from "antd";
-import {
-   IPeriode,
-   IServicesFaits,
-   IServicesFaitsLigne,
-   ITauxHoraire,
-} from "../../api/ApiTypeHelpers";
-import { ServicesFaitsButton } from "../Admin/Bilans/ServicesFaitsButton";
-import TypeEvenementItem from "../Items/TypeEvenementItem";
+import { IPeriode, IServicesFaits, IServicesFaitsLigne, ITauxHoraire } from "@api/ApiTypeHelpers";
+import { ServicesFaitsButton } from "@controls/Admin/Bilans/ServicesFaitsButton";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 import React from "react";
-import { montantToString, to2Digits } from "../../utils/number";
-import EtudiantItem from "../Items/EtudiantItem";
-import { RoleValues } from "../../lib/Utilisateur";
+import { montantToString, to2Digits } from "@utils/number";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import { RoleValues } from "@lib/Utilisateur";
 
 interface ServicesFaitsDetailsTableProps {
    isFetching?: boolean;

@@ -9,8 +9,8 @@
 
 import React, { ReactElement } from "react";
 import { Anchor, Layout, Typography } from "antd";
-import "./Administration.scss";
-import { getAdminPanelsByCategorie } from "./AdminConfig";
+import "@routes/administration/Administration.scss";
+import { getAdminPanelsByCategorie } from "@routes/administration/AdminConfig";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 /**

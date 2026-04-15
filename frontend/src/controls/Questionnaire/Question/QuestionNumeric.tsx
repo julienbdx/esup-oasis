@@ -9,11 +9,8 @@
 
 import { Form, InputNumber, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import { QuestionAide } from "./QuestionAide";
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
+import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import React from "react";
 
 export function QuestionNumeric(props: { question: QuestionnaireQuestion }) {

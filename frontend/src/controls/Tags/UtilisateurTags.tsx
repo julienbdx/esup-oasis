@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { Card } from "antd";
 import React from "react";
-import { UtilisateurTag } from "./UtilisateurTag";
-import { UtilisateurTagAjouter } from "./UtilisateurTagAjouter";
+import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
+import { UtilisateurTagAjouter } from "@controls/Tags/UtilisateurTagAjouter";
 
 export function UtilisateurTags(props: { utilisateurId: string }) {
    const { data: tagsUtilisateur } = useApi().useGetCollection({

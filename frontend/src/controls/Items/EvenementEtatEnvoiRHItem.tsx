@@ -10,7 +10,7 @@
 import React, { ReactElement } from "react";
 import { Tag } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { IEvenement } from "../../api/ApiTypeHelpers";
+import { IEvenement } from "@api/ApiTypeHelpers";
 
 /**
  * Renders the status of sending an event to the RH

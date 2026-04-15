@@ -8,13 +8,13 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import Spinner from "../Spinner/Spinner";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import Spinner from "@controls/Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Tag, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { MinusOutlined, SendOutlined } from "@ant-design/icons";
-import { IPeriode } from "../../api/ApiTypeHelpers";
+import { IPeriode } from "@api/ApiTypeHelpers";
 
 interface IItemPeriode {
    periode?: IPeriode;

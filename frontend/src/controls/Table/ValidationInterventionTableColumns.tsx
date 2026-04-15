@@ -8,19 +8,19 @@
  */
 
 import React from "react";
-import "../../routes/administration/Administration.scss";
+import "@routes/administration/Administration.scss";
 import { Space } from "antd";
 import dayjs from "dayjs";
-import TypeEvenementItem from "../Items/TypeEvenementItem";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 import { ColumnType } from "antd/es/table";
-import { FilterProps } from "../../utils/table";
-import { FiltreValidationInterventions } from "./ValidationInterventionTable";
+import { FilterProps } from "@utils/table";
+import { FiltreValidationInterventions } from "@controls/Table/ValidationInterventionTable";
 import { FilterFilled, FilterOutlined } from "@ant-design/icons";
-import { IEvenement, ITypeEvenement } from "../../api/ApiTypeHelpers";
-import EtudiantItem from "../Items/EtudiantItem";
-import { RoleValues } from "../../lib/Utilisateur";
+import { IEvenement, ITypeEvenement } from "@api/ApiTypeHelpers";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import { RoleValues } from "@lib/Utilisateur";
 
-import { UseStateDispatch } from "../../utils/utils";
+import { UseStateDispatch } from "@utils/utils";
 
 interface TableValidationInterventionsProps {
    filter: FiltreValidationInterventions;

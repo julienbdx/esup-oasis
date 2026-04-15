@@ -10,10 +10,10 @@
 import React, { ReactNode } from "react";
 import { Collapse, Row } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
-import { FiltreFavoriDropDown } from "./FiltreFavoriDropDown";
-import { FiltresFavoris } from "./FiltresFavoris";
-import { UseStateDispatch } from "../../utils/utils";
-import { FiltreDecrivable } from "./FiltreDescription";
+import { FiltreFavoriDropDown } from "@controls/Table/FiltreFavoriDropDown";
+import { FiltresFavoris } from "@controls/Table/FiltresFavoris";
+import { UseStateDispatch } from "@utils/utils";
+import { FiltreDecrivable } from "@controls/Table/FiltreDescription";
 
 interface FilterPanelProps<T extends FiltreDecrivable> {
    filtre: T;

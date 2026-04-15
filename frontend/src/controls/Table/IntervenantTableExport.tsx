@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICampus, ICompetence, IIntervenant } from "../../api/ApiTypeHelpers";
+import { ICampus, ICompetence, IIntervenant } from "@api/ApiTypeHelpers";
 import { useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { TableExportButton } from "../Buttons/TableExportButton";
-import { FiltreIntervenant } from "./IntervenantTable";
-import { PREFETCH_CAMPUS, PREFETCH_COMPETENCES } from "../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { TableExportButton } from "@controls/Buttons/TableExportButton";
+import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
+import { PREFETCH_CAMPUS, PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
 
 const headers: {
    label: string;

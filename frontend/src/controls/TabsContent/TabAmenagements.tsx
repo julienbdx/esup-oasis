@@ -11,15 +11,15 @@ import {
    AmenagementDomaine,
    DomaineAmenagementInfos,
    getAmenagementsByCategories,
-} from "../../lib/amenagements";
+} from "@lib/amenagements";
 import React, { useMemo } from "react";
-import { IAmenagement } from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
+import { IAmenagement } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
 import {
    PREFETCH_CATEGORIES_AMENAGEMENTS,
    PREFETCH_TYPES_AMENAGEMENTS,
-} from "../../api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+} from "@api/ApiPrefetchHelpers";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Avatar, Button, Card, Col, Empty, Flex, Row, Space, Tag, Tooltip, Typography } from "antd";
 import {
    ArrowRightOutlined,
@@ -28,14 +28,14 @@ import {
    EditOutlined,
    HarmonyOSOutlined,
 } from "@ant-design/icons";
-import { ModalAmenagement } from "../Modals/ModalAmenagement";
-import { getLibellePeriode } from "../../utils/dates";
-import SuiviAmenagementItem from "../Items/SuiviAmenagementItem";
+import { ModalAmenagement } from "@controls/Modals/ModalAmenagement";
+import { getLibellePeriode } from "@utils/dates";
+import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
 import { useSearchParams } from "react-router-dom";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { EllipsisParagraph } from "../Typography/EllipsisParagraph";
-import { ButtonAddAmenagement } from "./ButtonAddAmenagement";
-import { BoutonDecisionEtab } from "./BoutonDecisionEtab";
+import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";
+import { ButtonAddAmenagement } from "@controls/TabsContent/ButtonAddAmenagement";
+import { BoutonDecisionEtab } from "@controls/TabsContent/BoutonDecisionEtab";
 
 export function TabAmenagements(props: {
    utilisateurId: string;

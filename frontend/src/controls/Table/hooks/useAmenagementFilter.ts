@@ -8,11 +8,14 @@
  */
 
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/AuthProvider";
-import { usePreferences } from "../../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
-import { FiltreAmenagement, getFiltreAmenagementDefault } from "../AmenagementTableLayout";
-import { Utilisateur } from "../../../lib/Utilisateur";
-import { ModeAffichageAmenagement } from "../../../routes/gestionnaire/beneficiaires/Amenagements";
+import { useAuth } from "@/auth/AuthProvider";
+import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import {
+   FiltreAmenagement,
+   getFiltreAmenagementDefault,
+} from "@controls/Table/AmenagementTableLayout";
+import { Utilisateur } from "@lib/Utilisateur";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 
 /**
  * Hook custom pour gérer l'état du filtre d'aménagements

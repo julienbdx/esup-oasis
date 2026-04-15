@@ -8,23 +8,23 @@
  */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ITag, ITypeAmenagement } from "../../api/ApiTypeHelpers";
+import { ITag, ITypeAmenagement } from "@api/ApiTypeHelpers";
 import { useEffect, useMemo, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { TableExportButton } from "../Buttons/TableExportButton";
-import { FiltreAmenagement, filtreAmenagementToApi } from "./AmenagementTableLayout";
-import { PREFETCH_TAGS } from "../../api/ApiPrefetchHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { TableExportButton } from "@controls/Buttons/TableExportButton";
+import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
+import { PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import {
    buildAmenagementsBenefDatasource,
    getTypesAmenagements,
    TypesDomainesAmenagements,
-} from "./AmenagementsBeneficiaireTable";
-import { DOMAINES_AMENAGEMENTS_INFOS } from "../../lib/amenagements";
-import { ModeAffichageAmenagement } from "../../routes/gestionnaire/beneficiaires/Amenagements";
-import { useAuth } from "../../auth/AuthProvider";
-import { Utilisateur } from "../../lib/Utilisateur";
-import { env } from "../../env";
+} from "@controls/Table/AmenagementsBeneficiaireTable";
+import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib/amenagements";
+import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
+import { useAuth } from "@/auth/AuthProvider";
+import { Utilisateur } from "@lib/Utilisateur";
+import { env } from "@/env";
 
 function getHeader(
    typesAmenagementsUtilises: TypesDomainesAmenagements[],

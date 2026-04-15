@@ -8,11 +8,11 @@
  */
 
 import React, { ReactElement } from "react";
-import "./AllModals.scss";
-import EvenementModal from "./Evenement/EvenementModal";
-import { useAuth } from "../../auth/AuthProvider";
-import EvenementResumeModal from "./Evenement/EvenementResumeModal";
-import { useModals } from "../../context/modals/ModalsContext";
+import "@controls/Modals/AllModals.scss";
+import EvenementModal from "@controls/Modals/Evenement/EvenementModal";
+import { useAuth } from "@/auth/AuthProvider";
+import EvenementResumeModal from "@controls/Modals/Evenement/EvenementResumeModal";
+import { useModals } from "@context/modals/ModalsContext";
 
 /**
  * Renders app modals

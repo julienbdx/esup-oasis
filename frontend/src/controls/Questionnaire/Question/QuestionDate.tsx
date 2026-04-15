@@ -7,14 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { DatePicker, Form, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import { QuestionAide } from "./QuestionAide";
-import { createDateFromStringAsUTC } from "../../../utils/dates";
+import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
+import { createDateFromStringAsUTC } from "@utils/dates";
 import React from "react";
 
 export function QuestionDate(props: { question: QuestionnaireQuestion }) {

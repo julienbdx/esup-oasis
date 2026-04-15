@@ -9,10 +9,10 @@
 
 import React, { useCallback, useRef, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import { DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD, OAUTH_RESPONSE } from "./constants";
-import { objectToQuery, queryToObject } from "../../utils/url";
-import { generateState, removeState, saveState, State } from "./state";
-import { closeAuthPopup, openAuthPopup } from "./popup";
+import { DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD, OAUTH_RESPONSE } from "@/auth/hook/constants";
+import { objectToQuery, queryToObject } from "@utils/url";
+import { generateState, removeState, saveState, State } from "@/auth/hook/state";
+import { closeAuthPopup, openAuthPopup } from "@/auth/hook/popup";
 
 /**
  * Auth token payload

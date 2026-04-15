@@ -9,9 +9,9 @@
 
 import React, { ReactElement } from "react";
 import { Avatar, Button, Drawer, Form, Space, Tabs } from "antd";
-import { useDrawers } from "../../../context/drawers/DrawersContext";
+import { useDrawers } from "@context/drawers/DrawersContext";
 import { SaveOutlined, UserOutlined } from "@ant-design/icons";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 
 interface IEvenementDrawer {
    id?: string;

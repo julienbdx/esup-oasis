@@ -8,7 +8,7 @@
  */
 
 import React, { useEffect } from "react";
-import { useAccessibilite } from "./context/accessibilite/AccessibiliteContext";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { ConfigProvider } from "antd";
 import frFR from "antd/lib/locale/fr_FR";
 import {
@@ -24,8 +24,8 @@ import {
    APP_SECONDARY_COLOR,
    APP_SECONDARY_LIGHT_COLOR,
    APP_SECONDARY_CONTRAST_COLOR,
-} from "./constants";
-import { pSBC } from "./utils/colors";
+} from "@/constants";
+import { pSBC } from "@utils/colors";
 
 function getColorVariant(color: string | null, fallbackColor: string, fallbackCoef: number) {
    return color || (pSBC(fallbackCoef, fallbackColor) as string);

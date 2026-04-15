@@ -11,11 +11,11 @@ import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { FileOutlined, HomeFilled, PlusOutlined, UserOutlined } from "@ant-design/icons";
-import { ISportifHautNiveau } from "../../../../api/ApiTypeHelpers";
-import { SportifsHautNiveauTable } from "../../../../controls/Table/Admin/SportifsHautNiveauTable";
-import { SportifsHautNiveauEdition } from "../../../../controls/Admin/Referentiel/SportifsHautNiveau/SportifsHautNiveauEdition";
-import { useAuth } from "../../../../auth/AuthProvider";
-import { SportifsHautNiveauImport } from "../../../../controls/Admin/Referentiel/SportifsHautNiveau/SportifsHautNiveauImport";
+import { ISportifHautNiveau } from "@api/ApiTypeHelpers";
+import { SportifsHautNiveauTable } from "@controls/Table/Admin/SportifsHautNiveauTable";
+import { SportifsHautNiveauEdition } from "@controls/Admin/Referentiel/SportifsHautNiveau/SportifsHautNiveauEdition";
+import { useAuth } from "@/auth/AuthProvider";
+import { SportifsHautNiveauImport } from "@controls/Admin/Referentiel/SportifsHautNiveau/SportifsHautNiveauImport";
 
 function AddFloatButton(props: {
    setEditedItem: (value: ISportifHautNiveau | undefined) => void;

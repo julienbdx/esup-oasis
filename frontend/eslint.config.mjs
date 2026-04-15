@@ -85,6 +85,14 @@ export default tseslint.config(
    prettierRecommended,
    {
       files: ["**/*.{ts,tsx}"],
+      settings: {
+         "import/resolver": {
+            typescript: {
+               alwaysTryTypes: true,
+               project: "./tsconfig.json",
+            }
+         }
+      },
       languageOptions: {
          globals: {
             ...globals.browser,

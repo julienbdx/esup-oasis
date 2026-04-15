@@ -17,15 +17,15 @@ import {
    TableOutlined,
 } from "@ant-design/icons";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import {
    DensiteValues,
    PlanningLayout,
    TypeAffichageValues,
    useAffichageFiltres,
-} from "../../../context/affichageFiltres/AffichageFiltresContext";
-import ProgressAffectation from "../../Progress/ProgressAffectation";
-import { Evenement } from "../../../lib/Evenement";
+} from "@context/affichageFiltres/AffichageFiltresContext";
+import ProgressAffectation from "@controls/Progress/ProgressAffectation";
+import { Evenement } from "@lib/Evenement";
 import { ItemType } from "antd/es/menu/interface";
 
 interface IToolbarDisplay {

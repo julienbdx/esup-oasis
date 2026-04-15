@@ -1,6 +1,6 @@
 import React from "react";
-import AlertCompleterProfil from "../../controls/Dashboard/AlertCompleterProfil";
-import PlanningWithSider from "../../controls/Calendar/PlanningWithSider";
+import AlertCompleterProfil from "@controls/Dashboard/AlertCompleterProfil";
+import PlanningWithSider from "@controls/Calendar/PlanningWithSider";
 
 export const BeneficiaireDashboard = () => {
    return (

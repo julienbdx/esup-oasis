@@ -9,11 +9,11 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Breakpoint, Tooltip } from "antd";
-import Spinner from "../Spinner/Spinner";
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_FORMATIONS } from "../../api/ApiPrefetchHelpers";
-import { IFormation } from "../../api/ApiTypeHelpers";
-import { EllipsisMiddle } from "../Typography/EllipsisMiddle";
+import Spinner from "@controls/Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_FORMATIONS } from "@api/ApiPrefetchHelpers";
+import { IFormation } from "@api/ApiTypeHelpers";
+import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 
 interface IItemFormation {
    formation?: IFormation;

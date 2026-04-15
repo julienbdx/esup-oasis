@@ -9,12 +9,12 @@
 
 import React, { ReactElement, useEffect } from "react";
 import { Calendar, Skeleton } from "antd";
-import "./SmallCalendar.scss";
-import SmallCalendarCell from "./SmallCalendarCell";
+import "@controls/Calendar/Sider/SmallCalendar/SmallCalendar.scss";
+import SmallCalendarCell from "@controls/Calendar/Sider/SmallCalendar/SmallCalendarCell";
 import dayjs, { Dayjs } from "dayjs";
-import { calculateRange, isSameDay } from "../../../../utils/dates";
-import { useAffichageFiltres } from "../../../../context/affichageFiltres/AffichageFiltresContext";
-import { useWait } from "../../../../utils/Wait/useWait";
+import { calculateRange, isSameDay } from "@utils/dates";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useWait } from "@utils/Wait/useWait";
 
 /**
  * Renders a small calendar component with selectable dates.

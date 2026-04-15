@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
+import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { Button, Form, Space, Tooltip } from "antd";
-import UtilisateurFormItemSelect from "../../Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "../../../lib/Utilisateur";
+import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
+import { RoleValues } from "@lib/Utilisateur";
 import { ArrowUpOutlined, MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { ReactElement } from "react";
-import { Evenement } from "../../../lib/Evenement";
-import { IPartialEvenement } from "../../../api/ApiTypeHelpers";
+import { Evenement } from "@lib/Evenement";
+import { IPartialEvenement } from "@api/ApiTypeHelpers";
 
 interface TabEvenementParticipantsSuppleantsProps {
    evenement: Evenement | undefined;

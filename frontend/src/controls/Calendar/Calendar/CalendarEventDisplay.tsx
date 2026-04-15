@@ -10,8 +10,8 @@
 import React from "react";
 import { Space, Tooltip } from "antd";
 import { DeleteFilled, ToolOutlined, WarningFilled } from "@ant-design/icons";
-import { CalendarEvenement } from "../../../lib/Evenement";
-import TypeEvenementItem from "../../Items/TypeEvenementItem";
+import { CalendarEvenement } from "@lib/Evenement";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 
 interface CalendarEventDisplayProps extends React.HTMLAttributes<HTMLDivElement> {
    event: CalendarEvenement;

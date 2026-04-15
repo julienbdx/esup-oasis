@@ -8,10 +8,10 @@
  */
 
 import React, { useEffect } from "react";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { Space, Tooltip } from "antd";
 import { CheckCircleFilled, HourglassOutlined } from "@ant-design/icons";
-import { env } from "../../env";
+import { env } from "@/env";
 
 export enum EtatAvisEse {
    "ETAT_EN_COURS" = "EN_COURS",

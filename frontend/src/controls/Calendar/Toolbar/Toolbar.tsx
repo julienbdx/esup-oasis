@@ -9,11 +9,11 @@
 
 import React, { useEffect } from "react";
 import { Col, Row } from "antd";
-import { Evenement } from "../../../lib/Evenement";
-import { MesInterventionsIntro } from "./MesInterventionsIntro";
-import ToolbarNavigation from "./ToolbarNavigation";
-import ToolbarDisplay from "./ToolbarDisplay";
-import ToolbarActions from "./ToolbarActions";
+import { Evenement } from "@lib/Evenement";
+import { MesInterventionsIntro } from "@controls/Calendar/Toolbar/MesInterventionsIntro";
+import ToolbarNavigation from "@controls/Calendar/Toolbar/ToolbarNavigation";
+import ToolbarDisplay from "@controls/Calendar/Toolbar/ToolbarDisplay";
+import ToolbarActions from "@controls/Calendar/Toolbar/ToolbarActions";
 
 interface IToolbar {
    saisieEvtRenfort?: boolean;

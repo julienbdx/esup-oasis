@@ -10,16 +10,19 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Button, Form, message, Modal, notification } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Evenement } from "../../../lib/Evenement";
-import { useApi } from "../../../context/api/ApiProvider";
-import { queryClient } from "../../../App";
-import { arrayContainsDuplicates } from "../../../utils/array";
-import { createDateAsUTC } from "../../../utils/dates";
-import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
-import { IEvenement } from "../../../api/ApiTypeHelpers";
-import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../../api/queryKeys";
-import { UseStateDispatch } from "../../../utils/utils";
-import { EvenementDupliquerForm, IDuplicationOptions } from "./EvenementDupliquerForm";
+import { Evenement } from "@lib/Evenement";
+import { useApi } from "@context/api/ApiProvider";
+import { queryClient } from "@/App";
+import { arrayContainsDuplicates } from "@utils/array";
+import { createDateAsUTC } from "@utils/dates";
+import { TYPE_EVENEMENT_RENFORT } from "@/constants";
+import { IEvenement } from "@api/ApiTypeHelpers";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
+import { UseStateDispatch } from "@utils/utils";
+import {
+   EvenementDupliquerForm,
+   IDuplicationOptions,
+} from "@controls/Modals/Evenement/EvenementDupliquerForm";
 
 interface IEvenementDupliquerDrawer {
    evenement: Evenement;

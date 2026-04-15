@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import PlanningWithSider from "./PlanningWithSider";
+import PlanningWithSider from "@controls/Calendar/PlanningWithSider";
 
 export default function PlanningCalendar() {
    return <PlanningWithSider />;

@@ -10,11 +10,11 @@
 
 import { EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { IDemande, ITypeDemande } from "../../../api/ApiTypeHelpers";
-import { useApi } from "../../../context/api/ApiProvider";
+import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { QK_DEMANDES, QK_UTILISATEURS_DEMANDES } from "../../../api/queryKeys";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { QK_DEMANDES, QK_UTILISATEURS_DEMANDES } from "@api/queryKeys";
 import { useEffect, useState } from "react";
 
 export default function PostulerButton(props: { typeDemande: ITypeDemande; demandeurId: string }) {

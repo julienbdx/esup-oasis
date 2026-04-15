@@ -9,26 +9,26 @@
 
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import { App, Layout } from "antd";
-import CalendarSider from "./Sider/CalendarSider";
-import Calendar from "./Calendar/Calendar";
-import Toolbar from "./Toolbar/Toolbar";
-import { Evenement } from "../../lib/Evenement";
-import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../api/queryKeys";
+import CalendarSider from "@controls/Calendar/Sider/CalendarSider";
+import Calendar from "@controls/Calendar/Calendar/Calendar";
+import Toolbar from "@controls/Calendar/Toolbar/Toolbar";
+import { Evenement } from "@lib/Evenement";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
 import {
    filtrerEvenements,
    filtreToApi,
    PlanningLayout,
-} from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
-import Spinner from "../Spinner/Spinner";
-import { calculateRange } from "../../utils/dates";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../api/ApiPrefetchHelpers";
-import CalendarTable from "./Table/CalendarTable";
-import { ApiPathMethodQuery } from "../../api/SchemaHelpers";
-import { IEvenement } from "../../api/ApiTypeHelpers";
-import { TimezoneAlert } from "./TimezoneAlert";
+} from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
+import { calculateRange } from "@utils/dates";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import CalendarTable from "@controls/Calendar/Table/CalendarTable";
+import { ApiPathMethodQuery } from "@api/SchemaHelpers";
+import { IEvenement } from "@api/ApiTypeHelpers";
+import { TimezoneAlert } from "@controls/Calendar/TimezoneAlert";
 
 interface IComponentWithSider {
    saisieEvtRenfort?: boolean;

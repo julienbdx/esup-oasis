@@ -9,10 +9,10 @@
 
 import { App, Upload, UploadProps } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { useAuth } from "../../auth/AuthProvider";
-import { envoyerFichierFetch } from "../../utils/upload";
-import { ITelechargement } from "../../api/ApiTypeHelpers";
-import { env } from "../../env";
+import { useAuth } from "@/auth/AuthProvider";
+import { envoyerFichierFetch } from "@utils/upload";
+import { ITelechargement } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
 
 export function FichierDepot(props: {
    onAdded: (fichier: ITelechargement) => void;

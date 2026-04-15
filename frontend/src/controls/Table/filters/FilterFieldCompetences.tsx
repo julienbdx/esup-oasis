@@ -9,9 +9,9 @@
 
 import React from "react";
 import { Col, Select, Space } from "antd";
-import { FiltreIntervenant } from "../IntervenantTable";
-import { UseStateDispatch } from "../../../utils/utils";
-import { ICompetence } from "../../../api/ApiTypeHelpers";
+import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
+import { UseStateDispatch } from "@utils/utils";
+import { ICompetence } from "@api/ApiTypeHelpers";
 
 interface FilterFieldCompetencesProps {
    filtreIntervenant: FiltreIntervenant;

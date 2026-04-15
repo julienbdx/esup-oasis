@@ -10,9 +10,9 @@
 import React from "react";
 import { Select } from "antd";
 import dayjs from "dayjs";
-import { IPeriode } from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { IPeriode } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 export default function PeriodeField(props: {
    value?: IPeriode;

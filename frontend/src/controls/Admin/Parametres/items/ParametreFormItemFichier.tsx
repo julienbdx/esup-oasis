@@ -11,10 +11,10 @@ import React, { ReactElement } from "react";
 import { Avatar, Button, Card, DatePicker, Space } from "antd";
 import { EditOutlined, SaveOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { IParametreValeur } from "../../../../api/ApiTypeHelpers";
-import { getLibellePeriode, isEnCoursSurPeriode } from "../../../../utils/dates";
-import { FichierDepot } from "../../../Fichier/FichierDepot";
-import { Fichier } from "../../../Fichier/Fichier";
+import { IParametreValeur } from "@api/ApiTypeHelpers";
+import { getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
+import { FichierDepot } from "@controls/Fichier/FichierDepot";
+import { Fichier } from "@controls/Fichier/Fichier";
 
 interface ParametreFormItemFichierProps {
    valeur?: IParametreValeur;

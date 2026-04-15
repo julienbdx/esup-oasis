@@ -9,16 +9,16 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Avatar, Image, Tooltip } from "antd";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { UserOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
-import { APIEndpointByRole, IUtilisateurBase, RoleValues } from "../../lib/Utilisateur";
-import { useApi } from "../../context/api/ApiProvider";
+import { APIEndpointByRole, IUtilisateurBase, RoleValues } from "@lib/Utilisateur";
+import { useApi } from "@context/api/ApiProvider";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { ScreenMap } from "antd/es/_util/responsiveObserver";
 import { useInView } from "react-intersection-observer";
-import { getRoleClassName } from "./UtilisateurAvatar";
-import { env } from "../../env";
+import { getRoleClassName } from "@controls/Avatars/UtilisateurAvatar";
+import { env } from "@/env";
 
 /**
  * Avatar/Photo de profil d'un utilisateur.

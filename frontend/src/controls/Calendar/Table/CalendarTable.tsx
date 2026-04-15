@@ -8,8 +8,8 @@
  */
 
 import React, { ReactElement } from "react";
-import { Evenement } from "../../../lib/Evenement";
-import EvenementTable from "../../Table/EvenementTable";
+import { Evenement } from "@lib/Evenement";
+import EvenementTable from "@controls/Table/EvenementTable";
 
 interface CalendarTableProps {
    events: Evenement[];

@@ -12,8 +12,8 @@ import { Button, Space, Tooltip } from "antd";
 import { ArrowLeftOutlined, ArrowRightOutlined, CalendarOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { affichageNbJours, calculateRange, rangeToLabel } from "../../../utils/dates";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { affichageNbJours, calculateRange, rangeToLabel } from "@utils/dates";
 
 export default function ToolbarNavigation() {
    const screens = useBreakpoint();

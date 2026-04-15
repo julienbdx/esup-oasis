@@ -12,13 +12,13 @@ import { Col, Descriptions, Row, Skeleton, Space, Typography } from "antd";
 import { MinusOutlined, UserOutlined } from "@ant-design/icons";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import dayjs from "dayjs";
-import { IUtilisateur } from "../../../api/ApiTypeHelpers";
-import { useAuth } from "../../../auth/AuthProvider";
-import { GenreItem } from "../../Items/GenreItem";
-import { calculerAge } from "../../../utils/dates";
-import UtilisateurEmailItem from "../../Items/UtilisateurEmailItem";
-import { MailSmallButton } from "../../Forms/MailSmallButton";
-import UtilisateurAvatarImage from "../../Avatars/UtilisateurAvatarImage";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { useAuth } from "@/auth/AuthProvider";
+import { GenreItem } from "@controls/Items/GenreItem";
+import { calculerAge } from "@utils/dates";
+import UtilisateurEmailItem from "@controls/Items/UtilisateurEmailItem";
+import { MailSmallButton } from "@controls/Forms/MailSmallButton";
+import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
 
 interface IdentiteSectionProps {
    utilisateur: IUtilisateur;

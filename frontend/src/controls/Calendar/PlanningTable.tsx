@@ -8,9 +8,9 @@
  */
 
 import React, { useEffect } from "react";
-import PlanningWithSider from "./PlanningWithSider";
-import { PlanningLayout } from "../../context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
+import PlanningWithSider from "@controls/Calendar/PlanningWithSider";
+import { PlanningLayout } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 
 export default function PlanningTable() {
    const { setAffichage } = useAffichageFiltres();

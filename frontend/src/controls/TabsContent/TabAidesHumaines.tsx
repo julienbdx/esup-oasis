@@ -9,15 +9,15 @@
 
 import { Button, Empty, List, Tag, Typography } from "antd";
 import React, { ReactElement, useState } from "react";
-import { IAmenagement, IUtilisateur } from "../../api/ApiTypeHelpers";
-import { getLibellePeriode } from "../../utils/dates";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
-import Spinner from "../Spinner/Spinner";
-import { PREFETCH_TYPES_AMENAGEMENTS } from "../../api/ApiPrefetchHelpers";
-import SuiviAmenagementItem from "../Items/SuiviAmenagementItem";
+import { IAmenagement, IUtilisateur } from "@api/ApiTypeHelpers";
+import { getLibellePeriode } from "@utils/dates";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
+import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
+import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
 import { EditOutlined } from "@ant-design/icons";
-import { ModalAmenagement } from "../Modals/ModalAmenagement";
+import { ModalAmenagement } from "@controls/Modals/ModalAmenagement";
 
 interface ITabAidesHumainesProps {
    utilisateur: IUtilisateur;

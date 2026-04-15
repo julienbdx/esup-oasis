@@ -9,16 +9,16 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Utilisateur } from "../lib/Utilisateur";
+import { Utilisateur } from "@lib/Utilisateur";
 import { message, notification } from "antd";
-import useOAuth2 from "./hook/useOAuth2";
+import useOAuth2 from "@/auth/hook/useOAuth2";
 import jwt_decode from "jwt-decode";
 
-import { IUtilisateur } from "../api/ApiTypeHelpers";
-import { queryClient } from "../App";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { queryClient } from "@/App";
 import useLocalStorageState from "use-local-storage-state";
 import { useNavigate } from "react-router-dom";
-import { env } from "../env";
+import { env } from "@/env";
 
 /**
  * Contexte d'authentification.

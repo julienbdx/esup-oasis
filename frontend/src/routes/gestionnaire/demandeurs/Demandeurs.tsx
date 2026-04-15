@@ -9,12 +9,12 @@
 
 import React, { ReactElement, useState } from "react";
 import { Button, Flex, FloatButton, Layout, Typography } from "antd";
-import DemandeTable from "../../../controls/Table/DemandeTable";
+import DemandeTable from "@controls/Table/DemandeTable";
 import { PlusOutlined, QuestionCircleFilled } from "@ant-design/icons";
-import NouvelleDemandeModaleGestionnaire from "../../../controls/Modals/Demande/NouvelleDemandeModaleGestionnaire";
+import NouvelleDemandeModaleGestionnaire from "@controls/Modals/Demande/NouvelleDemandeModaleGestionnaire";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { DemandeursTour } from "../../../controls/Demande/Tour/DemandeursTour";
-import { env } from "../../../env";
+import { DemandeursTour } from "@controls/Demande/Tour/DemandeursTour";
+import { env } from "@/env";
 
 export type RefsTourDemandes = {
    table: React.RefObject<HTMLDivElement>;

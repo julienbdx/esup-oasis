@@ -8,14 +8,14 @@
  */
 
 import React from "react";
-import { Evenement } from "../../lib/Evenement";
+import { Evenement } from "@lib/Evenement";
 import { Button, Flex, Table } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
-import "./EvenementTable.scss";
-import { useModals } from "../../context/modals/ModalsContext";
-import EvenementTableExport from "./EvenementTableExport";
-import { useAuth } from "../../auth/AuthProvider";
-import { evenementTableColumns } from "./EvenementTableColumns";
+import "@controls/Table/EvenementTable.scss";
+import { useModals } from "@context/modals/ModalsContext";
+import EvenementTableExport from "@controls/Table/EvenementTableExport";
+import { useAuth } from "@/auth/AuthProvider";
+import { evenementTableColumns } from "@controls/Table/EvenementTableColumns";
 
 interface TableCalendarProps {
    events: Evenement[];

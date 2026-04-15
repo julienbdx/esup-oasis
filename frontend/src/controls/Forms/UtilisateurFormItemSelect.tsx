@@ -10,13 +10,13 @@
 import React, { useState } from "react";
 import { Button, Input, Select, Space, Tooltip } from "antd";
 import { EnterOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { useDrawers } from "../../context/drawers/DrawersContext";
-import { RoleValues } from "../../lib/Utilisateur";
-import Spinner from "../Spinner/Spinner";
+import { useDrawers } from "@context/drawers/DrawersContext";
+import { RoleValues } from "@lib/Utilisateur";
+import Spinner from "@controls/Spinner/Spinner";
 
-import { IUtilisateur } from "../../api/ApiTypeHelpers";
-import { MailSmallButton } from "./MailSmallButton";
-import { useUtilisateurSearch } from "./useUtilisateurSearch";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { MailSmallButton } from "@controls/Forms/MailSmallButton";
+import { useUtilisateurSearch } from "@controls/Forms/useUtilisateurSearch";
 
 interface IUtilisateurFormItemSelect {
    value?: string;

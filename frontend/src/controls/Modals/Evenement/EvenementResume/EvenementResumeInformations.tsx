@@ -8,11 +8,11 @@
  */
 
 import { Descriptions } from "antd";
-import TypeEvenementItem from "../../../Items/TypeEvenementItem";
+import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 import dayjs from "dayjs";
-import CampusItem from "../../../Items/CampusItem";
+import CampusItem from "@controls/Items/CampusItem";
 import React, { ReactElement, useMemo } from "react";
-import { Evenement } from "../../../../lib/Evenement";
+import { Evenement } from "@lib/Evenement";
 
 /**
  * Generates a description list of general information about an event.

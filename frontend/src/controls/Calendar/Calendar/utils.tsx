@@ -9,7 +9,7 @@
 
 import React, { ReactElement } from "react";
 import { Messages } from "react-big-calendar";
-import { isSameDay } from "../../../utils/dates";
+import { isSameDay } from "@utils/dates";
 import { CaretRightOutlined, LockOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { Tooltip } from "antd";

@@ -7,16 +7,16 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { Alert, Avatar, Button, Col, Row, Spin } from "antd";
 import React, { ReactElement } from "react";
-import "./LoginPage.scss";
+import "@/auth/LoginPage.scss";
 import { LoadingOutlined, LockFilled, LoginOutlined, MinusOutlined } from "@ant-design/icons";
 import Typed from "react-typed";
-import { useWait } from "../utils/Wait/useWait";
-import HomepageImage from "../controls/Images/HomepageImage";
-import PageTitle from "../utils/PageTitle/PageTitle";
-import { env } from "../env";
+import { useWait } from "@utils/Wait/useWait";
+import HomepageImage from "@controls/Images/HomepageImage";
+import PageTitle from "@utils/PageTitle/PageTitle";
+import { env } from "@/env";
 
 /**
  * Renders the login page with authentication functionality.

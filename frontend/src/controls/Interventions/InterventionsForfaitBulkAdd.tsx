@@ -8,20 +8,20 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import "../../routes/administration/Administration.scss";
+import "@routes/administration/Administration.scss";
 import { App, Button, Card, Col, Drawer, Form, InputNumber, Row, Select, Space } from "antd";
 import { MinusCircleOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { RoleValues } from "../../lib/Utilisateur";
-import UtilisateurFormItemSelect from "../Forms/UtilisateurFormItemSelect";
-import { CategorieSelectWithAvatar } from "../Forms/CategorieSelectWithAvatar";
-import { useApi } from "../../context/api/ApiProvider";
-import { QK_INTERVENTIONS_FORFAIT } from "../../api/queryKeys";
-import PeriodeRhItem from "../Items/PeriodeRhItem";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { RoleValues } from "@lib/Utilisateur";
+import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
+import { CategorieSelectWithAvatar } from "@controls/Forms/CategorieSelectWithAvatar";
+import { useApi } from "@context/api/ApiProvider";
+import { QK_INTERVENTIONS_FORFAIT } from "@api/queryKeys";
+import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
 import dayjs from "dayjs";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 
-import { IInterventionForfait } from "../../api/ApiTypeHelpers";
+import { IInterventionForfait } from "@api/ApiTypeHelpers";
 
 interface InterventionsForfaitBulkAddProps {
    onClose: () => void;

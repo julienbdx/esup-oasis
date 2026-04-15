@@ -10,15 +10,15 @@
 
 import { Button, Empty, List, Space, Tooltip } from "antd";
 import React, { ReactElement } from "react";
-import { IDemande, IUtilisateur } from "../../api/ApiTypeHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { useApi } from "../../context/api/ApiProvider";
-import TypeDemandeItem from "../Items/TypeDemandeItem";
-import { EtatDemandeAvatar } from "../Avatars/EtatDemandeAvatar";
+import { IDemande, IUtilisateur } from "@api/ApiTypeHelpers";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { useApi } from "@context/api/ApiProvider";
+import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
+import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import dayjs from "dayjs";
 import Icon, { EyeOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as ExternalLink } from "../../assets/images/external-link.svg";
+import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
 
 interface ITabDemandesProps {
    utilisateur: IUtilisateur;

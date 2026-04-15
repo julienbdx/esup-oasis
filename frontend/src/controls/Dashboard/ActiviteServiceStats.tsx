@@ -11,14 +11,14 @@ import React, { ReactElement } from "react";
 import { Card, Col, Row, Tooltip, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { WarningFilled } from "@ant-design/icons";
-import { pluriel } from "../../utils/string";
-import { useAuth } from "../../auth/AuthProvider";
-import { IStatistiquesEvenements } from "../../api/ApiTypeHelpers";
-import Statistic from "./Statistic";
-import { EtatDecisionEtablissement } from "../Avatars/DecisionEtablissementAvatar";
-import { EtatAvisEse } from "../Avatars/BeneficiaireAvisEseAvatar";
-import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "../../constants";
-import { env } from "../../env";
+import { pluriel } from "@utils/string";
+import { useAuth } from "@/auth/AuthProvider";
+import { IStatistiquesEvenements } from "@api/ApiTypeHelpers";
+import Statistic from "@controls/Dashboard/Statistic";
+import { EtatDecisionEtablissement } from "@controls/Avatars/DecisionEtablissementAvatar";
+import { EtatAvisEse } from "@controls/Avatars/BeneficiaireAvisEseAvatar";
+import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
+import { env } from "@/env";
 
 interface IActiviteServiceStatsProps {
    stats: IStatistiquesEvenements | undefined;

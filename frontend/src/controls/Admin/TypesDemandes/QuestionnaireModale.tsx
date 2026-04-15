@@ -9,8 +9,8 @@
 
 import { Modal } from "antd";
 import React from "react";
-import { QuestionnaireProvider } from "../../../context/demande/QuestionnaireProvider";
-import { TypeDemandeContent } from "../../Questionnaire/TypeDemandeContent";
+import { QuestionnaireProvider } from "@context/demande/QuestionnaireProvider";
+import { TypeDemandeContent } from "@controls/Questionnaire/TypeDemandeContent";
 
 export default function QuestionnaireModale(props: {
    typeDemandeId: string | undefined;

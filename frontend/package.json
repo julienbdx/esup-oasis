@@ -39,6 +39,7 @@
       "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
       "@babel/preset-env": "^7.29.0",
       "@babel/preset-react": "^7.28.5",
+      "@craco/craco": "^7.1.0",
       "@eslint/compat": "^2.0.5",
       "@eslint/eslintrc": "^3.3.5",
       "@eslint/js": "^10.0.1",
@@ -60,6 +61,7 @@
       "eslint-config-airbnb-typescript": "^18.0.0",
       "eslint-config-prettier": "^10.1.8",
       "eslint-config-react-app": "^7.0.1",
+      "eslint-import-resolver-typescript": "^4.4.4",
       "eslint-plugin-jsx-a11y": "^6.10.2",
       "eslint-plugin-prettier": "^5.5.5",
       "eslint-plugin-react": "^7.37.5",
@@ -84,9 +86,9 @@
    "scripts": {
       "eslint": "eslint --no-warn-ignored ./src/**/*.ts*",
       "eslint:fix": "eslint --fix --no-warn-ignored ./src/**/*.tsx ./src/**/*.ts",
-      "start": "react-scripts start",
-      "start:https": "sudo PORT=443 HOST='appliphase.kdev.u-bordeaux.fr' HTTPS=true ./node_modules/.bin/react-scripts start",
-      "build": "GENERATE_SOURCEMAP=false react-scripts build",
+      "start": "craco start",
+      "start:https": "sudo PORT=443 HOST='appliphase.kdev.u-bordeaux.fr' HTTPS=true ./node_modules/.bin/craco start",
+      "build": "GENERATE_SOURCEMAP=false craco build",
       "eject": "react-scripts eject",
       "svg": "svgo -r -f src/assets/images && svgo -r -f public/images"
    },

@@ -10,29 +10,32 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { DomaineAmenagementInfos } from "../../lib/amenagements";
+import { DomaineAmenagementInfos } from "@lib/amenagements";
 import React from "react";
 import { Badge, Button, Flex, Space, Tooltip } from "antd";
 import Icon, { CheckOutlined, MinusOutlined, PauseOutlined } from "@ant-design/icons";
-import ComposanteItem from "../Items/ComposanteItem";
-import { AmenagementCellData, TypesDomainesAmenagements } from "./AmenagementsBeneficiaireTable";
-import BooleanState from "../State/BooleanState";
-import { ListeUtilisateurTag } from "../Tags/ListeUtilisateurTag";
-import { BeneficiaireAvisEseAvatar } from "../Avatars/BeneficiaireAvisEseAvatar";
+import ComposanteItem from "@controls/Items/ComposanteItem";
+import {
+   AmenagementCellData,
+   TypesDomainesAmenagements,
+} from "@controls/Table/AmenagementsBeneficiaireTable";
+import BooleanState from "@controls/State/BooleanState";
+import { ListeUtilisateurTag } from "@controls/Tags/ListeUtilisateurTag";
+import { BeneficiaireAvisEseAvatar } from "@controls/Avatars/BeneficiaireAvisEseAvatar";
 import { NavigateFunction } from "react-router-dom";
-import { ReactComponent as ExternalLink } from "../../assets/images/external-link.svg";
-import { FiltreAmenagement } from "./AmenagementTableLayout";
-import { EllipsisMiddle } from "../Typography/EllipsisMiddle";
-import { EllipsisParagraph } from "../Typography/EllipsisParagraph";
-import EtudiantItem from "../Items/EtudiantItem";
-import { RoleValues, Utilisateur } from "../../lib/Utilisateur";
-import { ascToAscend } from "../../utils/array";
-import { FilterProps } from "../../utils/table";
+import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
+import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
+import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { ascToAscend } from "@utils/array";
+import { FilterProps } from "@utils/table";
 import { ColumnsType } from "antd/lib/table";
-import { IBeneficiaire, ICategorieAmenagement, ITypeAmenagement } from "../../api/ApiTypeHelpers";
+import { IBeneficiaire, ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
 import { ColumnType } from "antd/es/table";
-import { FiltreBeneficiaire } from "./BeneficiaireTable";
-import { env } from "../../env";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { env } from "@/env";
 
 function AmenagementBeneficiaireTableCell(props: {
    amenagement: AmenagementCellData | null | undefined;

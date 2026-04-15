@@ -9,12 +9,12 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Breakpoint, Space, Typography } from "antd";
-import Spinner from "../Spinner/Spinner";
-import { CampusAvatar } from "../Avatars/CampusAvatar";
+import Spinner from "@controls/Spinner/Spinner";
+import { CampusAvatar } from "@controls/Avatars/CampusAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_CAMPUS } from "../../api/ApiPrefetchHelpers";
-import { ICampus } from "../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
+import { ICampus } from "@api/ApiTypeHelpers";
 
 /**
  * Interface representing a campus.

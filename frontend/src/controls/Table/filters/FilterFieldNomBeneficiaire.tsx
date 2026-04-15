@@ -9,7 +9,7 @@
 
 import React from "react";
 import { Col, Input } from "antd";
-import { FiltreBeneficiaire } from "../BeneficiaireTable";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 
 interface FilterFieldNomBeneficiaireProps {
    filtreBeneficiaire: FiltreBeneficiaire;

@@ -7,9 +7,9 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_CATEGORIES_TAGS, PREFETCH_TAGS } from "../../api/ApiPrefetchHelpers";
-import { QK_BENEFICIAIRES, QK_UTILISATEURS_TAGS } from "../../api/queryKeys";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_CATEGORIES_TAGS, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
+import { QK_BENEFICIAIRES, QK_UTILISATEURS_TAGS } from "@api/queryKeys";
 import { App, Tag, Tooltip } from "antd";
 import { TagOutlined } from "@ant-design/icons";
 import React from "react";

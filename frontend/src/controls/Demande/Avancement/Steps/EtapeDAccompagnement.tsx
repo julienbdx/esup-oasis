@@ -16,14 +16,11 @@ import {
    ETAT_DEMANDE_REFUSEE,
    ETAT_DEMANDE_VALIDEE,
    EtatInfo,
-} from "../../../../lib/demande";
-import { IDemande } from "../../../../api/ApiTypeHelpers";
-import { useApi } from "../../../../context/api/ApiProvider";
-import {
-   FONCTIONNALITES,
-   useQuestionnaire,
-} from "../../../../context/demande/QuestionnaireProvider";
-import ValidationAccompagnementButton from "../../ValidationAccompagnementButton";
+} from "@lib/demande";
+import { IDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import ValidationAccompagnementButton from "@controls/Demande/ValidationAccompagnementButton";
 
 interface EtapeDAccompagnementProps {
    demande: IDemande;

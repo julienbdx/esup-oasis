@@ -18,7 +18,7 @@ import {
    UnorderedListOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
-import "./HtmlEditor.css";
+import "@controls/Forms/HtmlEditor.css";
 import { Link } from "@tiptap/extension-link";
 import { useCallback } from "react";
 

@@ -10,9 +10,9 @@
 import React, { useState } from "react";
 import { Avatar, Button, Empty, List } from "antd";
 import { InfoCircleOutlined, SaveOutlined, UserOutlined } from "@ant-design/icons";
-import ListSelectable from "../../Forms/ListSelectable/ListSelectable";
-import UtilisateurDrawer from "../Utilisateur/UtilisateurDrawer";
-import { components } from "../../../api/schema";
+import ListSelectable from "@controls/Forms/ListSelectable/ListSelectable";
+import UtilisateurDrawer from "@controls/Drawers/Utilisateur/UtilisateurDrawer";
+import { components } from "@api/schema";
 
 interface IntervenantRechercherResultsProps {
    intervenantsProposes: { items: components["schemas"]["Utilisateur.jsonld-utilisateur.out"][] };

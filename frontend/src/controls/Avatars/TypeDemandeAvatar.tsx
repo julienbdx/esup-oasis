@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ITypeDemande } from "../../api/ApiTypeHelpers";
+import { ITypeDemande } from "@api/ApiTypeHelpers";
 import { Avatar } from "antd";
 import { LockFilled, UnlockOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 
 export default function TypeDemandeAvatar(props: {
    typeDemande?: ITypeDemande;

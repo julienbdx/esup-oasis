@@ -9,18 +9,18 @@
  */
 
 import React, { useState } from "react";
-import { useApi } from "../../../context/api/ApiProvider";
-import Spinner from "../../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { Alert, Badge, Button, Descriptions, DescriptionsProps, Flex, Space, Tooltip } from "antd";
 import dayjs from "dayjs";
 import Icon, { EditOutlined, EyeOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { isEnCoursSurPeriode } from "../../../utils/dates";
-import { CampagneEdition } from "./CampagneEdition";
-import { ICampagneDemande } from "../../../api/ApiTypeHelpers";
-import QuestionnaireModale from "./QuestionnaireModale";
+import { isEnCoursSurPeriode } from "@utils/dates";
+import { CampagneEdition } from "@controls/Admin/TypesDemandes/CampagneEdition";
+import { ICampagneDemande } from "@api/ApiTypeHelpers";
+import QuestionnaireModale from "@controls/Admin/TypesDemandes/QuestionnaireModale";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as ExternalLink } from "../../../assets/images/external-link.svg";
-import { entiteParent } from "../../../api/Utils";
+import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import { entiteParent } from "@api/Utils";
 
 export function Campagne(props: {
    title: string;

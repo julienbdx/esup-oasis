@@ -10,13 +10,13 @@
 import React, { ReactElement } from "react";
 import { App, Col, Form, FormInstance, Row, Tabs } from "antd";
 import dayjs from "dayjs";
-import TabEvenementInformations from "../../TabsContent/TabEvenementInformations";
-import { TabEquipement } from "../../TabsContent/TabEquipement";
-import { TabPaiement } from "../../TabsContent/TabPaiement";
-import { Evenement } from "../../../lib/Evenement";
-import { isDateValid } from "../../../utils/dates";
-import { IPartialEvenement } from "../../../api/ApiTypeHelpers";
-import GestionnaireItem from "../../Items/GestionnaireItem";
+import TabEvenementInformations from "@controls/TabsContent/TabEvenementInformations";
+import { TabEquipement } from "@controls/TabsContent/TabEquipement";
+import { TabPaiement } from "@controls/TabsContent/TabPaiement";
+import { Evenement } from "@lib/Evenement";
+import { isDateValid } from "@utils/dates";
+import { IPartialEvenement } from "@api/ApiTypeHelpers";
+import GestionnaireItem from "@controls/Items/GestionnaireItem";
 
 interface IEvenementFormProps {
    form: FormInstance<Evenement | undefined>;

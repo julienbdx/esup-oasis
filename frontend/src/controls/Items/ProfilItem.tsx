@@ -8,8 +8,8 @@
  */
 
 import React, { ReactElement } from "react";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Skeleton, Tag, Tooltip } from "antd";
 
 interface IItemProfilProps {

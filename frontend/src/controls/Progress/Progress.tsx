@@ -8,7 +8,7 @@
  */
 
 import React, { memo, ReactElement } from "react";
-import "./Progress.scss";
+import "@controls/Progress/Progress.scss";
 import "react-circular-progressbar/dist/styles.css";
 import { Tooltip } from "antd";
 import { LikeOutlined } from "@ant-design/icons";

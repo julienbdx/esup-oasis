@@ -8,21 +8,21 @@
  */
 
 import React from "react";
-import "./styles/app.scss";
+import "@/styles/app.scss";
 import { App as AntApp } from "antd";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "dayjs/locale/fr";
-import Accessibilite from "./utils/Accessibilite/Accessibilite";
-import { ApiProvider } from "./context/api/ApiProvider";
-import { useAuth } from "./auth/AuthProvider";
+import Accessibilite from "@utils/Accessibilite/Accessibilite";
+import { ApiProvider } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import dayjs from "dayjs";
-import BreakPoint from "./utils/Breakpoint/BreakPoint";
-import ScrollToTop from "./utils/ScrollTo/ScrollToTop";
+import BreakPoint from "@utils/Breakpoint/BreakPoint";
+import ScrollToTop from "@utils/ScrollTo/ScrollToTop";
 import { broadcastQueryClient } from "@tanstack/query-broadcast-client-experimental";
-import Router from "./routes/AppRouter";
-import { AppConfigProvider } from "./AppConfigProvider";
-import { env } from "./env";
+import Router from "@routes/AppRouter";
+import { AppConfigProvider } from "@/AppConfigProvider";
+import { env } from "@/env";
 
 dayjs.locale("fr"); // use loaded locale globally
 

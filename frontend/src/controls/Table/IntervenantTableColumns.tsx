@@ -8,22 +8,22 @@
  */
 
 import { Button, Popconfirm, Space, Tooltip } from "antd";
-import RoleCalculeItem from "../Items/RoleCalculeItem";
-import { RoleValues, Utilisateur } from "../../lib/Utilisateur";
-import { IIntervenant, IUtilisateur } from "../../api/ApiTypeHelpers";
+import RoleCalculeItem from "@controls/Items/RoleCalculeItem";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { IIntervenant, IUtilisateur } from "@api/ApiTypeHelpers";
 import { EyeOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import React from "react";
 import { ColumnType } from "antd/es/table";
-import { ascToAscend } from "../../utils/array";
-import { FilterProps } from "../../utils/table";
-import { FiltreIntervenant } from "./IntervenantTable";
-import { stringOrDateToDate } from "../../utils/dates";
-import UtilisateurAvatarImage from "../Avatars/UtilisateurAvatarImage";
+import { ascToAscend } from "@utils/array";
+import { FilterProps } from "@utils/table";
+import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
+import { stringOrDateToDate } from "@utils/dates";
+import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
 import Highlighter from "react-highlight-words";
-import { removeAccents } from "../../utils/string";
+import { removeAccents } from "@utils/string";
 
-import { UseStateDispatch } from "../../utils/utils";
-import { env } from "../../env";
+import { UseStateDispatch } from "@utils/utils";
+import { env } from "@/env";
 
 interface TableIntervenantsColumnsProps {
    user: Utilisateur | undefined;

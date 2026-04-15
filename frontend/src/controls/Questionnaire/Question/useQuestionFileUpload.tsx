@@ -10,14 +10,11 @@
 import { useState } from "react";
 import { App, UploadFile, UploadProps } from "antd";
 import { RcFile } from "antd/es/upload";
-import { MAX_FILE_SIZE } from "../../../constants";
-import { envoyerFichierFetch } from "../../../utils/upload";
-import { useAuth } from "../../../auth/AuthProvider";
-import { env } from "../../../env";
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
+import { MAX_FILE_SIZE } from "@/constants";
+import { envoyerFichierFetch } from "@utils/upload";
+import { useAuth } from "@/auth/AuthProvider";
+import { env } from "@/env";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { UploadOutlined } from "@ant-design/icons";
 
 export function useQuestionFileUpload(question: QuestionnaireQuestion) {

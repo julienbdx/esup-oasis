@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React from "react";
-import { ICharte } from "../../../api/ApiTypeHelpers";
-import ProfilItem from "../../Items/ProfilItem";
+import { ICharte } from "@api/ApiTypeHelpers";
+import ProfilItem from "@controls/Items/ProfilItem";
 
 interface ChartesTableProps {
    editedItem?: ICharte;

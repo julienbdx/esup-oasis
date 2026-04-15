@@ -7,16 +7,16 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Flex, Typography } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { IAvisEse } from "../../api/ApiTypeHelpers";
-import { ModalAvisEse } from "../Modals/ModalAvisEse";
-import { AvisEseList } from "../List/AvisEseList";
+import { IAvisEse } from "@api/ApiTypeHelpers";
+import { ModalAvisEse } from "@controls/Modals/ModalAvisEse";
+import { AvisEseList } from "@controls/List/AvisEseList";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { env } from "../../env";
+import { env } from "@/env";
 
 export function TabAvisEse(props: { utilisateurId: string }) {
    const screens = useBreakpoint();

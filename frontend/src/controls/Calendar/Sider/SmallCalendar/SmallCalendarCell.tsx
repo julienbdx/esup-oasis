@@ -8,16 +8,16 @@
  */
 
 import React, { ReactElement } from "react";
-import { Evenement } from "../../../../lib/Evenement";
+import { Evenement } from "@lib/Evenement";
 import {
    filtreToApiOnBackend,
    IAffichageFiltres,
-} from "../../../../context/affichageFiltres/AffichageFiltresContext";
+} from "@context/affichageFiltres/AffichageFiltresContext";
 import dayjs from "dayjs";
-import { isSameDay } from "../../../../utils/dates";
-import { useApi } from "../../../../context/api/ApiProvider";
-import { useAuth } from "../../../../auth/AuthProvider";
-import { ApiPathMethodQuery } from "../../../../api/SchemaHelpers";
+import { isSameDay } from "@utils/dates";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import { ApiPathMethodQuery } from "@api/SchemaHelpers";
 
 interface ISmallCalendarCellProps {
    date: dayjs.Dayjs;

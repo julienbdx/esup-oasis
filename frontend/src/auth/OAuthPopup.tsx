@@ -9,9 +9,9 @@
 
 // OAuth2Popup.jsx
 import React, { ReactElement, useEffect } from "react";
-import { queryToObject } from "../utils/url";
-import "./OAuthPopup.scss";
-import Spinner from "../controls/Spinner/Spinner";
+import { queryToObject } from "@utils/url";
+import "@/auth/OAuthPopup.scss";
+import Spinner from "@controls/Spinner/Spinner";
 
 const OAUTH_STATE_KEY = "react-use-oauth2-state-key";
 const OAUTH_RESPONSE = "react-use-oauth2-response";

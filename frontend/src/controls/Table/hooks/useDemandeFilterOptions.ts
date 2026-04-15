@@ -7,16 +7,16 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import {
    PREFETCH_COMPOSANTES,
    PREFETCH_ETAT_DEMANDE,
    PREFETCH_FORMATIONS,
    PREFETCH_TYPES_DEMANDES,
-} from "../../../api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { FiltreDemande } from "../DemandeTable";
+} from "@api/ApiPrefetchHelpers";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
 
 /**
  * Hook custom pour gérer les données et la logique du filtre de demandes

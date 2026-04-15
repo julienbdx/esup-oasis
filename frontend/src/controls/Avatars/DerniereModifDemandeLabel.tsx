@@ -9,7 +9,7 @@
 
 import React, { memo, ReactElement } from "react";
 import { Alert, Space, Spin } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 
 interface IDerniereModifDemandeLabel {
    demandeId?: string;

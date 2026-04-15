@@ -9,32 +9,32 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Button, Layout, Space, Tooltip } from "antd";
-import "./CalendarSider.scss";
-import SmallCalendar from "./SmallCalendar/SmallCalendar";
+import "@controls/Calendar/Sider/CalendarSider.scss";
+import SmallCalendar from "@controls/Calendar/Sider/SmallCalendar/SmallCalendar";
 import AffectationFilter, {
    AffectationFilterValues,
-} from "../../Filters/Affectation/AffectationFilter";
-import CampusFilter from "../../Filters/Campus/CampusFilter";
-import TypeEvenementFilter from "../../Filters/TypeEvenement/TypeEvenementFilter";
+} from "@controls/Filters/Affectation/AffectationFilter";
+import CampusFilter from "@controls/Filters/Campus/CampusFilter";
+import TypeEvenementFilter from "@controls/Filters/TypeEvenement/TypeEvenementFilter";
 import Icon, {
    CloseCircleFilled,
    LeftOutlined,
    RightOutlined,
    UserOutlined,
 } from "@ant-design/icons";
-import GestionnaireFilter from "../../Filters/Gestionnaire/GestionnaireFilter";
+import GestionnaireFilter from "@controls/Filters/Gestionnaire/GestionnaireFilter";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { useAuth } from "../../../auth/AuthProvider";
-import { ReactComponent as Asterisk } from "../../../assets/images/asterisk.svg";
-import { useAffichageFiltres } from "../../../context/affichageFiltres/AffichageFiltresContext";
-import { useApi } from "../../../context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import { ReactComponent as Asterisk } from "@/assets/images/asterisk.svg";
+import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import { useApi } from "@context/api/ApiProvider";
 import AnnulationFilter, {
    AnnulationFilterValues,
-} from "../../Filters/Annulation/AnnulationFilter";
-import { PREFETCH_TYPES_EVENEMENTS } from "../../../api/ApiPrefetchHelpers";
-import BeneficiaireIntervenantFilter from "../../Filters/BeneficiaireIntervenant/BeneficiaireIntervenantFilter";
-import { FiltresFavorisEvenements } from "./FiltresFavorisEvenements";
-import { env } from "../../../env";
+} from "@controls/Filters/Annulation/AnnulationFilter";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import BeneficiaireIntervenantFilter from "@controls/Filters/BeneficiaireIntervenant/BeneficiaireIntervenantFilter";
+import { FiltresFavorisEvenements } from "@controls/Calendar/Sider/FiltresFavorisEvenements";
+import { env } from "@/env";
 
 interface ICalendarSider {
    saisieEvtRenfort?: boolean;

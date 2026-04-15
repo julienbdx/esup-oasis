@@ -8,13 +8,13 @@
  */
 
 import { Modal } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { ITypeDemande } from "../../../api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { ITypeDemande } from "@api/ApiTypeHelpers";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import React from "react";
-import { useAuth } from "../../../auth/AuthProvider";
-import { TypesDemandesListItems } from "./TypesDemandesListItems";
+import { useAuth } from "@/auth/AuthProvider";
+import { TypesDemandesListItems } from "@controls/Modals/Demande/TypesDemandesListItems";
 
 export default function NouvelleDemandeModale(props: {
    open: boolean;

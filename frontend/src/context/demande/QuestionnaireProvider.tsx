@@ -16,22 +16,26 @@ import React, {
    useState,
 } from "react";
 import { Form } from "antd";
-import { IDemande, ITypeDemande } from "../../api/ApiTypeHelpers";
-import { EtatInfo, getEtatDemande } from "../../lib/demande";
-import { useAuth } from "../../auth/AuthProvider";
-import { useApi } from "../api/ApiProvider";
-import { FONCTIONNALITES, Questionnaire, QuestionnaireContextType } from "./QuestionnaireTypes";
-import { MATRICE_DROITS_ROLES } from "./QuestionnaireRights";
+import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
+import { EtatInfo, getEtatDemande } from "@lib/demande";
+import { useAuth } from "@/auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import {
+   FONCTIONNALITES,
+   Questionnaire,
+   QuestionnaireContextType,
+} from "@context/demande/QuestionnaireTypes";
+import { MATRICE_DROITS_ROLES } from "@context/demande/QuestionnaireRights";
 import {
    getFormInitialValues,
    getReponseValue,
    questionnaireFromDemande,
    questionnaireFromTypeDemande,
-} from "./QuestionnaireUtils";
+} from "@context/demande/QuestionnaireUtils";
 
-export * from "./QuestionnaireTypes";
-export { MATRICE_DROITS_ROLES } from "./QuestionnaireRights";
-export { useQuestionnaireNavigation } from "./useQuestionnaireNavigation";
+export * from "@context/demande/QuestionnaireTypes";
+export { MATRICE_DROITS_ROLES } from "@context/demande/QuestionnaireRights";
+export { useQuestionnaireNavigation } from "@context/demande/useQuestionnaireNavigation";
 
 // Create a context for the Questionnaire with a default value of null.
 const QuestionnaireContext = createContext<QuestionnaireContextType>({

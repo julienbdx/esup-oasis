@@ -12,12 +12,12 @@ import { Breadcrumb, Button, Card, DatePicker, Form, Layout, Space, Typography }
 import { NavLink } from "react-router-dom";
 import { FilterOutlined, HomeFilled } from "@ant-design/icons";
 import React, { useState } from "react";
-import { Paths } from "../../../../api/SchemaHelpers";
-import apiDownloader from "../../../../utils/apiDownloader";
-import { useAuth } from "../../../../auth/AuthProvider";
-import ProfilsField from "../../../../controls/Forms/ProfilsField";
-import { IProfil } from "../../../../api/ApiTypeHelpers";
-import { env } from "../../../../env";
+import { Paths } from "@api/SchemaHelpers";
+import apiDownloader from "@utils/apiDownloader";
+import { useAuth } from "@/auth/AuthProvider";
+import ProfilsField from "@controls/Forms/ProfilsField";
+import { IProfil } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
 
 type FiltreBilan = { "profil[]": string[] };
 type PathBilan = Paths["/suivis/financiers/debut/{debut}/fin/{fin}"]["get"]["parameters"]["path"];

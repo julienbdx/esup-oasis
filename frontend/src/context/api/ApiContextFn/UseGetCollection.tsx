@@ -9,17 +9,20 @@
 
 // --- GET COLLECTION ---
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { PaginateResult, RequestMethod } from "../ApiProvider";
+import { PaginateResult, RequestMethod } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
 import {
    ApiPathMethodParameters,
    ApiPathMethodQuery,
    ApiPathMethodResponse,
    Path,
-} from "../../../api/SchemaHelpers";
-import { buildUrl } from "./UrlBuilder";
-import { handleApiResponse, IErreurNotification } from "./HandleApiResponse";
-import { useAuth } from "../../../auth/AuthProvider";
+} from "@api/SchemaHelpers";
+import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
+import {
+   handleApiResponse,
+   IErreurNotification,
+} from "@context/api/ApiContextFn/HandleApiResponse";
+import { useAuth } from "@/auth/AuthProvider";
 
 /**
  * Hook for fetching a collection of data from an API using GET method.

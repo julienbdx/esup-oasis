@@ -9,15 +9,15 @@
 
 import React, { useEffect, useState } from "react";
 import { App, Flex, FloatButton, Space, Switch, Table } from "antd";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "@controls/Spinner/Spinner";
 import { CheckOutlined, DeleteOutlined, MenuOutlined } from "@ant-design/icons";
-import { useApi } from "../../context/api/ApiProvider";
-import { queryClient } from "../../App";
-import validationInterventionTableColumns from "./ValidationInterventionTableColumns";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { IEvenement } from "../../api/ApiTypeHelpers";
-import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../api/queryKeys";
-import { createDateAsUTC } from "../../utils/dates";
+import { useApi } from "@context/api/ApiProvider";
+import { queryClient } from "@/App";
+import validationInterventionTableColumns from "@controls/Table/ValidationInterventionTableColumns";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { IEvenement } from "@api/ApiTypeHelpers";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
+import { createDateAsUTC } from "@utils/dates";
 
 export interface FiltreValidationInterventions {
    nomIntervenant?: string;

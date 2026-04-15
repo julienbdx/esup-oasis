@@ -8,14 +8,14 @@
  */
 
 import React, { ReactElement } from "react";
-import { useAuth } from "../../auth/AuthProvider";
-import { useApi } from "../../context/api/ApiProvider";
-import { useModals } from "../../context/modals/ModalsContext";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import Spinner from "../Spinner/Spinner";
+import { useAuth } from "@/auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { useModals } from "@context/modals/ModalsContext";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import Spinner from "@controls/Spinner/Spinner";
 import { Table } from "antd";
-import { Evenement } from "../../lib/Evenement";
-import { evenementTableColumns } from "../Table/EvenementTableColumns";
+import { Evenement } from "@lib/Evenement";
+import { evenementTableColumns } from "@controls/Table/EvenementTableColumns";
 
 /**
  * Returns a table component that displays ongoing events.

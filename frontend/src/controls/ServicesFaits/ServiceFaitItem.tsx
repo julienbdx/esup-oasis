@@ -8,11 +8,11 @@
  */
 
 import React, { ReactElement } from "react";
-import { rangeToLabel } from "../../utils/dates";
+import { rangeToLabel } from "@utils/dates";
 import { Badge, List, Space } from "antd";
 import dayjs from "dayjs";
-import { IServicesFaits, IServicesFaitsLigne } from "../../api/ApiTypeHelpers";
-import { to2Digits } from "../../utils/number";
+import { IServicesFaits, IServicesFaitsLigne } from "@api/ApiTypeHelpers";
+import { to2Digits } from "@utils/number";
 
 interface IServiceFaitItem {
    servicesFaits: IServicesFaits;

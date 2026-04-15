@@ -7,14 +7,14 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IEntretien } from "../../api/ApiTypeHelpers";
-import { QK_UTILISATEURS_ENTRETIENS } from "../../api/queryKeys";
+import { IEntretien } from "@api/ApiTypeHelpers";
+import { QK_UTILISATEURS_ENTRETIENS } from "@api/queryKeys";
 import { App, Button, Col, DatePicker, Form, Input, Modal, Row } from "antd";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { Fichier } from "../Fichier/Fichier";
-import { FichierDepot } from "../Fichier/FichierDepot";
+import { Fichier } from "@controls/Fichier/Fichier";
+import { FichierDepot } from "@controls/Fichier/FichierDepot";
 
 type IEntretienForm = IEntretien & { dateJs: Dayjs };
 

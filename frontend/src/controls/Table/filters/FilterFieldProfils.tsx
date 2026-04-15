@@ -9,10 +9,10 @@
 
 import React from "react";
 import { Col, Select, Space } from "antd";
-import { FiltreBeneficiaire } from "../BeneficiaireTable";
-import { IProfil } from "../../../api/ApiTypeHelpers";
-import { Utilisateur } from "../../../lib/Utilisateur";
-import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "../../../constants";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { IProfil } from "@api/ApiTypeHelpers";
+import { Utilisateur } from "@lib/Utilisateur";
+import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
 
 interface FilterFieldProfilsProps {
    filtreBeneficiaire: FiltreBeneficiaire;

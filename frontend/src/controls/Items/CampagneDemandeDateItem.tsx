@@ -8,8 +8,8 @@
  */
 
 import { useEffect, useState } from "react";
-import { ICampagneDemande } from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
+import { ICampagneDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
 
 export default function CampagneDemandeDateItem(props: {

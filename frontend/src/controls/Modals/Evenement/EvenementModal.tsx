@@ -9,22 +9,19 @@
 
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import { App, Form, Modal } from "antd";
-import { Evenement } from "../../../lib/Evenement";
-import { useAuth } from "../../../auth/AuthProvider";
-import { useApi } from "../../../context/api/ApiProvider";
-import Spinner from "../../Spinner/Spinner";
-import { canCreateEventOnDate, createDateAsUTC } from "../../../utils/dates";
-import { IEvenement, IPartialEvenement } from "../../../api/ApiTypeHelpers";
-import { queryClient } from "../../../App";
-import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../../api/queryKeys";
-import {
-   PREFETCH_LAST_PERIODES_RH,
-   PREFETCH_TYPES_EVENEMENTS,
-} from "../../../api/ApiPrefetchHelpers";
-import { useModals } from "../../../context/modals/ModalsContext";
-import EvenementForm from "./EvenementForm";
-import EvenementModalFooter from "./EvenementModalFooter";
-import EvenementModalTitle from "./EvenementModalTitle";
+import { Evenement } from "@lib/Evenement";
+import { useAuth } from "@/auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
+import { canCreateEventOnDate, createDateAsUTC } from "@utils/dates";
+import { IEvenement, IPartialEvenement } from "@api/ApiTypeHelpers";
+import { queryClient } from "@/App";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
+import { PREFETCH_LAST_PERIODES_RH, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { useModals } from "@context/modals/ModalsContext";
+import EvenementForm from "@controls/Modals/Evenement/EvenementForm";
+import EvenementModalFooter from "@controls/Modals/Evenement/EvenementModalFooter";
+import EvenementModalTitle from "@controls/Modals/Evenement/EvenementModalTitle";
 
 interface IEvenementModal {
    id?: string;

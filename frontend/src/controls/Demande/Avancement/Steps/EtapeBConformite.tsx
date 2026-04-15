@@ -15,17 +15,14 @@ import {
    ETAT_DEMANDE_RECEPTIONNEE,
    EtatInfo,
    getEtatDemandeInfo,
-} from "../../../../lib/demande";
-import { IDemande } from "../../../../api/ApiTypeHelpers";
-import { useApi } from "../../../../context/api/ApiProvider";
-import { queryClient } from "../../../../App";
-import {
-   FONCTIONNALITES,
-   useQuestionnaire,
-} from "../../../../context/demande/QuestionnaireProvider";
-import { QK_DEMANDES } from "../../../../api/queryKeys";
-import { useAuth } from "../../../../auth/AuthProvider";
-import ConformiteSelectButton from "../ConformiteSelectButton";
+} from "@lib/demande";
+import { IDemande } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { queryClient } from "@/App";
+import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { QK_DEMANDES } from "@api/queryKeys";
+import { useAuth } from "@/auth/AuthProvider";
+import ConformiteSelectButton from "@controls/Demande/Avancement/ConformiteSelectButton";
 
 interface EtapeBConformiteProps {
    etatDemande: EtatInfo;

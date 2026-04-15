@@ -10,21 +10,21 @@
 import React from "react";
 import { Alert, Form, Spin } from "antd";
 import { ExclamationOutlined } from "@ant-design/icons";
-import { QuestionFile } from "./QuestionFile";
-import { QuestionDate } from "./QuestionDate";
-import { QuestionSelect } from "./QuestionSelect";
-import { QuestionRadio } from "./QuestionRadio";
-import { QuestionText } from "./QuestionText";
-import { QuestionTextarea } from "./QuestionTextarea";
+import { QuestionFile } from "@controls/Questionnaire/Question/QuestionFile";
+import { QuestionDate } from "@controls/Questionnaire/Question/QuestionDate";
+import { QuestionSelect } from "@controls/Questionnaire/Question/QuestionSelect";
+import { QuestionRadio } from "@controls/Questionnaire/Question/QuestionRadio";
+import { QuestionText } from "@controls/Questionnaire/Question/QuestionText";
+import { QuestionTextarea } from "@controls/Questionnaire/Question/QuestionTextarea";
 
-import "./Question.scss";
-import { QuestionNumeric } from "./QuestionNumeric";
-import { QuestionCheckbox } from "./QuestionCheckbox";
-import { QuestionnaireQuestion } from "../../../context/demande/QuestionnaireProvider";
-import { QuestionInfo } from "./QuestionInfo";
-import { QuestionSubmit } from "./QuestionSubmit";
-import { useApi } from "../../../context/api/ApiProvider";
-import { QuestionBlocage } from "./QuestionBlocage";
+import "@controls/Questionnaire/Question/Question.scss";
+import { QuestionNumeric } from "@controls/Questionnaire/Question/QuestionNumeric";
+import { QuestionCheckbox } from "@controls/Questionnaire/Question/QuestionCheckbox";
+import { QuestionnaireQuestion } from "@context/demande/QuestionnaireProvider";
+import { QuestionInfo } from "@controls/Questionnaire/Question/QuestionInfo";
+import { QuestionSubmit } from "@controls/Questionnaire/Question/QuestionSubmit";
+import { useApi } from "@context/api/ApiProvider";
+import { QuestionBlocage } from "@controls/Questionnaire/Question/QuestionBlocage";
 
 export function Question(props: {
    question?: QuestionnaireQuestion;

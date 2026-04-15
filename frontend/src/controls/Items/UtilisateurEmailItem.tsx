@@ -8,9 +8,9 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import Spinner from "../Spinner/Spinner";
-import { useApi } from "../../context/api/ApiProvider";
-import { IUtilisateur } from "../../api/ApiTypeHelpers";
+import Spinner from "@controls/Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface IItemIntervenant {
    utilisateur?: IUtilisateur;

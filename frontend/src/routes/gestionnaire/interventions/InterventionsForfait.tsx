@@ -8,13 +8,13 @@
  */
 
 import React, { ReactElement, useState } from "react";
-import "../../administration/Administration.scss";
+import "@routes/administration/Administration.scss";
 import { FloatButton, Layout, Typography } from "antd";
 import { CopyOutlined, FileOutlined, PlusOutlined } from "@ant-design/icons";
-import InterventionsForfaitEdit from "../../../controls/Interventions/InterventionsForfaitEdit";
-import InterventionForfaitTable from "../../../controls/Table/InterventionForfaitTable";
-import InterventionsForfaitBulkAdd from "../../../controls/Interventions/InterventionsForfaitBulkAdd";
-import { IInterventionForfait } from "../../../api/ApiTypeHelpers";
+import InterventionsForfaitEdit from "@controls/Interventions/InterventionsForfaitEdit";
+import InterventionForfaitTable from "@controls/Table/InterventionForfaitTable";
+import InterventionsForfaitBulkAdd from "@controls/Interventions/InterventionsForfaitBulkAdd";
+import { IInterventionForfait } from "@api/ApiTypeHelpers";
 
 /**
  * Renders the component for managing interventions au forfait.

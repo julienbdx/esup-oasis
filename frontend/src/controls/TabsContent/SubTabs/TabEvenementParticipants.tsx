@@ -8,14 +8,14 @@
  */
 
 import { Divider, Space } from "antd";
-import { TabEvenementParticipantsBeneficiaires } from "./TabEvenementParticipantsBeneficiaires";
-import { TabEvenementParticipantsIntervenant } from "./TabEvenementParticipantsIntervenant";
-import { TabEvenementParticipantsSuppleants } from "./TabEvenementParticipantsSuppleants";
-import { TabEvenementParticipantsEnseignants } from "./TabEvenementParticipantsEnseignants";
+import { TabEvenementParticipantsBeneficiaires } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsBeneficiaires";
+import { TabEvenementParticipantsIntervenant } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsIntervenant";
+import { TabEvenementParticipantsSuppleants } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsSuppleants";
+import { TabEvenementParticipantsEnseignants } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsEnseignants";
 import React, { ReactElement } from "react";
-import { Evenement } from "../../../lib/Evenement";
-import { IPartialEvenement } from "../../../api/ApiTypeHelpers";
-import EventMailCopyButton from "../../Buttons/EventMailCopyButton";
+import { Evenement } from "@lib/Evenement";
+import { IPartialEvenement } from "@api/ApiTypeHelpers";
+import EventMailCopyButton from "@controls/Buttons/EventMailCopyButton";
 
 interface TabEvenementParticipantsProps {
    evenement: Evenement | undefined;

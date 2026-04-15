@@ -9,19 +9,22 @@
 
 import React, { ReactElement, useMemo } from "react";
 import { QueryClient, UseMutationResult, UseQueryResult } from "@tanstack/react-query";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
-import { handleInvalidation, UseInvalidationHook } from "./ApiContextFn/HandleInvalidation";
-import { useGetItem, UseGetItemHook } from "./ApiContextFn/UseGetItem";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import {
+   handleInvalidation,
+   UseInvalidationHook,
+} from "@context/api/ApiContextFn/HandleInvalidation";
+import { useGetItem, UseGetItemHook } from "@context/api/ApiContextFn/UseGetItem";
 import {
    useGetCollection,
    UseGetCollectionHook,
    UseGetCollectionPaginatedHook,
-} from "./ApiContextFn/UseGetCollection";
-import { usePatch, UsePatchHook } from "./ApiContextFn/UsePatch";
-import { usePost, UsePostHook } from "./ApiContextFn/UsePost";
-import { useDelete, UseDeleteHook } from "./ApiContextFn/UseDelete";
-import { usePrefetch, UsePrefetchHook } from "./ApiContextFn/UsePrefetch";
-import { AuthContextType } from "../../auth/AuthProvider";
+} from "@context/api/ApiContextFn/UseGetCollection";
+import { usePatch, UsePatchHook } from "@context/api/ApiContextFn/UsePatch";
+import { usePost, UsePostHook } from "@context/api/ApiContextFn/UsePost";
+import { useDelete, UseDeleteHook } from "@context/api/ApiContextFn/UseDelete";
+import { usePrefetch, UsePrefetchHook } from "@context/api/ApiContextFn/UsePrefetch";
+import { AuthContextType } from "@/auth/AuthProvider";
 import {
    ApiContentType,
    ApiPathMethodParameters,
@@ -30,9 +33,9 @@ import {
    ApiPathMethodResponse,
    ContentTypePatch,
    Path,
-} from "../../api/SchemaHelpers";
-import { usePut, UsePutHook } from "./ApiContextFn/UsePut";
-import { IErreurNotification } from "./ApiContextFn/HandleApiResponse";
+} from "@api/SchemaHelpers";
+import { usePut, UsePutHook } from "@context/api/ApiContextFn/UsePut";
+import { IErreurNotification } from "@context/api/ApiContextFn/HandleApiResponse";
 
 export enum RequestMethod {
    GET = "GET",

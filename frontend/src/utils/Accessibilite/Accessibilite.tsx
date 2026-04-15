@@ -8,7 +8,7 @@
  */
 
 import React, { ReactElement, useEffect } from "react";
-import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 
 /**
  * Gère les paramètres d'accessibilité de l'application.

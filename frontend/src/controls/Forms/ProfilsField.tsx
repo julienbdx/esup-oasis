@@ -9,9 +9,9 @@
 
 import React from "react";
 import { Select } from "antd";
-import { IProfil } from "../../api/ApiTypeHelpers";
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { IProfil } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 export default function ProfilsField(props: {
    value?: string | string[] | undefined;

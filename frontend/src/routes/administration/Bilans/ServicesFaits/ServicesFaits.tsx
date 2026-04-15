@@ -11,9 +11,9 @@ import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Card, Layout, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, InfoCircleFilled } from "@ant-design/icons";
-import { ServicesFaitsItem } from "../../../../controls/Admin/Bilans/ServicesFaitsItem";
-import { IPeriode } from "../../../../api/ApiTypeHelpers";
-import PeriodeField from "../../../../controls/Forms/PeriodeField";
+import { ServicesFaitsItem } from "@controls/Admin/Bilans/ServicesFaitsItem";
+import { IPeriode } from "@api/ApiTypeHelpers";
+import PeriodeField from "@controls/Forms/PeriodeField";
 
 /**
  * Renders the ServicesFaits component for the administration page.

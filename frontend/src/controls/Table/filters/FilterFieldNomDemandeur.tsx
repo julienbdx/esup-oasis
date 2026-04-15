@@ -9,8 +9,8 @@
 
 import React from "react";
 import { Col, Input } from "antd";
-import { FiltreDemande } from "../DemandeTable";
-import { UseStateDispatch } from "../../../utils/utils";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
+import { UseStateDispatch } from "@utils/utils";
 
 interface FilterFieldNomDemandeurProps {
    filtreDemande: FiltreDemande;

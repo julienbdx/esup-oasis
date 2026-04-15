@@ -9,12 +9,9 @@
 
 import { Form, Select, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import { QuestionAide } from "./QuestionAide";
-import {
-   QuestionnaireQuestion,
-   useQuestionnaire,
-} from "../../../context/demande/QuestionnaireProvider";
-import { useApi } from "../../../context/api/ApiProvider";
+import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
+import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React from "react";
 
 export function QuestionSelect(props: { question: QuestionnaireQuestion }) {

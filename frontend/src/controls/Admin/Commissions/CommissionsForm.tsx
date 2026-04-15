@@ -9,9 +9,9 @@
 
 import React, { useEffect } from "react";
 import { Button, Card, Form, Input, Switch } from "antd";
-import { ICommission } from "../../../api/ApiTypeHelpers";
-import { useApi } from "../../../context/api/ApiProvider";
-import { QK_COMMISSIONS } from "../../../api/queryKeys";
+import { ICommission } from "@api/ApiTypeHelpers";
+import { useApi } from "@context/api/ApiProvider";
+import { QK_COMMISSIONS } from "@api/queryKeys";
 
 interface CommissionsFormProps {
    editedItem?: ICommission;

@@ -7,16 +7,16 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import {
    PREFETCH_COMPOSANTES,
    PREFETCH_FORMATIONS,
    PREFETCH_PROFILS,
    PREFETCH_TAGS,
-} from "../../../api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import { FiltreBeneficiaire } from "../BeneficiaireTable";
+} from "@api/ApiPrefetchHelpers";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 
 /**
  * Hook custom pour gérer les données et la logique du filtre de bénéficiaires

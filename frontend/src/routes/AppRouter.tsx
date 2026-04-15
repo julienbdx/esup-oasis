@@ -8,13 +8,13 @@
  */
 
 import React, { ReactElement, Suspense, useMemo } from "react";
-import { useAuth } from "../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { Navigate, Route, Routes } from "react-router-dom";
-import LoginPage from "../auth/LoginPage";
-import OAuthPopup from "../auth/OAuthPopup";
-import AppLayout from "../controls/AppLayout/AppLayout";
-import { APP_ROUTES } from "./AppRoutes";
-import Spinner from "../controls/Spinner/Spinner";
+import LoginPage from "@/auth/LoginPage";
+import OAuthPopup from "@/auth/OAuthPopup";
+import AppLayout from "@controls/AppLayout/AppLayout";
+import { APP_ROUTES } from "@routes/AppRoutes";
+import Spinner from "@controls/Spinner/Spinner";
 
 /**
  * Router principal de l'application.

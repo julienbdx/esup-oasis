@@ -7,17 +7,17 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { App, Button, Flex, List, Space, Typography } from "antd";
 import React from "react";
-import { IDocumentBeneficiaire } from "../../api/ApiTypeHelpers";
-import { QK_BENEFICIAIRES_PIECES_JOINTES } from "../../api/queryKeys";
+import { IDocumentBeneficiaire } from "@api/ApiTypeHelpers";
+import { QK_BENEFICIAIRES_PIECES_JOINTES } from "@api/queryKeys";
 import { FileOutlined, PlusOutlined } from "@ant-design/icons";
-import { ModalDocument } from "../Modals/ModalDocument";
+import { ModalDocument } from "@controls/Modals/ModalDocument";
 import dayjs from "dayjs";
-import EtudiantItem from "../Items/EtudiantItem";
-import { Fichier } from "../Fichier/Fichier";
+import EtudiantItem from "@controls/Items/EtudiantItem";
+import { Fichier } from "@controls/Fichier/Fichier";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 function DocumentList(props: {

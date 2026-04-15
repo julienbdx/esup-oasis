@@ -7,22 +7,23 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../../../context/api/ApiProvider";
-import { createDateAsUTC } from "../../../../utils/dates";
-import dayjs, { Dayjs } from "dayjs";
+import { useApi } from "@context/api/ApiProvider";
+import { createDateAsUTC, toDate, toDayValue } from "@utils/dates";
+import dayjs from "dayjs";
+import { Calendar, DayRange } from "@lib/react-modern-calendar-datepicker";
 import { Alert, Button, Card, DatePicker, Drawer, Space, Switch, Typography } from "antd";
+import { modernCalendarLocaleFr } from "@lib/react-modern-calendar-datepicker/SmallCalendarLocale";
 import { SendOutlined, WarningFilled } from "@ant-design/icons";
 import React, { ReactElement } from "react";
+import "@controls/Calendar/Sider/SmallCalendar/SmallCalendar.scss";
 
-import { IPeriode } from "../../../../api/ApiTypeHelpers";
-import { QK_PERIODES } from "../../../../api/queryKeys";
+import { IPeriode } from "@api/ApiTypeHelpers";
+import { QK_PERIODES } from "@api/queryKeys";
 
 interface PeriodesRhEditionProps {
    periode: IPeriode;
    setPeriode: (item: IPeriode | undefined) => void;
 }
-
-const { RangePicker } = DatePicker;
 
 /**
  * Editing component for a PeriodeRhItem.
@@ -71,13 +72,12 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
       }
    }
 
-   function setSelectedDayRange(value: { from: Dayjs | null; to: Dayjs | null }) {
+   function setSelectedDayRange(value: DayRange) {
       if (!periode) return;
-      if (!value.from || !value.to) return;
       setPeriode({
          ...periode,
-         debut: value.from ? createDateAsUTC(value.from.toDate()).toISOString() : null,
-         fin: value.to ? createDateAsUTC(value.to.toDate()).toISOString() : null,
+         debut: value.from ? createDateAsUTC(toDate(value.from)).toISOString() : null,
+         fin: value.to ? createDateAsUTC(toDate(value.to)).toISOString() : null,
       });
    }
 
@@ -107,14 +107,19 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
          >
             <Typography.Text strong>Période</Typography.Text>
             <br />
-            <RangePicker
-               format="DD/MM/YYYY"
-               defaultValue={[
-                  periode.debut ? dayjs(new Date(periode.debut)) : null,
-                  periode.fin ? dayjs(new Date(periode.fin)) : null,
-               ]}
-               onCalendarChange={(dates) => setSelectedDayRange({ from: dates[0], to: dates[1] })}
+            <Calendar
+               value={{
+                  from: periode.debut ? toDayValue(new Date(periode.debut)) : null,
+                  to: periode.fin ? toDayValue(new Date(periode.fin)) : null,
+               }}
+               shouldHighlightWeekends
+               locale={modernCalendarLocaleFr}
+               colorPrimary="var(--color-app)"
+               colorPrimaryLight="var(--color-app)"
+               calendarClassName="small-calendar"
+               onChange={setSelectedDayRange}
             />
+
             <div className="mt-4">
                <Typography.Text strong>Date butoir</Typography.Text>
                <br />
@@ -131,6 +136,7 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
                   changeOnBlur
                />
             </div>
+
             <div className="mt-4">
                <Typography.Text strong>Envoyé à la RH ?</Typography.Text>
 

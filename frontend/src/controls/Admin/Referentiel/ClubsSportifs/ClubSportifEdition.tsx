@@ -8,10 +8,10 @@
  */
 
 import { Button, Card, Drawer, Form, Input, Switch } from "antd";
-import { useApi } from "../../../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
-import { IClubSportif } from "../../../../api/ApiTypeHelpers";
-import { QK_CLUBS_SPORTIFS } from "../../../../api/queryKeys";
+import { IClubSportif } from "@api/ApiTypeHelpers";
+import { QK_CLUBS_SPORTIFS } from "@api/queryKeys";
 
 interface ClubsSportifsEditionProps {
    editedItem?: IClubSportif;

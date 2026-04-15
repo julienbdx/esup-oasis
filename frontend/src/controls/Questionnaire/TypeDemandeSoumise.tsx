@@ -9,10 +9,10 @@
 
 import React from "react";
 import { Button, Card, Layout } from "antd";
-import * as animationData from "./lottie-submitted.json";
+import * as animationData from "@controls/Questionnaire/lottie-submitted.json";
 import Lottie from "react-lottie";
 import { useNavigate } from "react-router-dom";
-import { env } from "../../env";
+import { env } from "@/env";
 
 /**
  * @returns {React.ReactElement} The TypeDemande component with the TypeDemandeProvider and TypeDemandeContent.

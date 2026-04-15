@@ -10,7 +10,7 @@
 import { NavigateFunction } from "react-router-dom";
 import { Badge, MenuProps } from "antd";
 import React from "react";
-import { env } from "../../../env";
+import { env } from "@/env";
 
 /**
  * Generates the logo menu item with env ribbon.

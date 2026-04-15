@@ -11,14 +11,14 @@ import React, { useState } from "react";
 import { Badge, Breadcrumb, Button, Layout, Space, Table, Tabs, Tooltip, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { CaretRightFilled, EditOutlined, HomeFilled } from "@ant-design/icons";
-import { useApi } from "../../../context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
-import Spinner from "../../../controls/Spinner/Spinner";
-import { ITypeDemande } from "../../../api/ApiTypeHelpers";
-import BooleanState from "../../../controls/State/BooleanState";
-import ProfilItem from "../../../controls/Items/ProfilItem";
-import { TypesDemandesEdition } from "../../../controls/Admin/TypesDemandes/TypesDemandesEdition";
-import { Campagne } from "../../../controls/Admin/TypesDemandes/Campagne";
+import { useApi } from "@context/api/ApiProvider";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+import Spinner from "@controls/Spinner/Spinner";
+import { ITypeDemande } from "@api/ApiTypeHelpers";
+import BooleanState from "@controls/State/BooleanState";
+import ProfilItem from "@controls/Items/ProfilItem";
+import { TypesDemandesEdition } from "@controls/Admin/TypesDemandes/TypesDemandesEdition";
+import { Campagne } from "@controls/Admin/TypesDemandes/Campagne";
 
 export default function TypesDemandes(): React.ReactElement {
    const [order, setOrder] = useState<"asc" | "desc">("asc");

@@ -10,12 +10,12 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Dropdown, MenuProps, Modal } from "antd";
 import { ExportOutlined, EyeOutlined, FileExcelOutlined, FilePdfOutlined } from "@ant-design/icons";
-import { ServicesFaitsItem } from "./ServicesFaitsItem";
-import { useAuth } from "../../../auth/AuthProvider";
-import apiDownloader from "../../../utils/apiDownloader";
+import { ServicesFaitsItem } from "@controls/Admin/Bilans/ServicesFaitsItem";
+import { useAuth } from "@/auth/AuthProvider";
+import apiDownloader from "@utils/apiDownloader";
 import dayjs from "dayjs";
-import { IPeriode } from "../../../api/ApiTypeHelpers";
-import { env } from "../../../env";
+import { IPeriode } from "@api/ApiTypeHelpers";
+import { env } from "@/env";
 
 interface ServicesFaitsButtonProps {
    label?: string;

@@ -9,29 +9,32 @@
  */
 
 import { ColumnType } from "antd/es/table";
-import { IBeneficiaire, IDecisionEtablissement, IUtilisateur } from "../../api/ApiTypeHelpers";
-import ComposanteItem from "../Items/ComposanteItem";
+import { IBeneficiaire, IDecisionEtablissement, IUtilisateur } from "@api/ApiTypeHelpers";
+import ComposanteItem from "@controls/Items/ComposanteItem";
 import React from "react";
 import { Button, Popconfirm, Space, Tooltip } from "antd";
 import Icon, { EyeOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
-import { ascToAscend } from "../../utils/array";
-import { FilterProps } from "../../utils/table";
-import { FiltreBeneficiaire } from "./BeneficiaireTable";
-import { RoleValues, Utilisateur } from "../../lib/Utilisateur";
-import { ReactComponent as ExternalLink } from "../../assets/images/external-link.svg";
+import { ascToAscend } from "@utils/array";
+import { FilterProps } from "@utils/table";
+import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
+import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
 
-import { ChargesAccompagnementsItem } from "../Items/ChargesAccompagnementsItem";
-import { UtilisateurTag } from "../Tags/UtilisateurTag";
-import { BeneficiaireAvisEseAvatar, EtatAvisEse } from "../Avatars/BeneficiaireAvisEseAvatar";
-import UtilisateurAvatarImage from "../Avatars/UtilisateurAvatarImage";
-import { EllipsisMiddle } from "../Typography/EllipsisMiddle";
+import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
+import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
+import {
+   BeneficiaireAvisEseAvatar,
+   EtatAvisEse,
+} from "@controls/Avatars/BeneficiaireAvisEseAvatar";
+import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
+import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 import Highlighter from "react-highlight-words";
-import { removeAccents } from "../../utils/string";
-import { DecisionEtablissementAvatar } from "../Avatars/DecisionEtablissementAvatar";
-import { BeneficiaireProfilItem } from "../Items/BeneficiaireProfilItem";
+import { removeAccents } from "@utils/string";
+import { DecisionEtablissementAvatar } from "@controls/Avatars/DecisionEtablissementAvatar";
+import { BeneficiaireProfilItem } from "@controls/Items/BeneficiaireProfilItem";
 
-import { UseStateDispatch } from "../../utils/utils";
-import { env } from "../../env";
+import { UseStateDispatch } from "@utils/utils";
+import { env } from "@/env";
 import dayjs from "dayjs";
 
 interface TableBeneficiairesColumnsProps {

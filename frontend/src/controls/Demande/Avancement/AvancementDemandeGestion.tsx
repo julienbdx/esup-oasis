@@ -14,16 +14,16 @@ import {
    ETAT_ATTENTE_CHARTES,
    ETAT_DEMANDE_ATTENTE_COMMISSION,
    ETAT_DEMANDE_NON_CONFORME,
-} from "../../../lib/demande";
-import "./AvancementDemande.scss";
-import { useQuestionnaire } from "../../../context/demande/QuestionnaireProvider";
-import { DerniereModifDemandeLabel } from "../../Avatars/DerniereModifDemandeLabel";
-import { RefsTourDemande } from "../../../routes/gestionnaire/demandeurs/Demande";
-import EtapeASaisie from "./Steps/EtapeASaisie";
-import EtapeBConformite from "./Steps/EtapeBConformite";
-import EtapeCProfil from "./Steps/EtapeCProfil";
-import EtapeDAccompagnement from "./Steps/EtapeDAccompagnement";
-import { useAvancementSteps } from "./useAvancementSteps";
+} from "@lib/demande";
+import "@controls/Demande/Avancement/AvancementDemande.scss";
+import { useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemandeLabel";
+import { RefsTourDemande } from "@routes/gestionnaire/demandeurs/Demande";
+import EtapeASaisie from "@controls/Demande/Avancement/Steps/EtapeASaisie";
+import EtapeBConformite from "@controls/Demande/Avancement/Steps/EtapeBConformite";
+import EtapeCProfil from "@controls/Demande/Avancement/Steps/EtapeCProfil";
+import EtapeDAccompagnement from "@controls/Demande/Avancement/Steps/EtapeDAccompagnement";
+import { useAvancementSteps } from "@controls/Demande/Avancement/useAvancementSteps";
 
 export default function AvancementDemandeGestion(props: {
    refs?: RefsTourDemande;

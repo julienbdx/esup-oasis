@@ -9,10 +9,10 @@
 
 import { Flex, Progress, Space, UploadFile } from "antd";
 import { ExclamationCircleFilled, FileOutlined } from "@ant-design/icons";
-import { useQuestionnaire } from "../../../context/demande/QuestionnaireProvider";
-import { useApi } from "../../../context/api/ApiProvider";
-import Spinner from "../../Spinner/Spinner";
-import { Fichier } from "../../Fichier/Fichier";
+import { useQuestionnaire } from "@context/demande/QuestionnaireProvider";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
+import { Fichier } from "@controls/Fichier/Fichier";
 
 export function QuestionFileItem(props: {
    file: UploadFile;

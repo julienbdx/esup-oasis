@@ -7,13 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useApi } from "../../context/api/ApiProvider";
+import { useApi } from "@context/api/ApiProvider";
 import { Button, Card, Col, Empty, List, Row, Typography } from "antd";
-import { ServiceFaitItem } from "../ServicesFaits/ServiceFaitItem";
+import { ServiceFaitItem } from "@controls/ServicesFaits/ServiceFaitItem";
 import React from "react";
-import EtudiantDashboardImage from "../Images/EtudiantDashboardImage";
+import EtudiantDashboardImage from "@controls/Images/EtudiantDashboardImage";
 
 export function IntervenantDashboardServicesFaits() {
    const user = useAuth().user;

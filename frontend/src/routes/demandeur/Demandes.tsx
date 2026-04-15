@@ -9,14 +9,14 @@
 
 import React, { useState } from "react";
 import { Alert, Button, Card, Layout, Typography } from "antd";
-import CampagneDemandeList from "../../controls/List/CampagneDemandeList";
-import { useApi } from "../../context/api/ApiProvider";
+import CampagneDemandeList from "@controls/List/CampagneDemandeList";
+import { useApi } from "@context/api/ApiProvider";
 import { InfoCircleOutlined, LinkOutlined, PlusOutlined } from "@ant-design/icons";
-import NouvelleDemandeModale from "../../controls/Modals/Demande/NouvelleDemandeModale";
-import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import NouvelleDemandeModale from "@controls/Modals/Demande/NouvelleDemandeModale";
+import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { useAuth } from "../../auth/AuthProvider";
-import { env } from "../../env";
+import { useAuth } from "@/auth/AuthProvider";
+import { env } from "@/env";
 
 /**
  * Page de gestion des demandes (demandeur)

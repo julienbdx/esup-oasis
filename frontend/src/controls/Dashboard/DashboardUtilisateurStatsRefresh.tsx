@@ -9,8 +9,8 @@
 
 import React, { ReactElement } from "react";
 import { Button } from "antd";
-import "../../routes/gestionnaire/dashboard/Dashboard.scss";
-import { useApi } from "../../context/api/ApiProvider";
+import "@routes/gestionnaire/dashboard/Dashboard.scss";
+import { useApi } from "@context/api/ApiProvider";
 import { ReloadOutlined } from "@ant-design/icons";
 
 interface IDashboardUtilisateurProps {

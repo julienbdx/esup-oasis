@@ -9,8 +9,8 @@
 
 import React, { ReactElement, useEffect } from "react";
 import { Col, Progress, Row, Skeleton, Tooltip, Typography } from "antd";
-import { pluriel } from "../../utils/string";
-import { EvolutionComponent } from "./Statistic";
+import { pluriel } from "@utils/string";
+import { EvolutionComponent } from "@controls/Dashboard/Statistic";
 
 interface IStatisticProgressProps {
    title: string;

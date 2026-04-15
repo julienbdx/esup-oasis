@@ -8,10 +8,10 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import Spinner from "../Spinner/Spinner";
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_TYPES_EQUIPEMENTS } from "../../api/ApiPrefetchHelpers";
-import { ITypeEquipement } from "../../api/ApiTypeHelpers";
+import Spinner from "@controls/Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_TYPES_EQUIPEMENTS } from "@api/ApiPrefetchHelpers";
+import { ITypeEquipement } from "@api/ApiTypeHelpers";
 
 interface IItemTypeEquipement {
    typeEquipement?: ITypeEquipement;

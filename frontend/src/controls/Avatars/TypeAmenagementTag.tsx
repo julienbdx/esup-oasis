@@ -7,9 +7,9 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useApi } from "../../context/api/ApiProvider";
-import { PREFETCH_TYPES_AMENAGEMENTS } from "../../api/ApiPrefetchHelpers";
-import Spinner from "../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
+import Spinner from "@controls/Spinner/Spinner";
 import { Tag } from "antd";
 import React from "react";
 

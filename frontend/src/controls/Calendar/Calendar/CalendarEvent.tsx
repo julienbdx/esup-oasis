@@ -9,13 +9,13 @@
 
 import React, { memo } from "react";
 import { Popover } from "antd";
-import { CalendarEvenement } from "../../../lib/Evenement";
-import { useModals } from "../../../context/modals/ModalsContext";
-import { useAccessibilite } from "../../../context/accessibilite/AccessibiliteContext";
-import { EllipsisMiddle } from "../../Typography/EllipsisMiddle";
-import { CalendarEventPopoverContent } from "./CalendarEventPopoverContent";
-import { useCalendarEventDescription } from "./useCalendarEventDescription";
-import { CalendarEventDisplay } from "./CalendarEventDisplay";
+import { CalendarEvenement } from "@lib/Evenement";
+import { useModals } from "@context/modals/ModalsContext";
+import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
+import { CalendarEventPopoverContent } from "@controls/Calendar/Calendar/CalendarEventPopoverContent";
+import { useCalendarEventDescription } from "@controls/Calendar/Calendar/useCalendarEventDescription";
+import { CalendarEventDisplay } from "@controls/Calendar/Calendar/CalendarEventDisplay";
 
 /**
  * Display a calendar event in a popover.

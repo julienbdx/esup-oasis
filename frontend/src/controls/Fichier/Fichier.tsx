@@ -8,14 +8,14 @@
  */
 
 import React, { useState } from "react";
-import { useAuth } from "../../auth/AuthProvider";
-import { useApi } from "../../context/api/ApiProvider";
-import Spinner from "../Spinner/Spinner";
+import { useAuth } from "@/auth/AuthProvider";
+import { useApi } from "@context/api/ApiProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { DeleteOutlined, DownloadOutlined, EditOutlined, FileOutlined } from "@ant-design/icons";
-import apiDownloader from "../../utils/apiDownloader";
+import apiDownloader from "@utils/apiDownloader";
 import { Button, Flex, Popconfirm, Space, Tooltip } from "antd";
-import TelechargementImagePreview from "../Questionnaire/Question/TelechargementImagePreview";
-import { env } from "../../env";
+import TelechargementImagePreview from "@controls/Questionnaire/Question/TelechargementImagePreview";
+import { env } from "@/env";
 
 export function Fichier(props: {
    fichierId: string;

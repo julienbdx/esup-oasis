@@ -10,12 +10,12 @@
 
 import { ReactElement, useEffect, useState } from "react";
 import { Button, Image, Tooltip } from "antd";
-import { useApi } from "../../../context/api/ApiProvider";
-import { useAuth } from "../../../auth/AuthProvider";
-import Spinner from "../../Spinner/Spinner";
+import { useApi } from "@context/api/ApiProvider";
+import { useAuth } from "@/auth/AuthProvider";
+import Spinner from "@controls/Spinner/Spinner";
 import { EyeOutlined } from "@ant-design/icons";
 import type { ButtonType } from "antd/es/button/buttonHelpers";
-import { env } from "../../../env";
+import { env } from "@/env";
 
 export default function TelechargementImagePreview(props: {
    telechargementId?: string;
