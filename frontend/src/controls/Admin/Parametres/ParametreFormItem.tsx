@@ -9,14 +9,12 @@
 
 import React, { ReactElement, useState } from "react";
 import { useApi } from "../../../context/api/ApiProvider";
-import { App, Avatar, Button, Card, DatePicker, Input, Space } from "antd";
-import { createDateAsUTC, getLibellePeriode, isEnCoursSurPeriode } from "../../../utils/dates";
-import { EditOutlined, SaveOutlined } from "@ant-design/icons";
+import { App, Card } from "antd";
+import { createDateAsUTC } from "../../../utils/dates";
 import { IParametre, IParametreValeur } from "../../../api/ApiTypeHelpers";
-import dayjs from "dayjs";
-import { Fichier } from "../../Fichier/Fichier";
 import { QK_PARAMETRES } from "../../../api/queryKeys";
-import { FichierDepot } from "../../Fichier/FichierDepot";
+import { ParametreFormItemFichier } from "./items/ParametreFormItemFichier";
+import { ParametreFormItemString } from "./items/ParametreFormItemString";
 
 interface ParametreFormItemProps {
    value?: string;
@@ -24,254 +22,13 @@ interface ParametreFormItemProps {
    parametre?: IParametre;
 }
 
-function ParametreFormItemString(props: {
-   valeur?: IParametreValeur;
-   editingItem: IParametreValeur | undefined;
-   setEditingItem: (value: IParametreValeur | undefined) => void;
-   onSubmit?: () => void;
-   onCancel?: () => void;
-}) {
-   if (props.editingItem) {
-      return (
-         <Card className="mb-2">
-            <Card.Meta
-               title={<>Édition de la valeur du paramètre</>}
-               avatar={<EditOutlined />}
-               description={
-                  <Space orientation="vertical" className="text-text">
-                     <Space>
-                        <span>Début</span>
-                        <DatePicker
-                           format="DD/MM/YYYY"
-                           value={
-                              props.editingItem?.debut ? dayjs(props.editingItem?.debut) : undefined
-                           }
-                           onChange={(date) => {
-                              props.setEditingItem({
-                                 ...props.editingItem,
-                                 debut: date?.format("YYYY-MM-DD") as string,
-                              });
-                           }}
-                        />
-                     </Space>
-                     <Space>
-                        <span>Fin</span>
-                        <DatePicker
-                           format="DD/MM/YYYY"
-                           defaultValue={
-                              props.editingItem?.fin ? dayjs(props.editingItem?.fin) : undefined
-                           }
-                           onChange={(date) => {
-                              props.setEditingItem({
-                                 ...props.editingItem,
-                                 debut: props.editingItem?.debut as string,
-                                 fin: date?.format("YYYY-MM-DD") as string,
-                              });
-                           }}
-                        />
-                     </Space>
-                     <Space>
-                        <span>Valeur du paramètre</span>
-                        <Input
-                           required
-                           defaultValue={props.editingItem.valeur ?? undefined}
-                           onChange={(v) =>
-                              props.setEditingItem({
-                                 ...props.editingItem,
-                                 debut: props.editingItem?.debut as string,
-                                 valeur: (v.currentTarget.value || "") as string,
-                              })
-                           }
-                        />
-                     </Space>
-                     <Space className="mt-2">
-                        <Button
-                           onClick={() => {
-                              props.onCancel?.();
-                              props.setEditingItem(undefined);
-                           }}
-                        >
-                           Annuler
-                        </Button>
-                        <Button
-                           type="primary"
-                           icon={<SaveOutlined />}
-                           onClick={() => {
-                              props.onSubmit?.();
-                           }}
-                        >
-                           Enregistrer
-                        </Button>
-                     </Space>
-                  </Space>
-               }
-            />
-         </Card>
-      );
-   }
-
-   return (
-      <>
-         <Card className="mb-2">
-            <Card.Meta
-               title={
-                  <>
-                     {getLibellePeriode(props.valeur?.debut, props.valeur?.fin)}
-                     <Space className="float-right">
-                        <Button
-                           icon={<EditOutlined />}
-                           onClick={() => {
-                              props.setEditingItem(props.valeur);
-                           }}
-                        />
-                     </Space>
-                  </>
-               }
-               avatar={
-                  isEnCoursSurPeriode(props.valeur?.debut, props.valeur?.fin) ? (
-                     <Avatar size="small" className="bg-success" />
-                  ) : (
-                     <Avatar size="small" />
-                  )
-               }
-               description={
-                  <Space>
-                     <span>Valeur sur la période :</span>
-                     <span className="code">{props.valeur?.valeur}</span>
-                  </Space>
-               }
-            />
-         </Card>
-      </>
-   );
-}
-
-function ParametreFormItemFichier(props: {
-   valeur?: IParametreValeur;
-   editingItem: IParametreValeur | undefined;
-   setEditingItem: (value: IParametreValeur | undefined) => void;
-   onSubmit?: () => void;
-   onCancel?: () => void;
-}) {
-   if (props.editingItem) {
-      return (
-         <Card className="mb-2">
-            <Card.Meta
-               title={<>Édition de la valeur du paramètre</>}
-               avatar={<EditOutlined />}
-               description={
-                  <Space orientation="vertical" className="text-text w-100">
-                     <Space>
-                        <span>Début</span>
-                        <DatePicker
-                           format="DD/MM/YYYY"
-                           value={
-                              props.editingItem?.debut ? dayjs(props.editingItem?.debut) : undefined
-                           }
-                           onChange={(date) => {
-                              props.setEditingItem({
-                                 ...props.editingItem,
-                                 debut: date?.format("YYYY-MM-DD") as string,
-                              });
-                           }}
-                        />
-                     </Space>
-                     <Space>
-                        <span>Fin</span>
-                        <DatePicker
-                           format="DD/MM/YYYY"
-                           defaultValue={
-                              props.editingItem?.fin ? dayjs(props.editingItem?.fin) : undefined
-                           }
-                           onChange={(date) => {
-                              props.setEditingItem({
-                                 ...props.editingItem,
-                                 debut: props.editingItem?.debut as string,
-                                 fin: date?.format("YYYY-MM-DD") as string,
-                              });
-                           }}
-                        />
-                     </Space>
-                     <Space orientation="vertical" className="w-100">
-                        <span>Fichier</span>
-                        <FichierDepot
-                           onAdded={(fichier) => {
-                              props.setEditingItem({
-                                 ...props.editingItem,
-                                 debut: props.editingItem?.debut as string,
-                                 fichier: fichier["@id"] as string,
-                              });
-                           }}
-                        />
-                     </Space>
-                     <Space className="mt-2">
-                        <Button
-                           onClick={() => {
-                              props.onCancel?.();
-                              props.setEditingItem(undefined);
-                           }}
-                        >
-                           Annuler
-                        </Button>
-                        <Button
-                           type="primary"
-                           icon={<SaveOutlined />}
-                           onClick={() => {
-                              props.onSubmit?.();
-                           }}
-                        >
-                           Enregistrer
-                        </Button>
-                     </Space>
-                  </Space>
-               }
-            />
-         </Card>
-      );
-   }
-
-   return (
-      <>
-         <Card className="mb-2">
-            <Card.Meta
-               title={
-                  <>
-                     {getLibellePeriode(props.valeur?.debut, props.valeur?.fin)}
-                     <Space className="float-right">
-                        <Button
-                           icon={<EditOutlined />}
-                           onClick={() => {
-                              props.setEditingItem(props.valeur);
-                           }}
-                        />
-                     </Space>
-                  </>
-               }
-               avatar={
-                  isEnCoursSurPeriode(props.valeur?.debut, props.valeur?.fin) ? (
-                     <Avatar size="small" className="bg-success" />
-                  ) : (
-                     <Avatar size="small" />
-                  )
-               }
-               description={
-                  <>
-                     <Fichier fichierId={props.valeur?.fichier as string} />
-                  </>
-               }
-            />
-         </Card>
-      </>
-   );
-}
-
 /**
- * Function to render a form item for parameter values.
+ * Component to render a form item for parameter values.
  *
- * @param {Object} options - The options object.
- * @param {Object} [options.value] - The value of the form item.
- * @param {Function} [options.onCancel] - The cancel function to be called when editing is canceled.
- * @param {Object} [options.parametre] - The parameter object.
+ * @param {Object} props - The component props.
+ * @param {string} [props.value] - The URL of the parameter value item.
+ * @param {Function} [props.onCancel] - The cancel function to be called when editing is canceled.
+ * @param {Object} [props.parametre] - The parameter object.
  *
  * @return {ReactElement} - The rendered form item component.
  */
@@ -301,7 +58,7 @@ export default function ParametreFormItem({
       path: "/parametres/{cle}/valeurs/{id}",
       invalidationQueryKeys: [QK_PARAMETRES],
       onSuccess: () => {
-         message.success("Valeur du paramètre modifiée").then();
+         message.success("Valeur du paramètre modifiée");
          setEditingItem(undefined);
       },
    });
@@ -313,7 +70,7 @@ export default function ParametreFormItem({
          cle: `/parametres/${parametre?.["@id"]?.split("/")[2]}`,
       },
       onSuccess: () => {
-         message.success("Valeur du paramètre sauvegardée").then();
+         message.success("Valeur du paramètre sauvegardée");
          setEditingItem(undefined);
       },
    });
@@ -321,15 +78,15 @@ export default function ParametreFormItem({
    function createOrUpdate() {
       if (!editingItem) return;
       if (!editingItem.debut) {
-         message.error("Veuillez renseigner une date de début").then();
+         message.error("Veuillez renseigner une date de début");
          return;
       }
       if (!parametre?.fichier && !editingItem.valeur) {
-         message.error("Veuillez renseigner une valeur").then();
+         message.error("Veuillez renseigner une valeur");
          return;
       }
       if (parametre?.fichier && !editingItem.fichier) {
-         message.error("Veuillez déposer un fichier").then();
+         message.error("Veuillez déposer un fichier");
          return;
       }
 
@@ -358,15 +115,19 @@ export default function ParametreFormItem({
       return <Card className="mb-2" loading />;
    }
 
-   return parametre?.fichier ? (
-      <ParametreFormItemFichier
-         valeur={valeur}
-         editingItem={editingItem}
-         setEditingItem={setEditingItem}
-         onCancel={onCancel}
-         onSubmit={createOrUpdate}
-      />
-   ) : (
+   if (parametre?.fichier) {
+      return (
+         <ParametreFormItemFichier
+            valeur={valeur}
+            editingItem={editingItem}
+            setEditingItem={setEditingItem}
+            onCancel={onCancel}
+            onSubmit={createOrUpdate}
+         />
+      );
+   }
+
+   return (
       <ParametreFormItemString
          valeur={valeur}
          editingItem={editingItem}
