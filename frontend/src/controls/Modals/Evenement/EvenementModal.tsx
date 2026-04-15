@@ -27,6 +27,7 @@ import { queryClient } from "../../../App";
 import { EvenementEtatItem } from "../../Items/EvenementEtatItem";
 import EventCopyButton from "../../Buttons/EventCopyButton";
 import GestionnaireItem from "../../Items/GestionnaireItem";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../../api/queryKeys";
 import {
    PREFETCH_LAST_PERIODES_RH,
    PREFETCH_TYPES_EVENEMENTS,
@@ -106,7 +107,7 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
    // Mutation d'un évènement
    const patchEvenement = useApi().usePatch({
       path: "/evenements/{id}",
-      invalidationQueryKeys: ["/evenements", "/statistiques_evenements"],
+      invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
       onSuccess: () => {
          message.success("Évènement modifié").then();
          handleClose();
@@ -115,7 +116,7 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
 
    const postEvenement = useApi().usePost({
       path: "/evenements",
-      invalidationQueryKeys: ["/evenements", "/statistiques_evenements"],
+      invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
       onSuccess: () => {
          message.success("Évènement créé").then();
          handleClose();

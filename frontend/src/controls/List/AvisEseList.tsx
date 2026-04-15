@@ -13,6 +13,7 @@ import { useApi } from "../../context/api/ApiProvider";
 import { CommentOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { AvisEseAvatar } from "../Avatars/AvisEseAvatar";
 import { getLibellePeriode, isEnCoursSurPeriode } from "../../utils/dates";
+import { QK_BENEFICIAIRES, QK_UTILISATEURS_AVIS_ESE } from "../../api/queryKeys";
 import { Fichier } from "../Fichier/Fichier";
 import React from "react";
 import { EllipsisParagraph } from "../Typography/EllipsisParagraph";
@@ -26,11 +27,7 @@ export function AvisEseList(props: {
    const { message } = App.useApp();
    const mutateDeleteAvis = useApi().useDelete({
       path: "/utilisateurs/{uid}/avis_ese/{id}",
-      invalidationQueryKeys: [
-         "/utilisateurs/{uid}/avis_ese",
-         "/beneficiaires",
-         props.utilisateurId,
-      ],
+      invalidationQueryKeys: [QK_UTILISATEURS_AVIS_ESE, QK_BENEFICIAIRES, props.utilisateurId],
       onSuccess: () => {
          message.success(`Avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"} supprimé`).then();
       },

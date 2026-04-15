@@ -16,6 +16,7 @@ import { queryClient } from "../../App";
 import validationInterventionTableColumns from "./ValidationInterventionTableColumns";
 import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
 import { IEvenement } from "../../api/ApiTypeHelpers";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../api/queryKeys";
 import { createDateAsUTC } from "../../utils/dates";
 
 export interface FiltreValidationInterventions {
@@ -59,14 +60,14 @@ export default function ValidationInterventionTable() {
 
    const mutateEvenement = useApi().usePatch({
       path: "/evenements/{id}",
-      invalidationQueryKeys: ["/evenements"],
+      invalidationQueryKeys: [QK_EVENEMENTS],
       onSuccess: () => {
          setSelectedRowsKeys(selectedRowsKeys.slice(1));
          // eslint-disable-next-line @typescript-eslint/no-use-before-define
          window.setTimeout(() => validerPremiereIntervention(), 500);
       },
       onError: () => {
-         queryClient.invalidateQueries({ queryKey: ["/statistiques_evenements"] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
          setIsValidating(false);
       },
    });

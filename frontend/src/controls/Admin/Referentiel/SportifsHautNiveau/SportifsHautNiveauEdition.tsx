@@ -11,6 +11,7 @@ import { Button, Card, Divider, Drawer, Form, Input, InputNumber } from "antd";
 import { useApi } from "../../../../context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
 import { ISportifHautNiveau } from "../../../../api/ApiTypeHelpers";
+import { QK_SPORTIFS_HAUT_NIVEAU } from "../../../../api/queryKeys";
 
 interface SportifsHautNiveauEditionProps {
    editedItem?: ISportifHautNiveau;
@@ -30,7 +31,7 @@ export function SportifsHautNiveauEdition({
 
    const mutationPost = useApi().usePost({
       path: "/sportifs_haut_niveau",
-      invalidationQueryKeys: ["/sportifs_haut_niveau"],
+      invalidationQueryKeys: [QK_SPORTIFS_HAUT_NIVEAU],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -38,7 +39,7 @@ export function SportifsHautNiveauEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/sportifs_haut_niveau/{identifiantExterne}`,
-      invalidationQueryKeys: ["/sportifs_haut_niveau"],
+      invalidationQueryKeys: [QK_SPORTIFS_HAUT_NIVEAU],
       onSuccess: () => {
          setEditedItem(undefined);
       },

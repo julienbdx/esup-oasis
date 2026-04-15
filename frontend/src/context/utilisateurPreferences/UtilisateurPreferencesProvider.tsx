@@ -20,6 +20,7 @@ import {
 } from "../../redux/actions/Accessibilite";
 import { useDispatch } from "react-redux";
 import { queryClient } from "../../App";
+import { QK_UTILISATEURS_PARAMETRES_UI } from "../../api/queryKeys";
 
 export interface UtilisateurPreferencesType {
    getPreference: (cle: string) => string | undefined;
@@ -59,7 +60,7 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
    const mutatePreference = useApi().usePut({
       path: "/utilisateurs/{uid}/parametres_ui/{cle}",
       onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ["/utilisateurs/{uid}/parametres_ui"] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_UTILISATEURS_PARAMETRES_UI] }).then();
       },
    });
 

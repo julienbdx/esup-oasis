@@ -15,6 +15,11 @@ import dayjs, { Dayjs } from "dayjs";
 import { Fichier } from "../Fichier/Fichier";
 import { FichierDepot } from "../Fichier/FichierDepot";
 import { env } from "../../env";
+import {
+   QK_BENEFICIAIRES,
+   QK_UTILISATEURS_AVIS_ESE,
+   QK_UTILISATEURS_AVIS_ESE_ITEM,
+} from "../../api/queryKeys";
 
 type IAvisForm = IAvisEse & { dateDebut: Dayjs; dateFin: Dayjs | null };
 
@@ -37,19 +42,19 @@ export function ModalAvisEse(props: {
       path: "/utilisateurs/{uid}/avis_ese",
       url: `${props.utilisateurId}/avis_ese`,
       invalidationQueryKeys: [
-         "/utilisateurs/{uid}/avis_ese",
-         "/utilisateurs/{uid}/avis_ese/{id}",
+         QK_UTILISATEURS_AVIS_ESE,
+         QK_UTILISATEURS_AVIS_ESE_ITEM,
          props.utilisateurId as string,
-         "/beneficiaires",
+         QK_BENEFICIAIRES,
       ],
    });
    const mutatePatchAvis = useApi().usePatch({
       path: "/utilisateurs/{uid}/avis_ese/{id}",
       invalidationQueryKeys: [
-         "/utilisateurs/{uid}/avis_ese",
+         QK_UTILISATEURS_AVIS_ESE,
          props.avisId as string,
          props.utilisateurId as string,
-         "/beneficiaires",
+         QK_BENEFICIAIRES,
       ],
    });
 

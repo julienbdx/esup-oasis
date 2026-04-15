@@ -35,13 +35,14 @@ import { useNavigate } from "react-router-dom";
 import { FONCTIONNALITES, useQuestionnaire } from "../../../context/demande/QuestionnaireProvider";
 import { DerniereModifDemandeLabel } from "../../Avatars/DerniereModifDemandeLabel";
 import { RefsTourDemande } from "../../../routes/gestionnaire/demandeurs/Demande";
+import { QK_DEMANDES } from "../../../api/queryKeys";
 import { useAuth } from "../../../auth/AuthProvider";
 
 function EtapeADescription(props: { etatDemande: EtatInfo; demande: IDemande }) {
    const { message } = App.useApp();
    const mutation = useApi().usePatch({
       path: props.demande["@id"] as "/demandes/{id}",
-      invalidationQueryKeys: ["/demandes"],
+      invalidationQueryKeys: [QK_DEMANDES],
       onSuccess: () => {
          queryClient
             .invalidateQueries({ queryKey: ["/demandes", props.demande["@id"]] })
@@ -93,7 +94,7 @@ function EtapeBDescription(props: { etatDemande: EtatInfo; demande: IDemande }) 
 
    const mutation = useApi().usePatch({
       path: props.demande["@id"] as "/demandes/{id}",
-      invalidationQueryKeys: ["/demandes"],
+      invalidationQueryKeys: [QK_DEMANDES],
       onSuccess: () => {
          queryClient
             .invalidateQueries({ queryKey: ["/demandes", props.demande["@id"]] })

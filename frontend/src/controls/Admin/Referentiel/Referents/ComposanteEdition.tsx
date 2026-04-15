@@ -14,6 +14,7 @@ import { useApi } from "../../../../context/api/ApiProvider";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import UtilisateurFormItemSelect from "../../../Forms/UtilisateurFormItemSelect";
 import { RoleValues } from "../../../../lib/Utilisateur";
+import { QK_COMPOSANTES } from "../../../../api/queryKeys";
 
 export function ComposanteEdition(props: {
    editedItem: IComposante;
@@ -23,7 +24,7 @@ export function ComposanteEdition(props: {
 
    const mutationPatch = useApi().usePatch({
       path: `/composantes/{id}`,
-      invalidationQueryKeys: ["/composantes"],
+      invalidationQueryKeys: [QK_COMPOSANTES],
       onSuccess: () => {
          props.setEditedItem(undefined);
       },

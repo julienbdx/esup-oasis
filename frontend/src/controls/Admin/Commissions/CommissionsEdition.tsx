@@ -33,6 +33,11 @@ import { UtilisateurAvatar } from "../../Avatars/UtilisateurAvatar";
 import { RoleValues, Utilisateur } from "../../../lib/Utilisateur";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import UtilisateurFormItemSelect from "../../Forms/UtilisateurFormItemSelect";
+import {
+   QK_COMMISSIONS,
+   QK_COMMISSIONS_MEMBRES,
+   QK_ROLES_UTILISATEURS,
+} from "../../../api/queryKeys";
 
 interface CommissionsEditionProps {
    editedItem?: ICommission;
@@ -51,10 +56,7 @@ function CommissionsEditionMembreRole(props: { membre: ICommissionMembre }) {
 
    const mutationPut = useApi().usePut({
       path: "/commissions/{commissionId}/membres/{uid}",
-      invalidationQueryKeys: [
-         "/commissions/{commissionId}/membres",
-         "/roles/{roleId}/utilisateurs",
-      ],
+      invalidationQueryKeys: [QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS],
       onSuccess: () => {
          message.success("Le membre a bien été modifié").then();
          setEditing(false);
@@ -149,7 +151,7 @@ function CommissionsEditionMembre(props: { membre: ICommissionMembre }) {
 
    const mutationDelete = useApi().useDelete({
       path: "/commissions/{commissionId}/membres/{uid}",
-      invalidationQueryKeys: ["/commissions/{commissionId}/membres"],
+      invalidationQueryKeys: [QK_COMMISSIONS_MEMBRES],
       onSuccess: () => {
          message.success("Le membre a bien été retiré de la commission").then();
       },
@@ -207,10 +209,7 @@ function CommissionsMembreAjouter(props: {
 
    const mutationPut = useApi().usePut({
       path: "/commissions/{commissionId}/membres/{uid}",
-      invalidationQueryKeys: [
-         "/commissions/{commissionId}/membres",
-         "/roles/{roleId}/utilisateurs",
-      ],
+      invalidationQueryKeys: [QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS],
       onSuccess: () => {
          message.success("Le membre a bien été ajouté").then();
          props.setAjouterMembre(false);
@@ -360,7 +359,7 @@ export function CommissionsEdition({
 
    const mutationPost = useApi().usePost({
       path: "/commissions",
-      invalidationQueryKeys: ["/commissions"],
+      invalidationQueryKeys: [QK_COMMISSIONS],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -368,7 +367,7 @@ export function CommissionsEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/commissions/{id}`,
-      invalidationQueryKeys: ["/commissions"],
+      invalidationQueryKeys: [QK_COMMISSIONS],
       onSuccess: () => {
          setEditedItem(undefined);
       },

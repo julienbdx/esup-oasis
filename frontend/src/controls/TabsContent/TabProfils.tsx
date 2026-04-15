@@ -14,6 +14,7 @@ import BeneficiaireProfilCardItem from "../Forms/BeneficiaireProfilCardItem";
 import { useApi } from "../../context/api/ApiProvider";
 import { queryClient } from "../../App";
 import { IUtilisateur } from "../../api/ApiTypeHelpers";
+import { QK_BENEFICIAIRES, QK_STATISTIQUES_EVENEMENTS } from "../../api/queryKeys";
 
 interface ITabProfilsProps {
    utilisateur: IUtilisateur;
@@ -33,8 +34,8 @@ export function TabProfils({ utilisateur, title }: ITabProfilsProps): ReactEleme
       path: "/utilisateurs/{uid}/profils/{id}",
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: [utilisateur["@id"]] }).then();
-         queryClient.invalidateQueries({ queryKey: ["/beneficiaires"] }).then();
-         queryClient.invalidateQueries({ queryKey: ["/statistiques_evenements"] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_BENEFICIAIRES] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
       },
    });
    return (

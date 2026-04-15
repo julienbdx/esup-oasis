@@ -15,6 +15,7 @@ import { SendOutlined, WarningFilled } from "@ant-design/icons";
 import React, { ReactElement } from "react";
 
 import { IPeriode } from "../../../../api/ApiTypeHelpers";
+import { QK_PERIODES } from "../../../../api/queryKeys";
 
 interface PeriodesRhEditionProps {
    periode: IPeriode;
@@ -33,14 +34,14 @@ const { RangePicker } = DatePicker;
 export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProps): ReactElement {
    const mutationPost = useApi().usePost({
       path: "/periodes",
-      invalidationQueryKeys: ["/periodes"],
+      invalidationQueryKeys: [QK_PERIODES],
       onSuccess: () => {
          setPeriode(undefined);
       },
    });
    const mutationPatch = useApi().usePatch({
       path: `/periodes/{id}`,
-      invalidationQueryKeys: ["/periodes"],
+      invalidationQueryKeys: [QK_PERIODES],
       onSuccess: () => {
          setPeriode(undefined);
       },

@@ -13,6 +13,7 @@ import React, { ReactElement, useEffect } from "react";
 import { ITypeAmenagement } from "../../../../api/ApiTypeHelpers";
 import { DOMAINES_AMENAGEMENTS_INFOS, getDomaineAmenagement } from "../../../../lib/amenagements";
 import { PREFETCH_CATEGORIES_AMENAGEMENTS } from "../../../../api/ApiPrefetchHelpers";
+import { QK_TYPES_AMENAGEMENTS } from "../../../../api/queryKeys";
 
 interface AmenagementsEditionProps {
    editedItem?: ITypeAmenagement;
@@ -44,7 +45,7 @@ export function TypeAmenagementEdition({
 
    const mutationPost = useApi().usePost({
       path: "/types_amenagements",
-      invalidationQueryKeys: ["/types_amenagements"],
+      invalidationQueryKeys: [QK_TYPES_AMENAGEMENTS],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -52,7 +53,7 @@ export function TypeAmenagementEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/types_amenagements/{id}`,
-      invalidationQueryKeys: ["/types_amenagements"],
+      invalidationQueryKeys: [QK_TYPES_AMENAGEMENTS],
       onSuccess: () => {
          setEditedItem(undefined);
       },

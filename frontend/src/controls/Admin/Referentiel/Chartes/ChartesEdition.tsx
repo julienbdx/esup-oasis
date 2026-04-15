@@ -13,6 +13,7 @@ import React, { ReactElement, useEffect } from "react";
 import { ICharte } from "../../../../api/ApiTypeHelpers";
 import { PREFETCH_PROFILS } from "../../../../api/ApiPrefetchHelpers";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "../../../../constants";
+import { QK_CHARTES } from "../../../../api/queryKeys";
 import HtmlEditor from "../../../Forms/HtmlEditor";
 
 interface ChartesEditionProps {
@@ -35,7 +36,7 @@ export function ChartesEdition({ editedItem, setEditedItem }: ChartesEditionProp
 
    const mutationPost = useApi().usePost({
       path: "/chartes",
-      invalidationQueryKeys: ["/chartes"],
+      invalidationQueryKeys: [QK_CHARTES],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -43,7 +44,7 @@ export function ChartesEdition({ editedItem, setEditedItem }: ChartesEditionProp
 
    const mutationPatch = useApi().usePatch({
       path: `/chartes/{id}`,
-      invalidationQueryKeys: ["/chartes"],
+      invalidationQueryKeys: [QK_CHARTES],
       onSuccess: () => {
          setEditedItem(undefined);
       },

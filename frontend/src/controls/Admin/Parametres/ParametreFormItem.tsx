@@ -15,6 +15,7 @@ import { EditOutlined, SaveOutlined } from "@ant-design/icons";
 import { IParametre, IParametreValeur } from "../../../api/ApiTypeHelpers";
 import dayjs from "dayjs";
 import { Fichier } from "../../Fichier/Fichier";
+import { QK_PARAMETRES } from "../../../api/queryKeys";
 import { FichierDepot } from "../../Fichier/FichierDepot";
 
 interface ParametreFormItemProps {
@@ -298,7 +299,7 @@ export default function ParametreFormItem({
    // Mutation d'une valeur
    const patchValeur = useApi().usePatch({
       path: "/parametres/{cle}/valeurs/{id}",
-      invalidationQueryKeys: ["/parametres"],
+      invalidationQueryKeys: [QK_PARAMETRES],
       onSuccess: () => {
          message.success("Valeur du paramètre modifiée").then();
          setEditingItem(undefined);
@@ -307,7 +308,7 @@ export default function ParametreFormItem({
 
    const postValeur = useApi().usePost({
       path: "/parametres/{cle}/valeurs",
-      invalidationQueryKeys: ["/parametres"],
+      invalidationQueryKeys: [QK_PARAMETRES],
       parameters: {
          cle: `/parametres/${parametre?.["@id"]?.split("/")[2]}`,
       },

@@ -12,6 +12,7 @@ import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
 import { App, Button, Flex, List, Space, Typography } from "antd";
 import React from "react";
 import { IDocumentBeneficiaire } from "../../api/ApiTypeHelpers";
+import { QK_BENEFICIAIRES_PIECES_JOINTES } from "../../api/queryKeys";
 import { FileOutlined, PlusOutlined } from "@ant-design/icons";
 import { ModalDocument } from "../Modals/ModalDocument";
 import dayjs from "dayjs";
@@ -30,7 +31,7 @@ function DocumentList(props: {
       onSuccess: () => {
          message.success("Document supprimé").then();
       },
-      invalidationQueryKeys: [props.utilisateurId, "/beneficiaires/{uid}/pieces_jointes"],
+      invalidationQueryKeys: [props.utilisateurId, QK_BENEFICIAIRES_PIECES_JOINTES],
    });
 
    return (

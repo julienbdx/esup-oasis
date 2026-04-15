@@ -16,6 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { queryClient } from "../../../App";
 import { env } from "../../../env";
+import { QK_DEMANDES } from "../../../api/queryKeys";
 
 export function QuestionSubmit(props: { question: QuestionnaireQuestion }) {
    const { notification } = App.useApp();
@@ -40,7 +41,7 @@ export function QuestionSubmit(props: { question: QuestionnaireQuestion }) {
                         props.question.typeReponse as string,
                         "submit",
                         () => {
-                           queryClient.invalidateQueries({ queryKey: ["/demandes"] }).then();
+                           queryClient.invalidateQueries({ queryKey: [QK_DEMANDES] }).then();
                            queryClient
                               .invalidateQueries({
                                  queryKey: ["/utilisateurs/{uid}/demandes"],

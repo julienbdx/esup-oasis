@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 import { getLibellePeriode } from "../../../utils/dates";
 import { Fichier } from "../../Fichier/Fichier";
 import Spinner from "../../Spinner/Spinner";
+import { QK_SUIVIS_ACTIVITE } from "../../../api/queryKeys";
 import { operations } from "../../../api/schema";
 import ProfilItem from "../../Items/ProfilItem";
 import GestionnaireItem from "../../Items/GestionnaireItem";
@@ -116,7 +117,7 @@ export function TableBilanActivite(props: {
    });
    const mutationDelete = useApi().useDelete({
       path: "/suivis/activite",
-      invalidationQueryKeys: ["/suivis/activite"],
+      invalidationQueryKeys: [QK_SUIVIS_ACTIVITE],
       onSuccess: () => {
          message.success("Le bilan a bien été supprimé").then();
       },

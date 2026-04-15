@@ -13,6 +13,7 @@ import { ITypeDemande } from "../../../api/ApiTypeHelpers";
 import { useApi } from "../../../context/api/ApiProvider";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "../../../constants";
 import { PREFETCH_PROFILS } from "../../../api/ApiPrefetchHelpers";
+import { QK_TYPES_DEMANDES } from "../../../api/queryKeys";
 
 interface TypesDemandesEditionProps {
    editedItem?: ITypeDemande;
@@ -36,7 +37,7 @@ export function TypesDemandesEdition({
 
    const mutationPost = useApi().usePost({
       path: "/types_demandes",
-      invalidationQueryKeys: ["/types_demandes"],
+      invalidationQueryKeys: [QK_TYPES_DEMANDES],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -44,7 +45,7 @@ export function TypesDemandesEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/types_demandes/{id}`,
-      invalidationQueryKeys: ["/types_demandes"],
+      invalidationQueryKeys: [QK_TYPES_DEMANDES],
       onSuccess: () => {
          setEditedItem(undefined);
       },

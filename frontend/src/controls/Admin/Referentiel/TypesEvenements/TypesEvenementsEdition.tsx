@@ -15,6 +15,7 @@ import ColorPicker from "../../../ColorPicker/ColorPicker";
 import TauxHoraireFormItem from "../../../Forms/TauxHoraireFormItem";
 import { PlusOutlined } from "@ant-design/icons";
 import { ITypeEvenement } from "../../../../api/ApiTypeHelpers";
+import { QK_TYPES_EVENEMENTS } from "../../../../api/queryKeys";
 
 interface TypesEvenementsEditionProps {
    typeEvenement: ITypeEvenement;
@@ -38,7 +39,7 @@ export function TypesEvenementsEdition({
    const [form] = Form.useForm();
    const mutationPost = useApi().usePost({
       path: "/types_evenements",
-      invalidationQueryKeys: ["/types_evenements"],
+      invalidationQueryKeys: [QK_TYPES_EVENEMENTS],
       onSuccess: () => {
          setTypeEvenement(undefined);
       },
@@ -46,7 +47,7 @@ export function TypesEvenementsEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/types_evenements/{id}`,
-      invalidationQueryKeys: ["/types_evenements"],
+      invalidationQueryKeys: [QK_TYPES_EVENEMENTS],
       onSuccess: () => {
          setTypeEvenement(undefined);
       },

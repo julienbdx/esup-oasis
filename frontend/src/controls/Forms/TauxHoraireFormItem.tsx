@@ -15,6 +15,7 @@ import { ITauxHoraire, ITypeEvenement } from "../../api/ApiTypeHelpers";
 import { createDateAsUTC, getLibellePeriode, isEnCoursSurPeriode } from "../../utils/dates";
 import dayjs from "dayjs";
 import { queryClient } from "../../App";
+import { QK_TYPES_EVENEMENTS } from "../../api/queryKeys";
 
 interface ITauxHoraireFormItem {
    value?: string;
@@ -50,7 +51,7 @@ function TauxHoraireFormItem({
    // Mutation d'un taux
    const patchTaux = useApi().usePatch({
       path: "/types_evenements/{typeId}/taux/{id}",
-      invalidationQueryKeys: ["/types_evenements"],
+      invalidationQueryKeys: [QK_TYPES_EVENEMENTS],
       onSuccess: () => {
          message.success("Taux horaire modifié").then();
          setEditingItem(undefined);
@@ -60,7 +61,7 @@ function TauxHoraireFormItem({
 
    const postTaux = useApi().usePost({
       path: "/types_evenements/{typeId}/taux",
-      invalidationQueryKeys: ["/types_evenements"],
+      invalidationQueryKeys: [QK_TYPES_EVENEMENTS],
       parameters: {
          typeId: typeEvenement?.["@id"] as string,
       },
@@ -73,9 +74,9 @@ function TauxHoraireFormItem({
 
    const deleteTaux = useApi().useDelete({
       path: "/types_evenements/{typeId}/taux/{id}",
-      // invalidationQueryKeys: ["/types_evenements"],
+      // invalidationQueryKeys: [QK_TYPES_EVENEMENTS],
       onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ["/types_evenements"] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_TYPES_EVENEMENTS] }).then();
          message.success("Taux horaire supprimé").then();
          setEditingItem(undefined);
          setTypeEvenementSavable?.(true);

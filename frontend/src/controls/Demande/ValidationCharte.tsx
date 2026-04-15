@@ -12,6 +12,7 @@ import { App, Button, Card, Checkbox, Form } from "antd";
 import React, { useEffect, useState } from "react";
 import { useApi } from "../../context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "../../constants";
+import { QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "../../api/queryKeys";
 import Spinner from "../Spinner/Spinner";
 
 export function ValidationCharte(props: { demande: IDemande }) {
@@ -30,7 +31,7 @@ export function ValidationCharte(props: { demande: IDemande }) {
 
    const mutationAccepterCharte = useApi().usePatch({
       path: `/utilisateurs/{uid}/chartes/{id}`,
-      invalidationQueryKeys: ["/utilisateurs/{uid}/chartes", "/demandes"],
+      invalidationQueryKeys: [QK_UTILISATEURS_CHARTES, QK_DEMANDES],
       onSuccess: () => {
          message.success("La charte a bien été acceptée.").then();
       },

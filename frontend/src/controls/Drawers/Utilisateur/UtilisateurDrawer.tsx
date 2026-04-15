@@ -30,6 +30,13 @@ import { IUtilisateur } from "../../../api/ApiTypeHelpers";
 import { TabAidesHumaines } from "../../TabsContent/TabAidesHumaines";
 import UtilisateurAvatarImage from "../../Avatars/UtilisateurAvatarImage";
 import { arrayUnique } from "../../../utils/array";
+import {
+   QK_BENEFICIAIRES,
+   QK_COMPOSANTES,
+   QK_INTERVENANTS,
+   QK_STATISTIQUES_EVENEMENTS,
+   QK_UTILISATEURS,
+} from "../../../api/queryKeys";
 
 interface IUtilisateurDrawerProps {
    id?: string;
@@ -84,13 +91,13 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
    const mutateUtilisateur = useApi().usePatch({
       path: "/utilisateurs/{uid}",
       invalidationQueryKeys: [
-         "/utilisateurs",
-         "/intervenants",
-         "/beneficiaires",
-         "/statistiques_evenements",
+         QK_UTILISATEURS,
+         QK_INTERVENANTS,
+         QK_BENEFICIAIRES,
+         QK_STATISTIQUES_EVENEMENTS,
       ],
       onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ["/composantes"] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_COMPOSANTES] }).then();
          message.success("Utilisateur mis à jour").then();
          handleClose();
       },

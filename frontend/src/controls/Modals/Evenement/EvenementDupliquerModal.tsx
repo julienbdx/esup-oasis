@@ -7,21 +7,23 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import {
    Alert,
    Button,
    Col,
-   DatePicker,
    Empty,
    Form,
    List,
+   message,
    Modal,
    notification,
    Row,
    Switch,
 } from "antd";
-import { createDateAsUTC } from "../../../utils/dates";
+import { Calendar, Day } from "../../../lib/react-modern-calendar-datepicker";
+import { modernCalendarLocaleFr } from "../../../lib/react-modern-calendar-datepicker/SmallCalendarLocale";
+import { createDateAsUTC, toDate, toDayValue } from "../../../utils/dates";
 import { DeleteOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Evenement } from "../../../lib/Evenement";
 import { useApi } from "../../../context/api/ApiProvider";
@@ -31,9 +33,9 @@ import { useAuth } from "../../../auth/AuthProvider";
 import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
 import { PREFETCH_LAST_PERIODES_RH } from "../../../api/ApiPrefetchHelpers";
 import { IEvenement } from "../../../api/ApiTypeHelpers";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../../api/queryKeys";
 
 import { UseStateDispatch } from "../../../utils/utils";
-import dayjs, { Dayjs } from "dayjs";
 
 interface IEvenementDupliquerDrawer {
    evenement: Evenement;
@@ -74,87 +76,103 @@ export default function EvenementDupliquerModal({
 
    const [form] = Form.useForm();
    const [afficherAide, setAfficherAide] = useState(false);
-   const [datesSelectionnees, setDatesSelectionnees] = useState<Dayjs[]>([]);
-   const [isSubmitting, setIsSubmitting] = useState(false);
-
+   const [datesSelectionnees, setDatesSelectionnees] = useState<Date[]>([]);
+   const [submitted, setSubmitted] = useState(false);
+   const [options, setOptions] = useState<IDuplicationOptions>({
+      horaire: true,
+      typeEvenement: true,
+      beneficiaire: true,
+      intervenant: evenement.type === TYPE_EVENEMENT_RENFORT,
+      suppleants: false,
+      campus: true,
+      salle: false,
+      equipements: true,
+      paiement: false,
+   });
    const postEvenement = useApi().usePost({
       path: "/evenements",
+      onSuccess: () => {
+         window.setTimeout(() => {
+            // Remove first element of datesSelectionnees
+            setDatesSelectionnees((prev) => prev.slice(1));
+         }, 500);
+      },
    });
 
    const handleClose = () => {
-      queryClient.invalidateQueries({ queryKey: ["/evenements"] }).then();
-      queryClient.invalidateQueries({ queryKey: ["/statistiques_evenements"] }).then();
-      setOpen(false);
+      setOpen(() => {
+         queryClient.invalidateQueries({ queryKey: [QK_EVENEMENTS] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
+         return false;
+      });
    };
 
-   async function handleSubmit(values: IDuplicationOptions) {
+   function postEvenementDuplique() {
+      if (datesSelectionnees.length > 0) {
+         const date = datesSelectionnees[0];
+         const debut = new Date(date);
+         debut.setHours(
+            evenement.debutDate()?.getHours() || 0,
+            evenement.debutDate()?.getMinutes(),
+         );
+         const fin = new Date(date);
+         fin.setHours(evenement.finDate()?.getHours() || 0, evenement.finDate()?.getMinutes());
+
+         const nvoEvenement: IEvenement = {
+            id: undefined,
+            "@id": undefined,
+            debut: createDateAsUTC(debut).toISOString(),
+            fin: createDateAsUTC(fin).toISOString(),
+            libelle: evenement.libelle,
+            campus: evenement.campus,
+            type: evenement.type,
+            beneficiaires: options.beneficiaire ? evenement.beneficiaires : undefined,
+            intervenant: options.intervenant ? evenement.intervenant : undefined,
+            suppleants: options.suppleants ? evenement.suppleants : undefined,
+            salle: options.salle ? evenement.salle : undefined,
+            equipements: options.equipements ? evenement.equipements : undefined,
+            tempsPreparation: options.paiement ? evenement.tempsPreparation : undefined,
+            tempsSupplementaire: options.paiement ? evenement.tempsSupplementaire : undefined,
+         };
+
+         postEvenement.mutate({
+            data: nvoEvenement,
+         });
+      } else {
+         message.success("Évènement dupliqué avec succès").then();
+         setSubmitted(false);
+         handleClose();
+      }
+   }
+
+   useEffect(() => {
+      if (submitted) {
+         postEvenementDuplique();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [submitted, datesSelectionnees]);
+
+   const handleSubmit = (values: IDuplicationOptions) => {
       if (
-         arrayContainsDuplicates(datesSelectionnees.map((d) => d.format("YYYY-MM-DD"))) &&
+         arrayContainsDuplicates(datesSelectionnees.map((d) => d.toISOString())) &&
          (values.intervenant || values.beneficiaire)
       ) {
          notification.error({
-            title: "Duplication impossible",
+            message: "Duplication impossible",
             description:
                "Vous ne pouvez pas dupliquer un évènement sur le même jour avec un intervenant ou un bénéficiaire. Un utilisateur ne peut avoir 2 évènements sur le même créneau horaire.",
          });
          return;
       }
-
-      setIsSubmitting(true);
-      try {
-         const datesToProcess = [...datesSelectionnees];
-         while (datesToProcess.length > 0) {
-            const date = datesToProcess[0];
-            const debut = dayjs(date)
-               .hour(evenement.debutDate()?.getHours() || 0)
-               .minute(evenement.debutDate()?.getMinutes() || 0)
-               .second(0)
-               .millisecond(0);
-
-            const fin = dayjs(date)
-               .hour(evenement.finDate()?.getHours() || 0)
-               .minute(evenement.finDate()?.getMinutes() || 0)
-               .second(0)
-               .millisecond(0);
-
-            const nvoEvenement: IEvenement = {
-               debut: createDateAsUTC(debut.toDate()).toISOString(),
-               fin: createDateAsUTC(fin.toDate()).toISOString(),
-               libelle: evenement.libelle,
-               campus: evenement.campus,
-               type: evenement.type,
-               beneficiaires: values.beneficiaire ? evenement.beneficiaires : undefined,
-               intervenant: values.intervenant ? evenement.intervenant : undefined,
-               suppleants: values.suppleants ? evenement.suppleants : undefined,
-               salle: values.salle ? evenement.salle : undefined,
-               equipements: values.equipements ? evenement.equipements : undefined,
-               tempsPreparation: values.paiement ? evenement.tempsPreparation : undefined,
-               tempsSupplementaire: values.paiement ? evenement.tempsSupplementaire : undefined,
-            };
-
-            await postEvenement.mutateAsync({
-               data: nvoEvenement,
-            });
-
-            datesToProcess.shift();
-            setDatesSelectionnees([...datesToProcess]);
-         }
-
-         notification.success({ message: "Évènement dupliqué avec succès" });
-         handleClose();
-      } catch (e) {
-         notification.error({
-            title: "Erreur lors de la duplication",
-            description: "Certains évènements n'ont pas pu être créés.",
-         });
-      } finally {
-         setIsSubmitting(false);
-      }
-   }
+      setSubmitted(() => {
+         setOptions(values);
+         return true;
+      });
+   };
 
    return (
       <Modal
-         destroyOnClose
+         destroyOnHidden
          title={
             <>
                {!afficherAide && (
@@ -180,7 +198,7 @@ export default function EvenementDupliquerModal({
          open={open}
          className="oasis-drawer"
          width={800}
-         confirmLoading={isSubmitting}
+         confirmLoading={submitted}
       >
          {afficherAide && (
             <Alert
@@ -212,54 +230,52 @@ export default function EvenementDupliquerModal({
             layout="vertical"
             name="evenement-dupliquer"
             onFinish={handleSubmit}
-            initialValues={{
-               horaire: true,
-               typeEvenement: true,
-               beneficiaire: true,
-               intervenant: evenement.type === TYPE_EVENEMENT_RENFORT,
-               suppleants: false,
-               campus: true,
-               salle: false,
-               equipements: true,
-               paiement: false,
-            }}
+            initialValues={options}
          >
             <Row gutter={[16, 16]}>
                <Col lg={12} sm={24}>
-                  <DatePicker
-                     multiple
-                     value={datesSelectionnees}
-                     onChange={(dates) => {
-                        setDatesSelectionnees(dates || []);
-                     }}
-                     maxTagCount="responsive"
-                     className={"mb-3"}
-                     placeholder={"Sélectionnez une ou plusieurs dates"}
-                     format="DD/MM/YYYY"
-                     minDate={
+                  <Calendar
+                     calendarClassName="small-calendar pr-2"
+                     shouldHighlightWeekends
+                     locale={modernCalendarLocaleFr}
+                     minimumDate={
                         user?.isAdmin || !lastPeriodes || !lastPeriodes.items[0]
                            ? undefined
-                           : dayjs(lastPeriodes.items[0].butoir as string)
+                           : (toDayValue(new Date(lastPeriodes.items[0].butoir as string)) as Day)
                      }
+                     onChange={(v) => {
+                        if (v) {
+                           // Pas de doublons sur les dates car un bénéf ne peut pas avoir 2 évènements sur le même créneau horaire
+                           if (
+                              datesSelectionnees
+                                 .map((d) => d.toISOString())
+                                 .includes(toDate(v).toISOString())
+                           )
+                              return;
+
+                           setDatesSelectionnees([...datesSelectionnees, toDate(v)]);
+                        }
+                     }}
                   />
+
                   <p className="semi-bold mt-0">Date des évènements à créer</p>
                   {datesSelectionnees.length > 0 ? (
                      <List size="small">
-                        {datesSelectionnees.map((date) => (
+                        {datesSelectionnees.map((date, index) => (
                            <List.Item
-                              key={date.toISOString()}
+                              key={index}
                               extra={
                                  <Button
                                     icon={<DeleteOutlined />}
                                     onClick={() => {
                                        setDatesSelectionnees(
-                                          datesSelectionnees.filter((d) => !d.isSame(date, "day")),
+                                          datesSelectionnees.filter((d) => d !== date),
                                        );
                                     }}
                                  />
                               }
                            >
-                              {date.format("DD/MM/YYYY")}
+                              {date.toLocaleDateString()}
                            </List.Item>
                         ))}
                      </List>
@@ -275,7 +291,7 @@ export default function EvenementDupliquerModal({
                      </Col>
                      <Col span={6} className="text-right">
                         <Form.Item name="horaire" valuePropName="checked">
-                           <Switch size="small" disabled className="mb-1" />
+                           <Switch size="small" checked disabled className="mb-1" />
                         </Form.Item>
                      </Col>
                   </Row>
@@ -285,7 +301,7 @@ export default function EvenementDupliquerModal({
                      </Col>
                      <Col span={6} className="text-right">
                         <Form.Item name="typeEvenement" valuePropName="checked">
-                           <Switch size="small" disabled className="mb-1" />
+                           <Switch size="small" checked disabled className="mb-1" />
                         </Form.Item>
                      </Col>
                   </Row>
@@ -296,7 +312,7 @@ export default function EvenementDupliquerModal({
                      </Col>
                      <Col span={6} className="text-right">
                         <Form.Item name="beneficiaire" valuePropName="checked">
-                           <Switch size="small" disabled className="mb-1" />
+                           <Switch size="small" checked={true} disabled className="mb-1" />
                         </Form.Item>
                      </Col>
 
@@ -312,6 +328,7 @@ export default function EvenementDupliquerModal({
                         <Form.Item name="intervenant" valuePropName="checked">
                            <Switch
                               size="small"
+                              checked={evenement.type === TYPE_EVENEMENT_RENFORT ? true : undefined}
                               disabled={evenement.type === TYPE_EVENEMENT_RENFORT}
                               className="mb-1"
                            />
@@ -325,7 +342,7 @@ export default function EvenementDupliquerModal({
                      </Col>
                      <Col span={6} className="text-right">
                         <Form.Item name="campus" valuePropName="checked">
-                           <Switch size="small" disabled className="mb-1" />
+                           <Switch size="small" checked={true} disabled className="mb-1" />
                         </Form.Item>
                      </Col>
 

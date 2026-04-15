@@ -16,6 +16,7 @@ import { RoleValues } from "../../lib/Utilisateur";
 import UtilisateurFormItemSelect from "../Forms/UtilisateurFormItemSelect";
 import { CategorieSelectWithAvatar } from "../Forms/CategorieSelectWithAvatar";
 import { useApi } from "../../context/api/ApiProvider";
+import { QK_INTERVENTIONS_FORFAIT } from "../../api/queryKeys";
 import PeriodeRhItem from "../Items/PeriodeRhItem";
 import dayjs from "dayjs";
 import { useAuth } from "../../auth/AuthProvider";
@@ -58,7 +59,7 @@ export default function InterventionsForfaitBulkAdd({
    // --- Mutations
    const createInterventionForfait = useApi().usePost({
       path: "/interventions_forfait",
-      invalidationQueryKeys: ["/interventions_forfait"],
+      invalidationQueryKeys: [QK_INTERVENTIONS_FORFAIT],
       onSuccess: () => {
          window.setTimeout(() => {
             // Remove first element of datesSelectionnees

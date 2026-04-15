@@ -13,6 +13,7 @@ import { useApi } from "../../context/api/ApiProvider";
 import React, { useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { PREFETCH_TYPES_AMENAGEMENTS } from "../../api/ApiPrefetchHelpers";
+import { QK_AMENAGEMENTS, QK_UTILISATEURS_AMENAGEMENTS } from "../../api/queryKeys";
 import { useAuth } from "../../auth/AuthProvider";
 import Spinner from "../Spinner/Spinner";
 
@@ -43,7 +44,7 @@ export function ModalCategorieAddAmenagement(props: {
       onError: () => {
          setSubmitted(false);
       },
-      invalidationQueryKeys: ["/utilisateurs/{uid}/amenagements", "/amenagements"],
+      invalidationQueryKeys: [QK_UTILISATEURS_AMENAGEMENTS, QK_AMENAGEMENTS],
    });
 
    useEffect(() => {

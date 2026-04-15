@@ -18,6 +18,11 @@ import {
 } from "@ant-design/icons";
 import React from "react";
 import { useAuth } from "../../auth/AuthProvider";
+import {
+   QK_BENEFICIAIRES,
+   QK_UTILISATEURS_DECISIONS,
+   QK_UTILISATEURS_ITEM,
+} from "../../api/queryKeys";
 import apiDownloader from "../../utils/apiDownloader";
 import { EtatDecisionEtablissement } from "../Avatars/DecisionEtablissementAvatar";
 import { queryClient } from "../../App";
@@ -36,9 +41,9 @@ export function BoutonDecisionEtab(props: { utilisateurId: string }) {
    const mutateDecisionEtab = useApi().usePatch({
       path: "/utilisateurs/{uid}/decisions/{annee}",
       invalidationQueryKeys: [
-         "/beneficiaires",
-         "/utilisateurs/{uid}",
-         "/utilisateurs/{uid}/decisions/{annee}",
+         QK_BENEFICIAIRES,
+         QK_UTILISATEURS_ITEM,
+         QK_UTILISATEURS_DECISIONS,
          props.utilisateurId,
       ],
       onSuccess: (data) => {

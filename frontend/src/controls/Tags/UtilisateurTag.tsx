@@ -9,6 +9,7 @@
 
 import { useApi } from "../../context/api/ApiProvider";
 import { PREFETCH_CATEGORIES_TAGS, PREFETCH_TAGS } from "../../api/ApiPrefetchHelpers";
+import { QK_BENEFICIAIRES, QK_UTILISATEURS_TAGS } from "../../api/queryKeys";
 import { App, Tag, Tooltip } from "antd";
 import { TagOutlined } from "@ant-design/icons";
 import React from "react";
@@ -27,8 +28,8 @@ export function UtilisateurTag(props: {
    const mutationDelete = useApi().useDelete({
       path: `/utilisateurs/{uid}/tags/{id}`,
       invalidationQueryKeys: [
-         "/utilisateurs/{uid}/tags",
-         "/beneficiaires",
+         QK_UTILISATEURS_TAGS,
+         QK_BENEFICIAIRES,
          props.utilisateurId as string,
       ],
       onSuccess: () => {

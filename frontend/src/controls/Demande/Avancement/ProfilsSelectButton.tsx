@@ -18,6 +18,7 @@ import {
 import { useApi } from "../../../context/api/ApiProvider";
 import { queryClient } from "../../../App";
 import { IDemande } from "../../../api/ApiTypeHelpers";
+import { QK_DEMANDES } from "../../../api/queryKeys";
 import { PREFETCH_PROFILS } from "../../../api/ApiPrefetchHelpers";
 import { useQuestionnaire } from "../../../context/demande/QuestionnaireProvider";
 
@@ -35,7 +36,7 @@ export default function ProfilsSelectButton(props: {
 
    const mutation = useApi().usePatch({
       path: props.demande["@id"] as "/demandes/{id}",
-      invalidationQueryKeys: ["/demandes"],
+      invalidationQueryKeys: [QK_DEMANDES],
       onSuccess: () => {
          queryClient
             .invalidateQueries({ queryKey: ["/demandes", props.demande["@id"]] })

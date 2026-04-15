@@ -8,6 +8,7 @@
  */
 
 import { IEntretien } from "../../api/ApiTypeHelpers";
+import { QK_UTILISATEURS_ENTRETIENS } from "../../api/queryKeys";
 import { App, Button, Col, DatePicker, Form, Input, Modal, Row } from "antd";
 import { useApi } from "../../context/api/ApiProvider";
 import React, { useEffect } from "react";
@@ -35,11 +36,11 @@ export function ModalEntretien(props: {
    const mutatePostEntretien = useApi().usePost({
       path: "/utilisateurs/{uid}/entretiens",
       url: `${props.utilisateurId}/entretiens`,
-      invalidationQueryKeys: ["/utilisateurs/{uid}/entretiens"],
+      invalidationQueryKeys: [QK_UTILISATEURS_ENTRETIENS],
    });
    const mutatePatchEntretien = useApi().usePatch({
       path: "/utilisateurs/{uid}/entretiens/{id}",
-      invalidationQueryKeys: ["/utilisateurs/{uid}/entretiens", props.entretienId as string],
+      invalidationQueryKeys: [QK_UTILISATEURS_ENTRETIENS, props.entretienId as string],
    });
 
    function handleSubmit(values: IEntretienForm, close = true) {
