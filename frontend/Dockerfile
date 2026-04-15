@@ -1,5 +1,5 @@
 # --- Étape 1 : Build ---
-FROM node:22.11-alpine AS build
+FROM node:24-alpine AS build
 
 WORKDIR /app
 
@@ -25,8 +25,8 @@ WORKDIR /usr/share/nginx/html
 # Copie des fichiers compilés
 COPY --from=build /app/build/ .
 
-# Configuration Nginx
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+# Configuration Nginx (template : les ${REACT_APP_*} sont substitués au démarrage par envsubst)
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf.template
 
 # Script d'entrée
 COPY --link --chmod=755 docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
