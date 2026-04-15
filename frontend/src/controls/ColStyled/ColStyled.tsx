@@ -53,12 +53,11 @@ export default function ColStyled(props: React.PropsWithChildren<ColPropsStyled>
       .map((s) => s[0]);
 
    const style = currentScreens.reduce((acc, screen) => {
-      // @ts-ignore
-      if (screen in props && isColSizeStyled(props[screen])) {
+      const prop = props[screen as keyof ColPropsStyled];
+      if (prop && isColSizeStyled(prop)) {
          return {
             ...acc,
-            // @ts-ignore
-            ...props[screen].style,
+            ...prop.style,
          };
       }
       return acc;
