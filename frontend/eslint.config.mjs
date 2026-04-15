@@ -53,6 +53,9 @@ export default tseslint.config(
       },
       rules: {
          ...reactHooksPlugin.configs.recommended.rules,
+         // react-hooks/refs génère des faux positifs sur les patterns Ant Design
+         // où les refs sont passées via props (pattern valide, non lié au React Compiler)
+         "react-hooks/refs": "off",
       },
    },
    // We use the fixupConfigRules to handle legacy airbnb-typescript
@@ -103,6 +106,16 @@ export default tseslint.config(
             "error",
             {
                endOfLine: "auto",
+            },
+         ],
+         "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+               vars: "all",
+               args: "after-used",
+               argsIgnorePattern: "^_",
+               varsIgnorePattern: "^_",
+               ignoreRestSiblings: true,
             },
          ],
          "import/no-extraneous-dependencies": [
