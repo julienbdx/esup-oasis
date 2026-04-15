@@ -8,21 +8,15 @@
  */
 
 import React, { useState } from "react";
-import { App, Button, Dropdown, Input, Select, Space, Tooltip } from "antd";
-import {
-   CopyOutlined,
-   EnterOutlined,
-   MailOutlined,
-   SearchOutlined,
-   SendOutlined,
-   UserOutlined,
-} from "@ant-design/icons";
+import { Button, Input, Select, Space, Tooltip } from "antd";
+import { EnterOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { useDrawers } from "../../context/drawers/DrawersContext";
 import { RoleValues } from "../../lib/Utilisateur";
-import { useApi } from "../../context/api/ApiProvider";
 import Spinner from "../Spinner/Spinner";
 
 import { IUtilisateur } from "../../api/ApiTypeHelpers";
+import { MailSmallButton } from "./MailSmallButton";
+import { useUtilisateurSearch } from "./useUtilisateurSearch";
 
 interface IUtilisateurFormItemSelect {
    value?: string;
@@ -45,109 +39,119 @@ interface IUtilisateurFormItemSelect {
       | RoleValues.ROLE_REFERENT_COMPOSANTE;
 }
 
-export function MailSmallButton(props: {
-   utilisateur: IUtilisateur | undefined;
-   emailPerso?: boolean;
+function UtilisateurSelectEditing({
+   utilisateursTrouves,
+   isFetchingUtilisateursTrouves,
+   itemsPerPage,
+   forcerRechercheEnBase,
+   roleUtilisateur,
+   className,
+   style,
+   open,
+   tappedSearch,
+   setTappedSearch,
+   search,
+   launchSearch,
+   placeholder,
+   onSelect,
+   onChange,
+}: {
+   utilisateursTrouves: { items: IUtilisateur[] } | undefined;
+   isFetchingUtilisateursTrouves: boolean;
+   itemsPerPage: number;
+   forcerRechercheEnBase?: boolean;
+   roleUtilisateur?: string;
    className?: string;
-   mailto?: boolean;
+   style?: React.CSSProperties;
+   open: boolean;
+   tappedSearch: string;
+   setTappedSearch: (v: string) => void;
+   search: string;
+   launchSearch: () => void;
+   placeholder?: string;
+   onSelect: (v: string | undefined) => void;
+   onChange?: (v: string | undefined) => void;
 }) {
-   const { message } = App.useApp();
-   const email = props.emailPerso ? props.utilisateur?.emailPerso : props.utilisateur?.email;
-   if (!email) return null;
-
    return (
-      <Dropdown
-         menu={{
-            items: [
-               {
-                  key: "copier",
-                  label: "Copier l'adresse email",
-                  icon: <CopyOutlined />,
-               },
-               props.mailto
-                  ? {
-                       key: "envoyer",
-                       label: "Envoyer un email",
-                       icon: <SendOutlined />,
-                    }
-                  : null,
-            ],
-            onClick: (e) => {
-               if (e.key === "copier") {
-                  // Copie du mail dans le presse-papier
-                  navigator.clipboard.writeText(email).then(() => {
-                     message.success("Email copié dans le presse-papier").then();
-                  });
-               } else if (e.key === "envoyer") {
-                  window.open(`mailto:${email}`);
+      <Select
+         options={utilisateursTrouves?.items
+            .filter((u: IUtilisateur) => {
+               if (forcerRechercheEnBase && utilisateursTrouves?.items.length === itemsPerPage) {
+                  return true;
                }
+               if (forcerRechercheEnBase) {
+                  return u.roles?.includes(roleUtilisateur as RoleValues);
+               }
+               return true;
+            })
+            .map((b: IUtilisateur) => ({
+               value: b["@id"],
+               label: `${b.nom?.toLocaleUpperCase()} ${b.prenom} (${b.email})`,
+            }))}
+         loading={isFetchingUtilisateursTrouves}
+         showSearch={{
+            filterOption: false,
+            onSearch: (term) => {
+               setTappedSearch(term);
             },
          }}
-      >
-         <Button
-            size="small"
-            icon={<MailOutlined />}
-            className={`m-0 p-0 border-0 ${props.className || "text-text"}`}
-            onClick={() => {
-               // Copie du mail dans le presse-papier
-               navigator.clipboard.writeText(email).then(() => {
-                  message.success("Email copié dans le presse-papier").then();
-               });
-            }}
-         />
-      </Dropdown>
+         className={className}
+         style={style}
+         open={open && !isFetchingUtilisateursTrouves}
+         suffixIcon={
+            tappedSearch !== search && tappedSearch.length > 1 ? (
+               <EnterOutlined
+                  className="text-primary"
+                  onClick={(e) => {
+                     e.preventDefault();
+                     launchSearch();
+                  }}
+               />
+            ) : undefined
+         }
+         placeholder={placeholder}
+         onInputKeyDown={(e) => {
+            if (e.key === "Enter" && tappedSearch.length > 1) {
+               e.preventDefault();
+               launchSearch();
+            }
+         }}
+         onSelect={(v) => onSelect(v as string | undefined)}
+         onChange={onChange}
+      />
    );
 }
 
-function getPath(forcerRechercheEnBase = false, roleUtilisateur?: string) {
-   if (forcerRechercheEnBase) {
-      return "/utilisateurs";
-   }
-
-   switch (roleUtilisateur) {
-      case RoleValues.ROLE_INTERVENANT:
-         return "/intervenants";
-      case RoleValues.ROLE_BENEFICIAIRE:
-         return "/beneficiaires";
-      case RoleValues.ROLE_RENFORT:
-         return "/renforts";
-      case RoleValues.ROLE_ENSEIGNANT:
-      default:
-         return "/utilisateurs";
-   }
-}
-
-function getFiltre(
-   forcerRechercheEnBase = false,
-   roleUtilisateur?: string,
-   recherche?: string,
-   intervenantArchive?: boolean,
-   existeNumeroEtudiant?: boolean,
-) {
-   if (forcerRechercheEnBase) {
-      return {
-         // recherche LDAP
-         recherche: recherche,
-         intervenantArchive,
-         "exists[numeroEtudiant]": existeNumeroEtudiant,
-      };
-   }
-
-   if (getPath(forcerRechercheEnBase, roleUtilisateur) === "/utilisateurs") {
-      return {
-         // recherche LDAP
-         term: recherche,
-         intervenantArchive,
-         "exists[numeroEtudiant]": existeNumeroEtudiant,
-      };
-   } else {
-      return {
-         // recherche en base
-         recherche: recherche,
-         intervenantArchive,
-         "exists[numeroEtudiant]": existeNumeroEtudiant,
-      };
-   }
+function UtilisateurSelectDisplay({
+   style,
+   className,
+   disabled,
+   placeholder,
+   getSuffix,
+   dataUtilisateur,
+}: {
+   style?: React.CSSProperties;
+   className?: string;
+   disabled?: boolean;
+   placeholder?: string;
+   getSuffix: () => React.ReactNode;
+   dataUtilisateur: IUtilisateur | undefined;
+}) {
+   return (
+      <Input
+         style={style}
+         className={`mb-0 ${className}`}
+         disabled={disabled}
+         placeholder={placeholder}
+         suffix={getSuffix()}
+         value={
+            dataUtilisateur
+               ? `${dataUtilisateur?.prenom} ${dataUtilisateur?.nom?.toLocaleUpperCase()}`
+               : ""
+         }
+         readOnly
+      />
+   );
 }
 
 function UtilisateurFormItemSelect({
@@ -166,29 +170,26 @@ function UtilisateurFormItemSelect({
    forcerRechercheEnBase,
 }: IUtilisateurFormItemSelect) {
    const [utilisateurId, setUtilisateurId] = useState(value === "" ? undefined : value);
-   const [tappedSearch, setTappedSearch] = useState("");
-   const [search, setSearch] = useState("");
    const { setDrawerUtilisateur } = useDrawers();
-   const { data: dataUtilisateur, isFetching: isFetchingUtilisateur } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: utilisateurId as string,
-      enabled: !!utilisateurId,
+
+   const {
+      tappedSearch,
+      setTappedSearch,
+      search,
+      setSearch,
+      itemsPerPage,
+      dataUtilisateur,
+      isFetchingUtilisateur,
+      utilisateursTrouves,
+      isFetchingUtilisateursTrouves,
+   } = useUtilisateurSearch({
+      utilisateurId,
+      roleUtilisateur,
+      intervenantArchive,
+      existeNumeroEtudiant,
+      forcerRechercheEnBase,
    });
-   const itemsPerPage = 25;
-   const { data: utilisateursTrouves, isFetching: isFetchingUtilisateursTrouves } =
-      useApi().useGetCollectionPaginated({
-         path: getPath(forcerRechercheEnBase, roleUtilisateur),
-         page: 1,
-         itemsPerPage: itemsPerPage,
-         enabled: search.length > 1,
-         query: getFiltre(
-            forcerRechercheEnBase,
-            roleUtilisateur,
-            search,
-            intervenantArchive,
-            existeNumeroEtudiant,
-         ),
-      });
+
    const [isEditing, setIsEditing] = useState(utilisateurId === undefined);
    const [open, setOpen] = useState(false);
 
@@ -248,86 +249,40 @@ function UtilisateurFormItemSelect({
 
    if (isEditing) {
       return (
-         <>
-            <Select
-               options={utilisateursTrouves?.items
-                  .filter((u: IUtilisateur) => {
-                     // lorsqu'on force la recherche en base, on en peut pas filtrer sur le rôle de l'utilisateur.
-                     // on le fait ici que si le nombre de résultats retournés est !== itemsPerPage
-                     // pour ne pas risquer de se retrouver avec une liste vide
-                     if (
-                        forcerRechercheEnBase &&
-                        utilisateursTrouves?.items.length === itemsPerPage
-                     ) {
-                        return true;
-                     }
-
-                     if (forcerRechercheEnBase) {
-                        return u.roles?.includes(roleUtilisateur as RoleValues);
-                     }
-
-                     return true;
-                  })
-                  .map((b) => ({
-                     value: b["@id"],
-                     label: `${b.nom?.toLocaleUpperCase()} ${b.prenom} (${b.email})`,
-                  }))}
-               loading={isFetchingUtilisateursTrouves}
-               showSearch={{
-                  filterOption: false,
-                  onSearch: (term) => {
-                     setTappedSearch(term);
-                  },
-               }}
-               className={className}
-               style={style}
-               open={open && !isFetchingUtilisateursTrouves}
-               suffixIcon={
-                  tappedSearch !== search && tappedSearch.length > 1 ? (
-                     <EnterOutlined
-                        className="text-primary"
-                        onClick={(e) => {
-                           e.preventDefault();
-                           launchSearch();
-                        }}
-                     />
-                  ) : undefined
-               }
-               placeholder={placeholder}
-               onInputKeyDown={(e) => {
-                  if (e.key === "Enter" && tappedSearch.length > 1) {
-                     e.preventDefault();
-                     launchSearch();
-                  }
-               }}
-               onSelect={(v) => {
-                  setOpen(false);
-                  setUtilisateurId(v as string);
-                  if (onSelect) onSelect(v);
-                  setIsEditing(false);
-               }}
-               onChange={onChange}
-            />
-         </>
+         <UtilisateurSelectEditing
+            utilisateursTrouves={utilisateursTrouves}
+            isFetchingUtilisateursTrouves={isFetchingUtilisateursTrouves}
+            itemsPerPage={itemsPerPage}
+            forcerRechercheEnBase={forcerRechercheEnBase}
+            roleUtilisateur={roleUtilisateur}
+            className={className}
+            style={style}
+            open={open}
+            tappedSearch={tappedSearch}
+            setTappedSearch={setTappedSearch}
+            search={search}
+            launchSearch={launchSearch}
+            placeholder={placeholder}
+            onSelect={(v) => {
+               setOpen(false);
+               setUtilisateurId(v as string);
+               if (onSelect) onSelect(v);
+               setIsEditing(false);
+            }}
+            onChange={onChange}
+         />
       );
    }
 
    return (
-      <>
-         <Input
-            style={style}
-            className={`mb-0 ${className}`}
-            disabled={disabled}
-            placeholder={placeholder}
-            suffix={getSuffix()}
-            value={
-               dataUtilisateur
-                  ? `${dataUtilisateur?.prenom} ${dataUtilisateur?.nom?.toLocaleUpperCase()}`
-                  : ""
-            }
-            readOnly
-         />
-      </>
+      <UtilisateurSelectDisplay
+         style={style}
+         className={className}
+         disabled={disabled}
+         placeholder={placeholder}
+         getSuffix={getSuffix}
+         dataUtilisateur={dataUtilisateur}
+      />
    );
 }
 
