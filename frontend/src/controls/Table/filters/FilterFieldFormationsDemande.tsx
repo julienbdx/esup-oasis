@@ -49,7 +49,7 @@ export function FilterFieldFormationsDemande({
                   label: `[${c.codeExterne?.replace("#", "-")}] ${c.libelle}`,
                   value: c["@id"],
                }))}
-               optionFilterProp="label"
+               showSearch={{ optionFilterProp: "label" }}
             />
             <div className="legende">
                Seules les formations ayant au moins un demandeur sont proposées.

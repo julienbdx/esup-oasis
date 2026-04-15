@@ -46,7 +46,7 @@ export function FilterFieldFormationsBeneficiaire({
                   label: `[${c.codeExterne?.replace("#", "-")}] ${c.libelle}`,
                   value: c["@id"],
                }))}
-               optionFilterProp="label"
+               showSearch={{ optionFilterProp: "label" }}
             />
             <div className="legende">
                Seules les formations ayant au moins un bénéficiaire sont proposées.
