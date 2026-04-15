@@ -11,6 +11,7 @@ import { Alert, Form } from "antd";
 import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { useEffect } from "react";
 import { WarningFilled } from "@ant-design/icons";
+import { sanitizeHtml } from "@utils/sanitize";
 
 export function QuestionBlocage(props: { question: QuestionnaireQuestion }) {
    const { setBlocage } = useQuestionnaire();
@@ -33,7 +34,11 @@ export function QuestionBlocage(props: { question: QuestionnaireQuestion }) {
                type="warning"
                title={props.question.libelle}
                description={
-                  <span dangerouslySetInnerHTML={{ __html: props.question.aide as string }} />
+                  <span
+                     dangerouslySetInnerHTML={{
+                        __html: sanitizeHtml(props.question.aide as string),
+                     }}
+                  />
                }
             />
          </Form.Item>

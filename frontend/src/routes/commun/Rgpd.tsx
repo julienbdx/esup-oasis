@@ -10,6 +10,7 @@
 import { Card, Layout } from "antd";
 import PageTitle from "@utils/PageTitle/PageTitle";
 import { env } from "@/env";
+import { sanitizeHtml } from "@utils/sanitize";
 
 export default function Rgpd() {
    return (
@@ -93,7 +94,11 @@ export default function Rgpd() {
                      <>
                         <br />
                         - Par courrier postal :<br />
-                        <span dangerouslySetInnerHTML={{ __html: env.REACT_APP_ADRESSE_DPD }} />
+                        <span
+                           dangerouslySetInnerHTML={{
+                              __html: sanitizeHtml(env.REACT_APP_ADRESSE_DPD),
+                           }}
+                        />
                      </>
                   )}
                   {env.REACT_APP_EMAIL_DPD && (

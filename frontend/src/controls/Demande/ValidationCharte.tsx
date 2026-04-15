@@ -14,6 +14,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "@api/queryKeys";
 import Spinner from "@controls/Spinner/Spinner";
+import { sanitizeHtml } from "@utils/sanitize";
 
 export function ValidationCharte(props: { demande: IDemande }) {
    const { message } = App.useApp();
@@ -49,7 +50,7 @@ export function ValidationCharte(props: { demande: IDemande }) {
 
    return chartesUtilisateurDemande.map((charte) => (
       <Card key={charte["@id"]}>
-         <span dangerouslySetInnerHTML={{ __html: charte.contenu as string }} />
+         <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(charte.contenu as string) }} />
          <Form
             onFinish={(values) => {
                // noinspection JSUnresolvedReference
