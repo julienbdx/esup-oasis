@@ -191,7 +191,7 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
 
       // 4. Gestion de la réponse : écouteur d'événements de message
       async function handleMessageListener(message: MessageEvent) {
-         if (!message.origin.includes(clientUri)) throw new Error("Invalid origin");
+         if (message.origin !== clientUri) throw new Error("Invalid origin");
 
          const type = message?.data?.type;
          if (type !== OAUTH_RESPONSE) {

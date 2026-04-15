@@ -52,20 +52,29 @@ const OAuthPopup = (props: { Component?: ReactElement }): ReactElement => {
          }
 
          if (error) {
-            window.opener.postMessage({
-               type: OAUTH_RESPONSE,
-               error: decodeURI(error) || "OAuth error: An error has occured.",
-            });
+            window.opener.postMessage(
+               {
+                  type: OAUTH_RESPONSE,
+                  error: decodeURI(error) || "OAuth error: An error has occured.",
+               },
+               window.location.origin,
+            );
          } else if (state && checkState(state)) {
-            window.opener.postMessage({
-               type: OAUTH_RESPONSE,
-               payload,
-            });
+            window.opener.postMessage(
+               {
+                  type: OAUTH_RESPONSE,
+                  payload,
+               },
+               window.location.origin,
+            );
          } else {
-            window.opener.postMessage({
-               type: OAUTH_RESPONSE,
-               error: "OAuth error: State mismatch.",
-            });
+            window.opener.postMessage(
+               {
+                  type: OAUTH_RESPONSE,
+                  error: "OAuth error: State mismatch.",
+               },
+               window.location.origin,
+            );
          }
       }, 0);
    }, []);
