@@ -55,10 +55,11 @@ export default function GestionnaireFilter({ value, setValue }: IGestionnaireFil
          value={value}
          onChange={(data) => setValue(data)}
          allowClear
-         showSearch
-         filterOption={false}
+         showSearch={{
+            filterOption: false,
+            onSearch: (v) => setFilter(v.toLocaleLowerCase()),
+         }}
          mode="tags"
-         onSearch={(v) => setFilter(v.toLocaleLowerCase())}
       />
    );
 }
