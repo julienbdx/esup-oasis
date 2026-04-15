@@ -75,11 +75,11 @@ export default function BeneficiaireIntervenantFilter({
             }
          }}
          allowClear
-         showSearch
+         showSearch={{
+            filterOption: false,
+            onSearch: (v) => setRecherche(v.toLocaleLowerCase()),
+         }}
          mode={mode}
-         // maxTagCount={1}
-         onSearch={(v) => setRecherche(v.toLocaleLowerCase())}
-         filterOption={false}
       >
          {(beneficiaires?.items || []).filter((i) => i["@id"] !== value).length > 0 && (
             <Select.OptGroup label="Bénéficiaires">

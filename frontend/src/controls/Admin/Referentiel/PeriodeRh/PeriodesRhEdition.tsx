@@ -133,7 +133,6 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
                         butoir: date ? createDateAsUTC(date?.toDate()).toISOString() : null,
                      });
                   }}
-                  changeOnBlur
                />
             </div>
 

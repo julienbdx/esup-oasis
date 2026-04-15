@@ -23,7 +23,7 @@ import { Button } from "antd";
  * @param {AuthContextType} auth - The authentication context.
  * @param {number} apiFetching - The API fetching status.
  * @param {NavigateFunction} navigate - The navigation function.
- * @returns {MenuProps["items"]} - The menu items.
+ * @returns {Object["items"]} - The menu items.
  */
 export const menuItemUtilisateur = (
    setSelectedKey: (key: string) => void,

@@ -42,31 +42,30 @@ export default function CampusFilter({ value, onChange, mode }: ICampusFilter): 
             if (onChange) onChange(v);
          }}
          allowClear
-         showSearch
+         showSearch={{
+            filterOption: false,
+            onSearch: (v) => setFilter(v.toLocaleLowerCase()),
+         }}
          mode={mode}
-         onSearch={(v) => setFilter(v.toLocaleLowerCase())}
-         filterOption={false}
-      >
-         {(
+         options={
             data?.items
                .filter((c) => c.actif)
                .filter((c) => c.libelle?.toLocaleLowerCase().includes(filter))
                .sort((a, b) => (a.libelle ?? "").localeCompare(b.libelle ?? ""))
                .map((c) => ({ value: c["@id"], label: c.libelle })) ?? []
-         ).map((c) => (
-            <Select.Option key={c.value} value={c.value}>
-               <Space align="center">
-                  <Avatar
-                     className="avatar-campus"
-                     size={20}
-                     style={{ verticalAlign: "text-top", fontSize: 14 }}
-                  >
-                     {c.label?.charAt(0)}
-                  </Avatar>
-                  {c.label}
-               </Space>
-            </Select.Option>
-         ))}
-      </Select>
+         }
+         optionRender={(option) => (
+            <Space align="center">
+               <Avatar
+                  className="avatar-campus"
+                  size={20}
+                  style={{ verticalAlign: "text-top", fontSize: 14 }}
+               >
+                  {(option.label as string).charAt(0)}
+               </Avatar>
+               {option.label}
+            </Space>
+         )}
+      />
    );
 }
