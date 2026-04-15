@@ -54,7 +54,7 @@ export function FilterFieldDisciplinesSportives({
                   label: c.libelle,
                   value: c["@id"],
                }))}
-               optionFilterProp="label"
+               showSearch={{ optionFilterProp: "label" }}
             />
          </Col>
       </>

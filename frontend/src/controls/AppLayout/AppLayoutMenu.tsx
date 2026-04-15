@@ -11,14 +11,12 @@ import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import { Menu, MenuProps } from "antd";
 import { useAuth } from "../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useApi } from "../../context/api/ApiProvider";
 import { useAccessibilite } from "../../context/accessibilite/AccessibiliteContext";
 import { useDrawers } from "../../context/drawers/DrawersContext";
 import { useAffichageFiltres } from "../../context/affichageFiltres/AffichageFiltresContext";
 import { useIsFetching } from "@tanstack/react-query";
 import PageTitle from "../../utils/PageTitle/PageTitle";
 import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
-import { useWait } from "../../utils/Wait/useWait";
 import { menuItemNotifications } from "./menuItems/MenuItemNotifications";
 import { menuItemAccessibilite } from "./menuItems/MenuItemAccessibilite";
 import { menuItemLogo } from "./menuItems/MenuItemLogo";
@@ -33,6 +31,8 @@ import { menuItemIntervenants } from "./menuItems/MenuItemIntervenants";
 import { menuItemDemandeurs } from "./menuItems/MenuItemDemandeurs";
 import { menuItemRecherche } from "./menuItems/MenuItemRecherche";
 import { menuItemUtilisateur } from "./menuItems/MenuItemUtilisateur";
+
+import { useNotificationStats } from "./menuItems/useNotificationStats";
 
 /**
  * Render the application's horizontal menu layout.
@@ -56,22 +56,7 @@ export default function AppLayoutMenu(): ReactElement {
    const [selectedKey, setSelectedKey] = useState<string>();
    const [modeRecherche, setModeRecherche] = useState(false);
    const { setPreference } = usePreferences();
-   const wait = useWait(2500);
-
-   const { data: stats, isFetching: isFetchingStats } = useApi().useGetItem({
-      path: "/statistiques",
-      url: "/statistiques",
-      query: {
-         utilisateur: auth.user?.["@id"] as string,
-      },
-      // Les bénéficiaires n'ont pas accès aux stats
-      // Bugfix lors de l'impersonate
-      enabled:
-         !wait &&
-         !!auth.user?.["@id"] &&
-         (auth.user?.isPlanificateur || auth.user?.isIntervenant) &&
-         !auth.impersonate,
-   });
+   const { stats, isFetchingStats } = useNotificationStats();
 
    const menuItems: MenuProps["items"] = useMemo(() => {
       const items = [];
