@@ -21,11 +21,11 @@ import { usePreferences } from "../../context/utilisateurPreferences/Utilisateur
 
 import { UseStateDispatch } from "../../utils/utils";
 
-export function FiltresFavoris(props: {
-   filtre: FiltreDecrivable;
-   setFiltre: UseStateDispatch<FiltreDecrivable>;
+export function FiltresFavoris<T extends FiltreDecrivable>(props: {
+   filtre: T;
+   setFiltre: UseStateDispatch<T>;
    filtreType: string;
-   defaultFilter: FiltreDecrivable;
+   defaultFilter: T;
 }) {
    const { message } = App.useApp();
    const { getPreferenceArray, setPreferenceArray } = usePreferences();
@@ -107,7 +107,7 @@ export function FiltresFavoris(props: {
                            <Button
                               icon={<FilterOutlined />}
                               onClick={() => {
-                                 props.setFiltre({ ...filtre.filtre, page: 1 });
+                                 props.setFiltre({ ...filtre.filtre, page: 1 } as T);
                                  message.info(`Filtre "${filtre.nom}" appliqué`).then();
                               }}
                            >

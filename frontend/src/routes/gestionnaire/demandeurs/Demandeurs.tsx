@@ -17,10 +17,10 @@ import { DemandeursTour } from "../../../controls/Demande/Tour/DemandeursTour";
 import { env } from "../../../env";
 
 export type RefsTourDemandes = {
-   table: React.RefObject<HTMLDivElement | null>;
-   filtres: React.RefObject<HTMLDivElement | null>;
-   filtresDetails: React.RefObject<HTMLDivElement | null>;
-   favoris: React.RefObject<HTMLDivElement | null>;
+   table: React.RefObject<HTMLDivElement>;
+   filtres: React.RefObject<HTMLDivElement>;
+   filtresDetails: React.RefObject<HTMLDivElement>;
+   favoris: React.RefObject<HTMLDivElement>;
 };
 
 /**
@@ -32,11 +32,11 @@ export default function Demandeurs(): ReactElement {
    const screens = useBreakpoint();
    const [nouvelleDemande, setNouvelleDemande] = useState<boolean>(false);
    const [afficherTour, setAfficherTour] = React.useState<boolean>(false);
-   const refs = {
-      table: React.useRef<HTMLDivElement>(null),
-      filtres: React.useRef<HTMLDivElement>(null),
-      filtresDetails: React.useRef<HTMLDivElement>(null),
-      favoris: React.useRef<HTMLDivElement>(null),
+   const refs: RefsTourDemandes = {
+      table: React.useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>,
+      filtres: React.useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>,
+      filtresDetails: React.useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>,
+      favoris: React.useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>,
    };
 
    return (

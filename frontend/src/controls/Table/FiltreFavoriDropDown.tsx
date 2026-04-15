@@ -15,8 +15,8 @@ import { usePreferences } from "../../context/utilisateurPreferences/Utilisateur
 
 import { UseStateDispatch } from "../../utils/utils";
 
-export function FiltreFavoriDropDown(props: {
-   setFiltre: UseStateDispatch<FiltreDecrivable>;
+export function FiltreFavoriDropDown<T extends FiltreDecrivable>(props: {
+   setFiltre: UseStateDispatch<T>;
    filtreType: string;
    className?: string;
 }) {
@@ -35,7 +35,7 @@ export function FiltreFavoriDropDown(props: {
                      className="no-hover"
                      onClick={(e) => {
                         e.stopPropagation();
-                        props.setFiltre(f.filtre);
+                        props.setFiltre(f.filtre as T);
                         message.info(`Filtre "${f.nom}" appliqué`).then();
                      }}
                   >

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IAmenagementBeneficiaireQuery, IAmenagementQuery } from "../../api/ApiTypeHelpers";
 import { Button, Flex, Space, Tooltip } from "antd";
 import { useApi } from "../../context/api/ApiProvider";
@@ -27,8 +27,8 @@ import { AmenagementsBeneficiaireTable } from "./AmenagementsBeneficiaireTable";
 import AmenagementsBeneficiaireTableExport from "./AmenagementsBeneficiaireTableExport";
 import FiltreDescription from "./FiltreDescription";
 import { Utilisateur } from "../../lib/Utilisateur";
-import { usePreferences } from "../../context/utilisateurPreferences/UtilisateurPreferencesProvider";
 import { getCountLibelle } from "../../utils/table";
+import { useAmenagementFilter } from "./hooks/useAmenagementFilter";
 
 export interface FiltreAmenagement {
    "tags[]"?: string[];
@@ -122,54 +122,13 @@ export function filtreAmenagementToApi(
 
 export default function AmenagementTableLayout(props: { modeAffichage: ModeAffichageAmenagement }) {
    const auth = useAuth();
-   const { getPreferenceArray, preferencesChargees } = usePreferences();
    const [count, setCount] = React.useState<number>();
-   const [filtreAmenagement, setFiltreAmenagement] = useState<FiltreAmenagement>({
-      ...getFiltreAmenagementDefault(auth.user as Utilisateur),
-      // on applique le filtre favori des préférences de l'utilisateur s'il existe
-      ...{
-         ...getPreferenceArray(
-            props.modeAffichage === "amenagement"
-               ? "filtresAmenagement"
-               : "filtresAmenagementParBeneficiaire",
-         )?.filter((f) => f.favori)[0]?.filtre,
-         page: 1,
-      },
-   });
+   const [filtreAmenagement, setFiltreAmenagement] = useAmenagementFilter(props.modeAffichage);
+
    const { data: categoriesAmenagements } = useApi().useGetCollection(
       PREFETCH_CATEGORIES_AMENAGEMENTS,
    );
    const { data: typesAmenagements } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
-
-   useEffect(() => {
-      setFiltreAmenagement({
-         ...getFiltreAmenagementDefault(auth.user as Utilisateur),
-         // on applique le filtre favori des préférences de l'utilisateur s'il existe
-         ...{
-            ...getPreferenceArray(
-               props.modeAffichage === "amenagement"
-                  ? "filtresAmenagement"
-                  : "filtresAmenagementParBeneficiaire",
-            )?.filter((f) => f.favori)[0]?.filtre,
-            page: 1,
-         },
-      });
-   }, [props.modeAffichage, auth.user, getPreferenceArray]);
-
-   useEffect(() => {
-      if (preferencesChargees) {
-         setFiltreAmenagement({
-            ...getFiltreAmenagementDefault(auth.user as Utilisateur),
-            // on applique le filtre favori des préférences de l'utilisateur s'il existe
-            ...getPreferenceArray(
-               props.modeAffichage === "amenagement"
-                  ? "filtresAmenagement"
-                  : "filtresAmenagementParBeneficiaire",
-            )?.filter((f) => f.favori)[0]?.filtre,
-         });
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [preferencesChargees]);
 
    return (
       <>
