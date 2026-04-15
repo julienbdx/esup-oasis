@@ -29,7 +29,7 @@ dayjs.locale("fr"); // use loaded locale globally
 export const queryClient = new QueryClient({
    defaultOptions: {
       queries: {
-         refetchOnWindowFocus: "always",
+         refetchOnWindowFocus: true,
          retry: 1,
          retryDelay: 1000,
          staleTime: 1000 * 60 * 5, // 5 minutes
