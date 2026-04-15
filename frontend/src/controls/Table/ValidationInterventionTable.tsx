@@ -97,7 +97,7 @@ export default function ValidationInterventionTable() {
       const data =
          typeTraitement === "validation"
             ? { valide: true, dateAnnulation: null }
-            : { valide: false, dateAnnulation: createDateAsUTC(new Date()) };
+            : { valide: false, dateAnnulation: createDateAsUTC(new Date()).toISOString() };
       mutateEvenement.mutate({
          // eslint-disable-next-line @typescript-eslint/no-explicit-any
          data: data as any,

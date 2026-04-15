@@ -1,13 +1,12 @@
 import { useApi } from "../context/api/ApiProvider";
 import React, { useEffect, useState } from "react";
 import { Button, Progress } from "antd";
+import { ApiPathMethodQuery, ApiPathMethodResponse } from "./SchemaHelpers";
 
-export default function SplitFetcher(props: {
+export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", "get">>(props: {
    itemsPerPage: number;
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   query: any;
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   setData: (data: any[]) => void;
+   query?: ApiPathMethodQuery<"/amenagements", "get">;
+   setData: (data: T[]) => void;
    setIsFetching: (isFetching: boolean) => void;
    icon?: React.ReactNode;
    label?: React.ReactNode;
@@ -15,8 +14,7 @@ export default function SplitFetcher(props: {
    const [enabled, setEnabled] = useState(false);
    const [page, setPage] = useState(1);
    const [totalItems, setTotalItems] = useState<number | null>(null);
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   const [, setAllData] = useState<any[]>([]);
+   const [, setAllData] = useState<T[]>([]);
 
    const { data } = useApi().useGetCollectionPaginated({
       path: "/amenagements",
@@ -34,11 +32,11 @@ export default function SplitFetcher(props: {
             if (page * props.itemsPerPage < data?.totalItems) {
                setPage((prevPage) => prevPage + 1);
             } else {
-               props.setData([...prev, ...(data?.items || [])]);
+               props.setData([...prev, ...((data?.items as T[]) || [])]);
                props.setIsFetching(false);
             }
          }
-         return [...prev, ...(data?.items || [])];
+         return [...prev, ...((data?.items as T[]) || [])];
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [data]);

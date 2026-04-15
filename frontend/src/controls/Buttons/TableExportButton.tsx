@@ -15,9 +15,8 @@ import { ReactElement, useEffect, useRef } from "react";
 import { UseStateDispatch } from "../../utils/utils";
 import { env } from "../../env";
 
-interface ExportButtonProps {
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   getData: () => any[];
+interface ExportButtonProps<T extends object = object> {
+   getData: () => T[];
    submitted: boolean;
    setSubmitted: UseStateDispatch<boolean>;
    loading: boolean;
@@ -43,7 +42,7 @@ interface ExportButtonProps {
  * @param {string} props.filename - The filename of the exported CSV file.
  * @returns {ReactElement} - The Export Button component.
  */
-export function TableExportButton({
+export function TableExportButton<T extends object = object>({
    getData,
    submitted,
    setSubmitted,
@@ -54,7 +53,7 @@ export function TableExportButton({
    headers,
    filename,
    onDownloaded,
-}: ExportButtonProps): ReactElement {
+}: ExportButtonProps<T>): ReactElement {
    // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const refDownload = useRef<any>(null);
 

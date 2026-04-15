@@ -36,8 +36,7 @@ export async function handleApiResponse(
    response: Response,
    navigate: NavigateFunction,
    auth: AuthContextType,
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   options?: any,
+   options?: unknown,
    additionalInfos?: string,
    onError?: (notif: IErreurNotification) => void,
 ) {

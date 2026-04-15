@@ -36,8 +36,7 @@ export interface ColPropsStyled extends ColProps {
    xxl?: ColPropsStyledItem;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isColSizeStyled(object: any): object is ColSizeStyled {
+function isColSizeStyled(object: unknown): object is ColSizeStyled {
    return object instanceof Object && "style" in object;
 }
 
