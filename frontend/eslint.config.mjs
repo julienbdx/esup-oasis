@@ -56,6 +56,9 @@ export default tseslint.config(
          // react-hooks/refs génère des faux positifs sur les patterns Ant Design
          // où les refs sont passées via props (pattern valide, non lié au React Compiler)
          "react-hooks/refs": "off",
+
+         // repérer les deprecations
+         "@typescript-eslint/no-deprecated": "warn",
       },
    },
    // We use the fixupConfigRules to handle legacy airbnb-typescript
@@ -90,8 +93,8 @@ export default tseslint.config(
             typescript: {
                alwaysTryTypes: true,
                project: "./tsconfig.json",
-            }
-         }
+            },
+         },
       },
       languageOptions: {
          globals: {
