@@ -33,6 +33,7 @@ import { useAuth } from "../../../auth/AuthProvider";
 import { TYPE_EVENEMENT_RENFORT } from "../../../constants";
 import { PREFETCH_LAST_PERIODES_RH } from "../../../api/ApiPrefetchHelpers";
 import { IEvenement } from "../../../api/ApiTypeHelpers";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../../api/queryKeys";
 
 import { UseStateDispatch } from "../../../utils/utils";
 
@@ -100,8 +101,8 @@ export default function EvenementDupliquerModal({
 
    const handleClose = () => {
       setOpen(() => {
-         queryClient.invalidateQueries({ queryKey: ["/evenements"] }).then();
-         queryClient.invalidateQueries({ queryKey: ["/statistiques_evenements"] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_EVENEMENTS] }).then();
+         queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
          return false;
       });
    };

@@ -13,6 +13,7 @@ import CalendarSider from "./Sider/CalendarSider";
 import Calendar from "./Calendar/Calendar";
 import Toolbar from "./Toolbar/Toolbar";
 import { Evenement } from "../../lib/Evenement";
+import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "../../api/queryKeys";
 import {
    filtrerEvenements,
    filtreToApi,
@@ -68,7 +69,7 @@ export default function PlanningWithSider({
    // Mutation d'un évènement
    const mutateEvenement = useApi().usePatch({
       path: "/evenements/{id}",
-      invalidationQueryKeys: ["/evenements", "/statistiques_evenements"],
+      invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
       onSuccess: () => {
          message.success("Évènement replanifié").then();
       },

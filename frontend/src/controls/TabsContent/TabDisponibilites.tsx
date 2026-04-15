@@ -15,6 +15,7 @@ import { RoleValues, Utilisateur } from "../../lib/Utilisateur";
 import dayjs from "dayjs";
 import { createDateAsUTC } from "../../utils/dates";
 import { IUtilisateur } from "../../api/ApiTypeHelpers";
+import { QK_INTERVENANTS, QK_UTILISATEURS } from "../../api/queryKeys";
 
 interface ITabDisponibilitesProps {
    utilisateur: IUtilisateur;
@@ -40,7 +41,7 @@ export function TabDisponibilites({
    const [submit, setSubmit] = useState(false);
    const mutation = useApi().usePatch({
       path: "/utilisateurs/{uid}",
-      invalidationQueryKeys: ["/utilisateurs", "/intervenants"],
+      invalidationQueryKeys: [QK_UTILISATEURS, QK_INTERVENANTS],
       onSuccess: () => {
          onArchive?.();
       },

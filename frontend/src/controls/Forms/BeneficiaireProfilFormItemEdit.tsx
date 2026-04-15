@@ -18,6 +18,12 @@ import Spinner from "../Spinner/Spinner";
 import { CaretRightOutlined, EditOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
 import { IBeneficiaireProfil, IUtilisateur } from "../../api/ApiTypeHelpers";
 import { env } from "../../env";
+import {
+   QK_BENEFICIAIRES,
+   QK_INTERVENANTS,
+   QK_STATISTIQUES_EVENEMENTS,
+   QK_UTILISATEURS,
+} from "../../api/queryKeys";
 
 interface IBeneficiaireProfilFormItemEditProps {
    utilisateur: IUtilisateur;
@@ -53,10 +59,10 @@ export function BeneficiaireProfilFormItemEdit({
    const mutationPatch = useApi().usePatch({
       path: "/utilisateurs/{uid}/profils/{id}",
       invalidationQueryKeys: [
-         "/utilisateurs",
-         "/intervenants",
-         "/beneficiaires",
-         "/statistiques_evenements",
+         QK_UTILISATEURS,
+         QK_INTERVENANTS,
+         QK_BENEFICIAIRES,
+         QK_STATISTIQUES_EVENEMENTS,
       ],
       onSuccess: () => {
          setSubmitting(false);
@@ -66,10 +72,10 @@ export function BeneficiaireProfilFormItemEdit({
    const mutationPost = useApi().usePost({
       path: "/utilisateurs/{uid}/profils",
       invalidationQueryKeys: [
-         "/utilisateurs",
-         "/intervenants",
-         "/beneficiaires",
-         "/statistiques_evenements",
+         QK_UTILISATEURS,
+         QK_INTERVENANTS,
+         QK_BENEFICIAIRES,
+         QK_STATISTIQUES_EVENEMENTS,
       ],
       onSuccess: () => {
          setSubmitting(false);

@@ -12,6 +12,7 @@ import { useApi } from "../../../../context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
 import { ITag } from "../../../../api/ApiTypeHelpers";
 import { PREFETCH_CATEGORIES_TAGS } from "../../../../api/ApiPrefetchHelpers";
+import { QK_CATEGORIES_TAGS, QK_CATEGORIES_TAGS_ITEMS, QK_TAGS } from "../../../../api/queryKeys";
 
 interface TagEditionProps {
    editedItem?: ITag;
@@ -32,7 +33,7 @@ export function TagEdition({ editedItem, setEditedItem }: TagEditionProps): Reac
 
    const mutationPost = useApi().usePost({
       path: "/tags",
-      invalidationQueryKeys: ["/tags", "/categories_tags", "/categories_tags/{id}/tags"],
+      invalidationQueryKeys: [QK_TAGS, QK_CATEGORIES_TAGS, QK_CATEGORIES_TAGS_ITEMS],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -40,7 +41,7 @@ export function TagEdition({ editedItem, setEditedItem }: TagEditionProps): Reac
 
    const mutationPatch = useApi().usePatch({
       path: `/tags/{id}`,
-      invalidationQueryKeys: ["/tags", "/categories_tags", "/categories_tags/{id}/tags"],
+      invalidationQueryKeys: [QK_TAGS, QK_CATEGORIES_TAGS, QK_CATEGORIES_TAGS_ITEMS],
       onSuccess: () => {
          setEditedItem(undefined);
       },

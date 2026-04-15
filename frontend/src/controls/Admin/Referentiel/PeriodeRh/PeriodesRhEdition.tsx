@@ -18,6 +18,7 @@ import React, { ReactElement } from "react";
 import "../../../Calendar/Sider/SmallCalendar/SmallCalendar.scss";
 
 import { IPeriode } from "../../../../api/ApiTypeHelpers";
+import { QK_PERIODES } from "../../../../api/queryKeys";
 
 interface PeriodesRhEditionProps {
    periode: IPeriode;
@@ -34,14 +35,14 @@ interface PeriodesRhEditionProps {
 export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProps): ReactElement {
    const mutationPost = useApi().usePost({
       path: "/periodes",
-      invalidationQueryKeys: ["/periodes"],
+      invalidationQueryKeys: [QK_PERIODES],
       onSuccess: () => {
          setPeriode(undefined);
       },
    });
    const mutationPatch = useApi().usePatch({
       path: `/periodes/{id}`,
-      invalidationQueryKeys: ["/periodes"],
+      invalidationQueryKeys: [QK_PERIODES],
       onSuccess: () => {
          setPeriode(undefined);
       },

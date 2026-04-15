@@ -18,6 +18,7 @@ import { FilterProps } from "../../../utils/table";
 import { SorterResult } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { removeAccents } from "../../../utils/string";
+import { QK_SPORTIFS_HAUT_NIVEAU } from "../../../api/queryKeys";
 import { ColumnsType } from "antd/lib/table";
 
 interface SportifsHautNiveauTableProps {
@@ -53,7 +54,7 @@ export function SportifsHautNiveauTable({ onEdit }: SportifsHautNiveauTableProps
 
    const mutationDelete = useApi().useDelete({
       path: "/sportifs_haut_niveau/{identifiantExterne}",
-      invalidationQueryKeys: ["/sportifs_haut_niveau"],
+      invalidationQueryKeys: [QK_SPORTIFS_HAUT_NIVEAU],
       onSuccess: () => {
          message.success("Sportif supprimé").then();
       },

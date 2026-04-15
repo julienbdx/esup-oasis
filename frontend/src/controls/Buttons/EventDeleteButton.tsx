@@ -14,6 +14,7 @@ import { DeleteOutlined, DownOutlined, WarningOutlined } from "@ant-design/icons
 import { useApi } from "../../context/api/ApiProvider";
 import { queryClient } from "../../App";
 import { IEvenement } from "../../api/ApiTypeHelpers";
+import { QK_EVENEMENTS } from "../../api/queryKeys";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 interface IEventDeleteButtonProps {
@@ -39,7 +40,7 @@ export default function EventDeleteButton({
    // Event delete mutation
    const { mutate: deleteEvent, isPending: isDeleting } = useApi().useDelete({
       path: "/evenements/{id}",
-      invalidationQueryKeys: ["/evenements"],
+      invalidationQueryKeys: [QK_EVENEMENTS],
       onSuccess: () => {
          message.success("évènement supprimé").then();
       },
@@ -48,7 +49,7 @@ export default function EventDeleteButton({
    // Event patch mutation
    const mutationPatch = useApi().usePatch({
       path: "/evenements/{id}",
-      invalidationQueryKeys: ["/evenements"],
+      invalidationQueryKeys: [QK_EVENEMENTS],
       onSuccess: () => {
          onDelete?.();
       },

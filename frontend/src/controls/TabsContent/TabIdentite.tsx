@@ -35,6 +35,7 @@ import { useAuth } from "../../auth/AuthProvider";
 import UtilisateurAvatarImage from "../Avatars/UtilisateurAvatarImage";
 import { RoleValues } from "../../lib/Utilisateur";
 import { env } from "../../env";
+import { QK_UTILISATEURS } from "../../api/queryKeys";
 
 export function TabIdentite(props: {
    utilisateurId: string;
@@ -68,7 +69,7 @@ export function TabIdentite(props: {
 
    const mutateUtilisateur = useApi().usePatch({
       path: "/utilisateurs/{uid}",
-      invalidationQueryKeys: ["utilisateurs", utilisateur?.["@id"] || "/utilisateurs"],
+      invalidationQueryKeys: [QK_UTILISATEURS, utilisateur?.["@id"] || QK_UTILISATEURS],
       onSuccess: () => message.success("Utilisateur modifié").then(),
    });
 

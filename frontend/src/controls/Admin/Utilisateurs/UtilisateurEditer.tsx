@@ -15,6 +15,7 @@ import { NB_MAX_ITEMS_PER_PAGE } from "../../../constants";
 import { DeleteOutlined, DownOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
 import { IUtilisateur } from "../../../api/ApiTypeHelpers";
 import { env } from "../../../env";
+import { QK_ROLES_UTILISATEURS } from "../../../api/queryKeys";
 
 interface IUtilisateursEditer {
    utilisateur: IUtilisateur;
@@ -40,7 +41,7 @@ export function UtilisateurEditer({ utilisateur, onEdited }: IUtilisateursEditer
       });
    const mutationPatch = useApi().usePatch({
       path: "/utilisateurs/{uid}",
-      invalidationQueryKeys: ["/roles/{roleId}/utilisateurs"],
+      invalidationQueryKeys: [QK_ROLES_UTILISATEURS],
       onSuccess: (data) => {
          if (onEdited) onEdited(data);
       },

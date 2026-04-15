@@ -13,6 +13,7 @@ import React, { useEffect } from "react";
 import { Fichier } from "../Fichier/Fichier";
 import { FichierDepot } from "../Fichier/FichierDepot";
 import { IDocumentBeneficiaire } from "../../api/ApiTypeHelpers";
+import { QK_BENEFICIAIRES_PIECES_JOINTES } from "../../api/queryKeys";
 
 type IDocumentForm = IDocumentBeneficiaire;
 
@@ -34,12 +35,12 @@ export function ModalDocument(props: {
    const mutatePostDocument = useApi().usePost({
       path: "/beneficiaires/{uid}/pieces_jointes",
       url: `${props.utilisateurId.replace("/utilisateurs/", "/beneficiaires/")}/pieces_jointes`,
-      invalidationQueryKeys: ["/beneficiaires/{uid}/pieces_jointes"],
+      invalidationQueryKeys: [QK_BENEFICIAIRES_PIECES_JOINTES],
    });
 
    const mutateDelete = useApi().useDelete({
       path: "/beneficiaires/{uid}/pieces_jointes/{id}",
-      invalidationQueryKeys: ["/beneficiaires/{uid}/pieces_jointes"],
+      invalidationQueryKeys: [QK_BENEFICIAIRES_PIECES_JOINTES],
    });
 
    function handleSubmit(values: IDocumentForm, close = true) {

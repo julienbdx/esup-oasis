@@ -9,6 +9,7 @@
 
 import { useApi } from "../../context/api/ApiProvider";
 import { PREFETCH_CATEGORIES_TAGS, PREFETCH_TAGS } from "../../api/ApiPrefetchHelpers";
+import { QK_BENEFICIAIRES, QK_UTILISATEURS_TAGS } from "../../api/queryKeys";
 import { App, Button, Dropdown } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import React from "react";
@@ -25,8 +26,8 @@ export function UtilisateurTagAjouter(props: { utilisateurId: string }) {
          message.success("Tag ajouté").then();
       },
       invalidationQueryKeys: [
-         "/utilisateurs/{uid}/tags",
-         "/beneficiaires",
+         QK_UTILISATEURS_TAGS,
+         QK_BENEFICIAIRES,
          props.utilisateurId as string,
       ],
    });

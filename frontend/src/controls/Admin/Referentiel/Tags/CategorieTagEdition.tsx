@@ -11,6 +11,7 @@ import { Button, Card, Drawer, Form, Input, Switch } from "antd";
 import { useApi } from "../../../../context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
 import { ICategorieTag, ITag } from "../../../../api/ApiTypeHelpers";
+import { QK_CATEGORIES_TAGS } from "../../../../api/queryKeys";
 
 interface CategorieTagEditionProps {
    editedItem?: ITag;
@@ -33,7 +34,7 @@ export function CategorieTagEdition({
 
    const mutationPost = useApi().usePost({
       path: "/categories_tags",
-      invalidationQueryKeys: ["/categories_tags"],
+      invalidationQueryKeys: [QK_CATEGORIES_TAGS],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -41,7 +42,7 @@ export function CategorieTagEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/categories_tags/{id}`,
-      invalidationQueryKeys: ["/categories_tags"],
+      invalidationQueryKeys: [QK_CATEGORIES_TAGS],
       onSuccess: () => {
          setEditedItem(undefined);
       },

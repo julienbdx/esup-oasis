@@ -39,6 +39,7 @@ import { MonProfilContactPhase } from "../../controls/Profil/MonProfilContactPha
 import "./MonProfil.scss";
 import { IUtilisateur } from "../../api/ApiTypeHelpers";
 import { env } from "../../env";
+import { QK_UTILISATEURS } from "../../api/queryKeys";
 
 /**
  * Renders the current user's profile page.
@@ -64,7 +65,7 @@ export default function MonProfil(): ReactElement {
    const screens = useBreakpoint();
    const mutationPatch = useApi().usePatch({
       path: `/utilisateurs/{uid}`,
-      invalidationQueryKeys: ["/utilisateurs"],
+      invalidationQueryKeys: [QK_UTILISATEURS],
       onSuccess: () => {
          notification.success({
             title: "Votre profil a été mis à jour",

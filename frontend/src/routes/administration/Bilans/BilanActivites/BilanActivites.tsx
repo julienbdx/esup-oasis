@@ -33,6 +33,7 @@ import { Dayjs } from "dayjs";
 import { useApi } from "../../../../context/api/ApiProvider";
 import { TableBilanActivite } from "../../../../controls/Admin/Bilans/TableBilanActivite";
 import { env } from "../../../../env";
+import { QK_SUIVIS_ACTIVITE } from "../../../../api/queryKeys";
 
 type FiltreBilan =
    Paths["/suivis/activite"]["post"]["requestBody"]["content"]["application/ld+json"];
@@ -56,7 +57,7 @@ export default function BilanActivites(): React.ReactElement {
 
    const mutationPost = useApi().usePost({
       path: "/suivis/activite",
-      invalidationQueryKeys: ["/suivis/activite"],
+      invalidationQueryKeys: [QK_SUIVIS_ACTIVITE],
       onSuccess: () => {
          setAjouterBilan(false);
       },

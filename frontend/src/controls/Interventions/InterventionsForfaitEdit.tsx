@@ -9,6 +9,7 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import "../../routes/administration/Administration.scss";
+import { QK_INTERVENTIONS_FORFAIT } from "../../api/queryKeys";
 import {
    Alert,
    Button,
@@ -77,7 +78,7 @@ export default function InterventionsForfaitEdit({
    // --- Mutations
    const createInterventionForfait = useApi().usePost({
       path: "/interventions_forfait",
-      invalidationQueryKeys: ["/interventions_forfait"],
+      invalidationQueryKeys: [QK_INTERVENTIONS_FORFAIT],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -85,7 +86,7 @@ export default function InterventionsForfaitEdit({
 
    const updateInterventionForfait = useApi().usePatch({
       path: "/interventions_forfait/{id}",
-      invalidationQueryKeys: ["/interventions_forfait"],
+      invalidationQueryKeys: [QK_INTERVENTIONS_FORFAIT],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -93,7 +94,7 @@ export default function InterventionsForfaitEdit({
 
    const deleteInterventionForfait = useApi().useDelete({
       path: "/interventions_forfait/{id}",
-      invalidationQueryKeys: ["/interventions_forfait"],
+      invalidationQueryKeys: [QK_INTERVENTIONS_FORFAIT],
       onSuccess: () => {
          setEditedItem(undefined);
       },

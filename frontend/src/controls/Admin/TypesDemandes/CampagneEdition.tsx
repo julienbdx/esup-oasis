@@ -26,6 +26,7 @@ import { useApi } from "../../../context/api/ApiProvider";
 import { ICampagneDemande } from "../../../api/ApiTypeHelpers";
 import dayjs from "dayjs";
 import { createDateAsUTC } from "../../../utils/dates";
+import { QK_TYPES_DEMANDES, QK_TYPES_DEMANDES_CAMPAGNES } from "../../../api/queryKeys";
 
 interface CampagneEditionProps {
    editedItem?: ICampagneDemande;
@@ -58,7 +59,7 @@ export function CampagneEdition({
 
    const mutationPost = useApi().usePost({
       path: "/types_demandes/{typeId}/campagnes",
-      invalidationQueryKeys: ["/types_demandes"],
+      invalidationQueryKeys: [QK_TYPES_DEMANDES],
       url: `${typeDemandeId}/campagnes`,
       onSuccess: () => {
          setEditedItem(undefined);
@@ -67,7 +68,7 @@ export function CampagneEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/types_demandes/{typeId}/campagnes/{id}`,
-      invalidationQueryKeys: ["/types_demandes", `/types_demandes/{typeId}/campagnes/{id}`],
+      invalidationQueryKeys: [QK_TYPES_DEMANDES, QK_TYPES_DEMANDES_CAMPAGNES],
       onSuccess: () => {
          setEditedItem(undefined);
       },

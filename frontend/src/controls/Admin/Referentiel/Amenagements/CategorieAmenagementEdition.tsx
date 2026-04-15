@@ -11,6 +11,7 @@ import { Button, Card, Drawer, Form, Input, Switch } from "antd";
 import { useApi } from "../../../../context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
 import { ICategorieAmenagement } from "../../../../api/ApiTypeHelpers";
+import { QK_CATEGORIES_AMENAGEMENTS } from "../../../../api/queryKeys";
 
 interface AmenagementsEditionProps {
    editedItem?: ICategorieAmenagement;
@@ -38,7 +39,7 @@ export function CategorieAmenagementEdition({
 
    const mutationPost = useApi().usePost({
       path: "/categories_amenagements",
-      invalidationQueryKeys: ["/categories_amenagements"],
+      invalidationQueryKeys: [QK_CATEGORIES_AMENAGEMENTS],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -46,7 +47,7 @@ export function CategorieAmenagementEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/categories_amenagements/{id}`,
-      invalidationQueryKeys: ["/categories_amenagements"],
+      invalidationQueryKeys: [QK_CATEGORIES_AMENAGEMENTS],
       onSuccess: () => {
          setEditedItem(undefined);
       },

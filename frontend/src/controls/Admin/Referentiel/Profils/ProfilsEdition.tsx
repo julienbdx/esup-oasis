@@ -11,6 +11,7 @@ import { Button, Card, Drawer, Form, Input, Switch } from "antd";
 import { useApi } from "../../../../context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
 import { IProfil } from "../../../../api/ApiTypeHelpers";
+import { QK_PROFILS } from "../../../../api/queryKeys";
 
 interface ProfilsEditionProps {
    editedItem?: IProfil;
@@ -30,7 +31,7 @@ export function ProfilsEdition({ editedItem, setEditedItem }: ProfilsEditionProp
 
    const mutationPost = useApi().usePost({
       path: "/profils",
-      invalidationQueryKeys: ["/profils"],
+      invalidationQueryKeys: [QK_PROFILS],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -38,7 +39,7 @@ export function ProfilsEdition({ editedItem, setEditedItem }: ProfilsEditionProp
 
    const mutationPatch = useApi().usePatch({
       path: `/profils/{id}`,
-      invalidationQueryKeys: ["/profils"],
+      invalidationQueryKeys: [QK_PROFILS],
       onSuccess: () => {
          setEditedItem(undefined);
       },

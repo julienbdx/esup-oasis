@@ -11,6 +11,7 @@ import { Button, Card, Drawer, Form, Input, Switch } from "antd";
 import { useApi } from "../../../../context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
 import { IClubSportif } from "../../../../api/ApiTypeHelpers";
+import { QK_CLUBS_SPORTIFS } from "../../../../api/queryKeys";
 
 interface ClubsSportifsEditionProps {
    editedItem?: IClubSportif;
@@ -33,7 +34,7 @@ export function ClubSportifEdition({
 
    const mutationPost = useApi().usePost({
       path: "/clubs_sportifs",
-      invalidationQueryKeys: ["/clubs_sportifs"],
+      invalidationQueryKeys: [QK_CLUBS_SPORTIFS],
       onSuccess: () => {
          setEditedItem(undefined);
       },
@@ -41,7 +42,7 @@ export function ClubSportifEdition({
 
    const mutationPatch = useApi().usePatch({
       path: `/clubs_sportifs/{id}`,
-      invalidationQueryKeys: ["/clubs_sportifs"],
+      invalidationQueryKeys: [QK_CLUBS_SPORTIFS],
       onSuccess: () => {
          setEditedItem(undefined);
       },

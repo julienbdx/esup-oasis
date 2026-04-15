@@ -9,6 +9,12 @@
 
 import { IAmenagement, ITypeAmenagement } from "../../api/ApiTypeHelpers";
 import {
+   QK_AMENAGEMENTS,
+   QK_AMENAGEMENTS_UTILISATEURS,
+   QK_BENEFICIAIRES,
+   QK_UTILISATEURS_AMENAGEMENTS,
+} from "../../api/queryKeys";
+import {
    App,
    Button,
    Checkbox,
@@ -55,9 +61,9 @@ export function ModalAmenagement(props: {
    const mutateDeleteAmenagement = useApi().useDelete({
       path: "/utilisateurs/{uid}/amenagements/{id}",
       invalidationQueryKeys: [
-         "/utilisateurs/{uid}/amenagements",
-         "/beneficiaires",
-         "/amenagements/utilisateurs",
+         QK_UTILISATEURS_AMENAGEMENTS,
+         QK_BENEFICIAIRES,
+         QK_AMENAGEMENTS_UTILISATEURS,
       ],
       onSuccess: () => {
          props.setOpen(false);
@@ -73,10 +79,10 @@ export function ModalAmenagement(props: {
          props.setOpen(false);
       },
       invalidationQueryKeys: [
-         "/utilisateurs/{uid}/amenagements",
+         QK_UTILISATEURS_AMENAGEMENTS,
          props.utilisateurId ?? "/utilisateurs/{uid}",
-         "/amenagements",
-         "/beneficiaires",
+         QK_AMENAGEMENTS,
+         QK_BENEFICIAIRES,
       ],
    });
    const mutatePatchAmenagement = useApi().usePatch({
@@ -87,10 +93,10 @@ export function ModalAmenagement(props: {
       },
       invalidationQueryKeys: [
          props.utilisateurId ?? "/utilisateurs/{uid}",
-         "/utilisateurs/{uid}/amenagements",
+         QK_UTILISATEURS_AMENAGEMENTS,
          props.amenagementId as string,
-         "/amenagements",
-         "/beneficiaires",
+         QK_AMENAGEMENTS,
+         QK_BENEFICIAIRES,
       ],
    });
 

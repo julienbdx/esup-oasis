@@ -14,6 +14,7 @@ import { ETAT_DEMANDE_CONFORME, ETAT_DEMANDE_NON_CONFORME } from "../../../lib/d
 import { useApi } from "../../../context/api/ApiProvider";
 import { queryClient } from "../../../App";
 import { IDemande } from "../../../api/ApiTypeHelpers";
+import { QK_DEMANDES } from "../../../api/queryKeys";
 
 export default function ConformiteSelectButton(props: { demande: IDemande }): React.ReactElement {
    const { message } = App.useApp();
@@ -22,7 +23,7 @@ export default function ConformiteSelectButton(props: { demande: IDemande }): Re
 
    const mutation = useApi().usePatch({
       path: props.demande["@id"] as "/demandes/{id}",
-      invalidationQueryKeys: ["/demandes"],
+      invalidationQueryKeys: [QK_DEMANDES],
       onSuccess: () => {
          queryClient
             .invalidateQueries({ queryKey: ["/demandes", props.demande["@id"]] })
