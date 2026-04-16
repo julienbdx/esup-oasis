@@ -17,6 +17,15 @@ import { ApiPathMethodParameters, ApiPathMethodResponse, Path } from "@api/Schem
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import { useAuth } from "@/auth/AuthProvider";
 
+/**
+ * Mutation POST typée sur un endpoint API.
+ *
+ * @param options.path - Endpoint API (ex. `"/evenements"`). Utilisé pour l'inférence de types et la construction de l'URL.
+ * @param options.url - URL complète en remplacement de `path` (cas des sous-ressources dynamiques).
+ * @param options.invalidationQueryKeys - Clés React Query à invalider après succès (matching par `startsWith`). Utiliser les constantes `QK_*` de `queryKeys.ts`.
+ * @param options.onSuccess - Appelé après succès et invalidation du cache, reçoit la ressource créée.
+ * @param options.parameters - Paramètres de chemin si `path` contient des segments dynamiques.
+ */
 export type UsePostHook = <P extends Path>(options: {
   path: P;
   url?: string;

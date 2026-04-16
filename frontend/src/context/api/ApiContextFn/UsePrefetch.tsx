@@ -18,6 +18,15 @@ import {
   Path,
 } from "@api/SchemaHelpers";
 
+/**
+ * Précharge une collection dans le cache React Query sans déclencher de rendu.
+ * À appeler dans un `useEffect` ou un gestionnaire d'événement pour anticiper la navigation.
+ * Les constantes `PREFETCH_*` de `ApiPrefetchHelpers.ts` fournissent les options préconfigurées pour les référentiels communs.
+ *
+ * @param options.path - Endpoint de collection API.
+ * @param options.query - Paramètres de filtrage/pagination (même format que `useGetCollection`).
+ * @param options.parameters - Paramètres de chemin si `path` contient des segments dynamiques.
+ */
 export type UsePrefetchHook = <P extends Path>(options: {
   path: P;
   query?: ApiPathMethodQuery<P, "get">;

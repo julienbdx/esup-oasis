@@ -45,6 +45,7 @@ export enum RequestMethod {
   PUT = "PUT",
 }
 
+/** Résultat normalisé d'un appel `useGetCollection` ou `useGetCollectionPaginated`. `items` contient les membres Hydra (`hydra:member`). */
 export interface PaginateResult<T> {
   items: "hydra:member" extends keyof T ? T["hydra:member"] : T;
   totalItems: number;
@@ -52,20 +53,24 @@ export interface PaginateResult<T> {
   itemsPerPage: number;
 }
 
+/** Paramètres d'appel de `mutation.mutate()` pour `usePatch`. `"@id"` est l'IRI de la ressource (ex. `/evenements/42`), `data` le corps partiel au format `merge-patch+json`. */
 export interface MutationPatchParams<P extends Path> {
   data: ApiPathMethodRequestBody<P, "patch", ContentTypePatch>;
   "@id": string;
 }
 
+/** Paramètres d'appel de `mutation.mutate()` pour `usePut`. `"@id"` est l'IRI de la ressource, `data` le corps complet JSON. */
 export interface MutationPutParams<P extends Path> {
   data: ApiPathMethodRequestBody<P, "put">;
   "@id": string;
 }
 
+/** Paramètres d'appel de `mutation.mutate()` pour `usePost`. `data` est le corps JSON envoyé au serveur. */
 export interface MutationPostParams<P extends Path> {
   data: ApiPathMethodRequestBody<P, "post">;
 }
 
+/** Paramètres d'appel de `mutation.mutate()` pour `useDelete`. `"@id"` est l'IRI de la ressource à supprimer. */
 export interface MutationDeleteParams {
   "@id": string;
 }

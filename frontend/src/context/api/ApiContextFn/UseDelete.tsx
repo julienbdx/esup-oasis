@@ -16,6 +16,16 @@ import { useNavigate } from "react-router-dom";
 import { ApiPathMethodResponse, Path } from "@api/SchemaHelpers";
 import { useAuth } from "@/auth/AuthProvider";
 
+/**
+ * Mutation DELETE typée sur un endpoint API.
+ *
+ * @param options.path - Endpoint API. Utilisé uniquement pour l'inférence de types.
+ * @param options.invalidationQueryKeys - Clés React Query à invalider après suppression. Utiliser les constantes `QK_*` de `queryKeys.ts`.
+ * @param options.onSuccess - Appelé après succès et invalidation du cache.
+ *
+ * @remarks `mutation.mutate()` attend `{ "@id": string }` — l'`@id` est l'IRI de la ressource (ex. `/evenements/42`).
+ * Le serveur retourne 204 No Content ; `onSuccess` reçoit `undefined` comme `data`.
+ */
 export type UseDeleteHook = <P extends Path>(options: {
   path: P;
   invalidationQueryKeys?: string[];
