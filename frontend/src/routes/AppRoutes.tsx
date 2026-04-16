@@ -318,9 +318,4 @@ export const APP_ROUTES: IRoute[] = [
     element: lazy(() => import("@routes/demandeur/Demandes")),
     roles: [RoleValues.ROLE_DEMANDEUR],
   },
-  {
-    path: "/demande-soumise",
-    element: lazy(() => import("@controls/Questionnaire/TypeDemandeSoumise")),
-    roles: [RoleValues.ROLE_DEMANDEUR, RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT],
-  },
 ];
