@@ -11,8 +11,10 @@ import React, {
   createContext,
   ReactElement,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { Form } from "antd";
@@ -128,6 +130,7 @@ export function QuestionnaireProvider(props: {
       refetchDemande().then();
     },
   });
+  const { mutate: mutationReponseMutate } = mutationReponse;
 
   // Etat de la demande
   useEffect(() => {
@@ -138,22 +141,21 @@ export function QuestionnaireProvider(props: {
     }
   }, [demande]);
 
-  function isGrantedQuestionnaire(
-    fonctionnalite: FONCTIONNALITES,
-    rolesCommission?: string[],
-  ): boolean {
-    if (!auth.user) return false;
-    for (const role of auth.user.roles) {
-      const droits = MATRICE_DROITS_ROLES[role];
-      if (droits && droits[fonctionnalite] && typeof droits[fonctionnalite] === "boolean") {
-        return droits[fonctionnalite] as boolean;
-      } else if (droits && droits[fonctionnalite]) {
-        return (droits[fonctionnalite] as (r: string[]) => boolean)(rolesCommission || []);
+  const isGrantedQuestionnaire = useCallback(
+    (fonctionnalite: FONCTIONNALITES, rolesCommission?: string[]): boolean => {
+      if (!auth.user) return false;
+      for (const role of auth.user.roles) {
+        const droits = MATRICE_DROITS_ROLES[role];
+        if (droits && droits[fonctionnalite] && typeof droits[fonctionnalite] === "boolean") {
+          return droits[fonctionnalite] as boolean;
+        } else if (droits && droits[fonctionnalite]) {
+          return (droits[fonctionnalite] as (r: string[]) => boolean)(rolesCommission || []);
+        }
       }
-    }
-
-    return false;
-  }
+      return false;
+    },
+    [auth.user],
+  );
 
   /**
    * Send a response to the API.
@@ -163,94 +165,113 @@ export function QuestionnaireProvider(props: {
    * @param onSuccess
    * @param onError
    */
-  function envoyerReponse(
-    questionId: string,
-    type: string,
-    value: string | string[] | undefined,
-    onSuccess?: () => void,
-    onError?: (error: unknown) => void,
-  ) {
-    if (!demande) return;
+  const envoyerReponse = useCallback(
+    (
+      questionId: string,
+      type: string,
+      value: string | string[] | undefined,
+      onSuccess?: () => void,
+      onError?: (error: unknown) => void,
+    ) => {
+      if (!demande) return;
 
-    setSubmitting(true);
-    let valueToSend: string[] = [];
-    let commentaireToSend = null;
-    let pieceJustificativeToSend: string[] | undefined = undefined;
+      setSubmitting(true);
+      let valueToSend: string[] = [];
+      let commentaireToSend = null;
+      let pieceJustificativeToSend: string[] | undefined = undefined;
 
-    switch (type) {
-      case "text":
-      case "textarea":
-      case "date":
-      case "submit":
-        valueToSend = [];
-        commentaireToSend = Array.isArray(value) ? value[0] : value;
-        break;
-      case "numeric":
-        if (isNaN(Number(value))) {
-          return;
-        } else {
+      switch (type) {
+        case "text":
+        case "textarea":
+        case "date":
+        case "submit":
           valueToSend = [];
           commentaireToSend = Array.isArray(value) ? value[0] : value;
-        }
-        break;
-      case "radio":
-      case "checkbox":
-      case "select":
-        valueToSend = Array.isArray(value) ? value : ((value ? [value] : []) as string[]);
-        commentaireToSend = null;
-        break;
-      case "file":
-        pieceJustificativeToSend = Array.isArray(value)
-          ? value
-          : ((value ? [value] : []) as string[]);
-    }
+          break;
+        case "numeric":
+          if (isNaN(Number(value))) {
+            return;
+          } else {
+            valueToSend = [];
+            commentaireToSend = Array.isArray(value) ? value[0] : value;
+          }
+          break;
+        case "radio":
+        case "checkbox":
+        case "select":
+          valueToSend = Array.isArray(value) ? value : ((value ? [value] : []) as string[]);
+          commentaireToSend = null;
+          break;
+        case "file":
+          pieceJustificativeToSend = Array.isArray(value)
+            ? value
+            : ((value ? [value] : []) as string[]);
+      }
 
-    mutationReponse.mutate(
-      {
-        "@id": `${demande["@id"] + questionId}/reponse` as string,
-        data: {
-          optionsChoisies: valueToSend,
-          commentaire: commentaireToSend,
-          piecesJustificatives: pieceJustificativeToSend,
+      // mutationReponseMutate est stable (garanti par React Query)
+      mutationReponseMutate(
+        {
+          "@id": `${demande["@id"] + questionId}/reponse` as string,
+          data: {
+            optionsChoisies: valueToSend,
+            commentaire: commentaireToSend,
+            piecesJustificatives: pieceJustificativeToSend,
+          },
         },
+        {
+          onSuccess: () => {
+            onSuccess?.();
+            setSubmitting(false);
+          },
+          onError: (error: unknown) => {
+            onError?.(error);
+            setSubmitting(false);
+          },
+        },
+      );
+    },
+    [demande, mutationReponseMutate, setSubmitting],
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      typeDemande,
+      form,
+      demande,
+      questionnaire,
+      mode,
+      setMode,
+      submitting,
+      setSubmitting,
+      etatDemande,
+      campagne,
+      blocage,
+      setBlocage,
+      questUtils: {
+        isGrantedQuestionnaire,
+        envoyerReponse,
+        getReponseValue,
+        getFormInitialValues: () => getFormInitialValues(questionnaire),
       },
-      {
-        onSuccess: () => {
-          onSuccess?.();
-          setSubmitting(false);
-        },
-        onError: (error: unknown) => {
-          onError?.(error);
-          setSubmitting(false);
-        },
-      },
-    );
-  }
+    }),
+    [
+      typeDemande,
+      form,
+      demande,
+      questionnaire,
+      mode,
+      submitting,
+      etatDemande,
+      campagne,
+      blocage,
+      isGrantedQuestionnaire,
+      envoyerReponse,
+    ],
+  );
 
   // Provide the context to child components.
   return (
-    <QuestionnaireContext.Provider
-      value={{
-        typeDemande,
-        form,
-        demande,
-        questionnaire,
-        mode,
-        setMode,
-        submitting,
-        setSubmitting,
-        etatDemande,
-        campagne,
-        blocage,
-        setBlocage,
-        questUtils: {
-          isGrantedQuestionnaire,
-          envoyerReponse,
-          getReponseValue,
-          getFormInitialValues: () => getFormInitialValues(questionnaire),
-        },
-      }}
-    >
+    <QuestionnaireContext.Provider value={contextValue}>
       {props.children}
     </QuestionnaireContext.Provider>
   );

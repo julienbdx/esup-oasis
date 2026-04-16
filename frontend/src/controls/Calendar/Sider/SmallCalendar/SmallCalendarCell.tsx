@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement } from "react";
+import React, { memo, ReactElement } from "react";
 import { Evenement } from "@lib/Evenement";
 import {
   filtreToApiOnBackend,
@@ -33,10 +33,7 @@ interface ISmallCalendarCellProps {
  *
  * @returns {ReactElement} - The rendered component.
  */
-export default function SmallCalendarCell({
-  date,
-  affichageFiltres,
-}: ISmallCalendarCellProps): ReactElement {
+function SmallCalendarCell({ date, affichageFiltres }: ISmallCalendarCellProps): ReactElement {
   const user = useAuth().user;
 
   const { data: eventsMonth } = useApi().useGetCollectionPaginated({
@@ -107,3 +104,10 @@ export default function SmallCalendarCell({
     </div>
   );
 }
+
+export default memo(
+  SmallCalendarCell,
+  (prev, next) =>
+    prev.date.valueOf() === next.date.valueOf() &&
+    prev.affichageFiltres.filtres === next.affichageFiltres.filtres,
+);

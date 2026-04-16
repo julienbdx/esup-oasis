@@ -8,7 +8,14 @@
  */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { createContext, ReactNode, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
@@ -57,6 +64,7 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
       queryClient.invalidateQueries({ queryKey: [QK_UTILISATEURS_PARAMETRES_UI] }).then();
     },
   });
+  const { mutate: mutatePreferenceRaw } = mutatePreference;
 
   useEffect(() => {
     if (preferences) {
@@ -90,48 +98,74 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
     }
   }, [auth.user, preferences, setContrast, setDyslexieArial, setDyslexieOpenDys, setPoliceLarge]);
 
-  function getPreference(cle: string) {
-    return preferences?.items.find((p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/${cle}`)
-      ?.valeur;
-  }
+  const getPreference = useCallback(
+    (cle: string) =>
+      preferences?.items.find((p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/${cle}`)
+        ?.valeur,
 
-  function getPreferenceJson(cle: string) {
-    return JSON.parse(getPreference(cle) || "{}");
-  }
+    [preferences, auth.user],
+  );
 
-  function getPreferenceArray(cle: string) {
-    return JSON.parse(getPreference(cle) || "[]");
-  }
+  const getPreferenceJson = useCallback(
+    (cle: string): object => JSON.parse(getPreference(cle) || "{}"),
+    [getPreference],
+  );
 
-  function setPreference(cle: string, value: string) {
-    mutatePreference.mutate({
-      "@id": `${auth.user?.["@id"]}/parametres_ui/${cle}`,
-      data: {
-        valeur: value,
-      },
-    });
-  }
+  const getPreferenceArray = useCallback(
+    (cle: string): any[] => JSON.parse(getPreference(cle) || "[]"),
+    [getPreference],
+  );
 
-  function setPreferenceJson(cle: string, value: object) {
-    setPreference(cle, JSON.stringify(value));
-  }
+  const setPreference = useCallback(
+    (cle: string, value: string) => {
+      mutatePreferenceRaw({
+        "@id": `${auth.user?.["@id"]}/parametres_ui/${cle}`,
+        data: {
+          valeur: value,
+        },
+      });
+    },
+    // mutatePreferenceRaw est stable (garanti par React Query)
+    [mutatePreferenceRaw, auth.user],
+  );
 
-  function setPreferenceArray(cle: string, value: any[]) {
-    setPreference(cle, JSON.stringify(value));
-  }
+  const setPreferenceJson = useCallback(
+    (cle: string, value: object) => {
+      setPreference(cle, JSON.stringify(value));
+    },
+    [setPreference],
+  );
+
+  const setPreferenceArray = useCallback(
+    (cle: string, value: any[]) => {
+      setPreference(cle, JSON.stringify(value));
+    },
+    [setPreference],
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      getPreference,
+      getPreferenceJson,
+      getPreferenceArray,
+      setPreference,
+      setPreferenceJson,
+      setPreferenceArray,
+      preferencesChargees,
+    }),
+    [
+      getPreference,
+      getPreferenceJson,
+      getPreferenceArray,
+      setPreference,
+      setPreferenceJson,
+      setPreferenceArray,
+      preferencesChargees,
+    ],
+  );
 
   return (
-    <UtilisateurPreferencesContext.Provider
-      value={{
-        getPreference,
-        getPreferenceJson,
-        getPreferenceArray,
-        setPreference,
-        setPreferenceJson,
-        setPreferenceArray,
-        preferencesChargees,
-      }}
-    >
+    <UtilisateurPreferencesContext.Provider value={contextValue}>
       {props.children}
     </UtilisateurPreferencesContext.Provider>
   );
