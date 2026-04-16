@@ -6,9 +6,9 @@
 
 L'application est développée avec **React 18** (TypeScript). Elle utilise les packages complémentaires suivants :
 
-- **React Redux** pour la gestion d'état.
+- **React Context** pour la gestion d'état partagé (accessibilité, modales, drawers, filtres, session).
 - **React Router 6** pour la gestion des routes.
-- **React Query 5** pour la gestion des requêtes asynchrones.
+- **React Query 5** pour la gestion des requêtes asynchrones et le cache API.
 - **Ant Design 5** comme bibliothèque de composants UI.
 
 **Node.js 24 (LTS - Long Term Support)** est utilisé avec le gestionnaire de paquets **Yarn**.
