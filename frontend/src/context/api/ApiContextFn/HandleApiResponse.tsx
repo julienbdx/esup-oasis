@@ -23,13 +23,14 @@ export interface IErreurNotification {
   duration: number;
 }
 
-// On stocke 1 sec la précédente erreur pour ne pas la représenter à l'utilisateur
-let previousError: IErreurNotification = {
-  title: "",
-  description: <></>,
-  statusText: "",
-  duration: 0,
-};
+// Clés des erreurs en cours d'affichage (TTL 1,5 s) pour éviter les doublons.
+// Utiliser un Set plutôt qu'un objet mutable unique permet à deux erreurs
+// simultanées différentes d'être toutes les deux affichées sans s'écraser.
+const activeErrors = new Set<string>();
+
+function getErrorKey(notif: IErreurNotification): string {
+  return `${notif.title}|${notif.statusText ?? ""}`;
+}
 
 export async function handleApiResponse(
   requestMethod: RequestMethod,
@@ -46,20 +47,16 @@ export async function handleApiResponse(
       return;
     }
 
-    if (previousError.title !== notif.title || previousError.statusText !== notif.statusText) {
-      // Nouvelle erreur
+    const key = getErrorKey(notif);
+    if (!activeErrors.has(key)) {
+      // Nouvelle erreur : l'enregistrer et afficher la notification
+      activeErrors.add(key);
       notification.error({ ...notif, duration: notif.duration || 5 });
       console.error(response, options);
-      previousError = notif;
 
       window.setTimeout(() => {
-        // Réinitialisation de l'erreur précédente après 1 sec
-        previousError = {
-          title: "",
-          description: <></>,
-          statusText: "",
-          duration: 0,
-        };
+        // Libérer la clé après 1,5 s pour permettre l'affichage futur de la même erreur
+        activeErrors.delete(key);
       }, 1500);
     }
   }
