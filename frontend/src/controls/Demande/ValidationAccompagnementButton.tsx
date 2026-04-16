@@ -13,7 +13,7 @@ import { ETAT_DEMANDE_REFUSEE, ETAT_DEMANDE_VALIDEE } from "@lib/demande";
 import { useApi } from "@context/api/ApiProvider";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { DownOutlined } from "@ant-design/icons";
-import { QK_DEMANDES } from "@api/queryKeys";
+import { QK_BENEFICIAIRES, QK_DEMANDES } from "@api/queryKeys";
 
 export default function ValidationAccompagnementButton(props: {
   demande: IDemande;
@@ -24,7 +24,7 @@ export default function ValidationAccompagnementButton(props: {
     invalidationQueryKeys: [
       QK_DEMANDES,
       props.demande["@id"] as string,
-      "/beneficaires",
+      QK_BENEFICIAIRES,
       props.demande.demandeur?.["@id"] as string,
     ],
     onSuccess: () => {
