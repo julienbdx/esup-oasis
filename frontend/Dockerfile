@@ -9,16 +9,13 @@ COPY package.json yarn.lock ./
 # Installation des dépendances (frozen-lockfile pour garantir l'intégrité)
 RUN yarn install --frozen-lockfile
 
-# Copie du reste du code et build
 COPY . .
-RUN yarn build
+RUN yarn build && \
+    find /app/build -type f \( -name "*.js" -o -name "*.css" -o -name "*.svg" -o -name "*.json" \) \
+    -exec gzip -9 -k {} \;
 
 # --- Étape 2 : Production ---
 FROM nginx:alpine
-
-# Installation de Node.js (version légère sur Alpine) uniquement pour react-inject-env
-# Alternative : installer react-inject-env globalement ou copier node_modules sélectivement
-RUN apk add --no-cache nodejs npm
 
 WORKDIR /usr/share/nginx/html
 
