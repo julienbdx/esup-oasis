@@ -29,6 +29,7 @@ type DefaultCodeToSuccess<M extends string | undefined = undefined> = "delete" e
           ? 200
           : 200;
 
+/** Union de tous les chemins d'endpoints définis dans le schéma OpenAPI. */
 export type Path = keyof Paths;
 export type Method = "get" | "post" | "delete" | "patch";
 
@@ -66,6 +67,11 @@ type ApiPathMethodResponseContent<
   ? WApiPathMethodResponse<P, M>["content"]
   : never;
 
+/**
+ * Type de la réponse succès d'un endpoint API Platform.
+ * Par défaut `M = "get"` (200). Pour POST utiliser `"post"` (201), pour DELETE `"delete"` (204 → `undefined`).
+ * @example `ApiPathMethodResponse<"/evenements/{id}", "get">` → type de l'événement retourné
+ */
 export type ApiPathMethodResponse<
   P extends Path,
   M extends string | undefined = undefined,
@@ -82,6 +88,7 @@ type WApiPathMethodParameters<
   M extends string | undefined = undefined,
 > = "parameters" extends keyof ApiPathMethod<P, M> ? ApiPathMethod<P, M>["parameters"] : never;
 
+/** Paramètres de chemin d'un endpoint (ex. `{ id: number }` pour `"/evenements/{id}"`). */
 export type ApiPathMethodParameters<
   P extends Path,
   M extends string | undefined = undefined,
@@ -117,6 +124,7 @@ export type ApiPathMethodRequestBody<
  * Query
  */
 
+/** Paramètres de requête (query string) d'un endpoint (ex. `{ page?: number, itemsPerPage?: number, "order[libelle]"?: "asc"|"desc" }`). */
 export type ApiPathMethodQuery<
   P extends Path,
   M extends string | undefined = undefined,

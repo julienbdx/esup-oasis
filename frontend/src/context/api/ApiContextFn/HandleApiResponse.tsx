@@ -16,6 +16,7 @@ import { RequestMethod } from "@context/api/ApiProvider";
 import { queryClient } from "@/queryClient";
 import { AuthContextType } from "@/auth/AuthProvider";
 
+/** Structure d'une notification d'erreur affichée via Ant Design `notification.error`. Passer une instance à `onError` pour intercepter l'erreur avant son affichage global. */
 export interface IErreurNotification {
   title: string;
   description: ReactElement;
@@ -32,6 +33,15 @@ function getErrorKey(notif: IErreurNotification): string {
   return `${notif.title}|${notif.statusText ?? ""}`;
 }
 
+/**
+ * Traite la réponse brute d'un `fetch` API Platform et lève une erreur React Query si le statut HTTP ≥ 400.
+ *
+ * Comportements non évidents :
+ * - **401** : déconnecte automatiquement l'utilisateur (`auth.signOut`) et vide le cache React Query après 1 s.
+ * - **204** : retourne `undefined` (DELETE réussi).
+ * - Erreurs dupliquées (même titre + statusText dans la fenêtre de 1,5 s) : affichées une seule fois.
+ * - Si `onError` est fourni, il reçoit la notification et supprime l'affichage global (`notification.error`).
+ */
 export async function handleApiResponse(
   requestMethod: RequestMethod,
   response: Response,

@@ -16,6 +16,16 @@ import { useNavigate } from "react-router-dom";
 import { ApiPathMethodResponse, Path } from "@api/SchemaHelpers";
 import { useAuth } from "@/auth/AuthProvider";
 
+/**
+ * Mutation PUT typée sur un endpoint API (remplacement complet de la ressource).
+ *
+ * @param options.path - Endpoint API. Utilisé uniquement pour l'inférence de types.
+ * @param options.invalidationQueryKeys - Clés React Query à invalider après succès. Utiliser les constantes `QK_*` de `queryKeys.ts`.
+ * @param options.onSuccess - Appelé après succès et invalidation du cache, reçoit la ressource mise à jour.
+ * @param options.onError - Appelé en cas d'erreur réseau ou HTTP.
+ *
+ * @remarks Préférer `usePatch` pour les mises à jour partielles. `usePut` envoie le corps complet sans `Content-Type: merge-patch+json`.
+ */
 export type UsePutHook = <P extends Path>(options: {
   path: P;
   invalidationQueryKeys?: string[];

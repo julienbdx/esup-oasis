@@ -16,6 +16,16 @@ import { useNavigate } from "react-router-dom";
 import { ApiContentTypePatch, ApiPathMethodResponse, Path } from "@api/SchemaHelpers";
 import { useAuth } from "@/auth/AuthProvider";
 
+/**
+ * Mutation PATCH typée sur un endpoint API.
+ *
+ * @param options.path - Endpoint API (ex. `"/evenements/{id}"`). Utilisé uniquement pour l'inférence de types.
+ * @param options.invalidationQueryKeys - Clés React Query à invalider après succès (matching par `startsWith`). Utiliser les constantes `QK_*` de `queryKeys.ts`.
+ * @param options.onSuccess - Appelé après succès et invalidation du cache.
+ * @param options.onError - Appelé en cas d'erreur réseau ou HTTP.
+ *
+ * @remarks `mutation.mutate()` attend `{ "@id": string, data: ... }` — l'`@id` est l'IRI de la ressource (ex. `/evenements/42`), pas l'`id` numérique.
+ */
 export type UsePatchHook = <P extends Path>(options: {
   path: P;
   invalidationQueryKeys?: string[];
