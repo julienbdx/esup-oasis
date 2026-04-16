@@ -14,7 +14,7 @@ import { Button, Flex, Popconfirm, Segmented, Space, Table, Tooltip } from "antd
 import { BellOutlined, EditOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { useAuth } from "@/auth/AuthProvider";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { ROLES_SELECT, RoleValues } from "@lib/Utilisateur";

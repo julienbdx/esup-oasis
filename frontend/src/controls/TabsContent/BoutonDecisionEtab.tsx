@@ -21,7 +21,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import { QK_BENEFICIAIRES, QK_UTILISATEURS_DECISIONS, QK_UTILISATEURS_ITEM } from "@api/queryKeys";
 import apiDownloader from "@utils/apiDownloader";
 import { EtatDecisionEtablissement } from "@controls/Avatars/DecisionEtablissementAvatar";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { env } from "@/env";
 
 export function BoutonDecisionEtab(props: { utilisateurId: string }) {

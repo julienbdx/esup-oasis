@@ -15,7 +15,7 @@ import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { canCreateEventOnDate, createDateAsUTC } from "@utils/dates";
 import { IEvenement, IPartialEvenement } from "@api/ApiTypeHelpers";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
 import { PREFETCH_LAST_PERIODES_RH, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { useModals } from "@context/modals/ModalsContext";

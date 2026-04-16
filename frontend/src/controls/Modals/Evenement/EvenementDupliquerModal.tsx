@@ -12,7 +12,7 @@ import { Button, Form, message, Modal, notification } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Evenement } from "@lib/Evenement";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { arrayContainsDuplicates } from "@utils/array";
 import { createDateAsUTC } from "@utils/dates";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";

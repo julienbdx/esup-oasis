@@ -12,7 +12,7 @@ import { App, Flex, FloatButton, Space, Switch, Table } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { CheckOutlined, DeleteOutlined, MenuOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import validationInterventionTableColumns from "@controls/Table/ValidationInterventionTableColumns";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { IEvenement } from "@api/ApiTypeHelpers";

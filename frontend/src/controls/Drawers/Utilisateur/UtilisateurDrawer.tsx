@@ -14,7 +14,7 @@ import { Alert, App, Drawer, Form } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { getRoleLabel, RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { useAuth } from "@/auth/AuthProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { arrayUnique } from "@utils/array";
 import {
   QK_BENEFICIAIRES,

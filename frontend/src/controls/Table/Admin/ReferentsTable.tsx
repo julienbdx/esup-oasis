@@ -12,7 +12,7 @@ import { Button, Flex, Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import { EditOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { useAuth } from "@/auth/AuthProvider";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { IComposante, IComposanteQuery, IUtilisateur } from "@api/ApiTypeHelpers";

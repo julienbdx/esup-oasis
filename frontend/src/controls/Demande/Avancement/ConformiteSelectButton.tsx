@@ -12,7 +12,7 @@ import { CaretDownOutlined, CheckOutlined, CloseOutlined } from "@ant-design/ico
 import React from "react";
 import { ETAT_DEMANDE_CONFORME, ETAT_DEMANDE_NON_CONFORME } from "@lib/demande";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { QK_DEMANDES } from "@api/queryKeys";
 

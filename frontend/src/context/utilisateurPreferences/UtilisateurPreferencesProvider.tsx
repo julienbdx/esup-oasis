@@ -13,7 +13,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { QK_UTILISATEURS_PARAMETRES_UI } from "@api/queryKeys";
 
 export interface UtilisateurPreferencesType {

@@ -13,7 +13,7 @@ import { CopyOutlined, LoginOutlined } from "@ant-design/icons";
 import { NavigateFunction } from "react-router-dom";
 import { ReactElement } from "react";
 import { RequestMethod } from "@context/api/ApiProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { AuthContextType } from "@/auth/AuthProvider";
 
 export interface IErreurNotification {
