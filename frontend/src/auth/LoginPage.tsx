@@ -12,8 +12,7 @@ import { Alert, Avatar, Button, Col, Row, Spin } from "antd";
 import React, { ReactElement } from "react";
 import "@/auth/LoginPage.scss";
 import { LoadingOutlined, LockFilled, LoginOutlined, MinusOutlined } from "@ant-design/icons";
-import Typed from "react-typed";
-import { useWait } from "@utils/Wait/useWait";
+import { useTypedText } from "@utils/TypedText/useTypedText";
 import HomepageImage from "@controls/Images/HomepageImage";
 import PageTitle from "@utils/PageTitle/PageTitle";
 import { env } from "@/env";
@@ -26,7 +25,6 @@ import { env } from "@/env";
  */
 export default function LoginPage(): ReactElement {
   const auth = useAuth();
-  const showCursor = useWait(4000);
 
   function getMessageAccueil() {
     if (env.REACT_APP_MSG_ACCUEIL) {
@@ -34,6 +32,18 @@ export default function LoginPage(): ReactElement {
     }
     return [env.REACT_APP_ETABLISSEMENT, env.REACT_APP_TITRE];
   }
+
+  const {
+    text: typedText,
+    fading: typedFading,
+    showCursor,
+    hideCursor,
+  } = useTypedText({
+    strings: getMessageAccueil(),
+    typeSpeed: 40,
+    startDelay: 250,
+    backDelay: 1500,
+  });
 
   return (
     <>
@@ -53,19 +63,20 @@ export default function LoginPage(): ReactElement {
               />
             )}
             <Avatar icon={<LockFilled />} size={64} style={{ backgroundColor: "#000" }} />
-            <h1
-              aria-label={`${env.REACT_APP_ETABLISSEMENT} : ${env.REACT_APP_TITRE}`}
-              className={showCursor ? "" : "hide-cursor"}
-            >
-              <span aria-hidden>
-                <Typed
-                  strings={getMessageAccueil()}
-                  typeSpeed={40}
-                  backSpeed={25}
-                  startDelay={250}
-                  backDelay={1000}
-                  fadeOut
-                />
+            <h1 aria-label={`${env.REACT_APP_ETABLISSEMENT} : ${env.REACT_APP_TITRE}`}>
+              <span
+                aria-hidden
+                style={{ transition: "opacity 0.6s", opacity: typedFading ? 0 : 1 }}
+              >
+                {typedText}
+                {showCursor && (
+                  <span
+                    className="typed-cursor"
+                    style={hideCursor ? { visibility: "hidden" } : undefined}
+                  >
+                    |
+                  </span>
+                )}
               </span>
             </h1>
             <Button

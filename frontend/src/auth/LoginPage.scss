@@ -87,9 +87,24 @@
   animation: lightSpeedInLeft .5s ease-out, floating 20s 3s linear infinite;
 }
 
+.typed-cursor {
+  animation: typed-blink 1s step-end infinite;
+}
+
+@keyframes typed-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 .hide-cursor {
   .typed-cursor {
     opacity: 0 !important;
+    animation: none;
   }
 }
 
