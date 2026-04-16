@@ -23,7 +23,7 @@ export const menuItemAmenagementsForReferents = (
   navigate: NavigateFunction,
 ): MenuProps["items"] => [
   {
-    key: "beneficaires",
+    key: "beneficiaires",
     className: "mr-auto",
     children: [],
     popupClassName: "d-none",
@@ -32,7 +32,7 @@ export const menuItemAmenagementsForReferents = (
         type="text"
         className="no-hover p-0"
         onClick={() => {
-          setSelectedKey("beneficaires");
+          setSelectedKey("beneficiaires");
           navigate("/amenagements?mode=beneficiaire");
         }}
       >
