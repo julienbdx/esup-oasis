@@ -62,6 +62,7 @@ export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {
         required={props.question.obligatoire}
       >
         <Checkbox.Group
+          aria-label={props.question.libelle}
           disabled={mode === "preview" || submitting}
           data-question={props.question["@id"]}
           data-type={props.question.typeReponse}
@@ -77,9 +78,7 @@ export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {
               e,
             );
           }}
-        >
-          <span className="question">{props.question.libelle}</span>
-        </Checkbox.Group>
+        />
       </Form.Item>
       <QuestionAide question={props.question} />
     </>

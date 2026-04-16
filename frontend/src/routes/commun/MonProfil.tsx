@@ -127,6 +127,7 @@ export default function MonProfil(): ReactElement {
           }}
         >
           <Tabs
+            aria-label="Sections du profil"
             defaultActiveKey="contact"
             tabPlacement={screens.lg ? "start" : undefined}
             onChange={(tab) => setCurrentTab(tab)}

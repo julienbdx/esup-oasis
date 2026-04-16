@@ -49,6 +49,7 @@ export function ServicesFaitsIntervenantTable(): ReactElement {
   return (
     <>
       <Table
+        aria-label="Historique des services faits"
         dataSource={servicesFaitsIntervenant?.items}
         loading={isLoading}
         rowKey={(record) => record["@id"] as string}
@@ -170,6 +171,7 @@ export function ServicesFaits(): ReactElement {
       <Card>
         <TimezoneAlert />
         <Tabs
+          aria-label="Services faits"
           defaultActiveKey={defaultTab}
           tabPlacement={screens.lg ? "start" : undefined}
           items={[

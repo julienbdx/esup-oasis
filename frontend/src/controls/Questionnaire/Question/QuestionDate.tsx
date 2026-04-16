@@ -38,6 +38,7 @@ export function QuestionDate(props: { question: QuestionnaireQuestion }) {
         name={props.question["@id"]}
       >
         <DatePicker
+          aria-label={props.question.libelle}
           data-question={props.question["@id"]}
           data-type={props.question.typeReponse}
           disabled={mode === "preview" || submitting}
