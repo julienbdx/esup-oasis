@@ -10,5 +10,5 @@
 import { ReactComponent as SvgImage } from "@assets/images/homepage.svg";
 
 export default function HomepageImage(props: { className?: string }) {
-   return <SvgImage {...props} />;
+  return <SvgImage {...props} />;
 }

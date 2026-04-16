@@ -14,25 +14,25 @@ import { useAuth } from "@/auth/AuthProvider";
 import { useModals } from "@context/modals/ModalsContext";
 
 interface IToolbarActions {
-   saisieEvtRenfort?: boolean;
+  saisieEvtRenfort?: boolean;
 }
 
 export default function ToolbarActions({ saisieEvtRenfort }: IToolbarActions) {
-   const auth = useAuth();
-   const { setModalEvenement } = useModals();
+  const auth = useAuth();
+  const { setModalEvenement } = useModals();
 
-   if (!auth.user?.isPlanificateur) {
-      return null;
-   }
+  if (!auth.user?.isPlanificateur) {
+    return null;
+  }
 
-   return (
-      <FloatButton
-         icon={<PlusOutlined />}
-         type="primary"
-         tooltip="Ajouter un évènement"
-         onClick={() => {
-            setModalEvenement(saisieEvtRenfort ? { intervenant: auth.user?.["@id"] } : {});
-         }}
-      />
-   );
+  return (
+    <FloatButton
+      icon={<PlusOutlined />}
+      type="primary"
+      tooltip="Ajouter un évènement"
+      onClick={() => {
+        setModalEvenement(saisieEvtRenfort ? { intervenant: auth.user?.["@id"] } : {});
+      }}
+    />
+  );
 }

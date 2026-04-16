@@ -14,45 +14,45 @@ import { CSVLink } from "react-csv";
 import { env } from "@/env";
 
 export interface IActiviteExport {
-   nom?: string;
-   prenom?: string;
-   email?: string;
-   campus?: string;
-   "categorie evenement"?: string;
-   nbEvenements?: number;
-   nbHeures: string;
-   "taux horaire": string;
-   montant: string;
-   "cout charge": string;
+  nom?: string;
+  prenom?: string;
+  email?: string;
+  campus?: string;
+  "categorie evenement"?: string;
+  nbEvenements?: number;
+  nbHeures: string;
+  "taux horaire": string;
+  montant: string;
+  "cout charge": string;
 }
 
 interface BilanExportButtonProps {
-   type: "bénéficiaire" | "intervenant";
-   data?: IActiviteExport[];
-   totalItems?: number;
+  type: "bénéficiaire" | "intervenant";
+  data?: IActiviteExport[];
+  totalItems?: number;
 }
 
 export const BilanExportButton: React.FC<BilanExportButtonProps> = ({ type, data, totalItems }) => {
-   if (!data || totalItems === undefined || totalItems === 0) {
-      return null;
-   }
+  if (!data || totalItems === undefined || totalItems === 0) {
+    return null;
+  }
 
-   return (
-      <>
-         <CSVLink data={data} filename={`${env.REACT_APP_TITRE}-bilan-${type}s.csv`} separator=";">
-            <Button
-               type={data ? "primary" : undefined}
-               icon={<DownloadOutlined />}
-               loading={!data}
-               disabled={!data}
-            >
-               Télécharger le bilan
-            </Button>
-         </CSVLink>
-         <div className="legende">
-            ({totalItems} enregistrement
-            {totalItems > 1 ? "s" : ""})
-         </div>
-      </>
-   );
+  return (
+    <>
+      <CSVLink data={data} filename={`${env.REACT_APP_TITRE}-bilan-${type}s.csv`} separator=";">
+        <Button
+          type={data ? "primary" : undefined}
+          icon={<DownloadOutlined />}
+          loading={!data}
+          disabled={!data}
+        >
+          Télécharger le bilan
+        </Button>
+      </CSVLink>
+      <div className="legende">
+        ({totalItems} enregistrement
+        {totalItems > 1 ? "s" : ""})
+      </div>
+    </>
+  );
 };

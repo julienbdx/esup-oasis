@@ -23,37 +23,37 @@ import { evenementTableColumns } from "@controls/Table/EvenementTableColumns";
  * @returns {ReactElement} The table component displaying the ongoing events.
  */
 export function EvenementsEnCoursTable(): ReactElement {
-   const user = useAuth().user;
-   const { setModalEvenementId } = useModals();
-   const { data: evenementsEnCours, isLoading } = useApi().useGetCollectionPaginated({
-      path: "/evenements",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: {
-         intervenant: user?.["@id"],
-         "exists[periodePriseEnCompteRH]": false,
-         "exists[dateAnnulation]": false,
-      },
-      enabled: !!user?.["@id"],
-   });
+  const user = useAuth().user;
+  const { setModalEvenementId } = useModals();
+  const { data: evenementsEnCours, isLoading } = useApi().useGetCollectionPaginated({
+    path: "/evenements",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    query: {
+      intervenant: user?.["@id"],
+      "exists[periodePriseEnCompteRH]": false,
+      "exists[dateAnnulation]": false,
+    },
+    enabled: !!user?.["@id"],
+  });
 
-   if (!evenementsEnCours) {
-      return <Spinner />;
-   }
+  if (!evenementsEnCours) {
+    return <Spinner />;
+  }
 
-   return (
-      <Table<Evenement>
-         dataSource={evenementsEnCours?.items.map((e) => new Evenement(e))}
-         loading={isLoading}
-         rowKey={(record) => record["@id"] as string}
-         pagination={false}
-         columns={evenementTableColumns({
-            saisieEvtRenfort: false,
-            afficherEtatEnvoiRh: false,
-            onEvenementSelected: (evenement) => {
-               setModalEvenementId(evenement["@id"] as string);
-            },
-         })}
-      />
-   );
+  return (
+    <Table<Evenement>
+      dataSource={evenementsEnCours?.items.map((e) => new Evenement(e))}
+      loading={isLoading}
+      rowKey={(record) => record["@id"] as string}
+      pagination={false}
+      columns={evenementTableColumns({
+        saisieEvtRenfort: false,
+        afficherEtatEnvoiRh: false,
+        onEvenementSelected: (evenement) => {
+          setModalEvenementId(evenement["@id"] as string);
+        },
+      })}
+    />
+  );
 }

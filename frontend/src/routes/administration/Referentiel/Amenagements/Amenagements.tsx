@@ -22,77 +22,77 @@ import { CategorieAmenagementEdition } from "@controls/Admin/Referentiel/Amenage
  * @returns {ReactElement} The rendered Amenagements component.
  */
 export function Amenagements(): ReactElement {
-   const [editedCategorie, setEditedCategorie] = useState<ICategorieAmenagement | undefined>();
-   const [editedType, setEditedType] = useState<ITypeAmenagement | undefined>();
+  const [editedCategorie, setEditedCategorie] = useState<ICategorieAmenagement | undefined>();
+  const [editedType, setEditedType] = useState<ITypeAmenagement | undefined>();
 
-   return (
-      <Layout.Content className="administration" style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>Administration</Typography.Title>
-         <Breadcrumb
-            className="mt-2"
-            items={[
-               {
-                  key: "administration",
-                  title: (
-                     <NavLink to="/administration">
-                        <Space>
-                           <HomeFilled />
-                           Administration
-                        </Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "benefificaires",
-                  title: (
-                     <NavLink to="/administration#beneficiaires">
-                        <Space>Bénéficiaires</Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "amenagements",
-                  title: "Aménagements",
-               },
-            ]}
-         />
-         <Typography.Title level={2}>Aménagements</Typography.Title>
-         <Row gutter={[16, 16]}>
-            <Col span={24}>
-               <CategoriesAmenagementsTable
-                  onEditCategorie={(item) => {
-                     setEditedCategorie(undefined);
-                     setEditedCategorie(item);
-                  }}
-                  onEditType={(item) => {
-                     setEditedType(undefined);
-                     setEditedType(item);
-                  }}
-                  editedItem={editedCategorie}
-               />
-            </Col>
-         </Row>
-         {editedCategorie && (
-            <CategorieAmenagementEdition
-               editedItem={editedCategorie}
-               setEditedItem={setEditedCategorie}
-            />
-         )}
-         {editedType && (
-            <TypeAmenagementEdition editedItem={editedType} setEditedItem={setEditedType} />
-         )}
-         <FloatButton
-            icon={<PlusOutlined />}
-            type="primary"
-            tooltip="Ajouter une catégorie d'aménagement"
-            onClick={() => {
-               setEditedCategorie({
-                  actif: true,
-               } as ITypeAmenagement);
+  return (
+    <Layout.Content className="administration" style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>Administration</Typography.Title>
+      <Breadcrumb
+        className="mt-2"
+        items={[
+          {
+            key: "administration",
+            title: (
+              <NavLink to="/administration">
+                <Space>
+                  <HomeFilled />
+                  Administration
+                </Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "benefificaires",
+            title: (
+              <NavLink to="/administration#beneficiaires">
+                <Space>Bénéficiaires</Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "amenagements",
+            title: "Aménagements",
+          },
+        ]}
+      />
+      <Typography.Title level={2}>Aménagements</Typography.Title>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <CategoriesAmenagementsTable
+            onEditCategorie={(item) => {
+              setEditedCategorie(undefined);
+              setEditedCategorie(item);
             }}
-         />
-      </Layout.Content>
-   );
+            onEditType={(item) => {
+              setEditedType(undefined);
+              setEditedType(item);
+            }}
+            editedItem={editedCategorie}
+          />
+        </Col>
+      </Row>
+      {editedCategorie && (
+        <CategorieAmenagementEdition
+          editedItem={editedCategorie}
+          setEditedItem={setEditedCategorie}
+        />
+      )}
+      {editedType && (
+        <TypeAmenagementEdition editedItem={editedType} setEditedItem={setEditedType} />
+      )}
+      <FloatButton
+        icon={<PlusOutlined />}
+        type="primary"
+        tooltip="Ajouter une catégorie d'aménagement"
+        onClick={() => {
+          setEditedCategorie({
+            actif: true,
+          } as ITypeAmenagement);
+        }}
+      />
+    </Layout.Content>
+  );
 }
 
 export default Amenagements;

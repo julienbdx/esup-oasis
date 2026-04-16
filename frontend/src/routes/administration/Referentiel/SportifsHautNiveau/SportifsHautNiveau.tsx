@@ -18,48 +18,48 @@ import { useAuth } from "@/auth/AuthProvider";
 import { SportifsHautNiveauImport } from "@controls/Admin/Referentiel/SportifsHautNiveau/SportifsHautNiveauImport";
 
 function AddFloatButton(props: {
-   setEditedItem: (value: ISportifHautNiveau | undefined) => void;
-   setImportFichier: (value: boolean) => void;
+  setEditedItem: (value: ISportifHautNiveau | undefined) => void;
+  setImportFichier: (value: boolean) => void;
 }) {
-   const user = useAuth().user;
+  const user = useAuth().user;
 
-   if (user?.isAdminTechnique) {
-      return (
-         <FloatButton.Group
-            trigger="click"
-            type="primary"
-            tooltip="Ajouter un ou plusieurs sportifs haut niveau"
-            icon={<PlusOutlined />}
-            style={{ right: 60, bottom: 40 }}
-         >
-            <FloatButton
-               className="float-button-fix"
-               icon={<FileOutlined />}
-               tooltip="Déposer un fichier de sportifs haut niveau"
-               onClick={() => {
-                  props.setImportFichier(true);
-               }}
-            />
-            <FloatButton
-               onClick={() => {
-                  props.setEditedItem({});
-               }}
-               icon={<UserOutlined />}
-               tooltip="Ajouter un sportif haut niveau"
-            />
-         </FloatButton.Group>
-      );
-   }
-
-   return (
-      <FloatButton
-         onClick={() => {
+  if (user?.isAdminTechnique) {
+    return (
+      <FloatButton.Group
+        trigger="click"
+        type="primary"
+        tooltip="Ajouter un ou plusieurs sportifs haut niveau"
+        icon={<PlusOutlined />}
+        style={{ right: 60, bottom: 40 }}
+      >
+        <FloatButton
+          className="float-button-fix"
+          icon={<FileOutlined />}
+          tooltip="Déposer un fichier de sportifs haut niveau"
+          onClick={() => {
+            props.setImportFichier(true);
+          }}
+        />
+        <FloatButton
+          onClick={() => {
             props.setEditedItem({});
-         }}
-         icon={<UserOutlined />}
-         tooltip="Ajouter un sportif haut niveau"
-      />
-   );
+          }}
+          icon={<UserOutlined />}
+          tooltip="Ajouter un sportif haut niveau"
+        />
+      </FloatButton.Group>
+    );
+  }
+
+  return (
+    <FloatButton
+      onClick={() => {
+        props.setEditedItem({});
+      }}
+      icon={<UserOutlined />}
+      tooltip="Ajouter un sportif haut niveau"
+    />
+  );
 }
 
 /**
@@ -68,51 +68,51 @@ function AddFloatButton(props: {
  * @returns {ReactElement} The rendered component.
  */
 export default function SportifsHautNiveau(): ReactElement {
-   const [editedItem, setEditedItem] = useState<ISportifHautNiveau | undefined>();
-   const [importFichier, setImportFichier] = React.useState<boolean>(false);
+  const [editedItem, setEditedItem] = useState<ISportifHautNiveau | undefined>();
+  const [importFichier, setImportFichier] = React.useState<boolean>(false);
 
-   return (
-      <Layout.Content className="administration" style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>Administration</Typography.Title>
-         <Breadcrumb
-            className="mt-2"
-            items={[
-               {
-                  key: "administration",
-                  title: (
-                     <NavLink to="/administration">
-                        <Space>
-                           <HomeFilled />
-                           Administration
-                        </Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "demandes",
-                  title: (
-                     <NavLink to="/administration#demandes">
-                        <Space>Demandeurs</Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "sportfsHautNiveau",
-                  title: "Sportifs Haut Niveau",
-               },
-            ]}
-         />
-         <Typography.Title level={2}>Sportifs Haut Niveau</Typography.Title>
-         <Row gutter={[16, 16]}>
-            <Col span={24}>
-               <SportifsHautNiveauTable editedItem={editedItem} onEdit={(s) => setEditedItem(s)} />
-            </Col>
-         </Row>
-         {editedItem && (
-            <SportifsHautNiveauEdition editedItem={editedItem} setEditedItem={setEditedItem} />
-         )}
-         {importFichier && <SportifsHautNiveauImport setOpen={setImportFichier} />}
-         <AddFloatButton setEditedItem={setEditedItem} setImportFichier={setImportFichier} />
-      </Layout.Content>
-   );
+  return (
+    <Layout.Content className="administration" style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>Administration</Typography.Title>
+      <Breadcrumb
+        className="mt-2"
+        items={[
+          {
+            key: "administration",
+            title: (
+              <NavLink to="/administration">
+                <Space>
+                  <HomeFilled />
+                  Administration
+                </Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "demandes",
+            title: (
+              <NavLink to="/administration#demandes">
+                <Space>Demandeurs</Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "sportfsHautNiveau",
+            title: "Sportifs Haut Niveau",
+          },
+        ]}
+      />
+      <Typography.Title level={2}>Sportifs Haut Niveau</Typography.Title>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <SportifsHautNiveauTable editedItem={editedItem} onEdit={(s) => setEditedItem(s)} />
+        </Col>
+      </Row>
+      {editedItem && (
+        <SportifsHautNiveauEdition editedItem={editedItem} setEditedItem={setEditedItem} />
+      )}
+      {importFichier && <SportifsHautNiveauImport setOpen={setImportFichier} />}
+      <AddFloatButton setEditedItem={setEditedItem} setImportFichier={setImportFichier} />
+    </Layout.Content>
+  );
 }

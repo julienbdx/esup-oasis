@@ -15,48 +15,48 @@ import { IDiscipline } from "@api/ApiTypeHelpers";
 import { PaginateResult } from "@context/api/ApiProvider";
 
 interface FilterFieldDisciplinesSportivesProps {
-   filtreDemande: FiltreDemande;
-   setFiltreDemande: UseStateDispatch<FiltreDemande>;
-   disciplines:
-      | PaginateResult<{
-           "hydra:member": IDiscipline[];
-        }>
-      | undefined;
+  filtreDemande: FiltreDemande;
+  setFiltreDemande: UseStateDispatch<FiltreDemande>;
+  disciplines:
+    | PaginateResult<{
+        "hydra:member": IDiscipline[];
+      }>
+    | undefined;
 }
 
 export function FilterFieldDisciplinesSportives({
-   filtreDemande,
-   setFiltreDemande,
-   disciplines,
+  filtreDemande,
+  setFiltreDemande,
+  disciplines,
 }: FilterFieldDisciplinesSportivesProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span>Disciplines sportives</span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Toutes les disciplines"
-               value={filtreDemande["discipline[]"]}
-               onChange={(value) => {
-                  setFiltreDemande((prev) => ({
-                     ...prev,
-                     "discipline[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(disciplines?.items || []).map((c) => ({
-                  label: c.libelle,
-                  value: c["@id"],
-               }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span>Disciplines sportives</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Toutes les disciplines"
+          value={filtreDemande["discipline[]"]}
+          onChange={(value) => {
+            setFiltreDemande((prev) => ({
+              ...prev,
+              "discipline[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(disciplines?.items || []).map((c) => ({
+            label: c.libelle,
+            value: c["@id"],
+          }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

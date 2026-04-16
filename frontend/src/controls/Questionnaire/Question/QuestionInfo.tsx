@@ -12,14 +12,12 @@ import { QuestionnaireQuestion } from "@context/demande/QuestionnaireProvider";
 import { sanitizeHtml } from "@utils/sanitize";
 
 export function QuestionInfo(props: { question: QuestionnaireQuestion }) {
-   // props.question.libelle contient du HTML
-   return (
-      <>
-         <Form.Item className="mb-0" rootClassName="question-item" name={props.question["@id"]}>
-            <span
-               dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.question.aide as string) }}
-            />
-         </Form.Item>
-      </>
-   );
+  // props.question.libelle contient du HTML
+  return (
+    <>
+      <Form.Item className="mb-0" rootClassName="question-item" name={props.question["@id"]}>
+        <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.question.aide as string) }} />
+      </Form.Item>
+    </>
+  );
 }

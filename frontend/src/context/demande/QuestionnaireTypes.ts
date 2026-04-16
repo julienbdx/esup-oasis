@@ -13,81 +13,81 @@ import { ICampagneDemande, IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
 import { EtatInfo } from "@lib/demande";
 
 export enum FONCTIONNALITES {
-   DECLARER_RECEPTIONNEE = "DECLARER_RECEPTIONNEE",
-   ATTRIBUER_PROFIL = "ATTRIBUER_PROFIL",
-   STATUER_ACCOMPAGNEMENT = "STATUER_ACCOMPAGNEMENT",
-   DECLARER_CONFORMITE_DEMANDE = "DECLARER_CONFORMITE_DEMANDE",
-   MODIFIER_QUESTIONNAIRE = "MODIFIER_QUESTIONNAIRE",
+  DECLARER_RECEPTIONNEE = "DECLARER_RECEPTIONNEE",
+  ATTRIBUER_PROFIL = "ATTRIBUER_PROFIL",
+  STATUER_ACCOMPAGNEMENT = "STATUER_ACCOMPAGNEMENT",
+  DECLARER_CONFORMITE_DEMANDE = "DECLARER_CONFORMITE_DEMANDE",
+  MODIFIER_QUESTIONNAIRE = "MODIFIER_QUESTIONNAIRE",
 }
 
 export type QuestionnaireReponse = {
-   optionChoisie?: string[] | null;
-   commentaire?: string | null;
-   piecesJustificatives?: string[];
+  optionChoisie?: string[] | null;
+  commentaire?: string | null;
+  piecesJustificatives?: string[];
 };
 
 export type QuestionnaireQuestion = {
-   "@id": string;
-   libelle: string;
-   aide?: string | null;
-   typeReponse: string;
-   obligatoire: boolean;
-   choixMultiple: boolean;
-   reponse?: QuestionnaireReponse;
+  "@id": string;
+  libelle: string;
+  aide?: string | null;
+  typeReponse: string;
+  obligatoire: boolean;
+  choixMultiple: boolean;
+  reponse?: QuestionnaireReponse;
 };
 
 export type QuestionnaireEtape = {
-   "@id": string;
-   libelle?: string;
-   ordre?: number;
-   questions: QuestionnaireQuestion[] | string[];
+  "@id": string;
+  libelle?: string;
+  ordre?: number;
+  questions: QuestionnaireQuestion[] | string[];
 };
 
 export type Questionnaire = {
-   "@id": string;
-   typeDemandeId: string;
-   libelle?: string;
-   complete: boolean;
-   etapes: QuestionnaireEtape[];
+  "@id": string;
+  typeDemandeId: string;
+  libelle?: string;
+  complete: boolean;
+  etapes: QuestionnaireEtape[];
 };
 
 export interface QuestionnaireContextType {
-   typeDemande?: ITypeDemande;
-   form?: FormInstance;
-   demande?: IDemande;
-   etatDemande?: EtatInfo;
-   questionnaire?: Questionnaire;
-   mode: "preview" | "saisie";
-   setMode: (mode: "preview" | "saisie") => void;
-   submitting?: boolean;
-   setSubmitting: (submitting: boolean) => void;
-   campagne?: ICampagneDemande;
-   blocage?: boolean;
-   setBlocage: (blocage: boolean) => void;
-   questUtils?: {
-      isGrantedQuestionnaire: (
-         fonctionnalite: FONCTIONNALITES,
-         rolesCommission?: string[],
-      ) => boolean;
-      envoyerReponse: (
-         questionId: string,
-         type: string,
-         value: string | string[] | undefined,
-         onSuccess?: () => void,
-         onError?: (error: unknown) => void,
-      ) => void;
-      getReponseValue: (
-         type: string,
-         value: string | string[] | null | undefined,
-         commentaire: string | null | undefined,
-      ) => string | string[] | boolean | dayjs.Dayjs | null | undefined;
-      getFormInitialValues: () =>
-         | undefined
-         | FlatArray<
-              {
-                 [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
-              }[][],
-              1
-           >;
-   };
+  typeDemande?: ITypeDemande;
+  form?: FormInstance;
+  demande?: IDemande;
+  etatDemande?: EtatInfo;
+  questionnaire?: Questionnaire;
+  mode: "preview" | "saisie";
+  setMode: (mode: "preview" | "saisie") => void;
+  submitting?: boolean;
+  setSubmitting: (submitting: boolean) => void;
+  campagne?: ICampagneDemande;
+  blocage?: boolean;
+  setBlocage: (blocage: boolean) => void;
+  questUtils?: {
+    isGrantedQuestionnaire: (
+      fonctionnalite: FONCTIONNALITES,
+      rolesCommission?: string[],
+    ) => boolean;
+    envoyerReponse: (
+      questionId: string,
+      type: string,
+      value: string | string[] | undefined,
+      onSuccess?: () => void,
+      onError?: (error: unknown) => void,
+    ) => void;
+    getReponseValue: (
+      type: string,
+      value: string | string[] | null | undefined,
+      commentaire: string | null | undefined,
+    ) => string | string[] | boolean | dayjs.Dayjs | null | undefined;
+    getFormInitialValues: () =>
+      | undefined
+      | FlatArray<
+          {
+            [p: string]: string | string[] | null | undefined | dayjs.Dayjs | boolean;
+          }[][],
+          1
+        >;
+  };
 }

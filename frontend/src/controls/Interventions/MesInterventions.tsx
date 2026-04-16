@@ -18,17 +18,17 @@ import { useAuth } from "@/auth/AuthProvider";
  * Renders the page for ROLE_GESTIONNAIRE to manage his own interventions.
  */
 export default function MesInterventions() {
-   const { setAffichageFiltres } = useAffichageFiltres();
-   const auth = useAuth();
+  const { setAffichageFiltres } = useAffichageFiltres();
+  const auth = useAuth();
 
-   useEffect(() => {
-      setAffichageFiltres({ layout: PlanningLayout.table }, { intervenant: auth.user?.["@id"] });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+  useEffect(() => {
+    setAffichageFiltres({ layout: PlanningLayout.table }, { intervenant: auth.user?.["@id"] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-   return (
-      <>
-         <PlanningWithSider saisieEvtRenfort={true} />
-      </>
-   );
+  return (
+    <>
+      <PlanningWithSider saisieEvtRenfort={true} />
+    </>
+  );
 }

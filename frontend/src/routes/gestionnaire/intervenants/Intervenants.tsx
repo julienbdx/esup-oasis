@@ -20,31 +20,31 @@ import IntervenantTable from "@controls/Table/IntervenantTable";
  * @returns {ReactElement} The rendered Intervenants component.
  * */
 export default function Intervenants(): ReactElement {
-   const { setDrawerUtilisateur } = useDrawers();
-   const [ajouterIntervenant, setAjouterIntervenant] = useState(false);
+  const { setDrawerUtilisateur } = useDrawers();
+  const [ajouterIntervenant, setAjouterIntervenant] = useState(false);
 
-   return (
-      <Layout.Content className="intervenants" style={{ padding: "0 50px" }}>
-         <UtilisateurCreerDrawer
-            type={RoleValues.ROLE_INTERVENANT}
-            open={ajouterIntervenant}
-            setOpen={setAjouterIntervenant}
-            onChange={(user) => {
-               setAjouterIntervenant(false);
-               setDrawerUtilisateur({
-                  utilisateur: user["@id"],
-                  role: RoleValues.ROLE_INTERVENANT,
-               });
-            }}
-         />
-         <Typography.Title level={1}>Intervenants</Typography.Title>
-         <IntervenantTable />
-         <FloatButton
-            onClick={() => setAjouterIntervenant(true)}
-            icon={<PlusOutlined />}
-            type="primary"
-            tooltip="Ajouter un intervenant"
-         />
-      </Layout.Content>
-   );
+  return (
+    <Layout.Content className="intervenants" style={{ padding: "0 50px" }}>
+      <UtilisateurCreerDrawer
+        type={RoleValues.ROLE_INTERVENANT}
+        open={ajouterIntervenant}
+        setOpen={setAjouterIntervenant}
+        onChange={(user) => {
+          setAjouterIntervenant(false);
+          setDrawerUtilisateur({
+            utilisateur: user["@id"],
+            role: RoleValues.ROLE_INTERVENANT,
+          });
+        }}
+      />
+      <Typography.Title level={1}>Intervenants</Typography.Title>
+      <IntervenantTable />
+      <FloatButton
+        onClick={() => setAjouterIntervenant(true)}
+        icon={<PlusOutlined />}
+        type="primary"
+        tooltip="Ajouter un intervenant"
+      />
+    </Layout.Content>
+  );
 }

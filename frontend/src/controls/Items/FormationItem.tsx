@@ -16,12 +16,12 @@ import { IFormation } from "@api/ApiTypeHelpers";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 
 interface IItemFormation {
-   formation?: IFormation;
-   formationId?: string;
-   showAvatar?: boolean;
-   responsive?: Breakpoint;
-   className?: string;
-   styleLibelle?: React.CSSProperties;
+  formation?: IFormation;
+  formationId?: string;
+  showAvatar?: boolean;
+  responsive?: Breakpoint;
+  className?: string;
+  styleLibelle?: React.CSSProperties;
 }
 
 /**
@@ -34,20 +34,20 @@ interface IItemFormation {
  * @returns {ReactElement} The rendered formation item component.
  */
 export default function FormationItem({ formation, formationId }: IItemFormation): ReactElement {
-   const [item, setItem] = useState(formation);
-   const { data: dataFormation, isFetching } = useApi().useGetCollection(PREFETCH_FORMATIONS);
+  const [item, setItem] = useState(formation);
+  const { data: dataFormation, isFetching } = useApi().useGetCollection(PREFETCH_FORMATIONS);
 
-   useEffect(() => {
-      if (dataFormation && formationId) {
-         setItem(dataFormation.items.find((t) => t["@id"] === formationId));
-      }
-   }, [dataFormation, formationId]);
+  useEffect(() => {
+    if (dataFormation && formationId) {
+      setItem(dataFormation.items.find((t) => t["@id"] === formationId));
+    }
+  }, [dataFormation, formationId]);
 
-   if (!item || isFetching) return <Spinner />;
+  if (!item || isFetching) return <Spinner />;
 
-   return (
-      <Tooltip title={item?.libelle}>
-         <EllipsisMiddle content={item?.libelle as string} suffixCount={12} expandable />
-      </Tooltip>
-   );
+  return (
+    <Tooltip title={item?.libelle}>
+      <EllipsisMiddle content={item?.libelle as string} suffixCount={12} expandable />
+    </Tooltip>
+  );
 }

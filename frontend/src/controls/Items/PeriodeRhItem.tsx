@@ -17,11 +17,11 @@ import { MinusOutlined, SendOutlined } from "@ant-design/icons";
 import { IPeriode } from "@api/ApiTypeHelpers";
 
 interface IItemPeriode {
-   periode?: IPeriode;
-   periodeId?: string;
-   showIcon?: boolean;
-   showTooltip?: boolean;
-   className?: string;
+  periode?: IPeriode;
+  periodeId?: string;
+  showIcon?: boolean;
+  showTooltip?: boolean;
+  className?: string;
 }
 
 /**
@@ -36,42 +36,42 @@ interface IItemPeriode {
  * @returns {ReactElement} The rendered period item.
  */
 export default function PeriodeRhItem({
-   periode,
-   periodeId,
-   showIcon = true,
-   showTooltip = true,
-   className,
+  periode,
+  periodeId,
+  showIcon = true,
+  showTooltip = true,
+  className,
 }: IItemPeriode): ReactElement {
-   const [item, setItem] = useState(periode);
-   const { data: periodeData } = useApi().useGetCollectionPaginated({
-      path: "/periodes",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  const [item, setItem] = useState(periode);
+  const { data: periodeData } = useApi().useGetCollectionPaginated({
+    path: "/periodes",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   useEffect(() => {
-      if (periodeData && periodeId) {
-         setItem(periodeData.items.find((x) => x["@id"] === periodeId));
-      }
-   }, [periodeData, periodeId]);
+  useEffect(() => {
+    if (periodeData && periodeId) {
+      setItem(periodeData.items.find((x) => x["@id"] === periodeId));
+    }
+  }, [periodeData, periodeId]);
 
-   useEffect(() => {
-      if (periode) setItem(periode);
-   }, [periode]);
-   if (!item) return <Spinner />;
+  useEffect(() => {
+    if (periode) setItem(periode);
+  }, [periode]);
+  if (!item) return <Spinner />;
 
-   function getIcon() {
-      if (!showIcon) return null;
-      return item?.dateEnvoi ? <SendOutlined /> : <MinusOutlined />;
-   }
+  function getIcon() {
+    if (!showIcon) return null;
+    return item?.dateEnvoi ? <SendOutlined /> : <MinusOutlined />;
+  }
 
-   return (
-      <Tooltip
-         title={showTooltip ? `Période ${item.dateEnvoi ? "envoyée" : "non envoyée"}` : undefined}
-      >
-         <Tag icon={getIcon()} className={className}>
-            {dayjs(item.debut).format("DD/MM/YYYY")} au {dayjs(item.fin).format("DD/MM/YYYY")}
-         </Tag>
-      </Tooltip>
-   );
+  return (
+    <Tooltip
+      title={showTooltip ? `Période ${item.dateEnvoi ? "envoyée" : "non envoyée"}` : undefined}
+    >
+      <Tag icon={getIcon()} className={className}>
+        {dayjs(item.debut).format("DD/MM/YYYY")} au {dayjs(item.fin).format("DD/MM/YYYY")}
+      </Tag>
+    </Tooltip>
+  );
 }

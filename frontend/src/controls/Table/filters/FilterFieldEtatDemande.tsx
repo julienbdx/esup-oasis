@@ -15,55 +15,55 @@ import { IEtatDemande } from "@api/ApiTypeHelpers";
 import { getEtatDemandeInfo } from "@lib/demande";
 
 interface FilterFieldEtatDemandeProps {
-   filtreDemande: FiltreDemande;
-   setFiltreDemande: UseStateDispatch<FiltreDemande>;
-   etats: { items: IEtatDemande[] } | undefined;
+  filtreDemande: FiltreDemande;
+  setFiltreDemande: UseStateDispatch<FiltreDemande>;
+  etats: { items: IEtatDemande[] } | undefined;
 }
 
 export function FilterFieldEtatDemande({
-   filtreDemande,
-   setFiltreDemande,
-   etats,
+  filtreDemande,
+  setFiltreDemande,
+  etats,
 }: FilterFieldEtatDemandeProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span>États de la demande</span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               placeholder="Tous les états"
-               mode="tags"
-               allowClear
-               className="w-100"
-               style={{ overflowX: "auto", maxWidth: "100%" }}
-               onChange={(value) => {
-                  setFiltreDemande((prev) => ({
-                     ...prev,
-                     etat: undefined,
-                     "etat[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               value={filtreDemande["etat[]"] || []}
-               options={(etats?.items || [])
-                  .sort((a, b) => {
-                     const aInfo = getEtatDemandeInfo(a["@id"] as string);
-                     const bInfo = getEtatDemandeInfo(b["@id"] as string);
-                     return (aInfo?.ordre || 0) - (bInfo?.ordre || 0);
-                  })
-                  .map((e) => {
-                     const eInfo = getEtatDemandeInfo(e["@id"] as string);
-                     return {
-                        label: e?.libelle,
-                        value: e?.["@id"],
-                        icon: eInfo?.icone,
-                     };
-                  })}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span>États de la demande</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          placeholder="Tous les états"
+          mode="tags"
+          allowClear
+          className="w-100"
+          style={{ overflowX: "auto", maxWidth: "100%" }}
+          onChange={(value) => {
+            setFiltreDemande((prev) => ({
+              ...prev,
+              etat: undefined,
+              "etat[]": value as string[],
+              page: 1,
+            }));
+          }}
+          value={filtreDemande["etat[]"] || []}
+          options={(etats?.items || [])
+            .sort((a, b) => {
+              const aInfo = getEtatDemandeInfo(a["@id"] as string);
+              const bInfo = getEtatDemandeInfo(b["@id"] as string);
+              return (aInfo?.ordre || 0) - (bInfo?.ordre || 0);
+            })
+            .map((e) => {
+              const eInfo = getEtatDemandeInfo(e["@id"] as string);
+              return {
+                label: e?.libelle,
+                value: e?.["@id"],
+                icon: eInfo?.icone,
+              };
+            })}
+        />
+      </Col>
+    </>
+  );
 }

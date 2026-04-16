@@ -13,45 +13,45 @@ import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { IFormation } from "@api/ApiTypeHelpers";
 
 interface FilterFieldFormationsBeneficiaireProps {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
-   formations: { items: IFormation[] } | undefined;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  formations: { items: IFormation[] } | undefined;
 }
 
 export function FilterFieldFormationsBeneficiaire({
-   filtreBeneficiaire,
-   setFiltreBeneficiaire,
-   formations,
+  filtreBeneficiaire,
+  setFiltreBeneficiaire,
+  formations,
 }: FilterFieldFormationsBeneficiaireProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Formations
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Toutes les formations"
-               value={filtreBeneficiaire["formation[]"]}
-               onChange={(value) => {
-                  setFiltreBeneficiaire((prev) => ({
-                     ...prev,
-                     "formation[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(formations?.items || []).map((c) => ({
-                  label: `[${c.codeExterne?.replace("#", "-")}] ${c.libelle}`,
-                  value: c["@id"],
-               }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-            <div className="legende">
-               Seules les formations ayant au moins un bénéficiaire sont proposées.
-            </div>
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Formations
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Toutes les formations"
+          value={filtreBeneficiaire["formation[]"]}
+          onChange={(value) => {
+            setFiltreBeneficiaire((prev) => ({
+              ...prev,
+              "formation[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(formations?.items || []).map((c) => ({
+            label: `[${c.codeExterne?.replace("#", "-")}] ${c.libelle}`,
+            value: c["@id"],
+          }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+        <div className="legende">
+          Seules les formations ayant au moins un bénéficiaire sont proposées.
+        </div>
+      </Col>
+    </>
+  );
 }

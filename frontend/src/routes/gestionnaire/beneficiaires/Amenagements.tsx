@@ -14,8 +14,8 @@ import { useAuth } from "@/auth/AuthProvider";
 import { useSearchParams } from "react-router-dom";
 
 export enum ModeAffichageAmenagement {
-   ParAmenagement = "amenagement",
-   ParBeneficiaire = "beneficiaire",
+  ParAmenagement = "amenagement",
+  ParBeneficiaire = "beneficiaire",
 }
 
 /**
@@ -24,49 +24,49 @@ export enum ModeAffichageAmenagement {
  * @returns {ReactElement} The rendered Beneficiaires component.
  */
 export default function Amenagements(): ReactElement {
-   const user = useAuth().user;
-   const [searchParams, setSearchParams] = useSearchParams();
+  const user = useAuth().user;
+  const [searchParams, setSearchParams] = useSearchParams();
 
-   const modeAffichage = React.useMemo(() => {
-      const modeParam = searchParams.get("mode") as ModeAffichageAmenagement;
-      if (modeParam) return modeParam;
+  const modeAffichage = React.useMemo(() => {
+    const modeParam = searchParams.get("mode") as ModeAffichageAmenagement;
+    if (modeParam) return modeParam;
 
-      return user?.isGestionnaire || user?.isReferentComposante
-         ? ModeAffichageAmenagement.ParBeneficiaire
-         : ModeAffichageAmenagement.ParAmenagement;
-   }, [searchParams, user]);
+    return user?.isGestionnaire || user?.isReferentComposante
+      ? ModeAffichageAmenagement.ParBeneficiaire
+      : ModeAffichageAmenagement.ParAmenagement;
+  }, [searchParams, user]);
 
-   function setModeAffichage(value: ModeAffichageAmenagement) {
-      setSearchParams((prev) => {
-         prev.set("mode", value);
-         return prev;
-      });
-   }
+  function setModeAffichage(value: ModeAffichageAmenagement) {
+    setSearchParams((prev) => {
+      prev.set("mode", value);
+      return prev;
+    });
+  }
 
-   return (
-      <Layout.Content className="amenagements" style={{ padding: "0 50px" }}>
-         <Flex justify="space-between" align="center">
-            <Typography.Title level={1}>Aménagements</Typography.Title>
-            {user?.isGestionnaire && (
-               <Segmented
-                  className="float-right"
-                  options={[
-                     {
-                        label: "Par bénéficiaire",
-                        value: ModeAffichageAmenagement.ParBeneficiaire,
-                     },
-                     {
-                        label: "Par aménagement",
-                        value: ModeAffichageAmenagement.ParAmenagement,
-                     },
-                  ]}
-                  value={modeAffichage}
-                  onChange={(value) => setModeAffichage(value as ModeAffichageAmenagement)}
-               />
-            )}
-         </Flex>
+  return (
+    <Layout.Content className="amenagements" style={{ padding: "0 50px" }}>
+      <Flex justify="space-between" align="center">
+        <Typography.Title level={1}>Aménagements</Typography.Title>
+        {user?.isGestionnaire && (
+          <Segmented
+            className="float-right"
+            options={[
+              {
+                label: "Par bénéficiaire",
+                value: ModeAffichageAmenagement.ParBeneficiaire,
+              },
+              {
+                label: "Par aménagement",
+                value: ModeAffichageAmenagement.ParAmenagement,
+              },
+            ]}
+            value={modeAffichage}
+            onChange={(value) => setModeAffichage(value as ModeAffichageAmenagement)}
+          />
+        )}
+      </Flex>
 
-         <AmenagementTableLayout modeAffichage={modeAffichage} />
-      </Layout.Content>
-   );
+      <AmenagementTableLayout modeAffichage={modeAffichage} />
+    </Layout.Content>
+  );
 }

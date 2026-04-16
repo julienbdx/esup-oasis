@@ -17,13 +17,13 @@ import { useApi } from "@context/api/ApiProvider";
  * @return {string} - The string representation of the user.
  */
 export function UtilisateurAsString(props: { utilisateurId?: string }): string {
-   const { data: utilisateur } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: props.utilisateurId as string,
-      enabled: !!props.utilisateurId,
-   });
-   if (utilisateur) {
-      return `${utilisateur.nom?.toLocaleUpperCase()} ${utilisateur.prenom}`;
-   }
-   return "Chargement en cours...";
+  const { data: utilisateur } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: props.utilisateurId as string,
+    enabled: !!props.utilisateurId,
+  });
+  if (utilisateur) {
+    return `${utilisateur.nom?.toLocaleUpperCase()} ${utilisateur.prenom}`;
+  }
+  return "Chargement en cours...";
 }

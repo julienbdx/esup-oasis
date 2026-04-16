@@ -9,9 +9,9 @@
 
 import { useApi } from "@context/api/ApiProvider";
 import {
-   PREFETCH_CAMPUS,
-   PREFETCH_COMPETENCES,
-   PREFETCH_TYPES_EVENEMENTS,
+  PREFETCH_CAMPUS,
+  PREFETCH_COMPETENCES,
+  PREFETCH_TYPES_EVENEMENTS,
 } from "@api/ApiPrefetchHelpers";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 
@@ -19,15 +19,15 @@ import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
  * Hook custom pour gérer les données et la logique du filtre d'intervenants
  */
 export function useIntervenantFilterOptions(_filtreIntervenant: FiltreIntervenant) {
-   const api = useApi();
+  const api = useApi();
 
-   const { data: campuses } = api.useGetCollection(PREFETCH_CAMPUS);
-   const { data: competences } = api.useGetCollection(PREFETCH_COMPETENCES);
-   const { data: categories } = api.useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: campuses } = api.useGetCollection(PREFETCH_CAMPUS);
+  const { data: competences } = api.useGetCollection(PREFETCH_COMPETENCES);
+  const { data: categories } = api.useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
-   return {
-      campuses,
-      competences,
-      categories,
-   };
+  return {
+    campuses,
+    competences,
+    categories,
+  };
 }

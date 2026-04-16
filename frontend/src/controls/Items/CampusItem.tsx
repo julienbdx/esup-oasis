@@ -21,12 +21,12 @@ import { ICampus } from "@api/ApiTypeHelpers";
  * @interface
  */
 interface IItemCampus {
-   campus?: ICampus;
-   campusId?: string;
-   showAvatar?: boolean;
-   responsive?: Breakpoint;
-   className?: string;
-   salle?: string | null;
+  campus?: ICampus;
+  campusId?: string;
+  showAvatar?: boolean;
+  responsive?: Breakpoint;
+  className?: string;
+  salle?: string | null;
 }
 
 /**
@@ -43,32 +43,32 @@ interface IItemCampus {
  * @returns {ReactElement} The rendered campus item component.
  */
 export default function CampusItem({
-   campus,
-   campusId,
-   showAvatar = true,
-   responsive,
-   className,
-   salle,
+  campus,
+  campusId,
+  showAvatar = true,
+  responsive,
+  className,
+  salle,
 }: IItemCampus): ReactElement {
-   const [item, setItem] = useState(campus);
-   const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
-   const screens = useBreakpoint();
+  const [item, setItem] = useState(campus);
+  const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  const screens = useBreakpoint();
 
-   useEffect(() => {
-      if (dataCampus && campusId) {
-         setItem(dataCampus.items.find((t) => t["@id"] === campusId));
-      }
-   }, [dataCampus, campusId]);
+  useEffect(() => {
+    if (dataCampus && campusId) {
+      setItem(dataCampus.items.find((t) => t["@id"] === campusId));
+    }
+  }, [dataCampus, campusId]);
 
-   if (!item || isFetching) return <Spinner />;
+  if (!item || isFetching) return <Spinner />;
 
-   return (
-      <Space className={className}>
-         {showAvatar && (!responsive || screens[responsive]) && <CampusAvatar campus={item} />}
-         <span>
-            {item?.libelle}
-            {salle && <Typography.Text type="secondary"> &bull; {salle}</Typography.Text>}
-         </span>
-      </Space>
-   );
+  return (
+    <Space className={className}>
+      {showAvatar && (!responsive || screens[responsive]) && <CampusAvatar campus={item} />}
+      <span>
+        {item?.libelle}
+        {salle && <Typography.Text type="secondary"> &bull; {salle}</Typography.Text>}
+      </span>
+    </Space>
+  );
 }

@@ -14,7 +14,7 @@ import { SaveOutlined, UserOutlined } from "@ant-design/icons";
 import { useAuth } from "@/auth/AuthProvider";
 
 interface IEvenementDrawer {
-   id?: string;
+  id?: string;
 }
 
 /**
@@ -26,55 +26,55 @@ interface IEvenementDrawer {
  * @returns {ReactElement} The rendered drawer component.
  */
 export default function EvenementDrawer({ id }: IEvenementDrawer): ReactElement {
-   const auth = useAuth();
-   const { drawers, setDrawerEvenement } = useDrawers();
-   const evenementId = id || drawers.EVENEMENT;
-   const [form] = Form.useForm();
+  const auth = useAuth();
+  const { drawers, setDrawerEvenement } = useDrawers();
+  const evenementId = id || drawers.EVENEMENT;
+  const [form] = Form.useForm();
 
-   const handleClose = () => {
-      setDrawerEvenement(undefined);
-   };
+  const handleClose = () => {
+    setDrawerEvenement(undefined);
+  };
 
-   if (evenementId === undefined) return <Form form={form} className="d-none" />;
+  if (evenementId === undefined) return <Form form={form} className="d-none" />;
 
-   return (
-      <Drawer
-         destroyOnHidden
-         title={"Évènement".toLocaleUpperCase()}
-         placement="right"
-         onClose={handleClose}
-         open
-         width="33%"
-         className="oasis-drawer"
+  return (
+    <Drawer
+      destroyOnHidden
+      title={"Évènement".toLocaleUpperCase()}
+      placement="right"
+      onClose={handleClose}
+      open
+      width="33%"
+      className="oasis-drawer"
+    >
+      <Space orientation="vertical" className="text-center w-100 mb-3 mt-1">
+        <Avatar size={100} icon={<UserOutlined />} className="bg-evenement shadow-1" />
+        <span className="fs-15 semi-bold">Jacques MARTIN</span>
+      </Space>
+      <Form
+        layout="vertical"
+        onFinish={() => {
+          handleClose();
+        }}
+        disabled={!auth.user?.isGestionnaire}
+        form={form}
       >
-         <Space orientation="vertical" className="text-center w-100 mb-3 mt-1">
-            <Avatar size={100} icon={<UserOutlined />} className="bg-evenement shadow-1" />
-            <span className="fs-15 semi-bold">Jacques MARTIN</span>
-         </Space>
-         <Form
-            layout="vertical"
-            onFinish={() => {
-               handleClose();
-            }}
-            disabled={!auth.user?.isGestionnaire}
-            form={form}
-         >
-            <Tabs
-               defaultActiveKey="1"
-               items={[
-                  {
-                     key: "informations",
-                     label: `Informations`,
-                     children: <p>Informations</p>,
-                  },
-               ]}
-            />
-            <Form.Item className="mt-2 text-center">
-               <Button type="primary" icon={<SaveOutlined />} htmlType="submit">
-                  Enregistrer
-               </Button>
-            </Form.Item>
-         </Form>
-      </Drawer>
-   );
+        <Tabs
+          defaultActiveKey="1"
+          items={[
+            {
+              key: "informations",
+              label: `Informations`,
+              children: <p>Informations</p>,
+            },
+          ]}
+        />
+        <Form.Item className="mt-2 text-center">
+          <Button type="primary" icon={<SaveOutlined />} htmlType="submit">
+            Enregistrer
+          </Button>
+        </Form.Item>
+      </Form>
+    </Drawer>
+  );
 }

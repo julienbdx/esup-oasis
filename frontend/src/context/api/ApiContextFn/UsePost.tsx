@@ -18,57 +18,53 @@ import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import { useAuth } from "@/auth/AuthProvider";
 
 export type UsePostHook = <P extends Path>(options: {
-   path: P;
-   url?: string;
-   invalidationQueryKeys?: string[];
-   onSuccess?: (data: ApiPathMethodResponse<P, "post">, variables: MutationPostParams<P>) => void;
-   onError?: () => void;
-   parameters?: ApiPathMethodParameters<P, "post">;
+  path: P;
+  url?: string;
+  invalidationQueryKeys?: string[];
+  onSuccess?: (data: ApiPathMethodResponse<P, "post">, variables: MutationPostParams<P>) => void;
+  onError?: () => void;
+  parameters?: ApiPathMethodParameters<P, "post">;
 }) => UseMutationResult<ApiPathMethodResponse<P, "post">, unknown, MutationPostParams<P>>;
 
 export function usePost<P extends Path>(
-   baseUrl: string,
-   fetchOptions: RequestInit,
-   client: QueryClient,
-   options: {
-      path: P;
-      url?: string;
-      invalidationQueryKeys?: string[];
-      onSuccess?: (
-         data: ApiPathMethodResponse<P, "post">,
-         variables: MutationPostParams<P>,
-      ) => void;
-      onError?: () => void;
-      parameters?: ApiPathMethodParameters<P, "post">;
-   },
+  baseUrl: string,
+  fetchOptions: RequestInit,
+  client: QueryClient,
+  options: {
+    path: P;
+    url?: string;
+    invalidationQueryKeys?: string[];
+    onSuccess?: (data: ApiPathMethodResponse<P, "post">, variables: MutationPostParams<P>) => void;
+    onError?: () => void;
+    parameters?: ApiPathMethodParameters<P, "post">;
+  },
 ): UseMutationResult<ApiPathMethodResponse<P, "post">, unknown, MutationPostParams<P>> {
-   const navigate = useNavigate();
-   const auth = useAuth();
+  const navigate = useNavigate();
+  const auth = useAuth();
 
-   return useMutation({
-      mutationFn: async (params: MutationPostParams<P>) => {
-         const url = buildUrl<P, "post">(baseUrl, options.path, options.url, options.parameters);
-         return handleApiResponse(
-            RequestMethod.POST,
-            await fetch(url, {
-               ...fetchOptions,
-               method: "POST",
-               body: JSON.stringify(params.data),
-            }),
-            navigate,
-            auth,
-            options,
-            JSON.stringify(params.data, null, 2),
-         );
-      },
-      onSuccess: (data, variables) => {
-         if (options.invalidationQueryKeys)
-            handleInvalidation(client, options.invalidationQueryKeys);
-         if (options.onSuccess) options.onSuccess(data, variables);
-      },
-      onError: (error) => {
-         console.error(error);
-         if (options.onError) options.onError();
-      },
-   });
+  return useMutation({
+    mutationFn: async (params: MutationPostParams<P>) => {
+      const url = buildUrl<P, "post">(baseUrl, options.path, options.url, options.parameters);
+      return handleApiResponse(
+        RequestMethod.POST,
+        await fetch(url, {
+          ...fetchOptions,
+          method: "POST",
+          body: JSON.stringify(params.data),
+        }),
+        navigate,
+        auth,
+        options,
+        JSON.stringify(params.data, null, 2),
+      );
+    },
+    onSuccess: (data, variables) => {
+      if (options.invalidationQueryKeys) handleInvalidation(client, options.invalidationQueryKeys);
+      if (options.onSuccess) options.onSuccess(data, variables);
+    },
+    onError: (error) => {
+      console.error(error);
+      if (options.onError) options.onError();
+    },
+  });
 }

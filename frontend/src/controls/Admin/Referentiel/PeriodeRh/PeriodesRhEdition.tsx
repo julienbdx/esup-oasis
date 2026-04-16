@@ -21,8 +21,8 @@ import { IPeriode } from "@api/ApiTypeHelpers";
 import { QK_PERIODES } from "@api/queryKeys";
 
 interface PeriodesRhEditionProps {
-   periode: IPeriode;
-   setPeriode: (item: IPeriode | undefined) => void;
+  periode: IPeriode;
+  setPeriode: (item: IPeriode | undefined) => void;
 }
 
 /**
@@ -33,134 +33,132 @@ interface PeriodesRhEditionProps {
  * @return {ReactElement} - The JSX element representing the PeriodesRhEdition component.
  */
 export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProps): ReactElement {
-   const mutationPost = useApi().usePost({
-      path: "/periodes",
-      invalidationQueryKeys: [QK_PERIODES],
-      onSuccess: () => {
-         setPeriode(undefined);
-      },
-   });
-   const mutationPatch = useApi().usePatch({
-      path: `/periodes/{id}`,
-      invalidationQueryKeys: [QK_PERIODES],
-      onSuccess: () => {
-         setPeriode(undefined);
-      },
-   });
+  const mutationPost = useApi().usePost({
+    path: "/periodes",
+    invalidationQueryKeys: [QK_PERIODES],
+    onSuccess: () => {
+      setPeriode(undefined);
+    },
+  });
+  const mutationPatch = useApi().usePatch({
+    path: `/periodes/{id}`,
+    invalidationQueryKeys: [QK_PERIODES],
+    onSuccess: () => {
+      setPeriode(undefined);
+    },
+  });
 
-   function createOrUpdate() {
-      if (!periode) return;
+  function createOrUpdate() {
+    if (!periode) return;
 
-      const data = {
-         ...periode,
-         debut: createDateAsUTC(dayjs(periode.debut).startOf("day").toDate()).toISOString(),
-         fin: createDateAsUTC(dayjs(periode.fin).endOf("day").toDate()).toISOString(),
-         butoir: createDateAsUTC(dayjs(periode.butoir).endOf("day").toDate()).toISOString(),
-      };
+    const data = {
+      ...periode,
+      debut: createDateAsUTC(dayjs(periode.debut).startOf("day").toDate()).toISOString(),
+      fin: createDateAsUTC(dayjs(periode.fin).endOf("day").toDate()).toISOString(),
+      butoir: createDateAsUTC(dayjs(periode.butoir).endOf("day").toDate()).toISOString(),
+    };
 
-      if (periode["@id"] === undefined) {
-         // Création
-         mutationPost?.mutate({
-            data,
-         });
-      } else {
-         // Modification
-         mutationPatch?.mutate({
-            "@id": periode["@id"],
-            data,
-         });
-      }
-   }
-
-   function setSelectedDayRange(value: DayRange) {
-      if (!periode) return;
-      setPeriode({
-         ...periode,
-         debut: value.from ? createDateAsUTC(toDate(value.from)).toISOString() : null,
-         fin: value.to ? createDateAsUTC(toDate(value.to)).toISOString() : null,
+    if (periode["@id"] === undefined) {
+      // Création
+      mutationPost?.mutate({
+        data,
       });
-   }
+    } else {
+      // Modification
+      mutationPatch?.mutate({
+        "@id": periode["@id"],
+        data,
+      });
+    }
+  }
 
-   return (
-      <Drawer
-         open
-         title={
-            periode["@id"]
-               ? "Éditer un élément du référentiel"
-               : "Ajouter un élément au référentiel"
-         }
-         onClose={() => setPeriode(undefined)}
-         size="large"
-         className="bg-light-grey"
+  function setSelectedDayRange(value: DayRange) {
+    if (!periode) return;
+    setPeriode({
+      ...periode,
+      debut: value.from ? createDateAsUTC(toDate(value.from)).toISOString() : null,
+      fin: value.to ? createDateAsUTC(toDate(value.to)).toISOString() : null,
+    });
+  }
+
+  return (
+    <Drawer
+      open
+      title={
+        periode["@id"] ? "Éditer un élément du référentiel" : "Ajouter un élément au référentiel"
+      }
+      onClose={() => setPeriode(undefined)}
+      size="large"
+      className="bg-light-grey"
+    >
+      <Card
+        title="Période RH"
+        actions={[
+          <Button
+            type="primary"
+            disabled={!periode.debut || !periode.fin || !periode.butoir}
+            onClick={createOrUpdate}
+          >
+            Enregistrer
+          </Button>,
+        ]}
       >
-         <Card
-            title="Période RH"
-            actions={[
-               <Button
-                  type="primary"
-                  disabled={!periode.debut || !periode.fin || !periode.butoir}
-                  onClick={createOrUpdate}
-               >
-                  Enregistrer
-               </Button>,
-            ]}
-         >
-            <Typography.Text strong>Période</Typography.Text>
-            <br />
-            <Calendar
-               value={{
-                  from: periode.debut ? toDayValue(new Date(periode.debut)) : null,
-                  to: periode.fin ? toDayValue(new Date(periode.fin)) : null,
-               }}
-               shouldHighlightWeekends
-               locale={modernCalendarLocaleFr}
-               colorPrimary="var(--color-app)"
-               colorPrimaryLight="var(--color-app)"
-               calendarClassName="small-calendar"
-               onChange={setSelectedDayRange}
+        <Typography.Text strong>Période</Typography.Text>
+        <br />
+        <Calendar
+          value={{
+            from: periode.debut ? toDayValue(new Date(periode.debut)) : null,
+            to: periode.fin ? toDayValue(new Date(periode.fin)) : null,
+          }}
+          shouldHighlightWeekends
+          locale={modernCalendarLocaleFr}
+          colorPrimary="var(--color-app)"
+          colorPrimaryLight="var(--color-app)"
+          calendarClassName="small-calendar"
+          onChange={setSelectedDayRange}
+        />
+
+        <div className="mt-4">
+          <Typography.Text strong>Date butoir</Typography.Text>
+          <br />
+          <DatePicker
+            className="w-100"
+            format="DD/MM/YYYY"
+            value={periode.butoir ? dayjs(periode.butoir) : null}
+            onChange={(date) => {
+              setPeriode({
+                ...periode,
+                butoir: date ? createDateAsUTC(date?.toDate()).toISOString() : null,
+              });
+            }}
+          />
+        </div>
+
+        <div className="mt-4">
+          <Typography.Text strong>Envoyé à la RH ?</Typography.Text>
+
+          <Space orientation="vertical" className="mt-2">
+            <Alert
+              type="warning"
+              icon={<WarningFilled />}
+              showIcon
+              title="Envoi des évènements à la RH"
+              description="Les évènements contenus dans la période ne seront plus modifiables."
             />
-
-            <div className="mt-4">
-               <Typography.Text strong>Date butoir</Typography.Text>
-               <br />
-               <DatePicker
-                  className="w-100"
-                  format="DD/MM/YYYY"
-                  value={periode.butoir ? dayjs(periode.butoir) : null}
-                  onChange={(date) => {
-                     setPeriode({
-                        ...periode,
-                        butoir: date ? createDateAsUTC(date?.toDate()).toISOString() : null,
-                     });
-                  }}
-               />
-            </div>
-
-            <div className="mt-4">
-               <Typography.Text strong>Envoyé à la RH ?</Typography.Text>
-
-               <Space orientation="vertical" className="mt-2">
-                  <Alert
-                     type="warning"
-                     icon={<WarningFilled />}
-                     showIcon
-                     title="Envoi des évènements à la RH"
-                     description="Les évènements contenus dans la période ne seront plus modifiables."
-                  />
-                  <Switch
-                     disabled={periode["@id"] === undefined}
-                     checked={periode.envoyee}
-                     checkedChildren={<SendOutlined style={{ marginTop: 5 }} />}
-                     onChange={(value) => {
-                        setPeriode({
-                           ...periode,
-                           envoyee: value,
-                        });
-                     }}
-                  />
-               </Space>
-            </div>
-         </Card>
-      </Drawer>
-   );
+            <Switch
+              disabled={periode["@id"] === undefined}
+              checked={periode.envoyee}
+              checkedChildren={<SendOutlined style={{ marginTop: 5 }} />}
+              onChange={(value) => {
+                setPeriode({
+                  ...periode,
+                  envoyee: value,
+                });
+              }}
+            />
+          </Space>
+        </div>
+      </Card>
+    </Drawer>
+  );
 }

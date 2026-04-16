@@ -17,82 +17,77 @@ import { Tags } from "@controls/Admin/Referentiel/Tags/Tags";
 import React from "react";
 
 export function CategoriesTagTable(props: {
-   editedItem?: ICategorieTag;
-   setEditedItem: (item?: ICategorieTag) => void;
+  editedItem?: ICategorieTag;
+  setEditedItem: (item?: ICategorieTag) => void;
 }) {
-   const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
-   const { data: categories, isFetching } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
+  const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
+  const { data: categories, isFetching } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
 
-   return (
-      <Table<ICategorieTag>
-         caption={
-            <div className="float-right mb-1">
-               <Space>
-                  <Switch
-                     size="small"
-                     value={afficherDesactives}
-                     onChange={() => setAfficherDesactives(!afficherDesactives)}
-                  />
-                  <span>Afficher les valeurs désactivées</span>
-               </Space>
-            </div>
-         }
-         loading={isFetching}
-         dataSource={categories?.items.filter((item) => afficherDesactives || item.actif)}
-         rowKey={(record) => record["@id"] as string}
-         rowClassName={(record) => {
-            if (!record.actif) {
-               return "ref-inactif";
-            }
-            return record["@id"] === props.editedItem?.["@id"]
-               ? "bg-primary-light shadow-1 border-0"
-               : "";
-         }}
-         pagination={false}
-         columns={[
-            {
-               title: "Catégorie",
-               dataIndex: "libelle",
-               key: "libelle",
-            },
-            {
-               title: "État",
-               dataIndex: "actif",
-               key: "actif",
-               width: 100,
-               render: (actif) => (
-                  <BooleanState value={actif} onLabel="Activé" offLabel="Désactivé" />
-               ),
-            },
-            {
-               dataIndex: "commandes",
-               key: "commandes",
-               className: "text-right commandes",
-               render: (_item, record) => (
-                  <Button
-                     icon={<EditOutlined />}
-                     onClick={(event) => {
-                        event.stopPropagation();
-                        props.setEditedItem(record);
-                     }}
-                  >
-                     Éditer
-                  </Button>
-               ),
-            },
-         ]}
-         expandable={{
-            expandRowByClick: true,
-            expandedRowClassName: () => "bg-white",
-            expandedRowRender: (record) => {
-               return (
-                  <Tags
-                     categorieId={record["@id"] as string}
-                     afficherDesactives={afficherDesactives}
-                  />
-               );
-            },
-         }}
-      />
-   );
+  return (
+    <Table<ICategorieTag>
+      caption={
+        <div className="float-right mb-1">
+          <Space>
+            <Switch
+              size="small"
+              value={afficherDesactives}
+              onChange={() => setAfficherDesactives(!afficherDesactives)}
+            />
+            <span>Afficher les valeurs désactivées</span>
+          </Space>
+        </div>
+      }
+      loading={isFetching}
+      dataSource={categories?.items.filter((item) => afficherDesactives || item.actif)}
+      rowKey={(record) => record["@id"] as string}
+      rowClassName={(record) => {
+        if (!record.actif) {
+          return "ref-inactif";
+        }
+        return record["@id"] === props.editedItem?.["@id"]
+          ? "bg-primary-light shadow-1 border-0"
+          : "";
+      }}
+      pagination={false}
+      columns={[
+        {
+          title: "Catégorie",
+          dataIndex: "libelle",
+          key: "libelle",
+        },
+        {
+          title: "État",
+          dataIndex: "actif",
+          key: "actif",
+          width: 100,
+          render: (actif) => <BooleanState value={actif} onLabel="Activé" offLabel="Désactivé" />,
+        },
+        {
+          dataIndex: "commandes",
+          key: "commandes",
+          className: "text-right commandes",
+          render: (_item, record) => (
+            <Button
+              icon={<EditOutlined />}
+              onClick={(event) => {
+                event.stopPropagation();
+                props.setEditedItem(record);
+              }}
+            >
+              Éditer
+            </Button>
+          ),
+        },
+      ]}
+      expandable={{
+        expandRowByClick: true,
+        expandedRowClassName: () => "bg-white",
+        expandedRowRender: (record) => {
+          return (
+            <Tags categorieId={record["@id"] as string} afficherDesactives={afficherDesactives} />
+          );
+        },
+      }}
+    />
+  );
 }

@@ -20,20 +20,20 @@ import AlertCompleterProfil from "@controls/Dashboard/AlertCompleterProfil";
  * @returns {ReactElement} The rendered dashboard component.
  */
 export function IntervenantDashboard(): ReactElement {
-   const user = useAuth().user;
+  const user = useAuth().user;
 
-   return (
-      <Layout.Content style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>Tableau de bord</Typography.Title>
-         <AlertCompleterProfil />
+  return (
+    <Layout.Content style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>Tableau de bord</Typography.Title>
+      <AlertCompleterProfil />
 
-         {user && user.isRenfort && (
-            <DashboardUtilisateurStats utilisateurId={user?.["@id"] as string} />
-         )}
+      {user && user.isRenfort && (
+        <DashboardUtilisateurStats utilisateurId={user?.["@id"] as string} />
+      )}
 
-         <IntervenantDashboardServicesFaits />
-      </Layout.Content>
-   );
+      <IntervenantDashboardServicesFaits />
+    </Layout.Content>
+  );
 }
 
 export default IntervenantDashboard;

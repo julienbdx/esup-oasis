@@ -20,7 +20,7 @@ dayjs.extend(isBetween);
  * @return {number} - The number of days in the month of the given date.
  */
 export function countDaysInMonth(date: Date): number {
-   return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 
 /**
@@ -30,7 +30,7 @@ export function countDaysInMonth(date: Date): number {
  * @return {Date} The first day of the month.
  */
 export function firstDayOfMonth(date: Date): Date {
-   return new Date(date.getFullYear(), date.getMonth(), 1);
+  return new Date(date.getFullYear(), date.getMonth(), 1);
 }
 
 /**
@@ -40,7 +40,7 @@ export function firstDayOfMonth(date: Date): Date {
  * @return {Date} - The last day of the month.
  */
 export function lastDayOfMonth(date: Date): Date {
-   return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
 }
 
 /**
@@ -50,9 +50,9 @@ export function lastDayOfMonth(date: Date): Date {
  * @return {Date} - The first Monday before the given date.
  */
 export function firstMondayBefore(date: Date): Date {
-   const day = date.getDay();
-   const diff = date.getDate() - day + (day === 0 ? -6 : 1);
-   return new Date(date.setDate(diff));
+  const day = date.getDay();
+  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(date.setDate(diff));
 }
 
 /**
@@ -62,9 +62,9 @@ export function firstMondayBefore(date: Date): Date {
  * @returns {Date} The first Sunday date after the given date.
  */
 export function firstSundayAfter(date: Date): Date {
-   const day = date.getDay();
-   const diff = date.getDate() - day + (day === 0 ? 0 : 7);
-   return new Date(date.setDate(diff));
+  const day = date.getDay();
+  const diff = date.getDate() - day + (day === 0 ? 0 : 7);
+  return new Date(date.setDate(diff));
 }
 
 /**
@@ -74,9 +74,9 @@ export function firstSundayAfter(date: Date): Date {
  * @return {Date} - The date of the first Friday after the given date.
  */
 export function firstFridayAfter(date: Date): Date {
-   const day = date.getDay();
-   const diff = date.getDate() - day + 5;
-   return new Date(date.setDate(diff));
+  const day = date.getDay();
+  const diff = date.getDate() - day + 5;
+  return new Date(date.setDate(diff));
 }
 
 /**
@@ -87,11 +87,11 @@ export function firstFridayAfter(date: Date): Date {
  * @return {boolean} - True if the dates are the same day, otherwise false.
  */
 export function isSameDay(date1: Date, date2: Date): boolean {
-   return (
-      date1.getDate() === date2.getDate() &&
-      date1.getMonth() === date2.getMonth() &&
-      date1.getFullYear() === date2.getFullYear()
-   );
+  return (
+    date1.getDate() === date2.getDate() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getFullYear() === date2.getFullYear()
+  );
 }
 
 /**
@@ -102,32 +102,32 @@ export function isSameDay(date1: Date, date2: Date): boolean {
  * @returns {{from: Date, to: Date}} - An object containing the calculated "from" and "to" dates.
  */
 export const calculateRange = (
-   debut: Date,
-   affichage: TypeAffichageCustomValues,
+  debut: Date,
+  affichage: TypeAffichageCustomValues,
 ): { from: Date; to: Date } => {
-   let from = debut;
-   let to: Date;
+  let from = debut;
+  let to: Date;
 
-   switch (affichage) {
-      case "day":
-         to = from;
-         break;
-      case "work_week":
-         from = firstMondayBefore(debut);
-         to = firstFridayAfter(debut);
-         break;
-      case "week":
-         from = firstMondayBefore(debut);
-         to = firstSundayAfter(debut);
-         break;
-      case "month":
-      default:
-         from = firstDayOfMonth(debut);
-         to = lastDayOfMonth(debut);
-         break;
-   }
+  switch (affichage) {
+    case "day":
+      to = from;
+      break;
+    case "work_week":
+      from = firstMondayBefore(debut);
+      to = firstFridayAfter(debut);
+      break;
+    case "week":
+      from = firstMondayBefore(debut);
+      to = firstSundayAfter(debut);
+      break;
+    case "month":
+    default:
+      from = firstDayOfMonth(debut);
+      to = lastDayOfMonth(debut);
+      break;
+  }
 
-   return { from, to };
+  return { from, to };
 };
 
 /**
@@ -138,20 +138,20 @@ export const calculateRange = (
  * @returns {number} - The number of days according to the affichage.
  */
 export const affichageNbJours = (affichage: TypeAffichageCustomValues, date: Date): number => {
-   let step = 0;
-   switch (affichage) {
-      case "month":
-         step = countDaysInMonth(date);
-         break;
-      case "week":
-      case "work_week":
-         step = 7;
-         break;
-      case "day":
-         step = 1;
-         break;
-   }
-   return step;
+  let step = 0;
+  switch (affichage) {
+    case "month":
+      step = countDaysInMonth(date);
+      break;
+    case "week":
+    case "work_week":
+      step = 7;
+      break;
+    case "day":
+      step = 1;
+      break;
+  }
+  return step;
 };
 
 /**
@@ -162,21 +162,21 @@ export const affichageNbJours = (affichage: TypeAffichageCustomValues, date: Dat
  * @returns {boolean} - Returns true if the current date is within the specified period, otherwise false.
  */
 export function isEnCoursSurPeriode(
-   debut: string | undefined | null,
-   fin: string | undefined | null,
+  debut: string | undefined | null,
+  fin: string | undefined | null,
 ): boolean {
-   if (!debut && !fin) return false;
+  if (!debut && !fin) return false;
 
-   if (!debut) {
-      return dayjs().isBefore(fin);
-   }
+  if (!debut) {
+    return dayjs().isBefore(fin);
+  }
 
-   if (!fin) {
-      return dayjs().isAfter(debut);
-   }
+  if (!fin) {
+    return dayjs().isAfter(debut);
+  }
 
-   const dateDebut = new Date(debut);
-   const dateFin = new Date(fin);
+  const dateDebut = new Date(debut);
+  const dateFin = new Date(fin);
 
-   return dayjs().isBetween(dateDebut, dateFin);
+  return dayjs().isBetween(dateDebut, dateFin);
 }

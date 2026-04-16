@@ -21,8 +21,8 @@ import { RoleValues } from "@lib/Utilisateur";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 interface IEventCopyButtonProps {
-   evenement: IEvenement;
-   onCopy?: () => void;
+  evenement: IEvenement;
+  onCopy?: () => void;
 }
 
 /**
@@ -34,83 +34,83 @@ interface IEventCopyButtonProps {
  * @returns {ReactElement} - The copy button element
  */
 export default function EventCopyButton({
-   evenement,
-   onCopy,
+  evenement,
+  onCopy,
 }: IEventCopyButtonProps): ReactElement {
-   const screens = useBreakpoint();
-   const { message } = App.useApp();
-   const ref = React.useRef<HTMLDivElement>(null);
+  const screens = useBreakpoint();
+  const { message } = App.useApp();
+  const ref = React.useRef<HTMLDivElement>(null);
 
-   return useMemo(
-      () => (
-         <>
-            <div ref={ref} className="d-none">
-               {evenement.libelle ? `Libellé :${evenement.libelle}\n` : ""}
-               Catégorie : <TypeEvenementItem typeEvenementId={evenement.type} showAvatar={false} />
-               {"\n"}
-               Date : le {dayjs(evenement.debut).format("dddd DD MMM YYYY")} de{" "}
-               {dayjs(evenement.debut).format("HH:mm")} à {dayjs(evenement.fin).format("HH:mm")}
-               {"\n\n"}
-               Bénéficiaire{(evenement.beneficiaires || []).length > 1 ? "s" : ""} :{" "}
-               {evenement.beneficiaires?.map((b) => (
-                  <div key={b}>
-                     <EtudiantItem key={b} utilisateurId={b} showAvatar={false} />
-                     {"\n"}
-                  </div>
-               ))}
-               {(evenement.beneficiaires || []).length === 0 && "Aucun bénéficiare associé"}
-               {"\n"}
-               Intervenant :{" "}
-               <EtudiantItem
-                  utilisateurId={evenement.intervenant || undefined}
-                  role={RoleValues.ROLE_INTERVENANT}
-                  showAvatar={false}
-               />
-               {evenement.intervenant === undefined && "Aucun intervenant associé"}
-               {"\n\n"}
-               Enseignant{(evenement.enseignants || []).length > 1 ? "s" : ""} :{" "}
-               {evenement.enseignants?.map((b) => (
-                  <div key={b}>
-                     <GestionnaireItem key={b} gestionnaireId={b} showAvatar={false} />
-                     {"\n"}
-                  </div>
-               ))}
-               {(evenement.enseignants || []).length === 0 && "Aucun enseignant associé"}
-               {"\n\n"}
-               Localisation : <CampusItem campusId={evenement.campus} showAvatar={false} /> /{" "}
-               {evenement.salle ? evenement.salle : "Aucune salle associée"}
-               {"\n\n"}
-               Equipements :{" "}
-               {evenement.equipements?.map((eqpt) => (
-                  <div key={eqpt}>
-                     <TypeEquipementItem typeEquipementId={eqpt} />
-                     {"\n"}
-                  </div>
-               ))}
-               {(evenement.equipements || []).length === 0 && "Aucun équipement associé"}
+  return useMemo(
+    () => (
+      <>
+        <div ref={ref} className="d-none">
+          {evenement.libelle ? `Libellé :${evenement.libelle}\n` : ""}
+          Catégorie : <TypeEvenementItem typeEvenementId={evenement.type} showAvatar={false} />
+          {"\n"}
+          Date : le {dayjs(evenement.debut).format("dddd DD MMM YYYY")} de{" "}
+          {dayjs(evenement.debut).format("HH:mm")} à {dayjs(evenement.fin).format("HH:mm")}
+          {"\n\n"}
+          Bénéficiaire{(evenement.beneficiaires || []).length > 1 ? "s" : ""} :{" "}
+          {evenement.beneficiaires?.map((b) => (
+            <div key={b}>
+              <EtudiantItem key={b} utilisateurId={b} showAvatar={false} />
+              {"\n"}
             </div>
-            <Button
-               icon={<CopyOutlined />}
-               aria-label="Copier l'événement dans le presse-papier"
-               onClick={(e) => {
-                  e.stopPropagation();
-                  navigator.clipboard
-                     .writeText(ref.current?.innerText || "")
-                     .then(() => onCopy?.())
-                     .catch(() => {
-                        message
-                           .error(
-                              "Impossible de copier le texte, le navigateur n'a pas accès à votre presse-papier.",
-                           )
-                           .then();
-                     });
-               }}
-            >
-               {screens.lg ? "Copier" : null}
-            </Button>
-         </>
-      ),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [evenement],
-   );
+          ))}
+          {(evenement.beneficiaires || []).length === 0 && "Aucun bénéficiare associé"}
+          {"\n"}
+          Intervenant :{" "}
+          <EtudiantItem
+            utilisateurId={evenement.intervenant || undefined}
+            role={RoleValues.ROLE_INTERVENANT}
+            showAvatar={false}
+          />
+          {evenement.intervenant === undefined && "Aucun intervenant associé"}
+          {"\n\n"}
+          Enseignant{(evenement.enseignants || []).length > 1 ? "s" : ""} :{" "}
+          {evenement.enseignants?.map((b) => (
+            <div key={b}>
+              <GestionnaireItem key={b} gestionnaireId={b} showAvatar={false} />
+              {"\n"}
+            </div>
+          ))}
+          {(evenement.enseignants || []).length === 0 && "Aucun enseignant associé"}
+          {"\n\n"}
+          Localisation : <CampusItem campusId={evenement.campus} showAvatar={false} /> /{" "}
+          {evenement.salle ? evenement.salle : "Aucune salle associée"}
+          {"\n\n"}
+          Equipements :{" "}
+          {evenement.equipements?.map((eqpt) => (
+            <div key={eqpt}>
+              <TypeEquipementItem typeEquipementId={eqpt} />
+              {"\n"}
+            </div>
+          ))}
+          {(evenement.equipements || []).length === 0 && "Aucun équipement associé"}
+        </div>
+        <Button
+          icon={<CopyOutlined />}
+          aria-label="Copier l'événement dans le presse-papier"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigator.clipboard
+              .writeText(ref.current?.innerText || "")
+              .then(() => onCopy?.())
+              .catch(() => {
+                message
+                  .error(
+                    "Impossible de copier le texte, le navigateur n'a pas accès à votre presse-papier.",
+                  )
+                  .then();
+              });
+          }}
+        >
+          {screens.lg ? "Copier" : null}
+        </Button>
+      </>
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [evenement],
+  );
 }

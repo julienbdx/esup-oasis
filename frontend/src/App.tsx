@@ -27,46 +27,46 @@ import { env } from "@/env";
 dayjs.locale("fr"); // use loaded locale globally
 
 export const queryClient = new QueryClient({
-   defaultOptions: {
-      queries: {
-         refetchOnWindowFocus: true,
-         retry: 1,
-         retryDelay: 1000,
-         staleTime: 1000 * 60 * 5, // 5 minutes
-      },
-   },
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: true,
+      retry: 1,
+      retryDelay: 1000,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  },
 });
 
 broadcastQueryClient({
-   queryClient,
-   broadcastChannel: "oasis-app",
-   options: {
-      type: "localstorage",
-   },
+  queryClient,
+  broadcastChannel: "oasis-app",
+  options: {
+    type: "localstorage",
+  },
 });
 
 function App() {
-   const auth = useAuth();
+  const auth = useAuth();
 
-   return (
-      <AppConfigProvider>
-         <AntApp>
-            <Accessibilite />
-            <ScrollToTop />
-            <ApiProvider baseUrl={env.REACT_APP_API as string} auth={auth} client={queryClient}>
-               <div className="full-app">
-                  <QueryClientProvider client={queryClient}>
-                     <Router />
-                     {env.REACT_APP_VERSION === "localdev" && (
-                        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
-                     )}
-                  </QueryClientProvider>
-               </div>
-            </ApiProvider>
-            {env.REACT_APP_VERSION === "localdev" && <BreakPoint />}
-         </AntApp>
-      </AppConfigProvider>
-   );
+  return (
+    <AppConfigProvider>
+      <AntApp>
+        <Accessibilite />
+        <ScrollToTop />
+        <ApiProvider baseUrl={env.REACT_APP_API as string} auth={auth} client={queryClient}>
+          <div className="full-app">
+            <QueryClientProvider client={queryClient}>
+              <Router />
+              {env.REACT_APP_VERSION === "localdev" && (
+                <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+              )}
+            </QueryClientProvider>
+          </div>
+        </ApiProvider>
+        {env.REACT_APP_VERSION === "localdev" && <BreakPoint />}
+      </AntApp>
+    </AppConfigProvider>
+  );
 }
 
 export default App;

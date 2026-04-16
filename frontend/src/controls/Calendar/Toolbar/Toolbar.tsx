@@ -16,8 +16,8 @@ import ToolbarDisplay from "@controls/Calendar/Toolbar/ToolbarDisplay";
 import ToolbarActions from "@controls/Calendar/Toolbar/ToolbarActions";
 
 interface IToolbar {
-   saisieEvtRenfort?: boolean;
-   evenements: Evenement[];
+  saisieEvtRenfort?: boolean;
+  evenements: Evenement[];
 }
 
 /**
@@ -27,24 +27,24 @@ interface IToolbar {
  * @param {Evenement[]} params.evenements - The array of events.
  */
 export default function Toolbar({ saisieEvtRenfort, evenements }: IToolbar) {
-   useEffect(() => {
-      document
-         .querySelectorAll(".ant-segmented-item-input")
-         .forEach((el) => el.setAttribute("role", "option"));
-   });
+  useEffect(() => {
+    document
+      .querySelectorAll(".ant-segmented-item-input")
+      .forEach((el) => el.setAttribute("role", "option"));
+  });
 
-   return (
-      <>
-         {saisieEvtRenfort && <MesInterventionsIntro />}
-         <Row className="toolbar-container">
-            <Col span={8}>
-               <ToolbarNavigation />
-            </Col>
-            <Col span={16} className="text-right">
-               <ToolbarDisplay saisieEvtRenfort={saisieEvtRenfort} evenements={evenements} />
-            </Col>
-         </Row>
-         <ToolbarActions saisieEvtRenfort={saisieEvtRenfort} />
-      </>
-   );
+  return (
+    <>
+      {saisieEvtRenfort && <MesInterventionsIntro />}
+      <Row className="toolbar-container">
+        <Col span={8}>
+          <ToolbarNavigation />
+        </Col>
+        <Col span={16} className="text-right">
+          <ToolbarDisplay saisieEvtRenfort={saisieEvtRenfort} evenements={evenements} />
+        </Col>
+      </Row>
+      <ToolbarActions saisieEvtRenfort={saisieEvtRenfort} />
+    </>
+  );
 }

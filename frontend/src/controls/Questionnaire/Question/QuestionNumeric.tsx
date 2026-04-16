@@ -14,46 +14,46 @@ import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/Questi
 import React from "react";
 
 export function QuestionNumeric(props: { question: QuestionnaireQuestion }) {
-   const [submitting, setSubmitting] = React.useState<boolean>(false);
-   const { questUtils, mode } = useQuestionnaire();
+  const [submitting, setSubmitting] = React.useState<boolean>(false);
+  const { questUtils, mode } = useQuestionnaire();
 
-   return (
-      <>
-         <Form.Item
-            className="mb-0"
-            rules={
-               mode !== "preview" && props.question.obligatoire
-                  ? [{ required: true, message: "Le champ est obligatoire" }]
-                  : []
-            }
-            required={props.question.obligatoire}
-            rootClassName="question-item"
-            label={
-               <Space className="question" orientation="horizontal">
-                  <MinusOutlined aria-hidden={true} />
-                  <div>{props.question.libelle}</div>
-               </Space>
-            }
-            name={props.question["@id"]}
-         >
-            <InputNumber
-               disabled={mode === "preview" || submitting}
-               data-question={props.question["@id"]}
-               data-type={props.question.typeReponse}
-               changeOnWheel={false}
-               decimalSeparator=","
-               onBlur={(e) => {
-                  setSubmitting(true);
-                  questUtils?.envoyerReponse(
-                     props.question["@id"] as string,
-                     props.question.typeReponse as string,
-                     e.target.value,
-                     () => setSubmitting(false),
-                  );
-               }}
-            />
-         </Form.Item>
-         <QuestionAide question={props.question} />
-      </>
-   );
+  return (
+    <>
+      <Form.Item
+        className="mb-0"
+        rules={
+          mode !== "preview" && props.question.obligatoire
+            ? [{ required: true, message: "Le champ est obligatoire" }]
+            : []
+        }
+        required={props.question.obligatoire}
+        rootClassName="question-item"
+        label={
+          <Space className="question" orientation="horizontal">
+            <MinusOutlined aria-hidden={true} />
+            <div>{props.question.libelle}</div>
+          </Space>
+        }
+        name={props.question["@id"]}
+      >
+        <InputNumber
+          disabled={mode === "preview" || submitting}
+          data-question={props.question["@id"]}
+          data-type={props.question.typeReponse}
+          changeOnWheel={false}
+          decimalSeparator=","
+          onBlur={(e) => {
+            setSubmitting(true);
+            questUtils?.envoyerReponse(
+              props.question["@id"] as string,
+              props.question.typeReponse as string,
+              e.target.value,
+              () => setSubmitting(false),
+            );
+          }}
+        />
+      </Form.Item>
+      <QuestionAide question={props.question} />
+    </>
+  );
 }

@@ -13,46 +13,46 @@ import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 import { UseStateDispatch } from "@utils/utils";
 
 interface FilterFieldStatutIntervenantProps {
-   filtreIntervenant: FiltreIntervenant;
-   setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
+  filtreIntervenant: FiltreIntervenant;
+  setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
 }
 
 export function FilterFieldStatutIntervenant({
-   filtreIntervenant,
-   setFiltreIntervenant,
+  filtreIntervenant,
+  setFiltreIntervenant,
 }: FilterFieldStatutIntervenantProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span>Statut</span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               placeholder="Tous les intervenants"
-               className="w-100"
-               options={[
-                  {
-                     label: "Intervenants actifs (et futurs actifs)",
-                     value: false,
-                  },
-                  {
-                     label: "Intervenants archivés",
-                     value: true,
-                  },
-               ]}
-               value={filtreIntervenant.intervenantArchive}
-               onChange={(value) => {
-                  setFiltreIntervenant((prev) => ({
-                     ...prev,
-                     intervenantArchive: value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span>Statut</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          placeholder="Tous les intervenants"
+          className="w-100"
+          options={[
+            {
+              label: "Intervenants actifs (et futurs actifs)",
+              value: false,
+            },
+            {
+              label: "Intervenants archivés",
+              value: true,
+            },
+          ]}
+          value={filtreIntervenant.intervenantArchive}
+          onChange={(value) => {
+            setFiltreIntervenant((prev) => ({
+              ...prev,
+              intervenantArchive: value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

@@ -15,55 +15,55 @@ import { PaginateResult } from "@context/api/ApiProvider";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface FilterFieldGestionnairesProps {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
-   gestionnaires:
-      | PaginateResult<{
-           "hydra:member": IUtilisateur[];
-        }>
-      | undefined;
-   isFetchingGestionnaires: boolean;
-   user: Utilisateur | null | undefined;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  gestionnaires:
+    | PaginateResult<{
+        "hydra:member": IUtilisateur[];
+      }>
+    | undefined;
+  isFetchingGestionnaires: boolean;
+  user: Utilisateur | null | undefined;
 }
 
 export function FilterFieldGestionnaires({
-   filtreAmenagement,
-   setFiltreAmenagement,
-   gestionnaires,
-   isFetchingGestionnaires,
-   user,
+  filtreAmenagement,
+  setFiltreAmenagement,
+  gestionnaires,
+  isFetchingGestionnaires,
+  user,
 }: FilterFieldGestionnairesProps) {
-   if (!user?.isPlanificateur && !user?.isRenfort) {
-      return null;
-   }
+  if (!user?.isPlanificateur && !user?.isRenfort) {
+    return null;
+  }
 
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <span aria-label="Chargés d'accompagnement">Chargé•es d'accompagnement</span>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               placeholder="Tous les chargés d'accompagnement"
-               mode="tags"
-               allowClear
-               loading={isFetchingGestionnaires}
-               className="w-100"
-               options={gestionnaires?.items.map((g) => ({
-                  label: `${g.nom?.toLocaleUpperCase()} ${g.prenom}`,
-                  value: g["@id"],
-               }))}
-               value={filtreAmenagement["gestionnaire[]"]}
-               onChange={(value) => {
-                  setFiltreAmenagement((prev) => ({
-                     ...prev,
-                     nomGestionnaire: undefined,
-                     "gestionnaire[]": value.length === 0 ? undefined : value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <span aria-label="Chargés d'accompagnement">Chargé•es d'accompagnement</span>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          placeholder="Tous les chargés d'accompagnement"
+          mode="tags"
+          allowClear
+          loading={isFetchingGestionnaires}
+          className="w-100"
+          options={gestionnaires?.items.map((g) => ({
+            label: `${g.nom?.toLocaleUpperCase()} ${g.prenom}`,
+            value: g["@id"],
+          }))}
+          value={filtreAmenagement["gestionnaire[]"]}
+          onChange={(value) => {
+            setFiltreAmenagement((prev) => ({
+              ...prev,
+              nomGestionnaire: undefined,
+              "gestionnaire[]": value.length === 0 ? undefined : value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

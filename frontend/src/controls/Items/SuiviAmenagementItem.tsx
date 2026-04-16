@@ -14,9 +14,9 @@ import { Tag } from "antd";
 import { PREFETCH_TYPES_SUIVI_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
 
 interface ISuiviAmenagementItemProps {
-   suiviId?: string;
-   className?: string;
-   couleur?: string;
+  suiviId?: string;
+  className?: string;
+  couleur?: string;
 }
 
 /**
@@ -27,19 +27,19 @@ interface ISuiviAmenagementItemProps {
  * @returns {ReactElement} - The rendered list of suivi items.
  */
 export default function SuiviAmenagementItem({
-   suiviId,
-   className,
-   couleur,
+  suiviId,
+  className,
+  couleur,
 }: ISuiviAmenagementItemProps): ReactElement {
-   const { data: suivis, isFetching: isFetchingSuivis } = useApi().useGetCollection(
-      PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
-   );
+  const { data: suivis, isFetching: isFetchingSuivis } = useApi().useGetCollection(
+    PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
+  );
 
-   if (isFetchingSuivis || !suivis) return <Spinner />;
+  if (isFetchingSuivis || !suivis) return <Spinner />;
 
-   return (
-      <Tag color={couleur} className={className}>
-         {suivis?.items?.find((s) => s["@id"] === suiviId)?.libelle}
-      </Tag>
-   );
+  return (
+    <Tag color={couleur} className={className}>
+      {suivis?.items?.find((s) => s["@id"] === suiviId)?.libelle}
+    </Tag>
+  );
 }

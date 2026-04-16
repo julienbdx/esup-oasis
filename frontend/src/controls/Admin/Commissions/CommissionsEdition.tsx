@@ -14,8 +14,8 @@ import { CommissionsForm } from "@controls/Admin/Commissions/CommissionsForm";
 import { CommissionsMembersList } from "@controls/Admin/Commissions/CommissionsMembersList";
 
 interface CommissionsEditionProps {
-   editedItem?: ICommission;
-   setEditedItem: (item: ICommission | undefined) => void;
+  editedItem?: ICommission;
+  setEditedItem: (item: ICommission | undefined) => void;
 }
 
 /**
@@ -25,24 +25,24 @@ interface CommissionsEditionProps {
  * @returns {ReactElement} - The rendered component.
  */
 export function CommissionsEdition({
-   editedItem,
-   setEditedItem,
+  editedItem,
+  setEditedItem,
 }: CommissionsEditionProps): ReactElement {
-   return (
-      <Drawer
-         className="bg-light-grey"
-         open
-         title={editedItem?.["@id"] ? "Éditer une commission" : "Ajouter une commission"}
-         onClose={() => setEditedItem(undefined)}
-         size="large"
-      >
-         <CommissionsForm
-            editedItem={editedItem}
-            onSuccess={() => setEditedItem(undefined)}
-            onCancel={() => setEditedItem(undefined)}
-         />
-      </Drawer>
-   );
+  return (
+    <Drawer
+      className="bg-light-grey"
+      open
+      title={editedItem?.["@id"] ? "Éditer une commission" : "Ajouter une commission"}
+      onClose={() => setEditedItem(undefined)}
+      size="large"
+    >
+      <CommissionsForm
+        editedItem={editedItem}
+        onSuccess={() => setEditedItem(undefined)}
+        onCancel={() => setEditedItem(undefined)}
+      />
+    </Drawer>
+  );
 }
 
 /**

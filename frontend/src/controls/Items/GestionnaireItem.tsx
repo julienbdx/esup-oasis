@@ -17,13 +17,13 @@ import { MinusOutlined } from "@ant-design/icons";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface IItemGestionnaire {
-   gestionnaire?: IUtilisateur;
-   gestionnaireId?: string;
-   showAvatar?: boolean;
-   responsive?: Breakpoint;
-   initialePrenom?: boolean;
-   showEmail?: boolean;
-   className?: string;
+  gestionnaire?: IUtilisateur;
+  gestionnaireId?: string;
+  showAvatar?: boolean;
+  responsive?: Breakpoint;
+  initialePrenom?: boolean;
+  showEmail?: boolean;
+  className?: string;
 }
 
 /**
@@ -40,69 +40,69 @@ interface IItemGestionnaire {
  * @return {ReactElement} - The JSX element representing the gestionnaire item.
  */
 export default function GestionnaireItem({
-   gestionnaire,
-   gestionnaireId,
-   showAvatar = true,
-   responsive,
-   initialePrenom = false,
-   showEmail = false,
-   className,
+  gestionnaire,
+  gestionnaireId,
+  showAvatar = true,
+  responsive,
+  initialePrenom = false,
+  showEmail = false,
+  className,
 }: IItemGestionnaire): ReactElement {
-   const [item, setItem] = useState(gestionnaire);
-   const { data, isFetching } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: gestionnaireId as string,
-      enabled: !!gestionnaireId,
-   });
-   const screens = useBreakpoint();
+  const [item, setItem] = useState(gestionnaire);
+  const { data, isFetching } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: gestionnaireId as string,
+    enabled: !!gestionnaireId,
+  });
+  const screens = useBreakpoint();
 
-   useEffect(() => {
-      if (data) {
-         setItem(data);
-      }
-   }, [data]);
+  useEffect(() => {
+    if (data) {
+      setItem(data);
+    }
+  }, [data]);
 
-   if (!gestionnaire && !gestionnaireId) return <MinusOutlined />;
+  if (!gestionnaire && !gestionnaireId) return <MinusOutlined />;
 
-   if (isFetching) {
-      return (
-         <Space className={className}>
-            {showAvatar && (!responsive || screens[responsive]) && (
-               <UtilisateurAvatar role={RoleValues.ROLE_GESTIONNAIRE} loading />
-            )}
-            <div style={{ lineHeight: 1 }}>
-               <Skeleton.Input active />
-            </div>
-         </Space>
-      );
-   }
-
-   if (!item) return <></>;
-
-   return (
+  if (isFetching) {
+    return (
       <Space className={className}>
-         {showAvatar && (!responsive || screens[responsive]) && (
-            <UtilisateurAvatar utilisateur={item} role={RoleValues.ROLE_GESTIONNAIRE} />
-         )}
-         <div style={{ lineHeight: 1 }}>
-            <span style={{ whiteSpace: "nowrap" }}>
-               {initialePrenom ? `${(item?.prenom || "")[0].toLocaleUpperCase()}.` : item?.prenom}{" "}
-               {item?.nom?.toLocaleUpperCase()}
-            </span>
-            {showEmail && item?.email && (
-               <Button
-                  size="small"
-                  type="text"
-                  className="legende fs-08 m-0 p-0 d-block contrast-no-border"
-                  onClick={() => {
-                     window.location.href = `mailto:${item?.email}`;
-                  }}
-                  aria-label={`Envoyer un email au gestionnaire (${item?.prenom} ${item?.nom})`}
-               >
-                  {item?.email}
-               </Button>
-            )}
-         </div>
+        {showAvatar && (!responsive || screens[responsive]) && (
+          <UtilisateurAvatar role={RoleValues.ROLE_GESTIONNAIRE} loading />
+        )}
+        <div style={{ lineHeight: 1 }}>
+          <Skeleton.Input active />
+        </div>
       </Space>
-   );
+    );
+  }
+
+  if (!item) return <></>;
+
+  return (
+    <Space className={className}>
+      {showAvatar && (!responsive || screens[responsive]) && (
+        <UtilisateurAvatar utilisateur={item} role={RoleValues.ROLE_GESTIONNAIRE} />
+      )}
+      <div style={{ lineHeight: 1 }}>
+        <span style={{ whiteSpace: "nowrap" }}>
+          {initialePrenom ? `${(item?.prenom || "")[0].toLocaleUpperCase()}.` : item?.prenom}{" "}
+          {item?.nom?.toLocaleUpperCase()}
+        </span>
+        {showEmail && item?.email && (
+          <Button
+            size="small"
+            type="text"
+            className="legende fs-08 m-0 p-0 d-block contrast-no-border"
+            onClick={() => {
+              window.location.href = `mailto:${item?.email}`;
+            }}
+            aria-label={`Envoyer un email au gestionnaire (${item?.prenom} ${item?.nom})`}
+          >
+            {item?.email}
+          </Button>
+        )}
+      </div>
+    </Space>
+  );
 }

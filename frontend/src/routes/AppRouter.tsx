@@ -23,62 +23,62 @@ import Spinner from "@controls/Spinner/Spinner";
  * @returns {ReactElement} The routes for the Router component.
  */
 export default function AppRouter(): ReactElement {
-   const auth = useAuth();
+  const auth = useAuth();
 
-   const routes = useMemo<ReactElement | null>(() => {
-      const user = auth.user;
+  const routes = useMemo<ReactElement | null>(() => {
+    const user = auth.user;
 
-      // Routes accessibles par l'utilisateur connecté selon ses rôles
-      const userAuthorizedRoutes = APP_ROUTES.filter(
-         (route) =>
-            route.roles === null ||
-            (user && route.roles.some((rr) => user.roles.some((ru) => rr === ru))),
-      ).map((route) => (
-         <Route
-            key={route.path}
-            path={route.path}
-            element={
-               <Suspense fallback={<Spinner />}>
-                  <route.element />
-               </Suspense>
-            }
-         />
+    // Routes accessibles par l'utilisateur connecté selon ses rôles
+    const userAuthorizedRoutes = APP_ROUTES.filter(
+      (route) =>
+        route.roles === null ||
+        (user && route.roles.some((rr) => user.roles.some((ru) => rr === ru))),
+    ).map((route) => (
+      <Route
+        key={route.path}
+        path={route.path}
+        element={
+          <Suspense fallback={<Spinner />}>
+            <route.element />
+          </Suspense>
+        }
+      />
+    ));
+
+    // Si l'utilisateur n'est pas connecté ou session expirée
+    if (!user?.uid || auth.isExpired()) {
+      // Routes publiques (sans rôles requis)
+      const publicRoutes = APP_ROUTES.filter((route) => route.roles === null).map((route) => (
+        <Route
+          key={route.path}
+          path={route.path}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <route.element />
+            </Suspense>
+          }
+        />
       ));
 
-      // Si l'utilisateur n'est pas connecté ou session expirée
-      if (!user?.uid || auth.isExpired()) {
-         // Routes publiques (sans rôles requis)
-         const publicRoutes = APP_ROUTES.filter((route) => route.roles === null).map((route) => (
-            <Route
-               key={route.path}
-               path={route.path}
-               element={
-                  <Suspense fallback={<Spinner />}>
-                     <route.element />
-                  </Suspense>
-               }
-            />
-         ));
-
-         return (
-            <>
-               <Route element={<OAuthPopup />} path="/callback" />
-               <Route path="/login" element={<LoginPage />} />
-               <Route path="/" element={<LoginPage />} />
-               {publicRoutes}
-               <Route path="*" element={<LoginPage />} />
-            </>
-         );
-      }
-
-      // Si l'utilisateur est connecté
       return (
-         <Route element={<AppLayout />}>
-            {userAuthorizedRoutes}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-         </Route>
+        <>
+          <Route element={<OAuthPopup />} path="/callback" />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
+          {publicRoutes}
+          <Route path="*" element={<LoginPage />} />
+        </>
       );
-   }, [auth]);
+    }
 
-   return <Routes>{routes}</Routes>;
+    // Si l'utilisateur est connecté
+    return (
+      <Route element={<AppLayout />}>
+        {userAuthorizedRoutes}
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Route>
+    );
+  }, [auth]);
+
+  return <Routes>{routes}</Routes>;
 }

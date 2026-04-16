@@ -23,73 +23,73 @@ import { FilterFieldArchivees } from "@controls/Table/filters/FilterFieldArchive
 import { FilterPanel } from "@controls/Table/FilterPanel";
 
 export function DemandeTableFilters(props: {
-   filtreDemande: FiltreDemande;
-   setFiltreDemande: UseStateDispatch<FiltreDemande>;
-   defaultFilter: FiltreDemande;
-   refs: RefsTourDemandes;
-   affichageTour?: boolean;
+  filtreDemande: FiltreDemande;
+  setFiltreDemande: UseStateDispatch<FiltreDemande>;
+  defaultFilter: FiltreDemande;
+  refs: RefsTourDemandes;
+  affichageTour?: boolean;
 }) {
-   const {
-      gestionnaires,
-      isFetchingGestionnaires,
-      disciplines,
-      etats,
-      composantes,
-      formations,
-      types,
-   } = useDemandeFilterOptions(props.filtreDemande);
+  const {
+    gestionnaires,
+    isFetchingGestionnaires,
+    disciplines,
+    etats,
+    composantes,
+    formations,
+    types,
+  } = useDemandeFilterOptions(props.filtreDemande);
 
-   return (
-      <FilterPanel
-         filtre={props.filtreDemande}
-         setFiltre={props.setFiltreDemande}
-         filtreType="filtresDemande"
-         defaultFilter={props.defaultFilter}
-         refDetails={props.refs.filtresDetails}
-         refFavoris={props.refs.favoris as React.RefObject<HTMLDivElement>}
-         refFiltres={props.refs.filtres as React.RefObject<HTMLDivElement>}
-         activeKey={props.affichageTour ? ["filters", "filter_save"] : undefined}
-         accordion={!props.affichageTour}
-      >
-         <FilterFieldNomDemandeur
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-         />
-         <FilterFieldTypesDemandes
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-            types={types}
-         />
-         <FilterFieldEtatDemande
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-            etats={etats}
-         />
-         <FilterFieldGestionnairesDemande
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-            gestionnaires={gestionnaires}
-            isFetchingGestionnaires={isFetchingGestionnaires}
-         />
-         <FilterFieldDisciplinesSportives
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-            disciplines={disciplines}
-         />
-         <FilterFieldComposantesDemande
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-            composantes={composantes}
-         />
-         <FilterFieldFormationsDemande
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-            formations={formations}
-         />
-         <FilterFieldArchivees
-            filtreDemande={props.filtreDemande}
-            setFiltreDemande={props.setFiltreDemande}
-         />
-      </FilterPanel>
-   );
+  return (
+    <FilterPanel
+      filtre={props.filtreDemande}
+      setFiltre={props.setFiltreDemande}
+      filtreType="filtresDemande"
+      defaultFilter={props.defaultFilter}
+      refDetails={props.refs.filtresDetails}
+      refFavoris={props.refs.favoris as React.RefObject<HTMLDivElement>}
+      refFiltres={props.refs.filtres as React.RefObject<HTMLDivElement>}
+      activeKey={props.affichageTour ? ["filters", "filter_save"] : undefined}
+      accordion={!props.affichageTour}
+    >
+      <FilterFieldNomDemandeur
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+      />
+      <FilterFieldTypesDemandes
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+        types={types}
+      />
+      <FilterFieldEtatDemande
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+        etats={etats}
+      />
+      <FilterFieldGestionnairesDemande
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+        gestionnaires={gestionnaires}
+        isFetchingGestionnaires={isFetchingGestionnaires}
+      />
+      <FilterFieldDisciplinesSportives
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+        disciplines={disciplines}
+      />
+      <FilterFieldComposantesDemande
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+        composantes={composantes}
+      />
+      <FilterFieldFormationsDemande
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+        formations={formations}
+      />
+      <FilterFieldArchivees
+        filtreDemande={props.filtreDemande}
+        setFiltreDemande={props.setFiltreDemande}
+      />
+    </FilterPanel>
+  );
 }

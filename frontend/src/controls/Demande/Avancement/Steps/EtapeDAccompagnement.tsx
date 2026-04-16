@@ -12,10 +12,10 @@ import React from "react";
 import { Button, Space, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
-   ETAT_ATTENTE_CHARTES,
-   ETAT_DEMANDE_REFUSEE,
-   ETAT_DEMANDE_VALIDEE,
-   EtatInfo,
+  ETAT_ATTENTE_CHARTES,
+  ETAT_DEMANDE_REFUSEE,
+  ETAT_DEMANDE_VALIDEE,
+  EtatInfo,
 } from "@lib/demande";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
@@ -23,49 +23,49 @@ import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/Questionnair
 import ValidationAccompagnementButton from "@controls/Demande/ValidationAccompagnementButton";
 
 interface EtapeDAccompagnementProps {
-   demande: IDemande;
-   etatDemande: EtatInfo;
+  demande: IDemande;
+  etatDemande: EtatInfo;
 }
 
 export default function EtapeDAccompagnement({ demande, etatDemande }: EtapeDAccompagnementProps) {
-   const navigate = useNavigate();
-   const { questUtils } = useQuestionnaire();
-   const { data: beneficiaire } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: demande.demandeur?.["@id"] as string,
-      enabled: demande.demandeur !== undefined,
-   });
+  const navigate = useNavigate();
+  const { questUtils } = useQuestionnaire();
+  const { data: beneficiaire } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: demande.demandeur?.["@id"] as string,
+    enabled: demande.demandeur !== undefined,
+  });
 
-   if (etatDemande.etape < "D" || etatDemande.id === ETAT_ATTENTE_CHARTES) return null;
+  if (etatDemande.etape < "D" || etatDemande.id === ETAT_ATTENTE_CHARTES) return null;
 
-   if (etatDemande.id === ETAT_DEMANDE_REFUSEE) {
-      return <Typography.Text type="danger">Accompagnement refusé</Typography.Text>;
-   }
+  if (etatDemande.id === ETAT_DEMANDE_REFUSEE) {
+    return <Typography.Text type="danger">Accompagnement refusé</Typography.Text>;
+  }
 
-   if (etatDemande.id === ETAT_DEMANDE_VALIDEE) {
-      return (
-         <Space orientation="vertical">
-            <Typography.Text type="success">Accompagnement validé</Typography.Text>
-            {beneficiaire && beneficiaire.roles?.includes("ROLE_BENEFICIAIRE") && (
-               <Button
-                  size="small"
-                  onClick={() => {
-                     navigate(`/beneficiaires/${demande.demandeur?.uid as string}`);
-                  }}
-               >
-                  Voir bénéficiaire
-               </Button>
-            )}
-         </Space>
-      );
-   }
-
-   return (
+  if (etatDemande.id === ETAT_DEMANDE_VALIDEE) {
+    return (
       <Space orientation="vertical">
-         Accompagnement à valider
-         {questUtils?.isGrantedQuestionnaire(FONCTIONNALITES.STATUER_ACCOMPAGNEMENT) && (
-            <ValidationAccompagnementButton demande={demande} />
-         )}
+        <Typography.Text type="success">Accompagnement validé</Typography.Text>
+        {beneficiaire && beneficiaire.roles?.includes("ROLE_BENEFICIAIRE") && (
+          <Button
+            size="small"
+            onClick={() => {
+              navigate(`/beneficiaires/${demande.demandeur?.uid as string}`);
+            }}
+          >
+            Voir bénéficiaire
+          </Button>
+        )}
       </Space>
-   );
+    );
+  }
+
+  return (
+    <Space orientation="vertical">
+      Accompagnement à valider
+      {questUtils?.isGrantedQuestionnaire(FONCTIONNALITES.STATUER_ACCOMPAGNEMENT) && (
+        <ValidationAccompagnementButton demande={demande} />
+      )}
+    </Space>
+  );
 }

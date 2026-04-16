@@ -15,9 +15,9 @@ import Toolbar from "@controls/Calendar/Toolbar/Toolbar";
 import { Evenement } from "@lib/Evenement";
 import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
 import {
-   filtrerEvenements,
-   filtreToApi,
-   PlanningLayout,
+  filtrerEvenements,
+  filtreToApi,
+  PlanningLayout,
 } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
@@ -31,7 +31,7 @@ import { IEvenement } from "@api/ApiTypeHelpers";
 import { TimezoneAlert } from "@controls/Calendar/TimezoneAlert";
 
 interface IComponentWithSider {
-   saisieEvtRenfort?: boolean;
+  saisieEvtRenfort?: boolean;
 }
 
 /**
@@ -42,100 +42,100 @@ interface IComponentWithSider {
  * @returns {ReactElement} - The rendered component.
  */
 export default function PlanningWithSider({
-   saisieEvtRenfort = false,
+  saisieEvtRenfort = false,
 }: IComponentWithSider): ReactElement {
-   const { message } = App.useApp();
+  const { message } = App.useApp();
 
-   const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
-   const [events, setEvents] = useState<Evenement[]>([]);
+  const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
+  const [events, setEvents] = useState<Evenement[]>([]);
 
-   // Get /types_evenements
-   const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  // Get /types_evenements
+  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
-   // GET /evenements
-   const { data: evenements, isFetching } = useApi().useGetCollectionPaginated({
-      path: "/evenements",
-      query: filtreToApi(appAffichageFiltres.filtres) as ApiPathMethodQuery<"/evenements">,
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  // GET /evenements
+  const { data: evenements, isFetching } = useApi().useGetCollectionPaginated({
+    path: "/evenements",
+    query: filtreToApi(appAffichageFiltres.filtres) as ApiPathMethodQuery<"/evenements">,
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   // Mutation d'un évènement
-   const mutateEvenement = useApi().usePatch({
-      path: "/evenements/{id}",
-      invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
-      onSuccess: () => {
-         message.success("Évènement replanifié").then();
-      },
-   });
+  // Mutation d'un évènement
+  const mutateEvenement = useApi().usePatch({
+    path: "/evenements/{id}",
+    invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
+    onSuccess: () => {
+      message.success("Évènement replanifié").then();
+    },
+  });
 
-   // Conversion des évènements en Evenement
-   useEffect(() => {
-      setEvents(evenements?.items.map((e: IEvenement) => new Evenement(e)) ?? []);
-   }, [evenements]);
+  // Conversion des évènements en Evenement
+  useEffect(() => {
+    setEvents(evenements?.items.map((e: IEvenement) => new Evenement(e)) ?? []);
+  }, [evenements]);
 
-   // Persist de l'évènement modifié
-   const setEvent = (event: Evenement) => {
-      mutateEvenement?.mutate({
-         "@id": event["@id"] as string,
-         data: event,
+  // Persist de l'évènement modifié
+  const setEvent = (event: Evenement) => {
+    mutateEvenement?.mutate({
+      "@id": event["@id"] as string,
+      data: event,
+    });
+  };
+
+  useEffect(() => {
+    if (!appAffichageFiltres.filtres.type || appAffichageFiltres.filtres.type.length === 0) {
+      setFiltres({
+        type: typesEvenements?.items
+          .filter((t) => t.visibleParDefaut)
+          .filter((t) => t.actif)
+          .map((t) => t["@id"] as string),
       });
-   };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typesEvenements]);
 
-   useEffect(() => {
-      if (!appAffichageFiltres.filtres.type || appAffichageFiltres.filtres.type.length === 0) {
-         setFiltres({
-            type: typesEvenements?.items
-               .filter((t) => t.visibleParDefaut)
-               .filter((t) => t.actif)
-               .map((t) => t["@id"] as string),
-         });
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [typesEvenements]);
+  // Ajustement de la plage de dates / affichage
+  useEffect(() => {
+    const range = calculateRange(
+      appAffichageFiltres.filtres.debut,
+      appAffichageFiltres.affichage.type,
+    );
+    setFiltres({ debut: range.from, fin: range.to });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appAffichageFiltres.affichage.type]);
 
-   // Ajustement de la plage de dates / affichage
-   useEffect(() => {
-      const range = calculateRange(
-         appAffichageFiltres.filtres.debut,
-         appAffichageFiltres.affichage.type,
-      );
-      setFiltres({ debut: range.from, fin: range.to });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [appAffichageFiltres.affichage.type]);
+  const eventsFiltres = useMemo(() => {
+    return filtrerEvenements(events, appAffichageFiltres.filtres);
+  }, [events, appAffichageFiltres.filtres]);
 
-   const eventsFiltres = useMemo(() => {
-      return filtrerEvenements(events, appAffichageFiltres.filtres);
-   }, [events, appAffichageFiltres.filtres]);
-
-   return (
-      <Layout>
-         <h1 className="sr-only">Planning</h1>
-         <CalendarSider saisieEvtRenfort={saisieEvtRenfort} />
-         <Layout.Content className="calendar-table-content">
-            <Toolbar saisieEvtRenfort={saisieEvtRenfort} evenements={events} />
-            <TimezoneAlert />
-            {isFetching && (
-               <div
-                  className="d-flex-center"
-                  style={{
-                     position: "fixed",
-                     top: 80,
-                     zIndex: 100,
-                     width: "100%",
-                     height: "calc(100vh - 80px)",
-                     backgroundColor: "#FFFFFFAA",
-                  }}
-               >
-                  <Spinner size={100} />
-               </div>
-            )}
-            {appAffichageFiltres.affichage.layout === PlanningLayout.calendar ? (
-               <Calendar events={eventsFiltres} setEvent={setEvent} />
-            ) : (
-               <CalendarTable events={eventsFiltres} saisieEvtRenfort={saisieEvtRenfort} />
-            )}
-         </Layout.Content>
-      </Layout>
-   );
+  return (
+    <Layout>
+      <h1 className="sr-only">Planning</h1>
+      <CalendarSider saisieEvtRenfort={saisieEvtRenfort} />
+      <Layout.Content className="calendar-table-content">
+        <Toolbar saisieEvtRenfort={saisieEvtRenfort} evenements={events} />
+        <TimezoneAlert />
+        {isFetching && (
+          <div
+            className="d-flex-center"
+            style={{
+              position: "fixed",
+              top: 80,
+              zIndex: 100,
+              width: "100%",
+              height: "calc(100vh - 80px)",
+              backgroundColor: "#FFFFFFAA",
+            }}
+          >
+            <Spinner size={100} />
+          </div>
+        )}
+        {appAffichageFiltres.affichage.layout === PlanningLayout.calendar ? (
+          <Calendar events={eventsFiltres} setEvent={setEvent} />
+        ) : (
+          <CalendarTable events={eventsFiltres} saisieEvtRenfort={saisieEvtRenfort} />
+        )}
+      </Layout.Content>
+    </Layout>
+  );
 }

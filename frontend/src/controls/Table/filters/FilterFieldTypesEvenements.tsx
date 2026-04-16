@@ -14,45 +14,45 @@ import { UseStateDispatch } from "@utils/utils";
 import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 interface FilterFieldTypesEvenementsProps {
-   filtreIntervenant: FiltreIntervenant;
-   setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
-   categories: { items: ITypeEvenement[] } | undefined;
+  filtreIntervenant: FiltreIntervenant;
+  setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
+  categories: { items: ITypeEvenement[] } | undefined;
 }
 
 export function FilterFieldTypesEvenements({
-   filtreIntervenant,
-   setFiltreIntervenant,
-   categories,
+  filtreIntervenant,
+  setFiltreIntervenant,
+  categories,
 }: FilterFieldTypesEvenementsProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span>Catégories d'évènements</span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               mode="tags"
-               allowClear
-               placeholder="Toutes les catégories"
-               className="w-100"
-               options={(categories?.items || [])
-                  .filter((c) => c.actif)
-                  .map((c) => ({
-                     label: c.libelle,
-                     value: c["@id"],
-                  }))}
-               value={filtreIntervenant["intervenant.typesEvenements[]"]}
-               onChange={(value) => {
-                  setFiltreIntervenant((prev) => ({
-                     ...prev,
-                     "intervenant.typesEvenements[]": value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span>Catégories d'évènements</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          mode="tags"
+          allowClear
+          placeholder="Toutes les catégories"
+          className="w-100"
+          options={(categories?.items || [])
+            .filter((c) => c.actif)
+            .map((c) => ({
+              label: c.libelle,
+              value: c["@id"],
+            }))}
+          value={filtreIntervenant["intervenant.typesEvenements[]"]}
+          onChange={(value) => {
+            setFiltreIntervenant((prev) => ({
+              ...prev,
+              "intervenant.typesEvenements[]": value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

@@ -13,42 +13,42 @@ import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { IComposante } from "@api/ApiTypeHelpers";
 
 interface FilterFieldComposantesBeneficiaireProps {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
-   composantes: { items: IComposante[] } | undefined;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  composantes: { items: IComposante[] } | undefined;
 }
 
 export function FilterFieldComposantesBeneficiaire({
-   filtreBeneficiaire,
-   setFiltreBeneficiaire,
-   composantes,
+  filtreBeneficiaire,
+  setFiltreBeneficiaire,
+  composantes,
 }: FilterFieldComposantesBeneficiaireProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Composantes
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Toutes les composantes"
-               value={filtreBeneficiaire["composante[]"]}
-               onChange={(value) => {
-                  setFiltreBeneficiaire((prev) => ({
-                     ...prev,
-                     "composante[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(composantes?.items || []).map((c) => ({
-                  label: c.libelle,
-                  value: c["@id"],
-               }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Composantes
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Toutes les composantes"
+          value={filtreBeneficiaire["composante[]"]}
+          onChange={(value) => {
+            setFiltreBeneficiaire((prev) => ({
+              ...prev,
+              "composante[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(composantes?.items || []).map((c) => ({
+            label: c.libelle,
+            value: c["@id"],
+          }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

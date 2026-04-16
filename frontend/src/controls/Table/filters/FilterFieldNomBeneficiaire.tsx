@@ -12,33 +12,33 @@ import { Col, Input } from "antd";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 
 interface FilterFieldNomBeneficiaireProps {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
 }
 
 export function FilterFieldNomBeneficiaire({
-   filtreBeneficiaire,
-   setFiltreBeneficiaire,
+  filtreBeneficiaire,
+  setFiltreBeneficiaire,
 }: FilterFieldNomBeneficiaireProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Nom du bénéficiaire
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Input
-               allowClear
-               placeholder="Nom du bénéficiaire"
-               value={filtreBeneficiaire.nom}
-               onChange={(e) => {
-                  setFiltreBeneficiaire((prev) => ({
-                     ...prev,
-                     nom: e.target.value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Nom du bénéficiaire
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Input
+          allowClear
+          placeholder="Nom du bénéficiaire"
+          value={filtreBeneficiaire.nom}
+          onChange={(e) => {
+            setFiltreBeneficiaire((prev) => ({
+              ...prev,
+              nom: e.target.value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

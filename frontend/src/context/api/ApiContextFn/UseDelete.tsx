@@ -17,44 +17,43 @@ import { ApiPathMethodResponse, Path } from "@api/SchemaHelpers";
 import { useAuth } from "@/auth/AuthProvider";
 
 export type UseDeleteHook = <P extends Path>(options: {
-   path: P;
-   invalidationQueryKeys?: string[];
-   onSuccess?: (variables: MutationDeleteParams) => void;
+  path: P;
+  invalidationQueryKeys?: string[];
+  onSuccess?: (variables: MutationDeleteParams) => void;
 }) => UseMutationResult<ApiPathMethodResponse<P, "delete">, unknown, MutationDeleteParams>;
 
 export function useDelete<P extends Path>(
-   baseUrl: string,
-   fetchOptions: RequestInit,
-   client: QueryClient,
-   options: {
-      path: P;
-      invalidationQueryKeys?: string[];
-      onSuccess?: (variables: MutationDeleteParams) => void;
-   },
+  baseUrl: string,
+  fetchOptions: RequestInit,
+  client: QueryClient,
+  options: {
+    path: P;
+    invalidationQueryKeys?: string[];
+    onSuccess?: (variables: MutationDeleteParams) => void;
+  },
 ): UseMutationResult<ApiPathMethodResponse<P, "delete">, unknown, MutationDeleteParams> {
-   const navigate = useNavigate();
-   const auth = useAuth();
-   return useMutation({
-      mutationFn: async (params: MutationDeleteParams) => {
-         const url = new URL(params["@id"], baseUrl);
-         return handleApiResponse(
-            RequestMethod.DELETE,
-            await fetch(url, {
-               ...fetchOptions,
-               method: "DELETE",
-            }),
-            navigate,
-            auth,
-            options,
-         );
-      },
-      onSuccess: (variables) => {
-         if (options.invalidationQueryKeys)
-            handleInvalidation(client, options.invalidationQueryKeys);
-         if (options.onSuccess) options.onSuccess(variables);
-      },
-      onError: (error) => {
-         console.error(error);
-      },
-   });
+  const navigate = useNavigate();
+  const auth = useAuth();
+  return useMutation({
+    mutationFn: async (params: MutationDeleteParams) => {
+      const url = new URL(params["@id"], baseUrl);
+      return handleApiResponse(
+        RequestMethod.DELETE,
+        await fetch(url, {
+          ...fetchOptions,
+          method: "DELETE",
+        }),
+        navigate,
+        auth,
+        options,
+      );
+    },
+    onSuccess: (variables) => {
+      if (options.invalidationQueryKeys) handleInvalidation(client, options.invalidationQueryKeys);
+      if (options.onSuccess) options.onSuccess(variables);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 }

@@ -16,12 +16,12 @@ import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 interface IAvatarTypeEvenement {
-   typeEvenement?: ITypeEvenement;
-   typeEvenementId?: string;
-   size?: number;
-   className?: string;
-   icon?: React.ReactNode;
-   style?: React.CSSProperties;
+  typeEvenement?: ITypeEvenement;
+  typeEvenementId?: string;
+  size?: number;
+  className?: string;
+  icon?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 /**
@@ -36,57 +36,57 @@ interface IAvatarTypeEvenement {
  * @returns {ReactElement} - The generated avatar component
  */
 export const TypeEvenementAvatar = memo(
-   ({
+  ({
+    typeEvenement,
+    typeEvenementId,
+    size,
+    className,
+    icon,
+    style,
+  }: IAvatarTypeEvenement): ReactElement => {
+    const [typeEvenementData, setTypeEvenementData] = useState<ITypeEvenement | undefined>(
       typeEvenement,
-      typeEvenementId,
-      size,
-      className,
-      icon,
-      style,
-   }: IAvatarTypeEvenement): ReactElement => {
-      const [typeEvenementData, setTypeEvenementData] = useState<ITypeEvenement | undefined>(
-         typeEvenement,
-      );
-      const { data: typesEvenements, isFetching } =
-         useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+    );
+    const { data: typesEvenements, isFetching } =
+      useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
-      const { accessibilite: appAccessibilite } = useAccessibilite();
+    const { accessibilite: appAccessibilite } = useAccessibilite();
 
-      useEffect(() => {
-         if (typesEvenements && typeEvenementId) {
-            setTypeEvenementData(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
-         }
-      }, [typesEvenements, typeEvenementId]);
-
-      useEffect(() => {
-         if (typeEvenement) setTypeEvenementData(typeEvenement);
-      }, [typeEvenement]);
-
-      if (isFetching || !typeEvenementData) {
-         return (
-            <div className={className}>
-               <Spinner />
-            </div>
-         );
+    useEffect(() => {
+      if (typesEvenements && typeEvenementId) {
+        setTypeEvenementData(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
       }
+    }, [typesEvenements, typeEvenementId]);
 
+    useEffect(() => {
+      if (typeEvenement) setTypeEvenementData(typeEvenement);
+    }, [typeEvenement]);
+
+    if (isFetching || !typeEvenementData) {
       return (
-         <Avatar
-            data-testid={typeEvenementData?.libelle}
-            size={size}
-            aria-hidden
-            className={className}
-            icon={icon}
-            style={{
-               ...style,
-               backgroundColor: appAccessibilite.contrast
-                  ? `var(--color-dark-${typeEvenementData?.couleur})`
-                  : `var(--color-${typeEvenementData?.couleur})`,
-            }}
-         />
+        <div className={className}>
+          <Spinner />
+        </div>
       );
-   },
-   (prevProps, nextProps) =>
-      prevProps.typeEvenementId === nextProps.typeEvenementId &&
-      JSON.stringify(prevProps.typeEvenement) === JSON.stringify(nextProps.typeEvenement),
+    }
+
+    return (
+      <Avatar
+        data-testid={typeEvenementData?.libelle}
+        size={size}
+        aria-hidden
+        className={className}
+        icon={icon}
+        style={{
+          ...style,
+          backgroundColor: appAccessibilite.contrast
+            ? `var(--color-dark-${typeEvenementData?.couleur})`
+            : `var(--color-${typeEvenementData?.couleur})`,
+        }}
+      />
+    );
+  },
+  (prevProps, nextProps) =>
+    prevProps.typeEvenementId === nextProps.typeEvenementId &&
+    JSON.stringify(prevProps.typeEvenement) === JSON.stringify(nextProps.typeEvenement),
 );

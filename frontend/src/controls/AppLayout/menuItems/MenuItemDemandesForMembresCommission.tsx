@@ -12,25 +12,25 @@ import { Button, MenuProps } from "antd";
 import React from "react";
 
 export const menuItemDemandesForMembresCommission = (
-   setSelectedKey: (key: string) => void,
-   navigate: NavigateFunction,
+  setSelectedKey: (key: string) => void,
+  navigate: NavigateFunction,
 ): MenuProps["items"] => [
-   {
-      key: "demandeurs",
-      className: "mr-auto",
-      children: [],
-      popupClassName: "d-none",
-      label: (
-         <Button
-            type="text"
-            className="no-hover p-0"
-            onClick={() => {
-               setSelectedKey("demandeurs");
-               navigate("/demandes");
-            }}
-         >
-            Demandes
-         </Button>
-      ),
-   },
+  {
+    key: "demandeurs",
+    className: "mr-auto",
+    children: [],
+    popupClassName: "d-none",
+    label: (
+      <Button
+        type="text"
+        className="no-hover p-0"
+        onClick={() => {
+          setSelectedKey("demandeurs");
+          navigate("/demandes");
+        }}
+      >
+        Demandes
+      </Button>
+    ),
+  },
 ];

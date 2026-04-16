@@ -23,48 +23,48 @@ import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
  * @returns {ReactElement} The table component displaying the ongoing events.
  */
 export function InterventionsForfaitEnCoursTable(): ReactElement {
-   const user = useAuth().user;
-   const { data: interventionsEnCours, isLoading } = useApi().useGetCollectionPaginated({
-      path: "/interventions_forfait",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: {
-         intervenant: user?.["@id"],
-         "periode.debut[before]": dayjs().format("YYYY-MM-DD"),
-         "periode.fin[strictly_after]": dayjs().format("YYYY-MM-DD"),
-      },
-      enabled: !!user?.["@id"],
-   });
+  const user = useAuth().user;
+  const { data: interventionsEnCours, isLoading } = useApi().useGetCollectionPaginated({
+    path: "/interventions_forfait",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    query: {
+      intervenant: user?.["@id"],
+      "periode.debut[before]": dayjs().format("YYYY-MM-DD"),
+      "periode.fin[strictly_after]": dayjs().format("YYYY-MM-DD"),
+    },
+    enabled: !!user?.["@id"],
+  });
 
-   if (!interventionsEnCours) {
-      return <Spinner />;
-   }
+  if (!interventionsEnCours) {
+    return <Spinner />;
+  }
 
-   return (
-      <Table<IInterventionForfait>
-         dataSource={interventionsEnCours?.items}
-         loading={isLoading}
-         rowKey={(record) => record["@id"] as string}
-         pagination={false}
-         columns={[
-            {
-               title: "Catégorie",
-               dataIndex: "type",
-               key: "type",
-               responsive: ["md"],
-               render: (typeEvenement: string) => {
-                  return <TypeEvenementItem typeEvenementId={typeEvenement} responsive="lg" />;
-               },
-            },
-            {
-               title: "Durée",
-               dataIndex: "heures",
-               key: "heures",
-               render: (heures: number) => {
-                  return <>{heures} h</>;
-               },
-            },
-         ]}
-      />
-   );
+  return (
+    <Table<IInterventionForfait>
+      dataSource={interventionsEnCours?.items}
+      loading={isLoading}
+      rowKey={(record) => record["@id"] as string}
+      pagination={false}
+      columns={[
+        {
+          title: "Catégorie",
+          dataIndex: "type",
+          key: "type",
+          responsive: ["md"],
+          render: (typeEvenement: string) => {
+            return <TypeEvenementItem typeEvenementId={typeEvenement} responsive="lg" />;
+          },
+        },
+        {
+          title: "Durée",
+          dataIndex: "heures",
+          key: "heures",
+          render: (heures: number) => {
+            return <>{heures} h</>;
+          },
+        },
+      ]}
+    />
+  );
 }

@@ -13,12 +13,12 @@ import { PlanningLayout } from "@context/affichageFiltres/AffichageFiltresContex
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 
 export default function PlanningTable() {
-   const { setAffichage } = useAffichageFiltres();
+  const { setAffichage } = useAffichageFiltres();
 
-   useEffect(() => {
-      setAffichage({ layout: PlanningLayout.table });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+  useEffect(() => {
+    setAffichage({ layout: PlanningLayout.table });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-   return <PlanningWithSider />;
+  return <PlanningWithSider />;
 }

@@ -16,58 +16,56 @@ import { ICharte } from "@api/ApiTypeHelpers";
 import ProfilItem from "@controls/Items/ProfilItem";
 
 interface ChartesTableProps {
-   editedItem?: ICharte;
-   onEdit: (item: ICharte) => void;
+  editedItem?: ICharte;
+  onEdit: (item: ICharte) => void;
 }
 
 export function ChartesTable({ editedItem, onEdit }: ChartesTableProps) {
-   const { data: Chartes, isFetching } = useApi().useGetCollectionPaginated({
-      path: "/chartes",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  const { data: Chartes, isFetching } = useApi().useGetCollectionPaginated({
+    path: "/chartes",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   return (
-      <Table<ICharte>
-         rowKey={(record) => record["@id"] as string}
-         className="table-responsive"
-         loading={isFetching}
-         rowClassName={(record) => {
-            return record["@id"] === editedItem?.["@id"]
-               ? "bg-primary-light shadow-1 border-0"
-               : "";
-         }}
-         columns={[
-            {
-               title: "Libellé",
-               dataIndex: "libelle",
-               key: "libelle",
-            },
-            {
-               title: "Profils associés",
-               dataIndex: "profilsAssocies",
-               responsive: ["lg"],
-               key: "profilsAssocies",
-               render: (value, record) => <ProfilItem profils={record.profilsAssocies} />,
-            },
-            {
-               key: "actions",
-               className: "text-right commandes",
-               width: 150,
-               render: (_, record) => (
-                  <Button
-                     icon={<EditOutlined />}
-                     onClick={() => {
-                        onEdit(record);
-                     }}
-                  >
-                     Éditer
-                  </Button>
-               ),
-            },
-         ]}
-         dataSource={[...(Chartes?.items || [])]}
-         pagination={false}
-      />
-   );
+  return (
+    <Table<ICharte>
+      rowKey={(record) => record["@id"] as string}
+      className="table-responsive"
+      loading={isFetching}
+      rowClassName={(record) => {
+        return record["@id"] === editedItem?.["@id"] ? "bg-primary-light shadow-1 border-0" : "";
+      }}
+      columns={[
+        {
+          title: "Libellé",
+          dataIndex: "libelle",
+          key: "libelle",
+        },
+        {
+          title: "Profils associés",
+          dataIndex: "profilsAssocies",
+          responsive: ["lg"],
+          key: "profilsAssocies",
+          render: (value, record) => <ProfilItem profils={record.profilsAssocies} />,
+        },
+        {
+          key: "actions",
+          className: "text-right commandes",
+          width: 150,
+          render: (_, record) => (
+            <Button
+              icon={<EditOutlined />}
+              onClick={() => {
+                onEdit(record);
+              }}
+            >
+              Éditer
+            </Button>
+          ),
+        },
+      ]}
+      dataSource={[...(Chartes?.items || [])]}
+      pagination={false}
+    />
+  );
 }

@@ -12,62 +12,62 @@ import { FormInstance } from "antd";
 import { Questionnaire } from "@context/demande/QuestionnaireTypes";
 
 export interface IUseQuestionnaireNavigationProps {
-   questionnaire?: Questionnaire;
-   form?: FormInstance;
-   onError?: (error: unknown) => void;
+  questionnaire?: Questionnaire;
+  form?: FormInstance;
+  onError?: (error: unknown) => void;
 }
 
 export const useQuestionnaireNavigation = ({
-   questionnaire,
-   form,
-   onError,
+  questionnaire,
+  form,
+  onError,
 }: IUseQuestionnaireNavigationProps) => {
-   const [etapeCourante, setEtapeCourante] = useState<number>(0);
-   const [changementEtape, setChangementEtape] = useState<"next" | "previous" | undefined>();
+  const [etapeCourante, setEtapeCourante] = useState<number>(0);
+  const [changementEtape, setChangementEtape] = useState<"next" | "previous" | undefined>();
 
-   const etapeSuivante = () => {
-      if (!questionnaire || etapeCourante >= (questionnaire.etapes || []).length - 1) return;
+  const etapeSuivante = () => {
+    if (!questionnaire || etapeCourante >= (questionnaire.etapes || []).length - 1) return;
 
-      setChangementEtape("next");
+    setChangementEtape("next");
 
-      form
-         ?.validateFields({ validateOnly: false })
-         .then(() => {
-            setEtapeCourante((prev) => prev + 1);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            document.getElementById("etape-title")?.focus();
-            setChangementEtape(undefined);
-         })
-         .catch((e) => {
-            onError?.(e);
-            setChangementEtape(undefined);
-         });
-   };
+    form
+      ?.validateFields({ validateOnly: false })
+      .then(() => {
+        setEtapeCourante((prev) => prev + 1);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        document.getElementById("etape-title")?.focus();
+        setChangementEtape(undefined);
+      })
+      .catch((e) => {
+        onError?.(e);
+        setChangementEtape(undefined);
+      });
+  };
 
-   const etapePrecedente = () => {
-      if (etapeCourante <= 0) return;
+  const etapePrecedente = () => {
+    if (etapeCourante <= 0) return;
 
-      setChangementEtape("previous");
+    setChangementEtape("previous");
 
-      form
-         ?.validateFields({ validateOnly: false })
-         .then(() => {
-            setEtapeCourante((prev) => prev - 1);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            document.getElementById("etape-title")?.focus();
-            setChangementEtape(undefined);
-         })
-         .catch((e) => {
-            onError?.(e);
-            setChangementEtape(undefined);
-         });
-   };
+    form
+      ?.validateFields({ validateOnly: false })
+      .then(() => {
+        setEtapeCourante((prev) => prev - 1);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        document.getElementById("etape-title")?.focus();
+        setChangementEtape(undefined);
+      })
+      .catch((e) => {
+        onError?.(e);
+        setChangementEtape(undefined);
+      });
+  };
 
-   return {
-      etapeCourante,
-      setEtapeCourante,
-      changementEtape,
-      etapeSuivante,
-      etapePrecedente,
-   };
+  return {
+    etapeCourante,
+    setEtapeCourante,
+    changementEtape,
+    etapeSuivante,
+    etapePrecedente,
+  };
 };

@@ -14,7 +14,7 @@ import dayjs from "dayjs";
 import { IEvenement } from "@api/ApiTypeHelpers";
 
 interface IItemIconeEnvoiRHProps {
-   evenement: IEvenement;
+  evenement: IEvenement;
 }
 
 /**
@@ -25,18 +25,18 @@ interface IItemIconeEnvoiRHProps {
  * @return {ReactElement} - The JSX element representing the icon.
  */
 export default function EvenementIconeEnvoiRhItem({
-   evenement,
+  evenement,
 }: IItemIconeEnvoiRHProps): ReactElement {
-   if (evenement.dateEnvoiRH)
-      return (
-         <Tooltip title={`Envoyé à la RH le ${dayjs(evenement.dateEnvoiRH).format("DD/MM/YYYY")}`}>
-            <CheckOutlined />
-         </Tooltip>
-      );
-
-   return (
-      <Tooltip title="Non envoyé à la RH">
-         <CloseOutlined />
+  if (evenement.dateEnvoiRH)
+    return (
+      <Tooltip title={`Envoyé à la RH le ${dayjs(evenement.dateEnvoiRH).format("DD/MM/YYYY")}`}>
+        <CheckOutlined />
       </Tooltip>
-   );
+    );
+
+  return (
+    <Tooltip title="Non envoyé à la RH">
+      <CloseOutlined />
+    </Tooltip>
+  );
 }

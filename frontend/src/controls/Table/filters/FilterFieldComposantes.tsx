@@ -13,42 +13,42 @@ import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 import { IComposante } from "@api/ApiTypeHelpers";
 
 interface FilterFieldComposantesProps {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
-   composantes: { items: IComposante[] } | undefined;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  composantes: { items: IComposante[] } | undefined;
 }
 
 export function FilterFieldComposantes({
-   filtreAmenagement,
-   setFiltreAmenagement,
-   composantes,
+  filtreAmenagement,
+  setFiltreAmenagement,
+  composantes,
 }: FilterFieldComposantesProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Composantes
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Toutes les composantes"
-               value={filtreAmenagement["composante[]"]}
-               onChange={(value) => {
-                  setFiltreAmenagement((prev) => ({
-                     ...prev,
-                     "composante[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(composantes?.items || []).map((c) => ({
-                  label: c.libelle,
-                  value: c["@id"],
-               }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Composantes
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Toutes les composantes"
+          value={filtreAmenagement["composante[]"]}
+          onChange={(value) => {
+            setFiltreAmenagement((prev) => ({
+              ...prev,
+              "composante[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(composantes?.items || []).map((c) => ({
+            label: c.libelle,
+            value: c["@id"],
+          }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

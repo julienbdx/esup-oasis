@@ -14,63 +14,62 @@ import { ITypeAmenagement } from "@api/ApiTypeHelpers";
 import { getDomaineAmenagement } from "@lib/amenagements";
 
 interface FilterFieldTypesProps {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
-   typesAmenagements: { items: ITypeAmenagement[] } | undefined;
-   estRenfort: boolean;
-   estReferent: boolean;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  typesAmenagements: { items: ITypeAmenagement[] } | undefined;
+  estRenfort: boolean;
+  estReferent: boolean;
 }
 
 export function FilterFieldTypes({
-   filtreAmenagement,
-   setFiltreAmenagement,
-   typesAmenagements,
-   estRenfort,
-   estReferent,
+  filtreAmenagement,
+  setFiltreAmenagement,
+  typesAmenagements,
+  estRenfort,
+  estReferent,
 }: FilterFieldTypesProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Types
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Tous les types"
-               value={filtreAmenagement["type[]"]}
-               onChange={(value) => {
-                  setFiltreAmenagement((prev) => ({
-                     ...prev,
-                     "type[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(typesAmenagements?.items || [])
-                  .filter((t) => t.actif)
-                  // Seulement ce qui est visible pour le profil de l'utilisateur
-                  .filter((t) => {
-                     const infos = getDomaineAmenagement(t);
-                     return (
-                        (!estRenfort || infos?.visibleRenfort) &&
-                        (!estReferent || infos?.visibleReferent)
-                     );
-                  })
-                  // Le domaine sélectionné
-                  .filter(
-                     (t) =>
-                        filtreAmenagement.domaine === "Tous" ||
-                        getDomaineAmenagement(t)?.id === filtreAmenagement.domaine,
-                  )
-                  .sort((a, b) => (a.libelle || "").localeCompare(b.libelle || ""))
-                  .map((c) => ({
-                     label: c.libelle,
-                     value: c["@id"],
-                  }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Types
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Tous les types"
+          value={filtreAmenagement["type[]"]}
+          onChange={(value) => {
+            setFiltreAmenagement((prev) => ({
+              ...prev,
+              "type[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(typesAmenagements?.items || [])
+            .filter((t) => t.actif)
+            // Seulement ce qui est visible pour le profil de l'utilisateur
+            .filter((t) => {
+              const infos = getDomaineAmenagement(t);
+              return (
+                (!estRenfort || infos?.visibleRenfort) && (!estReferent || infos?.visibleReferent)
+              );
+            })
+            // Le domaine sélectionné
+            .filter(
+              (t) =>
+                filtreAmenagement.domaine === "Tous" ||
+                getDomaineAmenagement(t)?.id === filtreAmenagement.domaine,
+            )
+            .sort((a, b) => (a.libelle || "").localeCompare(b.libelle || ""))
+            .map((c) => ({
+              label: c.libelle,
+              value: c["@id"],
+            }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

@@ -17,54 +17,53 @@ import { ApiPathMethodResponse, Path } from "@api/SchemaHelpers";
 import { useAuth } from "@/auth/AuthProvider";
 
 export type UsePutHook = <P extends Path>(options: {
-   path: P;
-   invalidationQueryKeys?: string[];
-   onSuccess?: (data: ApiPathMethodResponse<P, "put">, variables: MutationPutParams<P>) => void;
-   onError?: (error: unknown) => void;
+  path: P;
+  invalidationQueryKeys?: string[];
+  onSuccess?: (data: ApiPathMethodResponse<P, "put">, variables: MutationPutParams<P>) => void;
+  onError?: (error: unknown) => void;
 }) => UseMutationResult<ApiPathMethodResponse<P, "put">, unknown, MutationPutParams<P>>;
 
 export function usePut<P extends Path>(
-   baseUrl: string,
-   fetchOptions: RequestInit,
-   client: QueryClient,
-   options: {
-      path: P;
-      invalidationQueryKeys?: string[];
-      onSuccess?: (data: ApiPathMethodResponse<P, "put">, variables: MutationPutParams<P>) => void;
-      onError?: (error: unknown) => void;
-   },
+  baseUrl: string,
+  fetchOptions: RequestInit,
+  client: QueryClient,
+  options: {
+    path: P;
+    invalidationQueryKeys?: string[];
+    onSuccess?: (data: ApiPathMethodResponse<P, "put">, variables: MutationPutParams<P>) => void;
+    onError?: (error: unknown) => void;
+  },
 ): UseMutationResult<ApiPathMethodResponse<P, "put">, unknown, MutationPutParams<P>> {
-   const navigate = useNavigate();
-   const auth = useAuth();
+  const navigate = useNavigate();
+  const auth = useAuth();
 
-   return useMutation({
-      mutationFn: async (params: MutationPutParams<P>) => {
-         const url = new URL(params["@id"], baseUrl);
-         return handleApiResponse(
-            RequestMethod.PUT,
-            await fetch(url, {
-               ...fetchOptions,
-               headers: {
-                  ...fetchOptions.headers,
-               },
-               method: "PUT",
-               body: JSON.stringify(params.data),
-            }),
-            navigate,
-            auth,
-            options,
-            JSON.stringify(params.data, null, 2),
-            options.onError,
-         );
-      },
-      onSuccess: (data, variables) => {
-         if (options.invalidationQueryKeys)
-            handleInvalidation(client, options.invalidationQueryKeys);
-         if (options.onSuccess) options.onSuccess(data, variables);
-      },
-      onError: (error) => {
-         console.error(error);
-         if (options.onError) options.onError(error);
-      },
-   });
+  return useMutation({
+    mutationFn: async (params: MutationPutParams<P>) => {
+      const url = new URL(params["@id"], baseUrl);
+      return handleApiResponse(
+        RequestMethod.PUT,
+        await fetch(url, {
+          ...fetchOptions,
+          headers: {
+            ...fetchOptions.headers,
+          },
+          method: "PUT",
+          body: JSON.stringify(params.data),
+        }),
+        navigate,
+        auth,
+        options,
+        JSON.stringify(params.data, null, 2),
+        options.onError,
+      );
+    },
+    onSuccess: (data, variables) => {
+      if (options.invalidationQueryKeys) handleInvalidation(client, options.invalidationQueryKeys);
+      if (options.onSuccess) options.onSuccess(data, variables);
+    },
+    onError: (error) => {
+      console.error(error);
+      if (options.onError) options.onError(error);
+    },
+  });
 }

@@ -13,27 +13,27 @@ import dayjs from "dayjs";
 import { IEvenement } from "@api/ApiTypeHelpers";
 
 interface IDureeTotaleEvenementFieldProps {
-   evenement: IEvenement;
+  evenement: IEvenement;
 }
 
 export function DureeTotaleEvenementField({ evenement }: IDureeTotaleEvenementFieldProps) {
-   // get nb minutes between evenement.debut and evenement.fin
-   const nbMinutes = dayjs(evenement.fin).diff(dayjs(evenement.debut), "minute");
-   const dureeTotale =
-      nbMinutes +
-      Number(evenement.tempsPreparation || 0) +
-      Number(evenement.tempsSupplementaire || 0);
+  // get nb minutes between evenement.debut and evenement.fin
+  const nbMinutes = dayjs(evenement.fin).diff(dayjs(evenement.debut), "minute");
+  const dureeTotale =
+    nbMinutes +
+    Number(evenement.tempsPreparation || 0) +
+    Number(evenement.tempsSupplementaire || 0);
 
-   return (
-      <>
-         <Space.Compact className="w-100">
-            <Input className="text-center text-primary semi-bold" disabled value={dureeTotale} />
-            <Button disabled className="bg-light text-dark border-left-0">
-               {dureeTotale > 1 ? "minutes" : "minute"}
-            </Button>
-         </Space.Compact>
-         <br />
-         <div className="legende">= {(dureeTotale / 60).toFixed(1)} heure(s)</div>
-      </>
-   );
+  return (
+    <>
+      <Space.Compact className="w-100">
+        <Input className="text-center text-primary semi-bold" disabled value={dureeTotale} />
+        <Button disabled className="bg-light text-dark border-left-0">
+          {dureeTotale > 1 ? "minutes" : "minute"}
+        </Button>
+      </Space.Compact>
+      <br />
+      <div className="legende">= {(dureeTotale / 60).toFixed(1)} heure(s)</div>
+    </>
+  );
 }

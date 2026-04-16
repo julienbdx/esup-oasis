@@ -19,25 +19,25 @@ import { ExclamationOutlined } from "@ant-design/icons";
  * @returns {React.ReactElement} The TypeDemande component with the TypeDemandeProvider and TypeDemandeContent.
  */
 export default function TypeDemande(): React.ReactElement {
-   // Get the id from the URL
-   const { questionnaireId } = useParams<"questionnaireId">();
+  // Get the id from the URL
+  const { questionnaireId } = useParams<"questionnaireId">();
 
-   if (!questionnaireId) {
-      return (
-         <Alert
-            type="error"
-            icon={<ExclamationOutlined />}
-            showIcon
-            title="Erreur"
-            description="Erreur lors de la récupération du questionnaire."
-         />
-      );
-   }
+  if (!questionnaireId) {
+    return (
+      <Alert
+        type="error"
+        icon={<ExclamationOutlined />}
+        showIcon
+        title="Erreur"
+        description="Erreur lors de la récupération du questionnaire."
+      />
+    );
+  }
 
-   // Return the TypeDemande in his provider
-   return (
-      <QuestionnaireProvider typeDemandeId={`/types_demandes/${questionnaireId}`}>
-         <TypeDemandeContent />
-      </QuestionnaireProvider>
-   );
+  // Return the TypeDemande in his provider
+  return (
+    <QuestionnaireProvider typeDemandeId={`/types_demandes/${questionnaireId}`}>
+      <TypeDemandeContent />
+    </QuestionnaireProvider>
+  );
 }

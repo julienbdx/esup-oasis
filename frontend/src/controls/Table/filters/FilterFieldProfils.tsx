@@ -15,64 +15,62 @@ import { Utilisateur } from "@lib/Utilisateur";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
 
 interface FilterFieldProfilsProps {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
-   profils: { items: IProfil[] } | undefined;
-   nbBeneficiairesIncomplets: number | undefined;
-   user: Utilisateur | null | undefined;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  profils: { items: IProfil[] } | undefined;
+  nbBeneficiairesIncomplets: number | undefined;
+  user: Utilisateur | null | undefined;
 }
 
 export function FilterFieldProfils({
-   filtreBeneficiaire,
-   setFiltreBeneficiaire,
-   profils,
-   nbBeneficiairesIncomplets,
-   user,
+  filtreBeneficiaire,
+  setFiltreBeneficiaire,
+  profils,
+  nbBeneficiairesIncomplets,
+  user,
 }: FilterFieldProfilsProps) {
-   if (!user?.isGestionnaire) {
-      return null;
-   }
+  if (!user?.isGestionnaire) {
+    return null;
+  }
 
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span>Profils</span>
-               <div
-                  className={`legende ${(nbBeneficiairesIncomplets || 0) > 1 ? "text-danger" : ""}`}
-               >
-                  {nbBeneficiairesIncomplets} profil
-                  {(nbBeneficiairesIncomplets || 0) > 1 && "s"} à renseigner
-               </div>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               className="w-100"
-               placeholder="Tous les profils"
-               value={filtreBeneficiaire.profil}
-               onChange={(value) => {
-                  setFiltreBeneficiaire((prev) => ({
-                     ...prev,
-                     profil: value === "undefined" ? undefined : value,
-                     page: 1,
-                  }));
-               }}
-               options={[
-                  {
-                     label: "Profils à renseigner",
-                     value: BENEFICIAIRE_PROFIL_A_DETERMINER,
-                  },
-                  ...(profils?.items || [])
-                     .filter((p) => p.actif && p["@id"] !== BENEFICIAIRE_PROFIL_A_DETERMINER)
-                     .map((profil) => ({
-                        label: profil.libelle,
-                        value: profil["@id"],
-                     })),
-               ]}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span>Profils</span>
+          <div className={`legende ${(nbBeneficiairesIncomplets || 0) > 1 ? "text-danger" : ""}`}>
+            {nbBeneficiairesIncomplets} profil
+            {(nbBeneficiairesIncomplets || 0) > 1 && "s"} à renseigner
+          </div>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          className="w-100"
+          placeholder="Tous les profils"
+          value={filtreBeneficiaire.profil}
+          onChange={(value) => {
+            setFiltreBeneficiaire((prev) => ({
+              ...prev,
+              profil: value === "undefined" ? undefined : value,
+              page: 1,
+            }));
+          }}
+          options={[
+            {
+              label: "Profils à renseigner",
+              value: BENEFICIAIRE_PROFIL_A_DETERMINER,
+            },
+            ...(profils?.items || [])
+              .filter((p) => p.actif && p["@id"] !== BENEFICIAIRE_PROFIL_A_DETERMINER)
+              .map((profil) => ({
+                label: profil.libelle,
+                value: profil["@id"],
+              })),
+          ]}
+        />
+      </Col>
+    </>
+  );
 }

@@ -22,25 +22,25 @@ import { ItemType } from "antd/es/menu/interface";
  * @returns {ItemType[]} The menu profile object, or null if impersonation is not enabled.
  */
 export const menuProfils = (auth: AuthContextType): ItemType[] => {
-   return auth.impersonate
-      ? [
-           {
-              key: "impersonate",
-              icon: <UserSwitchOutlined />,
-              className: "text-warning",
-              label: "Récupérer mon identité",
-              onClick: () => {
-                 auth.removeImpersonate();
-              },
-           },
-        ]
-      : [];
+  return auth.impersonate
+    ? [
+        {
+          key: "impersonate",
+          icon: <UserSwitchOutlined />,
+          className: "text-warning",
+          label: "Récupérer mon identité",
+          onClick: () => {
+            auth.removeImpersonate();
+          },
+        },
+      ]
+    : [];
 };
 
 interface IAvatarUtilisateurMenu {
-   user: IUtilisateur | undefined;
-   isFetching: number;
-   isImpersonate?: boolean;
+  user: IUtilisateur | undefined;
+  isFetching: number;
+  isImpersonate?: boolean;
 }
 
 /**
@@ -53,23 +53,23 @@ interface IAvatarUtilisateurMenu {
  * @returns {ReactElement} - The rendered AvatarUtilisateurMenu component.
  */
 export const AvatarUtilisateurMenu = ({
-   user,
-   isFetching,
-   isImpersonate,
+  user,
+  isFetching,
+  isImpersonate,
 }: IAvatarUtilisateurMenu): ReactElement => {
-   return (
-      <>
-         <UtilisateurAvatar
-            style={{ marginTop: 1 }}
-            utilisateur={user}
-            role={RoleValues.ROLE_GESTIONNAIRE}
-            className={isImpersonate ? "bg-warning" : ""}
-            loading={isFetching > 0}
-            shape="circle"
-            showTooltip={false}
-         />
-      </>
-   );
+  return (
+    <>
+      <UtilisateurAvatar
+        style={{ marginTop: 1 }}
+        utilisateur={user}
+        role={RoleValues.ROLE_GESTIONNAIRE}
+        className={isImpersonate ? "bg-warning" : ""}
+        loading={isFetching > 0}
+        shape="circle"
+        showTooltip={false}
+      />
+    </>
+  );
 };
 
 /**
@@ -81,33 +81,31 @@ export const AvatarUtilisateurMenu = ({
  * @returns {ReactElement} - The rendered user information.
  */
 export const LabelUtilisateurMenu = ({
-   auth,
-   apiFetching,
-   isImpersonate,
+  auth,
+  apiFetching,
+  isImpersonate,
 }: {
-   auth: AuthContextType | undefined;
-   isImpersonate: boolean;
-   apiFetching: number;
+  auth: AuthContextType | undefined;
+  isImpersonate: boolean;
+  apiFetching: number;
 }): ReactElement => {
-   if (!auth) return <></>;
+  if (!auth) return <></>;
 
-   return (
-      <Flex>
-         <AvatarUtilisateurMenu
-            user={auth.user as IUtilisateur}
-            isFetching={apiFetching}
-            isImpersonate={auth.impersonate !== undefined}
-         />
-         <Space
-            className={`user-space${isImpersonate ? " text-warning" : ""}`}
-            size={2}
-            orientation="vertical"
-         >
-            <span className="identite">{`${auth.user?.prenom} ${auth.user?.nom?.toLocaleUpperCase()}`}</span>
-            <span className="role">
-               {ROLES.find((r) => r.value === auth.user?.roleCalcule)?.label}
-            </span>
-         </Space>
-      </Flex>
-   );
+  return (
+    <Flex>
+      <AvatarUtilisateurMenu
+        user={auth.user as IUtilisateur}
+        isFetching={apiFetching}
+        isImpersonate={auth.impersonate !== undefined}
+      />
+      <Space
+        className={`user-space${isImpersonate ? " text-warning" : ""}`}
+        size={2}
+        orientation="vertical"
+      >
+        <span className="identite">{`${auth.user?.prenom} ${auth.user?.nom?.toLocaleUpperCase()}`}</span>
+        <span className="role">{ROLES.find((r) => r.value === auth.user?.roleCalcule)?.label}</span>
+      </Space>
+    </Flex>
+  );
 };

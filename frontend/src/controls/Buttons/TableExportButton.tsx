@@ -16,16 +16,16 @@ import { UseStateDispatch } from "@utils/utils";
 import { env } from "@/env";
 
 interface ExportButtonProps<T extends object = object> {
-   getData: () => T[];
-   submitted: boolean;
-   setSubmitted: UseStateDispatch<boolean>;
-   loading: boolean;
-   setLoading: UseStateDispatch<boolean>;
-   downloaded: boolean;
-   setDownloaded: UseStateDispatch<boolean>;
-   headers: { label: string; key: string }[];
-   filename: string;
-   onDownloaded?: () => void;
+  getData: () => T[];
+  submitted: boolean;
+  setSubmitted: UseStateDispatch<boolean>;
+  loading: boolean;
+  setLoading: UseStateDispatch<boolean>;
+  downloaded: boolean;
+  setDownloaded: UseStateDispatch<boolean>;
+  headers: { label: string; key: string }[];
+  filename: string;
+  onDownloaded?: () => void;
 }
 
 /**
@@ -43,67 +43,67 @@ interface ExportButtonProps<T extends object = object> {
  * @returns {ReactElement} - The Export Button component.
  */
 export function TableExportButton<T extends object = object>({
-   getData,
-   submitted,
-   setSubmitted,
-   loading,
-   setLoading,
-   downloaded,
-   setDownloaded,
-   headers,
-   filename,
-   onDownloaded,
+  getData,
+  submitted,
+  setSubmitted,
+  loading,
+  setLoading,
+  downloaded,
+  setDownloaded,
+  headers,
+  filename,
+  onDownloaded,
 }: ExportButtonProps<T>): ReactElement {
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   const refDownload = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const refDownload = useRef<any>(null);
 
-   useEffect(() => {
-      if (refDownload.current && !downloaded && !loading && submitted) {
-         refDownload.current.link.click();
-      }
-   });
+  useEffect(() => {
+    if (refDownload.current && !downloaded && !loading && submitted) {
+      refDownload.current.link.click();
+    }
+  });
 
-   if (!submitted) {
-      return (
-         <Button
-            icon={<ExportOutlined />}
-            onClick={() => {
-               setSubmitted(() => {
-                  setLoading(true);
-                  return true;
-               });
-            }}
-            loading={loading}
-            disabled={submitted}
-         >
-            Exporter
-         </Button>
-      );
-   }
-
-   if (submitted && loading) {
-      return (
-         <Button icon={<ExportOutlined />} loading={true} disabled={true}>
-            Préparation des données...
-         </Button>
-      );
-   }
-
-   return (
-      <CSVLink
-         ref={refDownload}
-         data={getData()}
-         headers={headers}
-         filename={`${env.REACT_APP_TITRE}-${filename}.csv`}
-         separator=";"
-         enclosingCharacter='"'
-         onClick={() => {
-            setDownloaded(true);
-            onDownloaded?.();
-         }}
-         aria-label="Exporter le tableau au format CSV (Excel)"
+  if (!submitted) {
+    return (
+      <Button
+        icon={<ExportOutlined />}
+        onClick={() => {
+          setSubmitted(() => {
+            setLoading(true);
+            return true;
+          });
+        }}
+        loading={loading}
+        disabled={submitted}
       >
-         <Button icon={<ExportOutlined />}>Exporter</Button>
-      </CSVLink>
-   );
+        Exporter
+      </Button>
+    );
+  }
+
+  if (submitted && loading) {
+    return (
+      <Button icon={<ExportOutlined />} loading={true} disabled={true}>
+        Préparation des données...
+      </Button>
+    );
+  }
+
+  return (
+    <CSVLink
+      ref={refDownload}
+      data={getData()}
+      headers={headers}
+      filename={`${env.REACT_APP_TITRE}-${filename}.csv`}
+      separator=";"
+      enclosingCharacter='"'
+      onClick={() => {
+        setDownloaded(true);
+        onDownloaded?.();
+      }}
+      aria-label="Exporter le tableau au format CSV (Excel)"
+    >
+      <Button icon={<ExportOutlined />}>Exporter</Button>
+    </CSVLink>
+  );
 }

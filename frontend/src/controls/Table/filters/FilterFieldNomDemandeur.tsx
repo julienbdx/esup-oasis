@@ -13,33 +13,33 @@ import { FiltreDemande } from "@controls/Table/DemandeTable";
 import { UseStateDispatch } from "@utils/utils";
 
 interface FilterFieldNomDemandeurProps {
-   filtreDemande: FiltreDemande;
-   setFiltreDemande: UseStateDispatch<FiltreDemande>;
+  filtreDemande: FiltreDemande;
+  setFiltreDemande: UseStateDispatch<FiltreDemande>;
 }
 
 export function FilterFieldNomDemandeur({
-   filtreDemande,
-   setFiltreDemande,
+  filtreDemande,
+  setFiltreDemande,
 }: FilterFieldNomDemandeurProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Nom du demandeur
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Input
-               allowClear
-               placeholder="Nom du demandeur"
-               value={filtreDemande["demandeur.nom"]}
-               onChange={(e) => {
-                  setFiltreDemande((prev) => ({
-                     ...prev,
-                     "demandeur.nom": e.target.value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Nom du demandeur
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Input
+          allowClear
+          placeholder="Nom du demandeur"
+          value={filtreDemande["demandeur.nom"]}
+          onChange={(e) => {
+            setFiltreDemande((prev) => ({
+              ...prev,
+              "demandeur.nom": e.target.value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

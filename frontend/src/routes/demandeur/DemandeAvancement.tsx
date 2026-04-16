@@ -18,15 +18,15 @@ import Spinner from "@controls/Spinner/Spinner";
 import { QuestionnaireProvider, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 
 function Dossier(): React.ReactElement {
-   const { demande } = useQuestionnaire();
-   return (
-      <>
-         <Card className="mb-3" title={<h2 className="m-0">Avancement de votre demande</h2>}>
-            <AvancementDemande demande={demande} informationEmail />
-         </Card>
-         {demande?.etat === ETAT_ATTENTE_CHARTES && <ValidationCharte demande={demande} />}
-      </>
-   );
+  const { demande } = useQuestionnaire();
+  return (
+    <>
+      <Card className="mb-3" title={<h2 className="m-0">Avancement de votre demande</h2>}>
+        <AvancementDemande demande={demande} informationEmail />
+      </Card>
+      {demande?.etat === ETAT_ATTENTE_CHARTES && <ValidationCharte demande={demande} />}
+    </>
+  );
 }
 
 /**
@@ -34,22 +34,22 @@ function Dossier(): React.ReactElement {
  * @constructor
  */
 export default function DemandeAvancement() {
-   const { id } = useParams<"id">();
-   const navigate = useNavigate();
+  const { id } = useParams<"id">();
+  const navigate = useNavigate();
 
-   if (!id) return <Spinner />;
+  if (!id) return <Spinner />;
 
-   return (
-      <Layout.Content style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>Demande</Typography.Title>
-         <QuestionnaireProvider demandeId={`/demandes/${id}` as string}>
-            <Dossier />
-         </QuestionnaireProvider>
-         <p className="mt-2 text-center">
-            <Button type="primary" onClick={() => navigate("/demandes")}>
-               Retour à la liste des demandes
-            </Button>
-         </p>
-      </Layout.Content>
-   );
+  return (
+    <Layout.Content style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>Demande</Typography.Title>
+      <QuestionnaireProvider demandeId={`/demandes/${id}` as string}>
+        <Dossier />
+      </QuestionnaireProvider>
+      <p className="mt-2 text-center">
+        <Button type="primary" onClick={() => navigate("/demandes")}>
+          Retour à la liste des demandes
+        </Button>
+      </p>
+    </Layout.Content>
+  );
 }

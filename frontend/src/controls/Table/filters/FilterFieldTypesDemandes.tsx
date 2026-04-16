@@ -14,47 +14,47 @@ import { UseStateDispatch } from "@utils/utils";
 import { ITypeDemande } from "@api/ApiTypeHelpers";
 
 interface FilterFieldTypesDemandesProps {
-   filtreDemande: FiltreDemande;
-   setFiltreDemande: UseStateDispatch<FiltreDemande>;
-   types: { items: ITypeDemande[] } | undefined;
+  filtreDemande: FiltreDemande;
+  setFiltreDemande: UseStateDispatch<FiltreDemande>;
+  types: { items: ITypeDemande[] } | undefined;
 }
 
 export function FilterFieldTypesDemandes({
-   filtreDemande,
-   setFiltreDemande,
-   types,
+  filtreDemande,
+  setFiltreDemande,
+  types,
 }: FilterFieldTypesDemandesProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span>Types de demande</span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               placeholder="Tous les types"
-               mode="tags"
-               allowClear
-               className="w-100"
-               style={{ overflowX: "auto", maxWidth: "100%" }}
-               onChange={(value) => {
-                  setFiltreDemande((prev) => ({
-                     ...prev,
-                     etat: undefined,
-                     "campagne.typeDemande[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               value={filtreDemande["campagne.typeDemande[]"] || []}
-               options={(types?.items || [])
-                  .filter((t) => t.actif)
-                  .map((e) => ({
-                     label: e?.libelle,
-                     value: e?.["@id"],
-                  }))}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span>Types de demande</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          placeholder="Tous les types"
+          mode="tags"
+          allowClear
+          className="w-100"
+          style={{ overflowX: "auto", maxWidth: "100%" }}
+          onChange={(value) => {
+            setFiltreDemande((prev) => ({
+              ...prev,
+              etat: undefined,
+              "campagne.typeDemande[]": value as string[],
+              page: 1,
+            }));
+          }}
+          value={filtreDemande["campagne.typeDemande[]"] || []}
+          options={(types?.items || [])
+            .filter((t) => t.actif)
+            .map((e) => ({
+              label: e?.libelle,
+              value: e?.["@id"],
+            }))}
+        />
+      </Col>
+    </>
+  );
 }

@@ -13,10 +13,10 @@ import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Skeleton, Tag, Tooltip } from "antd";
 
 interface IItemProfilProps {
-   profil?: string;
-   profils?: string[];
-   maxWidth?: string | number;
-   className?: string;
+  profil?: string;
+  profils?: string[];
+  maxWidth?: string | number;
+  className?: string;
 }
 
 /**
@@ -29,38 +29,37 @@ interface IItemProfilProps {
  * @returns {ReactElement} - The rendered list of profil items.
  */
 export default function ProfilItem({
-   profil,
-   profils,
-   maxWidth,
-   className,
+  profil,
+  profils,
+  maxWidth,
+  className,
 }: IItemProfilProps): ReactElement {
-   const data = profil ? [profil] : profils;
-   const { data: dataProfils, isFetching: isFetchingProfils } = useApi().useGetCollectionPaginated({
-      path: "/profils",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  const data = profil ? [profil] : profils;
+  const { data: dataProfils, isFetching: isFetchingProfils } = useApi().useGetCollectionPaginated({
+    path: "/profils",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   if (isFetchingProfils || !data) return <Skeleton.Input className="mb-05" active />;
+  if (isFetchingProfils || !data) return <Skeleton.Input className="mb-05" active />;
 
-   return (
-      <>
-         {data.map((s) => {
-            const p = dataProfils?.items.find((ob) => ob["@id"] === s);
-            return (
-               <Tooltip key={s} title={p?.libelle}>
-                  <Tag
-                     className={
-                        (maxWidth ? "mt-1 tag-ellipsis" : "mt-1") +
-                        (className ? ` ${className}` : "")
-                     }
-                     style={{ maxWidth: maxWidth }}
-                  >
-                     {p?.libelle}
-                  </Tag>
-               </Tooltip>
-            );
-         })}
-      </>
-   );
+  return (
+    <>
+      {data.map((s) => {
+        const p = dataProfils?.items.find((ob) => ob["@id"] === s);
+        return (
+          <Tooltip key={s} title={p?.libelle}>
+            <Tag
+              className={
+                (maxWidth ? "mt-1 tag-ellipsis" : "mt-1") + (className ? ` ${className}` : "")
+              }
+              style={{ maxWidth: maxWidth }}
+            >
+              {p?.libelle}
+            </Tag>
+          </Tooltip>
+        );
+      })}
+    </>
+  );
 }

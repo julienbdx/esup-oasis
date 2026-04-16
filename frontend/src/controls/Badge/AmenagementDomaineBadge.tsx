@@ -20,28 +20,27 @@ import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
  * @constructor
  */
 export default function AmenagementDomaineBadge(props: {
-   utilisateurId: string;
-   domaineAmenagement?: DomaineAmenagementInfos;
+  utilisateurId: string;
+  domaineAmenagement?: DomaineAmenagementInfos;
 }) {
-   const { data: types } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
-   const { data: amenagements } = useApi().useGetCollectionPaginated({
-      path: "/utilisateurs/{uid}/amenagements",
-      parameters: {
-         uid: props.utilisateurId,
-      },
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  const { data: types } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: amenagements } = useApi().useGetCollectionPaginated({
+    path: "/utilisateurs/{uid}/amenagements",
+    parameters: {
+      uid: props.utilisateurId,
+    },
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   const nb = useMemo(() => {
-      return amenagements?.items
-         .map((a) => {
-            const type = types?.items.find((t) => t["@id"] === a.typeAmenagement);
-            return getDomaineAmenagement(type);
-         })
-         .filter((d) => !props.domaineAmenagement?.id || props.domaineAmenagement.id === d?.id)
-         .length;
-   }, [amenagements, types, props.domaineAmenagement]);
+  const nb = useMemo(() => {
+    return amenagements?.items
+      .map((a) => {
+        const type = types?.items.find((t) => t["@id"] === a.typeAmenagement);
+        return getDomaineAmenagement(type);
+      })
+      .filter((d) => !props.domaineAmenagement?.id || props.domaineAmenagement.id === d?.id).length;
+  }, [amenagements, types, props.domaineAmenagement]);
 
-   return nb && nb > 0 ? <Badge color="cyan" size="small" count={nb} /> : null;
+  return nb && nb > 0 ? <Badge color="cyan" size="small" count={nb} /> : null;
 }

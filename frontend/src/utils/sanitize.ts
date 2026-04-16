@@ -14,5 +14,5 @@ import DOMPurify from "dompurify";
  * Must be used for every `dangerouslySetInnerHTML={{ __html: ... }}` call.
  */
 export function sanitizeHtml(raw: string): string {
-   return DOMPurify.sanitize(raw);
+  return DOMPurify.sanitize(raw);
 }

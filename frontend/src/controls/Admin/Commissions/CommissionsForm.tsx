@@ -14,85 +14,85 @@ import { useApi } from "@context/api/ApiProvider";
 import { QK_COMMISSIONS } from "@api/queryKeys";
 
 interface CommissionsFormProps {
-   editedItem?: ICommission;
-   onSuccess: () => void;
-   onCancel: () => void;
+  editedItem?: ICommission;
+  onSuccess: () => void;
+  onCancel: () => void;
 }
 
 export const CommissionsForm: React.FC<CommissionsFormProps> = ({
-   editedItem,
-   onSuccess,
-   onCancel,
+  editedItem,
+  onSuccess,
+  onCancel,
 }) => {
-   const [form] = Form.useForm();
+  const [form] = Form.useForm();
 
-   const mutationPost = useApi().usePost({
-      path: "/commissions",
-      invalidationQueryKeys: [QK_COMMISSIONS],
-      onSuccess: () => {
-         onSuccess();
-      },
-   });
+  const mutationPost = useApi().usePost({
+    path: "/commissions",
+    invalidationQueryKeys: [QK_COMMISSIONS],
+    onSuccess: () => {
+      onSuccess();
+    },
+  });
 
-   const mutationPatch = useApi().usePatch({
-      path: `/commissions/{id}`,
-      invalidationQueryKeys: [QK_COMMISSIONS],
-      onSuccess: () => {
-         onSuccess();
-      },
-   });
+  const mutationPatch = useApi().usePatch({
+    path: `/commissions/{id}`,
+    invalidationQueryKeys: [QK_COMMISSIONS],
+    onSuccess: () => {
+      onSuccess();
+    },
+  });
 
-   function createOrUpdate(values: ICommission) {
-      if (!editedItem) return;
-      if (editedItem["@id"] === undefined) {
-         // Création
-         mutationPost?.mutate({
-            data: values,
-         });
-      } else {
-         // Modification
-         mutationPatch?.mutate({
-            "@id": editedItem["@id"],
-            data: values,
-         });
-      }
-   }
+  function createOrUpdate(values: ICommission) {
+    if (!editedItem) return;
+    if (editedItem["@id"] === undefined) {
+      // Création
+      mutationPost?.mutate({
+        data: values,
+      });
+    } else {
+      // Modification
+      mutationPatch?.mutate({
+        "@id": editedItem["@id"],
+        data: values,
+      });
+    }
+  }
 
-   // Synchronisation editedItem / form
-   useEffect(() => {
-      if (editedItem) {
-         form.setFieldsValue(editedItem);
-      }
-   }, [editedItem, form]);
+  // Synchronisation editedItem / form
+  useEffect(() => {
+    if (editedItem) {
+      form.setFieldsValue(editedItem);
+    }
+  }, [editedItem, form]);
 
-   return (
-      <Card
-         title="Commission"
-         actions={[
-            <Button key="cancel" onClick={onCancel}>
-               Annuler
-            </Button>,
-            <Button key="save" type="primary" onClick={form.submit}>
-               Enregistrer
-            </Button>,
-         ]}
+  return (
+    <Card
+      title="Commission"
+      actions={[
+        <Button key="cancel" onClick={onCancel}>
+          Annuler
+        </Button>,
+        <Button key="save" type="primary" onClick={form.submit}>
+          Enregistrer
+        </Button>,
+      ]}
+    >
+      <Form
+        className="w-100"
+        form={form}
+        layout="vertical"
+        onFinish={(values) => {
+          createOrUpdate(values);
+        }}
+        initialValues={editedItem}
       >
-         <Form
-            className="w-100"
-            form={form}
-            layout="vertical"
-            onFinish={(values) => {
-               createOrUpdate(values);
-            }}
-            initialValues={editedItem}
-         >
-            <Form.Item name="libelle" label="Libellé" rules={[{ required: true }]} required>
-               <Input autoFocus />
-            </Form.Item>
-            <Form.Item name="actif" label="Actif" valuePropName="checked">
-               <Switch />
-            </Form.Item>
-         </Form>
-      </Card>
-   );
+        <Form.Item name="libelle" label="Libellé" rules={[{ required: true }]} required>
+          <Input autoFocus />
+        </Form.Item>
+        <Form.Item name="actif" label="Actif" valuePropName="checked">
+          <Switch />
+        </Form.Item>
+      </Form>
+    </Card>
+  );
 };

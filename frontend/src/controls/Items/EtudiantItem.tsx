@@ -20,77 +20,77 @@ import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
 import { entiteParent } from "@api/Utils";
 
 interface IItemEtudiant {
-   utilisateur?: IUtilisateur;
-   utilisateurId?: string;
-   profilBeneficiaireId?: string;
+  utilisateur?: IUtilisateur;
+  utilisateurId?: string;
+  profilBeneficiaireId?: string;
 
-   showAvatar?: boolean;
-   showEmail?: boolean;
-   showTelephone?: boolean;
-   responsive?: Breakpoint;
-   role?: RoleValues;
-   highlight?: string;
+  showAvatar?: boolean;
+  showEmail?: boolean;
+  showTelephone?: boolean;
+  responsive?: Breakpoint;
+  role?: RoleValues;
+  highlight?: string;
 }
 
 /**
  * EtudiantItem component.
  */
 export default function EtudiantItem({
-   utilisateur,
-   utilisateurId,
-   showAvatar = true,
-   showEmail = false,
-   showTelephone = false,
-   responsive,
-   profilBeneficiaireId,
-   role,
-   highlight,
+  utilisateur,
+  utilisateurId,
+  showAvatar = true,
+  showEmail = false,
+  showTelephone = false,
+  responsive,
+  profilBeneficiaireId,
+  role,
+  highlight,
 }: IItemEtudiant): ReactElement {
-   const [id, setId] = useState<string | undefined>(utilisateurId);
-   const [item, setItem] = useState(utilisateur);
-   const { data } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: id as string,
-      enabled: !!id,
-   });
-   const screens = useBreakpoint();
+  const [id, setId] = useState<string | undefined>(utilisateurId);
+  const [item, setItem] = useState(utilisateur);
+  const { data } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: id as string,
+    enabled: !!id,
+  });
+  const screens = useBreakpoint();
 
-   useEffect(() => {
-      if (data) {
-         setItem(data);
-      }
-   }, [data]);
+  useEffect(() => {
+    if (data) {
+      setItem(data);
+    }
+  }, [data]);
 
-   useEffect(() => {
-      if (profilBeneficiaireId) {
-         setId(entiteParent(profilBeneficiaireId));
-      }
-   }, [profilBeneficiaireId]);
+  useEffect(() => {
+    if (profilBeneficiaireId) {
+      setId(entiteParent(profilBeneficiaireId));
+    }
+  }, [profilBeneficiaireId]);
 
-   if (!utilisateur && !id) return <MinusOutlined aria-label="Aucun utilisateur" />;
+  if (!utilisateur && !id) return <MinusOutlined aria-label="Aucun utilisateur" />;
 
-   if (!item) return <Spinner />;
+  if (!item) return <Spinner />;
 
-   const user = new Utilisateur(item);
+  const user = new Utilisateur(item);
 
-   return (
-      <Space>
-         {showAvatar && (!responsive || screens[responsive]) && (
-            <UtilisateurAvatarImage
-               as="img"
-               width={48}
-               utilisateur={item as IUtilisateur}
-               size={48}
-               role={role || user.roleCalcule}
-               className="border-0"
-            />
-         )}
-         <UtilisateurContent
-            utilisateur={item}
-            showEmail={showEmail}
-            showTelephone={showTelephone}
-            highlight={highlight}
-         />
-      </Space>
-   );
+  return (
+    <Space>
+      {showAvatar && (!responsive || screens[responsive]) && (
+        <UtilisateurAvatarImage
+          as="img"
+          width={48}
+          utilisateur={item as IUtilisateur}
+          size={48}
+          role={role || user.roleCalcule}
+          className="border-0"
+        />
+      )}
+      <UtilisateurContent
+        utilisateur={item}
+        showEmail={showEmail}
+        showTelephone={showTelephone}
+        highlight={highlight}
+      />
+    </Space>
+  );
 }

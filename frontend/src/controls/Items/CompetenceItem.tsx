@@ -17,12 +17,12 @@ import { PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
 import { ICompetence } from "@api/ApiTypeHelpers";
 
 interface IItemCompetence {
-   competence?: ICompetence;
-   competenceId?: string;
-   showAvatar?: boolean;
-   responsive?: Breakpoint;
-   className?: string;
-   styleLibelle?: React.CSSProperties;
+  competence?: ICompetence;
+  competenceId?: string;
+  showAvatar?: boolean;
+  responsive?: Breakpoint;
+  className?: string;
+  styleLibelle?: React.CSSProperties;
 }
 
 /**
@@ -39,29 +39,29 @@ interface IItemCompetence {
  * @returns {ReactElement} The rendered competence item component.
  */
 export default function CompetenceItem({
-   competence,
-   competenceId,
-   showAvatar = true,
-   responsive,
-   className,
-   styleLibelle,
+  competence,
+  competenceId,
+  showAvatar = true,
+  responsive,
+  className,
+  styleLibelle,
 }: IItemCompetence): ReactElement {
-   const [item, setItem] = useState(competence);
-   const { data: dataCompetence, isFetching } = useApi().useGetCollection(PREFETCH_COMPETENCES);
-   const screens = useBreakpoint();
+  const [item, setItem] = useState(competence);
+  const { data: dataCompetence, isFetching } = useApi().useGetCollection(PREFETCH_COMPETENCES);
+  const screens = useBreakpoint();
 
-   useEffect(() => {
-      if (dataCompetence && competenceId) {
-         setItem(dataCompetence.items.find((t) => t["@id"] === competenceId));
-      }
-   }, [dataCompetence, competenceId]);
+  useEffect(() => {
+    if (dataCompetence && competenceId) {
+      setItem(dataCompetence.items.find((t) => t["@id"] === competenceId));
+    }
+  }, [dataCompetence, competenceId]);
 
-   if (!item || isFetching) return <Spinner />;
+  if (!item || isFetching) return <Spinner />;
 
-   return (
-      <Space className={className}>
-         {showAvatar && (!responsive || screens[responsive]) && <Avatar icon={<CrownOutlined />} />}
-         <span style={styleLibelle}>{item?.libelle}</span>
-      </Space>
-   );
+  return (
+    <Space className={className}>
+      {showAvatar && (!responsive || screens[responsive]) && <Avatar icon={<CrownOutlined />} />}
+      <span style={styleLibelle}>{item?.libelle}</span>
+    </Space>
+  );
 }

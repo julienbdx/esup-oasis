@@ -14,9 +14,9 @@ import { useApi } from "@context/api/ApiProvider";
 import { ReloadOutlined } from "@ant-design/icons";
 
 interface IDashboardUtilisateurProps {
-   utilisateurId: string;
-   className?: string;
-   wrapperClassName?: string;
+  utilisateurId: string;
+  className?: string;
+  wrapperClassName?: string;
 }
 
 /**
@@ -26,30 +26,30 @@ interface IDashboardUtilisateurProps {
  * @returns {ReactElement} - The rendered dashboard component
  */
 export default function DashboardUtilisateurStatsRefresh({
-   utilisateurId,
-   className,
-   wrapperClassName,
+  utilisateurId,
+  className,
+  wrapperClassName,
 }: IDashboardUtilisateurProps): ReactElement {
-   const { refetch } = useApi().useGetItem({
-      path: "/statistiques",
-      url: "/statistiques",
-      query: {
-         utilisateur: utilisateurId,
-      },
-      enabled: !!utilisateurId,
-   });
+  const { refetch } = useApi().useGetItem({
+    path: "/statistiques",
+    url: "/statistiques",
+    query: {
+      utilisateur: utilisateurId,
+    },
+    enabled: !!utilisateurId,
+  });
 
-   return (
-      <div className={wrapperClassName}>
-         <Button
-            size="small"
-            className={className}
-            type="link"
-            icon={<ReloadOutlined />}
-            onClick={() => refetch()}
-         >
-            Actualiser
-         </Button>
-      </div>
-   );
+  return (
+    <div className={wrapperClassName}>
+      <Button
+        size="small"
+        className={className}
+        type="link"
+        icon={<ReloadOutlined />}
+        onClick={() => refetch()}
+      >
+        Actualiser
+      </Button>
+    </div>
+  );
 }

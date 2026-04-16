@@ -11,10 +11,10 @@
 import React from "react";
 import { App, Button, Typography } from "antd";
 import {
-   ETAT_DEMANDE_EN_COURS,
-   ETAT_DEMANDE_RECEPTIONNEE,
-   EtatInfo,
-   getEtatDemandeInfo,
+  ETAT_DEMANDE_EN_COURS,
+  ETAT_DEMANDE_RECEPTIONNEE,
+  EtatInfo,
+  getEtatDemandeInfo,
 } from "@lib/demande";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
@@ -23,44 +23,44 @@ import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/Questionnair
 import { QK_DEMANDES } from "@api/queryKeys";
 
 interface EtapeASaisieProps {
-   etatDemande: EtatInfo;
-   demande: IDemande;
+  etatDemande: EtatInfo;
+  demande: IDemande;
 }
 
 export default function EtapeASaisie({ etatDemande, demande }: EtapeASaisieProps) {
-   const { message } = App.useApp();
-   const mutation = useApi().usePatch({
-      path: demande["@id"] as "/demandes/{id}",
-      invalidationQueryKeys: [QK_DEMANDES],
-      onSuccess: async () => {
-         await queryClient.invalidateQueries({ queryKey: ["/demandes", demande["@id"]] });
-         message.success("Demande déclarée réceptionnée");
-      },
-   });
+  const { message } = App.useApp();
+  const mutation = useApi().usePatch({
+    path: demande["@id"] as "/demandes/{id}",
+    invalidationQueryKeys: [QK_DEMANDES],
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["/demandes", demande["@id"]] });
+      message.success("Demande déclarée réceptionnée");
+    },
+  });
 
-   const { questUtils } = useQuestionnaire();
-   if (etatDemande.ordre === getEtatDemandeInfo(ETAT_DEMANDE_EN_COURS)?.ordre)
-      return (
-         <>
-            <Typography.Text type="secondary">La demande est en cours de saisie</Typography.Text>
-            {questUtils?.isGrantedQuestionnaire(FONCTIONNALITES.DECLARER_RECEPTIONNEE) && (
-               <Button
-                  size="small"
-                  className="mt-1"
-                  onClick={() => {
-                     mutation.mutate({
-                        "@id": demande["@id"] as string,
-                        data: {
-                           etat: ETAT_DEMANDE_RECEPTIONNEE,
-                        },
-                     });
-                  }}
-               >
-                  Déclarer réceptionnée
-               </Button>
-            )}
-         </>
-      );
+  const { questUtils } = useQuestionnaire();
+  if (etatDemande.ordre === getEtatDemandeInfo(ETAT_DEMANDE_EN_COURS)?.ordre)
+    return (
+      <>
+        <Typography.Text type="secondary">La demande est en cours de saisie</Typography.Text>
+        {questUtils?.isGrantedQuestionnaire(FONCTIONNALITES.DECLARER_RECEPTIONNEE) && (
+          <Button
+            size="small"
+            className="mt-1"
+            onClick={() => {
+              mutation.mutate({
+                "@id": demande["@id"] as string,
+                data: {
+                  etat: ETAT_DEMANDE_RECEPTIONNEE,
+                },
+              });
+            }}
+          >
+            Déclarer réceptionnée
+          </Button>
+        )}
+      </>
+    );
 
-   return <Typography.Text>Demande réceptionnée</Typography.Text>;
+  return <Typography.Text>Demande réceptionnée</Typography.Text>;
 }

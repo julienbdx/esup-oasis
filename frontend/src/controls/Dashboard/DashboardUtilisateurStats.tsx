@@ -20,7 +20,7 @@ import DemandesAccompagnementStats from "@controls/Dashboard/DemandesAccompagnem
 import PlanificationEvenementsStats from "@controls/Dashboard/PlanificationEvenementsStats";
 
 interface IDashboardUtilisateurProps {
-   utilisateurId: string;
+  utilisateurId: string;
 }
 
 /**
@@ -30,55 +30,55 @@ interface IDashboardUtilisateurProps {
  * @returns {ReactElement} - The rendered dashboard component
  */
 export default function DashboardUtilisateurStats({
-   utilisateurId,
+  utilisateurId,
 }: IDashboardUtilisateurProps): ReactElement {
-   const user = useAuth().user;
-   const navigate = useNavigate();
-   const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-   const { data: etatsDemande } = useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
-   const { data: stats, isFetching } = useApi().useGetItem({
-      path: "/statistiques",
-      url: "/statistiques",
-      query: {
-         utilisateur: utilisateurId,
-      },
-      enabled: !!utilisateurId,
-   });
+  const user = useAuth().user;
+  const navigate = useNavigate();
+  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: etatsDemande } = useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
+  const { data: stats, isFetching } = useApi().useGetItem({
+    path: "/statistiques",
+    url: "/statistiques",
+    query: {
+      utilisateur: utilisateurId,
+    },
+    enabled: !!utilisateurId,
+  });
 
-   return (
-      <>
-         {user?.isGestionnaire && (stats?.evenementsSansBeneficiaire || 0) > 0 && (
-            <Alert
-               type="error"
-               showIcon
-               icon={<WarningFilled />}
-               title="Évènement sans bénéficiaire détecté !"
-               description={`Corrigez cette situation avant l'envoi de la période à la RH.`}
-               action={
-                  <Button
-                     ghost
-                     danger
-                     icon={<EyeOutlined />}
-                     onClick={() => navigate("/planning/evenements-sans-beneficiaires")}
-                  >
-                     Consulter les évènements
-                  </Button>
-               }
-            />
-         )}
-         <Row>
-            <ActiviteServiceStats stats={stats} isFetching={isFetching} />
-            <DemandesAccompagnementStats
-               stats={stats}
-               etatsDemande={etatsDemande?.items}
-               isFetching={isFetching}
-            />
-            <PlanificationEvenementsStats
-               stats={stats}
-               typesEvenements={typesEvenements?.items}
-               isFetching={isFetching}
-            />
-         </Row>
-      </>
-   );
+  return (
+    <>
+      {user?.isGestionnaire && (stats?.evenementsSansBeneficiaire || 0) > 0 && (
+        <Alert
+          type="error"
+          showIcon
+          icon={<WarningFilled />}
+          title="Évènement sans bénéficiaire détecté !"
+          description={`Corrigez cette situation avant l'envoi de la période à la RH.`}
+          action={
+            <Button
+              ghost
+              danger
+              icon={<EyeOutlined />}
+              onClick={() => navigate("/planning/evenements-sans-beneficiaires")}
+            >
+              Consulter les évènements
+            </Button>
+          }
+        />
+      )}
+      <Row>
+        <ActiviteServiceStats stats={stats} isFetching={isFetching} />
+        <DemandesAccompagnementStats
+          stats={stats}
+          etatsDemande={etatsDemande?.items}
+          isFetching={isFetching}
+        />
+        <PlanificationEvenementsStats
+          stats={stats}
+          typesEvenements={typesEvenements?.items}
+          isFetching={isFetching}
+        />
+      </Row>
+    </>
+  );
 }

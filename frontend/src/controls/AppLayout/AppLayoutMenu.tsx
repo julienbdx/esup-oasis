@@ -40,143 +40,138 @@ import { useNotificationStats } from "@controls/AppLayout/menuItems/useNotificat
  * @return {ReactElement} The rendered menu component.
  */
 export default function AppLayoutMenu(): ReactElement {
-   const auth = useAuth();
-   const navigate = useNavigate();
-   const { setDrawerUtilisateur } = useDrawers();
-   const { setAffichageFiltres } = useAffichageFiltres();
-   const apiFetching = useIsFetching();
-   const {
-      accessibilite: appAccessibilite,
-      setContrast,
-      setDyslexieArial,
-      setDyslexieOpenDys,
-      setDyslexieLexend,
-      setPoliceLarge,
-   } = useAccessibilite();
-   const [selectedKey, setSelectedKey] = useState<string>();
-   const [modeRecherche, setModeRecherche] = useState(false);
-   const { setPreference } = usePreferences();
-   const { stats, isFetchingStats } = useNotificationStats();
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const { setDrawerUtilisateur } = useDrawers();
+  const { setAffichageFiltres } = useAffichageFiltres();
+  const apiFetching = useIsFetching();
+  const {
+    accessibilite: appAccessibilite,
+    setContrast,
+    setDyslexieArial,
+    setDyslexieOpenDys,
+    setDyslexieLexend,
+    setPoliceLarge,
+  } = useAccessibilite();
+  const [selectedKey, setSelectedKey] = useState<string>();
+  const [modeRecherche, setModeRecherche] = useState(false);
+  const { setPreference } = usePreferences();
+  const { stats, isFetchingStats } = useNotificationStats();
 
-   const menuItems: MenuProps["items"] = useMemo(() => {
-      const items = [];
+  const menuItems: MenuProps["items"] = useMemo(() => {
+    const items = [];
 
-      items.push(...(menuItemLogo(setSelectedKey, navigate) || []));
-      // Spécifique pour Planificateurs
-      if (auth.user?.isPlanificateur) {
-         items.push(...(menuItemDemandeurs(setSelectedKey, navigate) || []));
-         items.push(...(menuItemBeneficiaires(setSelectedKey, navigate, auth.user) || []));
-         items.push(...(menuItemIntervenants(setSelectedKey, navigate) || []));
-         items.push(...(menuItemPlanningPlanificateur(setSelectedKey, auth.user, navigate) || []));
-      }
+    items.push(...(menuItemLogo(setSelectedKey, navigate) || []));
+    // Spécifique pour Planificateurs
+    if (auth.user?.isPlanificateur) {
+      items.push(...(menuItemDemandeurs(setSelectedKey, navigate) || []));
+      items.push(...(menuItemBeneficiaires(setSelectedKey, navigate, auth.user) || []));
+      items.push(...(menuItemIntervenants(setSelectedKey, navigate) || []));
+      items.push(...(menuItemPlanningPlanificateur(setSelectedKey, auth.user, navigate) || []));
+    }
 
-      if (auth.user?.isDemandeur) {
-         items.push(
-            ...(menuItemDemandeur(
-               setSelectedKey,
-               navigate,
-               auth.user?.isBeneficiaire || auth.user?.isIntervenant ? "" : "mr-auto",
-            ) || []),
-         );
-      }
-
-      if (auth.user?.isBeneficiaire && !auth.user?.isPlanificateur) {
-         items.push(
-            ...(menuItemPlanningBeneficiaireIntervenant(setSelectedKey, navigate, "mr-auto") || []),
-         );
-      } else if (auth.user?.isIntervenant && !auth.user?.isPlanificateur) {
-         items.push(...(menuItemPlanningBeneficiaireIntervenant(setSelectedKey, navigate) || []));
-         items.push(
-            ...(menuItemServicesFaitsIntervenant(setSelectedKey, navigate, "mr-auto") || []),
-         );
-      }
-
-      if (auth.user?.isCommissionMembre && !auth.user?.isPlanificateur) {
-         items.push(...(menuItemDemandesForMembresCommission(setSelectedKey, navigate) || []));
-      }
-
-      if (auth.user?.isReferentComposante && !auth.user?.isPlanificateur) {
-         items.push(...(menuItemAmenagementsForReferents(setSelectedKey, navigate) || []));
-      }
-
-      // Recherche
-      if (auth.user?.isPlanificateur) {
-         items.push(
-            ...(menuItemRecherche(
-               setDrawerUtilisateur,
-               modeRecherche,
-               setModeRecherche,
-               auth.user,
-               navigate,
-            ) || []),
-         );
-      }
-
-      // Accessibilité
+    if (auth.user?.isDemandeur) {
       items.push(
-         ...(menuItemAccessibilite(
-            appAccessibilite,
-            setContrast,
-            setDyslexieArial,
-            setDyslexieOpenDys,
-            setDyslexieLexend,
-            setPoliceLarge,
-            setPreference,
-         ) || []),
+        ...(menuItemDemandeur(
+          setSelectedKey,
+          navigate,
+          auth.user?.isBeneficiaire || auth.user?.isIntervenant ? "" : "mr-auto",
+        ) || []),
       );
+    }
 
-      return items;
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [
-      setDrawerUtilisateur,
-      modeRecherche,
-      navigate,
-      auth,
-      appAccessibilite,
-      setContrast,
-      setDyslexieArial,
-      setDyslexieOpenDys,
-      setDyslexieLexend,
-      setPoliceLarge,
-   ]);
-
-   const menuNotifications: MenuProps["items"] = useMemo(() => {
-      if (!auth.user || !auth.user.isPlanificateur) return [];
-      return (
-         menuItemNotifications(auth.user, navigate, setAffichageFiltres, stats, isFetchingStats) ||
-         []
+    if (auth.user?.isBeneficiaire && !auth.user?.isPlanificateur) {
+      items.push(
+        ...(menuItemPlanningBeneficiaireIntervenant(setSelectedKey, navigate, "mr-auto") || []),
       );
-   }, [auth.user, setAffichageFiltres, isFetchingStats, navigate, stats]);
+    } else if (auth.user?.isIntervenant && !auth.user?.isPlanificateur) {
+      items.push(...(menuItemPlanningBeneficiaireIntervenant(setSelectedKey, navigate) || []));
+      items.push(...(menuItemServicesFaitsIntervenant(setSelectedKey, navigate, "mr-auto") || []));
+    }
 
-   // --- Rendre le menu accessible (fix ant design) ---
-   useEffect(() => {
-      // Aria label pour le menu accessibilité
-      const menuAccessibiliteCtrl = document.querySelector(
-         ".item-accessibilite div[role=menuitem]",
+    if (auth.user?.isCommissionMembre && !auth.user?.isPlanificateur) {
+      items.push(...(menuItemDemandesForMembresCommission(setSelectedKey, navigate) || []));
+    }
+
+    if (auth.user?.isReferentComposante && !auth.user?.isPlanificateur) {
+      items.push(...(menuItemAmenagementsForReferents(setSelectedKey, navigate) || []));
+    }
+
+    // Recherche
+    if (auth.user?.isPlanificateur) {
+      items.push(
+        ...(menuItemRecherche(
+          setDrawerUtilisateur,
+          modeRecherche,
+          setModeRecherche,
+          auth.user,
+          navigate,
+        ) || []),
       );
-      if (menuAccessibiliteCtrl) menuAccessibiliteCtrl.ariaLabel = "Menu accessibilité";
+    }
 
-      // Aria label pour l'overflow du menu'
-      const menuOverflow = document.querySelector(".ant-menu-overflow-item-rest");
-      if (menuOverflow) {
-         menuOverflow.ariaLabel = "Autres items du menu";
-         menuOverflow.role = "menuitem";
-      }
-   });
-   // --- /Rendre le menu accessible ---
+    // Accessibilité
+    items.push(
+      ...(menuItemAccessibilite(
+        appAccessibilite,
+        setContrast,
+        setDyslexieArial,
+        setDyslexieOpenDys,
+        setDyslexieLexend,
+        setPoliceLarge,
+        setPreference,
+      ) || []),
+    );
 
-   return (
-      <>
-         <PageTitle setSelectedMenuKey={setSelectedKey} />
-         <Menu
-            selectedKeys={selectedKey ? [selectedKey] : []}
-            mode="horizontal"
-            items={[
-               ...menuItems,
-               ...menuNotifications,
-               ...menuItemUtilisateur(setSelectedKey, auth, apiFetching, navigate),
-            ]}
-         />
-      </>
-   );
+    return items;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    setDrawerUtilisateur,
+    modeRecherche,
+    navigate,
+    auth,
+    appAccessibilite,
+    setContrast,
+    setDyslexieArial,
+    setDyslexieOpenDys,
+    setDyslexieLexend,
+    setPoliceLarge,
+  ]);
+
+  const menuNotifications: MenuProps["items"] = useMemo(() => {
+    if (!auth.user || !auth.user.isPlanificateur) return [];
+    return (
+      menuItemNotifications(auth.user, navigate, setAffichageFiltres, stats, isFetchingStats) || []
+    );
+  }, [auth.user, setAffichageFiltres, isFetchingStats, navigate, stats]);
+
+  // --- Rendre le menu accessible (fix ant design) ---
+  useEffect(() => {
+    // Aria label pour le menu accessibilité
+    const menuAccessibiliteCtrl = document.querySelector(".item-accessibilite div[role=menuitem]");
+    if (menuAccessibiliteCtrl) menuAccessibiliteCtrl.ariaLabel = "Menu accessibilité";
+
+    // Aria label pour l'overflow du menu'
+    const menuOverflow = document.querySelector(".ant-menu-overflow-item-rest");
+    if (menuOverflow) {
+      menuOverflow.ariaLabel = "Autres items du menu";
+      menuOverflow.role = "menuitem";
+    }
+  });
+  // --- /Rendre le menu accessible ---
+
+  return (
+    <>
+      <PageTitle setSelectedMenuKey={setSelectedKey} />
+      <Menu
+        selectedKeys={selectedKey ? [selectedKey] : []}
+        mode="horizontal"
+        items={[
+          ...menuItems,
+          ...menuNotifications,
+          ...menuItemUtilisateur(setSelectedKey, auth, apiFetching, navigate),
+        ]}
+      />
+    </>
+  );
 }

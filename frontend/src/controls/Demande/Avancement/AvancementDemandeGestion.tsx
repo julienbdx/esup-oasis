@@ -11,9 +11,9 @@
 import React from "react";
 import { Steps, Typography } from "antd";
 import {
-   ETAT_ATTENTE_CHARTES,
-   ETAT_DEMANDE_ATTENTE_COMMISSION,
-   ETAT_DEMANDE_NON_CONFORME,
+  ETAT_ATTENTE_CHARTES,
+  ETAT_DEMANDE_ATTENTE_COMMISSION,
+  ETAT_DEMANDE_NON_CONFORME,
 } from "@lib/demande";
 import "@controls/Demande/Avancement/AvancementDemande.scss";
 import { useQuestionnaire } from "@context/demande/QuestionnaireProvider";
@@ -26,61 +26,59 @@ import EtapeDAccompagnement from "@controls/Demande/Avancement/Steps/EtapeDAccom
 import { useAvancementSteps } from "@controls/Demande/Avancement/useAvancementSteps";
 
 export default function AvancementDemandeGestion(props: {
-   refs?: RefsTourDemande;
+  refs?: RefsTourDemande;
 }): React.ReactElement {
-   const { demande, etatDemande, typeDemande, campagne } = useQuestionnaire();
-   const { calculerEtatStep } = useAvancementSteps(demande, etatDemande);
+  const { demande, etatDemande, typeDemande, campagne } = useQuestionnaire();
+  const { calculerEtatStep } = useAvancementSteps(demande, etatDemande);
 
-   if (!demande) return <>Demande inconnue</>;
-   if (!etatDemande) return <>Etat de la demande inconnue</>;
+  if (!demande) return <>Demande inconnue</>;
+  if (!etatDemande) return <>Etat de la demande inconnue</>;
 
-   return (
-      <div ref={props.refs?.avancement}>
-         <Steps
-            className="stepper-gestionnaire"
-            items={
-               [
-                  {
-                     title: "Saisie",
-                     status: calculerEtatStep("A"),
-                     description: <EtapeASaisie etatDemande={etatDemande} demande={demande} />,
-                  },
-                  {
-                     title: "Conformité",
-                     status: calculerEtatStep("B"),
-                     description: <EtapeBConformite demande={demande} etatDemande={etatDemande} />,
-                  },
-                  ((typeDemande?.profilsCibles || []).length > 1 || campagne?.commission) && {
-                     title: "Profil",
-                     status: etatDemande.etape >= "C" ? "finish" : "wait",
-                     description: <EtapeCProfil demande={demande} etatDemande={etatDemande} />,
-                  },
-                  demande.etat === ETAT_ATTENTE_CHARTES && {
-                     title: "Charte(s)",
-                     status: "process",
-                     description: <>Attente validation charte(s)</>,
-                  },
-                  {
-                     title: "Accompagnement",
-                     status: calculerEtatStep("D"),
-                     description: (
-                        <EtapeDAccompagnement demande={demande} etatDemande={etatDemande} />
-                     ),
-                  },
-               ].filter((step) => step) as []
-            }
-         ></Steps>
+  return (
+    <div ref={props.refs?.avancement}>
+      <Steps
+        className="stepper-gestionnaire"
+        items={
+          [
+            {
+              title: "Saisie",
+              status: calculerEtatStep("A"),
+              description: <EtapeASaisie etatDemande={etatDemande} demande={demande} />,
+            },
+            {
+              title: "Conformité",
+              status: calculerEtatStep("B"),
+              description: <EtapeBConformite demande={demande} etatDemande={etatDemande} />,
+            },
+            ((typeDemande?.profilsCibles || []).length > 1 || campagne?.commission) && {
+              title: "Profil",
+              status: etatDemande.etape >= "C" ? "finish" : "wait",
+              description: <EtapeCProfil demande={demande} etatDemande={etatDemande} />,
+            },
+            demande.etat === ETAT_ATTENTE_CHARTES && {
+              title: "Charte(s)",
+              status: "process",
+              description: <>Attente validation charte(s)</>,
+            },
+            {
+              title: "Accompagnement",
+              status: calculerEtatStep("D"),
+              description: <EtapeDAccompagnement demande={demande} etatDemande={etatDemande} />,
+            },
+          ].filter((step) => step) as []
+        }
+      ></Steps>
 
-         {(etatDemande.id === ETAT_DEMANDE_NON_CONFORME ||
-            etatDemande.id === ETAT_DEMANDE_ATTENTE_COMMISSION) && (
-            <DerniereModifDemandeLabel
-               asAlert
-               demandeId={demande?.["@id"]}
-               classNameValue="semi-bold"
-               title=""
-               ifEmpty={<Typography.Text type="secondary">Aucun complément</Typography.Text>}
-            />
-         )}
-      </div>
-   );
+      {(etatDemande.id === ETAT_DEMANDE_NON_CONFORME ||
+        etatDemande.id === ETAT_DEMANDE_ATTENTE_COMMISSION) && (
+        <DerniereModifDemandeLabel
+          asAlert
+          demandeId={demande?.["@id"]}
+          classNameValue="semi-bold"
+          title=""
+          ifEmpty={<Typography.Text type="secondary">Aucun complément</Typography.Text>}
+        />
+      )}
+    </div>
+  );
 }

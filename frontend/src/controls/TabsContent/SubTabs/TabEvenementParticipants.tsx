@@ -18,9 +18,9 @@ import { IPartialEvenement } from "@api/ApiTypeHelpers";
 import EventMailCopyButton from "@controls/Buttons/EventMailCopyButton";
 
 interface TabEvenementParticipantsProps {
-   evenement: Evenement | undefined;
-   setEvenement: (data: IPartialEvenement | undefined, forceResetForm: boolean) => void;
-   intervenantDisabled?: boolean;
+  evenement: Evenement | undefined;
+  setEvenement: (data: IPartialEvenement | undefined, forceResetForm: boolean) => void;
+  intervenantDisabled?: boolean;
 }
 
 /**
@@ -34,34 +34,34 @@ interface TabEvenementParticipantsProps {
  * @returns {ReactElement} The rendered tab component.
  */
 export function TabEvenementParticipants({
-   evenement,
-   setEvenement,
-   intervenantDisabled,
+  evenement,
+  setEvenement,
+  intervenantDisabled,
 }: TabEvenementParticipantsProps): ReactElement {
-   return (
-      <>
-         <Divider>
-            <Space>
-               Participants
-               <EventMailCopyButton evenement={evenement} />
-            </Space>
-         </Divider>
+  return (
+    <>
+      <Divider>
+        <Space>
+          Participants
+          <EventMailCopyButton evenement={evenement} />
+        </Space>
+      </Divider>
 
-         <TabEvenementParticipantsBeneficiaires
-            evenement={evenement}
-            setEvenement={setEvenement}
-            title={<div className="semi-bold">Bénéficiaires</div>}
-         />
+      <TabEvenementParticipantsBeneficiaires
+        evenement={evenement}
+        setEvenement={setEvenement}
+        title={<div className="semi-bold">Bénéficiaires</div>}
+      />
 
-         <TabEvenementParticipantsIntervenant
-            evenement={evenement}
-            setEvenement={setEvenement}
-            intervenantDisabled={intervenantDisabled}
-         />
+      <TabEvenementParticipantsIntervenant
+        evenement={evenement}
+        setEvenement={setEvenement}
+        intervenantDisabled={intervenantDisabled}
+      />
 
-         <TabEvenementParticipantsSuppleants evenement={evenement} setEvenement={setEvenement} />
+      <TabEvenementParticipantsSuppleants evenement={evenement} setEvenement={setEvenement} />
 
-         <TabEvenementParticipantsEnseignants evenement={evenement} setEvenement={setEvenement} />
-      </>
-   );
+      <TabEvenementParticipantsEnseignants evenement={evenement} setEvenement={setEvenement} />
+    </>
+  );
 }

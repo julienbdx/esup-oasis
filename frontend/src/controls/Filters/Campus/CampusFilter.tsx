@@ -13,9 +13,9 @@ import { useApi } from "@context/api/ApiProvider";
 import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
 
 interface ICampusFilter {
-   value?: string[];
-   onChange?: (value: string[]) => void;
-   mode?: "multiple" | "tags";
+  value?: string[];
+  onChange?: (value: string[]) => void;
+  mode?: "multiple" | "tags";
 }
 
 /**
@@ -28,44 +28,44 @@ interface ICampusFilter {
  * @return {ReactElement} The JSX element representing the CampusFilter component
  */
 export default function CampusFilter({ value, onChange, mode }: ICampusFilter): ReactElement {
-   const [filter, setFilter] = useState("");
-   const { data, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  const [filter, setFilter] = useState("");
+  const { data, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
 
-   return (
-      <Select
-         data-testid="campus-filter"
-         className="w-100"
-         loading={isFetching}
-         placeholder="Tous les campus"
-         value={value}
-         onChange={(v) => {
-            if (onChange) onChange(v);
-         }}
-         allowClear
-         showSearch={{
-            filterOption: false,
-            onSearch: (v) => setFilter(v.toLocaleLowerCase()),
-         }}
-         mode={mode}
-         options={
-            data?.items
-               .filter((c) => c.actif)
-               .filter((c) => c.libelle?.toLocaleLowerCase().includes(filter))
-               .sort((a, b) => (a.libelle ?? "").localeCompare(b.libelle ?? ""))
-               .map((c) => ({ value: c["@id"], label: c.libelle })) ?? []
-         }
-         optionRender={(option) => (
-            <Space align="center">
-               <Avatar
-                  className="avatar-campus"
-                  size={20}
-                  style={{ verticalAlign: "text-top", fontSize: 14 }}
-               >
-                  {(option.label as string).charAt(0)}
-               </Avatar>
-               {option.label}
-            </Space>
-         )}
-      />
-   );
+  return (
+    <Select
+      data-testid="campus-filter"
+      className="w-100"
+      loading={isFetching}
+      placeholder="Tous les campus"
+      value={value}
+      onChange={(v) => {
+        if (onChange) onChange(v);
+      }}
+      allowClear
+      showSearch={{
+        filterOption: false,
+        onSearch: (v) => setFilter(v.toLocaleLowerCase()),
+      }}
+      mode={mode}
+      options={
+        data?.items
+          .filter((c) => c.actif)
+          .filter((c) => c.libelle?.toLocaleLowerCase().includes(filter))
+          .sort((a, b) => (a.libelle ?? "").localeCompare(b.libelle ?? ""))
+          .map((c) => ({ value: c["@id"], label: c.libelle })) ?? []
+      }
+      optionRender={(option) => (
+        <Space align="center">
+          <Avatar
+            className="avatar-campus"
+            size={20}
+            style={{ verticalAlign: "text-top", fontSize: 14 }}
+          >
+            {(option.label as string).charAt(0)}
+          </Avatar>
+          {option.label}
+        </Space>
+      )}
+    />
+  );
 }

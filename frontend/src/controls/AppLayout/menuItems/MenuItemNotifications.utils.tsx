@@ -20,28 +20,28 @@ import { MenuProps } from "antd";
  * @return {string} The appropriate libelle based on the count.
  */
 export function getLibelleByCount(
-   count: number | undefined,
-   libelle0: string,
-   libelle1: string,
-   libelleN: string,
+  count: number | undefined,
+  libelle0: string,
+  libelle1: string,
+  libelleN: string,
 ): string {
-   if (count === undefined || count === 0) {
-      return libelle0;
-   }
+  if (count === undefined || count === 0) {
+    return libelle0;
+  }
 
-   if (count === 1) {
-      return libelle1;
-   }
+  if (count === 1) {
+    return libelle1;
+  }
 
-   return libelleN.replace("{count}", count.toString());
+  return libelleN.replace("{count}", count.toString());
 }
 
 interface NotificationItemConfig {
-   key: string;
-   count: number | undefined;
-   libelles: [string, string, string];
-   onClick: () => void;
-   severity?: "warning" | "error";
+  key: string;
+  count: number | undefined;
+  libelles: [string, string, string];
+  onClick: () => void;
+  severity?: "warning" | "error";
 }
 
 type MenuItem = NonNullable<MenuProps["items"]>[number];
@@ -50,22 +50,22 @@ type MenuItem = NonNullable<MenuProps["items"]>[number];
  * Creates a notification menu item.
  */
 export function createNotificationItem({
-   key,
-   count,
-   libelles,
-   onClick,
-   severity = "warning",
+  key,
+  count,
+  libelles,
+  onClick,
+  severity = "warning",
 }: NotificationItemConfig): MenuItem {
-   const isSuccess = !count || count === 0;
-   return {
-      key,
-      className: isSuccess ? "text-success" : `text-${severity}`,
-      icon: isSuccess ? (
-         <CheckCircleFilled className="text-success" />
-      ) : (
-         <WarningFilled className={`text-${severity}`} />
-      ),
-      label: getLibelleByCount(count, libelles[0], libelles[1], libelles[2]),
-      onClick,
-   };
+  const isSuccess = !count || count === 0;
+  return {
+    key,
+    className: isSuccess ? "text-success" : `text-${severity}`,
+    icon: isSuccess ? (
+      <CheckCircleFilled className="text-success" />
+    ) : (
+      <WarningFilled className={`text-${severity}`} />
+    ),
+    label: getLibelleByCount(count, libelles[0], libelles[1], libelles[2]),
+    onClick,
+  };
 }

@@ -17,45 +17,45 @@ import { IInscription } from "@api/ApiTypeHelpers";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 
 export function InscriptionItem(props: {
-   utilisateurId?: string | undefined;
-   inscription?: IInscription | undefined;
+  utilisateurId?: string | undefined;
+  inscription?: IInscription | undefined;
 }) {
-   const [item, setItem] = React.useState<IInscription | undefined>(props.inscription);
-   const { data, isFetching } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: props.utilisateurId,
-      enabled: !!props.utilisateurId,
-   });
+  const [item, setItem] = React.useState<IInscription | undefined>(props.inscription);
+  const { data, isFetching } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: props.utilisateurId,
+    enabled: !!props.utilisateurId,
+  });
 
-   useEffect(() => {
-      setItem(props.inscription);
-   }, [props.inscription]);
+  useEffect(() => {
+    setItem(props.inscription);
+  }, [props.inscription]);
 
-   useEffect(() => {
-      if (data) {
-         const inscription = (data.inscriptions || []).sort(
-            (i1, i2) => i2.debut?.localeCompare(i1.debut || "") || 0,
-         )[0];
-         setItem(inscription);
-      }
-   }, [data]);
+  useEffect(() => {
+    if (data) {
+      const inscription = (data.inscriptions || []).sort(
+        (i1, i2) => i2.debut?.localeCompare(i1.debut || "") || 0,
+      )[0];
+      setItem(inscription);
+    }
+  }, [data]);
 
-   if (!props.utilisateurId) return null;
-   if (isFetching) return <Spinner />;
-   if (!data) return <MinusOutlined />;
+  if (!props.utilisateurId) return null;
+  if (isFetching) return <Spinner />;
+  if (!data) return <MinusOutlined />;
 
-   if (!item) return <MinusOutlined />;
+  if (!item) return <MinusOutlined />;
 
-   return (
-      <Space orientation="vertical" size={2}>
-         <ComposanteItem composanteId={item.formation?.composante} />
-         <EllipsisMiddle
-            className="light"
-            style={{ maxWidth: 300 }}
-            suffixCount={12}
-            content={item.formation?.libelle as string}
-            expandable
-         />
-      </Space>
-   );
+  return (
+    <Space orientation="vertical" size={2}>
+      <ComposanteItem composanteId={item.formation?.composante} />
+      <EllipsisMiddle
+        className="light"
+        style={{ maxWidth: 300 }}
+        suffixCount={12}
+        content={item.formation?.libelle as string}
+        expandable
+      />
+    </Space>
+  );
 }

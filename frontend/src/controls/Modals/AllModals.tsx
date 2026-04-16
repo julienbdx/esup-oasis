@@ -20,14 +20,14 @@ import { useModals } from "@context/modals/ModalsContext";
  * @returns {ReactElement|null} The rendered modal component.
  */
 export default function AllModals(): ReactElement | null {
-   const user = useAuth().user;
-   const { modals: appModals } = useModals();
+  const user = useAuth().user;
+  const { modals: appModals } = useModals();
 
-   if (user?.isPlanificateur) {
-      return appModals.EVENEMENT || appModals.EVENEMENT_ID ? (
-         <EvenementModal id={appModals.EVENEMENT_ID} initialEvenement={appModals.EVENEMENT} />
-      ) : null;
-   }
+  if (user?.isPlanificateur) {
+    return appModals.EVENEMENT || appModals.EVENEMENT_ID ? (
+      <EvenementModal id={appModals.EVENEMENT_ID} initialEvenement={appModals.EVENEMENT} />
+    ) : null;
+  }
 
-   return appModals.EVENEMENT_ID ? <EvenementResumeModal id={appModals.EVENEMENT_ID} /> : null;
+  return appModals.EVENEMENT_ID ? <EvenementResumeModal id={appModals.EVENEMENT_ID} /> : null;
 }

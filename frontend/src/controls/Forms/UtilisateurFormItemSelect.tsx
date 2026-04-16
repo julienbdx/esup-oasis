@@ -19,271 +19,271 @@ import { MailSmallButton } from "@controls/Forms/MailSmallButton";
 import { useUtilisateurSearch } from "@controls/Forms/useUtilisateurSearch";
 
 interface IUtilisateurFormItemSelect {
-   value?: string;
-   onChange?: (v: string | undefined) => void;
-   onSelect?: (v: string | undefined) => void;
-   style?: React.CSSProperties;
-   styleButton?: React.CSSProperties;
-   className?: string;
-   classNameButton?: string;
-   disabled?: boolean;
-   placeholder?: string;
-   intervenantArchive?: boolean;
-   existeNumeroEtudiant?: boolean;
-   forcerRechercheEnBase?: boolean;
-   roleUtilisateur?:
-      | RoleValues.ROLE_INTERVENANT
-      | RoleValues.ROLE_BENEFICIAIRE
-      | RoleValues.ROLE_RENFORT
-      | RoleValues.ROLE_ENSEIGNANT
-      | RoleValues.ROLE_REFERENT_COMPOSANTE;
+  value?: string;
+  onChange?: (v: string | undefined) => void;
+  onSelect?: (v: string | undefined) => void;
+  style?: React.CSSProperties;
+  styleButton?: React.CSSProperties;
+  className?: string;
+  classNameButton?: string;
+  disabled?: boolean;
+  placeholder?: string;
+  intervenantArchive?: boolean;
+  existeNumeroEtudiant?: boolean;
+  forcerRechercheEnBase?: boolean;
+  roleUtilisateur?:
+    | RoleValues.ROLE_INTERVENANT
+    | RoleValues.ROLE_BENEFICIAIRE
+    | RoleValues.ROLE_RENFORT
+    | RoleValues.ROLE_ENSEIGNANT
+    | RoleValues.ROLE_REFERENT_COMPOSANTE;
 }
 
 function UtilisateurSelectEditing({
-   utilisateursTrouves,
-   isFetchingUtilisateursTrouves,
-   itemsPerPage,
-   forcerRechercheEnBase,
-   roleUtilisateur,
-   className,
-   style,
-   open,
-   tappedSearch,
-   setTappedSearch,
-   search,
-   launchSearch,
-   placeholder,
-   onSelect,
-   onChange,
+  utilisateursTrouves,
+  isFetchingUtilisateursTrouves,
+  itemsPerPage,
+  forcerRechercheEnBase,
+  roleUtilisateur,
+  className,
+  style,
+  open,
+  tappedSearch,
+  setTappedSearch,
+  search,
+  launchSearch,
+  placeholder,
+  onSelect,
+  onChange,
 }: {
-   utilisateursTrouves: { items: IUtilisateur[] } | undefined;
-   isFetchingUtilisateursTrouves: boolean;
-   itemsPerPage: number;
-   forcerRechercheEnBase?: boolean;
-   roleUtilisateur?: string;
-   className?: string;
-   style?: React.CSSProperties;
-   open: boolean;
-   tappedSearch: string;
-   setTappedSearch: (v: string) => void;
-   search: string;
-   launchSearch: () => void;
-   placeholder?: string;
-   onSelect: (v: string | undefined) => void;
-   onChange?: (v: string | undefined) => void;
+  utilisateursTrouves: { items: IUtilisateur[] } | undefined;
+  isFetchingUtilisateursTrouves: boolean;
+  itemsPerPage: number;
+  forcerRechercheEnBase?: boolean;
+  roleUtilisateur?: string;
+  className?: string;
+  style?: React.CSSProperties;
+  open: boolean;
+  tappedSearch: string;
+  setTappedSearch: (v: string) => void;
+  search: string;
+  launchSearch: () => void;
+  placeholder?: string;
+  onSelect: (v: string | undefined) => void;
+  onChange?: (v: string | undefined) => void;
 }) {
-   return (
-      <Select
-         options={utilisateursTrouves?.items
-            .filter((u: IUtilisateur) => {
-               if (forcerRechercheEnBase && utilisateursTrouves?.items.length === itemsPerPage) {
-                  return true;
-               }
-               if (forcerRechercheEnBase) {
-                  return u.roles?.includes(roleUtilisateur as RoleValues);
-               }
-               return true;
-            })
-            .map((b: IUtilisateur) => ({
-               value: b["@id"],
-               label: `${b.nom?.toLocaleUpperCase()} ${b.prenom} (${b.email})`,
-            }))}
-         loading={isFetchingUtilisateursTrouves}
-         showSearch={{
-            filterOption: false,
-            onSearch: (term) => {
-               setTappedSearch(term);
-            },
-         }}
-         className={className}
-         style={style}
-         open={open && !isFetchingUtilisateursTrouves}
-         suffixIcon={
-            tappedSearch !== search && tappedSearch.length > 1 ? (
-               <EnterOutlined
-                  className="text-primary"
-                  onClick={(e) => {
-                     e.preventDefault();
-                     launchSearch();
-                  }}
-               />
-            ) : undefined
-         }
-         placeholder={placeholder}
-         onInputKeyDown={(e) => {
-            if (e.key === "Enter" && tappedSearch.length > 1) {
-               e.preventDefault();
-               launchSearch();
-            }
-         }}
-         onSelect={(v) => onSelect(v as string | undefined)}
-         onChange={onChange}
-      />
-   );
+  return (
+    <Select
+      options={utilisateursTrouves?.items
+        .filter((u: IUtilisateur) => {
+          if (forcerRechercheEnBase && utilisateursTrouves?.items.length === itemsPerPage) {
+            return true;
+          }
+          if (forcerRechercheEnBase) {
+            return u.roles?.includes(roleUtilisateur as RoleValues);
+          }
+          return true;
+        })
+        .map((b: IUtilisateur) => ({
+          value: b["@id"],
+          label: `${b.nom?.toLocaleUpperCase()} ${b.prenom} (${b.email})`,
+        }))}
+      loading={isFetchingUtilisateursTrouves}
+      showSearch={{
+        filterOption: false,
+        onSearch: (term) => {
+          setTappedSearch(term);
+        },
+      }}
+      className={className}
+      style={style}
+      open={open && !isFetchingUtilisateursTrouves}
+      suffixIcon={
+        tappedSearch !== search && tappedSearch.length > 1 ? (
+          <EnterOutlined
+            className="text-primary"
+            onClick={(e) => {
+              e.preventDefault();
+              launchSearch();
+            }}
+          />
+        ) : undefined
+      }
+      placeholder={placeholder}
+      onInputKeyDown={(e) => {
+        if (e.key === "Enter" && tappedSearch.length > 1) {
+          e.preventDefault();
+          launchSearch();
+        }
+      }}
+      onSelect={(v) => onSelect(v as string | undefined)}
+      onChange={onChange}
+    />
+  );
 }
 
 function UtilisateurSelectDisplay({
-   style,
-   className,
-   disabled,
-   placeholder,
-   getSuffix,
-   dataUtilisateur,
+  style,
+  className,
+  disabled,
+  placeholder,
+  getSuffix,
+  dataUtilisateur,
 }: {
-   style?: React.CSSProperties;
-   className?: string;
-   disabled?: boolean;
-   placeholder?: string;
-   getSuffix: () => React.ReactNode;
-   dataUtilisateur: IUtilisateur | undefined;
+  style?: React.CSSProperties;
+  className?: string;
+  disabled?: boolean;
+  placeholder?: string;
+  getSuffix: () => React.ReactNode;
+  dataUtilisateur: IUtilisateur | undefined;
 }) {
-   return (
-      <Input
-         style={style}
-         className={`mb-0 ${className}`}
-         disabled={disabled}
-         placeholder={placeholder}
-         suffix={getSuffix()}
-         value={
-            dataUtilisateur
-               ? `${dataUtilisateur?.prenom} ${dataUtilisateur?.nom?.toLocaleUpperCase()}`
-               : ""
-         }
-         readOnly
-      />
-   );
+  return (
+    <Input
+      style={style}
+      className={`mb-0 ${className}`}
+      disabled={disabled}
+      placeholder={placeholder}
+      suffix={getSuffix()}
+      value={
+        dataUtilisateur
+          ? `${dataUtilisateur?.prenom} ${dataUtilisateur?.nom?.toLocaleUpperCase()}`
+          : ""
+      }
+      readOnly
+    />
+  );
 }
 
 function UtilisateurFormItemSelect({
-   value,
-   onSelect,
-   onChange,
-   style,
-   styleButton,
-   className,
-   classNameButton,
-   disabled,
-   placeholder,
-   roleUtilisateur,
-   intervenantArchive,
-   existeNumeroEtudiant,
-   forcerRechercheEnBase,
+  value,
+  onSelect,
+  onChange,
+  style,
+  styleButton,
+  className,
+  classNameButton,
+  disabled,
+  placeholder,
+  roleUtilisateur,
+  intervenantArchive,
+  existeNumeroEtudiant,
+  forcerRechercheEnBase,
 }: IUtilisateurFormItemSelect) {
-   const [utilisateurId, setUtilisateurId] = useState(value === "" ? undefined : value);
-   const { setDrawerUtilisateur } = useDrawers();
+  const [utilisateurId, setUtilisateurId] = useState(value === "" ? undefined : value);
+  const { setDrawerUtilisateur } = useDrawers();
 
-   const {
-      tappedSearch,
-      setTappedSearch,
-      search,
-      setSearch,
-      itemsPerPage,
-      dataUtilisateur,
-      isFetchingUtilisateur,
-      utilisateursTrouves,
-      isFetchingUtilisateursTrouves,
-   } = useUtilisateurSearch({
-      utilisateurId,
-      roleUtilisateur,
-      intervenantArchive,
-      existeNumeroEtudiant,
-      forcerRechercheEnBase,
-   });
+  const {
+    tappedSearch,
+    setTappedSearch,
+    search,
+    setSearch,
+    itemsPerPage,
+    dataUtilisateur,
+    isFetchingUtilisateur,
+    utilisateursTrouves,
+    isFetchingUtilisateursTrouves,
+  } = useUtilisateurSearch({
+    utilisateurId,
+    roleUtilisateur,
+    intervenantArchive,
+    existeNumeroEtudiant,
+    forcerRechercheEnBase,
+  });
 
-   const [isEditing, setIsEditing] = useState(utilisateurId === undefined);
-   const [open, setOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(utilisateurId === undefined);
+  const [open, setOpen] = useState(false);
 
-   function launchSearch() {
-      if (tappedSearch.length > 1) {
-         setOpen(true);
-         setSearch(tappedSearch);
+  function launchSearch() {
+    if (tappedSearch.length > 1) {
+      setOpen(true);
+      setSearch(tappedSearch);
+    }
+  }
+
+  function getSuffix() {
+    if (isFetchingUtilisateur) return <Spinner />;
+
+    function getUtilisateurColor() {
+      switch (roleUtilisateur) {
+        case RoleValues.ROLE_BENEFICIAIRE:
+          return "bg-beneficiaire border-beneficiaire";
+        case RoleValues.ROLE_INTERVENANT:
+          return "bg-intervenant border-intervenant";
+        default:
+          return "";
       }
-   }
+    }
 
-   function getSuffix() {
-      if (isFetchingUtilisateur) return <Spinner />;
-
-      function getUtilisateurColor() {
-         switch (roleUtilisateur) {
-            case RoleValues.ROLE_BENEFICIAIRE:
-               return "bg-beneficiaire border-beneficiaire";
-            case RoleValues.ROLE_INTERVENANT:
-               return "bg-intervenant border-intervenant";
-            default:
-               return "";
-         }
-      }
-
-      return utilisateurId ? (
-         <Space>
-            <MailSmallButton utilisateur={dataUtilisateur} />
-            <Tooltip title="Voir le profil">
-               <Button
-                  size="small"
-                  icon={<UserOutlined />}
-                  shape="circle"
-                  className={`m-0 p-0 ${classNameButton} text-text ${getUtilisateurColor()}}`}
-                  style={styleButton}
-                  onClick={() => {
-                     setDrawerUtilisateur({
-                        utilisateur: dataUtilisateur?.["@id"] as string,
-                        role: roleUtilisateur,
-                     });
-                  }}
-               />
-            </Tooltip>
-         </Space>
-      ) : (
-         <Button
+    return utilisateurId ? (
+      <Space>
+        <MailSmallButton utilisateur={dataUtilisateur} />
+        <Tooltip title="Voir le profil">
+          <Button
             size="small"
-            icon={<SearchOutlined />}
+            icon={<UserOutlined />}
             shape="circle"
-            className={`m-0 p-0 ${classNameButton}`}
+            className={`m-0 p-0 ${classNameButton} text-text ${getUtilisateurColor()}}`}
             style={styleButton}
             onClick={() => {
-               setIsEditing(true);
+              setDrawerUtilisateur({
+                utilisateur: dataUtilisateur?.["@id"] as string,
+                role: roleUtilisateur,
+              });
             }}
-         />
-      );
-   }
-
-   if (isEditing) {
-      return (
-         <UtilisateurSelectEditing
-            utilisateursTrouves={utilisateursTrouves}
-            isFetchingUtilisateursTrouves={isFetchingUtilisateursTrouves}
-            itemsPerPage={itemsPerPage}
-            forcerRechercheEnBase={forcerRechercheEnBase}
-            roleUtilisateur={roleUtilisateur}
-            className={className}
-            style={style}
-            open={open}
-            tappedSearch={tappedSearch}
-            setTappedSearch={setTappedSearch}
-            search={search}
-            launchSearch={launchSearch}
-            placeholder={placeholder}
-            onSelect={(v) => {
-               setOpen(false);
-               setUtilisateurId(v as string);
-               if (onSelect) onSelect(v);
-               setIsEditing(false);
-            }}
-            onChange={onChange}
-         />
-      );
-   }
-
-   return (
-      <UtilisateurSelectDisplay
-         style={style}
-         className={className}
-         disabled={disabled}
-         placeholder={placeholder}
-         getSuffix={getSuffix}
-         dataUtilisateur={dataUtilisateur}
+          />
+        </Tooltip>
+      </Space>
+    ) : (
+      <Button
+        size="small"
+        icon={<SearchOutlined />}
+        shape="circle"
+        className={`m-0 p-0 ${classNameButton}`}
+        style={styleButton}
+        onClick={() => {
+          setIsEditing(true);
+        }}
       />
-   );
+    );
+  }
+
+  if (isEditing) {
+    return (
+      <UtilisateurSelectEditing
+        utilisateursTrouves={utilisateursTrouves}
+        isFetchingUtilisateursTrouves={isFetchingUtilisateursTrouves}
+        itemsPerPage={itemsPerPage}
+        forcerRechercheEnBase={forcerRechercheEnBase}
+        roleUtilisateur={roleUtilisateur}
+        className={className}
+        style={style}
+        open={open}
+        tappedSearch={tappedSearch}
+        setTappedSearch={setTappedSearch}
+        search={search}
+        launchSearch={launchSearch}
+        placeholder={placeholder}
+        onSelect={(v) => {
+          setOpen(false);
+          setUtilisateurId(v as string);
+          if (onSelect) onSelect(v);
+          setIsEditing(false);
+        }}
+        onChange={onChange}
+      />
+    );
+  }
+
+  return (
+    <UtilisateurSelectDisplay
+      style={style}
+      className={className}
+      disabled={disabled}
+      placeholder={placeholder}
+      getSuffix={getSuffix}
+      dataUtilisateur={dataUtilisateur}
+    />
+  );
 }
 
 export default UtilisateurFormItemSelect;

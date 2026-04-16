@@ -17,73 +17,71 @@ import Spinner from "@controls/Spinner/Spinner";
 import { sanitizeHtml } from "@utils/sanitize";
 
 export function ValidationCharte(props: { demande: IDemande }) {
-   const { message } = App.useApp();
-   const { data: chartes } = useApi().useGetCollectionPaginated({
-      path: "/utilisateurs/{uid}/chartes",
-      parameters: {
-         uid: props.demande.demandeur?.["@id"] as string,
-      },
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
-   const [chartesUtilisateurDemande, setChartesUtilisateurDemande] = useState<ICharteUtilisateur[]>(
-      [],
-   );
+  const { message } = App.useApp();
+  const { data: chartes } = useApi().useGetCollectionPaginated({
+    path: "/utilisateurs/{uid}/chartes",
+    parameters: {
+      uid: props.demande.demandeur?.["@id"] as string,
+    },
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
+  const [chartesUtilisateurDemande, setChartesUtilisateurDemande] = useState<ICharteUtilisateur[]>(
+    [],
+  );
 
-   const mutationAccepterCharte = useApi().usePatch({
-      path: `/utilisateurs/{uid}/chartes/{id}`,
-      invalidationQueryKeys: [QK_UTILISATEURS_CHARTES, QK_DEMANDES],
-      onSuccess: () => {
-         message.success("La charte a bien été acceptée.").then();
-      },
-   });
+  const mutationAccepterCharte = useApi().usePatch({
+    path: `/utilisateurs/{uid}/chartes/{id}`,
+    invalidationQueryKeys: [QK_UTILISATEURS_CHARTES, QK_DEMANDES],
+    onSuccess: () => {
+      message.success("La charte a bien été acceptée.").then();
+    },
+  });
 
-   useEffect(() => {
-      if (chartes) {
-         setChartesUtilisateurDemande(
-            chartes.items.filter((c) => c.demande === props.demande["@id"]),
-         );
-      }
-   }, [chartes, props.demande]);
+  useEffect(() => {
+    if (chartes) {
+      setChartesUtilisateurDemande(chartes.items.filter((c) => c.demande === props.demande["@id"]));
+    }
+  }, [chartes, props.demande]);
 
-   if (!chartesUtilisateurDemande) return <Spinner />;
+  if (!chartesUtilisateurDemande) return <Spinner />;
 
-   return chartesUtilisateurDemande.map((charte) => (
-      <Card key={charte["@id"]}>
-         <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(charte.contenu as string) }} />
-         <Form
-            onFinish={(values) => {
-               // noinspection JSUnresolvedReference
-               if (values.accepter) {
-                  mutationAccepterCharte.mutate({
-                     "@id": charte["@id"] as string,
-                     data: { dateValidation: new Date().toISOString() },
-                  });
-               }
-            }}
-         >
-            <Form.Item
-               name="accepter"
-               valuePropName="checked"
-               required
-               rules={[
-                  {
-                     required: true,
-                     message: "Vous devez accepter la charte pour poursuivre.",
-                  },
-               ]}
-            >
-               <Checkbox className="semi-bold">
-                  J'atteste avoir lu la charte ci-dessus et m'engage à respecter les informations
-                  qui y sont contenues.
-               </Checkbox>
-            </Form.Item>
-            <Form.Item name="submit">
-               <Button type="primary" htmlType="submit">
-                  Accepter la charte
-               </Button>
-            </Form.Item>
-         </Form>
-      </Card>
-   ));
+  return chartesUtilisateurDemande.map((charte) => (
+    <Card key={charte["@id"]}>
+      <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(charte.contenu as string) }} />
+      <Form
+        onFinish={(values) => {
+          // noinspection JSUnresolvedReference
+          if (values.accepter) {
+            mutationAccepterCharte.mutate({
+              "@id": charte["@id"] as string,
+              data: { dateValidation: new Date().toISOString() },
+            });
+          }
+        }}
+      >
+        <Form.Item
+          name="accepter"
+          valuePropName="checked"
+          required
+          rules={[
+            {
+              required: true,
+              message: "Vous devez accepter la charte pour poursuivre.",
+            },
+          ]}
+        >
+          <Checkbox className="semi-bold">
+            J'atteste avoir lu la charte ci-dessus et m'engage à respecter les informations qui y
+            sont contenues.
+          </Checkbox>
+        </Form.Item>
+        <Form.Item name="submit">
+          <Button type="primary" htmlType="submit">
+            Accepter la charte
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
+  ));
 }

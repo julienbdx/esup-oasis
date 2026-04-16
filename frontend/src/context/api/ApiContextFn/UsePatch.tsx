@@ -17,57 +17,56 @@ import { ApiContentTypePatch, ApiPathMethodResponse, Path } from "@api/SchemaHel
 import { useAuth } from "@/auth/AuthProvider";
 
 export type UsePatchHook = <P extends Path>(options: {
-   path: P;
-   invalidationQueryKeys?: string[];
-   onSuccess?: (data: ApiPathMethodResponse<P, "patch">, variables: MutationPatchParams<P>) => void;
-   onError?: (error: unknown) => void;
+  path: P;
+  invalidationQueryKeys?: string[];
+  onSuccess?: (data: ApiPathMethodResponse<P, "patch">, variables: MutationPatchParams<P>) => void;
+  onError?: (error: unknown) => void;
 }) => UseMutationResult<ApiPathMethodResponse<P, "patch">, unknown, MutationPatchParams<P>>;
 
 export function usePatch<P extends Path>(
-   baseUrl: string,
-   fetchOptions: RequestInit,
-   client: QueryClient,
-   options: {
-      path: P;
-      invalidationQueryKeys?: string[];
-      onSuccess?: (
-         data: ApiPathMethodResponse<P, "patch">,
-         variables: MutationPatchParams<P>,
-      ) => void;
-      onError?: (error: unknown) => void;
-   },
+  baseUrl: string,
+  fetchOptions: RequestInit,
+  client: QueryClient,
+  options: {
+    path: P;
+    invalidationQueryKeys?: string[];
+    onSuccess?: (
+      data: ApiPathMethodResponse<P, "patch">,
+      variables: MutationPatchParams<P>,
+    ) => void;
+    onError?: (error: unknown) => void;
+  },
 ): UseMutationResult<ApiPathMethodResponse<P, "patch">, unknown, MutationPatchParams<P>> {
-   const navigate = useNavigate();
-   const auth = useAuth();
+  const navigate = useNavigate();
+  const auth = useAuth();
 
-   return useMutation({
-      mutationFn: async (params: MutationPatchParams<P>) => {
-         const url = new URL(params["@id"], baseUrl);
-         return handleApiResponse(
-            RequestMethod.PATCH,
-            await fetch(url, {
-               ...fetchOptions,
-               headers: {
-                  ...fetchOptions.headers,
-                  "Content-Type": ApiContentTypePatch,
-               },
-               method: "PATCH",
-               body: JSON.stringify(params.data),
-            }),
-            navigate,
-            auth,
-            options,
-            JSON.stringify(params.data, null, 2),
-         );
-      },
-      onSuccess: (data, variables) => {
-         if (options.invalidationQueryKeys)
-            handleInvalidation(client, options.invalidationQueryKeys);
-         if (options.onSuccess) options.onSuccess(data, variables);
-      },
-      onError: (error) => {
-         console.error(error);
-         if (options.onError) options.onError(error);
-      },
-   });
+  return useMutation({
+    mutationFn: async (params: MutationPatchParams<P>) => {
+      const url = new URL(params["@id"], baseUrl);
+      return handleApiResponse(
+        RequestMethod.PATCH,
+        await fetch(url, {
+          ...fetchOptions,
+          headers: {
+            ...fetchOptions.headers,
+            "Content-Type": ApiContentTypePatch,
+          },
+          method: "PATCH",
+          body: JSON.stringify(params.data),
+        }),
+        navigate,
+        auth,
+        options,
+        JSON.stringify(params.data, null, 2),
+      );
+    },
+    onSuccess: (data, variables) => {
+      if (options.invalidationQueryKeys) handleInvalidation(client, options.invalidationQueryKeys);
+      if (options.onSuccess) options.onSuccess(data, variables);
+    },
+    onError: (error) => {
+      console.error(error);
+      if (options.onError) options.onError(error);
+    },
+  });
 }

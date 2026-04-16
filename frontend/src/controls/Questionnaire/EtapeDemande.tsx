@@ -15,44 +15,44 @@ import { ExclamationOutlined } from "@ant-design/icons";
 import Spinner from "@controls/Spinner/Spinner";
 
 export function EtapeDemande(props: { etapeIndex: number }): React.ReactElement {
-   const { questionnaire } = useQuestionnaire();
-   const etape: QuestionnaireEtape | undefined = (questionnaire?.etapes || [])[props.etapeIndex];
+  const { questionnaire } = useQuestionnaire();
+  const etape: QuestionnaireEtape | undefined = (questionnaire?.etapes || [])[props.etapeIndex];
 
-   if (!questionnaire) return <Spinner />;
+  if (!questionnaire) return <Spinner />;
 
-   if (!etape) {
-      return (
-         <Alert
-            type="error"
-            icon={<ExclamationOutlined />}
-            showIcon
-            title="Erreur"
-            description="Erreur lors de la récupération de l'étape."
-         />
-      );
-   }
+  if (!etape) {
+    return (
+      <Alert
+        type="error"
+        icon={<ExclamationOutlined />}
+        showIcon
+        title="Erreur"
+        description="Erreur lors de la récupération de l'étape."
+      />
+    );
+  }
 
-   return (
-      <>
-         <h2 id="etape-title" tabIndex={0}>
-            <span className="sr-only">Étape actuelle : </span>
-            {etape.libelle}
-         </h2>
-         <div className="ml-2 mr-2">
-            {etape.questions?.map((question) => {
-               return typeof question === "string" ? (
-                  <div key={question}>
-                     <Question questionId={question} />
-                     <Divider />
-                  </div>
-               ) : (
-                  <div key={question["@id"]}>
-                     <Question question={question} />
-                     <Divider />
-                  </div>
-               );
-            })}
-         </div>
-      </>
-   );
+  return (
+    <>
+      <h2 id="etape-title" tabIndex={0}>
+        <span className="sr-only">Étape actuelle : </span>
+        {etape.libelle}
+      </h2>
+      <div className="ml-2 mr-2">
+        {etape.questions?.map((question) => {
+          return typeof question === "string" ? (
+            <div key={question}>
+              <Question questionId={question} />
+              <Divider />
+            </div>
+          ) : (
+            <div key={question["@id"]}>
+              <Question question={question} />
+              <Divider />
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
 }
