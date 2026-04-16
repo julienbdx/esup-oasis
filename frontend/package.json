@@ -30,10 +30,8 @@
       "react-router": "^6.30.3",
       "react-router-dom": "^6.30.3",
       "react-scripts": "^5.0.1",
-      "react-typed": "^1.2.0",
       "sass": "^1.97.3",
       "typescript": "^5.9.3",
-      "underscore": "^1.13.8",
       "use-local-storage-state": "^18.3.3"
    },
    "devDependencies": {
@@ -74,7 +72,8 @@
       "prettier": "^3.8.2",
       "react-inject-env": "^2.1.0",
       "source-map-explorer": "^2.5.3",
-      "typescript-eslint": "^8.58.2"
+      "typescript-eslint": "^8.58.2",
+      "webpack-bundle-analyzer": "^5.3.0"
    },
    "resolutions": {
       "@types/react": "^19",
@@ -93,8 +92,7 @@
       "start": "craco start",
       "start:https": "sudo PORT=443 HOST='appliphase.kdev.u-bordeaux.fr' HTTPS=true ./node_modules/.bin/craco start",
       "build": "GENERATE_SOURCEMAP=false craco build",
-      "build:analyze": "craco build",
-      "analyze": "yarn build:analyze && source-map-explorer 'build/static/js/*.js'",
+      "analyze": "ANALYZE=true GENERATE_SOURCEMAP=false craco build",
       "eject": "react-scripts eject",
       "svg": "svgo -r -f src/assets/images && svgo -r -f public/images"
    },

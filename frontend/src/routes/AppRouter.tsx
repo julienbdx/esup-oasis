@@ -7,14 +7,15 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, Suspense, useMemo } from "react";
+import React, { ReactElement, Suspense, lazy, useMemo } from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { Navigate, Route, Routes } from "react-router-dom";
-import LoginPage from "@/auth/LoginPage";
 import OAuthPopup from "@/auth/OAuthPopup";
 import AppLayout from "@controls/AppLayout/AppLayout";
 import { APP_ROUTES } from "@routes/AppRoutes";
 import Spinner from "@controls/Spinner/Spinner";
+
+const LoginPage = lazy(() => import("@/auth/LoginPage"));
 
 /**
  * Router principal de l'application.
