@@ -16,7 +16,7 @@ import {
   ETAT_DEMANDE_REFUSEE,
 } from "@lib/demande";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { QK_DEMANDES } from "@api/queryKeys";
 import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";

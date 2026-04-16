@@ -12,7 +12,7 @@ import { Button, Form, Popconfirm } from "antd";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import BeneficiaireProfilCardItem from "@controls/Forms/BeneficiaireProfilCardItem";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { QK_BENEFICIAIRES, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
 

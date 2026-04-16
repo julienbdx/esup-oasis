@@ -12,7 +12,7 @@ import { NavigateFunction } from "react-router-dom";
 import { ItemType, MenuItemType } from "antd/es/menu/interface";
 import { LabelUtilisateurMenu, menuProfils } from "@controls/AppLayout/AppLayoutCommun";
 import { LogoutOutlined, PieChartOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import React from "react";
 import { Button } from "antd";
 

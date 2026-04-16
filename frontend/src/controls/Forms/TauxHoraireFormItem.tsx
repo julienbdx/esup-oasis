@@ -14,7 +14,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { ITauxHoraire, ITypeEvenement } from "@api/ApiTypeHelpers";
 import { createDateAsUTC, getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 import dayjs from "dayjs";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { QK_TYPES_EVENEMENTS } from "@api/queryKeys";
 
 interface ITauxHoraireFormItem {

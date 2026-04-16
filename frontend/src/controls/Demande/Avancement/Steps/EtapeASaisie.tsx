@@ -18,7 +18,7 @@ import {
 } from "@lib/demande";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { QK_DEMANDES } from "@api/queryKeys";
 

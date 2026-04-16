@@ -20,7 +20,7 @@ import BeneficiaireTableExport from "@controls/Table/BeneficiaireTableExport";
 import { SorterResult } from "antd/es/table/interface";
 import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
 import { BeneficiaireTableFilter } from "@controls/Table/BeneficiaireTableFilter";

@@ -16,7 +16,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import { SorterResult } from "antd/es/table/interface";
 import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { PREFETCH_ETAT_DEMANDE } from "@api/ApiPrefetchHelpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DemandeTableExport from "@controls/Table/DemandeTableExport";

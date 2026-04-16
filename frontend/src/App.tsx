@@ -10,7 +10,7 @@
 import React from "react";
 import "@/styles/app.scss";
 import { App as AntApp } from "antd";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "dayjs/locale/fr";
 import Accessibilite from "@utils/Accessibilite/Accessibilite";
@@ -19,31 +19,12 @@ import { useAuth } from "@/auth/AuthProvider";
 import dayjs from "dayjs";
 import BreakPoint from "@utils/Breakpoint/BreakPoint";
 import ScrollToTop from "@utils/ScrollTo/ScrollToTop";
-import { broadcastQueryClient } from "@tanstack/query-broadcast-client-experimental";
 import Router from "@routes/AppRouter";
 import { AppConfigProvider } from "@/AppConfigProvider";
 import { env } from "@/env";
+import { queryClient } from "@/queryClient";
 
 dayjs.locale("fr"); // use loaded locale globally
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: true,
-      retry: 1,
-      retryDelay: 1000,
-      staleTime: 1000 * 60 * 5, // 5 minutes
-    },
-  },
-});
-
-broadcastQueryClient({
-  queryClient,
-  broadcastChannel: "oasis-app",
-  options: {
-    type: "localstorage",
-  },
-});
 
 function App() {
   const auth = useAuth();

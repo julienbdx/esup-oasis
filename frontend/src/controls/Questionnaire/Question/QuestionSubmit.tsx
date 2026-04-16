@@ -11,7 +11,7 @@ import { App, Button, Form } from "antd";
 import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
 import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { useNavigate } from "react-router-dom";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { env } from "@/env";
 import { QK_DEMANDES } from "@api/queryKeys";
 

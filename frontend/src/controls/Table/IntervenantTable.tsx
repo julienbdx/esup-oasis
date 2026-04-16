@@ -18,7 +18,7 @@ import IntervenantTableExport from "@controls/Table/IntervenantTableExport";
 import { useAuth } from "@/auth/AuthProvider";
 import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/App";
+import { queryClient } from "@/queryClient";
 import { SorterResult } from "antd/es/table/interface";
 import { IntervenantTableFilter } from "@controls/Table/IntervenantTableFilter";
 import Icon from "@ant-design/icons";
