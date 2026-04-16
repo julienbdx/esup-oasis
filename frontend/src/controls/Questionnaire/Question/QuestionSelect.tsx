@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Form, Select, Space } from "antd";
+import { Form, Select, Skeleton, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
 import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
 import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
@@ -40,27 +40,31 @@ export function QuestionSelect(props: { question: QuestionnaireQuestion }) {
         }
         name={props.question["@id"]}
       >
-        <Select
-          aria-label={props.question.libelle}
-          data-question={props.question["@id"]}
-          data-type={props.question.typeReponse}
-          disabled={mode === "preview"}
-          loading={isFetching || submitting}
-          mode={props.question.choixMultiple ? "multiple" : undefined}
-          options={questionApi?.optionsReponses?.map((r) => ({
-            label: r.libelle,
-            value: r["@id"] as string,
-          }))}
-          onChange={(value) => {
-            setSubmitting(true);
-            questUtils?.envoyerReponse(
-              props.question["@id"] as string,
-              props.question.typeReponse as string,
-              value,
-              () => setSubmitting(false),
-            );
-          }}
-        />
+        {isFetching || !questionApi ? (
+          <Skeleton active paragraph={false} />
+        ) : (
+          <Select
+            aria-label={props.question.libelle}
+            data-question={props.question["@id"]}
+            data-type={props.question.typeReponse}
+            disabled={mode === "preview"}
+            loading={submitting}
+            mode={props.question.choixMultiple ? "multiple" : undefined}
+            options={questionApi.optionsReponses?.map((r) => ({
+              label: r.libelle,
+              value: r["@id"] as string,
+            }))}
+            onChange={(value) => {
+              setSubmitting(true);
+              questUtils?.envoyerReponse(
+                props.question["@id"] as string,
+                props.question.typeReponse as string,
+                value,
+                () => setSubmitting(false),
+              );
+            }}
+          />
+        )}
       </Form.Item>
       <QuestionAide question={props.question} />
     </>

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Checkbox, Form, Space } from "antd";
+import { Checkbox, Form, Skeleton, Space } from "antd";
 import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
 import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { MinusOutlined } from "@ant-design/icons";
@@ -16,7 +16,7 @@ import React from "react";
 
 export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {
   const { questUtils, mode, submitting } = useQuestionnaire();
-  const { data: questionApi } = useApi().useGetItem({
+  const { data: questionApi, isFetching } = useApi().useGetItem({
     path: "/questions/{id}",
     url: props.question["@id"],
   });
@@ -61,24 +61,28 @@ export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {
         ]}
         required={props.question.obligatoire}
       >
-        <Checkbox.Group
-          aria-label={props.question.libelle}
-          disabled={mode === "preview" || submitting}
-          data-question={props.question["@id"]}
-          data-type={props.question.typeReponse}
-          className="question-checkbox"
-          options={questionApi?.optionsReponses?.map((r) => ({
-            label: r.libelle,
-            value: r["@id"] as string,
-          }))}
-          onChange={(e) => {
-            questUtils?.envoyerReponse(
-              props.question["@id"] as string,
-              props.question.typeReponse as string,
-              e,
-            );
-          }}
-        />
+        {isFetching || !questionApi ? (
+          <Skeleton active paragraph={{ rows: 2 }} title={false} />
+        ) : (
+          <Checkbox.Group
+            aria-label={props.question.libelle}
+            disabled={mode === "preview" || submitting}
+            data-question={props.question["@id"]}
+            data-type={props.question.typeReponse}
+            className="question-checkbox"
+            options={questionApi.optionsReponses?.map((r) => ({
+              label: r.libelle,
+              value: r["@id"] as string,
+            }))}
+            onChange={(e) => {
+              questUtils?.envoyerReponse(
+                props.question["@id"] as string,
+                props.question.typeReponse as string,
+                e,
+              );
+            }}
+          />
+        )}
       </Form.Item>
       <QuestionAide question={props.question} />
     </>
