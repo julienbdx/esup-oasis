@@ -8,7 +8,7 @@
  *
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { Button, Flex, Space, Table, Tooltip } from "antd";
 import { useApi } from "@context/api/ApiProvider";
@@ -143,6 +143,24 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
     setCount(dataDemandes?.totalItems);
   }, [dataDemandes]);
 
+  const handleImpersonate = useCallback(
+    (uid: string) => {
+      navigate("/");
+      window.setTimeout(() => {
+        setHasImpersonate(true);
+        auth.setImpersonate(uid);
+      }, 500);
+    },
+    [navigate, auth],
+  );
+
+  const handleDemandeSelected = useCallback(
+    (demande: IDemande) => {
+      navigate(`/demandes/${demande.id}` as string);
+    },
+    [navigate],
+  );
+
   // Sticky header
   useEffect(() => {
     function handleScroll() {
@@ -214,16 +232,8 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
             setFilter: setFiltreDemande,
             user: auth.user,
             etats: etats?.items,
-            onImpersonate: (uid) => {
-              navigate("/");
-              window.setTimeout(() => {
-                setHasImpersonate(true);
-                auth.setImpersonate(uid);
-              }, 500);
-            },
-            onDemandeSelected: (demande: IDemande) => {
-              navigate(`/demandes/${demande.id}` as string);
-            },
+            onImpersonate: handleImpersonate,
+            onDemandeSelected: handleDemandeSelected,
           })}
           onChange={(
             pagination,

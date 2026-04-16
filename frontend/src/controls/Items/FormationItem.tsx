@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement, useEffect, useState } from "react";
 import { Breakpoint, Tooltip } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
@@ -33,7 +33,7 @@ interface IItemFormation {
  *
  * @returns {ReactElement} The rendered formation item component.
  */
-export default function FormationItem({ formation, formationId }: IItemFormation): ReactElement {
+function FormationItem({ formation, formationId }: IItemFormation): ReactElement {
   const [item, setItem] = useState(formation);
   const { data: dataFormation, isFetching } = useApi().useGetCollection(PREFETCH_FORMATIONS);
 
@@ -51,3 +51,9 @@ export default function FormationItem({ formation, formationId }: IItemFormation
     </Tooltip>
   );
 }
+
+export default memo(
+  FormationItem,
+  (prev, next) =>
+    prev.formationId === next.formationId && prev.formation?.["@id"] === next.formation?.["@id"],
+);

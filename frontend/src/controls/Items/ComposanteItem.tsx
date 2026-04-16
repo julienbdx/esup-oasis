@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement, useEffect, useState } from "react";
 import { Breakpoint, Popover, Space, Tag, Tooltip, Typography } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
@@ -39,7 +39,7 @@ interface IItemComposante {
  *
  * @return {ReactElement} The rendered ComposanteItem component.
  */
-export default function ComposanteItem({
+function ComposanteItem({
   composante,
   composanteId,
   showAvatar = true,
@@ -111,3 +111,13 @@ export default function ComposanteItem({
     </Space>
   );
 }
+
+export default memo(
+  ComposanteItem,
+  (prev, next) =>
+    prev.composanteId === next.composanteId &&
+    prev.composante?.["@id"] === next.composante?.["@id"] &&
+    prev.showAvatar === next.showAvatar &&
+    prev.ellipsis === next.ellipsis &&
+    prev.maxWidth === next.maxWidth,
+);

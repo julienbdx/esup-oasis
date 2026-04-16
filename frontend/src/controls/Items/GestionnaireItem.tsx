@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement, useEffect, useState } from "react";
 import { RoleValues } from "@lib/Utilisateur";
 import { Breakpoint, Button, Skeleton, Space } from "antd";
 import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
@@ -39,7 +39,7 @@ interface IItemGestionnaire {
  *
  * @return {ReactElement} - The JSX element representing the gestionnaire item.
  */
-export default function GestionnaireItem({
+function GestionnaireItem({
   gestionnaire,
   gestionnaireId,
   showAvatar = true,
@@ -106,3 +106,12 @@ export default function GestionnaireItem({
     </Space>
   );
 }
+
+export default memo(
+  GestionnaireItem,
+  (prev, next) =>
+    prev.gestionnaireId === next.gestionnaireId &&
+    prev.gestionnaire?.["@id"] === next.gestionnaire?.["@id"] &&
+    prev.showAvatar === next.showAvatar &&
+    prev.showEmail === next.showEmail,
+);
