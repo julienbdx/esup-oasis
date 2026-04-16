@@ -13,58 +13,58 @@ import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { env } from "@/env";
 
 function booleanToString(value: boolean | undefined): string | undefined {
-   if (value === undefined) return "undefined";
-   return value ? "true" : "false";
+  if (value === undefined) return "undefined";
+  return value ? "true" : "false";
 }
 
 function stringToBoolean(value: string | undefined): boolean | undefined {
-   if (value === "undefined") return undefined;
-   if (value === "true") return true;
-   if (value === "false") return false;
-   return undefined;
+  if (value === "undefined") return undefined;
+  if (value === "true") return true;
+  if (value === "false") return false;
+  return undefined;
 }
 
 interface FilterFieldAccompagnementProps {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
 }
 
 export function FilterFieldAccompagnement({
-   filtreBeneficiaire,
-   setFiltreBeneficiaire,
+  filtreBeneficiaire,
+  setFiltreBeneficiaire,
 }: FilterFieldAccompagnementProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Accompagnement {env.REACT_APP_SERVICE}
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Segmented
-               style={{ overflowX: "auto", maxWidth: "100%" }}
-               value={booleanToString(filtreBeneficiaire["beneficiaires.avecAccompagnement"])}
-               onChange={(value) => {
-                  setFiltreBeneficiaire((prev) => ({
-                     ...prev,
-                     "beneficiaires.avecAccompagnement": stringToBoolean(value),
-                     page: 1,
-                  }));
-               }}
-               options={[
-                  {
-                     label: "Tous",
-                     value: "undefined",
-                  },
-                  {
-                     label: "Avec accompagnement",
-                     value: "true",
-                  },
-                  {
-                     label: "Sans accompagnement",
-                     value: "false",
-                  },
-               ]}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Accompagnement {env.REACT_APP_SERVICE}
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Segmented
+          style={{ overflowX: "auto", maxWidth: "100%" }}
+          value={booleanToString(filtreBeneficiaire["beneficiaires.avecAccompagnement"])}
+          onChange={(value) => {
+            setFiltreBeneficiaire((prev) => ({
+              ...prev,
+              "beneficiaires.avecAccompagnement": stringToBoolean(value),
+              page: 1,
+            }));
+          }}
+          options={[
+            {
+              label: "Tous",
+              value: "undefined",
+            },
+            {
+              label: "Avec accompagnement",
+              value: "true",
+            },
+            {
+              label: "Sans accompagnement",
+              value: "false",
+            },
+          ]}
+        />
+      </Col>
+    </>
+  );
 }

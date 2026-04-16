@@ -21,63 +21,63 @@ import { IProfil } from "@api/ApiTypeHelpers";
  * @returns {ReactElement} The rendered Profils component.
  */
 export default function Profils(): ReactElement {
-   const [editedItem, setEditedItem] = useState<IProfil | undefined>();
+  const [editedItem, setEditedItem] = useState<IProfil | undefined>();
 
-   return (
-      <Layout.Content className="administration" style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>Administration</Typography.Title>
-         <Breadcrumb
-            className="mt-2"
-            items={[
-               {
-                  key: "administration",
-                  title: (
-                     <NavLink to="/administration">
-                        <Space>
-                           <HomeFilled />
-                           Administration
-                        </Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "benefificaires",
-                  title: (
-                     <NavLink to="/administration#beneficiaires">
-                        <Space>Bénéficiaires</Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "profils",
-                  title: "Profils",
-               },
-            ]}
-         />
-         <Typography.Title level={2}>Profils</Typography.Title>
-         <Row gutter={[16, 16]}>
-            <Col span={24}>
-               <ProfilsTable
-                  onEdit={(item) => {
-                     setEditedItem(undefined);
-                     setEditedItem(item);
-                  }}
-                  editedItem={editedItem}
-               />
-            </Col>
-         </Row>
-         {editedItem && <ProfilsEdition editedItem={editedItem} setEditedItem={setEditedItem} />}
-         <FloatButton
-            icon={<PlusOutlined />}
-            type="primary"
-            tooltip="Ajouter une catégorie d'évènement"
-            onClick={() => {
-               setEditedItem({
-                  actif: true,
-                  avecTypologie: false,
-               } as IProfil);
+  return (
+    <Layout.Content className="administration" style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>Administration</Typography.Title>
+      <Breadcrumb
+        className="mt-2"
+        items={[
+          {
+            key: "administration",
+            title: (
+              <NavLink to="/administration">
+                <Space>
+                  <HomeFilled />
+                  Administration
+                </Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "benefificaires",
+            title: (
+              <NavLink to="/administration#beneficiaires">
+                <Space>Bénéficiaires</Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "profils",
+            title: "Profils",
+          },
+        ]}
+      />
+      <Typography.Title level={2}>Profils</Typography.Title>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <ProfilsTable
+            onEdit={(item) => {
+              setEditedItem(undefined);
+              setEditedItem(item);
             }}
-         />
-      </Layout.Content>
-   );
+            editedItem={editedItem}
+          />
+        </Col>
+      </Row>
+      {editedItem && <ProfilsEdition editedItem={editedItem} setEditedItem={setEditedItem} />}
+      <FloatButton
+        icon={<PlusOutlined />}
+        type="primary"
+        tooltip="Ajouter une catégorie d'évènement"
+        onClick={() => {
+          setEditedItem({
+            actif: true,
+            avecTypologie: false,
+          } as IProfil);
+        }}
+      />
+    </Layout.Content>
+  );
 }

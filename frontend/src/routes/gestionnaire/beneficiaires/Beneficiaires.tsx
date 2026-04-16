@@ -21,31 +21,31 @@ import BeneficiaireTable from "@controls/Table/BeneficiaireTable";
  * @returns {ReactElement} The rendered Beneficiaires component.
  */
 export default function Beneficiaires(): ReactElement {
-   const { setDrawerUtilisateur } = useDrawers();
-   const [ajouterBeneficiaire, setAjouterBeneficiaire] = useState(false);
+  const { setDrawerUtilisateur } = useDrawers();
+  const [ajouterBeneficiaire, setAjouterBeneficiaire] = useState(false);
 
-   return (
-      <Layout.Content className="beneficiaires" style={{ padding: "0 50px" }}>
-         <UtilisateurCreerDrawer
-            type={RoleValues.ROLE_BENEFICIAIRE}
-            open={ajouterBeneficiaire}
-            setOpen={setAjouterBeneficiaire}
-            onChange={(utilisateur) => {
-               setAjouterBeneficiaire(false);
-               setDrawerUtilisateur({
-                  utilisateur: utilisateur["@id"],
-                  role: RoleValues.ROLE_BENEFICIAIRE,
-               });
-            }}
-         />
-         <Typography.Title level={1}>Bénéficiaires</Typography.Title>
-         <BeneficiaireTable />
-         <FloatButton
-            onClick={() => setAjouterBeneficiaire(true)}
-            icon={<PlusOutlined />}
-            type="primary"
-            tooltip="Ajouter un bénéficiaire"
-         />
-      </Layout.Content>
-   );
+  return (
+    <Layout.Content className="beneficiaires" style={{ padding: "0 50px" }}>
+      <UtilisateurCreerDrawer
+        type={RoleValues.ROLE_BENEFICIAIRE}
+        open={ajouterBeneficiaire}
+        setOpen={setAjouterBeneficiaire}
+        onChange={(utilisateur) => {
+          setAjouterBeneficiaire(false);
+          setDrawerUtilisateur({
+            utilisateur: utilisateur["@id"],
+            role: RoleValues.ROLE_BENEFICIAIRE,
+          });
+        }}
+      />
+      <Typography.Title level={1}>Bénéficiaires</Typography.Title>
+      <BeneficiaireTable />
+      <FloatButton
+        onClick={() => setAjouterBeneficiaire(true)}
+        icon={<PlusOutlined />}
+        type="primary"
+        tooltip="Ajouter un bénéficiaire"
+      />
+    </Layout.Content>
+  );
 }

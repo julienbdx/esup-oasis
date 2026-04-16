@@ -16,73 +16,73 @@ import { IAvisEse } from "@api/ApiTypeHelpers";
 import { env } from "@/env";
 
 export function AvisEseAvatar(props: {
-   avisId?: string;
-   avis?: IAvisEse;
-   size?: "small" | "default" | "large";
+  avisId?: string;
+  avis?: IAvisEse;
+  size?: "small" | "default" | "large";
 }) {
-   const [item, setItem] = useState(props.avis);
-   const { data: avisData } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}/avis_ese/{id}",
-      url: props.avisId as string,
-      enabled: !!props.avisId,
-   });
+  const [item, setItem] = useState(props.avis);
+  const { data: avisData } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}/avis_ese/{id}",
+    url: props.avisId as string,
+    enabled: !!props.avisId,
+  });
 
-   useEffect(() => {
-      if (avisData && props.avisId) {
-         setItem(avisData);
-      }
-   }, [avisData, props.avisId]);
+  useEffect(() => {
+    if (avisData && props.avisId) {
+      setItem(avisData);
+    }
+  }, [avisData, props.avisId]);
 
-   useEffect(() => {
-      if (props.avis) {
-         setItem(props.avis);
-      }
-   }, [props.avis]);
+  useEffect(() => {
+    if (props.avis) {
+      setItem(props.avis);
+    }
+  }, [props.avis]);
 
-   if (!item) return null;
+  if (!item) return null;
 
-   const statut = isEnCoursSurPeriode(item.debut, item.fin) ? "en-cours" : "none";
+  const statut = isEnCoursSurPeriode(item.debut, item.fin) ? "en-cours" : "none";
 
-   if (statut === "en-cours" && !item.fichier) {
-      return (
-         <Tooltip title={`Avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"} en attente`}>
-            <Avatar
-               icon={<HourglassOutlined className="fs-08" aria-hidden />}
-               className="bg-warning text-text"
-               size={props.size || "default"}
-            />
-         </Tooltip>
-      );
-   }
+  if (statut === "en-cours" && !item.fichier) {
+    return (
+      <Tooltip title={`Avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"} en attente`}>
+        <Avatar
+          icon={<HourglassOutlined className="fs-08" aria-hidden />}
+          className="bg-warning text-text"
+          size={props.size || "default"}
+        />
+      </Tooltip>
+    );
+  }
 
-   if (statut === "en-cours") {
-      return (
-         <Tooltip title={`Avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"} en cours`}>
-            <Avatar
-               icon={<CheckOutlined className="fs-08" aria-hidden />}
-               className="bg-success text-white"
-               size={props.size || "default"}
-            />
-         </Tooltip>
-      );
-   }
-   if (statut === "none") {
-      return (
-         <Tooltip title={`Avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"} n'est pas en cours`}>
-            <Avatar
-               icon={<MinusOutlined className="fs-08" aria-hidden />}
-               size={props.size || "default"}
-               className="bg-warning text-white"
-            />
-         </Tooltip>
-      );
-   }
+  if (statut === "en-cours") {
+    return (
+      <Tooltip title={`Avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"} en cours`}>
+        <Avatar
+          icon={<CheckOutlined className="fs-08" aria-hidden />}
+          className="bg-success text-white"
+          size={props.size || "default"}
+        />
+      </Tooltip>
+    );
+  }
+  if (statut === "none") {
+    return (
+      <Tooltip title={`Avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"} n'est pas en cours`}>
+        <Avatar
+          icon={<MinusOutlined className="fs-08" aria-hidden />}
+          size={props.size || "default"}
+          className="bg-warning text-white"
+        />
+      </Tooltip>
+    );
+  }
 
-   return (
-      <Avatar
-         icon={<HourglassOutlined className="fs-08" aria-hidden />}
-         size={props.size || "default"}
-         className="bg-warning text-white"
-      />
-   );
+  return (
+    <Avatar
+      icon={<HourglassOutlined className="fs-08" aria-hidden />}
+      size={props.size || "default"}
+      className="bg-warning text-white"
+    />
+  );
 }

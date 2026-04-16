@@ -23,81 +23,81 @@ import { FilterFieldFormationsBeneficiaire } from "@controls/Table/filters/Filte
 import { FilterPanel } from "@controls/Table/FilterPanel";
 
 export function BeneficiaireTableFilter(props: {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
 }) {
-   const {
-      profils,
-      stats,
-      composantes,
-      formations,
-      tags,
-      gestionnaires,
-      isFetchingGestionnaires,
-      user,
-   } = useBeneficiaireFilterOptions(props.filtreBeneficiaire);
+  const {
+    profils,
+    stats,
+    composantes,
+    formations,
+    tags,
+    gestionnaires,
+    isFetchingGestionnaires,
+    user,
+  } = useBeneficiaireFilterOptions(props.filtreBeneficiaire);
 
-   return (
-      <FilterPanel
-         filtre={props.filtreBeneficiaire}
-         setFiltre={props.setFiltreBeneficiaire}
-         filtreType="filtresBeneficiaire"
-         defaultFilter={FILTRE_BENEFICIAIRE_DEFAULT}
-         extraLabel={
-            user?.isGestionnaire &&
-            stats?.nbBeneficiairesIncomplets &&
-            stats.nbBeneficiairesIncomplets > 0 ? (
-               <Tooltip title="Bénéficiaires avec profil à renseigner">
-                  <Badge className="ml-2" count={stats.nbBeneficiairesIncomplets} />
-               </Tooltip>
-            ) : null
-         }
-      >
-         <FilterFieldNomBeneficiaire
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-         />
-         <FilterFieldAccompagnement
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-         />
-         <FilterFieldGestionnairesBeneficiaire
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-            gestionnaires={gestionnaires}
-            isFetchingGestionnaires={isFetchingGestionnaires}
-         />
-         <FilterFieldProfils
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-            profils={profils}
-            nbBeneficiairesIncomplets={stats?.nbBeneficiairesIncomplets}
-            user={user}
-         />
-         <FilterFieldTagsBeneficiaire
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-            tags={tags}
-         />
-         <FilterFieldAvisEseBeneficiaire
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-         />
-         <FilterFieldDecisionEtablissement
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-         />
-         <Col xs={0} />
-         <FilterFieldComposantesBeneficiaire
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-            composantes={composantes}
-         />
-         <FilterFieldFormationsBeneficiaire
-            filtreBeneficiaire={props.filtreBeneficiaire}
-            setFiltreBeneficiaire={props.setFiltreBeneficiaire}
-            formations={formations}
-         />
-      </FilterPanel>
-   );
+  return (
+    <FilterPanel
+      filtre={props.filtreBeneficiaire}
+      setFiltre={props.setFiltreBeneficiaire}
+      filtreType="filtresBeneficiaire"
+      defaultFilter={FILTRE_BENEFICIAIRE_DEFAULT}
+      extraLabel={
+        user?.isGestionnaire &&
+        stats?.nbBeneficiairesIncomplets &&
+        stats.nbBeneficiairesIncomplets > 0 ? (
+          <Tooltip title="Bénéficiaires avec profil à renseigner">
+            <Badge className="ml-2" count={stats.nbBeneficiairesIncomplets} />
+          </Tooltip>
+        ) : null
+      }
+    >
+      <FilterFieldNomBeneficiaire
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+      />
+      <FilterFieldAccompagnement
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+      />
+      <FilterFieldGestionnairesBeneficiaire
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+        gestionnaires={gestionnaires}
+        isFetchingGestionnaires={isFetchingGestionnaires}
+      />
+      <FilterFieldProfils
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+        profils={profils}
+        nbBeneficiairesIncomplets={stats?.nbBeneficiairesIncomplets}
+        user={user}
+      />
+      <FilterFieldTagsBeneficiaire
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+        tags={tags}
+      />
+      <FilterFieldAvisEseBeneficiaire
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+      />
+      <FilterFieldDecisionEtablissement
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+      />
+      <Col xs={0} />
+      <FilterFieldComposantesBeneficiaire
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+        composantes={composantes}
+      />
+      <FilterFieldFormationsBeneficiaire
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
+        formations={formations}
+      />
+    </FilterPanel>
+  );
 }

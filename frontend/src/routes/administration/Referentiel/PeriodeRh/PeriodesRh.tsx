@@ -21,58 +21,58 @@ import { IPeriode } from "@api/ApiTypeHelpers";
  * @returns {ReactElement} The rendered Administration page.
  */
 export default function PeriodesRh(): ReactElement {
-   const [editedItem, setEditedItem] = useState<IPeriode | undefined>();
+  const [editedItem, setEditedItem] = useState<IPeriode | undefined>();
 
-   return (
-      <Layout.Content className="administration" style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>Administration</Typography.Title>
-         <Breadcrumb
-            className="mt-2"
-            items={[
-               {
-                  key: "administration",
-                  title: (
-                     <NavLink to="/administration">
-                        <Space>
-                           <HomeFilled />
-                           Administration
-                        </Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "planification",
-                  title: (
-                     <NavLink to="/administration#planification">
-                        <Space>Planification</Space>
-                     </NavLink>
-                  ),
-               },
-               {
-                  key: "periodes-rh",
-                  title: "Périodes RH",
-               },
-            ]}
-         />
-         <Typography.Title level={2}>Périodes RH</Typography.Title>
-         <Row gutter={[16, 16]}>
-            <Col span={24}>
-               <PeriodesRhTable onEdit={setEditedItem} />
-            </Col>
-         </Row>
-         <FloatButton
-            icon={<PlusOutlined />}
-            type="primary"
-            tooltip="Ajouter une période"
-            onClick={() => {
-               setEditedItem({
-                  debut: null,
-                  fin: null,
-                  butoir: null,
-               });
-            }}
-         />
-         {editedItem && <PeriodesRhEdition periode={editedItem} setPeriode={setEditedItem} />}
-      </Layout.Content>
-   );
+  return (
+    <Layout.Content className="administration" style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>Administration</Typography.Title>
+      <Breadcrumb
+        className="mt-2"
+        items={[
+          {
+            key: "administration",
+            title: (
+              <NavLink to="/administration">
+                <Space>
+                  <HomeFilled />
+                  Administration
+                </Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "planification",
+            title: (
+              <NavLink to="/administration#planification">
+                <Space>Planification</Space>
+              </NavLink>
+            ),
+          },
+          {
+            key: "periodes-rh",
+            title: "Périodes RH",
+          },
+        ]}
+      />
+      <Typography.Title level={2}>Périodes RH</Typography.Title>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <PeriodesRhTable onEdit={setEditedItem} />
+        </Col>
+      </Row>
+      <FloatButton
+        icon={<PlusOutlined />}
+        type="primary"
+        tooltip="Ajouter une période"
+        onClick={() => {
+          setEditedItem({
+            debut: null,
+            fin: null,
+            butoir: null,
+          });
+        }}
+      />
+      {editedItem && <PeriodesRhEdition periode={editedItem} setPeriode={setEditedItem} />}
+    </Layout.Content>
+  );
 }

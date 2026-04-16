@@ -14,45 +14,45 @@ import { UseStateDispatch } from "@utils/utils";
 import { ICampus } from "@api/ApiTypeHelpers";
 
 interface FilterFieldCampusProps {
-   filtreIntervenant: FiltreIntervenant;
-   setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
-   campuses: { items: ICampus[] } | undefined;
+  filtreIntervenant: FiltreIntervenant;
+  setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
+  campuses: { items: ICampus[] } | undefined;
 }
 
 export function FilterFieldCampus({
-   filtreIntervenant,
-   setFiltreIntervenant,
-   campuses,
+  filtreIntervenant,
+  setFiltreIntervenant,
+  campuses,
 }: FilterFieldCampusProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span>Campus d'intervention</span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               mode="tags"
-               allowClear
-               placeholder="Tous les campus"
-               className="w-100"
-               options={(campuses?.items || [])
-                  .filter((c) => c.actif)
-                  .map((c) => ({
-                     label: c.libelle,
-                     value: c["@id"],
-                  }))}
-               value={filtreIntervenant["intervenant.campuses[]"]}
-               onChange={(value) => {
-                  setFiltreIntervenant((prev) => ({
-                     ...prev,
-                     "intervenant.campuses[]": value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span>Campus d'intervention</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          mode="tags"
+          allowClear
+          placeholder="Tous les campus"
+          className="w-100"
+          options={(campuses?.items || [])
+            .filter((c) => c.actif)
+            .map((c) => ({
+              label: c.libelle,
+              value: c["@id"],
+            }))}
+          value={filtreIntervenant["intervenant.campuses[]"]}
+          onChange={(value) => {
+            setFiltreIntervenant((prev) => ({
+              ...prev,
+              "intervenant.campuses[]": value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

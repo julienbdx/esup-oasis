@@ -13,28 +13,28 @@ import { EvenementEtatItem } from "@controls/Items/EvenementEtatItem";
 import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 interface IEvenementModalTitleProps {
-   evenement: Evenement;
-   isFetchingType: boolean;
-   typesEvenements: { items: ITypeEvenement[] } | undefined;
+  evenement: Evenement;
+  isFetchingType: boolean;
+  typesEvenements: { items: ITypeEvenement[] } | undefined;
 }
 
 export default function EvenementModalTitle({
-   evenement,
-   isFetchingType,
-   typesEvenements,
+  evenement,
+  isFetchingType,
+  typesEvenements,
 }: IEvenementModalTitleProps): ReactElement {
-   if (isFetchingType) {
-      return <>Détails de l'évènement</>;
-   }
+  if (isFetchingType) {
+    return <>Détails de l'évènement</>;
+  }
 
-   const eventType = typesEvenements?.items.find((t) => t["@id"] === evenement.type);
+  const eventType = typesEvenements?.items.find((t) => t["@id"] === evenement.type);
 
-   return (
-      <>
-         {evenement?.libelle || eventType?.libelle || "Nouvel évènement"}
-         <div className="float-right">
-            <EvenementEtatItem evenement={evenement} type={eventType} style={{ marginRight: 32 }} />
-         </div>
-      </>
-   );
+  return (
+    <>
+      {evenement?.libelle || eventType?.libelle || "Nouvel évènement"}
+      <div className="float-right">
+        <EvenementEtatItem evenement={evenement} type={eventType} style={{ marginRight: 32 }} />
+      </div>
+    </>
+  );
 }

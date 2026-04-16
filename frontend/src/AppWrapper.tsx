@@ -18,29 +18,29 @@ import { DrawersProvider } from "@context/drawers/DrawersContext";
 import { AffichageFiltresProvider } from "@context/affichageFiltres/AffichageFiltresContext";
 
 function AppAuthWrapper() {
-   return (
-      <AuthProvider onSuccess={() => {}}>
-         <App />
-      </AuthProvider>
-   );
+  return (
+    <AuthProvider onSuccess={() => {}}>
+      <App />
+    </AuthProvider>
+  );
 }
 
 export default function AppWrapper() {
-   return (
-      <React.StrictMode>
-         <Suspense fallback={<Spinner />}>
-            <BrowserRouter>
-               <AccessibiliteProvider>
-                  <DrawersProvider>
-                     <ModalsProvider>
-                        <AffichageFiltresProvider>
-                           <AppAuthWrapper />
-                        </AffichageFiltresProvider>
-                     </ModalsProvider>
-                  </DrawersProvider>
-               </AccessibiliteProvider>
-            </BrowserRouter>
-         </Suspense>
-      </React.StrictMode>
-   );
+  return (
+    <React.StrictMode>
+      <Suspense fallback={<Spinner />}>
+        <BrowserRouter>
+          <AccessibiliteProvider>
+            <DrawersProvider>
+              <ModalsProvider>
+                <AffichageFiltresProvider>
+                  <AppAuthWrapper />
+                </AffichageFiltresProvider>
+              </ModalsProvider>
+            </DrawersProvider>
+          </AccessibiliteProvider>
+        </BrowserRouter>
+      </Suspense>
+    </React.StrictMode>
+  );
 }

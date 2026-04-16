@@ -14,50 +14,50 @@ import { ITypeSuiviAmenagement } from "@api/ApiTypeHelpers";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 
 interface FilterFieldSuivisProps {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
-   suivis: { items: ITypeSuiviAmenagement[] } | undefined;
-   modeAffichage: ModeAffichageAmenagement;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  suivis: { items: ITypeSuiviAmenagement[] } | undefined;
+  modeAffichage: ModeAffichageAmenagement;
 }
 
 export function FilterFieldSuivis({
-   filtreAmenagement,
-   setFiltreAmenagement,
-   suivis,
-   modeAffichage,
+  filtreAmenagement,
+  setFiltreAmenagement,
+  suivis,
+  modeAffichage,
 }: FilterFieldSuivisProps) {
-   if (modeAffichage !== ModeAffichageAmenagement.ParAmenagement) {
-      return null;
-   }
+  if (modeAffichage !== ModeAffichageAmenagement.ParAmenagement) {
+    return null;
+  }
 
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Suivis
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Tous les suivis"
-               value={filtreAmenagement["suivis[]"]}
-               onChange={(value) => {
-                  setFiltreAmenagement((prev) => ({
-                     ...prev,
-                     "suivis[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(suivis?.items || [])
-                  .filter((s) => s.actif)
-                  .map((c) => ({
-                     label: c.libelle,
-                     value: c["@id"],
-                  }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Suivis
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Tous les suivis"
+          value={filtreAmenagement["suivis[]"]}
+          onChange={(value) => {
+            setFiltreAmenagement((prev) => ({
+              ...prev,
+              "suivis[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(suivis?.items || [])
+            .filter((s) => s.actif)
+            .map((c) => ({
+              label: c.libelle,
+              value: c["@id"],
+            }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

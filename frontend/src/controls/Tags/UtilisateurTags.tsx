@@ -14,25 +14,25 @@ import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
 import { UtilisateurTagAjouter } from "@controls/Tags/UtilisateurTagAjouter";
 
 export function UtilisateurTags(props: { utilisateurId: string }) {
-   const { data: tagsUtilisateur } = useApi().useGetCollection({
-      path: "/utilisateurs/{uid}/tags",
-      parameters: {
-         uid: props.utilisateurId,
-      },
-   });
+  const { data: tagsUtilisateur } = useApi().useGetCollection({
+    path: "/utilisateurs/{uid}/tags",
+    parameters: {
+      uid: props.utilisateurId,
+    },
+  });
 
-   return (
-      <Card type="inner" size="small" variant="borderless" className="mb-2">
-         {tagsUtilisateur?.items.map((tag) => (
-            <UtilisateurTag
-               key={tag["@id"] as string}
-               tagId={tag.tag as string}
-               utilisateurId={props.utilisateurId}
-               utilisateurTagId={tag["@id"] as string}
-               big
-            />
-         ))}
-         <UtilisateurTagAjouter utilisateurId={props.utilisateurId} />
-      </Card>
-   );
+  return (
+    <Card type="inner" size="small" variant="borderless" className="mb-2">
+      {tagsUtilisateur?.items.map((tag) => (
+        <UtilisateurTag
+          key={tag["@id"] as string}
+          tagId={tag.tag as string}
+          utilisateurId={props.utilisateurId}
+          utilisateurTagId={tag["@id"] as string}
+          big
+        />
+      ))}
+      <UtilisateurTagAjouter utilisateurId={props.utilisateurId} />
+    </Card>
+  );
 }

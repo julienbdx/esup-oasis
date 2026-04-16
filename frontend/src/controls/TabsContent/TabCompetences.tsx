@@ -14,9 +14,9 @@ import { useApi } from "@context/api/ApiProvider";
 import { Utilisateur } from "@lib/Utilisateur";
 
 interface ITabCompetencesProps {
-   label: string;
-   utilisateur: Utilisateur;
-   setUtilisateur: (utilisateur: Utilisateur) => void;
+  label: string;
+  utilisateur: Utilisateur;
+  setUtilisateur: (utilisateur: Utilisateur) => void;
 }
 
 /**
@@ -28,38 +28,38 @@ interface ITabCompetencesProps {
  * @returns {ReactElement} - The rendered tab component.
  */
 export function TabCompetences({
-   label,
-   utilisateur,
-   setUtilisateur,
+  label,
+  utilisateur,
+  setUtilisateur,
 }: ITabCompetencesProps): ReactElement {
-   const { data } = useApi().useGetCollectionPaginated({
-      path: "/competences",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  const { data } = useApi().useGetCollectionPaginated({
+    path: "/competences",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   return (
-      <>
-         <p className="semi-bold">{label}</p>
-         <Form.Item name="competences">
-            <Checkbox.Group
-               className="checkbox-group-vertical"
-               options={data?.items.map((item) => ({
-                  label: item.libelle,
-                  value: item["@id"] as string,
-                  disabled: !item.actif,
-               }))}
-               onChange={(checkedValues) => {
-                  setUtilisateur(
-                     new Utilisateur({
-                        ...utilisateur,
-                        competences: checkedValues as string[],
-                     }),
-                  );
-               }}
-               value={utilisateur.competences}
-            />
-         </Form.Item>
-      </>
-   );
+  return (
+    <>
+      <p className="semi-bold">{label}</p>
+      <Form.Item name="competences">
+        <Checkbox.Group
+          className="checkbox-group-vertical"
+          options={data?.items.map((item) => ({
+            label: item.libelle,
+            value: item["@id"] as string,
+            disabled: !item.actif,
+          }))}
+          onChange={(checkedValues) => {
+            setUtilisateur(
+              new Utilisateur({
+                ...utilisateur,
+                competences: checkedValues as string[],
+              }),
+            );
+          }}
+          value={utilisateur.competences}
+        />
+      </Form.Item>
+    </>
+  );
 }

@@ -21,12 +21,12 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
 
 interface ITabDemandesProps {
-   utilisateur: IUtilisateur;
-   title: React.ReactElement;
+  utilisateur: IUtilisateur;
+  title: React.ReactElement;
 }
 
 interface ITabDemandesItemProps {
-   demande: IDemande;
+  demande: IDemande;
 }
 
 /**
@@ -38,47 +38,43 @@ interface ITabDemandesItemProps {
  * @return {ReactElement} - The rendered item component.
  */
 function TabDemandesItem({ demande }: ITabDemandesItemProps): ReactElement {
-   const navigate = useNavigate();
-   return (
-      <List.Item
-         onClick={() => navigate(`/demandes/${demande.id}`)}
-         className="pointer"
-         extra={
-            <Space.Compact>
-               <Button icon={<EyeOutlined />} onClick={() => navigate(`/demandes/${demande.id}`)}>
-                  Voir
-               </Button>
-               <Tooltip title="Ouvrir dans un nouvel onglet">
-                  <Button
-                     className="text-light"
-                     icon={<Icon component={ExternalLink} className="fs-08" />}
-                     onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(`/demandes/${demande.id}`, "_blank");
-                     }}
-                  />
-               </Tooltip>
-            </Space.Compact>
-         }
-      >
-         <List.Item.Meta
-            title={
-               <TypeDemandeItem typeDemandeId={demande.typeDemande} showAvatar={false} showInfos />
-            }
-            description={
-               <Space orientation="vertical">
-                  <Space>
-                     <span>Date de dépôt</span>
-                     <span className="semi-bold">
-                        {dayjs(demande.dateDepot).format("DD/MM/YYYY")}
-                     </span>
-                  </Space>
-               </Space>
-            }
-            avatar={<EtatDemandeAvatar etatDemandeId={demande.etat} />}
-         />
-      </List.Item>
-   );
+  const navigate = useNavigate();
+  return (
+    <List.Item
+      onClick={() => navigate(`/demandes/${demande.id}`)}
+      className="pointer"
+      extra={
+        <Space.Compact>
+          <Button icon={<EyeOutlined />} onClick={() => navigate(`/demandes/${demande.id}`)}>
+            Voir
+          </Button>
+          <Tooltip title="Ouvrir dans un nouvel onglet">
+            <Button
+              className="text-light"
+              icon={<Icon component={ExternalLink} className="fs-08" />}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(`/demandes/${demande.id}`, "_blank");
+              }}
+            />
+          </Tooltip>
+        </Space.Compact>
+      }
+    >
+      <List.Item.Meta
+        title={<TypeDemandeItem typeDemandeId={demande.typeDemande} showAvatar={false} showInfos />}
+        description={
+          <Space orientation="vertical">
+            <Space>
+              <span>Date de dépôt</span>
+              <span className="semi-bold">{dayjs(demande.dateDepot).format("DD/MM/YYYY")}</span>
+            </Space>
+          </Space>
+        }
+        avatar={<EtatDemandeAvatar etatDemandeId={demande.etat} />}
+      />
+    </List.Item>
+  );
 }
 
 /**
@@ -91,29 +87,29 @@ function TabDemandesItem({ demande }: ITabDemandesItemProps): ReactElement {
  * @returns {ReactElement} The rendered component.
  */
 export function TabDemandes({ utilisateur, title }: ITabDemandesProps): ReactElement {
-   const { data: demandes, isFetching: fetchingDemandes } = useApi().useGetCollectionPaginated({
-      path: "/demandes",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: {
-         demandeur: utilisateur["@id"],
-         "order[dateDepot]": "desc",
-         format_simple: true,
-      },
-   });
+  const { data: demandes, isFetching: fetchingDemandes } = useApi().useGetCollectionPaginated({
+    path: "/demandes",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    query: {
+      demandeur: utilisateur["@id"],
+      "order[dateDepot]": "desc",
+      format_simple: true,
+    },
+  });
 
-   return (
-      <>
-         {title}
-         {!demandes || demandes?.items?.length === 0 ? (
-            <Empty description="Aucune demande" />
-         ) : (
-            <List loading={fetchingDemandes} className="ant-list-radius ant-list-animated">
-               {demandes?.items?.map((demande) => (
-                  <TabDemandesItem key={demande?.["@id"]} demande={demande} />
-               ))}
-            </List>
-         )}
-      </>
-   );
+  return (
+    <>
+      {title}
+      {!demandes || demandes?.items?.length === 0 ? (
+        <Empty description="Aucune demande" />
+      ) : (
+        <List loading={fetchingDemandes} className="ant-list-radius ant-list-animated">
+          {demandes?.items?.map((demande) => (
+            <TabDemandesItem key={demande?.["@id"]} demande={demande} />
+          ))}
+        </List>
+      )}
+    </>
+  );
 }

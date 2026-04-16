@@ -16,11 +16,11 @@ import { EtatInfo, getEtatDemandeInfo } from "@lib/demande";
 import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemandeLabel";
 
 interface IEtatDemandeAvatar {
-   etatDemande?: IEtatDemande;
-   etatDemandeId?: string;
-   afficherDerniereModification?: boolean;
-   demandeId?: string;
-   className?: string;
+  etatDemande?: IEtatDemande;
+  etatDemandeId?: string;
+  afficherDerniereModification?: boolean;
+  demandeId?: string;
+  className?: string;
 }
 
 /**
@@ -33,69 +33,68 @@ interface IEtatDemandeAvatar {
  * @returns {ReactElement} - The rendered component.
  */
 export const EtatDemandeAvatar: React.FC<IEtatDemandeAvatar> = memo(
-   ({
-      etatDemande,
-      etatDemandeId,
-      afficherDerniereModification,
-      demandeId,
-      className,
-   }: IEtatDemandeAvatar): ReactElement => {
-      const [item, setItem] = useState<IEtatDemande | undefined>(etatDemande);
-      const { data: dataEtatDemande, isFetching } =
-         useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
+  ({
+    etatDemande,
+    etatDemandeId,
+    afficherDerniereModification,
+    demandeId,
+    className,
+  }: IEtatDemandeAvatar): ReactElement => {
+    const [item, setItem] = useState<IEtatDemande | undefined>(etatDemande);
+    const { data: dataEtatDemande, isFetching } = useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
 
-      const [etatDemandeInfo, setEtatDemandeInfo] = useState<EtatInfo>();
+    const [etatDemandeInfo, setEtatDemandeInfo] = useState<EtatInfo>();
 
-      useEffect(() => {
-         if (dataEtatDemande && etatDemandeId) {
-            setItem(dataEtatDemande.items.find((t) => t["@id"] === etatDemandeId));
-         }
-      }, [dataEtatDemande, etatDemandeId]);
-
-      useEffect(() => {
-         if (etatDemande) setItem(etatDemande);
-      }, [etatDemande]);
-
-      useEffect(() => {
-         if (item) setEtatDemandeInfo(getEtatDemandeInfo(item["@id"] as string));
-      }, [item]);
-
-      if (isFetching || item === undefined) {
-         return <Spin />;
+    useEffect(() => {
+      if (dataEtatDemande && etatDemandeId) {
+        setItem(dataEtatDemande.items.find((t) => t["@id"] === etatDemandeId));
       }
+    }, [dataEtatDemande, etatDemandeId]);
 
-      if (afficherDerniereModification) {
-         return (
-            <Space orientation="vertical" size={2}>
-               <Tooltip title={item?.libelle}>
-                  <Tag
-                     className={className}
-                     icon={etatDemandeInfo?.icone}
-                     color={etatDemandeInfo?.color}
-                     aria-label={`l'état de la demande est : ${item.libelle}`}
-                  >
-                     {item.libelle}
-                  </Tag>
-               </Tooltip>
-               <DerniereModifDemandeLabel demandeId={demandeId} />
-            </Space>
-         );
-      }
+    useEffect(() => {
+      if (etatDemande) setItem(etatDemande);
+    }, [etatDemande]);
 
+    useEffect(() => {
+      if (item) setEtatDemandeInfo(getEtatDemandeInfo(item["@id"] as string));
+    }, [item]);
+
+    if (isFetching || item === undefined) {
+      return <Spin />;
+    }
+
+    if (afficherDerniereModification) {
       return (
-         <Tooltip title={item?.libelle}>
+        <Space orientation="vertical" size={2}>
+          <Tooltip title={item?.libelle}>
             <Tag
-               className={className}
-               icon={etatDemandeInfo?.icone}
-               color={etatDemandeInfo?.color}
-               aria-label={`l'état de la demande est : ${item.libelle}`}
+              className={className}
+              icon={etatDemandeInfo?.icone}
+              color={etatDemandeInfo?.color}
+              aria-label={`l'état de la demande est : ${item.libelle}`}
             >
-               {item.libelle}
+              {item.libelle}
             </Tag>
-         </Tooltip>
+          </Tooltip>
+          <DerniereModifDemandeLabel demandeId={demandeId} />
+        </Space>
       );
-   },
-   (prevProps, nextProps) =>
-      prevProps.etatDemandeId === nextProps.etatDemandeId &&
-      JSON.stringify(prevProps.etatDemande) === JSON.stringify(nextProps.etatDemande),
+    }
+
+    return (
+      <Tooltip title={item?.libelle}>
+        <Tag
+          className={className}
+          icon={etatDemandeInfo?.icone}
+          color={etatDemandeInfo?.color}
+          aria-label={`l'état de la demande est : ${item.libelle}`}
+        >
+          {item.libelle}
+        </Tag>
+      </Tooltip>
+    );
+  },
+  (prevProps, nextProps) =>
+    prevProps.etatDemandeId === nextProps.etatDemandeId &&
+    JSON.stringify(prevProps.etatDemande) === JSON.stringify(nextProps.etatDemande),
 );

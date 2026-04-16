@@ -14,8 +14,8 @@ import { PREFETCH_TYPES_EQUIPEMENTS } from "@api/ApiPrefetchHelpers";
 import { ITypeEquipement } from "@api/ApiTypeHelpers";
 
 interface IItemTypeEquipement {
-   typeEquipement?: ITypeEquipement;
-   typeEquipementId?: string;
+  typeEquipement?: ITypeEquipement;
+  typeEquipementId?: string;
 }
 
 /**
@@ -28,24 +28,24 @@ interface IItemTypeEquipement {
  * @returns {ReactElement} The rendered TypeEquipementItem component.
  */
 export default function TypeEquipementItem({
-   typeEquipement,
-   typeEquipementId,
+  typeEquipement,
+  typeEquipementId,
 }: IItemTypeEquipement): ReactElement {
-   const [item, setItem] = useState(typeEquipement);
-   const { data: typeEquipementData } = useApi().useGetCollection(PREFETCH_TYPES_EQUIPEMENTS);
+  const [item, setItem] = useState(typeEquipement);
+  const { data: typeEquipementData } = useApi().useGetCollection(PREFETCH_TYPES_EQUIPEMENTS);
 
-   useEffect(() => {
-      if (typeEquipementData) {
-         setItem(typeEquipementData.items.find((x) => x["@id"] === typeEquipementId));
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [typeEquipementData]);
+  useEffect(() => {
+    if (typeEquipementData) {
+      setItem(typeEquipementData.items.find((x) => x["@id"] === typeEquipementId));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typeEquipementData]);
 
-   if (!item) return <Spinner />;
+  if (!item) return <Spinner />;
 
-   return (
-      <div>
-         <span>{item?.libelle}</span>
-      </div>
-   );
+  return (
+    <div>
+      <span>{item?.libelle}</span>
+    </div>
+  );
 }

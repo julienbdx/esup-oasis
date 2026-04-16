@@ -11,8 +11,8 @@ import React from "react";
 import { ReactComponent as SvgImage } from "@assets/images/etudiant-dashboard.svg";
 
 export default function EtudiantDashboardImage(props: {
-   className?: string;
-   style?: React.CSSProperties;
+  className?: string;
+  style?: React.CSSProperties;
 }) {
-   return <SvgImage {...props} />;
+  return <SvgImage {...props} />;
 }

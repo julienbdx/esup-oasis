@@ -23,58 +23,58 @@ import { RoleValues } from "@lib/Utilisateur";
  * @return {ReactElement} - The rendered description list of participants.
  */
 export function EvenementResumeParticipants(props: {
-   evenement: Evenement | undefined;
+  evenement: Evenement | undefined;
 }): ReactElement {
-   return useMemo(
-      () => (
-         <Descriptions title="Participants" bordered column={1}>
-            <Descriptions.Item label="Bénéficiaires">
-               {props.evenement?.beneficiaires && (
-                  <List size="small">
-                     <ul className="list-nostyle">
-                        {props.evenement?.beneficiaires.map((beneficiaire) => (
-                           <List.Item key={beneficiaire}>
-                              <EtudiantItem
-                                 utilisateurId={beneficiaire}
-                                 role={RoleValues.ROLE_BENEFICIAIRE}
-                              />
-                           </List.Item>
-                        ))}
-                     </ul>
-                  </List>
-               )}
-            </Descriptions.Item>
-            <Descriptions.Item label="Intervenant">
-               <List size="small">
-                  <ul className="list-nostyle">
-                     <List.Item>
-                        {props.evenement?.intervenant ? (
-                           <EtudiantItem
-                              utilisateurId={props.evenement.intervenant}
-                              role={RoleValues.ROLE_INTERVENANT}
-                           />
-                        ) : (
-                           "Aucun intervenant actuellement associé à cet événement"
-                        )}
-                     </List.Item>
-                  </ul>
-               </List>
-            </Descriptions.Item>
-            {props.evenement?.enseignants && props.evenement.enseignants.length > 0 && (
-               <Descriptions.Item label="Enseignants">
-                  <List size="small">
-                     <ul className="list-nostyle">
-                        {props.evenement?.enseignants.map((enseignant) => (
-                           <List.Item key={enseignant}>
-                              <GestionnaireItem gestionnaireId={enseignant} />
-                           </List.Item>
-                        ))}
-                     </ul>
-                  </List>
-               </Descriptions.Item>
-            )}
-         </Descriptions>
-      ),
-      [props.evenement],
-   );
+  return useMemo(
+    () => (
+      <Descriptions title="Participants" bordered column={1}>
+        <Descriptions.Item label="Bénéficiaires">
+          {props.evenement?.beneficiaires && (
+            <List size="small">
+              <ul className="list-nostyle">
+                {props.evenement?.beneficiaires.map((beneficiaire) => (
+                  <List.Item key={beneficiaire}>
+                    <EtudiantItem
+                      utilisateurId={beneficiaire}
+                      role={RoleValues.ROLE_BENEFICIAIRE}
+                    />
+                  </List.Item>
+                ))}
+              </ul>
+            </List>
+          )}
+        </Descriptions.Item>
+        <Descriptions.Item label="Intervenant">
+          <List size="small">
+            <ul className="list-nostyle">
+              <List.Item>
+                {props.evenement?.intervenant ? (
+                  <EtudiantItem
+                    utilisateurId={props.evenement.intervenant}
+                    role={RoleValues.ROLE_INTERVENANT}
+                  />
+                ) : (
+                  "Aucun intervenant actuellement associé à cet événement"
+                )}
+              </List.Item>
+            </ul>
+          </List>
+        </Descriptions.Item>
+        {props.evenement?.enseignants && props.evenement.enseignants.length > 0 && (
+          <Descriptions.Item label="Enseignants">
+            <List size="small">
+              <ul className="list-nostyle">
+                {props.evenement?.enseignants.map((enseignant) => (
+                  <List.Item key={enseignant}>
+                    <GestionnaireItem gestionnaireId={enseignant} />
+                  </List.Item>
+                ))}
+              </ul>
+            </List>
+          </Descriptions.Item>
+        )}
+      </Descriptions>
+    ),
+    [props.evenement],
+  );
 }

@@ -13,52 +13,52 @@ import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 import { ITag } from "@api/ApiTypeHelpers";
 
 interface FilterFieldTagsProps {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
-   tags: { items: ITag[] } | undefined;
-   estRenfort: boolean;
-   estReferent: boolean;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  tags: { items: ITag[] } | undefined;
+  estRenfort: boolean;
+  estReferent: boolean;
 }
 
 export function FilterFieldTags({
-   filtreAmenagement,
-   setFiltreAmenagement,
-   tags,
-   estRenfort,
-   estReferent,
+  filtreAmenagement,
+  setFiltreAmenagement,
+  tags,
+  estRenfort,
+  estReferent,
 }: FilterFieldTagsProps) {
-   if (estRenfort || estReferent) {
-      return null;
-   }
+  if (estRenfort || estReferent) {
+    return null;
+  }
 
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Tags
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Tous les tags"
-               value={filtreAmenagement["tags[]"]}
-               onChange={(value) => {
-                  setFiltreAmenagement((prev) => ({
-                     ...prev,
-                     "tags[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(tags?.items || [])
-                  .filter((ta) => ta.actif)
-                  .map((c) => ({
-                     label: c.libelle,
-                     value: c["@id"],
-                  }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Tags
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Tous les tags"
+          value={filtreAmenagement["tags[]"]}
+          onChange={(value) => {
+            setFiltreAmenagement((prev) => ({
+              ...prev,
+              "tags[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(tags?.items || [])
+            .filter((ta) => ta.actif)
+            .map((c) => ({
+              label: c.libelle,
+              value: c["@id"],
+            }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

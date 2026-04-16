@@ -15,67 +15,67 @@ import { getDomaineAmenagement } from "@lib/amenagements";
 import { Utilisateur } from "@lib/Utilisateur";
 
 interface FilterFieldCategoriesProps {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
-   categoriesAmenagements: { items: ICategorieAmenagement[] } | undefined;
-   typesAmenagements: { items: ITypeAmenagement[] } | undefined;
-   user: Utilisateur | null | undefined;
-   estRenfort: boolean;
-   estReferent: boolean;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  categoriesAmenagements: { items: ICategorieAmenagement[] } | undefined;
+  typesAmenagements: { items: ITypeAmenagement[] } | undefined;
+  user: Utilisateur | null | undefined;
+  estRenfort: boolean;
+  estReferent: boolean;
 }
 
 export function FilterFieldCategories({
-   filtreAmenagement,
-   setFiltreAmenagement,
-   categoriesAmenagements,
-   typesAmenagements,
-   user,
-   estRenfort,
-   estReferent,
+  filtreAmenagement,
+  setFiltreAmenagement,
+  categoriesAmenagements,
+  typesAmenagements,
+  user,
+  estRenfort,
+  estReferent,
 }: FilterFieldCategoriesProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Catégories
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Toutes les catégories"
-               value={filtreAmenagement["categorie[]"]}
-               onChange={(value) => {
-                  setFiltreAmenagement((prev) => ({
-                     ...prev,
-                     "categorie[]": value as string[],
-                     "type[]": [],
-                     page: 1,
-                  }));
-               }}
-               options={(categoriesAmenagements?.items || [])
-                  .filter((ca) => ca.actif)
-                  // Seulement ce qui est visible pour le profil de l'utilisateur
-                  .filter((ca) => {
-                     return typesAmenagements?.items.some((ta) => {
-                        const infos = getDomaineAmenagement(ta);
-                        return (
-                           ta.categorie === ca["@id"] &&
-                           ta.actif &&
-                           (user?.isGestionnaire ||
-                              (estRenfort && infos?.visibleRenfort) ||
-                              (estReferent && infos?.visibleReferent))
-                        );
-                     });
-                  })
-                  .sort((a, b) => (a.libelle || "").localeCompare(b.libelle || ""))
-                  .map((c) => ({
-                     label: c.libelle,
-                     value: c["@id"],
-                  }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Catégories
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Toutes les catégories"
+          value={filtreAmenagement["categorie[]"]}
+          onChange={(value) => {
+            setFiltreAmenagement((prev) => ({
+              ...prev,
+              "categorie[]": value as string[],
+              "type[]": [],
+              page: 1,
+            }));
+          }}
+          options={(categoriesAmenagements?.items || [])
+            .filter((ca) => ca.actif)
+            // Seulement ce qui est visible pour le profil de l'utilisateur
+            .filter((ca) => {
+              return typesAmenagements?.items.some((ta) => {
+                const infos = getDomaineAmenagement(ta);
+                return (
+                  ta.categorie === ca["@id"] &&
+                  ta.actif &&
+                  (user?.isGestionnaire ||
+                    (estRenfort && infos?.visibleRenfort) ||
+                    (estReferent && infos?.visibleReferent))
+                );
+              });
+            })
+            .sort((a, b) => (a.libelle || "").localeCompare(b.libelle || ""))
+            .map((c) => ({
+              label: c.libelle,
+              value: c["@id"],
+            }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

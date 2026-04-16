@@ -22,76 +22,76 @@ import { FilterFieldCompetences } from "@controls/Table/filters/FilterFieldCompe
 import { FilterFieldTypesEvenements } from "@controls/Table/filters/FilterFieldTypesEvenements";
 
 export function IntervenantTableFilter(props: {
-   filtreIntervenant: FiltreIntervenant;
-   setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
+  filtreIntervenant: FiltreIntervenant;
+  setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
 }) {
-   const { campuses, competences, categories } = useIntervenantFilterOptions(
-      props.filtreIntervenant,
-   );
+  const { campuses, competences, categories } = useIntervenantFilterOptions(
+    props.filtreIntervenant,
+  );
 
-   return (
-      <Collapse
-         accordion
-         className="mb-3"
-         items={[
-            {
-               key: "filter_save",
-               label: (
-                  <>
-                     <FiltreFavoriDropDown
-                        className="float-right mt-05"
-                        setFiltre={props.setFiltreIntervenant}
-                        filtreType="filtresIntervenant"
-                     />
-                     Filtres sauvegardés
-                  </>
-               ),
-               children: (
-                  <FiltresFavoris
-                     filtre={props.filtreIntervenant}
-                     setFiltre={props.setFiltreIntervenant}
-                     filtreType="filtresIntervenant"
-                     defaultFilter={FILTRE_INTERVENANT_DEFAULT}
-                  />
-               ),
-            },
-            {
-               key: "filters",
-               label: (
-                  <>
-                     <FilterOutlined className="float-right" style={{ marginTop: 4 }} aria-hidden />
-                     Filtres complémentaires
-                  </>
-               ),
-               children: (
-                  <Row gutter={[16, 16]}>
-                     <FilterFieldNomIntervenant
-                        filtreIntervenant={props.filtreIntervenant}
-                        setFiltreIntervenant={props.setFiltreIntervenant}
-                     />
-                     <FilterFieldStatutIntervenant
-                        filtreIntervenant={props.filtreIntervenant}
-                        setFiltreIntervenant={props.setFiltreIntervenant}
-                     />
-                     <FilterFieldCampus
-                        filtreIntervenant={props.filtreIntervenant}
-                        setFiltreIntervenant={props.setFiltreIntervenant}
-                        campuses={campuses}
-                     />
-                     <FilterFieldCompetences
-                        filtreIntervenant={props.filtreIntervenant}
-                        setFiltreIntervenant={props.setFiltreIntervenant}
-                        competences={competences}
-                     />
-                     <FilterFieldTypesEvenements
-                        filtreIntervenant={props.filtreIntervenant}
-                        setFiltreIntervenant={props.setFiltreIntervenant}
-                        categories={categories}
-                     />
-                  </Row>
-               ),
-            },
-         ]}
-      />
-   );
+  return (
+    <Collapse
+      accordion
+      className="mb-3"
+      items={[
+        {
+          key: "filter_save",
+          label: (
+            <>
+              <FiltreFavoriDropDown
+                className="float-right mt-05"
+                setFiltre={props.setFiltreIntervenant}
+                filtreType="filtresIntervenant"
+              />
+              Filtres sauvegardés
+            </>
+          ),
+          children: (
+            <FiltresFavoris
+              filtre={props.filtreIntervenant}
+              setFiltre={props.setFiltreIntervenant}
+              filtreType="filtresIntervenant"
+              defaultFilter={FILTRE_INTERVENANT_DEFAULT}
+            />
+          ),
+        },
+        {
+          key: "filters",
+          label: (
+            <>
+              <FilterOutlined className="float-right" style={{ marginTop: 4 }} aria-hidden />
+              Filtres complémentaires
+            </>
+          ),
+          children: (
+            <Row gutter={[16, 16]}>
+              <FilterFieldNomIntervenant
+                filtreIntervenant={props.filtreIntervenant}
+                setFiltreIntervenant={props.setFiltreIntervenant}
+              />
+              <FilterFieldStatutIntervenant
+                filtreIntervenant={props.filtreIntervenant}
+                setFiltreIntervenant={props.setFiltreIntervenant}
+              />
+              <FilterFieldCampus
+                filtreIntervenant={props.filtreIntervenant}
+                setFiltreIntervenant={props.setFiltreIntervenant}
+                campuses={campuses}
+              />
+              <FilterFieldCompetences
+                filtreIntervenant={props.filtreIntervenant}
+                setFiltreIntervenant={props.setFiltreIntervenant}
+                competences={competences}
+              />
+              <FilterFieldTypesEvenements
+                filtreIntervenant={props.filtreIntervenant}
+                setFiltreIntervenant={props.setFiltreIntervenant}
+                categories={categories}
+              />
+            </Row>
+          ),
+        },
+      ]}
+    />
+  );
 }

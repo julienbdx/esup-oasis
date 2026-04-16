@@ -17,8 +17,8 @@ import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { QK_BENEFICIAIRES, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
 
 interface ITabProfilsProps {
-   utilisateur: IUtilisateur;
-   title?: React.ReactElement;
+  utilisateur: IUtilisateur;
+  title?: React.ReactElement;
 }
 
 /**
@@ -30,74 +30,74 @@ interface ITabProfilsProps {
  * @returns The rendered component.
  */
 export function TabProfils({ utilisateur, title }: ITabProfilsProps): ReactElement {
-   const mutationDeleteProfil = useApi().useDelete({
-      path: "/utilisateurs/{uid}/profils/{id}",
-      onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: [utilisateur["@id"]] }).then();
-         queryClient.invalidateQueries({ queryKey: [QK_BENEFICIAIRES] }).then();
-         queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
-      },
-   });
-   return (
-      <>
-         {title}
-         <Form.List name="profils">
-            {(fields, { add, remove }, { errors }) => (
-               <>
-                  {fields.map(({ key, ...field }) => (
-                     <Form.Item className="mb-2" required key={key}>
-                        <Form.Item
-                           {...field}
-                           validateTrigger={["onChange", "onBlur"]}
-                           rules={[
-                              {
-                                 required: true,
-                                 whitespace: true,
-                                 message: "Un profil est requis ou supprimez ce champ.",
-                              },
-                           ]}
-                           noStyle
+  const mutationDeleteProfil = useApi().useDelete({
+    path: "/utilisateurs/{uid}/profils/{id}",
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [utilisateur["@id"]] }).then();
+      queryClient.invalidateQueries({ queryKey: [QK_BENEFICIAIRES] }).then();
+      queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
+    },
+  });
+  return (
+    <>
+      {title}
+      <Form.List name="profils">
+        {(fields, { add, remove }, { errors }) => (
+          <>
+            {fields.map(({ key, ...field }) => (
+              <Form.Item className="mb-2" required key={key}>
+                <Form.Item
+                  {...field}
+                  validateTrigger={["onChange", "onBlur"]}
+                  rules={[
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: "Un profil est requis ou supprimez ce champ.",
+                    },
+                  ]}
+                  noStyle
+                >
+                  <BeneficiaireProfilCardItem
+                    style={{ width: "calc(100% - 35px)" }}
+                    className="mt-1 mb-1"
+                    utilisateur={utilisateur}
+                    extra={
+                      fields.length > 1 ? (
+                        <Popconfirm
+                          title="Supprimer le profil ?"
+                          okText="Oui"
+                          okButtonProps={{ danger: true }}
+                          cancelText="Non"
+                          onConfirm={() => {
+                            mutationDeleteProfil.mutate({
+                              "@id": utilisateur.profils?.at(key) as string,
+                            });
+                          }}
                         >
-                           <BeneficiaireProfilCardItem
-                              style={{ width: "calc(100% - 35px)" }}
-                              className="mt-1 mb-1"
-                              utilisateur={utilisateur}
-                              extra={
-                                 fields.length > 1 ? (
-                                    <Popconfirm
-                                       title="Supprimer le profil ?"
-                                       okText="Oui"
-                                       okButtonProps={{ danger: true }}
-                                       cancelText="Non"
-                                       onConfirm={() => {
-                                          mutationDeleteProfil.mutate({
-                                             "@id": utilisateur.profils?.at(key) as string,
-                                          });
-                                       }}
-                                    >
-                                       <Button
-                                          type="text"
-                                          icon={<DeleteOutlined />}
-                                          className="dynamic-delete-button text-danger"
-                                       />
-                                    </Popconfirm>
-                                 ) : null
-                              }
-                              onCancel={() => remove(field.name)}
-                           />
-                        </Form.Item>
-                     </Form.Item>
-                  ))}
-                  <Form.Item className="mb-1">
-                     <Button onClick={() => add()} icon={<PlusOutlined />} className="mt-1 mb-0">
-                        Ajouter un profil
-                     </Button>
+                          <Button
+                            type="text"
+                            icon={<DeleteOutlined />}
+                            className="dynamic-delete-button text-danger"
+                          />
+                        </Popconfirm>
+                      ) : null
+                    }
+                    onCancel={() => remove(field.name)}
+                  />
+                </Form.Item>
+              </Form.Item>
+            ))}
+            <Form.Item className="mb-1">
+              <Button onClick={() => add()} icon={<PlusOutlined />} className="mt-1 mb-0">
+                Ajouter un profil
+              </Button>
 
-                     <Form.ErrorList errors={errors} />
-                  </Form.Item>
-               </>
-            )}
-         </Form.List>
-      </>
-   );
+              <Form.ErrorList errors={errors} />
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+    </>
+  );
 }

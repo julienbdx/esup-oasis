@@ -13,35 +13,33 @@ import { FiltreDemande } from "@controls/Table/DemandeTable";
 import { UseStateDispatch } from "@utils/utils";
 
 interface FilterFieldArchiveesProps {
-   filtreDemande: FiltreDemande;
-   setFiltreDemande: UseStateDispatch<FiltreDemande>;
+  filtreDemande: FiltreDemande;
+  setFiltreDemande: UseStateDispatch<FiltreDemande>;
 }
 
 export function FilterFieldArchivees({
-   filtreDemande,
-   setFiltreDemande,
+  filtreDemande,
+  setFiltreDemande,
 }: FilterFieldArchiveesProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span aria-label="Afficher les campagnes archivées">
-                  Afficher campagnes archivées
-               </span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Switch
-               checked={filtreDemande.archivees}
-               onChange={(checked) => {
-                  setFiltreDemande((prev) => ({
-                     ...prev,
-                     archivees: checked,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span aria-label="Afficher les campagnes archivées">Afficher campagnes archivées</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Switch
+          checked={filtreDemande.archivees}
+          onChange={(checked) => {
+            setFiltreDemande((prev) => ({
+              ...prev,
+              archivees: checked,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

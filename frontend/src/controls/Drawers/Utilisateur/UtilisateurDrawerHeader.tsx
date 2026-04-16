@@ -14,23 +14,23 @@ import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
 import { Utilisateur } from "@lib/Utilisateur";
 
 interface UtilisateurDrawerHeaderProps {
-   utilisateur: Utilisateur;
+  utilisateur: Utilisateur;
 }
 
 export default function UtilisateurDrawerHeader({ utilisateur }: UtilisateurDrawerHeaderProps) {
-   return (
-      <Space orientation="vertical" className="text-center w-100 mb-3 mt-1">
-         <UtilisateurAvatarImage
-            utilisateurId={utilisateur["@id"] as string}
-            height={220}
-            as="img"
-            fallback={<UserOutlined />}
-            style={{ fontSize: 128 }}
-            desactiverLazyLoading
-         />
-         <span className="fs-15 semi-bold">
-            {`${utilisateur.prenom} ${utilisateur.nom?.toLocaleUpperCase()}`}
-         </span>
-      </Space>
-   );
+  return (
+    <Space orientation="vertical" className="text-center w-100 mb-3 mt-1">
+      <UtilisateurAvatarImage
+        utilisateurId={utilisateur["@id"] as string}
+        height={220}
+        as="img"
+        fallback={<UserOutlined />}
+        style={{ fontSize: 128 }}
+        desactiverLazyLoading
+      />
+      <span className="fs-15 semi-bold">
+        {`${utilisateur.prenom} ${utilisateur.nom?.toLocaleUpperCase()}`}
+      </span>
+    </Space>
+  );
 }

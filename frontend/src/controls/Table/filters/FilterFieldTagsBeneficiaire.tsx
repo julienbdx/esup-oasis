@@ -13,42 +13,42 @@ import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { ITag } from "@api/ApiTypeHelpers";
 
 interface FilterFieldTagsBeneficiaireProps {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
-   tags: { items: ITag[] } | undefined;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  tags: { items: ITag[] } | undefined;
 }
 
 export function FilterFieldTagsBeneficiaire({
-   filtreBeneficiaire,
-   setFiltreBeneficiaire,
-   tags,
+  filtreBeneficiaire,
+  setFiltreBeneficiaire,
+  tags,
 }: FilterFieldTagsBeneficiaireProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Tags
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               allowClear
-               mode="tags"
-               className="w-100"
-               placeholder="Tous les tags"
-               value={filtreBeneficiaire["tags[]"]}
-               onChange={(value) => {
-                  setFiltreBeneficiaire((prev) => ({
-                     ...prev,
-                     "tags[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-               options={(tags?.items || []).map((c) => ({
-                  label: c.libelle,
-                  value: c["@id"],
-               }))}
-               showSearch={{ optionFilterProp: "label" }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Tags
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          allowClear
+          mode="tags"
+          className="w-100"
+          placeholder="Tous les tags"
+          value={filtreBeneficiaire["tags[]"]}
+          onChange={(value) => {
+            setFiltreBeneficiaire((prev) => ({
+              ...prev,
+              "tags[]": value as string[],
+              page: 1,
+            }));
+          }}
+          options={(tags?.items || []).map((c) => ({
+            label: c.libelle,
+            value: c["@id"],
+          }))}
+          showSearch={{ optionFilterProp: "label" }}
+        />
+      </Col>
+    </>
+  );
 }

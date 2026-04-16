@@ -19,108 +19,101 @@ import { IPartialEvenement } from "@api/ApiTypeHelpers";
 import GestionnaireItem from "@controls/Items/GestionnaireItem";
 
 interface IEvenementFormProps {
-   form: FormInstance<Evenement | undefined>;
-   evenement: Evenement;
-   formIsDirty: boolean;
-   updateSourceEvenement: (values: IPartialEvenement | undefined, forceResetForm?: boolean) => void;
-   onFinish: (values: Evenement | undefined) => void;
-   disabled?: boolean;
+  form: FormInstance<Evenement | undefined>;
+  evenement: Evenement;
+  formIsDirty: boolean;
+  updateSourceEvenement: (values: IPartialEvenement | undefined, forceResetForm?: boolean) => void;
+  onFinish: (values: Evenement | undefined) => void;
+  disabled?: boolean;
 }
 
 export default function EvenementForm({
-   form,
-   evenement,
-   formIsDirty,
-   updateSourceEvenement,
-   onFinish,
-   disabled,
+  form,
+  evenement,
+  formIsDirty,
+  updateSourceEvenement,
+  onFinish,
+  disabled,
 }: IEvenementFormProps): ReactElement {
-   const { message } = App.useApp();
+  const { message } = App.useApp();
 
-   return (
-      <Form<Evenement | undefined>
-         form={form}
-         layout="vertical"
-         onFinish={onFinish}
-         onFinishFailed={(errorInfo) => {
-            errorInfo.errorFields.forEach((error) => {
-               form.scrollToField(error.name);
-               message.error(error.errors[0]).then();
-            });
-         }}
-         disabled={disabled}
-         onValuesChange={(changedValues) => {
-            updateSourceEvenement(changedValues);
-         }}
-      >
-         <Tabs
-            type="card"
-            defaultActiveKey="informations"
-            items={[
-               {
-                  key: "informations",
-                  label: `Informations`,
-                  children: (
-                     <TabEvenementInformations
-                        evenement={evenement}
-                        formIsDirty={formIsDirty}
-                        setEvenement={updateSourceEvenement}
-                     />
-                  ),
-               },
-               {
-                  key: "amenagements-examens",
-                  label: `Aménagements d'examens`,
-                  children: <TabEquipement />,
-               },
-               {
-                  key: "paiement",
-                  label: `Paiement`,
-                  children: (
-                     <TabPaiement
-                        form={form}
-                        evenement={evenement}
-                        setEvenement={updateSourceEvenement}
-                     />
-                  ),
-                  disabled: !isDateValid(evenement?.debut) || !isDateValid(evenement?.fin),
-               },
-            ]}
-            className="tab-bordered tab-overflow-70vh mt-3"
-         />
+  return (
+    <Form<Evenement | undefined>
+      form={form}
+      layout="vertical"
+      onFinish={onFinish}
+      onFinishFailed={(errorInfo) => {
+        errorInfo.errorFields.forEach((error) => {
+          form.scrollToField(error.name);
+          message.error(error.errors[0]).then();
+        });
+      }}
+      disabled={disabled}
+      onValuesChange={(changedValues) => {
+        updateSourceEvenement(changedValues);
+      }}
+    >
+      <Tabs
+        type="card"
+        defaultActiveKey="informations"
+        items={[
+          {
+            key: "informations",
+            label: `Informations`,
+            children: (
+              <TabEvenementInformations
+                evenement={evenement}
+                formIsDirty={formIsDirty}
+                setEvenement={updateSourceEvenement}
+              />
+            ),
+          },
+          {
+            key: "amenagements-examens",
+            label: `Aménagements d'examens`,
+            children: <TabEquipement />,
+          },
+          {
+            key: "paiement",
+            label: `Paiement`,
+            children: (
+              <TabPaiement form={form} evenement={evenement} setEvenement={updateSourceEvenement} />
+            ),
+            disabled: !isDateValid(evenement?.debut) || !isDateValid(evenement?.fin),
+          },
+        ]}
+        className="tab-bordered tab-overflow-70vh mt-3"
+      />
 
-         <Row className="mb-3">
-            <Col span={24} className="legende mt-1">
-               Créé le {dayjs(evenement.dateCreation).format("DD/MM/YYYY")}
-               {evenement.utilisateurCreation && (
-                  <>
-                     {" "}
-                     par{" "}
-                     <GestionnaireItem
-                        gestionnaireId={evenement.utilisateurCreation}
-                        showAvatar={false}
-                     />
-                  </>
-               )}
-               {evenement.dateModification && (
-                  <>
-                     {" "}
-                     &bull; Dernière modification le{" "}
-                     {dayjs(evenement.dateModification).format("DD/MM/YYYY")}
-                     {evenement.utilisateurModification && (
-                        <>
-                           {" "}
-                           par{" "}
-                           <GestionnaireItem
-                              gestionnaireId={evenement.utilisateurModification}
-                              showAvatar={false}
-                           />
-                        </>
-                     )}
-                  </>
-               )}
-            </Col>
-         </Row>
-      </Form>
-   );
+      <Row className="mb-3">
+        <Col span={24} className="legende mt-1">
+          Créé le {dayjs(evenement.dateCreation).format("DD/MM/YYYY")}
+          {evenement.utilisateurCreation && (
+            <>
+              {" "}
+              par{" "}
+              <GestionnaireItem gestionnaireId={evenement.utilisateurCreation} showAvatar={false} />
+            </>
+          )}
+          {evenement.dateModification && (
+            <>
+              {" "}
+              &bull; Dernière modification le{" "}
+              {dayjs(evenement.dateModification).format("DD/MM/YYYY")}
+              {evenement.utilisateurModification && (
+                <>
+                  {" "}
+                  par{" "}
+                  <GestionnaireItem
+                    gestionnaireId={evenement.utilisateurModification}
+                    showAvatar={false}
+                  />
+                </>
+              )}
+            </>
+          )}
+        </Col>
+      </Row>
+    </Form>
+  );
 }

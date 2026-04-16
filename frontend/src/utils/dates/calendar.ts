@@ -12,9 +12,9 @@ import { Utilisateur } from "@lib/Utilisateur";
 import { IPeriode } from "@api/ApiTypeHelpers";
 
 export enum TypeOperationHeure {
-   Inchangee = 0,
-   debutJournee = 1,
-   finJournee = 2,
+  Inchangee = 0,
+  debutJournee = 1,
+  finJournee = 2,
 }
 
 /**
@@ -26,26 +26,26 @@ export enum TypeOperationHeure {
  * @return {Date} A new Date object representing the given date in UTC timezone.
  */
 export function createDateAsUTC(
-   date: Date,
-   heure: TypeOperationHeure = TypeOperationHeure.Inchangee,
+  date: Date,
+  heure: TypeOperationHeure = TypeOperationHeure.Inchangee,
 ): Date {
-   if (heure === TypeOperationHeure.debutJournee) {
-      date.setHours(0, 0, 0, 0);
-   }
-   if (heure === TypeOperationHeure.finJournee) {
-      date.setHours(23, 59, 59, 999);
-   }
+  if (heure === TypeOperationHeure.debutJournee) {
+    date.setHours(0, 0, 0, 0);
+  }
+  if (heure === TypeOperationHeure.finJournee) {
+    date.setHours(23, 59, 59, 999);
+  }
 
-   return new Date(
-      Date.UTC(
-         date.getFullYear(),
-         date.getMonth(),
-         date.getDate(),
-         date.getHours(),
-         date.getMinutes(),
-         date.getSeconds(),
-      ),
-   );
+  return new Date(
+    Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+    ),
+  );
 }
 
 /**
@@ -56,10 +56,10 @@ export function createDateAsUTC(
  * @return {Date} - The Date object in UTC timezone.
  */
 export function createDateFromStringAsUTC(
-   date: string,
-   heure: TypeOperationHeure = TypeOperationHeure.Inchangee,
+  date: string,
+  heure: TypeOperationHeure = TypeOperationHeure.Inchangee,
 ): Date {
-   return createDateAsUTC(new Date(date), heure);
+  return createDateAsUTC(new Date(date), heure);
 }
 
 /**
@@ -69,9 +69,9 @@ export function createDateFromStringAsUTC(
  * @return {boolean} - True if the value contains a valid date, false otherwise.
  */
 export function isDateValid(val: string | undefined): boolean {
-   if (!val) return false;
-   const date = new Date(val);
-   return !isNaN(date.getTime());
+  if (!val) return false;
+  const date = new Date(val);
+  return !isNaN(date.getTime());
 }
 
 /**
@@ -84,17 +84,17 @@ export function isDateValid(val: string | undefined): boolean {
  * @returns {boolean} - True if the event can be created, false otherwise.
  */
 export function canCreateEventOnDate(
-   date: Date,
-   user: Utilisateur | undefined,
-   lastPeriode: IPeriode | undefined,
+  date: Date,
+  user: Utilisateur | undefined,
+  lastPeriode: IPeriode | undefined,
 ): boolean {
-   if (!user) return false;
+  if (!user) return false;
 
-   // Admin peut tout faire
-   if (user.isAdmin) return true;
+  // Admin peut tout faire
+  if (user.isAdmin) return true;
 
-   //Pas de période précédente
-   if (!lastPeriode) return true;
+  //Pas de période précédente
+  if (!lastPeriode) return true;
 
-   return dayjs(lastPeriode.butoir).endOf("day").isBefore(dayjs(date).startOf("day"));
+  return dayjs(lastPeriode.butoir).endOf("day").isBefore(dayjs(date).startOf("day"));
 }

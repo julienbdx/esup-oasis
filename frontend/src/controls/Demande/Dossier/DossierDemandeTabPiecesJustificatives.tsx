@@ -15,47 +15,44 @@ import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/Questi
 import { QuestionFileItem } from "@controls/Questionnaire/Question/QuestionFileItem";
 
 export function DossierDemandeTabPiecesJustificatives(): React.ReactElement {
-   const { questionnaire } = useQuestionnaire();
+  const { questionnaire } = useQuestionnaire();
 
-   const questions: QuestionnaireQuestion[] = React.useMemo(() => {
-      return (
-         questionnaire?.etapes
-            ?.map((e) =>
-               e.questions
-                  ?.map((q) => q as QuestionnaireQuestion)
-                  .filter((q) => q.typeReponse === "file"),
-            )
-            .flat() || []
-      );
-   }, [questionnaire]);
+  const questions: QuestionnaireQuestion[] = React.useMemo(() => {
+    return (
+      questionnaire?.etapes
+        ?.map((e) =>
+          e.questions
+            ?.map((q) => q as QuestionnaireQuestion)
+            .filter((q) => q.typeReponse === "file"),
+        )
+        .flat() || []
+    );
+  }, [questionnaire]);
 
-   return (
-      <div>
-         <h2>Pièces justificatives</h2>
+  return (
+    <div>
+      <h2>Pièces justificatives</h2>
 
-         <List className="ant-list-radius">
-            {questions.map((question) => (
-               <List.Item key={question["@id"]}>
-                  <div className="w-100 d-block">
-                     <Space className="question w-100 semi-bold" orientation="horizontal">
-                        <MinusOutlined aria-hidden={true} />
-                        <div>{question.libelle}</div>
-                     </Space>
+      <List className="ant-list-radius">
+        {questions.map((question) => (
+          <List.Item key={question["@id"]}>
+            <div className="w-100 d-block">
+              <Space className="question w-100 semi-bold" orientation="horizontal">
+                <MinusOutlined aria-hidden={true} />
+                <div>{question.libelle}</div>
+              </Space>
 
-                     {question.reponse?.piecesJustificatives?.map((pj) => (
-                        <QuestionFileItem
-                           key={pj}
-                           file={{ uid: pj, name: pj, status: "done", url: pj }}
-                        />
-                     ))}
-                     {(!question.reponse?.piecesJustificatives ||
-                        question.reponse?.piecesJustificatives?.length === 0) && (
-                        <div className="text-legende">Aucune pièce justificative</div>
-                     )}
-                  </div>
-               </List.Item>
-            ))}
-         </List>
-      </div>
-   );
+              {question.reponse?.piecesJustificatives?.map((pj) => (
+                <QuestionFileItem key={pj} file={{ uid: pj, name: pj, status: "done", url: pj }} />
+              ))}
+              {(!question.reponse?.piecesJustificatives ||
+                question.reponse?.piecesJustificatives?.length === 0) && (
+                <div className="text-legende">Aucune pièce justificative</div>
+              )}
+            </div>
+          </List.Item>
+        ))}
+      </List>
+    </div>
+  );
 }

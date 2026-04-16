@@ -15,43 +15,43 @@ import EventDeleteButton from "@controls/Buttons/EventDeleteButton";
 import EventCopyButton from "@controls/Buttons/EventCopyButton";
 
 interface IEvenementModalFooterProps {
-   evenement: Evenement;
-   form: FormInstance;
-   onDelete: () => void;
-   onCancel: () => void;
+  evenement: Evenement;
+  form: FormInstance;
+  onDelete: () => void;
+  onCancel: () => void;
 }
 
 export default function EvenementModalFooter({
-   evenement,
-   form,
-   onDelete,
-   onCancel,
+  evenement,
+  form,
+  onDelete,
+  onCancel,
 }: IEvenementModalFooterProps): ReactElement {
-   const { notification } = App.useApp();
+  const { notification } = App.useApp();
 
-   return (
-      <Row>
-         <Col xs={8} sm={8} lg={12} className="text-left">
-            <Space>
-               {evenement["@id"] && <EventDeleteButton evenement={evenement} onDelete={onDelete} />}
-               <EventCopyButton
-                  evenement={evenement}
-                  onCopy={() => {
-                     notification.success({
-                        title: "Informations de l'évènement copiées dans le presse-papier",
-                     });
-                  }}
-               />
-            </Space>
-         </Col>
-         <Col xs={16} sm={16} lg={12} className="text-right">
-            <Space>
-               <Button onClick={onCancel}>Annuler</Button>
-               <Button type="primary" icon={<SaveOutlined />} onClick={() => form.submit()}>
-                  Enregistrer
-               </Button>
-            </Space>
-         </Col>
-      </Row>
-   );
+  return (
+    <Row>
+      <Col xs={8} sm={8} lg={12} className="text-left">
+        <Space>
+          {evenement["@id"] && <EventDeleteButton evenement={evenement} onDelete={onDelete} />}
+          <EventCopyButton
+            evenement={evenement}
+            onCopy={() => {
+              notification.success({
+                title: "Informations de l'évènement copiées dans le presse-papier",
+              });
+            }}
+          />
+        </Space>
+      </Col>
+      <Col xs={16} sm={16} lg={12} className="text-right">
+        <Space>
+          <Button onClick={onCancel}>Annuler</Button>
+          <Button type="primary" icon={<SaveOutlined />} onClick={() => form.submit()}>
+            Enregistrer
+          </Button>
+        </Space>
+      </Col>
+    </Row>
+  );
 }

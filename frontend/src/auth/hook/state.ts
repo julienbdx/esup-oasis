@@ -21,15 +21,15 @@ const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 const getStateCharacter = (value: number): string => ALPHABET[value % ALPHABET.length];
 
 export const generateState = () => {
-   const randomValues = new Uint8Array(STATE_LENGTH);
-   window.crypto.getRandomValues(randomValues);
+  const randomValues = new Uint8Array(STATE_LENGTH);
+  window.crypto.getRandomValues(randomValues);
 
-   const stateCharacters = Array.from(randomValues, getStateCharacter);
-   return stateCharacters.join("");
+  const stateCharacters = Array.from(randomValues, getStateCharacter);
+  return stateCharacters.join("");
 };
 export const saveState = (state: string) => {
-   sessionStorage.setItem(OAUTH_STATE_KEY, state);
+  sessionStorage.setItem(OAUTH_STATE_KEY, state);
 };
 export const removeState = () => {
-   sessionStorage.removeItem(OAUTH_STATE_KEY);
+  sessionStorage.removeItem(OAUTH_STATE_KEY);
 };

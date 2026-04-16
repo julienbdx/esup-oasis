@@ -16,8 +16,8 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 interface IProgress {
-   value: number | undefined;
-   tooltip?: string;
+  value: number | undefined;
+  tooltip?: string;
 }
 
 /**
@@ -30,65 +30,65 @@ interface IProgress {
  * @return {ReactElement} The rendered progress component or null if value is undefined.
  */
 export default memo(
-   function Progress({ value, tooltip }: IProgress): ReactElement {
-      const [style, setStyle] = React.useState<React.CSSProperties>({
-         color: "transparent",
-         fontSize: 0,
-      });
-      const screens = useBreakpoint();
+  function Progress({ value, tooltip }: IProgress): ReactElement {
+    const [style, setStyle] = React.useState<React.CSSProperties>({
+      color: "transparent",
+      fontSize: 0,
+    });
+    const screens = useBreakpoint();
 
-      const getColor = () => {
-         if (value === undefined) return "transparent";
-         if (value < 50) return "--color-danger";
-         if (value < 100) return "--color-warning";
-         return "--color-app";
+    const getColor = () => {
+      if (value === undefined) return "transparent";
+      if (value < 50) return "--color-danger";
+      if (value < 100) return "--color-warning";
+      return "--color-app";
+    };
+
+    const getGradient = () => {
+      if (value === undefined) return "transparent";
+      return `linear-gradient(to right, var(${getColor()}-light), var(${getColor()}))`;
+    };
+
+    setTimeout(() => {
+      const newStyle: React.CSSProperties = {
+        opacity: 1,
+        width: `${value}%`,
+        background: getGradient(),
       };
 
-      const getGradient = () => {
-         if (value === undefined) return "transparent";
-         return `linear-gradient(to right, var(${getColor()}-light), var(${getColor()}))`;
-      };
+      setStyle(newStyle);
+    }, 200);
 
-      setTimeout(() => {
-         const newStyle: React.CSSProperties = {
-            opacity: 1,
-            width: `${value}%`,
-            background: getGradient(),
-         };
+    if (value === undefined) return <></>;
 
-         setStyle(newStyle);
-      }, 200);
-
-      if (value === undefined) return <></>;
-
-      if (!screens.xxl) {
-         return (
-            <Tooltip title={tooltip}>
-               <div style={{ width: 30 }}>
-                  <CircularProgressbar
-                     strokeWidth={50}
-                     styles={buildStyles({
-                        strokeLinecap: "butt",
-                        pathColor: `var(${getColor()})`,
-                     })}
-                     value={value}
-                     text={value === 100 ? "OK" : `${value}%`}
-                  />
-               </div>
-            </Tooltip>
-         );
-      }
-
+    if (!screens.xxl) {
       return (
-         <Tooltip title={tooltip}>
-            <div className="progress">
-               <div className="progress-done" style={style}>
-                  {value}%{value === 100 && <LikeOutlined className="ml-1" />}
-               </div>
-            </div>
-         </Tooltip>
+        <Tooltip title={tooltip}>
+          <div style={{ width: 30 }}>
+            <CircularProgressbar
+              strokeWidth={50}
+              styles={buildStyles({
+                strokeLinecap: "butt",
+                pathColor: `var(${getColor()})`,
+              })}
+              value={value}
+              text={value === 100 ? "OK" : `${value}%`}
+            />
+          </div>
+        </Tooltip>
       );
-   },
-   (prevProps, nextProps) =>
-      prevProps.value === nextProps.value && prevProps.tooltip === nextProps.tooltip,
+    }
+
+    return (
+      <Tooltip title={tooltip}>
+        <div className="progress">
+          <div className="progress-done" style={style}>
+            {value}%{value === 100 && <LikeOutlined className="ml-1" />}
+          </div>
+        </div>
+      </Tooltip>
+    );
+  },
+  (prevProps, nextProps) =>
+    prevProps.value === nextProps.value && prevProps.tooltip === nextProps.tooltip,
 );

@@ -20,12 +20,12 @@ import { TimezoneAlert } from "@controls/Calendar/TimezoneAlert";
  * @returns {ReactElement} The rendered content.
  */
 export default function ValidationInterventionsRenforts(): ReactElement {
-   return (
-      <Layout.Content style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>Renforts service {env.REACT_APP_SERVICE}</Typography.Title>
-         <Typography.Title level={2}>Interventions à valider</Typography.Title>
-         <TimezoneAlert />
-         <ValidationInterventionTable />
-      </Layout.Content>
-   );
+  return (
+    <Layout.Content style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>Renforts service {env.REACT_APP_SERVICE}</Typography.Title>
+      <Typography.Title level={2}>Interventions à valider</Typography.Title>
+      <TimezoneAlert />
+      <ValidationInterventionTable />
+    </Layout.Content>
+  );
 }

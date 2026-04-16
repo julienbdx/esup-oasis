@@ -11,8 +11,8 @@ import React from "react";
 import { ReactComponent as SvgImage } from "@assets/images/etudiant-classroom.svg";
 
 export default function EtudiantClassroomImage(props: {
-   className?: string;
-   style?: React.CSSProperties;
+  className?: string;
+  style?: React.CSSProperties;
 }) {
-   return <SvgImage {...props} />;
+  return <SvgImage {...props} />;
 }

@@ -13,19 +13,19 @@ import { QueryClient } from "@tanstack/react-query";
 export type UseInvalidationHook = (queryKeys: string[], onSuccess?: VoidFunction) => void;
 
 export function handleInvalidation(
-   client: QueryClient,
-   queryKeys: string[],
-   onSuccess?: VoidFunction,
+  client: QueryClient,
+  queryKeys: string[],
+  onSuccess?: VoidFunction,
 ) {
-   client
-      .invalidateQueries({
-         predicate: (query) =>
-            query.queryKey !== undefined &&
-            query.queryKey["0"] !== undefined &&
-            query.queryKey["0"] !== null &&
-            queryKeys.some((qk) => {
-               return (query.queryKey[0] as string).startsWith(qk);
-            }),
-      })
-      .then(() => onSuccess && onSuccess());
+  client
+    .invalidateQueries({
+      predicate: (query) =>
+        query.queryKey !== undefined &&
+        query.queryKey["0"] !== undefined &&
+        query.queryKey["0"] !== null &&
+        queryKeys.some((qk) => {
+          return (query.queryKey[0] as string).startsWith(qk);
+        }),
+    })
+    .then(() => onSuccess && onSuccess());
 }

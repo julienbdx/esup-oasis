@@ -15,7 +15,7 @@ import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { IEvenement } from "@api/ApiTypeHelpers";
 
 interface IItemEtatValidationProps {
-   evenement: IEvenement;
+  evenement: IEvenement;
 }
 
 /**
@@ -27,23 +27,23 @@ interface IItemEtatValidationProps {
  * @return {ReactElement | null} - The validation status component, or null if validation is not required.
  */
 export default function EvenementEtatValidationItem({
-   evenement,
+  evenement,
 }: IItemEtatValidationProps): ReactElement | null {
-   const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
-   if (typesEvenements?.items.find((t) => t["@id"] === evenement.type)?.avecValidation === false)
-      return null;
+  if (typesEvenements?.items.find((t) => t["@id"] === evenement.type)?.avecValidation === false)
+    return null;
 
-   if (evenement.dateValidation)
-      return (
-         <Tag color="green" icon={<CheckOutlined />}>
-            Validé par chargé d'accomp.
-         </Tag>
-      );
-
-   return (
-      <Tag color="warning" icon={<CloseOutlined />}>
-         Non validé par chargé d'accomp.
+  if (evenement.dateValidation)
+    return (
+      <Tag color="green" icon={<CheckOutlined />}>
+        Validé par chargé d'accomp.
       </Tag>
-   );
+    );
+
+  return (
+    <Tag color="warning" icon={<CloseOutlined />}>
+      Non validé par chargé d'accomp.
+    </Tag>
+  );
 }

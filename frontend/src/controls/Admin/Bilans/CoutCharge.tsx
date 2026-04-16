@@ -16,23 +16,23 @@ import React from "react";
 import { IActivite } from "@routes/administration/Bilans/BeneficiairesIntervenants/components/BilanTable";
 
 export function CoutCharge(props: { activite: IActivite }) {
-   const { data: coef, isFetching: isFetchingCoef } = useApi().useGetItem({
-      path: "/parametres/{cle}",
-      url: PARAMETRE_COEF_COUT_CHARGE,
-   });
+  const { data: coef, isFetching: isFetchingCoef } = useApi().useGetItem({
+    path: "/parametres/{cle}",
+    url: PARAMETRE_COEF_COUT_CHARGE,
+  });
 
-   if (isFetchingCoef) return <Spinner />;
+  if (isFetchingCoef) return <Spinner />;
 
-   if (!coef) return null;
+  if (!coef) return null;
 
-   return (
-      <Space className="cout-charge">
-         {montantToString(
-            props.activite.nbHeures,
-            props.activite.tauxHoraire?.montant,
-            coef?.valeursCourantes?.[0]?.valeur ?? undefined,
-         )}
-         <span>€</span>
-      </Space>
-   );
+  return (
+    <Space className="cout-charge">
+      {montantToString(
+        props.activite.nbHeures,
+        props.activite.tauxHoraire?.montant,
+        coef?.valeursCourantes?.[0]?.valeur ?? undefined,
+      )}
+      <span>€</span>
+    </Space>
+  );
 }

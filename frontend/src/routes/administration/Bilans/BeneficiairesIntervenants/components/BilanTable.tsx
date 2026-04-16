@@ -22,9 +22,9 @@ import { RoleValues } from "@lib/Utilisateur";
 export type IActivite = IActiviteBeneficiaire | IActiviteIntervenant;
 
 interface BilanTableProps {
-   type: "bénéficiaire" | "intervenant";
-   loading: boolean;
-   data?: IActivite[];
+  type: "bénéficiaire" | "intervenant";
+  loading: boolean;
+  data?: IActivite[];
 }
 
 /**
@@ -33,99 +33,97 @@ interface BilanTableProps {
  * @return {Array<object>} - An array of column objects.
  */
 function getTableColumns(type: "bénéficiaire" | "intervenant"): ColumnsType<IActivite> {
-   return [
-      {
-         title: capitalize(type),
-         dataIndex: "utilisateur",
-         render: (_value, record: IActivite) => (
-            <EtudiantItem
-               utilisateur={record.utilisateur}
-               showEmail
-               role={
-                  type === "intervenant"
-                     ? RoleValues.ROLE_BENEFICIAIRE
-                     : RoleValues.ROLE_BENEFICIAIRE
-               }
-            />
-         ),
+  return [
+    {
+      title: capitalize(type),
+      dataIndex: "utilisateur",
+      render: (_value, record: IActivite) => (
+        <EtudiantItem
+          utilisateur={record.utilisateur}
+          showEmail
+          role={
+            type === "intervenant" ? RoleValues.ROLE_BENEFICIAIRE : RoleValues.ROLE_BENEFICIAIRE
+          }
+        />
+      ),
+    },
+    {
+      title: "Campus",
+      dataIndex: "campus",
+      render: (value: string) => value && <CampusItem campusId={value} />,
+    },
+    {
+      title: "Catégorie d'événement",
+      dataIndex: "type",
+      render: (value: string) => <TypeEvenementItem typeEvenementId={value} forceBlackText />,
+    },
+    {
+      title: "Nombre d'évènements",
+      dataIndex: "nbEvenements",
+      className: "text-right",
+      render: (value: string) => {
+        return <>{value}</>;
       },
-      {
-         title: "Campus",
-         dataIndex: "campus",
-         render: (value: string) => value && <CampusItem campusId={value} />,
+    },
+    {
+      title: "Nombre d'heures",
+      dataIndex: "nbHeures",
+      className: "text-right",
+      render: (value: string) => {
+        return (
+          <Space>
+            {to2Digits(value)}
+            <span>h</span>
+          </Space>
+        );
       },
-      {
-         title: "Catégorie d'événement",
-         dataIndex: "type",
-         render: (value: string) => <TypeEvenementItem typeEvenementId={value} forceBlackText />,
-      },
-      {
-         title: "Nombre d'évènements",
-         dataIndex: "nbEvenements",
-         className: "text-right",
-         render: (value: string) => {
-            return <>{value}</>;
-         },
-      },
-      {
-         title: "Nombre d'heures",
-         dataIndex: "nbHeures",
-         className: "text-right",
-         render: (value: string) => {
-            return (
-               <Space>
-                  {to2Digits(value)}
-                  <span>h</span>
-               </Space>
-            );
-         },
-      },
-      {
-         title: "Taux horaire",
-         dataIndex: "tauxHoraire",
-         className: "text-right",
-         render: (_value, record: IActivite) => (
-            <Space>
-               {to2Digits(record.tauxHoraire?.montant)}
-               <span>€</span>
-            </Space>
-         ),
-      },
-      {
-         title: "Montant",
-         dataIndex: "montant",
-         className: "text-right",
-         render: (_value: string, record: IActivite) => (
-            <Space>
-               {montantToString(record.nbHeures, record.tauxHoraire?.montant)}
-               <span>€</span>
-            </Space>
-         ),
-      },
-      {
-         title: "Coût chargé",
-         dataIndex: "coutCharge",
-         className: "text-right",
-         render: (_value: string, record: IActivite) => (
-            <Space>
-               <CoutCharge activite={record} />
-            </Space>
-         ),
-      },
-   ];
+    },
+    {
+      title: "Taux horaire",
+      dataIndex: "tauxHoraire",
+      className: "text-right",
+      render: (_value, record: IActivite) => (
+        <Space>
+          {to2Digits(record.tauxHoraire?.montant)}
+          <span>€</span>
+        </Space>
+      ),
+    },
+    {
+      title: "Montant",
+      dataIndex: "montant",
+      className: "text-right",
+      render: (_value: string, record: IActivite) => (
+        <Space>
+          {montantToString(record.nbHeures, record.tauxHoraire?.montant)}
+          <span>€</span>
+        </Space>
+      ),
+    },
+    {
+      title: "Coût chargé",
+      dataIndex: "coutCharge",
+      className: "text-right",
+      render: (_value: string, record: IActivite) => (
+        <Space>
+          <CoutCharge activite={record} />
+        </Space>
+      ),
+    },
+  ];
 }
 
 export const BilanTable: React.FC<BilanTableProps> = ({ type, loading, data }) => {
-   if (!data || data.length === 0) return null;
+  if (!data || data.length === 0) return null;
 
-   return (
-      <Card className="mt-3" loading={loading} title={`${capitalize(type)}s`}>
-         <Table<IActivite>
-            dataSource={data}
-            columns={getTableColumns(type)}
-            pagination={false}
-            rowKey={(record) => record["@id"] as string}
-         />
-      </Card>
-   );
+  return (
+    <Card className="mt-3" loading={loading} title={`${capitalize(type)}s`}>
+      <Table<IActivite>
+        dataSource={data}
+        columns={getTableColumns(type)}
+        pagination={false}
+        rowKey={(record) => record["@id"] as string}
+      />
+    </Card>
+  );
 };

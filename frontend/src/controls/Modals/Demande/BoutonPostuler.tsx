@@ -18,65 +18,65 @@ import { QK_DEMANDES, QK_UTILISATEURS_DEMANDES } from "@api/queryKeys";
 import { useEffect, useState } from "react";
 
 export default function PostulerButton(props: { typeDemande: ITypeDemande; demandeurId: string }) {
-   const navigate = useNavigate();
-   const [demandeTrouvee, setDemandeTrouvee] = useState<IDemande>();
-   const [submitted, setSubmitted] = useState(false);
-   const { data: demandesEnCours } = useApi().useGetCollectionPaginated({
-      path: "/demandes",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: {
-         demandeur: props.demandeurId,
-         format_simple: true,
+  const navigate = useNavigate();
+  const [demandeTrouvee, setDemandeTrouvee] = useState<IDemande>();
+  const [submitted, setSubmitted] = useState(false);
+  const { data: demandesEnCours } = useApi().useGetCollectionPaginated({
+    path: "/demandes",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    query: {
+      demandeur: props.demandeurId,
+      format_simple: true,
+    },
+  });
+
+  const mutationPostuler = useApi().usePost({
+    path: "/demandes",
+    invalidationQueryKeys: [QK_UTILISATEURS_DEMANDES, QK_DEMANDES],
+    onSuccess: (data) => {
+      navigate(`/demandes/${data.id}/saisie`);
+    },
+  });
+
+  useEffect(() => {
+    setDemandeTrouvee(
+      demandesEnCours?.items.find(
+        (demande) => demande.campagne === props.typeDemande.campagneEnCours,
+      ),
+    );
+  }, [demandesEnCours, props.typeDemande.campagneEnCours]);
+
+  function deposerNouvelleDemande(item: ITypeDemande) {
+    mutationPostuler.mutate({
+      data: {
+        typeDemande: item["@id"] as string,
+        demandeur: props.demandeurId,
       },
-   });
+    });
+  }
 
-   const mutationPostuler = useApi().usePost({
-      path: "/demandes",
-      invalidationQueryKeys: [QK_UTILISATEURS_DEMANDES, QK_DEMANDES],
-      onSuccess: (data) => {
-         navigate(`/demandes/${data.id}/saisie`);
-      },
-   });
-
-   useEffect(() => {
-      setDemandeTrouvee(
-         demandesEnCours?.items.find(
-            (demande) => demande.campagne === props.typeDemande.campagneEnCours,
-         ),
-      );
-   }, [demandesEnCours, props.typeDemande.campagneEnCours]);
-
-   function deposerNouvelleDemande(item: ITypeDemande) {
-      mutationPostuler.mutate({
-         data: {
-            typeDemande: item["@id"] as string,
-            demandeur: props.demandeurId,
-         },
-      });
-   }
-
-   return demandeTrouvee ? (
+  return demandeTrouvee ? (
+    <Button
+      icon={<EyeOutlined aria-hidden />}
+      onClick={() => navigate(`/demandes/${demandeTrouvee?.id}`)}
+    >
+      Voir la demande
+    </Button>
+  ) : (
+    props.typeDemande.campagneEnCours && (
       <Button
-         icon={<EyeOutlined aria-hidden />}
-         onClick={() => navigate(`/demandes/${demandeTrouvee?.id}`)}
+        loading={submitted}
+        disabled={submitted}
+        icon={<PlusOutlined aria-hidden />}
+        onClick={() => {
+          setSubmitted(true);
+          deposerNouvelleDemande(props.typeDemande);
+        }}
+        aria-label={`Déposer une demande : ${props.typeDemande.libelle}`}
       >
-         Voir la demande
+        Déposer une demande
       </Button>
-   ) : (
-      props.typeDemande.campagneEnCours && (
-         <Button
-            loading={submitted}
-            disabled={submitted}
-            icon={<PlusOutlined aria-hidden />}
-            onClick={() => {
-               setSubmitted(true);
-               deposerNouvelleDemande(props.typeDemande);
-            }}
-            aria-label={`Déposer une demande : ${props.typeDemande.libelle}`}
-         >
-            Déposer une demande
-         </Button>
-      )
-   );
+    )
+  );
 }

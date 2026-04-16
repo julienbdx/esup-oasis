@@ -24,8 +24,8 @@ import EvenementModalFooter from "@controls/Modals/Evenement/EvenementModalFoote
 import EvenementModalTitle from "@controls/Modals/Evenement/EvenementModalTitle";
 
 interface IEvenementModal {
-   id?: string;
-   initialEvenement?: IEvenement | IPartialEvenement;
+  id?: string;
+  initialEvenement?: IEvenement | IPartialEvenement;
 }
 
 /**
@@ -38,195 +38,195 @@ interface IEvenementModal {
  * @returns {ReactElement}
  */
 export default function EvenementModal({ id, initialEvenement }: IEvenementModal): ReactElement {
-   const { message } = App.useApp();
-   const [evenementId, setEvenementId] = useState(id);
-   const [evenement, setEvenement] = useState<Evenement | undefined>();
-   const [formIsDirty, setFormIsDirty] = useState(false);
-   const { setModalEvenementId, setModalEvenement } = useModals();
-   const [form] = Form.useForm<Evenement | undefined>();
-   const auth = useAuth();
+  const { message } = App.useApp();
+  const [evenementId, setEvenementId] = useState(id);
+  const [evenement, setEvenement] = useState<Evenement | undefined>();
+  const [formIsDirty, setFormIsDirty] = useState(false);
+  const { setModalEvenementId, setModalEvenement } = useModals();
+  const [form] = Form.useForm<Evenement | undefined>();
+  const auth = useAuth();
 
-   // Dernière période dont la date butoir est dépassée
-   const { data: lastPeriodes } = useApi().useGetCollection(PREFETCH_LAST_PERIODES_RH(auth.user));
+  // Dernière période dont la date butoir est dépassée
+  const { data: lastPeriodes } = useApi().useGetCollection(PREFETCH_LAST_PERIODES_RH(auth.user));
 
-   const resetSourceEvenement = useCallback(() => {
-      setEvenement(undefined);
-      form.resetFields();
-   }, [form]);
+  const resetSourceEvenement = useCallback(() => {
+    setEvenement(undefined);
+    form.resetFields();
+  }, [form]);
 
-   const handleClose = useCallback(() => {
-      if (evenementId) queryClient.removeQueries({ queryKey: [evenementId] });
-      setEvenementId(undefined);
-      resetSourceEvenement();
+  const handleClose = useCallback(() => {
+    if (evenementId) queryClient.removeQueries({ queryKey: [evenementId] });
+    setEvenementId(undefined);
+    resetSourceEvenement();
 
-      setModalEvenementId(undefined);
-      setModalEvenement(undefined);
-   }, [evenementId, resetSourceEvenement, setModalEvenement, setModalEvenementId]);
+    setModalEvenementId(undefined);
+    setModalEvenement(undefined);
+  }, [evenementId, resetSourceEvenement, setModalEvenement, setModalEvenementId]);
 
-   const updateSourceEvenement = useCallback(
-      (values: IPartialEvenement | undefined, forceResetForm = false) => {
-         setEvenement((prev) => {
-            const evt = new Evenement({
-               beneficiaires: [""],
-               ...prev,
-               ...values,
-            } as IEvenement);
+  const updateSourceEvenement = useCallback(
+    (values: IPartialEvenement | undefined, forceResetForm = false) => {
+      setEvenement((prev) => {
+        const evt = new Evenement({
+          beneficiaires: [""],
+          ...prev,
+          ...values,
+        } as IEvenement);
 
-            if (forceResetForm) form.resetFields();
-            form.setFieldsValue(evt);
-            return evt;
-         });
-      },
-      [form],
-   );
-
-   // GET /evenements/{id}
-   const { data: evenementData, isFetching: isFetchingEvenement } =
-      useApi().useGetItem<"/evenements/{id}">({
-         path: "/evenements/{id}",
-         url: evenementId as string,
-         enabled: !!evenementId,
+        if (forceResetForm) form.resetFields();
+        form.setFieldsValue(evt);
+        return evt;
       });
+    },
+    [form],
+  );
 
-   useEffect(() => {
-      if (evenementData) {
-         updateSourceEvenement(evenementData);
-      }
-   }, [evenementData, updateSourceEvenement]);
-
-   // Mutation d'un évènement
-   const patchEvenement = useApi().usePatch({
+  // GET /evenements/{id}
+  const { data: evenementData, isFetching: isFetchingEvenement } =
+    useApi().useGetItem<"/evenements/{id}">({
       path: "/evenements/{id}",
-      invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
-      onSuccess: () => {
-         message.success("Évènement modifié").then();
-         handleClose();
-      },
-   });
+      url: evenementId as string,
+      enabled: !!evenementId,
+    });
 
-   const postEvenement = useApi().usePost({
-      path: "/evenements",
-      invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
-      onSuccess: () => {
-         message.success("Évènement créé").then();
-         handleClose();
-      },
-   });
+  useEffect(() => {
+    if (evenementData) {
+      updateSourceEvenement(evenementData);
+    }
+  }, [evenementData, updateSourceEvenement]);
 
-   const { data: typesEvenements, isFetching: isFetchingType } =
-      useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-
-   // -------- INITIALISATION --------
-
-   // Initialisation via props : id
-   useEffect(() => {
-      setEvenementId(id);
-   }, [id]);
-
-   // Initialisation via props : initialEvenement
-   useEffect(() => {
-      if (initialEvenement) {
-         updateSourceEvenement(initialEvenement, true);
-      }
-   }, [updateSourceEvenement, initialEvenement]);
-
-   // -------- ACTIONS --------
-
-   const handleDelete = () => {
-      resetSourceEvenement();
-      setEvenementId(undefined);
+  // Mutation d'un évènement
+  const patchEvenement = useApi().usePatch({
+    path: "/evenements/{id}",
+    invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
+    onSuccess: () => {
+      message.success("Évènement modifié").then();
       handleClose();
-   };
+    },
+  });
 
-   const handleCreateOrUpdateEvenement = (values: Evenement | undefined) => {
-      if (!values) return;
+  const postEvenement = useApi().usePost({
+    path: "/evenements",
+    invalidationQueryKeys: [QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS],
+    onSuccess: () => {
+      message.success("Évènement créé").then();
+      handleClose();
+    },
+  });
 
-      // On met les dates au format ISO
-      const data = {
-         ...evenement,
-         ...values,
-         debut: createDateAsUTC(new Date(values.debut)).toISOString(),
-         fin: createDateAsUTC(new Date(values.fin)).toISOString(),
-         beneficiaires: values.beneficiaires?.filter((b) => b),
-         intervenant: values.intervenant ? values.intervenant : null,
-         tempsPreparation: Number(values.tempsPreparation || 0),
-         tempsSupplementaire: Number(values.tempsSupplementaire || 0),
-      };
+  const { data: typesEvenements, isFetching: isFetchingType } =
+    useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
-      if (!data["@id"]) {
-         // Nouvel évènement
-         postEvenement.mutate({
-            data,
-         });
-      } else {
-         // Modification d'un évènement
-         patchEvenement.mutate({
-            "@id": evenement?.["@id"] as string,
-            data,
-         });
+  // -------- INITIALISATION --------
+
+  // Initialisation via props : id
+  useEffect(() => {
+    setEvenementId(id);
+  }, [id]);
+
+  // Initialisation via props : initialEvenement
+  useEffect(() => {
+    if (initialEvenement) {
+      updateSourceEvenement(initialEvenement, true);
+    }
+  }, [updateSourceEvenement, initialEvenement]);
+
+  // -------- ACTIONS --------
+
+  const handleDelete = () => {
+    resetSourceEvenement();
+    setEvenementId(undefined);
+    handleClose();
+  };
+
+  const handleCreateOrUpdateEvenement = (values: Evenement | undefined) => {
+    if (!values) return;
+
+    // On met les dates au format ISO
+    const data = {
+      ...evenement,
+      ...values,
+      debut: createDateAsUTC(new Date(values.debut)).toISOString(),
+      fin: createDateAsUTC(new Date(values.fin)).toISOString(),
+      beneficiaires: values.beneficiaires?.filter((b) => b),
+      intervenant: values.intervenant ? values.intervenant : null,
+      tempsPreparation: Number(values.tempsPreparation || 0),
+      tempsSupplementaire: Number(values.tempsSupplementaire || 0),
+    };
+
+    if (!data["@id"]) {
+      // Nouvel évènement
+      postEvenement.mutate({
+        data,
+      });
+    } else {
+      // Modification d'un évènement
+      patchEvenement.mutate({
+        "@id": evenement?.["@id"] as string,
+        data,
+      });
+    }
+  };
+
+  // -------- RENDERING --------
+
+  if (!evenement) return <Form form={form} className="d-none" />;
+
+  if (isFetchingEvenement)
+    return (
+      <Form form={form} className="d-flex-center">
+        <Spinner size={100} />
+      </Form>
+    );
+
+  const isFormDisabled =
+    !auth.user?.isPlanificateur ||
+    evenement?.dateEnvoiRH !== undefined ||
+    evenement?.dateValidation !== undefined ||
+    (evenement?.debut !== undefined &&
+      evenement?.debut !== "" &&
+      !canCreateEventOnDate(new Date(evenement.debut), auth.user, lastPeriodes?.items[0]));
+
+  return (
+    <Modal
+      key={evenement["@id"] || "evenenement-modal"}
+      destroyOnHidden
+      open
+      centered
+      width="66%"
+      className="oasis-modal"
+      onCancel={handleClose}
+      onOk={handleClose}
+      cancelButtonProps={{ style: { display: "none" } }}
+      title={
+        <EvenementModalTitle
+          evenement={evenement}
+          isFetchingType={isFetchingType}
+          typesEvenements={typesEvenements}
+        />
       }
-   };
-
-   // -------- RENDERING --------
-
-   if (!evenement) return <Form form={form} className="d-none" />;
-
-   if (isFetchingEvenement)
-      return (
-         <Form form={form} className="d-flex-center">
-            <Spinner size={100} />
-         </Form>
-      );
-
-   const isFormDisabled =
-      !auth.user?.isPlanificateur ||
-      evenement?.dateEnvoiRH !== undefined ||
-      evenement?.dateValidation !== undefined ||
-      (evenement?.debut !== undefined &&
-         evenement?.debut !== "" &&
-         !canCreateEventOnDate(new Date(evenement.debut), auth.user, lastPeriodes?.items[0]));
-
-   return (
-      <Modal
-         key={evenement["@id"] || "evenenement-modal"}
-         destroyOnHidden
-         open
-         centered
-         width="66%"
-         className="oasis-modal"
-         onCancel={handleClose}
-         onOk={handleClose}
-         cancelButtonProps={{ style: { display: "none" } }}
-         title={
-            <EvenementModalTitle
-               evenement={evenement}
-               isFetchingType={isFetchingType}
-               typesEvenements={typesEvenements}
-            />
-         }
-         footer={
-            <EvenementModalFooter
-               evenement={evenement}
-               form={form}
-               onDelete={handleDelete}
-               onCancel={handleClose}
-            />
-         }
-      >
-         <EvenementForm
-            form={form}
-            evenement={evenement}
-            formIsDirty={formIsDirty}
-            updateSourceEvenement={(values) => {
-               setFormIsDirty(true);
-               updateSourceEvenement(values);
-            }}
-            onFinish={(values) => {
-               handleCreateOrUpdateEvenement(values);
-               handleClose();
-            }}
-            disabled={isFormDisabled}
-         />
-      </Modal>
-   );
+      footer={
+        <EvenementModalFooter
+          evenement={evenement}
+          form={form}
+          onDelete={handleDelete}
+          onCancel={handleClose}
+        />
+      }
+    >
+      <EvenementForm
+        form={form}
+        evenement={evenement}
+        formIsDirty={formIsDirty}
+        updateSourceEvenement={(values) => {
+          setFormIsDirty(true);
+          updateSourceEvenement(values);
+        }}
+        onFinish={(values) => {
+          handleCreateOrUpdateEvenement(values);
+          handleClose();
+        }}
+        disabled={isFormDisabled}
+      />
+    </Modal>
+  );
 }

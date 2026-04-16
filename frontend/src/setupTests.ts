@@ -17,18 +17,18 @@ import "@testing-library/jest-dom/extend-expect";
 import nodeCrypto from "crypto";
 
 global.matchMedia =
-   global.matchMedia ||
-   function () {
-      // noinspection JSDeprecatedSymbols
-      return {
-         addListener: jest.fn(),
-         removeListener: jest.fn(),
-      };
-   };
+  global.matchMedia ||
+  function () {
+    // noinspection JSDeprecatedSymbols
+    return {
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    };
+  };
 
 Object.defineProperty(globalThis, "crypto", {
-   value: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      getRandomValues: (arr: any) => nodeCrypto.randomBytes(arr.length),
-   },
+  value: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    getRandomValues: (arr: any) => nodeCrypto.randomBytes(arr.length),
+  },
 });

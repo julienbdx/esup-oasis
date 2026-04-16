@@ -22,110 +22,110 @@ import { TabAidesHumaines } from "@controls/TabsContent/TabAidesHumaines";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface UtilisateurDrawerTabsProps {
-   role: RoleValues | string | undefined;
-   utilisateur: Utilisateur;
-   setUtilisateur: (u: Utilisateur) => void;
-   activeKey: string;
-   onChange: (key: string) => void;
-   onClose: () => void;
-   data: IUtilisateur;
+  role: RoleValues | string | undefined;
+  utilisateur: Utilisateur;
+  setUtilisateur: (u: Utilisateur) => void;
+  activeKey: string;
+  onChange: (key: string) => void;
+  onClose: () => void;
+  data: IUtilisateur;
 }
 
 export default function UtilisateurDrawerTabs({
-   role,
-   utilisateur,
-   setUtilisateur,
-   activeKey,
-   onChange,
-   onClose,
-   data,
+  role,
+  utilisateur,
+  setUtilisateur,
+  activeKey,
+  onChange,
+  onClose,
+  data,
 }: UtilisateurDrawerTabsProps) {
-   const auth = useAuth();
-   const { message } = App.useApp();
+  const auth = useAuth();
+  const { message } = App.useApp();
 
-   function getTabsByRole() {
-      if (role === RoleValues.ROLE_INTERVENANT) {
-         return [
-            {
-               key: "campus",
-               label: `Campus`,
-               children: <TabCampuses utilisateur={utilisateur} setUtilisateur={setUtilisateur} />,
-            },
-            {
-               key: "categories",
-               label: `Catégories`,
-               children: (
-                  <TabTypesEvenements utilisateur={utilisateur} setUtilisateur={setUtilisateur} />
-               ),
-            },
-            {
-               key: "competences",
-               label: `Compétences`,
-               children: (
-                  <TabCompetences
-                     utilisateur={utilisateur}
-                     setUtilisateur={setUtilisateur}
-                     label="Compétences de l'intervenant"
-                  />
-               ),
-            },
-            {
-               key: "disponibilites",
-               label: `Validité`,
-               children: (
-                  <TabDisponibilites
-                     utilisateur={utilisateur as unknown as IUtilisateur}
-                     setUtilisateur={setUtilisateur}
-                     onArchive={() => {
-                        message.success("Utilisateur archivé").then();
-                        onClose();
-                     }}
-                  />
-               ),
-            },
-         ];
+  function getTabsByRole() {
+    if (role === RoleValues.ROLE_INTERVENANT) {
+      return [
+        {
+          key: "campus",
+          label: `Campus`,
+          children: <TabCampuses utilisateur={utilisateur} setUtilisateur={setUtilisateur} />,
+        },
+        {
+          key: "categories",
+          label: `Catégories`,
+          children: (
+            <TabTypesEvenements utilisateur={utilisateur} setUtilisateur={setUtilisateur} />
+          ),
+        },
+        {
+          key: "competences",
+          label: `Compétences`,
+          children: (
+            <TabCompetences
+              utilisateur={utilisateur}
+              setUtilisateur={setUtilisateur}
+              label="Compétences de l'intervenant"
+            />
+          ),
+        },
+        {
+          key: "disponibilites",
+          label: `Validité`,
+          children: (
+            <TabDisponibilites
+              utilisateur={utilisateur as unknown as IUtilisateur}
+              setUtilisateur={setUtilisateur}
+              onArchive={() => {
+                message.success("Utilisateur archivé").then();
+                onClose();
+              }}
+            />
+          ),
+        },
+      ];
+    }
+
+    if (role === RoleValues.ROLE_BENEFICIAIRE) {
+      const tabs = [];
+      if (auth.user?.isGestionnaire) {
+        tabs.push({
+          key: "profil",
+          label: "Profil",
+          children: <TabProfils utilisateur={utilisateur as unknown as IUtilisateur} />,
+        });
       }
 
-      if (role === RoleValues.ROLE_BENEFICIAIRE) {
-         const tabs = [];
-         if (auth.user?.isGestionnaire) {
-            tabs.push({
-               key: "profil",
-               label: "Profil",
-               children: <TabProfils utilisateur={utilisateur as unknown as IUtilisateur} />,
-            });
-         }
+      tabs.push({
+        key: "scolarite",
+        label: `Scolarité`,
+        children: <TabScolarite utilisateur={data} />,
+      });
 
-         tabs.push({
-            key: "scolarite",
-            label: `Scolarité`,
-            children: <TabScolarite utilisateur={data} />,
-         });
+      tabs.push({
+        key: "aidesHumaines",
+        label: `Aides humaines`,
+        children: <TabAidesHumaines utilisateur={data} />,
+      });
 
-         tabs.push({
-            key: "aidesHumaines",
-            label: `Aides humaines`,
-            children: <TabAidesHumaines utilisateur={data} />,
-         });
+      return tabs;
+    }
 
-         return tabs;
-      }
+    return [];
+  }
 
-      return [];
-   }
-
-   return (
-      <Tabs
-         activeKey={activeKey}
-         onChange={onChange}
-         items={[
-            {
-               key: "informations",
-               label: `Informations`,
-               children: <TabPersonneInformations />,
-            },
-            ...getTabsByRole(),
-         ]}
-      />
-   );
+  return (
+    <Tabs
+      activeKey={activeKey}
+      onChange={onChange}
+      items={[
+        {
+          key: "informations",
+          label: `Informations`,
+          children: <TabPersonneInformations />,
+        },
+        ...getTabsByRole(),
+      ]}
+    />
+  );
 }

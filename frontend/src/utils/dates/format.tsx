@@ -21,11 +21,11 @@ import { isSameDay } from "@utils/dates/range";
  * @return {DayValue} - The DayValue object representing the year, month, and day of the given date.
  */
 export function toDayValue(date: Date): DayValue {
-   return {
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate(),
-   };
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+  };
 }
 
 /**
@@ -35,8 +35,8 @@ export function toDayValue(date: Date): DayValue {
  * @return {Date} - The converted JavaScript Date object.
  */
 export function toDate(dayValue: DayValue): Date {
-   if (!dayValue) return new Date();
-   return new Date(dayValue.year, dayValue.month - 1, dayValue.day);
+  if (!dayValue) return new Date();
+  return new Date(dayValue.year, dayValue.month - 1, dayValue.day);
 }
 
 /**
@@ -46,10 +46,10 @@ export function toDate(dayValue: DayValue): Date {
  * @returns {Date} - The converted Date object.
  */
 export const stringOrDateToDate = (date: stringOrDate): Date => {
-   if (typeof date === "string") {
-      return new Date(date);
-   }
-   return date;
+  if (typeof date === "string") {
+    return new Date(date);
+  }
+  return date;
 };
 
 /**
@@ -59,10 +59,10 @@ export const stringOrDateToDate = (date: stringOrDate): Date => {
  * @returns {string} - The converted date as a string.
  */
 export const stringOrDateToString = (date: stringOrDate): string => {
-   if (typeof date === "string") {
-      return date;
-   }
-   return date.toISOString();
+  if (typeof date === "string") {
+    return date;
+  }
+  return date.toISOString();
 };
 
 /**
@@ -72,34 +72,34 @@ export const stringOrDateToString = (date: stringOrDate): string => {
  * @returns {ReactElement} - The label element.
  */
 export const rangeToLabel = (debut: Date, fin: Date): ReactElement => {
-   let from = dayjs(debut).format("DD");
-   const to = dayjs(fin).format("DD MMMM YYYY");
+  let from = dayjs(debut).format("DD");
+  const to = dayjs(fin).format("DD MMMM YYYY");
 
-   if (dayjs(debut).format("YYYY") !== dayjs(fin).format("YYYY")) {
-      from = dayjs(debut).format("DD MMMM YYYY");
-   } else if (dayjs(debut).format("MM") !== dayjs(fin).format("MM")) {
-      from = dayjs(debut).format("DD MMMM");
-   }
+  if (dayjs(debut).format("YYYY") !== dayjs(fin).format("YYYY")) {
+    from = dayjs(debut).format("DD MMMM YYYY");
+  } else if (dayjs(debut).format("MM") !== dayjs(fin).format("MM")) {
+    from = dayjs(debut).format("DD MMMM");
+  }
 
-   if (isSameDay(debut, fin)) {
-      return (
-         <span aria-label={`Jour affiché : le ${dayjs(debut).format("DD MMMM YYYY")}`}>
-            {dayjs(debut).format("DD MMMM YYYY")}
-         </span>
-      );
-   }
+  if (isSameDay(debut, fin)) {
+    return (
+      <span aria-label={`Jour affiché : le ${dayjs(debut).format("DD MMMM YYYY")}`}>
+        {dayjs(debut).format("DD MMMM YYYY")}
+      </span>
+    );
+  }
 
-   return (
-      <div aria-label={`Période affichée : du ${from} au ${to}`}>
-         <div>
-            <span className="from">{from}</span>
-            <span className="to">
-               {" "}
-               <RightOutlined className="fs-09" aria-hidden={true} /> {to}
-            </span>
-         </div>
+  return (
+    <div aria-label={`Période affichée : du ${from} au ${to}`}>
+      <div>
+        <span className="from">{from}</span>
+        <span className="to">
+          {" "}
+          <RightOutlined className="fs-09" aria-hidden={true} /> {to}
+        </span>
       </div>
-   );
+    </div>
+  );
 };
 
 /**
@@ -117,34 +117,34 @@ export const rangeToLabel = (debut: Date, fin: Date): ReactElement => {
  *                   - "[formatted start date] au [formatted end date]" if start and end dates are provided and are in different years or months.
  */
 export function getLibellePeriode(
-   debut: string | undefined | null,
-   fin: string | undefined | null,
-   formatMois = "MMMM",
+  debut: string | undefined | null,
+  fin: string | undefined | null,
+  formatMois = "MMMM",
 ): string {
-   if (!debut && !fin) return "- période non renseignée -";
+  if (!debut && !fin) return "- période non renseignée -";
 
-   if (!debut) {
-      return `jusqu'au ${dayjs(fin).format(`DD ${formatMois} YYYY`)}`;
-   }
+  if (!debut) {
+    return `jusqu'au ${dayjs(fin).format(`DD ${formatMois} YYYY`)}`;
+  }
 
-   if (!fin) {
-      return `à compter du ${dayjs(debut).format(`DD ${formatMois} YYYY`)}`;
-   }
+  if (!fin) {
+    return `à compter du ${dayjs(debut).format(`DD ${formatMois} YYYY`)}`;
+  }
 
-   const dateDebut = new Date(debut);
-   const dateFin = new Date(fin);
+  const dateDebut = new Date(debut);
+  const dateFin = new Date(fin);
 
-   if (dateDebut.getFullYear() === dateFin.getFullYear()) {
-      if (dateDebut.getMonth() === dateFin.getMonth()) {
-         return `${dayjs(dateDebut).format("DD")} au ${dayjs(dateFin).format(`DD ${formatMois} YYYY`)}`;
-      }
-      return `${dayjs(dateDebut).format(`DD ${formatMois}`)} au ${dayjs(dateFin).format(`DD ${formatMois} YYYY`)}`;
-   }
-   return `${dayjs(dateDebut).format(`DD ${formatMois} YYYY`)} au ${dayjs(dateFin).format(
-      `DD ${formatMois} YYYY`,
-   )}`;
+  if (dateDebut.getFullYear() === dateFin.getFullYear()) {
+    if (dateDebut.getMonth() === dateFin.getMonth()) {
+      return `${dayjs(dateDebut).format("DD")} au ${dayjs(dateFin).format(`DD ${formatMois} YYYY`)}`;
+    }
+    return `${dayjs(dateDebut).format(`DD ${formatMois}`)} au ${dayjs(dateFin).format(`DD ${formatMois} YYYY`)}`;
+  }
+  return `${dayjs(dateDebut).format(`DD ${formatMois} YYYY`)} au ${dayjs(dateFin).format(
+    `DD ${formatMois} YYYY`,
+  )}`;
 }
 
 export function calculerAge(dateNaissance: string) {
-   return dayjs().diff(dayjs(dateNaissance), "year");
+  return dayjs().diff(dayjs(dateNaissance), "year");
 }

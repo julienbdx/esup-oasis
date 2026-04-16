@@ -15,34 +15,34 @@ import { useInView } from "react-intersection-observer";
 import { Skeleton } from "antd";
 
 export function ChargesAccompagnementsItem(props: {
-   utilisateurId?: string | undefined;
-   utilisateur?: IUtilisateur;
+  utilisateurId?: string | undefined;
+  utilisateur?: IUtilisateur;
 }) {
-   const [item, setItem] = useState(props.utilisateur);
-   const { ref, inView } = useInView();
+  const [item, setItem] = useState(props.utilisateur);
+  const { ref, inView } = useInView();
 
-   const { data } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: props.utilisateurId,
-      enabled: !!props.utilisateurId && inView,
-   });
+  const { data } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: props.utilisateurId,
+    enabled: !!props.utilisateurId && inView,
+  });
 
-   useEffect(() => {
-      if (data) {
-         setItem(data);
-      }
-   }, [data]);
+  useEffect(() => {
+    if (data) {
+      setItem(data);
+    }
+  }, [data]);
 
-   if (!item)
-      return (
-         <div ref={ref}>
-            <Skeleton.Input className="mb-05" active />
-         </div>
-      );
-
-   return item.gestionnairesActifs?.map((g: string) => (
-      <div key={g} style={{ margin: "2px 0" }}>
-         <GestionnaireItem gestionnaireId={g} initialePrenom />
+  if (!item)
+    return (
+      <div ref={ref}>
+        <Skeleton.Input className="mb-05" active />
       </div>
-   ));
+    );
+
+  return item.gestionnairesActifs?.map((g: string) => (
+    <div key={g} style={{ margin: "2px 0" }}>
+      <GestionnaireItem gestionnaireId={g} initialePrenom />
+    </div>
+  ));
 }

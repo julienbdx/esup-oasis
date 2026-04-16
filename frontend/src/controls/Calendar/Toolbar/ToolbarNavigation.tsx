@@ -16,53 +16,53 @@ import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresC
 import { affichageNbJours, calculateRange, rangeToLabel } from "@utils/dates";
 
 export default function ToolbarNavigation() {
-   const screens = useBreakpoint();
-   const { affichageFiltres, setFiltres } = useAffichageFiltres();
-   const step = affichageNbJours(affichageFiltres.affichage.type, affichageFiltres.filtres.debut);
+  const screens = useBreakpoint();
+  const { affichageFiltres, setFiltres } = useAffichageFiltres();
+  const step = affichageNbJours(affichageFiltres.affichage.type, affichageFiltres.filtres.debut);
 
-   return (
-      <Space size={3}>
-         <Button
-            data-testid="toolbar-btn-prev"
+  return (
+    <Space size={3}>
+      <Button
+        data-testid="toolbar-btn-prev"
+        size="large"
+        aria-label="Consulter la période précédente"
+        icon={<ArrowLeftOutlined />}
+        onClick={() =>
+          setFiltres({
+            debut: dayjs(affichageFiltres.filtres.debut).subtract(step, "days").toDate(),
+            fin: dayjs(affichageFiltres.filtres.fin).subtract(step, "days").toDate(),
+          })
+        }
+      />
+      {screens.lg && (
+        <Tooltip title="Afficher aujourd'hui">
+          <Button
+            className="light"
             size="large"
-            aria-label="Consulter la période précédente"
-            icon={<ArrowLeftOutlined />}
-            onClick={() =>
-               setFiltres({
-                  debut: dayjs(affichageFiltres.filtres.debut).subtract(step, "days").toDate(),
-                  fin: dayjs(affichageFiltres.filtres.fin).subtract(step, "days").toDate(),
-               })
-            }
-         />
-         {screens.lg && (
-            <Tooltip title="Afficher aujourd'hui">
-               <Button
-                  className="light"
-                  size="large"
-                  aria-label="Afficher aujourd'hui"
-                  onClick={() => {
-                     const range = calculateRange(new Date(), affichageFiltres.affichage.type);
-                     setFiltres({ debut: range.from, fin: range.to });
-                  }}
-               >
-                  <CalendarOutlined />
-               </Button>
-            </Tooltip>
-         )}
-         <Button
-            data-testid="toolbar-btn-next"
-            size="large"
-            aria-label="Consulter la période suivante"
-            icon={<ArrowRightOutlined />}
-            className="mr-2"
-            onClick={() =>
-               setFiltres({
-                  debut: dayjs(affichageFiltres.filtres.debut).add(step, "days").toDate(),
-                  fin: dayjs(affichageFiltres.filtres.fin).add(step, "days").toDate(),
-               })
-            }
-         />
-         {screens.md && rangeToLabel(affichageFiltres.filtres.debut, affichageFiltres.filtres.fin)}
-      </Space>
-   );
+            aria-label="Afficher aujourd'hui"
+            onClick={() => {
+              const range = calculateRange(new Date(), affichageFiltres.affichage.type);
+              setFiltres({ debut: range.from, fin: range.to });
+            }}
+          >
+            <CalendarOutlined />
+          </Button>
+        </Tooltip>
+      )}
+      <Button
+        data-testid="toolbar-btn-next"
+        size="large"
+        aria-label="Consulter la période suivante"
+        icon={<ArrowRightOutlined />}
+        className="mr-2"
+        onClick={() =>
+          setFiltres({
+            debut: dayjs(affichageFiltres.filtres.debut).add(step, "days").toDate(),
+            fin: dayjs(affichageFiltres.filtres.fin).add(step, "days").toDate(),
+          })
+        }
+      />
+      {screens.md && rangeToLabel(affichageFiltres.filtres.debut, affichageFiltres.filtres.fin)}
+    </Space>
+  );
 }

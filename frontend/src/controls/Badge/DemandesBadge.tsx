@@ -18,17 +18,17 @@ import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
  * @constructor
  */
 export default function DemandesBadge(props: { utilisateurId: string }) {
-   const { data: demandes } = useApi().useGetCollectionPaginated({
-      path: "/demandes",
-      query: {
-         demandeur: props.utilisateurId,
-         format_simple: true,
-      },
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  const { data: demandes } = useApi().useGetCollectionPaginated({
+    path: "/demandes",
+    query: {
+      demandeur: props.utilisateurId,
+      format_simple: true,
+    },
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   return demandes && demandes.items.length > 0 ? (
-      <Badge color="cyan" size="small" count={demandes.items.length} />
-   ) : null;
+  return demandes && demandes.items.length > 0 ? (
+    <Badge color="cyan" size="small" count={demandes.items.length} />
+  ) : null;
 }

@@ -21,30 +21,30 @@ import { env } from "@/env";
  * @constructor
  */
 export default function DemandeSaisie() {
-   const { id } = useParams<"id">();
+  const { id } = useParams<"id">();
 
-   if (!id) return <Spinner />;
+  if (!id) return <Spinner />;
 
-   return (
-      <Layout.Content style={{ padding: "0 50px" }}>
-         <Typography.Title level={1}>
-            Demande
-            <Tooltip
-               title={`Envoyer un email au service ${env.REACT_APP_SERVICE} pour obtenir de l'aide`}
-            >
-               <Button
-                  className="float-right mt-2"
-                  onClick={() => window.open(`mailto:${env.REACT_APP_EMAIL_SERVICE}`)}
-                  icon={<QuestionCircleOutlined aria-hidden />}
-                  aria-label={`Envoyer un email au service ${env.REACT_APP_SERVICE} pour obtenir de l'aide`}
-               >
-                  Besoin d'aide
-               </Button>
-            </Tooltip>
-         </Typography.Title>
-         <QuestionnaireProvider demandeId={`/demandes/${id}`}>
-            <TypeDemandeContent />
-         </QuestionnaireProvider>
-      </Layout.Content>
-   );
+  return (
+    <Layout.Content style={{ padding: "0 50px" }}>
+      <Typography.Title level={1}>
+        Demande
+        <Tooltip
+          title={`Envoyer un email au service ${env.REACT_APP_SERVICE} pour obtenir de l'aide`}
+        >
+          <Button
+            className="float-right mt-2"
+            onClick={() => window.open(`mailto:${env.REACT_APP_EMAIL_SERVICE}`)}
+            icon={<QuestionCircleOutlined aria-hidden />}
+            aria-label={`Envoyer un email au service ${env.REACT_APP_SERVICE} pour obtenir de l'aide`}
+          >
+            Besoin d'aide
+          </Button>
+        </Tooltip>
+      </Typography.Title>
+      <QuestionnaireProvider demandeId={`/demandes/${id}`}>
+        <TypeDemandeContent />
+      </QuestionnaireProvider>
+    </Layout.Content>
+  );
 }

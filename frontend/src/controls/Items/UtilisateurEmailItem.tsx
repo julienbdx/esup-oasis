@@ -13,9 +13,9 @@ import { useApi } from "@context/api/ApiProvider";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface IItemIntervenant {
-   utilisateur?: IUtilisateur;
-   utilisateurId?: string | null;
-   emailPerso: boolean;
+  utilisateur?: IUtilisateur;
+  utilisateurId?: string | null;
+  emailPerso: boolean;
 }
 
 /**
@@ -27,30 +27,30 @@ interface IItemIntervenant {
  * @return {string|ReactElement} The email of the user.
  */
 export default function UtilisateurEmailItem({
-   utilisateur,
-   utilisateurId,
-   emailPerso,
+  utilisateur,
+  utilisateurId,
+  emailPerso,
 }: IItemIntervenant): string | ReactElement {
-   const [item, setItem] = useState(utilisateur);
-   const { data } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: utilisateurId as string,
-      enabled: !!utilisateurId,
-   });
+  const [item, setItem] = useState(utilisateur);
+  const { data } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: utilisateurId as string,
+    enabled: !!utilisateurId,
+  });
 
-   useEffect(() => {
-      if (data) {
-         setItem(data);
-      }
-   }, [data]);
+  useEffect(() => {
+    if (data) {
+      setItem(data);
+    }
+  }, [data]);
 
-   if (!utilisateur && !utilisateurId) return <></>;
+  if (!utilisateur && !utilisateurId) return <></>;
 
-   if (!item) return <Spinner />;
+  if (!item) return <Spinner />;
 
-   if (emailPerso) {
-      return item?.emailPerso as string;
-   }
+  if (emailPerso) {
+    return item?.emailPerso as string;
+  }
 
-   return item?.email as string;
+  return item?.email as string;
 }

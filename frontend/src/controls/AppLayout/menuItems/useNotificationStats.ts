@@ -17,26 +17,26 @@ import { IStatistiquesEvenements } from "@api/ApiTypeHelpers";
  * Includes the fetching logic and polling (via useGetItem).
  */
 export function useNotificationStats() {
-   const auth = useAuth();
-   const wait = useWait(2500);
+  const auth = useAuth();
+  const wait = useWait(2500);
 
-   const { data: stats, isFetching: isFetchingStats } = useApi().useGetItem({
-      path: "/statistiques",
-      url: "/statistiques",
-      query: {
-         utilisateur: auth.user?.["@id"] as string,
-      },
-      // Les bénéficiaires n'ont pas accès aux stats
-      // Bugfix lors de l'impersonate
-      enabled:
-         !wait &&
-         !!auth.user?.["@id"] &&
-         (auth.user?.isPlanificateur || auth.user?.isIntervenant) &&
-         !auth.impersonate,
-   });
+  const { data: stats, isFetching: isFetchingStats } = useApi().useGetItem({
+    path: "/statistiques",
+    url: "/statistiques",
+    query: {
+      utilisateur: auth.user?.["@id"] as string,
+    },
+    // Les bénéficiaires n'ont pas accès aux stats
+    // Bugfix lors de l'impersonate
+    enabled:
+      !wait &&
+      !!auth.user?.["@id"] &&
+      (auth.user?.isPlanificateur || auth.user?.isIntervenant) &&
+      !auth.impersonate,
+  });
 
-   return {
-      stats: stats as IStatistiquesEvenements | undefined,
-      isFetchingStats,
-   };
+  return {
+    stats: stats as IStatistiquesEvenements | undefined,
+    isFetchingStats,
+  };
 }

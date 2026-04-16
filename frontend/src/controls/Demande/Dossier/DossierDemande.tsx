@@ -17,37 +17,37 @@ import { RefsTourDemande } from "@routes/gestionnaire/demandeurs/Demande";
 import { DossierDemandeTabs } from "@controls/Demande/Dossier/DossierDemandeTabs";
 
 export function DossierDemande(props: {
-   refs?: RefsTourDemande;
-   affichageTour?: boolean;
+  refs?: RefsTourDemande;
+  affichageTour?: boolean;
 }): React.ReactElement {
-   const { demande, typeDemande, form } = useQuestionnaire();
+  const { demande, typeDemande, form } = useQuestionnaire();
 
-   if (!demande || !typeDemande) return <Spinner />;
+  if (!demande || !typeDemande) return <Spinner />;
 
-   return (
-      <>
-         {props.affichageTour ? (
-            <Card className="mt-2">
-               <AvancementDemandeGestion refs={props.refs} />
-            </Card>
-         ) : (
-            <Affix offsetTop={75}>
-               <Card className="mt-2">
-                  <AvancementDemandeGestion />
-               </Card>
-            </Affix>
-         )}
-         <Card
-            className="mt-2"
-            title={<TypeDemandeItem typeDemandeId={demande.typeDemande} showInfos />}
-         >
-            <DossierDemandeTabs
-               demande={demande}
-               typeDemande={typeDemande}
-               form={form}
-               refs={props.refs}
-            />
-         </Card>
-      </>
-   );
+  return (
+    <>
+      {props.affichageTour ? (
+        <Card className="mt-2">
+          <AvancementDemandeGestion refs={props.refs} />
+        </Card>
+      ) : (
+        <Affix offsetTop={75}>
+          <Card className="mt-2">
+            <AvancementDemandeGestion />
+          </Card>
+        </Affix>
+      )}
+      <Card
+        className="mt-2"
+        title={<TypeDemandeItem typeDemandeId={demande.typeDemande} showInfos />}
+      >
+        <DossierDemandeTabs
+          demande={demande}
+          typeDemande={typeDemande}
+          form={form}
+          refs={props.refs}
+        />
+      </Card>
+    </>
+  );
 }

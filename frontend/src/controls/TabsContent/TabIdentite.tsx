@@ -18,88 +18,88 @@ import { SuiviSection } from "@controls/TabsContent/TabIdentite/SuiviSection";
 import { CommentaireDemandeSection } from "@controls/TabsContent/TabIdentite/CommentaireDemandeSection";
 
 export function TabIdentite(props: {
-   utilisateurId: string;
-   demandeId?: string;
+  utilisateurId: string;
+  demandeId?: string;
 }): React.ReactElement {
-   const { message } = App.useApp();
-   const [form] = Form.useForm();
-   const user = useAuth().user;
-   const [commentaire, setCommentaire] = useState<string>();
+  const { message } = App.useApp();
+  const [form] = Form.useForm();
+  const user = useAuth().user;
+  const [commentaire, setCommentaire] = useState<string>();
 
-   const { data: utilisateur, isFetching } = useApi().useGetItem({
-      path: "/utilisateurs/{uid}",
-      url: props.utilisateurId,
-      enabled: !!props.utilisateurId,
-   });
+  const { data: utilisateur, isFetching } = useApi().useGetItem({
+    path: "/utilisateurs/{uid}",
+    url: props.utilisateurId,
+    enabled: !!props.utilisateurId,
+  });
 
-   const { data: demande } = useApi().useGetItem({
-      path: "/demandes/{id}",
-      url: props.demandeId,
-      enabled: !!props.demandeId,
-   });
+  const { data: demande } = useApi().useGetItem({
+    path: "/demandes/{id}",
+    url: props.demandeId,
+    enabled: !!props.demandeId,
+  });
 
-   const mutateDemande = useApi().usePatch({
-      path: "/demandes/{id}",
-      invalidationQueryKeys: [props.demandeId as string],
-      onSuccess: () => {
-         message.success("Commentaire enregistré").then();
-      },
-   });
+  const mutateDemande = useApi().usePatch({
+    path: "/demandes/{id}",
+    invalidationQueryKeys: [props.demandeId as string],
+    onSuccess: () => {
+      message.success("Commentaire enregistré").then();
+    },
+  });
 
-   const mutateUtilisateur = useApi().usePatch({
-      path: "/utilisateurs/{uid}",
-      invalidationQueryKeys: [QK_UTILISATEURS, utilisateur?.["@id"] || QK_UTILISATEURS],
-      onSuccess: () => message.success("Utilisateur modifié").then(),
-   });
+  const mutateUtilisateur = useApi().usePatch({
+    path: "/utilisateurs/{uid}",
+    invalidationQueryKeys: [QK_UTILISATEURS, utilisateur?.["@id"] || QK_UTILISATEURS],
+    onSuccess: () => message.success("Utilisateur modifié").then(),
+  });
 
-   useEffect(() => {
-      form.setFieldsValue(utilisateur);
-   }, [form, utilisateur]);
+  useEffect(() => {
+    form.setFieldsValue(utilisateur);
+  }, [form, utilisateur]);
 
-   useEffect(() => {
-      setCommentaire(demande?.commentaire || "");
-   }, [demande]);
+  useEffect(() => {
+    setCommentaire(demande?.commentaire || "");
+  }, [demande]);
 
-   if (!utilisateur) {
-      return (
-         <Form form={form}>
-            <Skeleton active paragraph />
-         </Form>
-      );
-   }
+  if (!utilisateur) {
+    return (
+      <Form form={form}>
+        <Skeleton active paragraph />
+      </Form>
+    );
+  }
 
-   return (
-      <div>
-         <h2 className="sr-only">Identité</h2>
+  return (
+    <div>
+      <h2 className="sr-only">Identité</h2>
 
-         <IdentiteSection
+      <IdentiteSection
+        utilisateur={utilisateur}
+        isFetching={isFetching}
+        mutateUtilisateur={mutateUtilisateur.mutate}
+      />
+
+      <Row gutter={16}>
+        <ScolariteSection utilisateur={utilisateur} isFetching={isFetching} />
+
+        {user?.isGestionnaire && (
+          <SuiviSection
             utilisateur={utilisateur}
             isFetching={isFetching}
             mutateUtilisateur={mutateUtilisateur.mutate}
-         />
+            form={form}
+          />
+        )}
+      </Row>
 
-         <Row gutter={16}>
-            <ScolariteSection utilisateur={utilisateur} isFetching={isFetching} />
-
-            {user?.isGestionnaire && (
-               <SuiviSection
-                  utilisateur={utilisateur}
-                  isFetching={isFetching}
-                  mutateUtilisateur={mutateUtilisateur.mutate}
-                  form={form}
-               />
-            )}
-         </Row>
-
-         {props.demandeId && user?.isGestionnaire && (
-            <CommentaireDemandeSection
-               demandeId={props.demandeId}
-               isFetching={isFetching}
-               commentaire={commentaire}
-               setCommentaire={setCommentaire}
-               mutateDemande={mutateDemande.mutate}
-            />
-         )}
-      </div>
-   );
+      {props.demandeId && user?.isGestionnaire && (
+        <CommentaireDemandeSection
+          demandeId={props.demandeId}
+          isFetching={isFetching}
+          commentaire={commentaire}
+          setCommentaire={setCommentaire}
+          mutateDemande={mutateDemande.mutate}
+        />
+      )}
+    </div>
+  );
 }

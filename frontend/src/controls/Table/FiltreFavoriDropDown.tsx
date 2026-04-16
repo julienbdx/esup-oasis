@@ -16,36 +16,36 @@ import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPrefe
 import { UseStateDispatch } from "@utils/utils";
 
 export function FiltreFavoriDropDown<T extends FiltreDecrivable>(props: {
-   setFiltre: UseStateDispatch<T>;
-   filtreType: string;
-   className?: string;
+  setFiltre: UseStateDispatch<T>;
+  filtreType: string;
+  className?: string;
 }) {
-   const { message } = App.useApp();
-   const { getPreferenceArray } = usePreferences();
+  const { message } = App.useApp();
+  const { getPreferenceArray } = usePreferences();
 
-   return (
-      <Dropdown
-         className={props.className}
-         menu={{
-            items: getPreferenceArray(props.filtreType).map((f) => ({
-               key: f.nom,
-               label: (
-                  <Button
-                     type="text"
-                     className="no-hover"
-                     onClick={(e) => {
-                        e.stopPropagation();
-                        props.setFiltre(f.filtre as T);
-                        message.info(`Filtre "${f.nom}" appliqué`).then();
-                     }}
-                  >
-                     {f.nom}
-                  </Button>
-               ),
-            })),
-         }}
-      >
-         <HeartOutlined className={props.className} aria-hidden />
-      </Dropdown>
-   );
+  return (
+    <Dropdown
+      className={props.className}
+      menu={{
+        items: getPreferenceArray(props.filtreType).map((f) => ({
+          key: f.nom,
+          label: (
+            <Button
+              type="text"
+              className="no-hover"
+              onClick={(e) => {
+                e.stopPropagation();
+                props.setFiltre(f.filtre as T);
+                message.info(`Filtre "${f.nom}" appliqué`).then();
+              }}
+            >
+              {f.nom}
+            </Button>
+          ),
+        })),
+      }}
+    >
+      <HeartOutlined className={props.className} aria-hidden />
+    </Dropdown>
+  );
 }

@@ -9,8 +9,8 @@
 
 import React from "react";
 import {
-   FiltreAmenagement,
-   getFiltreAmenagementDefault,
+  FiltreAmenagement,
+  getFiltreAmenagementDefault,
 } from "@controls/Table/AmenagementTableLayout";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 import { Utilisateur } from "@lib/Utilisateur";
@@ -28,108 +28,108 @@ import { FilterFieldFormations } from "@controls/Table/filters/FilterFieldFormat
 import { FilterPanel } from "@controls/Table/FilterPanel";
 
 export function AmenagementTableFilter(props: {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
-   modeAffichage: ModeAffichageAmenagement;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  modeAffichage: ModeAffichageAmenagement;
 }) {
-   const {
-      categoriesAmenagements,
-      typesAmenagements,
-      suivis,
-      composantes,
-      formations,
-      tags,
-      gestionnaires,
-      isFetchingGestionnaires,
-      estRenfort,
-      estReferent,
-      user,
-   } = useAmenagementFilterOptions(props.filtreAmenagement);
+  const {
+    categoriesAmenagements,
+    typesAmenagements,
+    suivis,
+    composantes,
+    formations,
+    tags,
+    gestionnaires,
+    isFetchingGestionnaires,
+    estRenfort,
+    estReferent,
+    user,
+  } = useAmenagementFilterOptions(props.filtreAmenagement);
 
-   return (
-      <FilterPanel
-         filtre={props.filtreAmenagement}
-         setFiltre={props.setFiltreAmenagement}
-         filtreType={
-            props.modeAffichage === ModeAffichageAmenagement.ParAmenagement
-               ? "filtresAmenagement"
-               : "filtresAmenagementParBeneficiaire"
-         }
-         defaultFilter={getFiltreAmenagementDefault(user as Utilisateur)}
-      >
-         <FilterFieldNom
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-         />
+  return (
+    <FilterPanel
+      filtre={props.filtreAmenagement}
+      setFiltre={props.setFiltreAmenagement}
+      filtreType={
+        props.modeAffichage === ModeAffichageAmenagement.ParAmenagement
+          ? "filtresAmenagement"
+          : "filtresAmenagementParBeneficiaire"
+      }
+      defaultFilter={getFiltreAmenagementDefault(user as Utilisateur)}
+    >
+      <FilterFieldNom
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+      />
 
-         <FilterFieldDomaine
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            modeAffichage={props.modeAffichage}
-            estRenfort={estRenfort}
-            estReferent={estReferent}
-         />
+      <FilterFieldDomaine
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        modeAffichage={props.modeAffichage}
+        estRenfort={estRenfort}
+        estReferent={estReferent}
+      />
 
-         <FilterFieldCategories
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            categoriesAmenagements={categoriesAmenagements}
-            typesAmenagements={typesAmenagements}
-            user={user}
-            estRenfort={estRenfort}
-            estReferent={estReferent}
-         />
+      <FilterFieldCategories
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        categoriesAmenagements={categoriesAmenagements}
+        typesAmenagements={typesAmenagements}
+        user={user}
+        estRenfort={estRenfort}
+        estReferent={estReferent}
+      />
 
-         <FilterFieldTypes
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            typesAmenagements={typesAmenagements}
-            estRenfort={estRenfort}
-            estReferent={estReferent}
-         />
+      <FilterFieldTypes
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        typesAmenagements={typesAmenagements}
+        estRenfort={estRenfort}
+        estReferent={estReferent}
+      />
 
-         <FilterFieldGestionnaires
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            gestionnaires={gestionnaires}
-            isFetchingGestionnaires={isFetchingGestionnaires}
-            user={user}
-         />
+      <FilterFieldGestionnaires
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        gestionnaires={gestionnaires}
+        isFetchingGestionnaires={isFetchingGestionnaires}
+        user={user}
+      />
 
-         <FilterFieldTags
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            tags={tags}
-            estRenfort={estRenfort}
-            estReferent={estReferent}
-         />
+      <FilterFieldTags
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        tags={tags}
+        estRenfort={estRenfort}
+        estReferent={estReferent}
+      />
 
-         <FilterFieldAvisEse
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            modeAffichage={props.modeAffichage}
-            estRenfort={estRenfort}
-            estReferent={estReferent}
-         />
+      <FilterFieldAvisEse
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        modeAffichage={props.modeAffichage}
+        estRenfort={estRenfort}
+        estReferent={estReferent}
+      />
 
-         <FilterFieldSuivis
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            suivis={suivis}
-            modeAffichage={props.modeAffichage}
-         />
+      <FilterFieldSuivis
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        suivis={suivis}
+        modeAffichage={props.modeAffichage}
+      />
 
-         <FilterFieldComposantes
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            composantes={composantes}
-         />
+      <FilterFieldComposantes
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        composantes={composantes}
+      />
 
-         <FilterFieldFormations
-            filtreAmenagement={props.filtreAmenagement}
-            setFiltreAmenagement={props.setFiltreAmenagement}
-            formations={formations}
-         />
-      </FilterPanel>
-   );
+      <FilterFieldFormations
+        filtreAmenagement={props.filtreAmenagement}
+        setFiltreAmenagement={props.setFiltreAmenagement}
+        formations={formations}
+      />
+    </FilterPanel>
+  );
 }

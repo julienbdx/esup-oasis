@@ -15,55 +15,55 @@ import { PaginateResult } from "@context/api/ApiProvider";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface FilterFieldGestionnairesDemandePProps {
-   filtreDemande: FiltreDemande;
-   setFiltreDemande: UseStateDispatch<FiltreDemande>;
-   gestionnaires:
-      | PaginateResult<{
-           "hydra:member": IUtilisateur[];
-        }>
-      | undefined;
-   isFetchingGestionnaires: boolean;
+  filtreDemande: FiltreDemande;
+  setFiltreDemande: UseStateDispatch<FiltreDemande>;
+  gestionnaires:
+    | PaginateResult<{
+        "hydra:member": IUtilisateur[];
+      }>
+    | undefined;
+  isFetchingGestionnaires: boolean;
 }
 
 export function FilterFieldGestionnairesDemande({
-   filtreDemande,
-   setFiltreDemande,
-   gestionnaires,
-   isFetchingGestionnaires,
+  filtreDemande,
+  setFiltreDemande,
+  gestionnaires,
+  isFetchingGestionnaires,
 }: FilterFieldGestionnairesDemandePProps) {
-   if (!gestionnaires) {
-      return null;
-   }
+  if (!gestionnaires) {
+    return null;
+  }
 
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <Space orientation="vertical" size={0}>
-               <span aria-label="Chargés d'accompagnement">Chargé•es d'accompagnement</span>
-               <span className="legende">Pour les bénéficiaires déjà connus</span>
-            </Space>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               placeholder="Tous les chargés d'accompagnement"
-               mode="tags"
-               allowClear
-               loading={isFetchingGestionnaires}
-               className="w-100"
-               options={gestionnaires?.items.map((g) => ({
-                  label: `${g.nom?.toLocaleUpperCase()} ${g.prenom}`,
-                  value: g["@id"],
-               }))}
-               value={filtreDemande["gestionnaire[]"]}
-               onChange={(value) => {
-                  setFiltreDemande((prev) => ({
-                     ...prev,
-                     "gestionnaire[]": value as string[],
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <Space orientation="vertical" size={0}>
+          <span aria-label="Chargés d'accompagnement">Chargé•es d'accompagnement</span>
+          <span className="legende">Pour les bénéficiaires déjà connus</span>
+        </Space>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          placeholder="Tous les chargés d'accompagnement"
+          mode="tags"
+          allowClear
+          loading={isFetchingGestionnaires}
+          className="w-100"
+          options={gestionnaires?.items.map((g) => ({
+            label: `${g.nom?.toLocaleUpperCase()} ${g.prenom}`,
+            value: g["@id"],
+          }))}
+          value={filtreDemande["gestionnaire[]"]}
+          onChange={(value) => {
+            setFiltreDemande((prev) => ({
+              ...prev,
+              "gestionnaire[]": value as string[],
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

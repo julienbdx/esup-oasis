@@ -15,49 +15,49 @@ import { IQuestion } from "@api/ApiTypeHelpers";
 import React from "react";
 
 export function QuestionRadio(props: { question: QuestionnaireQuestion }) {
-   const [submitting, setSubmitting] = React.useState<boolean>(false);
-   const { questUtils, mode } = useQuestionnaire();
+  const [submitting, setSubmitting] = React.useState<boolean>(false);
+  const { questUtils, mode } = useQuestionnaire();
 
-   // Get the possible values from the question
-   return (
-      <>
-         <Form.Item
-            className="mb-0"
-            rules={
-               mode !== "preview" && props.question.obligatoire
-                  ? [{ required: true, message: "Le champ est obligatoire" }]
-                  : []
-            }
-            required={props.question.obligatoire}
-            rootClassName="question-item"
-            label={
-               <Space className="question" orientation="horizontal">
-                  <MinusOutlined aria-hidden={true} />
-                  <div>{props.question.libelle}</div>
-               </Space>
-            }
-            name={props.question["@id"]}
-         >
-            <Radio.Group
-               disabled={mode === "preview" || submitting}
-               data-question={props.question["@id"]}
-               data-type={props.question.typeReponse}
-               options={(props.question as IQuestion).optionsReponses?.map((r) => ({
-                  label: r.libelle,
-                  value: r["@id"] as string,
-               }))}
-               onChange={(e) => {
-                  setSubmitting(true);
-                  questUtils?.envoyerReponse(
-                     props.question["@id"] as string,
-                     props.question.typeReponse as string,
-                     e.target.value,
-                     () => setSubmitting(false),
-                  );
-               }}
-            />
-         </Form.Item>
-         <QuestionAide question={props.question} />
-      </>
-   );
+  // Get the possible values from the question
+  return (
+    <>
+      <Form.Item
+        className="mb-0"
+        rules={
+          mode !== "preview" && props.question.obligatoire
+            ? [{ required: true, message: "Le champ est obligatoire" }]
+            : []
+        }
+        required={props.question.obligatoire}
+        rootClassName="question-item"
+        label={
+          <Space className="question" orientation="horizontal">
+            <MinusOutlined aria-hidden={true} />
+            <div>{props.question.libelle}</div>
+          </Space>
+        }
+        name={props.question["@id"]}
+      >
+        <Radio.Group
+          disabled={mode === "preview" || submitting}
+          data-question={props.question["@id"]}
+          data-type={props.question.typeReponse}
+          options={(props.question as IQuestion).optionsReponses?.map((r) => ({
+            label: r.libelle,
+            value: r["@id"] as string,
+          }))}
+          onChange={(e) => {
+            setSubmitting(true);
+            questUtils?.envoyerReponse(
+              props.question["@id"] as string,
+              props.question.typeReponse as string,
+              e.target.value,
+              () => setSubmitting(false),
+            );
+          }}
+        />
+      </Form.Item>
+      <QuestionAide question={props.question} />
+    </>
+  );
 }

@@ -12,30 +12,30 @@ import { Col, Input } from "antd";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 
 interface FilterFieldNomProps {
-   filtreAmenagement: FiltreAmenagement;
-   setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
+  filtreAmenagement: FiltreAmenagement;
+  setFiltreAmenagement: React.Dispatch<React.SetStateAction<FiltreAmenagement>>;
 }
 
 export function FilterFieldNom({ filtreAmenagement, setFiltreAmenagement }: FilterFieldNomProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Nom du bénéficiaire
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Input
-               allowClear
-               placeholder="Nom du bénéficiaire"
-               value={filtreAmenagement.nom}
-               onChange={(e) => {
-                  setFiltreAmenagement((prev) => ({
-                     ...prev,
-                     nom: e.target.value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Nom du bénéficiaire
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Input
+          allowClear
+          placeholder="Nom du bénéficiaire"
+          value={filtreAmenagement.nom}
+          onChange={(e) => {
+            setFiltreAmenagement((prev) => ({
+              ...prev,
+              nom: e.target.value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

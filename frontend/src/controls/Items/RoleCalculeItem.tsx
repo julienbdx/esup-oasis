@@ -13,9 +13,9 @@ import { Tag } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 interface IItemRoleProps {
-   role?: string;
-   roles?: string[];
-   className?: string;
+  role?: string;
+  roles?: string[];
+  className?: string;
 }
 
 /**
@@ -27,15 +27,15 @@ interface IItemRoleProps {
  * @returns {ReactElement} - The JSX element representing the calculated role tag.
  */
 export default function RoleCalculeItem({ role, roles, className }: IItemRoleProps): ReactElement {
-   const utilisateur = new Utilisateur({ roles: role ? [role] : roles });
+  const utilisateur = new Utilisateur({ roles: role ? [role] : roles });
 
-   return (
-      <Tag
-         icon={<UserOutlined aria-hidden />}
-         color={utilisateur.getRoleColor()}
-         className={className}
-      >
-         {getRoleLabel(utilisateur.roleCalcule as RoleValues)}
-      </Tag>
-   );
+  return (
+    <Tag
+      icon={<UserOutlined aria-hidden />}
+      color={utilisateur.getRoleColor()}
+      className={className}
+    >
+      {getRoleLabel(utilisateur.roleCalcule as RoleValues)}
+    </Tag>
+  );
 }

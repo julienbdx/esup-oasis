@@ -15,50 +15,46 @@ import { PlusOutlined } from "@ant-design/icons";
 import React from "react";
 
 export function UtilisateurTagAjouter(props: { utilisateurId: string }) {
-   const { message } = App.useApp();
-   const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
-   const { data: tags } = useApi().useGetCollection(PREFETCH_TAGS);
+  const { message } = App.useApp();
+  const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
+  const { data: tags } = useApi().useGetCollection(PREFETCH_TAGS);
 
-   const mutatePost = useApi().usePost({
-      path: "/utilisateurs/{uid}/tags",
-      url: `${props.utilisateurId}/tags`,
-      onSuccess: () => {
-         message.success("Tag ajouté").then();
-      },
-      invalidationQueryKeys: [
-         QK_UTILISATEURS_TAGS,
-         QK_BENEFICIAIRES,
-         props.utilisateurId as string,
-      ],
-   });
+  const mutatePost = useApi().usePost({
+    path: "/utilisateurs/{uid}/tags",
+    url: `${props.utilisateurId}/tags`,
+    onSuccess: () => {
+      message.success("Tag ajouté").then();
+    },
+    invalidationQueryKeys: [QK_UTILISATEURS_TAGS, QK_BENEFICIAIRES, props.utilisateurId as string],
+  });
 
-   return (
-      categories &&
-      tags && (
-         <Dropdown
-            menu={{
-               items: (categories?.items || [])
-                  .filter((c) => c.actif)
-                  .map((c) => ({
-                     label: c.libelle,
-                     key: c["@id"] as string,
-                     children: (tags?.items || [])
-                        .filter((t) => t.actif && t.categorie === c["@id"])
-                        .map((t) => ({
-                           label: t.libelle,
-                           key: t["@id"] as string,
-                           onClick: () =>
-                              mutatePost.mutate({
-                                 data: { tag: t["@id"] as string },
-                              }),
-                        })),
-                  })),
-            }}
-         >
-            <Button type="dashed" className="mt-05 mb-05" icon={<PlusOutlined />}>
-               Ajouter un tag
-            </Button>
-         </Dropdown>
-      )
-   );
+  return (
+    categories &&
+    tags && (
+      <Dropdown
+        menu={{
+          items: (categories?.items || [])
+            .filter((c) => c.actif)
+            .map((c) => ({
+              label: c.libelle,
+              key: c["@id"] as string,
+              children: (tags?.items || [])
+                .filter((t) => t.actif && t.categorie === c["@id"])
+                .map((t) => ({
+                  label: t.libelle,
+                  key: t["@id"] as string,
+                  onClick: () =>
+                    mutatePost.mutate({
+                      data: { tag: t["@id"] as string },
+                    }),
+                })),
+            })),
+        }}
+      >
+        <Button type="dashed" className="mt-05 mb-05" icon={<PlusOutlined />}>
+          Ajouter un tag
+        </Button>
+      </Dropdown>
+    )
+  );
 }

@@ -18,14 +18,14 @@ import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 interface IItemTypeEvenement {
-   typeEvenement?: ITypeEvenement;
-   typeEvenementId?: string;
-   showAvatar?: boolean;
-   responsive?: Breakpoint;
-   size?: number;
-   styleLibelle?: React.CSSProperties;
-   forceBlackText?: boolean;
-   className?: string;
+  typeEvenement?: ITypeEvenement;
+  typeEvenementId?: string;
+  showAvatar?: boolean;
+  responsive?: Breakpoint;
+  size?: number;
+  styleLibelle?: React.CSSProperties;
+  forceBlackText?: boolean;
+  className?: string;
 }
 
 /**
@@ -41,47 +41,47 @@ interface IItemTypeEvenement {
  * @returns {ReactElement} - The rendered item component.
  */
 export default function TypeEvenementItem({
-   typeEvenement,
-   typeEvenementId,
-   showAvatar = true,
-   responsive,
-   size,
-   styleLibelle,
-   forceBlackText = false,
-   className,
+  typeEvenement,
+  typeEvenementId,
+  showAvatar = true,
+  responsive,
+  size,
+  styleLibelle,
+  forceBlackText = false,
+  className,
 }: IItemTypeEvenement): ReactElement {
-   const { accessibilite: appAccessibilite } = useAccessibilite();
-   const [item, setItem] = useState(typeEvenement);
-   const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-   const screens = useBreakpoint();
+  const { accessibilite: appAccessibilite } = useAccessibilite();
+  const [item, setItem] = useState(typeEvenement);
+  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const screens = useBreakpoint();
 
-   useEffect(() => {
-      if (typesEvenements && typeEvenementId) {
-         setItem(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
-      }
-   }, [typesEvenements, typeEvenementId]);
+  useEffect(() => {
+    if (typesEvenements && typeEvenementId) {
+      setItem(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
+    }
+  }, [typesEvenements, typeEvenementId]);
 
-   if (!item) return <Spinner />;
+  if (!item) return <Spinner />;
 
-   return (
-      <Space className={className}>
-         {showAvatar && (!responsive || screens[responsive]) && (
-            <TypeEvenementAvatar size={size} typeEvenementId={item?.["@id"]} />
-         )}
-         <div
-            style={{
-               ...styleLibelle,
-               color: appAccessibilite.contrast
-                  ? appAccessibilite.contrast
-                     ? forceBlackText
-                        ? "#000"
-                        : `#FFF`
-                     : `var(--color-xlight-${item?.couleur})`
-                  : `var(--color-dark-${item?.couleur})`,
-            }}
-         >
-            {item?.libelle}
-         </div>
-      </Space>
-   );
+  return (
+    <Space className={className}>
+      {showAvatar && (!responsive || screens[responsive]) && (
+        <TypeEvenementAvatar size={size} typeEvenementId={item?.["@id"]} />
+      )}
+      <div
+        style={{
+          ...styleLibelle,
+          color: appAccessibilite.contrast
+            ? appAccessibilite.contrast
+              ? forceBlackText
+                ? "#000"
+                : `#FFF`
+              : `var(--color-xlight-${item?.couleur})`
+            : `var(--color-dark-${item?.couleur})`,
+        }}
+      >
+        {item?.libelle}
+      </div>
+    </Space>
+  );
 }

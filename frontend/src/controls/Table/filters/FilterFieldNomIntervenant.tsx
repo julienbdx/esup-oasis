@@ -13,33 +13,33 @@ import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 import { UseStateDispatch } from "@utils/utils";
 
 interface FilterFieldNomIntervenantProps {
-   filtreIntervenant: FiltreIntervenant;
-   setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
+  filtreIntervenant: FiltreIntervenant;
+  setFiltreIntervenant: UseStateDispatch<FiltreIntervenant>;
 }
 
 export function FilterFieldNomIntervenant({
-   filtreIntervenant,
-   setFiltreIntervenant,
+  filtreIntervenant,
+  setFiltreIntervenant,
 }: FilterFieldNomIntervenantProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            Nom de l'intervenant
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Input
-               allowClear
-               placeholder="Nom de l'intervenant"
-               value={filtreIntervenant.nom}
-               onChange={(e) => {
-                  setFiltreIntervenant((prev) => ({
-                     ...prev,
-                     nom: e.target.value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        Nom de l'intervenant
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Input
+          allowClear
+          placeholder="Nom de l'intervenant"
+          value={filtreIntervenant.nom}
+          onChange={(e) => {
+            setFiltreIntervenant((prev) => ({
+              ...prev,
+              nom: e.target.value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

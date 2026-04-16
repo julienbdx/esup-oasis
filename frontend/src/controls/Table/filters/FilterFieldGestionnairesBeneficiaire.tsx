@@ -14,49 +14,49 @@ import { PaginateResult } from "@context/api/ApiProvider";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 
 interface FilterFieldGestionnairesBeneficiaireProps {
-   filtreBeneficiaire: FiltreBeneficiaire;
-   setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
-   gestionnaires:
-      | PaginateResult<{
-           "hydra:member": IUtilisateur[];
-        }>
-      | undefined;
-   isFetchingGestionnaires: boolean;
+  filtreBeneficiaire: FiltreBeneficiaire;
+  setFiltreBeneficiaire: React.Dispatch<React.SetStateAction<FiltreBeneficiaire>>;
+  gestionnaires:
+    | PaginateResult<{
+        "hydra:member": IUtilisateur[];
+      }>
+    | undefined;
+  isFetchingGestionnaires: boolean;
 }
 
 export function FilterFieldGestionnairesBeneficiaire({
-   filtreBeneficiaire,
-   setFiltreBeneficiaire,
-   gestionnaires,
-   isFetchingGestionnaires,
+  filtreBeneficiaire,
+  setFiltreBeneficiaire,
+  gestionnaires,
+  isFetchingGestionnaires,
 }: FilterFieldGestionnairesBeneficiaireProps) {
-   return (
-      <>
-         <Col xs={24} sm={24} md={6}>
-            <span aria-label="Chargés d'accompagnement">Chargé•es d'accompagnement</span>
-         </Col>
-         <Col xs={24} sm={24} md={18}>
-            <Select
-               placeholder="Tous les chargés d'accompagnement"
-               mode="tags"
-               allowClear
-               loading={isFetchingGestionnaires}
-               className="w-100"
-               options={gestionnaires?.items.map((g) => ({
-                  label: `${g.nom?.toLocaleUpperCase()} ${g.prenom}`,
-                  value: g["@id"],
-               }))}
-               value={filtreBeneficiaire["gestionnaire[]"]}
-               onChange={(value) => {
-                  setFiltreBeneficiaire((prev) => ({
-                     ...prev,
-                     nomGestionnaire: undefined,
-                     "gestionnaire[]": value.length === 0 ? undefined : value,
-                     page: 1,
-                  }));
-               }}
-            />
-         </Col>
-      </>
-   );
+  return (
+    <>
+      <Col xs={24} sm={24} md={6}>
+        <span aria-label="Chargés d'accompagnement">Chargé•es d'accompagnement</span>
+      </Col>
+      <Col xs={24} sm={24} md={18}>
+        <Select
+          placeholder="Tous les chargés d'accompagnement"
+          mode="tags"
+          allowClear
+          loading={isFetchingGestionnaires}
+          className="w-100"
+          options={gestionnaires?.items.map((g) => ({
+            label: `${g.nom?.toLocaleUpperCase()} ${g.prenom}`,
+            value: g["@id"],
+          }))}
+          value={filtreBeneficiaire["gestionnaire[]"]}
+          onChange={(value) => {
+            setFiltreBeneficiaire((prev) => ({
+              ...prev,
+              nomGestionnaire: undefined,
+              "gestionnaire[]": value.length === 0 ? undefined : value,
+              page: 1,
+            }));
+          }}
+        />
+      </Col>
+    </>
+  );
 }

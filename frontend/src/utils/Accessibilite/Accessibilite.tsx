@@ -18,39 +18,39 @@ import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
  * @returns {ReactElement} The component JSX element.
  */
 export default function Accessibilite(): ReactElement {
-   const { accessibilite: appAccessibilite } = useAccessibilite();
+  const { accessibilite: appAccessibilite } = useAccessibilite();
 
-   useEffect(() => {
-      if (appAccessibilite.contrast) {
-         document.body.classList.add("accessibilite-contraste");
-      } else {
-         document.body.classList.remove("accessibilite-contraste");
-      }
+  useEffect(() => {
+    if (appAccessibilite.contrast) {
+      document.body.classList.add("accessibilite-contraste");
+    } else {
+      document.body.classList.remove("accessibilite-contraste");
+    }
 
-      if (appAccessibilite.dyslexieArial) {
-         document.body.classList.add("accessibilite-dyslexie-arial");
-      } else {
-         document.body.classList.remove("accessibilite-dyslexie-arial");
-      }
+    if (appAccessibilite.dyslexieArial) {
+      document.body.classList.add("accessibilite-dyslexie-arial");
+    } else {
+      document.body.classList.remove("accessibilite-dyslexie-arial");
+    }
 
-      if (appAccessibilite.dyslexieLexend) {
-         document.body.classList.add("accessibilite-dyslexie-lexend");
-      } else {
-         document.body.classList.remove("accessibilite-dyslexie-lexend");
-      }
+    if (appAccessibilite.dyslexieLexend) {
+      document.body.classList.add("accessibilite-dyslexie-lexend");
+    } else {
+      document.body.classList.remove("accessibilite-dyslexie-lexend");
+    }
 
-      if (appAccessibilite.dyslexieOpenDys) {
-         document.body.classList.add("accessibilite-dyslexie-open-dys");
-      } else {
-         document.body.classList.remove("accessibilite-dyslexie-open-dys");
-      }
+    if (appAccessibilite.dyslexieOpenDys) {
+      document.body.classList.add("accessibilite-dyslexie-open-dys");
+    } else {
+      document.body.classList.remove("accessibilite-dyslexie-open-dys");
+    }
 
-      if (appAccessibilite.policeLarge) {
-         document.body.classList.add("accessibilite-police-large");
-      } else {
-         document.body.classList.remove("accessibilite-police-large");
-      }
-   }, [appAccessibilite]);
+    if (appAccessibilite.policeLarge) {
+      document.body.classList.add("accessibilite-police-large");
+    } else {
+      document.body.classList.remove("accessibilite-police-large");
+    }
+  }, [appAccessibilite]);
 
-   return <></>;
+  return <></>;
 }

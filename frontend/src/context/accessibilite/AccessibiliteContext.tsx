@@ -11,19 +11,19 @@ import React, { createContext, useCallback, useContext, useReducer } from "react
 
 // Types
 export interface IAccessibilite {
-   contrast: boolean;
-   dyslexieArial: boolean;
-   dyslexieOpenDys: boolean;
-   dyslexieLexend: boolean;
-   policeLarge: boolean;
+  contrast: boolean;
+  dyslexieArial: boolean;
+  dyslexieOpenDys: boolean;
+  dyslexieLexend: boolean;
+  policeLarge: boolean;
 }
 
 const initialAccessibilite: IAccessibilite = {
-   contrast: false,
-   dyslexieArial: false,
-   dyslexieOpenDys: false,
-   dyslexieLexend: false,
-   policeLarge: false,
+  contrast: false,
+  dyslexieArial: false,
+  dyslexieOpenDys: false,
+  dyslexieLexend: false,
+  policeLarge: false,
 };
 
 // Action types
@@ -34,112 +34,112 @@ const ACCESSIBILITE_DYSLEXIE_LEXEND = "ACCESSIBILITE_DYSLEXIE_LEXEND";
 const ACCESSIBILITE_POLICE_LARGE = "ACCESSIBILITE_POLICE_LARGE";
 
 type AccessibiliteAction =
-   | { type: typeof ACCESSIBILITE_CONTRAST; payload: boolean }
-   | { type: typeof ACCESSIBILITE_DYSLEXIE_ARIAL; payload: boolean }
-   | { type: typeof ACCESSIBILITE_DYSLEXIE_OPENDYS; payload: boolean }
-   | { type: typeof ACCESSIBILITE_DYSLEXIE_LEXEND; payload: boolean }
-   | { type: typeof ACCESSIBILITE_POLICE_LARGE; payload: boolean };
+  | { type: typeof ACCESSIBILITE_CONTRAST; payload: boolean }
+  | { type: typeof ACCESSIBILITE_DYSLEXIE_ARIAL; payload: boolean }
+  | { type: typeof ACCESSIBILITE_DYSLEXIE_OPENDYS; payload: boolean }
+  | { type: typeof ACCESSIBILITE_DYSLEXIE_LEXEND; payload: boolean }
+  | { type: typeof ACCESSIBILITE_POLICE_LARGE; payload: boolean };
 
 // Reducer
 const AccessibiliteReducer = (
-   state: IAccessibilite,
-   action: AccessibiliteAction,
+  state: IAccessibilite,
+  action: AccessibiliteAction,
 ): IAccessibilite => {
-   switch (action.type) {
-      case ACCESSIBILITE_CONTRAST:
-         return {
-            ...state,
-            contrast: action.payload,
-         };
+  switch (action.type) {
+    case ACCESSIBILITE_CONTRAST:
+      return {
+        ...state,
+        contrast: action.payload,
+      };
 
-      case ACCESSIBILITE_DYSLEXIE_ARIAL:
-         return {
-            ...state,
-            dyslexieArial: action.payload,
-            dyslexieOpenDys: action.payload ? false : state.dyslexieOpenDys,
-            dyslexieLexend: action.payload ? false : state.dyslexieLexend,
-         };
+    case ACCESSIBILITE_DYSLEXIE_ARIAL:
+      return {
+        ...state,
+        dyslexieArial: action.payload,
+        dyslexieOpenDys: action.payload ? false : state.dyslexieOpenDys,
+        dyslexieLexend: action.payload ? false : state.dyslexieLexend,
+      };
 
-      case ACCESSIBILITE_DYSLEXIE_OPENDYS:
-         return {
-            ...state,
-            dyslexieOpenDys: action.payload,
-            dyslexieArial: action.payload ? false : state.dyslexieArial,
-            dyslexieLexend: action.payload ? false : state.dyslexieLexend,
-         };
+    case ACCESSIBILITE_DYSLEXIE_OPENDYS:
+      return {
+        ...state,
+        dyslexieOpenDys: action.payload,
+        dyslexieArial: action.payload ? false : state.dyslexieArial,
+        dyslexieLexend: action.payload ? false : state.dyslexieLexend,
+      };
 
-      case ACCESSIBILITE_DYSLEXIE_LEXEND:
-         return {
-            ...state,
-            dyslexieLexend: action.payload,
-            dyslexieArial: action.payload ? false : state.dyslexieArial,
-            dyslexieOpenDys: action.payload ? false : state.dyslexieOpenDys,
-         };
+    case ACCESSIBILITE_DYSLEXIE_LEXEND:
+      return {
+        ...state,
+        dyslexieLexend: action.payload,
+        dyslexieArial: action.payload ? false : state.dyslexieArial,
+        dyslexieOpenDys: action.payload ? false : state.dyslexieOpenDys,
+      };
 
-      case ACCESSIBILITE_POLICE_LARGE:
-         return {
-            ...state,
-            policeLarge: action.payload,
-         };
+    case ACCESSIBILITE_POLICE_LARGE:
+      return {
+        ...state,
+        policeLarge: action.payload,
+      };
 
-      default:
-         return state;
-   }
+    default:
+      return state;
+  }
 };
 
 interface IAccessibiliteContext {
-   accessibilite: IAccessibilite;
-   setContrast: (value: boolean) => void;
-   setDyslexieArial: (value: boolean) => void;
-   setDyslexieOpenDys: (value: boolean) => void;
-   setDyslexieLexend: (value: boolean) => void;
-   setPoliceLarge: (value: boolean) => void;
+  accessibilite: IAccessibilite;
+  setContrast: (value: boolean) => void;
+  setDyslexieArial: (value: boolean) => void;
+  setDyslexieOpenDys: (value: boolean) => void;
+  setDyslexieLexend: (value: boolean) => void;
+  setPoliceLarge: (value: boolean) => void;
 }
 
 const AccessibiliteContext = createContext<IAccessibiliteContext | undefined>(undefined);
 
 export function AccessibiliteProvider({ children }: { children: React.ReactNode }) {
-   const [accessibilite, dispatch] = useReducer(AccessibiliteReducer, initialAccessibilite);
+  const [accessibilite, dispatch] = useReducer(AccessibiliteReducer, initialAccessibilite);
 
-   const setContrast = useCallback(
-      (value: boolean) => dispatch({ type: ACCESSIBILITE_CONTRAST, payload: value }),
-      [],
-   );
-   const setDyslexieArial = useCallback(
-      (value: boolean) => dispatch({ type: ACCESSIBILITE_DYSLEXIE_ARIAL, payload: value }),
-      [],
-   );
-   const setDyslexieOpenDys = useCallback(
-      (value: boolean) => dispatch({ type: ACCESSIBILITE_DYSLEXIE_OPENDYS, payload: value }),
-      [],
-   );
-   const setDyslexieLexend = useCallback(
-      (value: boolean) => dispatch({ type: ACCESSIBILITE_DYSLEXIE_LEXEND, payload: value }),
-      [],
-   );
-   const setPoliceLarge = useCallback(
-      (value: boolean) => dispatch({ type: ACCESSIBILITE_POLICE_LARGE, payload: value }),
-      [],
-   );
+  const setContrast = useCallback(
+    (value: boolean) => dispatch({ type: ACCESSIBILITE_CONTRAST, payload: value }),
+    [],
+  );
+  const setDyslexieArial = useCallback(
+    (value: boolean) => dispatch({ type: ACCESSIBILITE_DYSLEXIE_ARIAL, payload: value }),
+    [],
+  );
+  const setDyslexieOpenDys = useCallback(
+    (value: boolean) => dispatch({ type: ACCESSIBILITE_DYSLEXIE_OPENDYS, payload: value }),
+    [],
+  );
+  const setDyslexieLexend = useCallback(
+    (value: boolean) => dispatch({ type: ACCESSIBILITE_DYSLEXIE_LEXEND, payload: value }),
+    [],
+  );
+  const setPoliceLarge = useCallback(
+    (value: boolean) => dispatch({ type: ACCESSIBILITE_POLICE_LARGE, payload: value }),
+    [],
+  );
 
-   return (
-      <AccessibiliteContext.Provider
-         value={{
-            accessibilite,
-            setContrast,
-            setDyslexieArial,
-            setDyslexieOpenDys,
-            setDyslexieLexend,
-            setPoliceLarge,
-         }}
-      >
-         {children}
-      </AccessibiliteContext.Provider>
-   );
+  return (
+    <AccessibiliteContext.Provider
+      value={{
+        accessibilite,
+        setContrast,
+        setDyslexieArial,
+        setDyslexieOpenDys,
+        setDyslexieLexend,
+        setPoliceLarge,
+      }}
+    >
+      {children}
+    </AccessibiliteContext.Provider>
+  );
 }
 
 export function useAccessibilite(): IAccessibiliteContext {
-   const ctx = useContext(AccessibiliteContext);
-   if (!ctx) throw new Error("useAccessibilite must be used within AccessibiliteProvider");
-   return ctx;
+  const ctx = useContext(AccessibiliteContext);
+  if (!ctx) throw new Error("useAccessibilite must be used within AccessibiliteProvider");
+  return ctx;
 }

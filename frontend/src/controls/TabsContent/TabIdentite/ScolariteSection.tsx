@@ -14,38 +14,38 @@ import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { ScolariteListItem } from "@controls/TabsContent/TabScolarite";
 
 interface ScolariteSectionProps {
-   utilisateur: IUtilisateur;
-   isFetching: boolean;
+  utilisateur: IUtilisateur;
+  isFetching: boolean;
 }
 
 export const ScolariteSection: React.FC<ScolariteSectionProps> = ({ utilisateur, isFetching }) => {
-   return (
-      <Col xs={24} xl={12}>
-         <h2>Scolarité</h2>
-         {isFetching ? (
-            <Skeleton active paragraph />
-         ) : (
-            <Descriptions bordered column={1} style={{ overflowX: "auto" }}>
-               <Descriptions.Item label="Numéro étudiant">
-                  <Typography.Text copyable={utilisateur.numeroEtudiant !== undefined}>
-                     {utilisateur.numeroEtudiant || <MinusOutlined />}
-                  </Typography.Text>
-               </Descriptions.Item>
-               <Descriptions.Item label="Régime d'inscription">
-                  {utilisateur?.statutEtudiant}
-               </Descriptions.Item>
-               <Descriptions.Item label="Inscriptions" styles={{ label: { width: 200 } }}>
-                  <h3 className="sr-only">Inscriptions</h3>
-                  <Flex vertical style={{ width: "100%", overflowY: "auto" }} wrap="wrap">
-                     {utilisateur.inscriptions
-                        ?.sort((i1, i2) => (i2.debut || "").localeCompare(i1.debut || ""))
-                        .map((i) => (
-                           <ScolariteListItem key={i["@id"]} inscription={i} titleClassName="" />
-                        ))}
-                  </Flex>
-               </Descriptions.Item>
-            </Descriptions>
-         )}
-      </Col>
-   );
+  return (
+    <Col xs={24} xl={12}>
+      <h2>Scolarité</h2>
+      {isFetching ? (
+        <Skeleton active paragraph />
+      ) : (
+        <Descriptions bordered column={1} style={{ overflowX: "auto" }}>
+          <Descriptions.Item label="Numéro étudiant">
+            <Typography.Text copyable={utilisateur.numeroEtudiant !== undefined}>
+              {utilisateur.numeroEtudiant || <MinusOutlined />}
+            </Typography.Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Régime d'inscription">
+            {utilisateur?.statutEtudiant}
+          </Descriptions.Item>
+          <Descriptions.Item label="Inscriptions" styles={{ label: { width: 200 } }}>
+            <h3 className="sr-only">Inscriptions</h3>
+            <Flex vertical style={{ width: "100%", overflowY: "auto" }} wrap="wrap">
+              {utilisateur.inscriptions
+                ?.sort((i1, i2) => (i2.debut || "").localeCompare(i1.debut || ""))
+                .map((i) => (
+                  <ScolariteListItem key={i["@id"]} inscription={i} titleClassName="" />
+                ))}
+            </Flex>
+          </Descriptions.Item>
+        </Descriptions>
+      )}
+    </Col>
+  );
 };

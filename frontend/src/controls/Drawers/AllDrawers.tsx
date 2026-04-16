@@ -18,10 +18,10 @@ import UtilisateurDrawer from "@controls/Drawers/Utilisateur/UtilisateurDrawer";
  * @return {ReactElement} - The JSX element representing all the drawers.
  */
 export default function AllDrawers(): ReactElement {
-   return (
-      <>
-         <EvenementDrawer />
-         <UtilisateurDrawer />
-      </>
-   );
+  return (
+    <>
+      <EvenementDrawer />
+      <UtilisateurDrawer />
+    </>
+  );
 }

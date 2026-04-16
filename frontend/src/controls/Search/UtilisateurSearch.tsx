@@ -17,9 +17,9 @@ import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { env } from "@/env";
 
 interface IUtilisateurSearchProps {
-   visible: boolean;
-   setVisible: (visible: boolean) => void;
-   onSelected: (utilisateur: IUtilisateur | undefined) => void;
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
+  onSelected: (utilisateur: IUtilisateur | undefined) => void;
 }
 
 /**
@@ -32,64 +32,64 @@ interface IUtilisateurSearchProps {
  * @returns {ReactElement} The search component JSX element.
  */
 export function UtilisateurSearch({
-   visible,
-   setVisible,
-   onSelected,
+  visible,
+  setVisible,
+  onSelected,
 }: IUtilisateurSearchProps): ReactElement {
-   const [recherche, setRecherche] = useState("");
-   const { data, isFetching, refetch } = useApi().useGetCollectionPaginated({
-      path: "/utilisateurs",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: {
-         term: recherche,
-      },
-      enabled: recherche.length > 2,
-   });
+  const [recherche, setRecherche] = useState("");
+  const { data, isFetching, refetch } = useApi().useGetCollectionPaginated({
+    path: "/utilisateurs",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    query: {
+      term: recherche,
+    },
+    enabled: recherche.length > 2,
+  });
 
-   const handleClose = () => {
-      setRecherche("");
-      setVisible(false);
-   };
+  const handleClose = () => {
+    setRecherche("");
+    setVisible(false);
+  };
 
-   useEffect(() => {
-      if (recherche.length > 2) refetch().then();
-   }, [refetch, recherche]);
+  useEffect(() => {
+    if (recherche.length > 2) refetch().then();
+  }, [refetch, recherche]);
 
-   return (
-      <Drawer
-         destroyOnHidden
-         open={visible}
-         onClose={handleClose}
-         title={`Ajouter un utilisateur à ${env.REACT_APP_SERVICE}`}
-      >
-         <Input.Search
-            placeholder="Rechercher un utilisateur"
-            onSearch={(value) => {
-               setRecherche(value);
-            }}
-            loading={isFetching}
-         />
+  return (
+    <Drawer
+      destroyOnHidden
+      open={visible}
+      onClose={handleClose}
+      title={`Ajouter un utilisateur à ${env.REACT_APP_SERVICE}`}
+    >
+      <Input.Search
+        placeholder="Rechercher un utilisateur"
+        onSearch={(value) => {
+          setRecherche(value);
+        }}
+        loading={isFetching}
+      />
 
-         {data?.items && (
-            <ListSelectable<IUtilisateur>
-               loading={isFetching}
-               items={data.items}
-               classNameSelected="bg-beneficiaire-light"
-               onSelect={(item) => {
-                  onSelected(item);
-               }}
-               header={<div className="semi-bold">Utilisateurs trouvés</div>}
-               renderItem={(item) => (
-                  <List.Item.Meta
-                     className="meta"
-                     avatar={<Avatar icon={<UserOutlined />} />}
-                     title={`${item.prenom} ${item.nom?.toLocaleUpperCase()}`}
-                     description={item.email || "Pas d'email"}
-                  />
-               )}
+      {data?.items && (
+        <ListSelectable<IUtilisateur>
+          loading={isFetching}
+          items={data.items}
+          classNameSelected="bg-beneficiaire-light"
+          onSelect={(item) => {
+            onSelected(item);
+          }}
+          header={<div className="semi-bold">Utilisateurs trouvés</div>}
+          renderItem={(item) => (
+            <List.Item.Meta
+              className="meta"
+              avatar={<Avatar icon={<UserOutlined />} />}
+              title={`${item.prenom} ${item.nom?.toLocaleUpperCase()}`}
+              description={item.email || "Pas d'email"}
             />
-         )}
-      </Drawer>
-   );
+          )}
+        />
+      )}
+    </Drawer>
+  );
 }

@@ -27,43 +27,43 @@ const { Header, Content, Footer } = Layout;
  * @returns {ReactElement} The rendered AppLayout component.
  */
 export default function AppLayout(): ReactElement {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-   return (
-      <UtilisateurPreferencesProvider>
-         <Layout>
-            <Header className="header hide-on-print">
-               <nav role="navigation" className="header-skip-nav" aria-label="Navigation rapide">
-                  <Button
-                     type="link"
-                     onClick={() => {
-                        const main = document.getElementById("main");
-                        main?.focus();
-                        const y = (main?.getBoundingClientRect().top || 0) + window.scrollY - 100;
-                        window.scrollTo({ top: y, behavior: "smooth" });
-                     }}
-                  >
-                     Aller au contenu principal
-                  </Button>
-               </nav>
-               <AppLayoutMenu />
-            </Header>
-            <Content className="main-card-content">
-               <AllModals />
-               <AllDrawers />
-               <div id="main" className="main-content" tabIndex={0}>
-                  <Outlet />
-               </div>
-            </Content>
-            <Footer style={{ textAlign: "center" }}>
-               {env.REACT_APP_TITRE} <MinusOutlined aria-hidden /> {env.REACT_APP_ETABLISSEMENT}{" "}
-               <MinusOutlined aria-hidden /> <a href="/rgpd">Politique d'utilisation des données</a>{" "}
-               <MinusOutlined aria-hidden />{" "}
-               <Button type="link" className="m-0 p-0" onClick={() => navigate("/versions")}>
-                  Version {env.REACT_APP_VERSION}
-               </Button>
-            </Footer>
-         </Layout>
-      </UtilisateurPreferencesProvider>
-   );
+  return (
+    <UtilisateurPreferencesProvider>
+      <Layout>
+        <Header className="header hide-on-print">
+          <nav role="navigation" className="header-skip-nav" aria-label="Navigation rapide">
+            <Button
+              type="link"
+              onClick={() => {
+                const main = document.getElementById("main");
+                main?.focus();
+                const y = (main?.getBoundingClientRect().top || 0) + window.scrollY - 100;
+                window.scrollTo({ top: y, behavior: "smooth" });
+              }}
+            >
+              Aller au contenu principal
+            </Button>
+          </nav>
+          <AppLayoutMenu />
+        </Header>
+        <Content className="main-card-content">
+          <AllModals />
+          <AllDrawers />
+          <div id="main" className="main-content" tabIndex={0}>
+            <Outlet />
+          </div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>
+          {env.REACT_APP_TITRE} <MinusOutlined aria-hidden /> {env.REACT_APP_ETABLISSEMENT}{" "}
+          <MinusOutlined aria-hidden /> <a href="/rgpd">Politique d'utilisation des données</a>{" "}
+          <MinusOutlined aria-hidden />{" "}
+          <Button type="link" className="m-0 p-0" onClick={() => navigate("/versions")}>
+            Version {env.REACT_APP_VERSION}
+          </Button>
+        </Footer>
+      </Layout>
+    </UtilisateurPreferencesProvider>
+  );
 }

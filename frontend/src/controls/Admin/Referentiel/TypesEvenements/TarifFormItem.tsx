@@ -11,10 +11,10 @@ import React, { ReactElement, useState } from "react";
 import { Input } from "antd";
 
 interface ITarifFormItem {
-   value?: string;
-   onChange?: (v: string) => void;
-   style?: React.CSSProperties;
-   className?: string;
+  value?: string;
+  onChange?: (v: string) => void;
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 /**
@@ -28,26 +28,26 @@ interface ITarifFormItem {
  * @returns {ReactElement} The rendered TarifFormItem component.
  */
 function TarifFormItem({ value, onChange, style, className }: ITarifFormItem): ReactElement {
-   const [utilisateur, setUtilisateur] = useState(value);
+  const [utilisateur, setUtilisateur] = useState(value);
 
-   const change = (v: string) => {
-      setUtilisateur(v);
-      if (typeof onChange === "function") {
-         onChange(v);
-      }
-   };
+  const change = (v: string) => {
+    setUtilisateur(v);
+    if (typeof onChange === "function") {
+      onChange(v);
+    }
+  };
 
-   return (
-      <>
-         <Input
-            style={style}
-            className={className}
-            suffix="€"
-            value={utilisateur}
-            onChange={(e) => change(e.target.value)}
-         />
-      </>
-   );
+  return (
+    <>
+      <Input
+        style={style}
+        className={className}
+        suffix="€"
+        value={utilisateur}
+        onChange={(e) => change(e.target.value)}
+      />
+    </>
+  );
 }
 
 export default TarifFormItem;

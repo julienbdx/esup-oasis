@@ -13,7 +13,7 @@ import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 
 interface ITabCompetence {
-   defaultValue?: string;
+  defaultValue?: string;
 }
 
 /**
@@ -25,27 +25,27 @@ interface ITabCompetence {
  * @returns {ReactElement} - The rendered tab component.
  */
 export function TabCompetence({ defaultValue }: ITabCompetence): ReactElement {
-   const { data } = useApi().useGetCollectionPaginated({
-      path: "/competences",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-   });
+  const { data } = useApi().useGetCollectionPaginated({
+    path: "/competences",
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+  });
 
-   return (
-      <>
-         <Form.Item name="intervenant.competences">
-            <Radio.Group
-               className="checkbox-group-vertical"
-               options={data?.items
-                  .filter((c) => c.actif)
-                  .map((item) => ({
-                     label: item.libelle,
-                     value: item["@id"] as string,
-                     disabled: !item.actif,
-                  }))}
-               defaultValue={defaultValue}
-            />
-         </Form.Item>
-      </>
-   );
+  return (
+    <>
+      <Form.Item name="intervenant.competences">
+        <Radio.Group
+          className="checkbox-group-vertical"
+          options={data?.items
+            .filter((c) => c.actif)
+            .map((item) => ({
+              label: item.libelle,
+              value: item["@id"] as string,
+              disabled: !item.actif,
+            }))}
+          defaultValue={defaultValue}
+        />
+      </Form.Item>
+    </>
+  );
 }

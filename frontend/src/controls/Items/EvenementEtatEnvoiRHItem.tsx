@@ -20,16 +20,16 @@ import { IEvenement } from "@api/ApiTypeHelpers";
  * @returns {ReactElement} - The rendered component based on the event's state of being sent to RH or not.
  */
 export default function EvenementEtatEnvoiRHItem(props: { evenement: IEvenement }): ReactElement {
-   if (props.evenement.dateEnvoiRH)
-      return (
-         <Tag color="green" icon={<CheckOutlined />}>
-            Envoyé à la RH
-         </Tag>
-      );
-
-   return (
-      <Tag color="warning" icon={<CloseOutlined />}>
-         Non envoyé à la RH
+  if (props.evenement.dateEnvoiRH)
+    return (
+      <Tag color="green" icon={<CheckOutlined />}>
+        Envoyé à la RH
       </Tag>
-   );
+    );
+
+  return (
+    <Tag color="warning" icon={<CloseOutlined />}>
+      Non envoyé à la RH
+    </Tag>
+  );
 }

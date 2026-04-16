@@ -17,8 +17,8 @@ const OAUTH_STATE_KEY = "react-use-oauth2-state-key";
 const OAUTH_RESPONSE = "react-use-oauth2-response";
 
 const checkState = (receivedState: string | null) => {
-   const state = sessionStorage.getItem(OAUTH_STATE_KEY);
-   return state === receivedState;
+  const state = sessionStorage.getItem(OAUTH_STATE_KEY);
+  return state === receivedState;
 };
 
 /**
@@ -32,54 +32,54 @@ const checkState = (receivedState: string | null) => {
  * @throws {Error} - Throws an error if there is no window opener
  */
 const OAuthPopup = (props: { Component?: ReactElement }): ReactElement => {
-   const {
-      Component = (
-         <div className="oauth-callback">
-            <Spinner size={40} />
-         </div>
-      ),
-   } = props;
+  const {
+    Component = (
+      <div className="oauth-callback">
+        <Spinner size={40} />
+      </div>
+    ),
+  } = props;
 
-   // On mount
-   useEffect(() => {
-      window.setTimeout(() => {
-         const payload = queryToObject(window.location.hash.split("#")[1]);
-         const state = payload && payload.state;
-         const error = payload && payload.error;
+  // On mount
+  useEffect(() => {
+    window.setTimeout(() => {
+      const payload = queryToObject(window.location.hash.split("#")[1]);
+      const state = payload && payload.state;
+      const error = payload && payload.error;
 
-         if (!window.opener) {
-            throw new Error("No window opener");
-         }
+      if (!window.opener) {
+        throw new Error("No window opener");
+      }
 
-         if (error) {
-            window.opener.postMessage(
-               {
-                  type: OAUTH_RESPONSE,
-                  error: decodeURI(error) || "OAuth error: An error has occured.",
-               },
-               window.location.origin,
-            );
-         } else if (state && checkState(state)) {
-            window.opener.postMessage(
-               {
-                  type: OAUTH_RESPONSE,
-                  payload,
-               },
-               window.location.origin,
-            );
-         } else {
-            window.opener.postMessage(
-               {
-                  type: OAUTH_RESPONSE,
-                  error: "OAuth error: State mismatch.",
-               },
-               window.location.origin,
-            );
-         }
-      }, 0);
-   }, []);
+      if (error) {
+        window.opener.postMessage(
+          {
+            type: OAUTH_RESPONSE,
+            error: decodeURI(error) || "OAuth error: An error has occured.",
+          },
+          window.location.origin,
+        );
+      } else if (state && checkState(state)) {
+        window.opener.postMessage(
+          {
+            type: OAUTH_RESPONSE,
+            payload,
+          },
+          window.location.origin,
+        );
+      } else {
+        window.opener.postMessage(
+          {
+            type: OAUTH_RESPONSE,
+            error: "OAuth error: State mismatch.",
+          },
+          window.location.origin,
+        );
+      }
+    }, 0);
+  }, []);
 
-   return Component;
+  return Component;
 };
 
 export default OAuthPopup;

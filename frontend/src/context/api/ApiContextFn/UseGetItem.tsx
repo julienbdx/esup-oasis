@@ -12,10 +12,10 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { handleApiResponse } from "@context/api/ApiContextFn/HandleApiResponse";
 import { useNavigate } from "react-router-dom";
 import {
-   ApiPathMethodParameters,
-   ApiPathMethodQuery,
-   ApiPathMethodResponse,
-   Path,
+  ApiPathMethodParameters,
+  ApiPathMethodQuery,
+  ApiPathMethodResponse,
+  Path,
 } from "@api/SchemaHelpers";
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import { RequestMethod } from "@context/api/ApiProvider";
@@ -34,51 +34,51 @@ import { useAuth } from "@/auth/AuthProvider";
  * @returns {UseQueryResult<ApiPathMethodResponse<P, "get">>} - The result of the useQuery hook.
  */
 export type UseGetItemHook = <P extends Path>(options: {
-   path: P;
-   url?: string;
-   enabled?: boolean;
-   parameters?: ApiPathMethodParameters<P, "get">;
-   query?: ApiPathMethodQuery<P, "get">;
+  path: P;
+  url?: string;
+  enabled?: boolean;
+  parameters?: ApiPathMethodParameters<P, "get">;
+  query?: ApiPathMethodQuery<P, "get">;
 }) => UseQueryResult<ApiPathMethodResponse<P, "get">>;
 
 export function useGetItem<P extends Path>(
-   baseUrl: string,
-   fetchOptions: RequestInit,
-   options: {
-      path: P;
-      url?: string;
-      enabled?: boolean;
-      parameters?: ApiPathMethodParameters<P, "get">;
-      query?: ApiPathMethodQuery<P, "get">;
-   },
+  baseUrl: string,
+  fetchOptions: RequestInit,
+  options: {
+    path: P;
+    url?: string;
+    enabled?: boolean;
+    parameters?: ApiPathMethodParameters<P, "get">;
+    query?: ApiPathMethodQuery<P, "get">;
+  },
 ): UseQueryResult<ApiPathMethodResponse<P, "get">> {
-   // URL : useQuery.enabled prévient les URL non valides
-   const url = buildUrl<P, "get">(
-      baseUrl,
-      options.path,
-      options.url,
-      options.parameters,
-      options.query,
-   );
-   const navigate = useNavigate();
-   const auth = useAuth();
+  // URL : useQuery.enabled prévient les URL non valides
+  const url = buildUrl<P, "get">(
+    baseUrl,
+    options.path,
+    options.url,
+    options.parameters,
+    options.query,
+  );
+  const navigate = useNavigate();
+  const auth = useAuth();
 
-   const queryFn = async () => {
-      return handleApiResponse(
-         RequestMethod.GET,
-         await fetch(url, {
-            method: "GET",
-            ...fetchOptions,
-         }),
-         navigate,
-         auth,
-         options,
-      );
-   };
+  const queryFn = async () => {
+    return handleApiResponse(
+      RequestMethod.GET,
+      await fetch(url, {
+        method: "GET",
+        ...fetchOptions,
+      }),
+      navigate,
+      auth,
+      options,
+    );
+  };
 
-   return useQuery<ApiPathMethodResponse<P, "get">>({
-      queryKey: [options.url, url, auth.user?.uid, options.path],
-      queryFn,
-      enabled: Boolean(url) && (options.enabled !== undefined ? options.enabled : true),
-   });
+  return useQuery<ApiPathMethodResponse<P, "get">>({
+    queryKey: [options.url, url, auth.user?.uid, options.path],
+    queryFn,
+    enabled: Boolean(url) && (options.enabled !== undefined ? options.enabled : true),
+  });
 }

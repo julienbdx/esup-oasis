@@ -15,8 +15,8 @@ import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
 import { ICampus } from "@api/ApiTypeHelpers";
 
 interface IAvatarCampus {
-   campus?: ICampus;
-   campusId?: string;
+  campus?: ICampus;
+  campusId?: string;
 }
 
 /**
@@ -29,31 +29,31 @@ interface IAvatarCampus {
  * @returns {ReactElement} - The rendered component.
  */
 export const CampusAvatar: React.FC<IAvatarCampus> = memo(
-   ({ campus, campusId }: IAvatarCampus): ReactElement => {
-      const [campusData, setCampusData] = useState<ICampus | undefined>(campus);
-      const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  ({ campus, campusId }: IAvatarCampus): ReactElement => {
+    const [campusData, setCampusData] = useState<ICampus | undefined>(campus);
+    const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
 
-      useEffect(() => {
-         if (dataCampus && campusId) {
-            setCampusData(dataCampus.items.find((t) => t["@id"] === campusId));
-         }
-      }, [dataCampus, campusId]);
-
-      useEffect(() => {
-         if (campus) setCampusData(campus);
-      }, [campus]);
-
-      if (isFetching || campusData === undefined) {
-         return <Avatar className="bg-primary" icon={<BankOutlined />} />;
+    useEffect(() => {
+      if (dataCampus && campusId) {
+        setCampusData(dataCampus.items.find((t) => t["@id"] === campusId));
       }
+    }, [dataCampus, campusId]);
 
-      return (
-         <Avatar data-testid={campusData.libelle} className="bg-primary" aria-hidden>
-            {campusData.libelle[0].toUpperCase()}
-         </Avatar>
-      );
-   },
-   (prevProps, nextProps) =>
-      prevProps.campusId === nextProps.campusId &&
-      JSON.stringify(prevProps.campus) === JSON.stringify(nextProps.campus),
+    useEffect(() => {
+      if (campus) setCampusData(campus);
+    }, [campus]);
+
+    if (isFetching || campusData === undefined) {
+      return <Avatar className="bg-primary" icon={<BankOutlined />} />;
+    }
+
+    return (
+      <Avatar data-testid={campusData.libelle} className="bg-primary" aria-hidden>
+        {campusData.libelle[0].toUpperCase()}
+      </Avatar>
+    );
+  },
+  (prevProps, nextProps) =>
+    prevProps.campusId === nextProps.campusId &&
+    JSON.stringify(prevProps.campus) === JSON.stringify(nextProps.campus),
 );

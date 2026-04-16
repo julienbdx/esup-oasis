@@ -14,51 +14,51 @@ import GestionnaireItem from "@controls/Items/GestionnaireItem";
 import { IInterventionForfait } from "@api/ApiTypeHelpers";
 
 interface InterventionsForfaitMetadataProps {
-   editedItem: Partial<IInterventionForfait>;
+  editedItem: Partial<IInterventionForfait>;
 }
 
 export const InterventionsForfaitMetadata: React.FC<InterventionsForfaitMetadataProps> = ({
-   editedItem,
+  editedItem,
 }) => {
-   if (!editedItem.dateCreation && !editedItem.dateModification) {
-      return null;
-   }
+  if (!editedItem.dateCreation && !editedItem.dateModification) {
+    return null;
+  }
 
-   return (
-      <Row className="mb-3">
-         <Col span={24} className="legende mt-1">
-            {editedItem.dateCreation && (
-               <>
-                  Créé le {dayjs(editedItem.dateCreation).format("DD/MM/YYYY")}
-                  {editedItem.utilisateurCreation && (
-                     <>
-                        {" "}
-                        par{" "}
-                        <GestionnaireItem
-                           gestionnaireId={editedItem.utilisateurCreation}
-                           showAvatar={false}
-                        />
-                     </>
-                  )}
-               </>
+  return (
+    <Row className="mb-3">
+      <Col span={24} className="legende mt-1">
+        {editedItem.dateCreation && (
+          <>
+            Créé le {dayjs(editedItem.dateCreation).format("DD/MM/YYYY")}
+            {editedItem.utilisateurCreation && (
+              <>
+                {" "}
+                par{" "}
+                <GestionnaireItem
+                  gestionnaireId={editedItem.utilisateurCreation}
+                  showAvatar={false}
+                />
+              </>
             )}
-            {editedItem.dateModification && (
-               <>
-                  {editedItem.dateCreation && <br />}
-                  Dernière modification le {dayjs(editedItem.dateModification).format("DD/MM/YYYY")}
-                  {editedItem.utilisateurModification && (
-                     <>
-                        {" "}
-                        par{" "}
-                        <GestionnaireItem
-                           gestionnaireId={editedItem.utilisateurModification}
-                           showAvatar={false}
-                        />
-                     </>
-                  )}
-               </>
+          </>
+        )}
+        {editedItem.dateModification && (
+          <>
+            {editedItem.dateCreation && <br />}
+            Dernière modification le {dayjs(editedItem.dateModification).format("DD/MM/YYYY")}
+            {editedItem.utilisateurModification && (
+              <>
+                {" "}
+                par{" "}
+                <GestionnaireItem
+                  gestionnaireId={editedItem.utilisateurModification}
+                  showAvatar={false}
+                />
+              </>
             )}
-         </Col>
-      </Row>
-   );
+          </>
+        )}
+      </Col>
+    </Row>
+  );
 };
