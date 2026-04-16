@@ -114,7 +114,7 @@ export default function InterventionsForfaitBulkAdd({
           value: item["@id"] as string,
           label: <PeriodeRhItem periode={item} />,
         })) ?? [],
-    [periodes, user?.isAdmin],
+    [periodes, user],
   );
 
   return (

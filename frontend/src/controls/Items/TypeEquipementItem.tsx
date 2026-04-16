@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement, useEffect, useState } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
 import { PREFETCH_TYPES_EQUIPEMENTS } from "@api/ApiPrefetchHelpers";
@@ -27,7 +27,7 @@ interface IItemTypeEquipement {
  *
  * @returns {ReactElement} The rendered TypeEquipementItem component.
  */
-export default function TypeEquipementItem({
+function TypeEquipementItem({
   typeEquipement,
   typeEquipementId,
 }: IItemTypeEquipement): ReactElement {
@@ -49,3 +49,10 @@ export default function TypeEquipementItem({
     </div>
   );
 }
+
+export default memo(
+  TypeEquipementItem,
+  (prev, next) =>
+    prev.typeEquipementId === next.typeEquipementId &&
+    prev.typeEquipement?.["@id"] === next.typeEquipement?.["@id"],
+);

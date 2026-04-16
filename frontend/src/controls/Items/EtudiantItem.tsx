@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement, useEffect, useState } from "react";
 import { RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { Breakpoint, Space } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
@@ -35,7 +35,7 @@ interface IItemEtudiant {
 /**
  * EtudiantItem component.
  */
-export default function EtudiantItem({
+function EtudiantItem({
   utilisateur,
   utilisateurId,
   showAvatar = true,
@@ -94,3 +94,15 @@ export default function EtudiantItem({
     </Space>
   );
 }
+
+export default memo(
+  EtudiantItem,
+  (prev, next) =>
+    prev.utilisateurId === next.utilisateurId &&
+    prev.utilisateur?.["@id"] === next.utilisateur?.["@id"] &&
+    prev.profilBeneficiaireId === next.profilBeneficiaireId &&
+    prev.showAvatar === next.showAvatar &&
+    prev.showEmail === next.showEmail &&
+    prev.showTelephone === next.showTelephone &&
+    prev.highlight === next.highlight,
+);
