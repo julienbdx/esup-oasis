@@ -37,7 +37,6 @@ export function ComposanteEdition(props: {
       title="Éditer les référent•es de composante"
       onClose={() => props.setEditedItem(undefined)}
       size="large"
-      width={800}
     >
       <Card
         actions={[

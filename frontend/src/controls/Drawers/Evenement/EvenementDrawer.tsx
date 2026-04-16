@@ -44,7 +44,7 @@ export default function EvenementDrawer({ id }: IEvenementDrawer): ReactElement 
       placement="right"
       onClose={handleClose}
       open
-      width="33%"
+      size="large"
       className="oasis-drawer"
     >
       <Space orientation="vertical" className="text-center w-100 mb-3 mt-1">

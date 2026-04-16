@@ -98,8 +98,10 @@ function UtilisateurSelectEditing({
       className={className}
       style={style}
       open={open && !isFetchingUtilisateursTrouves}
-      suffixIcon={
-        tappedSearch !== search && tappedSearch.length > 1 ? (
+      suffix={
+        isFetchingUtilisateursTrouves ? (
+          <Spinner size={16} />
+        ) : tappedSearch !== search && tappedSearch.length > 1 ? (
           <EnterOutlined
             className="text-primary"
             onClick={(e) => {
@@ -107,7 +109,9 @@ function UtilisateurSelectEditing({
               launchSearch();
             }}
           />
-        ) : undefined
+        ) : (
+          <></>
+        )
       }
       placeholder={placeholder}
       onInputKeyDown={(e) => {

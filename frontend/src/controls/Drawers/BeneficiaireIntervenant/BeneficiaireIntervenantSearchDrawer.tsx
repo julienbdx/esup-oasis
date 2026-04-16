@@ -8,7 +8,7 @@
  *
  */
 
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useMemo, useState } from "react";
 import { Select, Spin } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { EnterOutlined } from "@ant-design/icons";
@@ -68,6 +68,119 @@ export default function BeneficiaireIntervenantSearchDrawer({
     enabled: recherche.length > 1,
   });
 
+  const options = useMemo(() => {
+    const result = [];
+
+    // Loading state
+    if (isFetchingBeneficiaire && isFetchingIntervenant) {
+      result.push({
+        key: "loading",
+        value: "loading",
+        label: <Spin size="small" />,
+        disabled: true,
+      });
+    }
+
+    // Bénéficiaires group
+    if (value === recherche && (beneficiaires?.items.length || 0) > 0) {
+      result.push({
+        label: "Bénéficiaires",
+        key: "beneficiaires",
+        options: beneficiaires?.items.map((beneficiaire) => ({
+          key: `beneficiaire§${beneficiaire.uid}`,
+          value: `beneficiaire§${beneficiaire.uid}`,
+          label: (
+            <EtudiantItem
+              utilisateur={beneficiaire}
+              role={RoleValues.ROLE_BENEFICIAIRE}
+              highlight={recherche}
+            />
+          ),
+        })),
+      });
+    }
+
+    // Intervenants group
+    if (value === recherche && (intervenants?.items.length || 0) > 0) {
+      result.push({
+        label: "Intervenants",
+        key: "intervenants",
+        options: intervenants?.items.map((intervenant) => ({
+          key: `intervenant§${intervenant.uid}`,
+          value: `intervenant§${intervenant.uid}`,
+          label: (
+            <EtudiantItem
+              utilisateur={intervenant}
+              role={RoleValues.ROLE_INTERVENANT}
+              highlight={recherche}
+            />
+          ),
+        })),
+      });
+    }
+
+    // Demandeurs group
+    if (value === recherche && (demandeurs?.items.length || 0) > 0) {
+      result.push({
+        label: "Demandeurs",
+        key: "demandeurs",
+        options: demandeurs?.items.map((demandeur) => ({
+          key: `demandeur§${demandeur.uid}`,
+          value: `demandeur§${demandeur.uid}`,
+          label: (
+            <EtudiantItem
+              utilisateur={demandeur}
+              role={RoleValues.ROLE_DEMANDEUR}
+              highlight={recherche}
+            />
+          ),
+        })),
+      });
+    }
+
+    // No results
+    if (
+      value === recherche &&
+      intervenants &&
+      (intervenants.items.length || 0) === 0 &&
+      demandeurs &&
+      (demandeurs.items.length || 0) === 0 &&
+      beneficiaires &&
+      (beneficiaires.items.length || 0) === 0
+    ) {
+      result.push({
+        key: "empty",
+        value: "empty",
+        label: "Aucun résultat",
+        disabled: true,
+      });
+    }
+
+    // Enter prompt
+    if (value !== recherche && value.length > 1) {
+      result.push({
+        key: "empty",
+        value: "empty",
+        label: (
+          <>
+            <EnterOutlined /> pour lancer la recherche
+          </>
+        ),
+        disabled: true,
+      });
+    }
+
+    return result;
+  }, [
+    value,
+    recherche,
+    beneficiaires,
+    intervenants,
+    demandeurs,
+    isFetchingBeneficiaire,
+    isFetchingIntervenant,
+  ]);
+
   return (
     <Select
       open={open}
@@ -79,8 +192,8 @@ export default function BeneficiaireIntervenantSearchDrawer({
           setValue(term);
         },
       }}
-      suffixIcon={
-        value !== recherche && value.length > 1 ? <EnterOutlined className="text-text" /> : null
+      suffix={
+        value !== recherche && value.length > 1 ? <EnterOutlined className="text-text" /> : <></>
       }
       placeholder="Rechercher..."
       className={className}
@@ -117,73 +230,7 @@ export default function BeneficiaireIntervenantSearchDrawer({
         setRecherche(value);
       }}
       defaultActiveFirstOption={false}
-    >
-      {isFetchingBeneficiaire && isFetchingIntervenant && (
-        <Select.Option key="loading" value="loading" disabled>
-          <Spin size="small" />
-        </Select.Option>
-      )}
-      {value === recherche && (beneficiaires?.items.length || 0) > 0 && (
-        <Select.OptGroup key="beneficiaires" label="Bénéficiaires">
-          {beneficiaires?.items.map((beneficiaire) => (
-            <Select.Option
-              key={`beneficiaire§${beneficiaire.uid}`}
-              value={`beneficiaire§${beneficiaire.uid}`}
-            >
-              <EtudiantItem
-                utilisateur={beneficiaire}
-                role={RoleValues.ROLE_BENEFICIAIRE}
-                highlight={recherche}
-              />
-            </Select.Option>
-          ))}
-        </Select.OptGroup>
-      )}
-      {value === recherche && (intervenants?.items.length || 0) > 0 && (
-        <Select.OptGroup key="intervenants" label="Intervenants">
-          {intervenants?.items.map((intervenant) => (
-            <Select.Option
-              key={`intervenant§${intervenant.uid}`}
-              value={`intervenant§${intervenant.uid}`}
-            >
-              <EtudiantItem
-                utilisateur={intervenant}
-                role={RoleValues.ROLE_INTERVENANT}
-                highlight={recherche}
-              />
-            </Select.Option>
-          ))}
-        </Select.OptGroup>
-      )}
-      {value === recherche && (demandeurs?.items.length || 0) > 0 && (
-        <Select.OptGroup key="demandeurs" label="Demandeurs">
-          {demandeurs?.items.map((demandeur) => (
-            <Select.Option key={`demandeur§${demandeur.uid}`} value={`demandeur§${demandeur.uid}`}>
-              <EtudiantItem
-                utilisateur={demandeur}
-                role={RoleValues.ROLE_DEMANDEUR}
-                highlight={recherche}
-              />
-            </Select.Option>
-          ))}
-        </Select.OptGroup>
-      )}
-      {value === recherche &&
-        intervenants &&
-        (intervenants.items.length || 0) === 0 &&
-        demandeurs &&
-        (demandeurs.items.length || 0) === 0 &&
-        beneficiaires &&
-        (beneficiaires.items.length || 0) === 0 && (
-          <Select.Option key="empty" value="empty" disabled>
-            Aucun résultat
-          </Select.Option>
-        )}
-      {value !== recherche && value.length > 1 && (
-        <Select.Option key="empty" value="empty" disabled>
-          <EnterOutlined /> pour lancer la recherche
-        </Select.Option>
-      )}
-    </Select>
+      options={options}
+    />
   );
 }
