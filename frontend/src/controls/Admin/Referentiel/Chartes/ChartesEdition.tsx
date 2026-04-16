@@ -92,7 +92,7 @@ export function ChartesEdition({ editedItem, setEditedItem }: ChartesEditionProp
       title={editedItem?.["@id"] ? "Éditer une charte" : "Ajouter une charte"}
       onClose={() => setEditedItem(undefined)}
       mask={{ closable: false }}
-      size={800}
+      size="large"
     >
       <Card
         title="Charte"

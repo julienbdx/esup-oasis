@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Alert, Form, FormInstance, InputNumber, Select } from "antd";
 import { ExclamationOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -56,6 +56,29 @@ export const InterventionsForfaitForm: React.FC<InterventionsForfaitFormProps> =
       },
     });
 
+  const periodeOptions = useMemo(
+    () =>
+      periodes?.items
+        .filter((p) => !p.envoyee || !isEditable)
+        .filter((p) => user?.isAdmin || dayjs(p.butoir).isAfter(dayjs()))
+        .map((periode) => ({
+          key: periode["@id"],
+          value: periode["@id"],
+          label: <PeriodeRhItem periode={periode} />,
+        })) ?? [],
+    [periodes, isEditable, user?.isAdmin],
+  );
+
+  const typeEvenementOptions = useMemo(
+    () =>
+      typesEvenements?.items.map((typeEvenement) => ({
+        key: typeEvenement["@id"],
+        value: typeEvenement["@id"],
+        label: <TypeEvenementItem typeEvenement={typeEvenement} showAvatar={false} />,
+      })) ?? [],
+    [typesEvenements],
+  );
+
   return (
     <Form<IInterventionForfait>
       layout="vertical"
@@ -80,16 +103,8 @@ export const InterventionsForfaitForm: React.FC<InterventionsForfaitFormProps> =
           loading={isFetchingPeriodes}
           allowClear
           disabled={!isEditable}
-        >
-          {periodes?.items
-            .filter((p) => !p.envoyee || !isEditable)
-            .filter((p) => user?.isAdmin || dayjs(p.butoir).isAfter(dayjs()))
-            .map((periode) => (
-              <Select.Option key={periode["@id"]} value={periode["@id"]}>
-                <PeriodeRhItem periode={periode} />
-              </Select.Option>
-            ))}
-        </Select>
+          options={periodeOptions}
+        />
       </Form.Item>
       <Form.Item
         label="Intervenant"
@@ -127,13 +142,8 @@ export const InterventionsForfaitForm: React.FC<InterventionsForfaitFormProps> =
           loading={isFetchingTypesEvenements}
           allowClear
           disabled={!isEditable}
-        >
-          {typesEvenements?.items.map((typeEvenement) => (
-            <Select.Option key={typeEvenement["@id"]} value={typeEvenement["@id"]}>
-              <TypeEvenementItem typeEvenement={typeEvenement} showAvatar={false} />
-            </Select.Option>
-          ))}
-        </Select>
+          options={typeEvenementOptions}
+        />
       </Form.Item>
       <Form.Item
         label="Durée"

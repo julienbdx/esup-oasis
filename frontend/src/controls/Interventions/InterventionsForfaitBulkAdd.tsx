@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import "@routes/administration/Administration.scss";
 import { App, Button, Card, Col, Drawer, Form, InputNumber, Row, Select, Space } from "antd";
 import { MinusCircleOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
@@ -103,6 +103,19 @@ export default function InterventionsForfaitBulkAdd({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitted, bulkInformations]);
+
+  const periodeOptions = useMemo(
+    () =>
+      periodes?.items
+        .filter((p) => !p.envoyee)
+        .filter((p) => user?.isAdmin || dayjs(p.butoir).isAfter(dayjs()))
+        .map((item) => ({
+          key: item["@id"] as string,
+          value: item["@id"] as string,
+          label: <PeriodeRhItem periode={item} />,
+        })) ?? [],
+    [periodes, user?.isAdmin],
+  );
 
   return (
     <Drawer
@@ -208,19 +221,7 @@ export default function InterventionsForfaitBulkAdd({
                               },
                             ]}
                           >
-                            <Select loading={isFetchingPeriodes}>
-                              {periodes?.items
-                                .filter((p) => !p.envoyee)
-                                .filter((p) => user?.isAdmin || dayjs(p.butoir).isAfter(dayjs()))
-                                .map((item) => (
-                                  <Select.Option
-                                    key={item["@id"] as string}
-                                    value={item["@id"] as string}
-                                  >
-                                    <PeriodeRhItem periode={item} />
-                                  </Select.Option>
-                                ))}
-                            </Select>
+                            <Select loading={isFetchingPeriodes} options={periodeOptions} />
                           </Form.Item>
                         </Col>
                       )}

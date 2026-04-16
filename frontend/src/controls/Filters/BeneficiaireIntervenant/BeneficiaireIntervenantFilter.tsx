@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useMemo, useState } from "react";
 import { Select } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { RoleValues } from "@lib/Utilisateur";
@@ -52,6 +52,59 @@ export default function BeneficiaireIntervenantFilter({
     enabled: recherche.length > 1,
   });
 
+  const options = useMemo(() => {
+    const result = [];
+
+    // Bénéficiaires group
+    if ((beneficiaires?.items || []).filter((i) => i["@id"] !== value).length > 0) {
+      result.push({
+        label: "Bénéficiaires",
+        key: "beneficiaires",
+        options:
+          beneficiaires?.items
+            .filter((i) => i["@id"] !== value?.split("§")[1])
+            .map((b) => ({
+              key: `${RoleValues.ROLE_BENEFICIAIRE}§${b["@id"]}`,
+              value: `${RoleValues.ROLE_BENEFICIAIRE}§${b["@id"]}`,
+              label: `${b.nom?.toUpperCase()} ${b.prenom}`,
+            })) ?? [],
+      });
+    }
+
+    // Intervenants group
+    if ((intervenants?.items || []).filter((i) => i["@id"] !== value).length > 0) {
+      result.push({
+        label: "Intervenants",
+        key: "intervenants",
+        options:
+          intervenants?.items
+            .filter((i) => i["@id"] !== value?.split("§")[1])
+            .map((b) => ({
+              key: `${RoleValues.ROLE_INTERVENANT}§${b["@id"]}`,
+              value: `${RoleValues.ROLE_INTERVENANT}§${b["@id"]}`,
+              label: `${b.nom?.toUpperCase()} ${b.prenom}`,
+            })) ?? [],
+      });
+    }
+
+    // Current selection group
+    if (value) {
+      result.push({
+        label: "Votre sélection",
+        key: "selection",
+        options: [
+          {
+            key: value,
+            value: value,
+            label: <UtilisateurAsString utilisateurId={value.split("§")[1]} />,
+          },
+        ],
+      });
+    }
+
+    return result;
+  }, [beneficiaires, intervenants, value]);
+
   return (
     <Select
       data-testid="beneficiaire-intervenant-filter"
@@ -59,7 +112,13 @@ export default function BeneficiaireIntervenantFilter({
       loading={isFetchingBeneficiaire || isFetchingIntervenant}
       placeholder="Tous les bénéficiaires et intervenants"
       value={value ? [value] : undefined}
-      notFoundContent={recherche.length > 1 ? "Aucun résultat" : "2 caractères minimum"}
+      notFoundContent={
+        isFetchingBeneficiaire || isFetchingIntervenant
+          ? "Recherche..."
+          : recherche.length > 1
+            ? "Aucun résultat"
+            : "2 caractères minimum"
+      }
       onChange={(v) => {
         if (onChange) {
           if (v?.length > 0 && v[v.length - 1]?.includes("utilisateurs")) {
@@ -80,48 +139,7 @@ export default function BeneficiaireIntervenantFilter({
         onSearch: (v) => setRecherche(v.toLocaleLowerCase()),
       }}
       mode={mode}
-    >
-      {(beneficiaires?.items || []).filter((i) => i["@id"] !== value).length > 0 && (
-        <Select.OptGroup label="Bénéficiaires">
-          {(
-            beneficiaires?.items
-              .filter((i) => i["@id"] !== value?.split("§")[1])
-              .map((b) => ({
-                value: `${RoleValues.ROLE_BENEFICIAIRE}§${b["@id"]}`,
-                label: `${b.nom?.toUpperCase()} ${b.prenom}`,
-                role: RoleValues.ROLE_BENEFICIAIRE,
-              })) ?? []
-          ).map((c) => (
-            <Select.Option key={c.value} value={c.value}>
-              {c.label}
-            </Select.Option>
-          ))}
-        </Select.OptGroup>
-      )}
-      {(intervenants?.items || []).filter((i) => i["@id"] !== value).length > 0 && (
-        <Select.OptGroup label="Intervenants">
-          {(
-            intervenants?.items
-              .filter((i) => i["@id"] !== value?.split("§")[1])
-              .map((b) => ({
-                value: `${RoleValues.ROLE_INTERVENANT}§${b["@id"]}`,
-                label: `${b.nom?.toUpperCase()} ${b.prenom}`,
-                role: RoleValues.ROLE_INTERVENANT,
-              })) ?? []
-          ).map((c) => (
-            <Select.Option key={c.value} value={c.value}>
-              {c.label}
-            </Select.Option>
-          ))}
-        </Select.OptGroup>
-      )}
-      {value && (
-        <Select.OptGroup label="Votre sélection">
-          <Select.Option key={value} value={value}>
-            <UtilisateurAsString utilisateurId={value.split("§")[1]} />
-          </Select.Option>
-        </Select.OptGroup>
-      )}
-    </Select>
+      options={options}
+    />
   );
 }

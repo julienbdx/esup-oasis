@@ -8,7 +8,7 @@ export function TimezoneAlert() {
     fuseauHoraire !== "Europe/Paris" && (
       <Alert
         type="warning"
-        message="Changement de fuseau horaire détecté"
+        title="Changement de fuseau horaire détecté"
         description={
           <>
             Votre navigateur est configuré pour afficher les évènements selon votre fuseau horaire
