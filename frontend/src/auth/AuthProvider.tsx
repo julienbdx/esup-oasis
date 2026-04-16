@@ -120,6 +120,7 @@ export function AuthProvider({
       setUser(undefined);
       removeLocalStorageLogin();
       signOut(() => {});
+      return; // Bug 1 : sans ce return, le fetch était lancé malgré l'expiration
     }
 
     if (!env.REACT_APP_API || !(impersonate || login)) return;
@@ -142,28 +143,37 @@ export function AuthProvider({
         signal: controller.signal,
       },
     )
-      .then((userResponse) => {
-        userResponse.json().then((userData: IUtilisateur) => {
-          if (userData.roles && userData.roles.length === 1) {
-            // Le seul rôle est ROLE_USER, l'utilisateur n'est pas affecté
-            notification.error({
-              title: "Erreur",
-              description:
-                "Vous ne possédez pas de rôle valide pour vous connecter à l'application.",
-            });
-            setLoadingUser(false);
-            return;
-          }
+      .then(async (userResponse) => {
+        // Bug 2 : vérification du statut HTTP avant de traiter le JSON
+        if (!userResponse.ok) {
+          removeLocalStorageLogin();
+          setUser(undefined);
+          setErrorUser(`Erreur d'authentification (${userResponse.status})`);
+          setLoadingUser(false);
+          return;
+        }
 
-          // L'utilisateur est affecté
-          setUser(userData);
+        // Bug 3 : promesse retournée (await) pour que le .catch() externe la capture
+        const userData: IUtilisateur = await userResponse.json();
 
-          // redirect apres connexion lorsque l'utilisateur est affecté
-          setTimeout(() => {
-            setLoadingUser(false);
-            onSuccess();
-          }, 500);
-        });
+        if (userData.roles && userData.roles.length === 1) {
+          // Le seul rôle est ROLE_USER, l'utilisateur n'est pas affecté
+          notification.error({
+            title: "Erreur",
+            description: "Vous ne possédez pas de rôle valide pour vous connecter à l'application.",
+          });
+          setLoadingUser(false);
+          return;
+        }
+
+        // L'utilisateur est affecté
+        setUser(userData);
+
+        // redirect apres connexion lorsque l'utilisateur est affecté
+        setTimeout(() => {
+          setLoadingUser(false);
+          onSuccess();
+        }, 500);
       })
       .catch((error) => {
         if (error.name === "AbortError") return;
