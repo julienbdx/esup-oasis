@@ -164,6 +164,7 @@ export default function AppLayoutMenu(): ReactElement {
     <>
       <PageTitle setSelectedMenuKey={setSelectedKey} />
       <Menu
+        aria-label="Menu principal"
         selectedKeys={selectedKey ? [selectedKey] : []}
         mode="horizontal"
         items={[

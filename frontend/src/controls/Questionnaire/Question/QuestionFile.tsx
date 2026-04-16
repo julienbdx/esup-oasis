@@ -126,6 +126,7 @@ export function QuestionFile(props: { question: QuestionnaireQuestion }) {
       ) : (
         <Upload.Dragger
           {...uploadProps}
+          aria-label={`Déposer un fichier pour : ${props.question.libelle}`}
           itemRender={(_originNode, file) => (
             <QuestionFileItem
               file={file}

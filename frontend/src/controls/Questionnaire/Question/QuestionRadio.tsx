@@ -39,6 +39,7 @@ export function QuestionRadio(props: { question: QuestionnaireQuestion }) {
         name={props.question["@id"]}
       >
         <Radio.Group
+          aria-label={props.question.libelle}
           disabled={mode === "preview" || submitting}
           data-question={props.question["@id"]}
           data-type={props.question.typeReponse}

@@ -29,6 +29,7 @@ export default function ToolbarActions({ saisieEvtRenfort }: IToolbarActions) {
     <FloatButton
       icon={<PlusOutlined />}
       type="primary"
+      aria-label="Ajouter un évènement"
       tooltip="Ajouter un évènement"
       onClick={() => {
         setModalEvenement(saisieEvtRenfort ? { intervenant: auth.user?.["@id"] } : {});

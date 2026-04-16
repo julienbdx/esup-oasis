@@ -51,9 +51,9 @@ export default function AppLayout(): ReactElement {
         <Content className="main-card-content">
           <AllModals />
           <AllDrawers />
-          <div id="main" className="main-content" tabIndex={0}>
+          <main id="main" className="main-content" tabIndex={0}>
             <Outlet />
-          </div>
+          </main>
         </Content>
         <Footer style={{ textAlign: "center" }}>
           {env.REACT_APP_TITRE} <MinusOutlined aria-hidden /> {env.REACT_APP_ETABLISSEMENT}{" "}

@@ -41,6 +41,7 @@ export function QuestionSelect(props: { question: QuestionnaireQuestion }) {
         name={props.question["@id"]}
       >
         <Select
+          aria-label={props.question.libelle}
           data-question={props.question["@id"]}
           data-type={props.question.typeReponse}
           disabled={mode === "preview"}

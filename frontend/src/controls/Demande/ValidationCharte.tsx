@@ -50,6 +50,7 @@ export function ValidationCharte(props: { demande: IDemande }) {
     <Card key={charte["@id"]}>
       <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(charte.contenu as string) }} />
       <Form
+        aria-label="Accepter la charte"
         onFinish={(values) => {
           // noinspection JSUnresolvedReference
           if (values.accepter) {

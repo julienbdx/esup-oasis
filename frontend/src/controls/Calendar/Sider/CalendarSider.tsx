@@ -166,6 +166,7 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
                 <Tooltip title="Évènements que vous avez créés">
                   <Button
                     icon={<UserOutlined />}
+                    aria-label="Filtrer sur mes évènements"
                     className="float-right fs-09 text-light"
                     size="small"
                     type="text"
