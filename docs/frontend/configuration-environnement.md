@@ -6,16 +6,19 @@ développement, staging, production). Par exemple, l'URL de l'API peut varier se
 Pour éviter de reconstruire l'image pour chaque environnement, il est possible de définir des variables d'environnement
 qui seront injectées dynamiquement dans l'application au moment de son exécution.
 
-La gestion de ces variables d'environnement repose sur la
-librairie [react-inject-env](https://github.com/codegowhere/react-inject-env/). Un fichier `env.js` servant à injecter
-les valeurs est généré au lancement du conteneur.
+La gestion de ces variables d'environnement repose sur un script shell (`docker-entrypoint.sh`) qui génère automatiquement
+un fichier JavaScript `env.{timestamp}.js` au démarrage du conteneur. Ce fichier contient toutes les variables d'environnement
+dont le nom commence par `REACT_APP_` et les expose via l'objet global `window.env`.
 
-> **Remarque :** Vous pouvez déplacer les variables d'environnement entre les fichiers `.env` et `env.js` en fonction
-> des besoins et de la portée souhaitée de chaque variable.
+Le timestamp dans le nom du fichier garantit que le navigateur charge toujours la version la plus récente des variables
+lors du redémarrage du conteneur, évitant ainsi les problèmes de cache.
 
-> **Remarque :** Les variables injectées sont prioritaires sur celles définies dans le fichier `.env`.
+> **Remarque :** Vous pouvez déplacer les variables d'environnement entre les fichiers `.env` et les variables d'environnement
+> du conteneur en fonction des besoins et de la portée souhaitée de chaque variable.
 
-> **Note :** Si l'application n'est pas déployée sur plusieurs environnements ou si l'image est reconstruite pour chaque 
+> **Remarque :** Les variables injectées au runtime sont prioritaires sur celles définies dans le fichier `.env` au moment du build.
+
+> **Note :** Si l'application n'est pas déployée sur plusieurs environnements ou si l'image est reconstruite pour chaque
 > environnement, il est possible de définir les variables suivantes directement dans le fichier `.env`.
 
 ## Variables liées à l'environnement d'exécution
