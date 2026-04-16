@@ -122,56 +122,59 @@ export function AuthProvider({
          signOut(() => {});
       }
 
-      if (env.REACT_APP_API && (impersonate || login)) {
-         setLoadingUser(true);
+      if (!env.REACT_APP_API || !(impersonate || login)) return;
 
-         // Récupération des infos de l'utilisateur
-         fetch(
-            new URL(
-               `${env.REACT_APP_API_PREFIX}/utilisateurs/${impersonate || login}`,
-               env.REACT_APP_API,
-            ),
-            {
-               method: "GET",
-               credentials: "include",
-               headers: {
-                  "Content-Type": "application/ld+json",
-               },
+      const controller = new AbortController();
+      setLoadingUser(true);
+
+      // Récupération des infos de l'utilisateur
+      fetch(
+         new URL(
+            `${env.REACT_APP_API_PREFIX}/utilisateurs/${impersonate || login}`,
+            env.REACT_APP_API,
+         ),
+         {
+            method: "GET",
+            credentials: "include",
+            headers: {
+               "Content-Type": "application/ld+json",
             },
-         )
-            .then((userResponse) => {
-               userResponse.json().then((userData: IUtilisateur) => {
-                  if (userData.roles && userData.roles.length === 1) {
-                     // Le seul rôle est ROLE_USER, l'utilisateur n'est pas affecté
-                     notification.error({
-                        title: "Erreur",
-                        description:
-                           "Vous ne possédez pas de rôle valide pour vous connecter à l'application.",
-                     });
-                     setLoadingUser(false);
-                     return;
-                  }
+            signal: controller.signal,
+         },
+      )
+         .then((userResponse) => {
+            userResponse.json().then((userData: IUtilisateur) => {
+               if (userData.roles && userData.roles.length === 1) {
+                  // Le seul rôle est ROLE_USER, l'utilisateur n'est pas affecté
+                  notification.error({
+                     title: "Erreur",
+                     description:
+                        "Vous ne possédez pas de rôle valide pour vous connecter à l'application.",
+                  });
+                  setLoadingUser(false);
+                  return;
+               }
 
-                  // L'utilisateur est affecté
-                  setUser(userData);
+               // L'utilisateur est affecté
+               setUser(userData);
 
-                  // redirect apres connexion lorsque l'utilisateur est affecté
-                  setTimeout(() => {
-                     // console.log("AuthProvider: 154 - redirect to /");
-                     //  queryClient.clear();
-                     setLoadingUser(false);
-                     onSuccess();
-                  }, 500);
-               });
-            })
-            .catch((error) => {
-               removeLocalStorageLogin();
-               setUser(undefined);
-               console.error(error);
-               setErrorUser(error.message);
-               setLoadingUser(false);
+               // redirect apres connexion lorsque l'utilisateur est affecté
+               setTimeout(() => {
+                  setLoadingUser(false);
+                  onSuccess();
+               }, 500);
             });
-      }
+         })
+         .catch((error) => {
+            if (error.name === "AbortError") return;
+            removeLocalStorageLogin();
+            setUser(undefined);
+            console.error(error);
+            setErrorUser(error.message);
+            setLoadingUser(false);
+         });
+
+      return () => controller.abort();
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [impersonate, login, env.REACT_APP_API]);
 
