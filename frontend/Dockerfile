@@ -16,10 +16,6 @@ RUN yarn build
 # --- Étape 2 : Production ---
 FROM nginx:alpine
 
-# Installation de Node.js (version légère sur Alpine) uniquement pour react-inject-env
-# Alternative : installer react-inject-env globalement ou copier node_modules sélectivement
-RUN apk add --no-cache nodejs npm
-
 WORKDIR /usr/share/nginx/html
 
 # Copie des fichiers compilés

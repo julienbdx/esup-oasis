@@ -1,5 +1,55 @@
+# Dépendances
 node_modules
+
+# Fichiers de build
+build
+
+# Documentation et ressources
 ressources
 docs
 charts
-build
+*.md
+
+# Fichiers Git
+.git
+.gitignore
+
+# Fichiers Docker
+Dockerfile
+.dockerignore
+compose.yml
+
+# Fichiers IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Tests et coverage
+coverage
+.nyc_output
+**/__tests__
+**/*.test.js
+**/*.test.jsx
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.js
+**/*.spec.jsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# Fichiers de configuration locale
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers temporaires
+.DS_Store
+Thumbs.db
