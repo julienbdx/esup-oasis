@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback, useMemo } from "react";
 import "@controls/Calendar/Calendar/Calendar.scss";
 import dayjs from "dayjs";
 import {
@@ -149,49 +149,80 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
   /**
    * Calculates the props object for displaying a calendar event.
    *
-   * @param {CalendarEvenement} event - The calendar event object.
+   * @param {object} event - The calendar event object (cast to CalendarEvenement internally).
    * @returns {Object} - The props object containing the className and style properties.
    */
-  const eventPropGetter = (event: CalendarEvenement): object => {
-    const typeEvenement = typesEvenements?.items.find(
-      (t: ITypeEvenement) => t["@id"] === event.data.type,
-    );
+  const eventPropGetter = useCallback(
+    (event: object): object => {
+      const calEvent = event as CalendarEvenement;
+      const typeEvenement = typesEvenements?.items.find(
+        (t: ITypeEvenement) => t["@id"] === calEvent.data.type,
+      );
 
-    let props = {
-      className: `border-radius ${event.data.dateAnnulation ? "event-annule" : ""}`,
-      style: {
-        fontSize:
-          appAffichageFiltres.affichage.densite === DensiteValues.compact ? "0.8rem" : "1rem",
-        backgroundColor: event.data.isAffecte()
-          ? `var(--color-${typeEvenement?.couleur})`
-          : `var(--color-xlight-${typeEvenement?.couleur})`,
-        color: `var(--color-dark-${typeEvenement?.couleur})`,
-        border: "none",
-        backgroundImage: event.data.isAffecte() ? "" : "url(/images/strip.svg)",
-      },
-    };
-
-    if (appAccessibilite.contrast) {
-      props = {
-        ...props,
+      let props = {
+        className: `border-radius ${calEvent.data.dateAnnulation ? "event-annule" : ""}`,
         style: {
-          ...props.style,
-          backgroundColor: event.data.isAffecte()
-            ? `var(--color-dark-${typeEvenement?.couleur})`
+          fontSize:
+            appAffichageFiltres.affichage.densite === DensiteValues.compact ? "0.8rem" : "1rem",
+          backgroundColor: calEvent.data.isAffecte()
+            ? `var(--color-${typeEvenement?.couleur})`
             : `var(--color-xlight-${typeEvenement?.couleur})`,
-          color: event.data.isAffecte() ? `#FFF` : "#000",
-          border: event.data.isAffecte() ? "none" : `5px solid var(--color-danger)`,
-          backgroundImage: "",
+          color: `var(--color-dark-${typeEvenement?.couleur})`,
+          border: "none",
+          backgroundImage: calEvent.data.isAffecte() ? "" : "url(/images/strip.svg)",
         },
       };
-    }
 
-    return props;
-  };
+      if (appAccessibilite.contrast) {
+        props = {
+          ...props,
+          style: {
+            ...props.style,
+            backgroundColor: calEvent.data.isAffecte()
+              ? `var(--color-dark-${typeEvenement?.couleur})`
+              : `var(--color-xlight-${typeEvenement?.couleur})`,
+            color: calEvent.data.isAffecte() ? `#FFF` : "#000",
+            border: calEvent.data.isAffecte() ? "none" : `5px solid var(--color-danger)`,
+            backgroundImage: "",
+          },
+        };
+      }
+
+      return props;
+    },
+    [typesEvenements, appAffichageFiltres.affichage.densite, appAccessibilite.contrast],
+  );
 
   function handleOpenModal(data: Evenement) {
     setModalEvenementId(data["@id"]);
   }
+
+  const calendarComponents = useMemo(
+    () => ({
+      toolbar: undefined as undefined,
+      event: (event: { event: object }) => (
+        <CalendarEvent
+          key={(event.event as CalendarEvenement).data.hashCode()}
+          event={event.event as CalendarEvenement}
+        />
+      ),
+      month: {
+        header: ({ date }: { date: Date }) => getMonthHeader(date),
+      },
+      work_week: {
+        header: ({ date }: { date: Date }) =>
+          getWeekHeader(date, !canCreateEventOnDate(date, user, lastPeriodes?.items[0])),
+      },
+      week: {
+        header: ({ date }: { date: Date }) =>
+          getWeekHeader(date, !canCreateEventOnDate(date, user, lastPeriodes?.items[0])),
+      },
+      day: {
+        header: ({ date }: { date: Date }) => <>{date.toLocaleDateString()}</>,
+      },
+    }),
+    [user, lastPeriodes],
+  );
 
   // Custom n'est valable que pour le layout Table
   if (appAffichageFiltres.affichage.type === "custom") {
@@ -234,33 +265,11 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
         onSelectEvent={(event) => {
           handleOpenModal((event as CalendarEvenement).data);
         }}
-        eventPropGetter={(event) => eventPropGetter(event as CalendarEvenement)}
+        eventPropGetter={eventPropGetter}
         selectable={user?.isPlanificateur}
         draggableAccessor={() => user?.isPlanificateur || false}
         toolbar={false}
-        components={{
-          toolbar: undefined,
-          event: (event) => (
-            <CalendarEvent
-              key={(event.event as CalendarEvenement).data.hashCode()}
-              event={event.event as CalendarEvenement}
-            />
-          ),
-          month: {
-            header: ({ date }) => getMonthHeader(date),
-          },
-          work_week: {
-            header: ({ date }) =>
-              getWeekHeader(date, !canCreateEventOnDate(date, user, lastPeriodes?.items[0])),
-          },
-          week: {
-            header: ({ date }) =>
-              getWeekHeader(date, !canCreateEventOnDate(date, user, lastPeriodes?.items[0])),
-          },
-          day: {
-            header: ({ date }) => <>{date.toLocaleDateString()}</>,
-          },
-        }}
+        components={calendarComponents}
         onEventDrop={({ event, start, end }) => {
           if (user?.isPlanificateur) handleEventChange(event as CalendarEvenement, start, end);
         }}
