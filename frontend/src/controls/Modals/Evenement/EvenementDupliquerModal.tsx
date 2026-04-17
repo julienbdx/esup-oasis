@@ -7,8 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
-import { Button, Form, message, Modal, notification } from "antd";
+import React, { ReactElement, useState } from "react";
+import { Button, Form, Modal, notification } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Evenement } from "@lib/Evenement";
 import { useApi } from "@context/api/ApiProvider";
@@ -23,6 +23,7 @@ import {
   EvenementDupliquerForm,
   IDuplicationOptions,
 } from "@controls/Modals/Evenement/EvenementDupliquerForm";
+import dayjs, { Dayjs } from "dayjs";
 
 interface IEvenementDupliquerDrawer {
   evenement: Evenement;
@@ -40,27 +41,11 @@ export default function EvenementDupliquerModal({
 }: IEvenementDupliquerDrawer): ReactElement {
   const [form] = Form.useForm();
   const [afficherAide, setAfficherAide] = useState(false);
-  const [datesSelectionnees, setDatesSelectionnees] = useState<Date[]>([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [options, setOptions] = useState<IDuplicationOptions>({
-    horaire: true,
-    typeEvenement: true,
-    beneficiaire: true,
-    intervenant: evenement.type === TYPE_EVENEMENT_RENFORT,
-    suppleants: false,
-    campus: true,
-    salle: false,
-    equipements: true,
-    paiement: false,
-  });
+  const [datesSelectionnees, setDatesSelectionnees] = useState<Dayjs[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const postEvenement = useApi().usePost({
     path: "/evenements",
-    onSuccess: () => {
-      window.setTimeout(() => {
-        setDatesSelectionnees((prev) => prev.slice(1));
-      }, 500);
-    },
   });
 
   const handleClose = () => {
@@ -71,49 +56,9 @@ export default function EvenementDupliquerModal({
     });
   };
 
-  function postEvenementDuplique() {
-    if (datesSelectionnees.length > 0) {
-      const date = datesSelectionnees[0];
-      const debut = new Date(date);
-      debut.setHours(evenement.debutDate()?.getHours() || 0, evenement.debutDate()?.getMinutes());
-      const fin = new Date(date);
-      fin.setHours(evenement.finDate()?.getHours() || 0, evenement.finDate()?.getMinutes());
-
-      const nvoEvenement: IEvenement = {
-        id: undefined,
-        "@id": undefined,
-        debut: createDateAsUTC(debut).toISOString(),
-        fin: createDateAsUTC(fin).toISOString(),
-        libelle: evenement.libelle,
-        campus: evenement.campus,
-        type: evenement.type,
-        beneficiaires: options.beneficiaire ? evenement.beneficiaires : undefined,
-        intervenant: options.intervenant ? evenement.intervenant : undefined,
-        suppleants: options.suppleants ? evenement.suppleants : undefined,
-        salle: options.salle ? evenement.salle : undefined,
-        equipements: options.equipements ? evenement.equipements : undefined,
-        tempsPreparation: options.paiement ? evenement.tempsPreparation : undefined,
-        tempsSupplementaire: options.paiement ? evenement.tempsSupplementaire : undefined,
-      };
-
-      postEvenement.mutate({ data: nvoEvenement });
-    } else {
-      message.success("Évènement dupliqué avec succès").then();
-      setSubmitted(false);
-      handleClose();
-    }
-  }
-
-  useEffect(() => {
-    if (submitted) {
-      postEvenementDuplique();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitted, datesSelectionnees]);
-
-  const handleSubmit = (values: IDuplicationOptions) => {
+  async function handleSubmit(values: IDuplicationOptions) {
     if (
-      arrayContainsDuplicates(datesSelectionnees.map((d) => d.toISOString())) &&
+      arrayContainsDuplicates(datesSelectionnees.map((d) => d.format("YYYY-MM-DD"))) &&
       (values.intervenant || values.beneficiaire)
     ) {
       notification.error({
@@ -123,11 +68,58 @@ export default function EvenementDupliquerModal({
       });
       return;
     }
-    setSubmitted(() => {
-      setOptions(values);
-      return true;
-    });
-  };
+
+    setIsSubmitting(true);
+    try {
+      const datesToProcess = [...datesSelectionnees];
+      while (datesToProcess.length > 0) {
+        const date = datesToProcess[0];
+        const debut = dayjs(date)
+          .hour(evenement.debutDate()?.getHours() || 0)
+          .minute(evenement.debutDate()?.getMinutes() || 0)
+          .second(0)
+          .millisecond(0);
+
+        const fin = dayjs(date)
+          .hour(evenement.finDate()?.getHours() || 0)
+          .minute(evenement.finDate()?.getMinutes() || 0)
+          .second(0)
+          .millisecond(0);
+
+        const nvoEvenement: IEvenement = {
+          debut: createDateAsUTC(debut.toDate()).toISOString(),
+          fin: createDateAsUTC(fin.toDate()).toISOString(),
+          libelle: evenement.libelle,
+          campus: evenement.campus,
+          type: evenement.type,
+          beneficiaires: values.beneficiaire ? evenement.beneficiaires : undefined,
+          intervenant: values.intervenant ? evenement.intervenant : undefined,
+          suppleants: values.suppleants ? evenement.suppleants : undefined,
+          salle: values.salle ? evenement.salle : undefined,
+          equipements: values.equipements ? evenement.equipements : undefined,
+          tempsPreparation: values.paiement ? evenement.tempsPreparation : undefined,
+          tempsSupplementaire: values.paiement ? evenement.tempsSupplementaire : undefined,
+        };
+
+        await postEvenement.mutateAsync({
+          data: nvoEvenement,
+        });
+
+        datesToProcess.shift();
+        setDatesSelectionnees([...datesToProcess]);
+      }
+
+      notification.success({ message: "Évènement dupliqué avec succès" });
+      handleClose();
+    } catch {
+      notification.error({
+        title: "Erreur lors de la duplication",
+        description: "Certains évènements n'ont pas pu être créés.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <Modal
@@ -157,14 +149,24 @@ export default function EvenementDupliquerModal({
       open={open}
       className="oasis-drawer"
       width={800}
-      confirmLoading={submitted}
+      confirmLoading={isSubmitting}
     >
       <EvenementDupliquerForm
         form={form}
         evenement={evenement}
         datesSelectionnees={datesSelectionnees}
         setDatesSelectionnees={setDatesSelectionnees}
-        options={options}
+        options={{
+          horaire: true,
+          typeEvenement: true,
+          beneficiaire: true,
+          intervenant: evenement.type === TYPE_EVENEMENT_RENFORT,
+          suppleants: false,
+          campus: true,
+          salle: false,
+          equipements: true,
+          paiement: false,
+        }}
         onFinish={handleSubmit}
         afficherAide={afficherAide}
         setAfficherAide={setAfficherAide}

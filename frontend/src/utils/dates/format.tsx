@@ -11,33 +11,7 @@ import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { RightOutlined } from "@ant-design/icons";
 import { stringOrDate } from "react-big-calendar";
-import { DayValue } from "@lib/react-modern-calendar-datepicker";
 import { isSameDay } from "@utils/dates/range";
-
-/**
- * Converts a Date object to a DayValue object.
- *
- * @param {Date} date - The Date object to convert.
- * @return {DayValue} - The DayValue object representing the year, month, and day of the given date.
- */
-export function toDayValue(date: Date): DayValue {
-  return {
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate(),
-  };
-}
-
-/**
- * Converts a DayValue object to a JavaScript Date object.
- *
- * @param {DayValue} dayValue - The DayValue object to be converted.
- * @return {Date} - The converted JavaScript Date object.
- */
-export function toDate(dayValue: DayValue): Date {
-  if (!dayValue) return new Date();
-  return new Date(dayValue.year, dayValue.month - 1, dayValue.day);
-}
 
 /**
  * Converts a string or existing Date object to a Date object.
