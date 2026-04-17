@@ -8,10 +8,7 @@
  */
 
 import React, { ReactElement } from "react";
-import { Alert, Button, Col, Empty, Form, FormInstance, List, Row, Switch } from "antd";
-import { Calendar, Day } from "@lib/react-modern-calendar-datepicker";
-import { modernCalendarLocaleFr } from "@lib/react-modern-calendar-datepicker/SmallCalendarLocale";
-import { toDate, toDayValue } from "@utils/dates";
+import { Alert, Button, Col, DatePicker, Empty, Form, FormInstance, List, Row, Switch } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Evenement } from "@lib/Evenement";
 import { useApi } from "@context/api/ApiProvider";
@@ -19,6 +16,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { PREFETCH_LAST_PERIODES_RH } from "@api/ApiPrefetchHelpers";
 import { UseStateDispatch } from "@utils/utils";
+import { Dayjs } from "dayjs";
 
 export interface IDuplicationOptions {
   horaire: boolean;
@@ -35,8 +33,8 @@ export interface IDuplicationOptions {
 interface IEvenementDupliquerFormProps {
   form: FormInstance;
   evenement: Evenement;
-  datesSelectionnees: Date[];
-  setDatesSelectionnees: UseStateDispatch<Date[]>;
+  datesSelectionnees: Dayjs[];
+  setDatesSelectionnees: UseStateDispatch<Dayjs[]>;
   options: IDuplicationOptions;
   onFinish: (values: IDuplicationOptions) => void;
   afficherAide: boolean;
@@ -95,44 +93,41 @@ export function EvenementDupliquerForm({
       >
         <Row gutter={[16, 16]}>
           <Col lg={12} sm={24}>
-            <Calendar
-              calendarClassName="small-calendar pr-2"
-              shouldHighlightWeekends
-              locale={modernCalendarLocaleFr}
-              minimumDate={
+            <DatePicker
+              multiple
+              value={datesSelectionnees}
+              onChange={(dates) => {
+                setDatesSelectionnees(dates || []);
+              }}
+              maxTagCount="responsive"
+              className="mb-3"
+              placeholder="Sélectionnez une ou plusieurs dates"
+              format="DD/MM/YYYY"
+              minDate={
                 user?.isAdmin || !lastPeriodes || !lastPeriodes.items[0]
                   ? undefined
-                  : (toDayValue(new Date(lastPeriodes.items[0].butoir as string)) as Day)
+                  : new Dayjs(lastPeriodes.items[0].butoir as string)
               }
-              onChange={(v) => {
-                if (v) {
-                  // Pas de doublons sur les dates car un bénéf ne peut pas avoir 2 évènements sur le même créneau horaire
-                  if (
-                    datesSelectionnees.map((d) => d.toISOString()).includes(toDate(v).toISOString())
-                  )
-                    return;
-
-                  setDatesSelectionnees([...datesSelectionnees, toDate(v)]);
-                }
-              }}
             />
 
             <p className="semi-bold mt-0">Date des évènements à créer</p>
             {datesSelectionnees.length > 0 ? (
               <List size="small">
-                {datesSelectionnees.map((date, index) => (
+                {datesSelectionnees.map((date) => (
                   <List.Item
-                    key={index}
+                    key={date.toISOString()}
                     extra={
                       <Button
                         icon={<DeleteOutlined />}
                         onClick={() => {
-                          setDatesSelectionnees(datesSelectionnees.filter((d) => d !== date));
+                          setDatesSelectionnees(
+                            datesSelectionnees.filter((d) => !d.isSame(date, "day")),
+                          );
                         }}
                       />
                     }
                   >
-                    {date.toLocaleDateString()}
+                    {date.format("DD/MM/YYYY")}
                   </List.Item>
                 ))}
               </List>

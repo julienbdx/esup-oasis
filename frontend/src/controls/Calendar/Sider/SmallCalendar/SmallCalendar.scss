@@ -1,5 +1,4 @@
-@import "../../../../lib/react-modern-calendar-datepicker/DatePicker.css";
-@import "../../../../styles/variables";
+@use "../../../../styles/variables" as variables;
 
 .small-calendar {
   background: transparent;
@@ -15,22 +14,22 @@
   }
 
   table.ant-picker-content thead tr th {
-    color: $legende;
+    color: variables.$legende;
     padding-bottom: 10px;
   }
 
   .ant-picker-cell {
-    color: $legende;
+    color: variables.$legende;
     font-weight: 100 !important;
     font-size: .9rem;
 
     .bg-app {
-      color: $text;
+      color: variables.$text;
     }
   }
 
   .ant-picker-cell-in-view {
-    color: $text;
+    color: variables.$text;
     font-weight: 400 !important;
   }
 
@@ -39,7 +38,7 @@
   }
 
   .today {
-    color: $primary;
+    color: variables.$primary;
     font-weight: 500;
   }
 
@@ -61,13 +60,13 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: $primary;
+    background: variables.$primary;
     top: 30px;
     left: calc(50% - 3px);
   }
 
   .has-event-warning:after {
-    background: $warning;
+    background: variables.$warning;
   }
 }
 
