@@ -36,3 +36,17 @@ Une fois la variable HOST configurée, exécutez la commande suivante pour lance
 ```bash
 yarn start:https
 ```
+
+## Mettre à jour le `schema.d.ts`
+
+Suite à une modification du backend, il peut être nécessaire de mettre à jour la définition TypeScript de l'API.
+
+Pour ce faire, sur le backend :
+```shell
+bin/console api:openapi:export --yaml > ./OpenApi.yml
+```
+Côté frontend, récupérer le fichier `OpenApi.yml` et le placer dans le dossier `src/api`.
+Éxécuter :
+```shell
+yarn run generate:api
+```
