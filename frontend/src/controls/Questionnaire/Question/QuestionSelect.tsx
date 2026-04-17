@@ -13,6 +13,7 @@ import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
 import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { useApi } from "@context/api/ApiProvider";
 import React from "react";
+import { cleanUri } from "@utils/string";
 
 export function QuestionSelect(props: { question: QuestionnaireQuestion }) {
   const [submitting, setSubmitting] = React.useState<boolean>(false);
@@ -35,7 +36,7 @@ export function QuestionSelect(props: { question: QuestionnaireQuestion }) {
         label={
           <Space className="question" orientation="horizontal">
             <MinusOutlined aria-hidden={true} />
-            <div>{props.question.libelle}</div>
+            <div id={cleanUri(props.question["@id"])}>{props.question.libelle}</div>
           </Space>
         }
         name={props.question["@id"]}
@@ -44,7 +45,7 @@ export function QuestionSelect(props: { question: QuestionnaireQuestion }) {
           <Skeleton active paragraph={false} />
         ) : (
           <Select
-            aria-label={props.question.libelle}
+            aria-labelledby={cleanUri(props.question["@id"])}
             data-question={props.question["@id"]}
             data-type={props.question.typeReponse}
             disabled={mode === "preview"}

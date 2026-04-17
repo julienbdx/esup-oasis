@@ -13,6 +13,7 @@ import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/Questi
 import { MinusOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import React from "react";
+import { cleanUri } from "@utils/string";
 
 export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {
   const { questUtils, mode, submitting } = useQuestionnaire();
@@ -30,7 +31,7 @@ export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {
         label={
           <Space className="question" orientation="horizontal">
             <MinusOutlined aria-hidden={true} />
-            <div>{props.question.libelle}</div>
+            <div id={cleanUri(props.question["@id"])}>{props.question.libelle}</div>
           </Space>
         }
         rules={[
@@ -65,7 +66,7 @@ export function QuestionCheckbox(props: { question: QuestionnaireQuestion }) {
           <Skeleton active paragraph={{ rows: 2 }} title={false} />
         ) : (
           <Checkbox.Group
-            aria-label={props.question.libelle}
+            aria-labelledby={cleanUri(props.question["@id"])}
             disabled={mode === "preview" || submitting}
             data-question={props.question["@id"]}
             data-type={props.question.typeReponse}

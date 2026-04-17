@@ -13,6 +13,7 @@ import { MinusOutlined } from "@ant-design/icons";
 import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
 import { createDateFromStringAsUTC } from "@utils/dates";
 import React from "react";
+import { cleanUri } from "@utils/string";
 
 export function QuestionDate(props: { question: QuestionnaireQuestion }) {
   const [submitting, setSubmitting] = React.useState<boolean>(false);
@@ -32,13 +33,13 @@ export function QuestionDate(props: { question: QuestionnaireQuestion }) {
         label={
           <Space className="question" orientation="horizontal">
             <MinusOutlined aria-hidden={true} />
-            <div>{props.question.libelle}</div>
+            <div id={cleanUri(props.question["@id"])}>{props.question.libelle}</div>
           </Space>
         }
         name={props.question["@id"]}
       >
         <DatePicker
-          aria-label={props.question.libelle}
+          aria-labelledby={cleanUri(props.question["@id"])}
           data-question={props.question["@id"]}
           data-type={props.question.typeReponse}
           disabled={mode === "preview" || submitting}

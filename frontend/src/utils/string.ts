@@ -24,3 +24,13 @@ export function pluriel(n: number, singular: string, plural: string) {
 }
 
 export type DateAsString = string;
+
+/**
+ * Cleans an identifier by removing non-alphanumeric characters.
+ *
+ * @param {string} id - The identifier to clean.
+ * @return {string} - The cleaned identifier.
+ */
+export function cleanUri(id: string): string {
+  return id.replace(/[^a-zA-Z0-9]/g, "");
+}
