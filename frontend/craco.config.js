@@ -4,6 +4,16 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const isAnalyze = process.env.ANALYZE === 'true';
 
 module.exports = {
+  style: {
+    sass: {
+      loaderOptions: {
+        sassOptions: {
+          quietDeps: true,
+          silenceDeprecations: ["legacy-js-api"],
+        },
+      },
+    },
+  },
   webpack: {
     plugins: {
       add: isAnalyze ? [new BundleAnalyzerPlugin()] : [],

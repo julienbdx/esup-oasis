@@ -1,7 +1,7 @@
-@import "../../../styles/variables";
-@import "../../../styles/helpers";
-@import 'react-big-calendar/lib/sass/styles';
-@import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+@use "../../../styles/variables" as variables;
+@use "../../../styles/helpers" as helpers;
+@use 'react-big-calendar/lib/css/react-big-calendar';
+
 
 .calendar-content {
   background: white;
@@ -9,7 +9,7 @@
 
 .ant-dropdown-menu-item {
   &.active * {
-    color: $primary;
+    color: variables.$primary;
   }
 }
 
@@ -33,8 +33,8 @@
   }
 
   .rbc-current-time-indicator {
-    background-color: $error;
-    border: 1px solid $error !important;
+    background-color: variables.$error;
+    border: 1px solid variables.$error !important;
     // box-shadow: 2px 2px 5px 1px lighten($error, 2%);
   }
 
@@ -43,7 +43,7 @@
   }
 
   .rbc-label {
-    color: $legende;
+    color: variables.$legende;
     position: relative;
     top: -10px;
     background-color: white;
@@ -73,7 +73,7 @@
 
       .date {
         font-size: .9rem;
-        color: $legende;
+        color: variables.$legende;
       }
 
       .jour {
@@ -93,7 +93,7 @@
 
   .rbc-allday-cell {
     height: 50px;
-    border-left: 1px solid $light-grey-border;
+    border-left: 1px solid variables.$light-grey-border;
     display: none;
   }
 
@@ -141,7 +141,7 @@
   .rbc-time-header {
     position: sticky;
     top: 0;
-    border-bottom: 1px solid $light-grey-border;
+    border-bottom: 1px solid variables.$light-grey-border;
     z-index: 20;
     height: 81px;
   }
@@ -151,7 +151,7 @@
   background-color: transparent;
 
   .week-header, .week-header .date {
-    color: $primary !important;
+    color: variables.$primary !important;
   }
 }
 
@@ -159,7 +159,7 @@
   position: relative;
   top: -23px;
   line-height: 0;
-  color: $primary;
+  color: variables.$primary;
   left: 0;
   width: 100%;
   height: 0;
@@ -186,16 +186,16 @@
   display: flex;
   align-items: center;
   padding: 0 20px;
-  background-color: $light-grey;
+  background-color: variables.$light-grey;
 }
 
 .rbc-event:hover {
-  @extend .shadow-2;
+  box-shadow: 0 10px 17px rgb(0 0 0 / 15%);
   transition: all .2s ease-in-out;
 }
 
 .rbc-event {
-  animation: $anim-appear
+  animation: helpers.$anim-appear
 }
 
 @media screen and (max-width: 768px) {

@@ -1,5 +1,4 @@
-@import "../../styles/variables";
-@import "../../styles/helpers";
+@use "../../styles/variables" as variables;
 
 #main main {
   min-height: calc(100vh - 160px)
@@ -12,7 +11,7 @@
   background-color: rgb(255, 255, 255, .9) !important;
   height: 80px;
   font-weight: 300;
-  border-bottom: 1.5px solid $light-grey-border;
+  border-bottom: 1.5px solid variables.$light-grey-border;
   backdrop-filter: blur(5px);
 
   button {
@@ -21,7 +20,7 @@
   }
 
   .ant-menu-title-content, .anticon {
-    //background-color: $light-grey;
+    //background-color: variables.$light-grey;
     padding: 8px 24px;
     border-radius: 30px;
   }
@@ -35,11 +34,11 @@
   }
 
   .user .ant-menu-title-content, .recherche .ant-menu-title-content {
-    background-color: $light-grey;
+    background-color: variables.$light-grey;
   }
 
   .anticon:not(.anticon-enter) {
-    background-color: $light-grey;
+    background-color: variables.$light-grey;
     padding: 16px;
     border-radius: 30px;
   }
@@ -70,7 +69,7 @@
   }
 
   .ant-menu-submenu-selected .ant-menu-title-content, .recherche.recherche-en-cours .ant-menu-title-content, .recherche.recherche-en-cours .anticon.anticon-search {
-    background-color: $primary-light;
+    background-color: variables.$primary-light;
     transition: background-color .5s;
   }
 
@@ -99,7 +98,7 @@
     }
 
     .anticon.anticon-search {
-      color: $primary;
+      color: variables.$primary;
       height: 51px;
       padding-top: 14px;
     }
@@ -164,7 +163,7 @@
 
 .sider-trigger {
   background: transparent !important;
-  color: $primary;
+  color: variables.$primary;
 }
 
 .ant-menu-light {
@@ -203,7 +202,7 @@
   align-items: center;
   justify-content: center;
   margin-right: auto !important;
-  color: $primary;
+  color: variables.$primary;
   font-weight: 500;
   font-size: 26px !important;
 
@@ -223,24 +222,24 @@
 .ant-menu-item-selected, .ant-menu-submenu-selected {
   .ant-menu-title-content, button {
     font-weight: 500 !important;
-    color: $primary;
+    color: variables.$primary;
     transition: all .5s;
   }
 }
 
 .accessibilite-contraste {
   .header {
-    background-color: $white !important;
+    background-color: variables.$white !important;
   }
 
   .ant-menu-item-selected, .ant-menu-submenu-selected {
     .ant-menu-title-content, button {
-      color: $primary-contrast;
+      color: variables.$primary-contrast;
     }
   }
 
   .header .ant-menu-title-content, .header .anticon {
-    background-color: $white;
+    background-color: variables.$white;
   }
 }
 
@@ -248,7 +247,7 @@
   bottom: 40px;
   right: 50px;
   border-radius: 100%;
-  @extend .shadow-2;
+  box-shadow: 0 10px 17px rgb(0 0 0 / 15%);
 }
 
 .ant-float-btn-group {
@@ -302,7 +301,7 @@
     }
 
     .role {
-      color: $legende;
+      color: variables.$legende;
       font-weight: 300;
       font-size: .8rem;
     }
@@ -316,7 +315,7 @@
 
 .user.ant-menu-submenu-selected {
   .role, .identite {
-    color: $text;
+    color: variables.$text;
   }
 }
 

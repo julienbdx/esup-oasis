@@ -1,8 +1,8 @@
-@import "../styles/variables";
+@use "../styles/variables" as variables;
 
 .login-image {
   display: flex;
-  background-color: $light-grey;
+  background-color: variables.$light-grey;
   align-items: center;
   justify-content: center;
   flex-direction: column;
