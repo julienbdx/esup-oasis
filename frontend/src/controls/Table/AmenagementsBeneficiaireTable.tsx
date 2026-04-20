@@ -237,7 +237,6 @@ export function AmenagementsBeneficiaireTable(props: {
                 ) as HTMLElement;
                 if (tableElement) {
                   tableElement.scrollLeft = value;
-                  setScrollInfo((prev) => ({ ...prev, left: value }));
                 }
               }}
               tooltip={{
