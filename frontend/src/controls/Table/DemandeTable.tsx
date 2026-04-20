@@ -14,9 +14,6 @@ import { Button, Flex, Space, Table, Tooltip } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { SorterResult } from "antd/es/table/interface";
-import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/queryClient";
 import { PREFETCH_ETAT_DEMANDE } from "@api/ApiPrefetchHelpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DemandeTableExport from "@controls/Table/DemandeTableExport";
@@ -78,10 +75,8 @@ function filtreDemandeDefault(
 export default function DemandeTable(props: { refs: RefsTourDemandes; affichageTour?: boolean }) {
   const auth = useAuth();
   const [searchParams] = useSearchParams();
-  const { setAffichageFiltres } = useAffichageFiltres();
   const navigate = useNavigate();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
-  const [hasImpersonate, setHasImpersonate] = useState(false);
   const [filtreDemande, setFiltreDemande] = useState<FiltreDemande>({
     ...filtreDemandeDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
     // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -133,24 +128,13 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    if (auth.impersonate && hasImpersonate) {
-      queryClient.clear();
-      setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
-    }
-  }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
-
   const count = dataDemandes?.totalItems;
 
   const handleImpersonate = useCallback(
     (uid: string) => {
-      navigate("/");
-      window.setTimeout(() => {
-        setHasImpersonate(true);
-        auth.setImpersonate(uid);
-      }, 500);
+      navigate(`/impersonate/${uid}`);
     },
-    [navigate, auth],
+    [navigate],
   );
 
   const handleDemandeSelected = useCallback(

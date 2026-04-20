@@ -146,6 +146,7 @@ export function ApiProvider({
         path: P;
         url?: string;
         enabled?: boolean;
+        onError?: (error: IErreurNotification) => void;
       }): UseQueryResult<ApiPathMethodResponse<P, "get">> => {
         return useGetItem(baseUrl, fetchOptions, options);
       },

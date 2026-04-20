@@ -7,14 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button, Flex, Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import { EditOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/queryClient";
-import { useAuth } from "@/auth/AuthProvider";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { IComposante, IComposanteQuery, IUtilisateur } from "@api/ApiTypeHelpers";
 import { ColumnsType } from "antd/lib/table";
 import { useNavigate } from "react-router-dom";
@@ -31,14 +27,11 @@ type FiltreReferent = IComposanteQuery & {
 };
 
 export default function ReferentsTable({ onEdit }: TableReferentsProps) {
-  const { setAffichageFiltres } = useAffichageFiltres();
-  const auth = useAuth();
   const [filtre, setFiltre] = React.useState<FiltreReferent>({
     page: 1,
     itemsPerPage: 25,
     "order[libelle]": "asc",
   });
-  const [hasImpersonate, setHasImpersonate] = useState(false);
   const navigate = useNavigate();
 
   const { data: composantes, isFetching } = useApi().useGetCollection({
@@ -57,13 +50,6 @@ export default function ReferentsTable({ onEdit }: TableReferentsProps) {
          "order[nom]": "asc",
       },
    });*/
-
-  useEffect(() => {
-    if (auth.impersonate && hasImpersonate) {
-      setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
-      queryClient.clear();
-    }
-  }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
   return (
     <>
@@ -129,11 +115,7 @@ export default function ReferentsTable({ onEdit }: TableReferentsProps) {
                           <Popconfirm
                             title="Êtes-vous sûr de vouloir prendre l'identité de cet utilisateur ?"
                             onConfirm={() => {
-                              navigate("/");
-                              window.setTimeout(() => {
-                                setHasImpersonate(true);
-                                auth.setImpersonate(value.replace("/utilisateurs/", ""));
-                              }, 500);
+                              navigate(`/impersonate/${value.replace("/utilisateurs/", "")}`);
                             }}
                             okText="Oui"
                             cancelText="Non"
