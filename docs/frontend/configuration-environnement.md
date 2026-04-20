@@ -16,7 +16,7 @@ lors du redémarrage du conteneur, évitant ainsi les problèmes de cache.
 > **Remarque :** Vous pouvez déplacer les variables d'environnement entre les fichiers `.env` et les variables d'environnement
 > du conteneur en fonction des besoins et de la portée souhaitée de chaque variable.
 
-> **Remarque :** Les variables injectées au runtime sont prioritaires sur celles définies dans le fichier `.env` au moment du build.
+> **Remarque :** Les variables injectées au runtime sont prioritaires sur celles définies dans le fichier `.env`.
 
 > **Note :** Si l'application n'est pas déployée sur plusieurs environnements ou si l'image est reconstruite pour chaque
 > environnement, il est possible de définir les variables suivantes directement dans le fichier `.env`.

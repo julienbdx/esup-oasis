@@ -3,13 +3,35 @@
 # Générer un fichier env.{timestamp}.js avec toutes les variables REACT_APP_*
 TIMESTAMP=$(date +%s)
 ENV_FILE="/usr/share/nginx/html/env.${TIMESTAMP}.js"
+DOTENV_FILE="/usr/share/nginx/html/.env"
+
+# Construire la liste des clés déjà présentes dans l'environnement (séparées par ':')
+env_keys=$(env | grep '^REACT_APP_' | cut -d= -f1 | tr '\n' ':')
 
 {
   printf 'window.env = {\n'
+
+  # Variables du fichier .env absentes de l'environnement (l'env est prioritaire)
+  if [ -f "$DOTENV_FILE" ]; then
+    grep '^REACT_APP_' "$DOTENV_FILE" | grep -v '^#' | while IFS='=' read -r key value; do
+      case ":${env_keys}:" in
+        *":${key}:"*) ;;
+        *)
+          # Supprimer les guillemets entourant la valeur (simples ou doubles)
+          value=$(printf '%s' "$value" | sed "s/^['\"]//; s/['\"]$//")
+          escaped=$(printf '%s' "$value" | sed 's/\\/\\\\/g; s/"/\\"/g')
+          printf '  "%s": "%s",\n' "$key" "$escaped"
+          ;;
+      esac
+    done
+  fi
+
+  # Variables d'environnement (prioritaires)
   env | grep '^REACT_APP_' | while IFS='=' read -r key value; do
     escaped=$(printf '%s' "$value" | sed 's/\\/\\\\/g; s/"/\\"/g')
     printf '  "%s": "%s",\n' "$key" "$escaped"
   done
+
   printf '};\n'
 } > "$ENV_FILE"
 

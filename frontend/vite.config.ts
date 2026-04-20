@@ -56,9 +56,6 @@ export default defineConfig(() => {
                   if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) {
                      return "vendor-react";
                   }
-                  if (/@ant-design\/icons/.test(id)) {
-                     return "vendor-icons";
-                  }
                   if (/node_modules\/(antd|@ant-design)\//.test(id)) {
                      return "vendor-antd";
                   }
