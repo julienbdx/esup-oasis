@@ -93,16 +93,19 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
 
   // Initialisation via contexte : UTILISATEUR
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!id) setUtilisateurId(drawers.UTILISATEUR);
   }, [id, drawers.UTILISATEUR]);
 
   // Initialisation via contexte : UTILISATEUR_ROLE
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!id) setRole(drawers.UTILISATEUR_ROLE);
   }, [id, drawers.UTILISATEUR_ROLE]);
 
   // Synchronisation des données data avec la variable utilisateur
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (data) setUtilisateur(new Utilisateur(data));
   }, [data]);
 
@@ -115,10 +118,12 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
   // --- Message alerte Bénéficiaire sans profil
   useEffect(() => {
     if (utilisateur && getRole() === RoleValues.ROLE_BENEFICIAIRE) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsBeneficiaireSansProfil(
         (auth.user?.isGestionnaire || false) &&
           (!utilisateur.profils || utilisateur.profils.length === 0),
       );
+
       setIsIntervenantSansTypeEvenement(false);
     }
   }, [auth.user, getRole, utilisateur]);
@@ -126,9 +131,11 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
   // --- Message alerte Intervenant sans type evt
   useEffect(() => {
     if (utilisateur && getRole() === RoleValues.ROLE_INTERVENANT) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsIntervenantSansTypeEvenement(
         !utilisateur.typesEvenements || utilisateur.typesEvenements.length === 0,
       );
+
       setIsBeneficiaireSansProfil(false);
     }
   }, [getRole, utilisateur]);

@@ -47,6 +47,7 @@ export default function TabEvenementInformations({
   const [typeSelectionne, setTypeSelectionne] = useState(evenement?.type);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTypeSelectionne(evenement?.type);
   }, [evenement]);
 

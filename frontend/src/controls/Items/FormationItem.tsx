@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { Breakpoint, Tooltip } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
@@ -34,14 +34,8 @@ interface IItemFormation {
  * @returns {ReactElement} The rendered formation item component.
  */
 function FormationItem({ formation, formationId }: IItemFormation): ReactElement {
-  const [item, setItem] = useState(formation);
   const { data: dataFormation, isFetching } = useApi().useGetCollection(PREFETCH_FORMATIONS);
-
-  useEffect(() => {
-    if (dataFormation && formationId) {
-      setItem(dataFormation.items.find((t) => t["@id"] === formationId));
-    }
-  }, [dataFormation, formationId]);
+  const item = formation ?? dataFormation?.items.find((t) => t["@id"] === formationId);
 
   if (!item || isFetching) return <Spinner />;
 

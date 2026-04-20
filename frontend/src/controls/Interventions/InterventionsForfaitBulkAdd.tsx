@@ -92,6 +92,7 @@ export default function InterventionsForfaitBulkAdd({
       });
     } else {
       message.success("Interventions au forfait créées avec succès").then();
+
       setSubmitted(false);
       onClose();
     }
@@ -99,6 +100,7 @@ export default function InterventionsForfaitBulkAdd({
 
   useEffect(() => {
     if (submitted) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       postIntervention();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

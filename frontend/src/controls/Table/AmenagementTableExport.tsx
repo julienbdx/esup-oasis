@@ -155,6 +155,7 @@ export default function AmenagementTableExport({
   const [amenagements, setAmenagements] = useState<IAmenagement[] | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAmenagements(null);
   }, [filtreAmenagement]);
 
@@ -167,6 +168,7 @@ export default function AmenagementTableExport({
       cas?.items &&
       tags?.items
     ) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     } else {
       setLoading(

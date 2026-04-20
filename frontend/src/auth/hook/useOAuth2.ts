@@ -176,6 +176,7 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
     if (!stored) return;
 
     sessionStorage.removeItem(OAUTH_CALLBACK_PAYLOAD_KEY);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setUI({ loading: true, error: null });
 
     void (async () => {

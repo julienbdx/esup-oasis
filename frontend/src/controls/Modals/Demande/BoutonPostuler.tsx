@@ -10,16 +10,15 @@
 
 import { EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { QK_DEMANDES, QK_UTILISATEURS_DEMANDES } from "@api/queryKeys";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function PostulerButton(props: { typeDemande: ITypeDemande; demandeurId: string }) {
   const navigate = useNavigate();
-  const [demandeTrouvee, setDemandeTrouvee] = useState<IDemande>();
   const [submitted, setSubmitted] = useState(false);
   const { data: demandesEnCours } = useApi().useGetCollectionPaginated({
     path: "/demandes",
@@ -39,13 +38,9 @@ export default function PostulerButton(props: { typeDemande: ITypeDemande; deman
     },
   });
 
-  useEffect(() => {
-    setDemandeTrouvee(
-      demandesEnCours?.items.find(
-        (demande) => demande.campagne === props.typeDemande.campagneEnCours,
-      ),
-    );
-  }, [demandesEnCours, props.typeDemande.campagneEnCours]);
+  const demandeTrouvee = demandesEnCours?.items.find(
+    (d) => d.campagne === props.typeDemande.campagneEnCours,
+  );
 
   function deposerNouvelleDemande(item: ITypeDemande) {
     mutationPostuler.mutate({

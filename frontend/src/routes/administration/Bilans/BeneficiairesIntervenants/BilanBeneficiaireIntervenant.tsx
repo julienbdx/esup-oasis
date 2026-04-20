@@ -65,6 +65,7 @@ export default function BilanBeneficiaireIntervenant(props: {
 
   useEffect(() => {
     if (dataRaw && coef?.valeursCourantes && coef?.valeursCourantes.length === 1) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setData(
         dataRaw.items.map((item) => ({
           nom: item.utilisateur?.nom?.toLocaleUpperCase(),

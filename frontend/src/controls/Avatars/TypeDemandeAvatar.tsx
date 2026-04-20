@@ -10,25 +10,19 @@
 import { ITypeDemande } from "@api/ApiTypeHelpers";
 import { Avatar } from "antd";
 import { LockFilled, UnlockOutlined } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 
 export default function TypeDemandeAvatar(props: {
   typeDemande?: ITypeDemande;
   typeDemandeId?: string;
 }) {
-  const [item, setItem] = useState(props.typeDemande);
   const { data: typeDemandeData } = useApi().useGetItem({
     path: "/types_demandes/{id}",
     url: props.typeDemandeId as string,
     enabled: !!props.typeDemandeId,
   });
-
-  useEffect(() => {
-    if (typeDemandeData && props.typeDemandeId) {
-      setItem(typeDemandeData);
-    }
-  }, [typeDemandeData, props.typeDemandeId]);
+  const item = props.typeDemande ?? typeDemandeData;
 
   if (!item) return null;
 

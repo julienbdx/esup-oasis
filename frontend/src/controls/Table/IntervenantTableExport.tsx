@@ -100,6 +100,7 @@ export default function IntervenantTableExport({
 
   useEffect(() => {
     if (competences?.items && campus?.items && intervenants?.items) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     } else {
       setLoading(isFetchingCompetences || isFetchingCampus || isFetchingIntervenants);
@@ -115,7 +116,9 @@ export default function IntervenantTableExport({
   ]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setExportSubmit(false);
+
     setDownloaded(false);
   }, [intervenants]);
 

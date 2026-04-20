@@ -14,8 +14,6 @@ export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", 
   const [enabled, setEnabled] = useState(false);
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState<number | null>(null);
-  // Ref pour accumuler les pages sans déclencher de re-rendu intermédiaire
-  const allDataRef = useRef<T[]>([]);
 
   const { data } = useApi().useGetCollectionPaginated({
     path: "/amenagements",
@@ -25,15 +23,21 @@ export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", 
     enabled: enabled,
   });
 
+  if (data?.totalItems !== undefined && data.totalItems !== totalItems) {
+    setTotalItems(data.totalItems);
+  }
+
+  // Ref pour accumuler les pages sans déclencher de re-rendu intermédiaire
+  const allDataRef = useRef<T[]>([]);
+
   useEffect(() => {
     if (!data) return;
 
     props.setIsFetching(true);
-    setTotalItems(data.totalItems);
     allDataRef.current = [...allDataRef.current, ...((data.items as T[]) || [])];
 
     if (page * props.itemsPerPage < data.totalItems) {
-      setPage((prevPage) => prevPage + 1);
+      Promise.resolve().then(() => setPage((prevPage) => prevPage + 1));
     } else {
       props.setData(allDataRef.current);
       props.setIsFetching(false);

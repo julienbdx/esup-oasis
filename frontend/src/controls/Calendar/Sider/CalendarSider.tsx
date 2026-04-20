@@ -64,6 +64,7 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
 
   // Auto-collapse de la sidebar sur les écrans de petite taille
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCollapsedSider(screens.lg !== undefined && !screens.lg);
   }, [screens]);
 

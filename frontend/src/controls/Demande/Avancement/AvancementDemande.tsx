@@ -8,7 +8,7 @@
  */
 
 import { IDemande } from "@api/ApiTypeHelpers";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { Flex, Space, Steps, Typography } from "antd";
 import {
@@ -54,22 +54,12 @@ export default function AvancementDemande({
   informationEmail = false,
 }: IProps): React.ReactElement {
   const screens = useBreakpoint();
-  const [item, setItem] = useState<IDemande | undefined>(demande);
   const { data: demandeData } = useApi().useGetItem({
     path: "/demandes/{id}",
     url: demandeId as string,
     enabled: !!demandeId,
   });
-
-  useEffect(() => {
-    if (demandeData && demandeId) {
-      setItem(demandeData);
-    }
-  }, [demandeData, demandeId]);
-
-  useEffect(() => {
-    setItem(demande);
-  }, [demande]);
+  const item = demande ?? demandeData;
 
   function getSteps(etat: EtatDemande) {
     return [

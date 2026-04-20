@@ -8,7 +8,7 @@
  *
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
@@ -59,23 +59,17 @@ function CampagneItem(props: { campagneId?: string }) {
 export default function DemandeListItem(props: { demande?: IDemande; demandeId?: string }) {
   const screens = useBreakpoint();
   const navigate = useNavigate();
-  const [item, setItem] = useState(props.demande);
   const { data: demandeData } = useApi().useGetItem({
     path: "/demandes/{id}",
     url: props.demandeId as string,
     enabled: !!props.demandeId,
   });
+  const item = props.demande ?? demandeData;
   const { data: typeDemandeData } = useApi().useGetItem({
     path: "/types_demandes/{id}",
     url: item?.typeDemande as string,
     enabled: !!item?.typeDemande,
   });
-
-  useEffect(() => {
-    if (demandeData) {
-      setItem(demandeData);
-    }
-  }, [demandeData]);
 
   if (!item || !typeDemandeData) return <Spinner />;
 

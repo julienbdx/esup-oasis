@@ -91,6 +91,7 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
 
   useEffect(() => {
     if (beneficiaires?.items && intervenants?.items && campus?.items && typesEvenements?.items) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     } else {
       setLoading(
@@ -113,7 +114,9 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
   ]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setExportSubmit(false);
+
     setDownloaded(false);
   }, [evenements]);
 

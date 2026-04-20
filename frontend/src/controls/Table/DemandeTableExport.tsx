@@ -117,6 +117,7 @@ export default function DemandeTableExport(props: { filtreDemande: FiltreDemande
       demandes?.items &&
       profils?.items
     ) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     } else {
       setLoading(

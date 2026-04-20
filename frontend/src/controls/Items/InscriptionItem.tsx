@@ -12,7 +12,7 @@ import Spinner from "@controls/Spinner/Spinner";
 import { MinusOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 import ComposanteItem from "@controls/Items/ComposanteItem";
-import React, { useEffect } from "react";
+import React from "react";
 import { IInscription } from "@api/ApiTypeHelpers";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 
@@ -20,25 +20,14 @@ export function InscriptionItem(props: {
   utilisateurId?: string | undefined;
   inscription?: IInscription | undefined;
 }) {
-  const [item, setItem] = React.useState<IInscription | undefined>(props.inscription);
   const { data, isFetching } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
     url: props.utilisateurId,
     enabled: !!props.utilisateurId,
   });
-
-  useEffect(() => {
-    setItem(props.inscription);
-  }, [props.inscription]);
-
-  useEffect(() => {
-    if (data) {
-      const inscription = (data.inscriptions || []).sort(
-        (i1, i2) => i2.debut?.localeCompare(i1.debut || "") || 0,
-      )[0];
-      setItem(inscription);
-    }
-  }, [data]);
+  const item = data
+    ? (data.inscriptions || []).sort((i1, i2) => i2.debut?.localeCompare(i1.debut || "") || 0)[0]
+    : props.inscription;
 
   if (!props.utilisateurId) return null;
   if (isFetching) return <Spinner />;

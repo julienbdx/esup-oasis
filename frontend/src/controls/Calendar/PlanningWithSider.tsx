@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useMemo, useState } from "react";
+import React, { ReactElement, useEffect, useMemo } from "react";
 import { App, Layout } from "antd";
 import CalendarSider from "@controls/Calendar/Sider/CalendarSider";
 import Calendar from "@controls/Calendar/Calendar/Calendar";
@@ -47,8 +47,6 @@ export default function PlanningWithSider({
   const { message } = App.useApp();
 
   const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
-  const [events, setEvents] = useState<Evenement[]>([]);
-
   // Get /types_evenements
   const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
 
@@ -69,10 +67,10 @@ export default function PlanningWithSider({
     },
   });
 
-  // Conversion des évènements en Evenement
-  useEffect(() => {
-    setEvents(evenements?.items.map((e: IEvenement) => new Evenement(e)) ?? []);
-  }, [evenements]);
+  const events = useMemo(
+    () => evenements?.items.map((e: IEvenement) => new Evenement(e)) ?? [],
+    [evenements],
+  );
 
   // Persist de l'évènement modifié
   const setEvent = (event: Evenement) => {
@@ -100,6 +98,7 @@ export default function PlanningWithSider({
       appAffichageFiltres.filtres.debut,
       appAffichageFiltres.affichage.type,
     );
+
     setFiltres({ debut: range.from, fin: range.to });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appAffichageFiltres.affichage.type]);

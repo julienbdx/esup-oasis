@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { Space, Tooltip } from "antd";
 import { CheckCircleFilled, HourglassOutlined } from "@ant-design/icons";
@@ -26,20 +26,12 @@ export function BeneficiaireAvisEseAvatar(props: {
   showLabel?: boolean;
   direction?: "horizontal" | "vertical";
 }) {
-  const [item, setItem] = React.useState<EtatAvisEse | undefined>(props.etatAvisEse);
   const { data: utilisateur } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
     url: props.utilisateurId,
     enabled: !!props.utilisateurId,
   });
-
-  useEffect(() => {
-    setItem(props.etatAvisEse);
-  }, [props.etatAvisEse]);
-
-  useEffect(() => {
-    if (utilisateur) setItem(utilisateur?.etatAvisEse as EtatAvisEse);
-  }, [utilisateur]);
+  const item = (utilisateur?.etatAvisEse as EtatAvisEse | undefined) ?? props.etatAvisEse;
 
   switch (item) {
     case EtatAvisEse.ETAT_EN_ATTENTE:

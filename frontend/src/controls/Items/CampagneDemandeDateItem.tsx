@@ -7,7 +7,6 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useEffect, useState } from "react";
 import { ICampagneDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
@@ -17,17 +16,12 @@ export default function CampagneDemandeDateItem(props: {
   campagneDemandeId?: string;
   templateString: string;
 }) {
-  const [item, setItem] = useState<ICampagneDemande | undefined>(props.campagneDemande);
   const { data: campagneDemandeData } = useApi().useGetItem({
     path: "/types_demandes/{typeId}/campagnes/{id}",
     url: props.campagneDemandeId,
     enabled: !!props.campagneDemandeId,
   });
-  useEffect(() => {
-    if (campagneDemandeData) {
-      setItem(campagneDemandeData);
-    }
-  }, [campagneDemandeData]);
+  const item = campagneDemandeData ?? props.campagneDemande;
 
   if (!item) return null;
 

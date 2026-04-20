@@ -77,7 +77,7 @@ export function AuthProvider({
   const [loadingUser, setLoadingUser] = useState(false);
   const [errorUser, setErrorUser] = useState<string | null>(null);
   const [token, setToken] = useState<string>();
-  const [impersonate, setImpersonate] = useState<string>();
+  const [impersonate, setImpersonate] = useState<string | undefined>(impersonateLS ?? undefined);
 
   // -- Déconnexion
   const signOut = (callback?: VoidFunction) => {
@@ -106,27 +106,21 @@ export function AuthProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [impersonate]);
 
-  // -- Gestion de l'impersonation / local storage
-  useEffect(() => {
-    if (impersonateLS) {
-      setImpersonate(impersonateLS);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // -- Gestion de la connexion : lorsque le login a été récupéré dans le token
   useEffect(() => {
     if (isExpired()) {
-      setUser(undefined);
-      removeLocalStorageLogin();
-      signOut(() => {});
+      Promise.resolve().then(() => {
+        setUser(undefined);
+        removeLocalStorageLogin();
+        signOut(() => {});
+      });
       return; // Bug 1 : sans ce return, le fetch était lancé malgré l'expiration
     }
 
     if (!env.REACT_APP_API || !(impersonate || login)) return;
 
     const controller = new AbortController();
-    setLoadingUser(true);
+    Promise.resolve().then(() => setLoadingUser(true));
 
     // Récupération des infos de l'utilisateur
     fetch(

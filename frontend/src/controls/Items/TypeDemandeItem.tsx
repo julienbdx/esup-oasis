@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ITypeDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
@@ -25,18 +25,12 @@ export default function TypeDemandeItem(props: {
   as?: "Space" | "Flex";
   className?: string;
 }) {
-  const [item, setItem] = useState(props.typeDemande);
   const { data: typeDemandeData } = useApi().useGetItem({
     path: "/types_demandes/{id}",
     url: props.typeDemandeId as string,
     enabled: !!props.typeDemandeId,
   });
-
-  useEffect(() => {
-    if (typeDemandeData) {
-      setItem(typeDemandeData);
-    }
-  }, [typeDemandeData]);
+  const item = props.typeDemande ?? typeDemandeData;
 
   function getDescription(typeDemande: ITypeDemande) {
     if (typeDemande.campagneEnCours)

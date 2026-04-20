@@ -128,6 +128,7 @@ export default function BeneficiaireTableExport({
 
   useEffect(() => {
     if (composantes?.items && gestionnaires?.items && beneficiaires?.items && tags?.items) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     } else {
       setLoading(

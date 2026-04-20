@@ -40,8 +40,18 @@ export interface IVersion {
  */
 export const VERSIONS: IVersion[] = [
   {
+    version: "2.4.0",
+    description: "Amélioration des performances (frontend)",
+    changes: [
+      {
+        description: "Amélioration globale des performances de l'application 🚀",
+        type: "fix",
+      },
+    ],
+  },
+  {
     version: "2.3.0",
-    description: "Amélioration des performances",
+    description: "Amélioration des performances (backend)",
     changes: [
       {
         description: "Amélioration globale des performances de l'application 🚀",

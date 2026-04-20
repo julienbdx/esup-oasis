@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { isEnCoursSurPeriode } from "@utils/dates";
 import { Avatar, Tooltip } from "antd";
@@ -20,24 +20,12 @@ export function AvisEseAvatar(props: {
   avis?: IAvisEse;
   size?: "small" | "default" | "large";
 }) {
-  const [item, setItem] = useState(props.avis);
   const { data: avisData } = useApi().useGetItem({
     path: "/utilisateurs/{uid}/avis_ese/{id}",
     url: props.avisId as string,
     enabled: !!props.avisId,
   });
-
-  useEffect(() => {
-    if (avisData && props.avisId) {
-      setItem(avisData);
-    }
-  }, [avisData, props.avisId]);
-
-  useEffect(() => {
-    if (props.avis) {
-      setItem(props.avis);
-    }
-  }, [props.avis]);
+  const item = props.avis ?? avisData;
 
   if (!item) return null;
 

@@ -75,8 +75,8 @@
     "@typescript-eslint/scope-manager": "^8.58.2"
   },
   "scripts": {
-    "eslint": "eslint --no-warn-ignored ./src/**/*.ts*",
-    "eslint:fix": "eslint --fix --no-warn-ignored ./src/**/*.tsx ./src/**/*.ts",
+    "eslint": "eslint \"./src/**/*.tsx\" \"./src/**/*.ts\" --no-warn-ignored",
+    "eslint:fix": "eslint --fix --no-warn-ignored \"./src/**/*.tsx\" \"./src/**/*.ts\"",
     "start": "vite",
     "start:https": "sudo HTTPS=true vite --host appliphase.kdev.u-bordeaux.fr --port 443",
     "build": "vite build",

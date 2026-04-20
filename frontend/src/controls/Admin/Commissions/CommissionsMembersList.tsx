@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   App,
   Button,
@@ -129,7 +129,6 @@ function CommissionsEditionMembreRole(props: { membre: ICommissionMembre }) {
 
 function CommissionsEditionMembre(props: { membre: ICommissionMembre }) {
   const { message } = App.useApp();
-  const [membreUtilisateur, setMembreUtilisateur] = useState<Utilisateur>();
   const { data: membre, isFetching } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
     url: props.membre.utilisateur,
@@ -144,10 +143,10 @@ function CommissionsEditionMembre(props: { membre: ICommissionMembre }) {
     },
   });
 
-  useEffect(() => {
-    if (membre) setMembreUtilisateur(new Utilisateur(membre as IUtilisateur));
-  }, [membre]);
-
+  const membreUtilisateur = useMemo(
+    () => (membre ? new Utilisateur(membre as IUtilisateur) : undefined),
+    [membre],
+  );
   if (isFetching) return <Skeleton paragraph={{ rows: 1 }} active />;
   if (!membre) return null;
 

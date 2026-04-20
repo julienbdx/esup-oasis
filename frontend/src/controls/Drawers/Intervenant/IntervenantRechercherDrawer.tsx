@@ -65,6 +65,7 @@ export default function IntervenantRechercherDrawer({
 
   useEffect(() => {
     if (defaultSearchOptions && !submitted) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreRecherche(defaultSearchOptions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
