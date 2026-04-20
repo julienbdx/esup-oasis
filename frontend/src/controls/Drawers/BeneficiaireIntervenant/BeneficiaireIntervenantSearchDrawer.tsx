@@ -193,7 +193,11 @@ export default function BeneficiaireIntervenantSearchDrawer({
         },
       }}
       suffix={
-        value !== recherche && value.length > 1 ? <EnterOutlined className="text-text" /> : <></>
+        value !== recherche && value.length > 1 ? (
+          <EnterOutlined className="fs-08 p-0 m-0 text-text" />
+        ) : (
+          <></>
+        )
       }
       placeholder="Rechercher..."
       className={className}

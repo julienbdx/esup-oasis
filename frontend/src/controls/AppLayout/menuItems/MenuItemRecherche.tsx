@@ -79,7 +79,7 @@ export const menuItemRecherche = (
             case RoleValues.ROLE_INTERVENANT:
               if (role)
                 setDrawerUtilisateur({
-                  utilisateur: individuId,
+                  utilisateur: `/utilisateurs/${individuId}`,
                   role: role,
                 });
           }
