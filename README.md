@@ -20,7 +20,7 @@ Oasis propose les fonctionnalités suivantes :
 Oasis est disponible sous la forme de deux applications frontend et backend séparées, utilisant les technologies
 suivantes :
 
-* Frontend: JavaScript, React 19
+* Frontend: TypeScript, React 19
 * Backend: PHP 8.4, Symfony 8.0 / Api Platform 4
 
 Des Dockerfile sont fournis pour le déploiement des deux applications séparément, plus de détails dans la documentation
@@ -40,13 +40,6 @@ tout-en-un:
 * [frontend](docs/frontend/README.md)
 * [backend](docs/backend/README.md)
 * [installation](docs/installation/README.md)
-
-## Communauté et entraide
-
-Pour échanger avec les autres utilisateurs d'Esup-Oasis, deux salons RocketChat sont à votre disposition sur l'instance d'EsupPortail :
-
-- Sujets fonctionnels : [https://rocket.esup-portail.org/channel/oasis-fonctionnel](https://rocket.esup-portail.org/channel/oasis-fonctionnel) 
-- Sujets techniques : [https://rocket.esup-portail.org/channel/oasis-technique](https://rocket.esup-portail.org/channel/oasis-technique)
 
 ---
 
