@@ -3,7 +3,7 @@
 # Générer un fichier env.{timestamp}.js avec toutes les variables REACT_APP_*
 TIMESTAMP=$(date +%s)
 ENV_FILE="/usr/share/caddy/env.${TIMESTAMP}.js"
-DOTENV_FILE="/usr/share/caddy/.env"
+DOTENV_FILE="/tmp/.env"
 
 # Construire la liste des clés déjà présentes dans l'environnement (séparées par ':')
 env_keys=$(env | grep '^REACT_APP_' | cut -d= -f1 | tr '\n' ':')
