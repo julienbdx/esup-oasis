@@ -53,8 +53,17 @@ export default defineConfig(() => {
          rollupOptions: {
             output: {
                manualChunks(id) {
-                  if (/node_modules\/(antd|@ant-design|rc-[a-z-]+)\//.test(id)) {
+                  if (/@ant-design\/icons/.test(id)) {
+                     return "vendor-icons";
+                  }
+                  if (/node_modules\/(antd|@ant-design)\//.test(id)) {
                      return "vendor-antd";
+                  }
+                  if (/node_modules\/(rc-[a-z-]+)\//.test(id)) {
+                     return "vendor-rc";
+                  }
+                  if (/node_modules\/(@tiptap|prosemirror-)/.test(id)) {
+                     return "vendor-tiptap";
                   }
                },
             },

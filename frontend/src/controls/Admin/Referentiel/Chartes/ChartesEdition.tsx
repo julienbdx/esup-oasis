@@ -9,12 +9,13 @@
 
 import { Button, Card, Drawer, Form, Input, Select } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement, Suspense, lazy, useEffect } from "react";
 import { ICharte } from "@api/ApiTypeHelpers";
 import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
 import { QK_CHARTES } from "@api/queryKeys";
-import HtmlEditor from "@controls/Forms/HtmlEditor";
+
+const HtmlEditor = lazy(() => import("@controls/Forms/HtmlEditor"));
 
 interface ChartesEditionProps {
   editedItem?: ICharte;
@@ -141,7 +142,9 @@ export function ChartesEdition({ editedItem, setEditedItem }: ChartesEditionProp
           </Form.Item>
         </Form>
         <h3>Contenu de la charte</h3>
-        <HtmlEditor value={contenu} onChange={(c) => setContenu(c)} />
+        <Suspense fallback={<span>Chargement de l'éditeur...</span>}>
+          <HtmlEditor value={contenu} onChange={(c) => setContenu(c)} />
+        </Suspense>
       </Card>
     </Drawer>
   );
