@@ -53,6 +53,9 @@ export default defineConfig(() => {
          rollupOptions: {
             output: {
                manualChunks(id) {
+                  if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) {
+                     return "vendor-react";
+                  }
                   if (/@ant-design\/icons/.test(id)) {
                      return "vendor-icons";
                   }
