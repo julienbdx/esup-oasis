@@ -21,18 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { env } from "@/env";
 
 /**
- * Contexte d'authentification.
- *
- * @property {(Utilisateur | undefined)} user - The user object.
- * @property {Function} signOut - The function to sign out the user with a callback.
- * @property {boolean} loading - Indicates if the authentication is currently loading.
- * @property {(string | null)} error - The error message if any occurred during authentication.
- * @property {Function} authenticate - The function to authenticate the user.
- * @property {Function} setUser - The function to set the user object.
- * @property {(string | undefined)} token - The authentication token.
- * @property {(string | undefined)} impersonate - The user to impersonate.
- * @property {Function} setImpersonate - The function to set the user to impersonate.
- * @property {Function} removeImpersonate - The function to remove impersonation.
+ * Contexte d'authentification exposé aux composants via `useAuth()`.
  */
 export interface AuthContextType {
   user: Utilisateur | undefined;
@@ -52,11 +41,11 @@ const AuthContext = React.createContext<AuthContextType>(null!);
 type State<TData = string> = TData | null;
 
 /**
- * AuthProvider component.
+ * Fournisseur du contexte d'authentification.
+ * Gère le flux OAuth2, le stockage du token JWT, l'impersonation et le chargement de l'utilisateur.
  *
- * @param {React.ReactNode} children - The children to render.
- * @param {VoidFunction} onSuccess - The function to call on successful authentication.
- * @returns {ReactElement} - The component JSX element.
+ * @param children - Arbre React à envelopper.
+ * @param onSuccess - Callback appelé après chargement réussi de l'utilisateur (redirection).
  */
 export function AuthProvider({
   children,
@@ -71,8 +60,7 @@ export function AuthProvider({
     useLocalStorageState<State>(`login`);
   const [impersonateLS, setImpersonateLS, { removeItem: removeLocalStorageImpersonate }] =
     useLocalStorageState<State>(`impersonate`);
-  const [expiration, setExpiration, { removeItem: removeLocalStorageExpiration }] =
-    useLocalStorageState<State<number>>("expiration");
+  const [expiration, setExpiration] = useLocalStorageState<State<number>>("expiration");
 
   const [loadingUser, setLoadingUser] = useState(false);
   const [errorUser, setErrorUser] = useState<string | null>(null);
@@ -85,8 +73,6 @@ export function AuthProvider({
     setUser(undefined);
     setImpersonate(undefined);
     localStorage.clear();
-    removeLocalStorageLogin();
-    removeLocalStorageExpiration();
     if (callback) setTimeout(callback, 100);
   };
 
@@ -103,24 +89,24 @@ export function AuthProvider({
     } else {
       removeLocalStorageImpersonate();
     }
+    // setImpersonateLS/removeLocalStorageImpersonate sont stables (use-local-storage-state) — pas de dépendance nécessaire
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [impersonate]);
 
   // -- Gestion de la connexion : lorsque le login a été récupéré dans le token
   useEffect(() => {
+    let mounted = true;
+
     if (isExpired()) {
-      Promise.resolve().then(() => {
-        setUser(undefined);
-        removeLocalStorageLogin();
-        signOut(() => {});
-      });
-      return; // Bug 1 : sans ce return, le fetch était lancé malgré l'expiration
+      // Différer les setState hors du corps synchrone de l'effet pour éviter les renders en cascade
+      setTimeout(() => signOut(() => {}), 0);
+      return;
     }
 
     if (!env.REACT_APP_API || !(impersonate || login)) return;
 
     const controller = new AbortController();
-    Promise.resolve().then(() => setLoadingUser(true));
+    setTimeout(() => setLoadingUser(true), 0);
 
     // Récupération des infos de l'utilisateur
     fetch(
@@ -138,7 +124,8 @@ export function AuthProvider({
       },
     )
       .then(async (userResponse) => {
-        // Bug 2 : vérification du statut HTTP avant de traiter le JSON
+        if (!mounted) return;
+
         if (!userResponse.ok) {
           removeLocalStorageLogin();
           setUser(undefined);
@@ -147,8 +134,9 @@ export function AuthProvider({
           return;
         }
 
-        // Bug 3 : promesse retournée (await) pour que le .catch() externe la capture
         const userData: IUtilisateur = await userResponse.json();
+
+        if (!mounted) return;
 
         if (userData.roles && userData.roles.length === 1) {
           // Le seul rôle est ROLE_USER, l'utilisateur n'est pas affecté
@@ -160,17 +148,18 @@ export function AuthProvider({
           return;
         }
 
-        // L'utilisateur est affecté
         setUser(userData);
 
-        // redirect apres connexion lorsque l'utilisateur est affecté
+        // Délai court pour laisser React propager l'état avant la redirection
         setTimeout(() => {
+          if (!mounted) return;
           setLoadingUser(false);
           onSuccess();
         }, 500);
       })
       .catch((error) => {
         if (error.name === "AbortError") return;
+        if (!mounted) return;
         removeLocalStorageLogin();
         setUser(undefined);
         console.error(error);
@@ -178,7 +167,11 @@ export function AuthProvider({
         setLoadingUser(false);
       });
 
-    return () => controller.abort();
+    return () => {
+      mounted = false;
+      controller.abort();
+    };
+    // isExpired/signOut/removeLocalStorageLogin sont des fonctions stables définies dans le même scope — les inclure créerait une boucle infinie
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [impersonate, login, env.REACT_APP_API]);
 
@@ -200,10 +193,8 @@ export function AuthProvider({
     scope: "profile",
     responseType: "token",
     onSuccess: (payload) => {
-      setImpersonate(() => {
-        removeLocalStorageLogin();
-        return undefined;
-      });
+      removeLocalStorageLogin();
+      setImpersonate(undefined);
 
       if (!loadingUser && payload && payload.access_token) {
         // Récupération du token d'authentification
@@ -223,7 +214,6 @@ export function AuthProvider({
         )
           .then((response) => {
             if (response.status === 401) {
-              // Utilisateur inconnu
               setErrorUser("Utilisateur inconnu");
               setLoadingUser(false);
               notification.error({
@@ -235,15 +225,15 @@ export function AuthProvider({
                   </p>
                 ),
               });
+              return;
             }
 
-            // Connexion réussie, récupération du login dans le token
             response.json().then((apiData) => {
               if (apiData.token) {
-                // Stockage du token d'authentification pour l'env de dev
+                // Exposé uniquement en local pour faciliter le débogage via les devtools React Query
                 if (env.REACT_APP_ENVIRONMENT === "local") setToken(apiData.token);
 
-                // Récupération des infos de l'utilisateur
+                // Décodage du JWT pour extraire le login et la date d'expiration
                 const { username, exp } = jwt_decode<{
                   username: string;
                   exp: number;

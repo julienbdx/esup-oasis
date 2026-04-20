@@ -107,13 +107,6 @@ export function QuestionnaireProvider(props: {
     enabled: !!demande?.campagne,
   });
 
-  useEffect(() => {
-    if (typeDemandeData) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTypeDemande(typeDemandeData);
-    }
-  }, [typeDemandeData]);
-
   // Build questionnaire
   useEffect(() => {
     if (props.demandeId && demande && typeDemande) {
