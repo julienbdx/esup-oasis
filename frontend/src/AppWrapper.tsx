@@ -12,6 +12,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "@/App";
 import { AuthProvider } from "@/auth/AuthProvider";
 import Spinner from "@controls/Spinner/Spinner";
+import { ErrorBoundary } from "@controls/ErrorBoundary/ErrorBoundary";
 import { AccessibiliteProvider } from "@context/accessibilite/AccessibiliteContext";
 import { ModalsProvider } from "@context/modals/ModalsContext";
 import { DrawersProvider } from "@context/drawers/DrawersContext";
@@ -28,19 +29,21 @@ function AppAuthWrapper() {
 export default function AppWrapper() {
   return (
     <React.StrictMode>
-      <Suspense fallback={<Spinner />}>
-        <BrowserRouter>
-          <AccessibiliteProvider>
-            <DrawersProvider>
-              <ModalsProvider>
-                <AffichageFiltresProvider>
-                  <AppAuthWrapper />
-                </AffichageFiltresProvider>
-              </ModalsProvider>
-            </DrawersProvider>
-          </AccessibiliteProvider>
-        </BrowserRouter>
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          <BrowserRouter>
+            <AccessibiliteProvider>
+              <DrawersProvider>
+                <ModalsProvider>
+                  <AffichageFiltresProvider>
+                    <AppAuthWrapper />
+                  </AffichageFiltresProvider>
+                </ModalsProvider>
+              </DrawersProvider>
+            </AccessibiliteProvider>
+          </BrowserRouter>
+        </Suspense>
+      </ErrorBoundary>
     </React.StrictMode>
   );
 }
