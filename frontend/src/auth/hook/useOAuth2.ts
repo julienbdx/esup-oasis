@@ -7,12 +7,21 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useCallback, useRef, useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
-import { DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD, OAUTH_RESPONSE } from "@/auth/hook/constants";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD,
+  OAUTH_CALLBACK_PAYLOAD_KEY,
+} from "@/auth/hook/constants";
 import { objectToQuery, queryToObject } from "@utils/url";
-import { generateState, removeState, saveState, State } from "@/auth/hook/state";
-import { closeAuthPopup, openAuthPopup } from "@/auth/hook/popup";
+import {
+  generateNonce,
+  generateState,
+  getNonce,
+  removeNonce,
+  removeState,
+  saveNonce,
+  saveState,
+} from "@/auth/hook/state";
 
 /**
  * Auth token payload
@@ -60,13 +69,6 @@ export type Oauth2Props<TData = AuthTokenPayload> = {
 
 /**
  * Création de l'url d'autorisation
- * @param authorizeUrl
- * @param clientId
- * @param redirectUri
- * @param scope
- * @param state
- * @param responseType
- * @param extraQueryParametersRef
  */
 const enhanceAuthorizeUrl = (
   authorizeUrl: string,
@@ -74,6 +76,7 @@ const enhanceAuthorizeUrl = (
   redirectUri: string,
   scope: string,
   state: string,
+  nonce: string,
   responseType: Oauth2Props["responseType"],
   extraQueryParametersRef: React.RefObject<Oauth2Props["extraQueryParameters"]>,
 ) => {
@@ -83,10 +86,10 @@ const enhanceAuthorizeUrl = (
     redirect_uri: redirectUri,
     scope,
     state,
+    nonce,
     ...extraQueryParametersRef.current,
   };
 
-  // On ne conserve que les chaines de caractères
   const cleanQueryObj: Record<string, string> = {};
   Object.entries(queryObj).forEach(([key, value]) => {
     if (value !== undefined) {
@@ -94,9 +97,7 @@ const enhanceAuthorizeUrl = (
     }
   });
 
-  const query = objectToQuery(cleanQueryObj);
-
-  return `${authorizeUrl}?${query}`;
+  return `${authorizeUrl}?${objectToQuery(cleanQueryObj)}`;
 };
 
 const formatExchangeCodeForTokenServerURL = (
@@ -124,17 +125,24 @@ const formatExchangeCodeForTokenServerURL = (
 };
 
 /**
- * Hook personnalisé `useOAuth2`pour gérer l'authentification OAuth2 :
+ * Hook `useOAuth2` — flow redirect (sans popup).
  *
- * Ce hook encapsule toute la logique nécessaire pour gérer le processus d'authentification OAuth2,
- * y compris l'ouverture d'une fenêtre popup pour l'authentification, la gestion de l'état, et le traitement des réponses.
+ * - `getAuth()` redirige la fenêtre principale vers le provider OAuth.
+ *   Un `state` (CSRF) et un `nonce` (replay) sont générés en sessionStorage.
+ * - Au retour (après `/callback`), `OAuthCallback` valide le state, stocke le payload
+ *   en sessionStorage et redirige vers la racine.
+ * - Un `useEffect` au montage lit ce payload, vérifie le nonce si le serveur l'a
+ *   inclus dans la réponse (OIDC), puis appelle `onSuccess`/`onError`.
+ *
+ * Note : pour les providers OAuth2 pur (non OIDC), le nonce est envoyé mais ne peut
+ * pas être vérifié côté client (il n'est pas inclus dans l'access_token). La vérification
+ * est assurée côté serveur si le provider supporte OIDC.
  */
 const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
   const {
     authorizeUrl,
     clientId,
     redirectUri,
-    clientUri,
     scope = "",
     responseType,
     extraQueryParameters = {},
@@ -143,154 +151,107 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
   } = props;
 
   const extraQueryParametersRef = useRef(extraQueryParameters);
-  const popupRef = useRef<Window | null>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [{ loading, error }, setUI] = useState<{ loading: boolean; error: string | null }>({
     loading: false,
     error: null,
   });
-  const [data, setData, { removeItem: removeLocalStorage }] =
-    useLocalStorageState<State<TData> | null>(
-      `${responseType}-${authorizeUrl}-${clientId}-${scope}`,
-    );
+
   const exchangeCodeForTokenServerURL =
     responseType === "code" && props.exchangeCodeForTokenServerURL;
   const exchangeCodeForTokenMethod = responseType === "code" && props.exchangeCodeForTokenMethod;
 
-  const cleanup = (handleMessageListener: (message: MessageEvent) => void) => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    closeAuthPopup(popupRef);
-    removeState();
-    removeLocalStorage();
-    window.removeEventListener("message", handleMessageListener);
-  };
+  // Refs stables pour les callbacks (évite de les mettre en dépendances du useEffect de montage)
+  const onSuccessRef = useRef(onSuccess);
+  const onErrorRef = useRef(onError);
+  useEffect(() => {
+    onSuccessRef.current = onSuccess;
+  }, [onSuccess]);
+  useEffect(() => {
+    onErrorRef.current = onError;
+  }, [onError]);
+
+  // Au montage, traiter le payload laissé par OAuthCallback après le redirect
+  useEffect(() => {
+    const stored = sessionStorage.getItem(OAUTH_CALLBACK_PAYLOAD_KEY);
+    if (!stored) return;
+
+    sessionStorage.removeItem(OAUTH_CALLBACK_PAYLOAD_KEY);
+    setUI({ loading: true, error: null });
+
+    void (async () => {
+      try {
+        const message: { error?: string; payload?: Record<string, string> } = JSON.parse(stored);
+
+        if (message.error) {
+          setUI({ loading: false, error: message.error });
+          onErrorRef.current?.(message.error);
+          return;
+        }
+
+        // Vérification du nonce si le serveur l'a inclus dans la réponse (providers OIDC)
+        const storedNonce = getNonce();
+        if (storedNonce && message.payload?.nonce && message.payload.nonce !== storedNonce) {
+          setUI({ loading: false, error: "OAuth error: Nonce mismatch." });
+          onErrorRef.current?.("OAuth error: Nonce mismatch.");
+          return;
+        }
+
+        let payload: TData | Record<string, string> | undefined = message.payload;
+
+        if (responseType === "code" && exchangeCodeForTokenServerURL) {
+          const state = message.payload?.state ?? "";
+          const response = await fetch(
+            formatExchangeCodeForTokenServerURL(
+              exchangeCodeForTokenServerURL,
+              clientId,
+              message.payload?.code ?? "",
+              redirectUri,
+              state,
+            ),
+            {
+              method: exchangeCodeForTokenMethod || DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD,
+            },
+          );
+          payload = await response.json();
+        }
+
+        setUI({ loading: false, error: null });
+        onSuccessRef.current?.(payload as TData);
+      } catch (err: unknown) {
+        setUI({
+          loading: false,
+          error: err instanceof Error ? err.message : String(err),
+        });
+      } finally {
+        removeState();
+        removeNonce();
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Intentionnellement vide : s'exécute uniquement au montage
 
   const getAuth = useCallback(() => {
-    // 1. Initialisation
-    setUI({
-      loading: true,
-      error: null,
-    });
+    setUI({ loading: true, error: null });
 
-    // 2. Générer un état et le sauvegarder dans le stockage local
     const state = generateState();
     saveState(state);
 
-    // 3. Ouverture de la fenêtre popup
-    popupRef.current = openAuthPopup(
-      enhanceAuthorizeUrl(
-        authorizeUrl,
-        clientId,
-        redirectUri,
-        scope,
-        state,
-        responseType,
-        extraQueryParametersRef,
-      ),
+    const nonce = generateNonce();
+    saveNonce(nonce);
+
+    window.location.href = enhanceAuthorizeUrl(
+      authorizeUrl,
+      clientId,
+      redirectUri,
+      scope,
+      state,
+      nonce,
+      responseType,
+      extraQueryParametersRef,
     );
+  }, [authorizeUrl, clientId, redirectUri, scope, responseType]);
 
-    // 4. Gestion de la réponse : écouteur d'événements de message
-    async function handleMessageListener(message: MessageEvent) {
-      if (message.origin !== clientUri) throw new Error("Invalid origin");
-
-      const type = message?.data?.type;
-      if (type !== OAUTH_RESPONSE) {
-        return;
-      }
-      try {
-        const errorMaybe = message?.data?.error;
-        if (errorMaybe) {
-          setUI({
-            loading: false,
-            error: errorMaybe,
-          });
-          if (onError) onError(errorMaybe);
-        } else {
-          let payload = message?.data?.payload;
-
-          if (responseType === "code" && exchangeCodeForTokenServerURL) {
-            const response = await fetch(
-              formatExchangeCodeForTokenServerURL(
-                exchangeCodeForTokenServerURL,
-                clientId,
-                payload?.code,
-                redirectUri,
-                state,
-              ),
-              {
-                method: exchangeCodeForTokenMethod || DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD,
-              },
-            );
-            payload = await response.json();
-          }
-          setUI({
-            loading: false,
-            error: null,
-          });
-          setData(payload);
-
-          if (onSuccess) {
-            onSuccess(payload);
-          }
-        }
-      } catch (genericError: unknown) {
-        console.error(genericError);
-        setUI({
-          loading: false,
-          error: genericError instanceof Error ? genericError.message : String(genericError),
-        });
-      } finally {
-        // Clear stuff ...
-        cleanup(handleMessageListener);
-      }
-    }
-
-    // Ajout d'un écouteur d'événements de message
-    window.addEventListener("message", (event) => {
-      if (event.origin !== clientUri) {
-        throw new Error("Invalid origin for oauth2 response");
-      }
-      handleMessageListener(event).then();
-    });
-
-    // 5. Vérification de la fermeture de la fenêtre popup
-    intervalRef.current = setInterval(() => {
-      const popupClosed = !popupRef.current?.window || popupRef.current?.window?.closed;
-      if (popupClosed) {
-        // Popup was closed before completing auth...
-        setUI((ui) => ({
-          ...ui,
-          loading: false,
-        }));
-        console.warn("Warning: Popup was closed before completing authentication.");
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        removeState();
-        window.removeEventListener("message", handleMessageListener);
-      }
-    }, 250);
-
-    // 0. Nettoyage
-    return () => {
-      window.removeEventListener("message", handleMessageListener);
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    authorizeUrl,
-    clientId,
-    clientUri,
-    redirectUri,
-    scope,
-    responseType,
-    exchangeCodeForTokenServerURL,
-    exchangeCodeForTokenMethod,
-    onSuccess,
-    onError,
-    setUI,
-    setData,
-  ]);
-
-  return { data, loading, error, getAuth };
+  return { loading, error, getAuth };
 };
 
 export default useOAuth2;
