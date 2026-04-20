@@ -76,3 +76,17 @@ export const env: EnvType = {
   ...(import.meta.env as unknown as EnvType),
   ...window.env,
 };
+
+const REQUIRED_ENV_VARS: (keyof EnvType)[] = [
+  "REACT_APP_API",
+  "REACT_APP_OAUTH_PROVIDER",
+  "REACT_APP_OAUTH_CLIENT_ID",
+  "REACT_APP_FRONTEND",
+];
+
+export function validateEnv(): void {
+  const missing = REQUIRED_ENV_VARS.filter((key) => !env[key]);
+  if (missing.length > 0) {
+    throw new Error(`Variables d'environnement manquantes : ${missing.join(", ")}`);
+  }
+}

@@ -19,7 +19,9 @@ package.json.
 ### Démarrer l'application en mode HTTPS :
 
 ```json
-"start:https": "sudo HTTPS=true vite --host dev.esup-portail.org --port 443"
+{
+  "start:https": "sudo HTTPS=true vite --host dev.esup-portail.org --port 443"
+}
 ```
 
 > Remarque : `sudo` est nécessaire sur certaines configurations pour exécuter le serveur sur le port 443.
