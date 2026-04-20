@@ -162,13 +162,13 @@ export function ModalEntretien(props: {
           <div className="text-center">
             <Button
               type="dashed"
-              onClick={() => {
-                form
-                  .validateFields()
-                  .then(() => {
-                    handleSubmit(form.getFieldsValue(), false);
-                  })
-                  .catch(() => {});
+              onClick={async () => {
+                try {
+                  await form.validateFields();
+                  handleSubmit(form.getFieldsValue(), false);
+                } catch {
+                  // validation échouée : Ant Design affiche les erreurs dans le formulaire
+                }
               }}
             >
               Ajouter un document

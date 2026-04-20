@@ -13,7 +13,6 @@ export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", 
 }) {
   const [enabled, setEnabled] = useState(false);
   const [page, setPage] = useState(1);
-  const [totalItems, setTotalItems] = useState<number | null>(null);
 
   const { data } = useApi().useGetCollectionPaginated({
     path: "/amenagements",
@@ -23,9 +22,7 @@ export default function SplitFetcher<T = ApiPathMethodResponse<"/amenagements", 
     enabled: enabled,
   });
 
-  if (data?.totalItems !== undefined && data.totalItems !== totalItems) {
-    setTotalItems(data.totalItems);
-  }
+  const totalItems = data?.totalItems ?? null;
 
   // Ref pour accumuler les pages sans déclencher de re-rendu intermédiaire
   const allDataRef = useRef<T[]>([]);
