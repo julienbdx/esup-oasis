@@ -11,7 +11,7 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 RUN yarn build && \
-    find /app/build -type f \( -name "*.js" -o -name "*.css" -o -name "*.svg" -o -name "*.json" \) \
+    find /app/dist -type f \( -name "*.js" -o -name "*.css" -o -name "*.svg" -o -name "*.json" \) \
     -exec gzip -9 -k {} \;
 
 # --- Étape 2 : Production ---
@@ -20,7 +20,7 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 
 # Copie des fichiers compilés
-COPY --from=build /app/build/ .
+COPY --from=build /app/dist/ .
 
 # Configuration Nginx (template : les ${REACT_APP_*} sont substitués au démarrage par envsubst)
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf.template

@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { ReactComponent as SvgImage } from "@assets/images/etudiant-classroom.svg";
+import SvgImage from "@assets/images/etudiant-classroom.svg?react";
 
 export default function EtudiantClassroomImage(props: {
   className?: string;

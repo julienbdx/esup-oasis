@@ -22,7 +22,7 @@ import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFilt
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { queryClient } from "@/queryClient";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
+import Unfilter from "@/assets/images/unfilter.svg?react";
 import { BeneficiaireTableFilter } from "@controls/Table/BeneficiaireTableFilter";
 import { ascendToAsc } from "@utils/array";
 import FiltreDescription from "@controls/Table/FiltreDescription";

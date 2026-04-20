@@ -25,7 +25,7 @@ import Icon, {
 import GestionnaireFilter from "@controls/Filters/Gestionnaire/GestionnaireFilter";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useAuth } from "@/auth/AuthProvider";
-import { ReactComponent as Asterisk } from "@/assets/images/asterisk.svg";
+import Asterisk from "@/assets/images/asterisk.svg?react";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useApi } from "@context/api/ApiProvider";
 import AnnulationFilter, {

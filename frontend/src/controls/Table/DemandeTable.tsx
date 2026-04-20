@@ -22,7 +22,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import DemandeTableExport from "@controls/Table/DemandeTableExport";
 import { demandeTableColumns } from "@controls/Table/DemandeTableColumns";
 import { DemandeTableFilters } from "@controls/Table/DemandeTableFilters";
-import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
+import Unfilter from "@/assets/images/unfilter.svg?react";
 import Icon from "@ant-design/icons";
 import { ascendToAsc } from "@utils/array";
 import { RefsTourDemandes } from "@routes/gestionnaire/demandeurs/Demandeurs";

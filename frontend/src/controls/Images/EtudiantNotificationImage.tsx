@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { ReactComponent as SvgImage } from "@assets/images/etudiant-notification.svg";
+import SvgImage from "@assets/images/etudiant-notification.svg?react";
 
 export default function EtudiantNotificationImage(props: {
   className?: string;

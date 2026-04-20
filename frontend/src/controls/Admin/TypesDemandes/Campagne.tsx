@@ -19,7 +19,7 @@ import { CampagneEdition } from "@controls/Admin/TypesDemandes/CampagneEdition";
 import { ICampagneDemande } from "@api/ApiTypeHelpers";
 import QuestionnaireModale from "@controls/Admin/TypesDemandes/QuestionnaireModale";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import ExternalLink from "@/assets/images/external-link.svg?react";
 import { entiteParent } from "@api/Utils";
 
 export function Campagne(props: {

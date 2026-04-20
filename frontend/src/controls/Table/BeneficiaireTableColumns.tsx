@@ -18,7 +18,7 @@ import { ascToAscend } from "@utils/array";
 import { FilterProps } from "@utils/table";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { RoleValues, Utilisateur } from "@lib/Utilisateur";
-import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import ExternalLink from "@/assets/images/external-link.svg?react";
 
 import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
 import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";

@@ -11,7 +11,7 @@ import { IAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { Button, MenuProps } from "antd";
 import Icon, { CheckOutlined } from "@ant-design/icons";
 import React from "react";
-import { ReactComponent as IconeAccessibilite } from "@/assets/images/accessibilite.svg";
+import IconeAccessibilite from "@/assets/images/accessibilite.svg?react";
 
 /**
  * Generate menu items for accessibility options.

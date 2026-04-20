@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { ReactComponent as SvgImage } from "@assets/images/renfort-intervention-add.svg";
+import SvgImage from "@assets/images/renfort-intervention-add.svg?react";
 
 export default function RenfortInterventionAddImage(props: {
   className?: string;
