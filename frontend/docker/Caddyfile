@@ -1,0 +1,29 @@
+:80 {
+    root * /usr/share/caddy
+
+    encode zstd gzip
+
+    header {
+        Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' {$REACT_APP_API} {$REACT_APP_OAUTH_PROVIDER}; frame-ancestors 'none'; object-src 'none';"
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    }
+
+    @static path_regexp \.(js|css|woff2?|ttf|otf|eot|svg|ico)$
+    header @static Cache-Control "public, immutable, max-age=31536000"
+
+    @images path_regexp \.(jpg|jpeg|gif|png|webp|avif)$
+    header @images Cache-Control "public, max-age=2592000"
+
+    @indexhtml path /index.html
+    header @indexhtml {
+        Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+        Expires "-1"
+    }
+
+    try_files {path} /index.html
+    file_server
+}

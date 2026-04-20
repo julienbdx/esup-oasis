@@ -2,8 +2,8 @@
 
 # Générer un fichier env.{timestamp}.js avec toutes les variables REACT_APP_*
 TIMESTAMP=$(date +%s)
-ENV_FILE="/usr/share/nginx/html/env.${TIMESTAMP}.js"
-DOTENV_FILE="/usr/share/nginx/html/.env"
+ENV_FILE="/usr/share/caddy/env.${TIMESTAMP}.js"
+DOTENV_FILE="/usr/share/caddy/.env"
 
 # Construire la liste des clés déjà présentes dans l'environnement (séparées par ':')
 env_keys=$(env | grep '^REACT_APP_' | cut -d= -f1 | tr '\n' ':')
@@ -36,12 +36,7 @@ env_keys=$(env | grep '^REACT_APP_' | cut -d= -f1 | tr '\n' ':')
 } > "$ENV_FILE"
 
 # Mettre à jour index.html pour référencer le fichier timestampé
-sed -i "s|/env\.js|/env.${TIMESTAMP}.js|g" /usr/share/nginx/html/index.html
+sed -i "s|/env\.js|/env.${TIMESTAMP}.js|g" /usr/share/caddy/index.html
 
-# Générer la config Nginx avec les URLs réelles dans la Content-Security-Policy
-envsubst '${REACT_APP_API} ${REACT_APP_OAUTH_PROVIDER}' \
-  < /etc/nginx/conf.d/default.conf.template \
-  > /etc/nginx/conf.d/default.conf
-
-# Exécuter Nginx
-exec nginx -g "daemon off;"
+# Exécuter Caddy (substitue nativement {$REACT_APP_*} dans le Caddyfile)
+exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
