@@ -18,9 +18,6 @@ import { useAuth } from "@/auth/AuthProvider";
 import { useDrawers } from "@context/drawers/DrawersContext";
 import BeneficiaireTableExport from "@controls/Table/BeneficiaireTableExport";
 import { SorterResult } from "antd/es/table/interface";
-import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/queryClient";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Unfilter from "@/assets/images/unfilter.svg?react";
 import { BeneficiaireTableFilter } from "@controls/Table/BeneficiaireTableFilter";
@@ -79,13 +76,11 @@ function filtreBeneficiaireDefault(
 }
 
 export default function BeneficiaireTable() {
-  const { setAffichageFiltres } = useAffichageFiltres();
   const { setDrawerUtilisateur } = useDrawers();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
-  const [hasImpersonate, setHasImpersonate] = useState(false);
   const [filtreBeneficiaire, setFiltreBeneficiaire] = useState<FiltreBeneficiaire>({
     ...filtreBeneficiaireDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
     // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -132,13 +127,6 @@ export default function BeneficiaireTable() {
       );
     }
   }, [searchParams]);
-
-  useEffect(() => {
-    if (auth.impersonate && hasImpersonate) {
-      queryClient.clear();
-      setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
-    }
-  }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
   const count = dataBeneficiaires?.totalItems;
 
@@ -225,11 +213,7 @@ export default function BeneficiaireTable() {
             onClick(beneficiaire);
           },
           onImpersonate: (uid) => {
-            navigate("/");
-            window.setTimeout(() => {
-              setHasImpersonate(true);
-              auth.setImpersonate(uid);
-            }, 500);
+            navigate(`/impersonate/${uid}`);
           },
         })}
         rowKey={(record) => record["@id"] as string}

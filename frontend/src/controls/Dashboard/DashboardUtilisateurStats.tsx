@@ -43,6 +43,7 @@ export default function DashboardUtilisateurStats({
       utilisateur: utilisateurId,
     },
     enabled: !!utilisateurId,
+    onError: () => {},
   });
 
   return (

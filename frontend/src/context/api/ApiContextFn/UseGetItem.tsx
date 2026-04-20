@@ -9,7 +9,10 @@
 
 // --- GET ITEM ---
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { handleApiResponse } from "@context/api/ApiContextFn/HandleApiResponse";
+import {
+  handleApiResponse,
+  IErreurNotification,
+} from "@context/api/ApiContextFn/HandleApiResponse";
 import { useNavigate } from "react-router-dom";
 import {
   ApiPathMethodParameters,
@@ -39,6 +42,7 @@ export type UseGetItemHook = <P extends Path>(options: {
   enabled?: boolean;
   parameters?: ApiPathMethodParameters<P, "get">;
   query?: ApiPathMethodQuery<P, "get">;
+  onError?: (error: IErreurNotification) => void;
 }) => UseQueryResult<ApiPathMethodResponse<P, "get">>;
 
 export function useGetItem<P extends Path>(
@@ -50,6 +54,7 @@ export function useGetItem<P extends Path>(
     enabled?: boolean;
     parameters?: ApiPathMethodParameters<P, "get">;
     query?: ApiPathMethodQuery<P, "get">;
+    onError?: (error: IErreurNotification) => void;
   },
 ): UseQueryResult<ApiPathMethodResponse<P, "get">> {
   // URL : useQuery.enabled prévient les URL non valides
@@ -73,6 +78,8 @@ export function useGetItem<P extends Path>(
       navigate,
       auth,
       options,
+      undefined,
+      options.onError,
     );
   };
 

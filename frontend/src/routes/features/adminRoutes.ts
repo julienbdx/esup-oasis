@@ -13,6 +13,11 @@ import { RoleValues } from "@lib/Utilisateur";
 
 export const ADMIN_ROUTES: IRoute[] = [
   {
+    path: "/impersonate/:uid",
+    element: lazy(() => import("@routes/commun/Impersonate")),
+    roles: [RoleValues.ROLE_ADMIN, RoleValues.ROLE_ADMIN_TECHNIQUE],
+  },
+  {
     path: "/administration/referentiels/parametres",
     element: lazy(() => import("@routes/administration/Parametres/Parametres")),
     roles: [RoleValues.ROLE_ADMIN],

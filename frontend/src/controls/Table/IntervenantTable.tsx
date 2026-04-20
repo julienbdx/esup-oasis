@@ -16,9 +16,6 @@ import { useApi } from "@context/api/ApiProvider";
 import { useDrawers } from "@context/drawers/DrawersContext";
 import IntervenantTableExport from "@controls/Table/IntervenantTableExport";
 import { useAuth } from "@/auth/AuthProvider";
-import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/queryClient";
 import { SorterResult } from "antd/es/table/interface";
 import { IntervenantTableFilter } from "@controls/Table/IntervenantTableFilter";
 import Icon from "@ant-design/icons";
@@ -50,10 +47,8 @@ export const FILTRE_INTERVENANT_DEFAULT: FiltreIntervenant = {
 };
 
 export default function IntervenantTable() {
-  const { setAffichageFiltres } = useAffichageFiltres();
   const { setDrawerUtilisateur } = useDrawers();
   const navigate = useNavigate();
-  const [hasImpersonate, setHasImpersonate] = useState(false);
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
 
@@ -78,13 +73,6 @@ export default function IntervenantTable() {
             : filtreIntervenant.intervenantArchive,
       },
     });
-
-  useEffect(() => {
-    if (auth.impersonate && hasImpersonate) {
-      setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
-      queryClient.clear();
-    }
-  }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
   useEffect(() => {
     if (preferencesChargees) {
@@ -203,11 +191,7 @@ export default function IntervenantTable() {
             });
           },
           onImpersonate: (intervenantUid) => {
-            navigate("/");
-            window.setTimeout(() => {
-              setHasImpersonate(true);
-              auth.setImpersonate(intervenantUid);
-            }, 500);
+            navigate(`/impersonate/${intervenantUid}`);
           },
         })}
       />

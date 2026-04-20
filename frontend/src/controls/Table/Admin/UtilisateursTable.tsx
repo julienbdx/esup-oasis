@@ -13,10 +13,6 @@ import ServiceItem from "@controls/Items/ServiceItem";
 import { Button, Flex, Popconfirm, Segmented, Space, Table, Tooltip } from "antd";
 import { BellOutlined, EditOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { queryClient } from "@/queryClient";
-import { useAuth } from "@/auth/AuthProvider";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { ROLES_SELECT, RoleValues } from "@lib/Utilisateur";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { ColumnsType } from "antd/lib/table";
@@ -37,9 +33,6 @@ type FiltreUtilisateurs = {
 };
 
 export default function UtilisateursTable({ onEdit, onAskStats }: TableUtilisateursProps) {
-  const { setAffichageFiltres } = useAffichageFiltres();
-  const auth = useAuth();
-  const [hasImpersonate, setHasImpersonate] = useState(false);
   const [role, setRole] = useState<RoleValues>(RoleValues.ROLE_PLANIFICATEUR);
   const [domaine, setDomaine] = useState(RoleValues.ROLE_PLANIFICATEUR);
   const [filtre, setFiltre] = React.useState<FiltreUtilisateurs>({
@@ -58,13 +51,6 @@ export default function UtilisateursTable({ onEdit, onAskStats }: TableUtilisate
     },
     query: filtre,
   });
-
-  useEffect(() => {
-    if (auth.impersonate && hasImpersonate) {
-      setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
-      queryClient.clear();
-    }
-  }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
   useEffect(() => {
     if (role !== RoleValues.ROLE_MEMBRE_COMMISSION) {
@@ -204,11 +190,7 @@ export default function UtilisateursTable({ onEdit, onAskStats }: TableUtilisate
                     <Popconfirm
                       title="Êtes-vous sûr de vouloir prendre l'identité de cet utilisateur ?"
                       onConfirm={() => {
-                        navigate("/");
-                        window.setTimeout(() => {
-                          setHasImpersonate(true);
-                          auth.setImpersonate(record.uid as string);
-                        }, 500);
+                        navigate(`/impersonate/${record.uid}`);
                       }}
                       okText="Oui"
                       cancelText="Non"
