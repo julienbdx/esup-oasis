@@ -18,7 +18,7 @@ import {
   PREFETCH_TYPES_AMENAGEMENTS,
 } from "@api/ApiPrefetchHelpers";
 import Icon from "@ant-design/icons";
-import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
+import Unfilter from "@/assets/images/unfilter.svg?react";
 import { useAuth } from "@/auth/AuthProvider";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 import AmenagementTableExport from "@controls/Table/AmenagementTableExport";

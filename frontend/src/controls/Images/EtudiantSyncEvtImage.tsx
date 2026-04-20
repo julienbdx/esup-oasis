@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { ReactComponent as SvgImage } from "@assets/images/etudiant-sync-evt.svg";
+import SvgImage from "@assets/images/etudiant-sync-evt.svg?react";
 
 export default function EtudiantSyncEvtImage(props: {
   className?: string;

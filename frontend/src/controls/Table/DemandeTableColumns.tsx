@@ -21,7 +21,7 @@ import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import Icon, { EyeOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import React from "react";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
-import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import ExternalLink from "@/assets/images/external-link.svg?react";
 import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 import Highlighter from "react-highlight-words";

@@ -22,7 +22,7 @@ import { queryClient } from "@/queryClient";
 import { SorterResult } from "antd/es/table/interface";
 import { IntervenantTableFilter } from "@controls/Table/IntervenantTableFilter";
 import Icon from "@ant-design/icons";
-import { ReactComponent as Unfilter } from "@/assets/images/unfilter.svg";
+import Unfilter from "@/assets/images/unfilter.svg?react";
 import { ascendToAsc } from "@utils/array";
 import FiltreDescription from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";

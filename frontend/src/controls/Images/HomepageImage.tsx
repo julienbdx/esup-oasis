@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ReactComponent as SvgImage } from "@assets/images/homepage.svg";
+import SvgImage from "@assets/images/homepage.svg?react";
 
 export default function HomepageImage(props: { className?: string }) {
   return <SvgImage {...props} />;

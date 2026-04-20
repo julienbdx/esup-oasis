@@ -27,9 +27,9 @@ import {
 import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
 import { AdminPanel } from "@controls/Admin/AdminPanel";
 import React from "react";
-import { ReactComponent as MedalIcon } from "@/assets/images/medal.svg";
-import { ReactComponent as ReferentIcon } from "@/assets/images/referent.svg";
-import { ReactComponent as ArtIcon } from "@/assets/images/art.svg";
+import MedalIcon from "@/assets/images/medal.svg?react";
+import ReferentIcon from "@/assets/images/referent.svg?react";
+import ArtIcon from "@/assets/images/art.svg?react";
 import { env } from "@/env";
 
 /**

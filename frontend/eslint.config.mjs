@@ -36,7 +36,7 @@ export default tseslint.config(
          "**/jest.config.js",
          "**/src/api/OpenApi.yml",
          "**/src/api/schema.d.ts",
-         "**/build/**",
+         "**/dist/**",
          "**/node_modules/**",
          "**/src/api/schema.d.ts",
       ],

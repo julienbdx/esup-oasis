@@ -16,7 +16,7 @@ import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
 import ComposanteItem from "@controls/Items/ComposanteItem";
 import FormationItem from "@controls/Items/FormationItem";
 import Icon from "@ant-design/icons";
-import { ReactComponent as FilterMore } from "@/assets/images/filter-more.svg";
+import FilterMore from "@/assets/images/filter-more.svg?react";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 import CampusItem from "@controls/Items/CampusItem";
 import CompetenceItem from "@controls/Items/CompetenceItem";

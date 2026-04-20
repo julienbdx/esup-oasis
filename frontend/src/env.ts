@@ -71,4 +71,8 @@ declare global {
   }
 }
 
-export const env: EnvType = { ...{ REACT_APP_API_PREFIX: "" }, ...process.env, ...window.env };
+export const env: EnvType = {
+  ...{ REACT_APP_API_PREFIX: "" },
+  ...(import.meta.env as unknown as EnvType),
+  ...window.env,
+};

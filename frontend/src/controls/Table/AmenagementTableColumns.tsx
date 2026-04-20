@@ -19,7 +19,7 @@ import Icon, { EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { InscriptionItem } from "@controls/Items/InscriptionItem";
 import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
 import { ListeUtilisateurTag } from "@controls/Tags/ListeUtilisateurTag";
-import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import ExternalLink from "@/assets/images/external-link.svg?react";
 import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";
 import EtudiantItem from "@controls/Items/EtudiantItem";
 import { RoleValues } from "@lib/Utilisateur";

@@ -23,7 +23,7 @@ import BooleanState from "@controls/State/BooleanState";
 import { ListeUtilisateurTag } from "@controls/Tags/ListeUtilisateurTag";
 import { BeneficiaireAvisEseAvatar } from "@controls/Avatars/BeneficiaireAvisEseAvatar";
 import { NavigateFunction } from "react-router-dom";
-import { ReactComponent as ExternalLink } from "@/assets/images/external-link.svg";
+import ExternalLink from "@/assets/images/external-link.svg?react";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";

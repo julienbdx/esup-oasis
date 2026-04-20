@@ -9,7 +9,7 @@
 
 import React, { memo, ReactElement } from "react";
 import { Segmented, Tooltip } from "antd";
-import { ReactComponent as Asterisk } from "@/assets/images/asterisk.svg";
+import Asterisk from "@/assets/images/asterisk.svg?react";
 import Icon from "@ant-design/icons";
 
 interface IAnnulationFilter {
