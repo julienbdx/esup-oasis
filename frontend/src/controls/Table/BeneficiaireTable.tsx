@@ -29,7 +29,7 @@ import FiltreDescription from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 import { getCountLibelle } from "@utils/table";
 
-export const FILTRE_BENEFICIAIRE_DEFAULT = {
+export const FILTRE_BENEFICIAIRE_DEFAULT: FiltreBeneficiaire = {
   "order[nom]": "asc" as "asc" | "desc" | undefined,
   "beneficiaires.avecAccompagnement": true,
   page: 1,
@@ -85,7 +85,6 @@ export default function BeneficiaireTable() {
   const navigate = useNavigate();
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
-  const [count, setCount] = React.useState<number>();
   const [hasImpersonate, setHasImpersonate] = useState(false);
   const [filtreBeneficiaire, setFiltreBeneficiaire] = useState<FiltreBeneficiaire>({
     ...filtreBeneficiaireDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
@@ -112,6 +111,7 @@ export default function BeneficiaireTable() {
       preferencesChargees &&
       getPreferenceArray("filtresBeneficiaire")?.filter((f) => f.favori).length > 0
     ) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreBeneficiaire({
         ...FILTRE_BENEFICIAIRE_DEFAULT,
         // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -126,6 +126,7 @@ export default function BeneficiaireTable() {
 
   useEffect(() => {
     if (searchParams.get("filtreType") && searchParams.get("filtreValeur")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreBeneficiaire(
         filtreBeneficiaireDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
       );
@@ -139,9 +140,7 @@ export default function BeneficiaireTable() {
     }
   }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
-  useEffect(() => {
-    setCount(dataBeneficiaires?.totalItems);
-  }, [dataBeneficiaires]);
+  const count = dataBeneficiaires?.totalItems;
 
   const onClick = (record: IBeneficiaire) => {
     if (auth.user?.isGestionnaire) {

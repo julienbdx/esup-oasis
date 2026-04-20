@@ -162,6 +162,7 @@ export default function AmenagementsBeneficiaireTableExport({
 
   useEffect(() => {
     if (amenagements?.items && tags?.items) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     } else {
       setLoading(isFetchingAmenagements || isFetchingTags);

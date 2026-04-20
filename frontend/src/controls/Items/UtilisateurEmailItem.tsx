@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
@@ -31,18 +31,12 @@ export default function UtilisateurEmailItem({
   utilisateurId,
   emailPerso,
 }: IItemIntervenant): string | ReactElement {
-  const [item, setItem] = useState(utilisateur);
   const { data } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
     url: utilisateurId as string,
     enabled: !!utilisateurId,
   });
-
-  useEffect(() => {
-    if (data) {
-      setItem(data);
-    }
-  }, [data]);
+  const item = utilisateur ?? data;
 
   if (!utilisateur && !utilisateurId) return <></>;
 

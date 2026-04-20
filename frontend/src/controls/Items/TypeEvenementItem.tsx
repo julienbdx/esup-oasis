@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Breakpoint, Space } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
@@ -51,15 +51,9 @@ export default function TypeEvenementItem({
   className,
 }: IItemTypeEvenement): ReactElement {
   const { accessibilite: appAccessibilite } = useAccessibilite();
-  const [item, setItem] = useState(typeEvenement);
   const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const item = typeEvenement ?? typesEvenements?.items.find((t) => t["@id"] === typeEvenementId);
   const screens = useBreakpoint();
-
-  useEffect(() => {
-    if (typesEvenements && typeEvenementId) {
-      setItem(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
-    }
-  }, [typesEvenements, typeEvenementId]);
 
   if (!item) return <Spinner />;
 

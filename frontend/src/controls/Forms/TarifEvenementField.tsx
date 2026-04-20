@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Input, Skeleton, Space } from "antd";
 import dayjs from "dayjs";
 import { useApi } from "@context/api/ApiProvider";
@@ -26,7 +26,10 @@ export default function TarifEvenementField({
 }: ITarifEvenementFieldProps) {
   const { data: typesEvenements, isFetching: isFetchingTypeEvenement } =
     useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-  const [dureeTotale, setDureeTotale] = React.useState<number>(0);
+  const dureeTotale =
+    dayjs(evenement.fin).diff(dayjs(evenement.debut), "minute") +
+    Number(evenement.tempsPreparation || 0) +
+    Number(evenement.tempsSupplementaire || 0);
 
   const { data: taux } = useApi().useGetCollection({
     path: "/types_evenements/{typeId}/taux",
@@ -41,16 +44,6 @@ export default function TarifEvenementField({
       !!evenement.type &&
       !!typesEvenements?.items.find((t) => t["@id"] === evenement.type)?.tauxActif,
   });
-
-  useEffect(() => {
-    // get nb minutes between evenement.debut and evenement.fin
-    const nbMinutes = dayjs(evenement.fin).diff(dayjs(evenement.debut), "minute");
-    setDureeTotale(
-      nbMinutes +
-        Number(evenement.tempsPreparation || 0) +
-        Number(evenement.tempsSupplementaire || 0),
-    );
-  }, [evenement.tempsPreparation, evenement.tempsSupplementaire, evenement.debut, evenement.fin]);
 
   if (isFetchingTypeEvenement) {
     return <Skeleton active />;

@@ -8,7 +8,7 @@
  */
 
 import React, { ReactNode } from "react";
-import { Collapse, Row } from "antd";
+import { Badge, Collapse, Row, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { FiltreFavoriDropDown } from "@controls/Table/FiltreFavoriDropDown";
 import { FiltresFavoris } from "@controls/Table/FiltresFavoris";
@@ -45,6 +45,21 @@ export function FilterPanel<T extends FiltreDecrivable>({
   refFavoris,
   refFiltres,
 }: FilterPanelProps<T>) {
+  function calculerNombreFiltresPose(): number {
+    // le nombre de filtres posés est le nombre de valeurs de filtre qui sont différentes du filtre par défaut defaultFilter
+    const filtresPose = Object.entries(filtre).filter(([key, value]) => {
+      const defaultValue = defaultFilter[key as keyof T];
+      if (Array.isArray(value) || Array.isArray(defaultValue)) {
+        const a = Array.isArray(value) ? value : [];
+        const b = Array.isArray(defaultValue) ? defaultValue : [];
+        return JSON.stringify(a) !== JSON.stringify(b);
+      }
+      return value !== defaultValue;
+    });
+    console.log("filtresPose", filtresPose, defaultFilter, filtre);
+    return filtresPose.length;
+  }
+
   return (
     <Collapse
       ref={refDetails}
@@ -79,7 +94,10 @@ export function FilterPanel<T extends FiltreDecrivable>({
           ref: refFiltres,
           label: (
             <>
-              <FilterOutlined className="float-right" style={{ marginTop: 4 }} aria-hidden />
+              <Space className="float-right">
+                <Badge count={calculerNombreFiltresPose()} />
+                <FilterOutlined style={{ marginTop: 4 }} aria-hidden />
+              </Space>
               Filtres complémentaires
               {extraLabel}
             </>

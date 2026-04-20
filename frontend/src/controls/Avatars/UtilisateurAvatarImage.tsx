@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Avatar, Image, Tooltip } from "antd";
 import { useAuth } from "@/auth/AuthProvider";
 import { UserOutlined } from "@ant-design/icons";
@@ -46,25 +46,14 @@ export default function UtilisateurAvatarImage(props: {
   const auth = useAuth();
   const screens = useBreakpoint();
 
-  const [utilisateurData, setUtilisateurData] = useState<IUtilisateurBase | undefined>(
-    props.utilisateur,
-  );
-
   const { data, isFetching } = useApi().useGetItem({
     path: props.role ? APIEndpointByRole(props.role) : "/utilisateurs/{uid}",
     url: props.utilisateurId as string,
     enabled: props.utilisateurId !== undefined,
   });
+  const utilisateurData = (data ?? props.utilisateur) as IUtilisateurBase | undefined;
 
   const { ref, inView } = useInView();
-
-  useEffect(() => {
-    if (props.utilisateur) setUtilisateurData(props.utilisateur);
-  }, [props.utilisateur]);
-
-  useEffect(() => {
-    if (data) setUtilisateurData(data);
-  }, [data]);
 
   const photo = useQuery({
     queryKey: ["photos", `${utilisateurData?.["@id"]}/photo`],

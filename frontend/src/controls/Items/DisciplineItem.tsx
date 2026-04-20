@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Breakpoint, Tag, Tooltip } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
@@ -36,18 +36,12 @@ export default function DisciplineItem({
   discipline,
   disciplineId,
 }: IItemDiscipline): ReactElement {
-  const [item, setItem] = useState(discipline);
   const { data: dataDiscipline, isFetching } = useApi().useGetCollectionPaginated({
     path: "/disciplines_sportives",
     page: 1,
     itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
-
-  useEffect(() => {
-    if (dataDiscipline && disciplineId) {
-      setItem(dataDiscipline.items.find((t) => t["@id"] === disciplineId));
-    }
-  }, [dataDiscipline, disciplineId]);
+  const item = discipline ?? dataDiscipline?.items.find((t) => t["@id"] === disciplineId);
 
   if (!item || isFetching) return <Spinner />;
 

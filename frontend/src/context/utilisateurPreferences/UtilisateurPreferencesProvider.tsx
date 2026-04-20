@@ -68,6 +68,7 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
 
   useEffect(() => {
     if (preferences) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setPreferencesChargees(true);
     }
   }, [preferences]);

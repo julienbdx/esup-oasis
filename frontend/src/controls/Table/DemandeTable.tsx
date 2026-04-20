@@ -80,7 +80,6 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
   const [searchParams] = useSearchParams();
   const { setAffichageFiltres } = useAffichageFiltres();
   const navigate = useNavigate();
-  const [count, setCount] = React.useState<number>();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
   const [hasImpersonate, setHasImpersonate] = useState(false);
   const [filtreDemande, setFiltreDemande] = useState<FiltreDemande>({
@@ -112,6 +111,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
       preferencesChargees &&
       getPreferenceArray("filtresDemande")?.filter((f) => f.favori).length > 0
     ) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreDemande({
         ...FILTRE_DEMANDE_DEFAULT,
         // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -126,6 +126,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
 
   useEffect(() => {
     if (searchParams.get("filtreType") && searchParams.get("filtreValeur")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreDemande(
         filtreDemandeDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
       );
@@ -139,9 +140,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
     }
   }, [hasImpersonate, auth.impersonate, setAffichageFiltres]);
 
-  useEffect(() => {
-    setCount(dataDemandes?.totalItems);
-  }, [dataDemandes]);
+  const count = dataDemandes?.totalItems;
 
   const handleImpersonate = useCallback(
     (uid: string) => {

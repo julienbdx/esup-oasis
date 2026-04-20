@@ -7,9 +7,9 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICharteUtilisateur, IDemande } from "@api/ApiTypeHelpers";
+import { IDemande } from "@api/ApiTypeHelpers";
 import { App, Button, Card, Checkbox, Form } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "@api/queryKeys";
@@ -26,10 +26,6 @@ export function ValidationCharte(props: { demande: IDemande }) {
     page: 1,
     itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
-  const [chartesUtilisateurDemande, setChartesUtilisateurDemande] = useState<ICharteUtilisateur[]>(
-    [],
-  );
-
   const mutationAccepterCharte = useApi().usePatch({
     path: `/utilisateurs/{uid}/chartes/{id}`,
     invalidationQueryKeys: [QK_UTILISATEURS_CHARTES, QK_DEMANDES],
@@ -38,11 +34,9 @@ export function ValidationCharte(props: { demande: IDemande }) {
     },
   });
 
-  useEffect(() => {
-    if (chartes) {
-      setChartesUtilisateurDemande(chartes.items.filter((c) => c.demande === props.demande["@id"]));
-    }
-  }, [chartes, props.demande]);
+  const chartesUtilisateurDemande = chartes?.items.filter(
+    (c) => c.demande === props.demande["@id"],
+  );
 
   if (!chartesUtilisateurDemande) return <Spinner />;
 

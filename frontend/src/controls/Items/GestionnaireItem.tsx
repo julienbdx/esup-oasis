@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { RoleValues } from "@lib/Utilisateur";
 import { Breakpoint, Button, Skeleton, Space } from "antd";
 import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
@@ -48,19 +48,13 @@ function GestionnaireItem({
   showEmail = false,
   className,
 }: IItemGestionnaire): ReactElement {
-  const [item, setItem] = useState(gestionnaire);
   const { data, isFetching } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
     url: gestionnaireId as string,
     enabled: !!gestionnaireId,
   });
+  const item = gestionnaire ?? data;
   const screens = useBreakpoint();
-
-  useEffect(() => {
-    if (data) {
-      setItem(data);
-    }
-  }, [data]);
 
   if (!gestionnaire && !gestionnaireId) return <MinusOutlined />;
 

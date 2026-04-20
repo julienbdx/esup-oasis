@@ -79,6 +79,7 @@ export default function InterventionForfaitTableExport({
 
   useEffect(() => {
     if (periodes?.items && intervenants?.items && typesEvenements?.items) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     } else {
       setLoading(isFetchingPeriodes || isFetchingIntervenants || isFetchingTypesEvenements);
@@ -94,7 +95,9 @@ export default function InterventionForfaitTableExport({
   ]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setExportSubmit(false);
+
     setDownloaded(false);
   }, [interventionsForfait]);
 

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Breakpoint, Space, Typography } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { CampusAvatar } from "@controls/Avatars/CampusAvatar";
@@ -50,15 +50,9 @@ export default function CampusItem({
   className,
   salle,
 }: IItemCampus): ReactElement {
-  const [item, setItem] = useState(campus);
   const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  const item = campus ?? dataCampus?.items.find((t) => t["@id"] === campusId);
   const screens = useBreakpoint();
-
-  useEffect(() => {
-    if (dataCampus && campusId) {
-      setItem(dataCampus.items.find((t) => t["@id"] === campusId));
-    }
-  }, [dataCampus, campusId]);
 
   if (!item || isFetching) return <Spinner />;
 

@@ -55,7 +55,6 @@ export default function IntervenantTable() {
   const navigate = useNavigate();
   const [hasImpersonate, setHasImpersonate] = useState(false);
   const auth = useAuth();
-  const [count, setCount] = React.useState<number>();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
 
   const [filtreIntervenant, setFiltreIntervenant] = useState<FiltreIntervenant>({
@@ -89,6 +88,7 @@ export default function IntervenantTable() {
 
   useEffect(() => {
     if (preferencesChargees) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreIntervenant({
         ...FILTRE_INTERVENANT_DEFAULT,
         // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -98,9 +98,7 @@ export default function IntervenantTable() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferencesChargees]);
 
-  useEffect(() => {
-    setCount(dataIntervenants?.totalItems);
-  }, [dataIntervenants]);
+  const count = dataIntervenants?.totalItems;
 
   // Sticky header
   useEffect(() => {

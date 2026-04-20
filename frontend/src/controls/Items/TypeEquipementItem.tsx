@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
 import { PREFETCH_TYPES_EQUIPEMENTS } from "@api/ApiPrefetchHelpers";
@@ -31,15 +31,9 @@ function TypeEquipementItem({
   typeEquipement,
   typeEquipementId,
 }: IItemTypeEquipement): ReactElement {
-  const [item, setItem] = useState(typeEquipement);
   const { data: typeEquipementData } = useApi().useGetCollection(PREFETCH_TYPES_EQUIPEMENTS);
-
-  useEffect(() => {
-    if (typeEquipementData) {
-      setItem(typeEquipementData.items.find((x) => x["@id"] === typeEquipementId));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typeEquipementData]);
+  const item =
+    typeEquipement ?? typeEquipementData?.items.find((x) => x["@id"] === typeEquipementId);
 
   if (!item) return <Spinner />;
 

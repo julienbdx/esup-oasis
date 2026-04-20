@@ -33,7 +33,9 @@ export default function Commissions(): React.ReactElement {
 
   useEffect(() => {
     if (idChargement && commissions) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEditedItem(commissions.items.find((c) => c.id?.toString() === idChargement));
+
       setIdChargement(undefined);
     }
   }, [idChargement, commissions]);

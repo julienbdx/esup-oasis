@@ -8,7 +8,7 @@
  */
 
 import { IUtilisateur } from "@api/ApiTypeHelpers";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import GestionnaireItem from "@controls/Items/GestionnaireItem";
 import { useInView } from "react-intersection-observer";
@@ -18,7 +18,6 @@ export function ChargesAccompagnementsItem(props: {
   utilisateurId?: string | undefined;
   utilisateur?: IUtilisateur;
 }) {
-  const [item, setItem] = useState(props.utilisateur);
   const { ref, inView } = useInView();
 
   const { data } = useApi().useGetItem({
@@ -27,11 +26,7 @@ export function ChargesAccompagnementsItem(props: {
     enabled: !!props.utilisateurId && inView,
   });
 
-  useEffect(() => {
-    if (data) {
-      setItem(data);
-    }
-  }, [data]);
+  const item = data ?? props.utilisateur;
 
   if (!item)
     return (

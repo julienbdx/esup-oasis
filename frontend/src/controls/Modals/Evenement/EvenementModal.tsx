@@ -90,6 +90,7 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
 
   useEffect(() => {
     if (evenementData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       updateSourceEvenement(evenementData);
     }
   }, [evenementData, updateSourceEvenement]);
@@ -120,12 +121,14 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
 
   // Initialisation via props : id
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEvenementId(id);
   }, [id]);
 
   // Initialisation via props : initialEvenement
   useEffect(() => {
     if (initialEvenement) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       updateSourceEvenement(initialEvenement, true);
     }
   }, [updateSourceEvenement, initialEvenement]);

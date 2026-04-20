@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
@@ -42,22 +42,12 @@ export default function PeriodeRhItem({
   showTooltip = true,
   className,
 }: IItemPeriode): ReactElement {
-  const [item, setItem] = useState(periode);
   const { data: periodeData } = useApi().useGetCollectionPaginated({
     path: "/periodes",
     page: 1,
     itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
-
-  useEffect(() => {
-    if (periodeData && periodeId) {
-      setItem(periodeData.items.find((x) => x["@id"] === periodeId));
-    }
-  }, [periodeData, periodeId]);
-
-  useEffect(() => {
-    if (periode) setItem(periode);
-  }, [periode]);
+  const item = periode ?? periodeData?.items.find((x) => x["@id"] === periodeId);
   if (!item) return <Spinner />;
 
   function getIcon() {

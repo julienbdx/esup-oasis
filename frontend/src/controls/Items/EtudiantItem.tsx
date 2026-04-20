@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { Breakpoint, Space } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
@@ -46,28 +46,16 @@ function EtudiantItem({
   role,
   highlight,
 }: IItemEtudiant): ReactElement {
-  const [id, setId] = useState<string | undefined>(utilisateurId);
-  const [item, setItem] = useState(utilisateur);
+  const effectiveId = profilBeneficiaireId ? entiteParent(profilBeneficiaireId) : utilisateurId;
   const { data } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
-    url: id as string,
-    enabled: !!id,
+    url: effectiveId as string,
+    enabled: !!effectiveId,
   });
+  const item = utilisateur ?? data;
   const screens = useBreakpoint();
 
-  useEffect(() => {
-    if (data) {
-      setItem(data);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (profilBeneficiaireId) {
-      setId(entiteParent(profilBeneficiaireId));
-    }
-  }, [profilBeneficiaireId]);
-
-  if (!utilisateur && !id) return <MinusOutlined aria-label="Aucun utilisateur" />;
+  if (!utilisateur && !effectiveId) return <MinusOutlined aria-label="Aucun utilisateur" />;
 
   if (!item) return <Spinner />;
 

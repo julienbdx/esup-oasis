@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { Breakpoint, Popover, Space, Tag, Tooltip, Typography } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
@@ -49,19 +49,9 @@ function ComposanteItem({
   maxWidth,
   popoverContent,
 }: IItemComposante): ReactElement {
-  const [item, setItem] = useState(composante);
   const { data: composantes } = useApi().useGetCollection(PREFETCH_COMPOSANTES);
+  const item = composante ?? composantes?.items.find((c) => c["@id"] === composanteId);
   const screens = useBreakpoint();
-
-  useEffect(() => {
-    if (composantes) {
-      setItem(composantes.items.find((c) => c["@id"] === composanteId));
-    }
-  }, [composantes, composanteId]);
-
-  useEffect(() => {
-    if (composante) setItem(composante);
-  }, [composante]);
 
   if (!item) return <Spinner />;
 

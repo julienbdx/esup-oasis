@@ -81,6 +81,7 @@ export function QuestionnaireProvider(props: {
 
   useEffect(() => {
     if (demandeData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDemande(demandeData);
     }
   }, [demandeData]);
@@ -94,6 +95,7 @@ export function QuestionnaireProvider(props: {
 
   useEffect(() => {
     if (typeDemandeData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTypeDemande(typeDemandeData);
     }
   }, [typeDemandeData]);
@@ -107,6 +109,7 @@ export function QuestionnaireProvider(props: {
 
   useEffect(() => {
     if (typeDemandeData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTypeDemande(typeDemandeData);
     }
   }, [typeDemandeData]);
@@ -115,9 +118,11 @@ export function QuestionnaireProvider(props: {
   useEffect(() => {
     if (props.demandeId && demande && typeDemande) {
       // Pour gestionnaire + demandeur
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuestionnaire(questionnaireFromDemande(demande, typeDemande));
     } else if (props.typeDemandeId && typeDemande && !props.demandeId) {
       // Pour l'admin
+
       setQuestionnaire(questionnaireFromTypeDemande(typeDemande));
     }
   }, [demande, props, typeDemande]);
@@ -135,6 +140,7 @@ export function QuestionnaireProvider(props: {
   // Etat de la demande
   useEffect(() => {
     if (demande) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEtatDemande(getEtatDemande(demande.etat as string));
     } else {
       setEtatDemande(undefined);

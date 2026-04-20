@@ -34,12 +34,14 @@ export default function TelechargementImagePreview(props: {
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!props.telechargementId) setPhoto(undefined);
   }, [props.telechargementId]);
 
   useEffect(() => {
     // if (!auth.token) return;
     if (!telechargement?.urlContenu) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPhoto(undefined);
 
     let fetchOptions: RequestInit = {

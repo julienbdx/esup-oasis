@@ -57,6 +57,7 @@ export function TabIdentite(props: {
   }, [form, utilisateur]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCommentaire(demande?.commentaire || "");
   }, [demande]);
 

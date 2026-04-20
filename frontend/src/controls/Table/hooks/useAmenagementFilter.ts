@@ -40,6 +40,7 @@ export function useAmenagementFilter(modeAffichage: ModeAffichageAmenagement) {
 
   // Synchronisation lors du changement de mode d'affichage ou d'utilisateur
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFiltreAmenagement({
       ...getFiltreAmenagementDefault(auth.user as Utilisateur),
       // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -57,6 +58,7 @@ export function useAmenagementFilter(modeAffichage: ModeAffichageAmenagement) {
   // Synchronisation une fois les préférences chargées
   useEffect(() => {
     if (preferencesChargees) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreAmenagement({
         ...getFiltreAmenagementDefault(auth.user as Utilisateur),
         // on applique le filtre favori des préférences de l'utilisateur s'il existe

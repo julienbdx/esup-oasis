@@ -68,6 +68,7 @@ export default function UtilisateursTable({ onEdit, onAskStats }: TableUtilisate
 
   useEffect(() => {
     if (role !== RoleValues.ROLE_MEMBRE_COMMISSION) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDomaine(RoleValues.ROLE_PLANIFICATEUR);
     }
   }, [role]);

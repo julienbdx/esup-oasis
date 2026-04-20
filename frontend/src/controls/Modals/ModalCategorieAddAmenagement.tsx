@@ -51,6 +51,7 @@ export function ModalCategorieAddAmenagement(props: {
     if (!submitted) return;
     if (amenagementsACreer.length === 0) {
       // C'est fini, on sort
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSubmitted(false);
       props.setOpen(false);
     } else {

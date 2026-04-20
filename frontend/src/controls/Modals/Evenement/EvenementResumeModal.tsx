@@ -48,10 +48,12 @@ export default function EvenementResumeModal({ id }: EvenementResumeModalProps):
 
   // Initialisation via props : id
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEvenementId(id);
   }, [id]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEvenement(new Evenement(data));
   }, [data]);
 

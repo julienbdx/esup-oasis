@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { Space, Tooltip } from "antd";
 import {
@@ -33,7 +33,6 @@ export function DecisionEtablissementAvatar(props: {
   showLabel?: boolean;
   direction?: "horizontal" | "vertical";
 }) {
-  const [item, setItem] = React.useState<IDecisionEtablissement | undefined>(props.decisionEtab);
   const { data: utilisateur } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
     url: props.utilisateurId,
@@ -46,18 +45,11 @@ export function DecisionEtablissementAvatar(props: {
     enabled: !!props.decisionEtabId,
   });
 
-  useEffect(() => {
-    setItem(props.decisionEtab);
-  }, [props.decisionEtab]);
-
-  useEffect(() => {
-    if (utilisateur)
-      setItem(utilisateur?.decisionAmenagementAnneeEnCours as IDecisionEtablissement | undefined);
-  }, [utilisateur]);
-
-  useEffect(() => {
-    if (decisionEtab) setItem(decisionEtab as IDecisionEtablissement);
-  }, [decisionEtab]);
+  const item = decisionEtab
+    ? (decisionEtab as IDecisionEtablissement)
+    : utilisateur
+      ? (utilisateur?.decisionAmenagementAnneeEnCours as IDecisionEtablissement | undefined)
+      : props.decisionEtab;
 
   switch (item?.etat) {
     case EtatDecisionEtablissement.ATTENTE_VALIDATION_CAS:

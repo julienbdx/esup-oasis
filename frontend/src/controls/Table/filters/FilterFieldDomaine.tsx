@@ -70,7 +70,10 @@ export function FilterFieldDomaine({
                 return {
                   ...prev,
                   domaine: value as AmenagementDomaine | "Tous",
-                  restreindreColonnes: restreindre,
+                  restreindreColonnes:
+                    modeAffichage === ModeAffichageAmenagement.ParBeneficiaire
+                      ? restreindre
+                      : false,
                   "type[]": [],
                   "categorie[]": [],
                   page: 1,
