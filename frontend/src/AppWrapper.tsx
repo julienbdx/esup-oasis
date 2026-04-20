@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { Suspense } from "react";
+import React, { ComponentType, ReactNode, Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import App from "@/App";
 import { AuthProvider } from "@/auth/AuthProvider";
@@ -17,6 +17,23 @@ import { AccessibiliteProvider } from "@context/accessibilite/AccessibiliteConte
 import { ModalsProvider } from "@context/modals/ModalsContext";
 import { DrawersProvider } from "@context/drawers/DrawersContext";
 import { AffichageFiltresProvider } from "@context/affichageFiltres/AffichageFiltresContext";
+
+function composeProviders(
+  providers: ComponentType<{ children: ReactNode }>[],
+): ComponentType<{ children: ReactNode }> {
+  return providers.reduceRight((Child, Provider) => ({ children }) => (
+    <Provider>
+      <Child>{children}</Child>
+    </Provider>
+  ));
+}
+
+const AppProviders = composeProviders([
+  AccessibiliteProvider,
+  DrawersProvider,
+  ModalsProvider,
+  AffichageFiltresProvider,
+]);
 
 function AppAuthWrapper() {
   return (
@@ -32,15 +49,9 @@ export default function AppWrapper() {
       <ErrorBoundary>
         <Suspense fallback={<Spinner />}>
           <BrowserRouter>
-            <AccessibiliteProvider>
-              <DrawersProvider>
-                <ModalsProvider>
-                  <AffichageFiltresProvider>
-                    <AppAuthWrapper />
-                  </AffichageFiltresProvider>
-                </ModalsProvider>
-              </DrawersProvider>
-            </AccessibiliteProvider>
+            <AppProviders>
+              <AppAuthWrapper />
+            </AppProviders>
           </BrowserRouter>
         </Suspense>
       </ErrorBoundary>
