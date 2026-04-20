@@ -16,7 +16,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { PREFETCH_LAST_PERIODES_RH } from "@api/ApiPrefetchHelpers";
 import { UseStateDispatch } from "@utils/utils";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 export interface IDuplicationOptions {
   horaire: boolean;
@@ -106,7 +106,7 @@ export function EvenementDupliquerForm({
               minDate={
                 user?.isAdmin || !lastPeriodes || !lastPeriodes.items[0]
                   ? undefined
-                  : new Dayjs(lastPeriodes.items[0].butoir as string)
+                  : dayjs(lastPeriodes.items[0].butoir as string)
               }
             />
 
