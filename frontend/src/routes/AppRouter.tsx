@@ -10,7 +10,7 @@
 import React, { ReactElement, Suspense, lazy, useMemo } from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { Navigate, Route, Routes } from "react-router-dom";
-import OAuthPopup from "@/auth/OAuthPopup";
+import OAuthCallback from "@/auth/OAuthCallback";
 import AppLayout from "@controls/AppLayout/AppLayout";
 import { APP_ROUTES } from "@routes/AppRoutes";
 import Spinner from "@controls/Spinner/Spinner";
@@ -63,7 +63,7 @@ export default function AppRouter(): ReactElement {
 
       return (
         <>
-          <Route element={<OAuthPopup />} path="/callback" />
+          <Route element={<OAuthCallback />} path="/callback" />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<LoginPage />} />
           {publicRoutes}
