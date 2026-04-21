@@ -32,7 +32,7 @@ export default function AvancementDemandeGestion(props: {
   const { calculerEtatStep } = useAvancementSteps(demande, etatDemande);
 
   if (!demande) return <>Demande inconnue</>;
-  if (!etatDemande) return <>Etat de la demande inconnue</>;
+  if (!etatDemande) return <>Etat de la demande inconnu</>;
 
   return (
     <div ref={props.refs?.avancement}>

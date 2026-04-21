@@ -11,10 +11,10 @@ import { IBeneficiaire, IComposante, ITag, IUtilisateur } from "@api/ApiTypeHelp
 import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
-import { TableExportButton } from "@controls/Buttons/TableExportButton";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { PREFETCH_COMPOSANTES, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import { env } from "@/env";
+import SplitFetcher from "@api/SplitFetcher";
 
 const headers = [
   { label: "Nom", key: "nom" },
@@ -49,15 +49,12 @@ function getBeneficiairesData(
           if (!composante) return null;
           return composantes?.find((c) => c["@id"] === composante);
         })
-        .map((composante) => {
-          return composante?.libelle?.replaceAll('"', '""');
-        })
+        .map((composante) => composante?.libelle?.replaceAll('"', '""'))
         .join(", "),
       formations: beneficiaire.inscriptions
         ?.map((inscription) => inscription.formation)
         ?.map((formation) => {
           if (!formation) return null;
-
           if (formation.codeExterne) {
             return `[${formation.codeExterne}] ${formation.libelle?.replaceAll('"', '""')}`;
           }
@@ -65,21 +62,13 @@ function getBeneficiairesData(
         })
         .join(", "),
       gestionnaires: beneficiaire.gestionnairesActifs
-        ?.map((gestionnaire) => {
-          return gestionnaires?.find((g) => g["@id"] === gestionnaire);
-        })
-        .map((gestionnaire) => {
-          return `${gestionnaire?.nom?.toLocaleUpperCase()} ${gestionnaire?.prenom}`;
-        })
+        ?.map((gestionnaire) => gestionnaires?.find((g) => g["@id"] === gestionnaire))
+        .map((gestionnaire) => `${gestionnaire?.nom?.toLocaleUpperCase()} ${gestionnaire?.prenom}`)
         .join(", "),
       avisESE: beneficiaire.etatAvisEse,
       tags: beneficiaire.tags
-        ?.map((tag) => {
-          return tags?.find((t) => t["@id"] === tag);
-        })
-        .map((tag) => {
-          return tag?.libelle?.replaceAll('"', '""');
-        })
+        ?.map((tag) => tags?.find((t) => t["@id"] === tag))
+        .map((tag) => tag?.libelle?.replaceAll('"', '""'))
         .join(", "),
     };
   });
@@ -92,82 +81,46 @@ interface TableBeneficiairesExportProps {
 export default function BeneficiaireTableExport({
   filtreBeneficiaire,
 }: TableBeneficiairesExportProps) {
+  const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { data: composantes, isFetching: isFetchingComposantes } = useApi().useGetCollection({
+
+  const { data: composantes } = useApi().useGetCollection({
     ...PREFETCH_COMPOSANTES,
     enabled: exportSubmit,
   });
-  const { data: gestionnaires, isFetching: isFetchingGestionnaires } =
-    useApi().useGetCollectionPaginated({
-      path: "/roles/{roleId}/utilisateurs",
-      parameters: { roleId: "/roles/ROLE_PLANIFICATEUR" },
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      enabled: exportSubmit,
-    });
-
-  const { data: beneficiaires, isFetching: isFetchingBeneficiaires } =
-    useApi().useGetCollectionPaginated({
-      path: "/beneficiaires",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: {
-        ...filtreBeneficiaire,
-        page: 1,
-        itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      },
-      enabled: exportSubmit,
-    });
-
-  const { data: tags, isFetching: isFetchingTags } = useApi().useGetCollection({
+  const { data: gestionnaires } = useApi().useGetCollectionPaginated({
+    path: "/roles/{roleId}/utilisateurs",
+    parameters: { roleId: "/roles/ROLE_PLANIFICATEUR" },
+    page: 1,
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    enabled: exportSubmit,
+  });
+  const { data: tags } = useApi().useGetCollection({
     ...PREFETCH_TAGS,
     enabled: exportSubmit,
   });
 
   useEffect(() => {
-    if (composantes?.items && gestionnaires?.items && beneficiaires?.items && tags?.items) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoading(false);
-    } else {
-      setLoading(
-        isFetchingComposantes ||
-          isFetchingGestionnaires ||
-          isFetchingBeneficiaires ||
-          isFetchingTags,
-      );
-    }
-  }, [
-    composantes?.items,
-    gestionnaires?.items,
-    isFetchingComposantes,
-    isFetchingGestionnaires,
-    exportSubmit,
-    isFetchingBeneficiaires,
-    beneficiaires?.items,
-    isFetchingTags,
-    tags?.items,
-  ]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setExportKey((k) => k + 1);
+    setExportSubmit(false);
+  }, [filtreBeneficiaire]);
+
+  const refDataReady = !!(composantes?.items && gestionnaires?.items && tags?.items);
 
   return (
-    <TableExportButton
-      loading={loading}
-      setLoading={setLoading}
-      submitted={exportSubmit}
-      setSubmitted={setExportSubmit}
-      getData={() =>
-        getBeneficiairesData(
-          beneficiaires?.items || [],
-          composantes?.items,
-          gestionnaires?.items,
-          tags?.items,
-        )
-      }
-      downloaded={downloaded}
-      setDownloaded={setDownloaded}
+    <SplitFetcher<"/beneficiaires">
+      key={exportKey}
+      path="/beneficiaires"
+      itemsPerPage={200}
+      query={{ ...filtreBeneficiaire }}
       headers={headers}
       filename="beneficiaires"
+      getData={(items) =>
+        getBeneficiairesData(items, composantes?.items, gestionnaires?.items, tags?.items)
+      }
+      ready={refDataReady}
+      onStart={() => setExportSubmit(true)}
     />
   );
 }
