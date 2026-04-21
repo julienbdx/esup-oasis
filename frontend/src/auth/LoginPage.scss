@@ -10,7 +10,7 @@
   cursor: pointer;
 
   // Fond neutre avec lavis de couleur primaire en superposition
-  background-color: #f2f4f9;
+  background-color: variables.$light-grey;
 
   // Lavis de couleur primaire (opacité basse, compat. universelle)
   &::before {
@@ -18,7 +18,7 @@
     position: absolute;
     inset: 0;
     background:
-            radial-gradient(ellipse 95% 65% at 50% 68%, var(--color-primary), transparent),
+            radial-gradient(ellipse 95% 65% at 50% 68%, color-mix(in srgb, var(--color-primary) 75%, transparent), transparent),
             linear-gradient(170deg, #ffffff 0%, transparent 55%);
     opacity: 0.11;
     pointer-events: none;
@@ -85,7 +85,7 @@
 
     h1 {
       text-align: center;
-      font-size: 1.75rem;
+      font-size: max(1.66vw, 1.75rem);
       font-weight: variables.$fw-bold;
       line-height: 1.45;
       min-height: 3em;
