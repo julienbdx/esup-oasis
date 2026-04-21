@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { App, Button, Dropdown, Flex, Popconfirm } from "antd";
+import { App, Button, Dropdown, Flex, Input, Modal, Popconfirm } from "antd";
 import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { DeleteOutlined, FilterOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useState } from "react";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useApi } from "@context/api/ApiProvider";
 import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
@@ -25,6 +25,23 @@ export function FiltresFavorisEvenements() {
     restoreFiltres,
     setFiltres,
   } = useAffichageFiltres();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [nomFiltre, setNomFiltre] = useState("Nouveau filtre");
+
+  function sauvegarderFiltre() {
+    const hasSameName = getPreferenceArray("filtresEvenement").some((f) => f.nom === nomFiltre);
+    if (hasSameName) {
+      message.error("Un filtre enregistré porte déjà ce nom");
+      return;
+    }
+    setPreferenceArray("filtresEvenement", [
+      ...(getPreferenceArray("filtresEvenement") || []),
+      { filtre: { ...appAffichageFiltres.filtres }, nom: nomFiltre, favori: false },
+    ]);
+    message.success("Filtre enregistré");
+    setModalOpen(false);
+    setNomFiltre("Nouveau filtre");
+  }
 
   return (
     <li className="filter mb-1 mt-2">
@@ -77,28 +94,7 @@ export function FiltresFavorisEvenements() {
             {
               key: "save",
               label: "Enregistrer comme nouveau filtre",
-              onClick: () => {
-                const nom = prompt("Nom du filtre:", "Nouveau filtre");
-                const hasSameName = getPreferenceArray("filtresEvenement").some(
-                  (f) => f.nom === nom,
-                );
-                if (hasSameName) {
-                  message.error("Un filtre enregistré porte déjà ce nom").then();
-                  return;
-                }
-
-                if (nom) {
-                  setPreferenceArray("filtresEvenement", [
-                    ...(getPreferenceArray("filtresEvenement") || []),
-                    {
-                      filtre: { ...appAffichageFiltres.filtres },
-                      nom,
-                      favori: false,
-                    },
-                  ]);
-                  message.success("Filtre enregistré").then();
-                }
-              },
+              onClick: () => setModalOpen(true),
             },
             {
               key: "reset",
@@ -124,6 +120,25 @@ export function FiltresFavorisEvenements() {
           Filtres enregistrés
         </Button>
       </Dropdown>
+      <Modal
+        title="Enregistrer le filtre"
+        open={modalOpen}
+        onOk={sauvegarderFiltre}
+        onCancel={() => {
+          setModalOpen(false);
+          setNomFiltre("Nouveau filtre");
+        }}
+        okText="Enregistrer"
+        cancelText="Annuler"
+      >
+        <Input
+          value={nomFiltre}
+          onChange={(e) => setNomFiltre(e.target.value)}
+          placeholder="Nom du filtre"
+          onPressEnter={sauvegarderFiltre}
+          autoFocus
+        />
+      </Modal>
     </li>
   );
 }
