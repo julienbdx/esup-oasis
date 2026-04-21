@@ -49,7 +49,7 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
             "Filtrer".
             <br />
             Vous pouvez également définir un <b>filtre favori</b> en cliquant sur <StarOutlined />.
-            Ce filtre sera appliqué par défaut lorsque vous accéderez à cette page.
+            Ce filtre sera appliqué par défaut lorsque vous vous connecterez à l'application.
             <br />
             <br />
             Ces filtres sont personnels, ils ne sont pas partagés avec les autres utilisateurs.
@@ -102,15 +102,17 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
               key={filtre.nom}
               extra={
                 <Space.Compact>
-                  <Button
-                    icon={<FilterOutlined />}
-                    onClick={() => {
-                      props.setFiltre({ ...filtre.filtre, page: 1 } as T);
-                      message.info(`Filtre "${filtre.nom}" appliqué`).then();
-                    }}
-                  >
-                    Filtrer
-                  </Button>
+                  <Tooltip placement="left" title="Appliquer le filtre">
+                    <Button
+                      icon={<FilterOutlined />}
+                      onClick={() => {
+                        props.setFiltre({ ...filtre.filtre, page: 1 } as T);
+                        message.info(`Filtre "${filtre.nom}" appliqué`).then();
+                      }}
+                    >
+                      Filtrer
+                    </Button>
+                  </Tooltip>
                   <Tooltip
                     placement="left"
                     title={
@@ -133,7 +135,9 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
                           }) || [],
                         );
                       }}
-                    />
+                    >
+                      Favori
+                    </Button>
                   </Tooltip>
                   <FiltreDescription filtre={filtre.filtre} as="modal" />
                   <Popconfirm
@@ -152,7 +156,9 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
                 </Space.Compact>
               }
             >
-              {filtre.nom}
+              <span className={filtre.favori ? "text-primary semi-bold" : undefined}>
+                {filtre.nom}
+              </span>
             </List.Item>
           ))}
         {getPreferenceArray(props.filtreType).length === 0 && (

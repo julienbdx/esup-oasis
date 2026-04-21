@@ -47,6 +47,12 @@ export const VERSIONS: IVersion[] = [
         description: "Amélioration globale des performances de l'application 🚀",
         type: "fix",
       },
+      {
+        description:
+          "Les filtres Demandeurs, Bénéficiaires, Aménagements et Intervenants sont maintenant conservés durant la navigation",
+        roles: [RoleValues.ROLE_GESTIONNAIRE],
+        type: "add",
+      },
     ],
   },
   {

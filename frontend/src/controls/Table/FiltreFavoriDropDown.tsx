@@ -7,8 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { App, Button, Dropdown } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
+import { App, Button, Dropdown, Flex } from "antd";
+import { CaretDownOutlined, HeartOutlined } from "@ant-design/icons";
 import React from "react";
 import { FiltreDecrivable } from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
@@ -45,7 +45,10 @@ export function FiltreFavoriDropDown<T extends FiltreDecrivable>(props: {
         })),
       }}
     >
-      <HeartOutlined className={props.className} aria-hidden />
+      <Flex className={props.className} gap={3}>
+        <HeartOutlined />
+        {getPreferenceArray(props.filtreType).length > 0 && <CaretDownOutlined />}
+      </Flex>
     </Dropdown>
   );
 }

@@ -7,8 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
-import { Button, Flex, Space, Table, Tooltip } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Flex, Space, Table } from "antd";
 import { IBeneficiaire, IIntervenant } from "@api/ApiTypeHelpers";
 import { intervenantTableColumns } from "@controls/Table/IntervenantTableColumns";
 import { RoleValues } from "@lib/Utilisateur";
@@ -46,19 +46,32 @@ export const FILTRE_INTERVENANT_DEFAULT: FiltreIntervenant = {
   itemsPerPage: 25,
 };
 
+const SESSION_KEY_FILTRE_INTERVENANT = "oasis:filter:intervenant";
+
 export default function IntervenantTable() {
   const { setDrawerUtilisateur } = useDrawers();
   const navigate = useNavigate();
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
 
-  const [filtreIntervenant, setFiltreIntervenant] = useState<FiltreIntervenant>({
-    ...FILTRE_INTERVENANT_DEFAULT,
-    // on applique le filtre favori des préférences de l'utilisateur s'il existe
-    ...{
-      ...getPreferenceArray("filtresIntervenant")?.filter((f) => f.favori)[0]?.filtre,
-      page: 1,
-    },
+  const hadSessionFilter = useRef(!!sessionStorage.getItem(SESSION_KEY_FILTRE_INTERVENANT));
+
+  const [filtreIntervenant, setFiltreIntervenant] = useState<FiltreIntervenant>(() => {
+    // Priorité 1 : filtre de session
+    try {
+      const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_INTERVENANT);
+      if (stored) return JSON.parse(stored) as FiltreIntervenant;
+    } catch {
+      /* ignore */
+    }
+    // Priorité 2 : filtre favori des préférences
+    return {
+      ...FILTRE_INTERVENANT_DEFAULT,
+      ...{
+        ...getPreferenceArray("filtresIntervenant")?.filter((f) => f.favori)[0]?.filtre,
+        page: 1,
+      },
+    };
   });
   const { data: dataIntervenants, isFetching: isFetchingIntervenants } =
     useApi().useGetCollectionPaginated({
@@ -74,9 +87,13 @@ export default function IntervenantTable() {
       },
     });
 
+  // Persiste le filtre en session à chaque changement
   useEffect(() => {
-    if (preferencesChargees) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+    sessionStorage.setItem(SESSION_KEY_FILTRE_INTERVENANT, JSON.stringify(filtreIntervenant));
+  }, [filtreIntervenant]);
+
+  useEffect(() => {
+    if (preferencesChargees && !hadSessionFilter.current) {
       setFiltreIntervenant({
         ...FILTRE_INTERVENANT_DEFAULT,
         // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -118,13 +135,13 @@ export default function IntervenantTable() {
                 as="modal"
                 tooltip="Décrire le filtre en cours"
               />
-              <Tooltip title="Retirer les filtres">
-                <Button
-                  className="d-flex-inline-center mr-1"
-                  icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
-                  onClick={() => setFiltreIntervenant(FILTRE_INTERVENANT_DEFAULT)}
-                />
-              </Tooltip>
+              <Button
+                className="d-flex-inline-center mr-1"
+                icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
+                onClick={() => setFiltreIntervenant(FILTRE_INTERVENANT_DEFAULT)}
+              >
+                Retirer les filtres
+              </Button>
             </Space.Compact>
           )}
           <IntervenantTableExport filtreIntervenant={filtreIntervenant} />
