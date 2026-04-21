@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { App, Button, Typography } from "antd";
+import { App, Button, Flex, Typography } from "antd";
 import {
   ETAT_DEMANDE_EN_COURS,
   ETAT_DEMANDE_RECEPTIONNEE,
@@ -41,12 +41,11 @@ export default function EtapeASaisie({ etatDemande, demande }: EtapeASaisieProps
   const { questUtils } = useQuestionnaire();
   if (etatDemande.ordre === getEtatDemandeInfo(ETAT_DEMANDE_EN_COURS)?.ordre)
     return (
-      <>
+      <Flex align="center" gap={8}>
         <Typography.Text type="secondary">La demande est en cours de saisie</Typography.Text>
         {questUtils?.isGrantedQuestionnaire(FONCTIONNALITES.DECLARER_RECEPTIONNEE) && (
           <Button
             size="small"
-            className="mt-1"
             onClick={() => {
               mutation.mutate({
                 "@id": demande["@id"] as string,
@@ -59,7 +58,7 @@ export default function EtapeASaisie({ etatDemande, demande }: EtapeASaisieProps
             Déclarer réceptionnée
           </Button>
         )}
-      </>
+      </Flex>
     );
 
   return <Typography.Text>Demande réceptionnée</Typography.Text>;
