@@ -56,7 +56,6 @@ export function FilterPanel<T extends FiltreDecrivable>({
       }
       return value !== defaultValue;
     });
-    console.log("filtresPose", filtresPose, defaultFilter, filtre);
     return filtresPose.length;
   }
 

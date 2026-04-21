@@ -87,7 +87,7 @@ export default function ValidationInterventionTable() {
         }.`,
       });
       queryClient
-        .invalidateQueries({ queryKey: ["/statistiques_evenements"] })
+        .invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] })
         .then(() => setTypeTraitement(undefined));
       setIsValidating(false);
       return;

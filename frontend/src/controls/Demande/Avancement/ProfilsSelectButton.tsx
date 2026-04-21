@@ -38,7 +38,7 @@ export default function ProfilsSelectButton(props: {
     path: props.demande["@id"] as "/demandes/{id}",
     invalidationQueryKeys: [QK_DEMANDES],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/demandes", props.demande["@id"]] }).then(() => {
+      queryClient.invalidateQueries({ queryKey: [QK_DEMANDES, props.demande["@id"]] }).then(() => {
         message.success("Demande mise à jour").then();
       });
     },
