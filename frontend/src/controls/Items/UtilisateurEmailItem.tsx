@@ -11,11 +11,14 @@ import React, { ReactElement } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { MinusOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
 
 interface IItemIntervenant {
   utilisateur?: IUtilisateur;
   utilisateurId?: string | null;
   emailPerso: boolean;
+  onEdit?: (value: string) => void;
 }
 
 /**
@@ -30,6 +33,7 @@ export default function UtilisateurEmailItem({
   utilisateur,
   utilisateurId,
   emailPerso,
+  onEdit,
 }: IItemIntervenant): string | ReactElement {
   const { data } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
@@ -42,9 +46,19 @@ export default function UtilisateurEmailItem({
 
   if (!item) return <Spinner />;
 
-  if (emailPerso) {
-    return item?.emailPerso as string;
-  }
+  const email = emailPerso ? item?.emailPerso : item?.email;
 
-  return item?.email as string;
+  if (onEdit)
+    return (
+      <Typography.Text
+        editable={{
+          text: email || "",
+          onChange: onEdit,
+        }}
+      >
+        {email || <MinusOutlined />}
+      </Typography.Text>
+    );
+
+  return email || <MinusOutlined />;
 }
