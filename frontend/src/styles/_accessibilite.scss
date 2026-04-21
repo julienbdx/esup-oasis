@@ -8,12 +8,16 @@ $fontDyslexieOpenDys: "OpenDys";
 $fontDyslexieLexend: "Lexend";
 
 body.accessibilite-contraste {
-  --color-primary: #000;
+
   color: #000 !important;
 
-  .full-app {
-    background: variables.$white !important;
+  * {
+    --color-primary: #000;
+    --ant-color-text-secondary: #333 !important;
   }
+
+  background: variables.$white !important;
+
 
   .text-primary, .logo, .rbc-today .week-header, .rbc-today .week-header .date, .ant-btn-link, .today-carret, a, .ant-empty-description {
     color: variables.$primary-contrast !important;
@@ -115,7 +119,7 @@ body.accessibilite-contraste {
   }
 
   .legende, .text-legende, .ant-typography-secondary {
-    color: #555 !important;
+    color: var(--ant-color-text-secondary) !important;
   }
 
   .ant-tag-green, .ant-badge-color-green {
@@ -215,8 +219,8 @@ body.accessibilite-contraste {
   }
 
   .ant-select-outlined {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .ant-input-number-input, header .ant-btn {
@@ -244,6 +248,10 @@ body.accessibilite-contraste {
 
   .ant-avatar {
     background-color: #666;
+  }
+
+  .text-light {
+    color: #333;
   }
 }
 

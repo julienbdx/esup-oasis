@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { App, Button, Typography } from "antd";
+import { App, Button, Flex, Typography } from "antd";
 import {
   ETAT_DEMANDE_NON_CONFORME,
   ETAT_DEMANDE_RECEPTIONNEE,
@@ -63,12 +63,11 @@ export default function EtapeBConformite({ etatDemande, demande }: EtapeBConform
 
   if (etatDemande.ordre === getEtatDemandeInfo(ETAT_DEMANDE_NON_CONFORME)?.ordre) {
     return (
-      <>
+      <Flex align="center" gap={8}>
         <Typography.Text type="danger">Demande non conforme</Typography.Text>
         {questUtils?.isGrantedQuestionnaire(FONCTIONNALITES.DECLARER_CONFORMITE_DEMANDE) && (
           <Button
             size="small"
-            className="mt-1"
             onClick={() => {
               mutation.mutate({
                 "@id": demande["@id"] as string,
@@ -81,7 +80,7 @@ export default function EtapeBConformite({ etatDemande, demande }: EtapeBConform
             Annuler
           </Button>
         )}
-      </>
+      </Flex>
     );
   }
 
