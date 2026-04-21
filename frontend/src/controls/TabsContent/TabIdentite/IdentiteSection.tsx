@@ -101,18 +101,25 @@ export const IdentiteSection: React.FC<IdentiteSectionProps> = ({
               )}
               {user?.isGestionnaire && (
                 <Descriptions.Item label="Email personnel">
-                  {utilisateur?.emailPerso ? (
-                    <Space>
-                      <UtilisateurEmailItem utilisateur={utilisateur} emailPerso />
-                      <MailSmallButton
-                        utilisateur={utilisateur}
-                        emailPerso
-                        className="text-primary"
-                      />
-                    </Space>
-                  ) : (
-                    <MinusOutlined />
-                  )}
+                  <Space>
+                    <UtilisateurEmailItem
+                      utilisateur={utilisateur}
+                      emailPerso
+                      onEdit={(value) =>
+                        mutateUtilisateur({
+                          data: {
+                            emailPerso: value,
+                          },
+                          "@id": utilisateur["@id"] as string,
+                        })
+                      }
+                    />
+                    <MailSmallButton
+                      utilisateur={utilisateur}
+                      emailPerso
+                      className="text-primary"
+                    />
+                  </Space>
                 </Descriptions.Item>
               )}
               {user?.isGestionnaire && (
