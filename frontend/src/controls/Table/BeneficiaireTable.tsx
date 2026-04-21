@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IBeneficiaire } from "@api/ApiTypeHelpers";
 import { beneficiaireTableColumns } from "@controls/Table/BeneficiaireTableColumns";
 import { RoleValues } from "@lib/Utilisateur";
-import { Button, Flex, Space, Table, Tooltip } from "antd";
+import { Button, Flex, Space, Table } from "antd";
 import Icon from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
@@ -75,21 +75,43 @@ function filtreBeneficiaireDefault(
   }
 }
 
+const SESSION_KEY_FILTRE_BENEFICIAIRE = "oasis:filter:beneficiaire";
+
 export default function BeneficiaireTable() {
   const { setDrawerUtilisateur } = useDrawers();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
-  const [filtreBeneficiaire, setFiltreBeneficiaire] = useState<FiltreBeneficiaire>({
-    ...filtreBeneficiaireDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
-    // on applique le filtre favori des préférences de l'utilisateur s'il existe
-    ...(searchParams.get("filtreType") === null
-      ? {
-          ...getPreferenceArray("filtresBeneficiaire")?.filter((f) => f.favori)[0]?.filtre,
-          page: 1,
-        }
-      : null),
+
+  const hadSessionFilter = useRef(
+    searchParams.get("filtreType") === null &&
+      !!sessionStorage.getItem(SESSION_KEY_FILTRE_BENEFICIAIRE),
+  );
+
+  const [filtreBeneficiaire, setFiltreBeneficiaire] = useState<FiltreBeneficiaire>(() => {
+    // Priorité 1 : filtre URL
+    if (searchParams.get("filtreType") !== null) {
+      return filtreBeneficiaireDefault(
+        searchParams.get("filtreType"),
+        searchParams.get("filtreValeur"),
+      );
+    }
+    // Priorité 2 : filtre de session
+    try {
+      const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_BENEFICIAIRE);
+      if (stored) return JSON.parse(stored) as FiltreBeneficiaire;
+    } catch {
+      /* ignore */
+    }
+    // Priorité 3 : filtre favori des préférences
+    return {
+      ...FILTRE_BENEFICIAIRE_DEFAULT,
+      ...{
+        ...getPreferenceArray("filtresBeneficiaire")?.filter((f) => f.favori)[0]?.filtre,
+        page: 1,
+      },
+    };
   });
   const { data: dataBeneficiaires, isFetching: isFetchingBeneficiaires } =
     useApi().useGetCollectionPaginated({
@@ -101,12 +123,17 @@ export default function BeneficiaireTable() {
       },
     });
 
+  // Persiste le filtre en session à chaque changement
+  useEffect(() => {
+    sessionStorage.setItem(SESSION_KEY_FILTRE_BENEFICIAIRE, JSON.stringify(filtreBeneficiaire));
+  }, [filtreBeneficiaire]);
+
   useEffect(() => {
     if (
       preferencesChargees &&
+      !hadSessionFilter.current &&
       getPreferenceArray("filtresBeneficiaire")?.filter((f) => f.favori).length > 0
     ) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreBeneficiaire({
         ...FILTRE_BENEFICIAIRE_DEFAULT,
         // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -171,13 +198,13 @@ export default function BeneficiaireTable() {
                 as="modal"
                 tooltip="Décrire le filtre en cours"
               />
-              <Tooltip title="Retirer les filtres">
-                <Button
-                  className="d-flex-inline-center mr-1"
-                  icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
-                  onClick={() => setFiltreBeneficiaire(FILTRE_BENEFICIAIRE_DEFAULT)}
-                />
-              </Tooltip>
+              <Button
+                className="d-flex-inline-center mr-1"
+                icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
+                onClick={() => setFiltreBeneficiaire(FILTRE_BENEFICIAIRE_DEFAULT)}
+              >
+                Retirer les filtres
+              </Button>
             </Space.Compact>
           )}
           {auth.user?.isGestionnaire && (

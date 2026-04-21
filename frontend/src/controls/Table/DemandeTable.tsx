@@ -8,9 +8,9 @@
  *
  */
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { IDemande } from "@api/ApiTypeHelpers";
-import { Button, Flex, Space, Table, Tooltip } from "antd";
+import { Button, Flex, Space, Table } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { SorterResult } from "antd/es/table/interface";
@@ -72,22 +72,46 @@ function filtreDemandeDefault(
   }
 }
 
+const SESSION_KEY_FILTRE_DEMANDE = "oasis:filter:demande";
+
 export default function DemandeTable(props: { refs: RefsTourDemandes; affichageTour?: boolean }) {
   const auth = useAuth();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
-  const [filtreDemande, setFiltreDemande] = useState<FiltreDemande>({
-    ...filtreDemandeDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
-    // on applique le filtre favori des préférences de l'utilisateur s'il existe
-    // on applique le filtre favori des préférences de l'utilisateur s'il existe
-    ...(searchParams.get("filtreType") === null
-      ? {
-          ...getPreferenceArray("filtresDemande")?.filter((f) => f.favori)[0]?.filtre,
-          page: 1,
-        }
-      : null),
+
+  // Capture à l'initialisation si un filtre de session existait (avant tout useEffect qui écrirait en session)
+  const hadSessionFilter = useRef(
+    searchParams.get("filtreType") === null && !!sessionStorage.getItem(SESSION_KEY_FILTRE_DEMANDE),
+  );
+
+  const [filtreDemande, setFiltreDemande] = useState<FiltreDemande>(() => {
+    // Priorité 1 : filtre URL
+    if (searchParams.get("filtreType") !== null) {
+      return filtreDemandeDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur"));
+    }
+    // Priorité 2 : filtre de session (navigation intra-session)
+    try {
+      const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_DEMANDE);
+      if (stored) return JSON.parse(stored) as FiltreDemande;
+    } catch {
+      /* ignore */
+    }
+    // Priorité 3 : filtre favori des préférences
+    return {
+      ...FILTRE_DEMANDE_DEFAULT,
+      ...{
+        ...getPreferenceArray("filtresDemande")?.filter((f) => f.favori)[0]?.filtre,
+        page: 1,
+      },
+    };
   });
+
+  // Persiste le filtre en session à chaque changement
+  useEffect(() => {
+    sessionStorage.setItem(SESSION_KEY_FILTRE_DEMANDE, JSON.stringify(filtreDemande));
+  }, [filtreDemande]);
+
   const { data: dataDemandes, isFetching: isFetchingDemandes } = useApi().useGetCollectionPaginated(
     {
       path: "/demandes",
@@ -102,11 +126,12 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
   const { data: etats } = useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
 
   useEffect(() => {
+    // N'applique le filtre favori des préférences que s'il n'y avait pas de filtre de session
     if (
       preferencesChargees &&
+      !hadSessionFilter.current &&
       getPreferenceArray("filtresDemande")?.filter((f) => f.favori).length > 0
     ) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreDemande({
         ...FILTRE_DEMANDE_DEFAULT,
         // on applique le filtre favori des préférences de l'utilisateur s'il existe
@@ -177,13 +202,13 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
                 as="modal"
                 tooltip="Décrire le filtre en cours"
               />
-              <Tooltip title="Retirer les filtres">
-                <Button
-                  className="d-flex-inline-center mr-1"
-                  icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
-                  onClick={() => setFiltreDemande(FILTRE_DEMANDE_DEFAULT)}
-                />
-              </Tooltip>
+              <Button
+                className="d-flex-inline-center mr-1"
+                icon={<Icon component={Unfilter} aria-hidden />}
+                onClick={() => setFiltreDemande(FILTRE_DEMANDE_DEFAULT)}
+              >
+                Retirer les filtres
+              </Button>
             </Space.Compact>
           )}
           <DemandeTableExport filtreDemande={filtreDemande} />

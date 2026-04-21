@@ -9,7 +9,7 @@
 
 import React from "react";
 import { IAmenagementBeneficiaireQuery, IAmenagementQuery } from "@api/ApiTypeHelpers";
-import { Button, Flex, Space, Tooltip } from "antd";
+import { Button, Flex, Space } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { AmenagementTableFilter } from "@controls/Table/AmenagementTableFilter";
 import { AmenagementDomaine } from "@lib/amenagements";
@@ -156,15 +156,15 @@ export default function AmenagementTableLayout(props: { modeAffichage: ModeAffic
                 as="modal"
                 tooltip="Décrire le filtre en cours"
               />
-              <Tooltip title="Retirer les filtres">
-                <Button
-                  className="d-flex-inline-center mr-1"
-                  icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
-                  onClick={() =>
-                    setFiltreAmenagement(getFiltreAmenagementDefault(auth.user as Utilisateur))
-                  }
-                />
-              </Tooltip>
+              <Button
+                className="d-flex-inline-center mr-1"
+                icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
+                onClick={() =>
+                  setFiltreAmenagement(getFiltreAmenagementDefault(auth.user as Utilisateur))
+                }
+              >
+                Retirer les filtres
+              </Button>
             </Space.Compact>
           )}
           {auth.user?.isGestionnaire &&

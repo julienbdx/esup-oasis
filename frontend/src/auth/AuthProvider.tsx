@@ -73,6 +73,9 @@ export function AuthProvider({
     setUser(undefined);
     setImpersonate(undefined);
     localStorage.clear();
+    Object.keys(sessionStorage)
+      .filter((k) => k.startsWith("oasis:filter:"))
+      .forEach((k) => sessionStorage.removeItem(k));
     if (callback) setTimeout(callback, 100);
   };
 
