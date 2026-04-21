@@ -8,6 +8,7 @@ $fontDyslexieOpenDys: "OpenDys";
 $fontDyslexieLexend: "Lexend";
 
 body.accessibilite-contraste {
+  --color-primary: #000;
   color: #000 !important;
 
   .full-app {
@@ -239,6 +240,10 @@ body.accessibilite-contraste {
   .bg-beneficiaire, .bg-intervenant {
     background-color: #000 !important;
     color: #fff;
+  }
+
+  .ant-avatar {
+    background-color: #666;
   }
 }
 
