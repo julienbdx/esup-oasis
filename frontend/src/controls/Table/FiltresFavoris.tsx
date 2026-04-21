@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Alert, App, Button, Empty, Flex, List, Popconfirm, Space, Tooltip } from "antd";
+import { Alert, App, Button, Empty, Flex, Input, List, Modal, Popconfirm, Space, Tooltip } from "antd";
 import {
   DeleteOutlined,
   FilterOutlined,
@@ -15,7 +15,7 @@ import {
   StarFilled,
   StarOutlined,
 } from "@ant-design/icons";
-import React from "react";
+import React, { useState } from "react";
 import FiltreDescription, { FiltreDecrivable } from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 
@@ -29,6 +29,23 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
 }) {
   const { message } = App.useApp();
   const { getPreferenceArray, setPreferenceArray } = usePreferences();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [nomFiltre, setNomFiltre] = useState("Nouveau filtre");
+
+  function sauvegarderFiltre() {
+    const hasSameName = getPreferenceArray(props.filtreType).some((f) => f.nom === nomFiltre);
+    if (hasSameName) {
+      message.error("Un filtre enregistré porte déjà ce nom");
+      return;
+    }
+    setPreferenceArray(props.filtreType, [
+      ...getPreferenceArray(props.filtreType),
+      { filtre: { ...props.filtre, page: 1 }, nom: nomFiltre, favori: false },
+    ]);
+    message.success("Filtre enregistré");
+    setModalOpen(false);
+    setNomFiltre("Nouveau filtre");
+  }
 
   return (
     <>
@@ -65,28 +82,7 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
               <Button
                 type="primary"
                 icon={<SaveOutlined aria-hidden />}
-                onClick={() => {
-                  const nom = prompt("Nom du filtre:", "Nouveau filtre");
-                  const hasSameName = getPreferenceArray(props.filtreType).some(
-                    (f) => f.nom === nom,
-                  );
-                  if (hasSameName) {
-                    message.error("Un filtre enregistré porte déjà ce nom").then();
-                    return;
-                  }
-
-                  if (nom) {
-                    setPreferenceArray(props.filtreType, [
-                      ...getPreferenceArray(props.filtreType),
-                      {
-                        filtre: { ...props.filtre, page: 1 },
-                        nom,
-                        favori: false,
-                      },
-                    ]);
-                    message.success("Filtre enregistré").then();
-                  }
-                }}
+                onClick={() => setModalOpen(true)}
               >
                 Enregistrer le filtre
               </Button>
@@ -167,6 +163,25 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
           </List.Item>
         )}
       </List>
+      <Modal
+        title="Enregistrer le filtre"
+        open={modalOpen}
+        onOk={sauvegarderFiltre}
+        onCancel={() => {
+          setModalOpen(false);
+          setNomFiltre("Nouveau filtre");
+        }}
+        okText="Enregistrer"
+        cancelText="Annuler"
+      >
+        <Input
+          value={nomFiltre}
+          onChange={(e) => setNomFiltre(e.target.value)}
+          placeholder="Nom du filtre"
+          onPressEnter={sauvegarderFiltre}
+          autoFocus
+        />
+      </Modal>
     </>
   );
 }
