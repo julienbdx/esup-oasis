@@ -19,7 +19,7 @@ import React, {
 } from "react";
 import { Form } from "antd";
 import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
-import { EtatInfo, getEtatDemande } from "@lib/demande";
+import { getEtatDemande } from "@lib/demande";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import {
@@ -64,7 +64,6 @@ export function QuestionnaireProvider(props: {
   const auth = useAuth();
 
   const [typeDemande, setTypeDemande] = useState<ITypeDemande>();
-  const [etatDemande, setEtatDemande] = useState<EtatInfo>();
   const [demande, setDemande] = useState<IDemande>();
   const [questionnaire, setQuestionnaire] = useState<Questionnaire>();
   const [form] = Form.useForm();
@@ -81,6 +80,8 @@ export function QuestionnaireProvider(props: {
 
   useEffect(() => {
     if (demandeData) {
+      // React Query remet data à undefined quand enabled passe à false (ex. demandeId absent).
+      // Le garde préserve la dernière valeur connue et évite un flash de rendu vide.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setDemande(demandeData);
     }
@@ -95,6 +96,8 @@ export function QuestionnaireProvider(props: {
 
   useEffect(() => {
     if (typeDemandeData) {
+      // Même raison que pour setDemande : garde contre le retour à undefined
+      // quand enabled devient false (typeDemandeId et typeDemande absents).
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setTypeDemande(typeDemandeData);
     }
@@ -130,15 +133,10 @@ export function QuestionnaireProvider(props: {
   });
   const { mutate: mutationReponseMutate } = mutationReponse;
 
-  // Etat de la demande
-  useEffect(() => {
-    if (demande) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setEtatDemande(getEtatDemande(demande.etat as string));
-    } else {
-      setEtatDemande(undefined);
-    }
-  }, [demande]);
+  const etatDemande = useMemo(
+    () => (demande ? getEtatDemande(demande.etat as string) : undefined),
+    [demande],
+  );
 
   const isGrantedQuestionnaire = useCallback(
     (fonctionnalite: FONCTIONNALITES, rolesCommission?: string[]): boolean => {

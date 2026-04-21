@@ -33,7 +33,7 @@ export default function EtapeASaisie({ etatDemande, demande }: EtapeASaisieProps
     path: demande["@id"] as "/demandes/{id}",
     invalidationQueryKeys: [QK_DEMANDES],
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["/demandes", demande["@id"]] });
+      await queryClient.invalidateQueries({ queryKey: [QK_DEMANDES, demande["@id"]] });
       message.success("Demande déclarée réceptionnée");
     },
   });

@@ -8,12 +8,10 @@
  *
  */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   IAmenagementsBenefificiaire,
   ICategorieAmenagement,
   IFormation,
-  IInscription,
   ITypeAmenagement,
 } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
@@ -39,23 +37,31 @@ export type AmenagementCellData = {
   commentaire: string | null;
 };
 
+export type IAmenagementsBeneficiaireTableDataSource = {
+  key: string;
+  uid: string;
+  nom: string;
+  prenom: string;
+  email: string;
+  numeroEtudiant: number | null | undefined;
+  etatAvisEse: string | undefined;
+  tags: string[];
+  inscription:
+    | {
+        formation: IFormation;
+        debut: string | undefined;
+        fin: string | undefined;
+      }
+    | undefined;
+  [key: string]: unknown;
+};
+
 export function buildAmenagementsBenefDatasource(
   abs: IAmenagementsBenefificiaire[],
   typesAmenagementsUtilises: TypesDomainesAmenagements[],
-): any[] {
+): IAmenagementsBeneficiaireTableDataSource[] {
   return abs.map((rd) => {
-    const data: {
-      key: string;
-      uid: string;
-      nom: string;
-      prenom: string;
-      email: string;
-      numeroEtudiant: number | null | undefined;
-      etatAvisEse: string | undefined;
-      inscription: IInscription | undefined;
-      tags?: string[];
-      [key: string]: unknown;
-    } = {
+    const data: IAmenagementsBeneficiaireTableDataSource = {
       key: rd["@id"] as string,
       uid: rd.uid as string,
       nom: rd.nom as string,
@@ -75,13 +81,12 @@ export function buildAmenagementsBenefDatasource(
     };
 
     typesAmenagementsUtilises.forEach((ta) => {
-      const a = rd.amenagements?.find(
-        (r) => r.typeAmenagement?.["@id"] === ta.typeAmenagement?.["@id"],
-      );
-      if (a) {
-        data[ta.typeAmenagement?.["@id"] as string] = {
-          "@id": a?.["@id"],
-          commentaire: a?.commentaire,
+      const taId = ta.typeAmenagement?.["@id"];
+      const a = rd.amenagements?.find((r) => r.typeAmenagement?.["@id"] === taId);
+      if (a && taId) {
+        data[taId] = {
+          "@id": a["@id"],
+          commentaire: a.commentaire,
         };
       }
     });
@@ -189,10 +194,10 @@ export function AmenagementsBeneficiaireTable(props: {
 
   return (
     <div ref={tableWrapperRef} className="position-relative">
-      <Table
+      <Table<IAmenagementsBeneficiaireTableDataSource>
         loading={isFetching}
         className="table-responsive table-thead-sticky mt-2"
-        rowKey={(record: any) => record.key as string}
+        rowKey={(record: IAmenagementsBeneficiaireTableDataSource) => record.key}
         rowHoverable={false}
         dataSource={dataSource}
         pagination={{

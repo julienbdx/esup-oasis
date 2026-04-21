@@ -12,13 +12,13 @@ import React, { useEffect, useState } from "react";
 import { Utilisateur } from "@lib/Utilisateur";
 import { message, notification } from "antd";
 import useOAuth2 from "@/auth/hook/useOAuth2";
-import jwt_decode from "jwt-decode";
 
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { queryClient } from "@/queryClient";
 import useLocalStorageState from "use-local-storage-state";
 import { useNavigate } from "react-router-dom";
 import { env } from "@/env";
+import { jwtDecode } from "jwt-decode";
 
 /**
  * Contexte d'authentification exposé aux composants via `useAuth()`.
@@ -234,7 +234,7 @@ export function AuthProvider({
                 if (env.REACT_APP_ENVIRONMENT === "local") setToken(apiData.token);
 
                 // Décodage du JWT pour extraire le login et la date d'expiration
-                const { username, exp } = jwt_decode<{
+                const { username, exp } = jwtDecode<{
                   username: string;
                   exp: number;
                 }>(apiData.token as string);

@@ -17,6 +17,7 @@ import Icon, { CheckOutlined, MinusOutlined, PauseOutlined } from "@ant-design/i
 import ComposanteItem from "@controls/Items/ComposanteItem";
 import {
   AmenagementCellData,
+  IAmenagementsBeneficiaireTableDataSource,
   TypesDomainesAmenagements,
 } from "@controls/Table/AmenagementsBeneficiaireTable";
 import BooleanState from "@controls/State/BooleanState";
@@ -83,7 +84,7 @@ export function amenagementsBeneficiaireTableColumns(props: {
   navigate: NavigateFunction;
   user: Utilisateur;
   fixPremiereColonne: boolean;
-}): ColumnsType<IBeneficiaire> {
+}): ColumnsType<IAmenagementsBeneficiaireTableDataSource> {
   function buildHierarchie(): AmenagementBeneficiaireHierarchie[] {
     const hierarchie: Record<string, any> = [];
     props.typesAmenagements.forEach((ta) => {
@@ -259,5 +260,5 @@ export function amenagementsBeneficiaireTableColumns(props: {
           },
         }
       : null,
-  ].filter((c) => c !== null) as ColumnsType<IBeneficiaire>;
+  ].filter((c) => c !== null) as ColumnsType<IAmenagementsBeneficiaireTableDataSource>;
 }

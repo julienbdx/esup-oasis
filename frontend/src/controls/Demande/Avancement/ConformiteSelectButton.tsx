@@ -25,7 +25,7 @@ export default function ConformiteSelectButton(props: { demande: IDemande }): Re
     path: props.demande["@id"] as "/demandes/{id}",
     invalidationQueryKeys: [QK_DEMANDES],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/demandes", props.demande["@id"]] }).then(() => {
+      queryClient.invalidateQueries({ queryKey: [QK_DEMANDES, props.demande["@id"]] }).then(() => {
         message.success("Conformité mise à jour").then();
       });
     },
