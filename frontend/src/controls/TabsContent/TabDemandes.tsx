@@ -8,17 +8,18 @@
  *
  */
 
-import { Button, Empty, List, Space, Tooltip } from "antd";
-import React, { ReactElement } from "react";
+import { Button, Empty, Flex, List, Space, Tooltip } from "antd";
+import React, { ReactElement, useState } from "react";
 import { IDemande, IUtilisateur } from "@api/ApiTypeHelpers";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import dayjs from "dayjs";
-import Icon, { EyeOutlined } from "@ant-design/icons";
+import Icon, { EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import ExternalLink from "@/assets/images/external-link.svg?react";
+import NouvelleDemandeModaleGestionnaire from "@controls/Modals/Demande/NouvelleDemandeModaleGestionnaire";
 
 interface ITabDemandesProps {
   utilisateur: IUtilisateur;
@@ -87,6 +88,7 @@ function TabDemandesItem({ demande }: ITabDemandesItemProps): ReactElement {
  * @returns {ReactElement} The rendered component.
  */
 export function TabDemandes({ utilisateur, title }: ITabDemandesProps): ReactElement {
+  const [nouvelleDemande, setNouvelleDemande] = useState<boolean>(false);
   const { data: demandes, isFetching: fetchingDemandes } = useApi().useGetCollectionPaginated({
     path: "/demandes",
     page: 1,
@@ -100,7 +102,23 @@ export function TabDemandes({ utilisateur, title }: ITabDemandesProps): ReactEle
 
   return (
     <>
-      {title}
+      <Flex justify="space-between" align="center" className="mb-2" wrap>
+        {title}
+        <>
+          <Button
+            icon={<PlusOutlined aria-hidden />}
+            type="primary"
+            onClick={() => setNouvelleDemande(true)}
+          >
+            Nouvelle demande
+          </Button>
+        </>
+      </Flex>
+      <NouvelleDemandeModaleGestionnaire
+        open={nouvelleDemande}
+        setOpen={setNouvelleDemande}
+        demandeurId={utilisateur["@id"]}
+      />
       {!demandes || demandes?.items?.length === 0 ? (
         <Empty description="Aucune demande" />
       ) : (

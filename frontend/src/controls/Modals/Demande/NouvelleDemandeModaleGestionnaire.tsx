@@ -24,9 +24,10 @@ export default function NouvelleDemandeModaleGestionnaire(props: {
   open: boolean;
   setOpen: (open: boolean) => void;
   onClose?: () => Promise<void>;
+  demandeurId?: string;
 }) {
   const screens = useBreakpoint();
-  const [demandeurId, setDemandeurId] = useState<string>();
+  const [demandeurId, setDemandeurId] = useState<string | undefined>(props.demandeurId);
   const { data: typesDemandes } = useApi().useGetCollectionPaginated({
     path: "/types_demandes",
     enabled: true,
