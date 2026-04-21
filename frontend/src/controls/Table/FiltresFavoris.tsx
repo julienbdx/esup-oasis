@@ -7,7 +7,19 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Alert, App, Button, Empty, Flex, Input, List, Modal, Popconfirm, Space, Tooltip } from "antd";
+import {
+  Alert,
+  App,
+  Button,
+  Empty,
+  Flex,
+  Input,
+  List,
+  Modal,
+  Popconfirm,
+  Space,
+  Tooltip,
+} from "antd";
 import {
   DeleteOutlined,
   FilterOutlined,

@@ -10,11 +10,11 @@
 import React, { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
-import { TableExportButton } from "@controls/Buttons/TableExportButton";
 import { Evenement } from "@lib/Evenement";
 import dayjs from "dayjs";
 import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { ICampus, ITypeEvenement, IUtilisateur } from "@api/ApiTypeHelpers";
+import ExportButton from "@controls/Buttons/ExportButton";
 
 const headers = [
   { label: "Début", key: "debut" },
@@ -44,12 +44,8 @@ function getEvenementsData(
         ? typesEvenements?.find((t) => t["@id"] === evenement.type)?.libelle?.replaceAll('"', '""')
         : "",
       beneficiaires: evenement.beneficiaires
-        ?.map((beneficiaire) => {
-          return beneficiaires?.find((b) => b["@id"] === beneficiaire);
-        })
-        .map((beneficiaire) => {
-          return `${beneficiaire?.nom?.toLocaleUpperCase()} ${beneficiaire?.prenom}`;
-        })
+        ?.map((beneficiaire) => beneficiaires?.find((b) => b["@id"] === beneficiaire))
+        .map((beneficiaire) => `${beneficiaire?.nom?.toLocaleUpperCase()} ${beneficiaire?.prenom}`)
         .join(", "),
       intervenant: intervenant
         ? `${intervenant?.nom?.toLocaleUpperCase()} ${intervenant?.prenom}`
@@ -65,67 +61,46 @@ interface TableEvenementsExportProps {
 }
 
 export default function EvenementTableExport({ evenements }: TableEvenementsExportProps) {
+  const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { data: beneficiaires, isFetching: isFetchingBeneficiaires } =
-    useApi().useGetCollectionPaginated({
-      path: "/beneficiaires",
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      page: 1,
-      enabled: exportSubmit,
-    });
-  const { data: intervenants, isFetching: isFetchingIntervenants } =
-    useApi().useGetCollectionPaginated({
-      path: "/intervenants",
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      page: 1,
-      enabled: exportSubmit,
-    });
-  const { data: campus, isFetching: isFetchingCampus } = useApi().useGetCollection({
+
+  const { data: beneficiaires } = useApi().useGetCollectionPaginated({
+    path: "/beneficiaires",
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    page: 1,
+    enabled: exportSubmit,
+  });
+  const { data: intervenants } = useApi().useGetCollectionPaginated({
+    path: "/intervenants",
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    page: 1,
+    enabled: exportSubmit,
+  });
+  const { data: campus } = useApi().useGetCollection({
     ...PREFETCH_CAMPUS,
     enabled: exportSubmit,
   });
-  const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
-    useApi().useGetCollection({ ...PREFETCH_TYPES_EVENEMENTS, enabled: exportSubmit });
-
-  useEffect(() => {
-    if (beneficiaires?.items && intervenants?.items && campus?.items && typesEvenements?.items) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoading(false);
-    } else {
-      setLoading(
-        isFetchingBeneficiaires ||
-          isFetchingIntervenants ||
-          isFetchingCampus ||
-          isFetchingTypesEvenements,
-      );
-    }
-  }, [
-    beneficiaires?.items,
-    campus?.items,
-    intervenants?.items,
-    isFetchingBeneficiaires,
-    isFetchingCampus,
-    isFetchingIntervenants,
-    isFetchingTypesEvenements,
-    typesEvenements?.items,
-    exportSubmit,
-  ]);
+  const { data: typesEvenements } = useApi().useGetCollection({
+    ...PREFETCH_TYPES_EVENEMENTS,
+    enabled: exportSubmit,
+  });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
+    setExportKey((k) => k + 1);
     setExportSubmit(false);
-
-    setDownloaded(false);
   }, [evenements]);
 
+  const refDataReady = !!(
+    beneficiaires?.items &&
+    intervenants?.items &&
+    campus?.items &&
+    typesEvenements?.items
+  );
+
   return (
-    <TableExportButton
-      loading={loading}
-      setLoading={setLoading}
-      submitted={exportSubmit}
-      setSubmitted={setExportSubmit}
+    <ExportButton
+      key={exportKey}
       getData={() =>
         getEvenementsData(
           evenements,
@@ -135,10 +110,10 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
           campus?.items,
         )
       }
-      downloaded={downloaded}
-      setDownloaded={setDownloaded}
       headers={headers}
       filename="evenements"
+      ready={refDataReady}
+      onStart={() => setExportSubmit(true)}
     />
   );
 }

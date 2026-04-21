@@ -135,7 +135,7 @@ export default function ToolbarDisplay({ saisieEvtRenfort, evenements }: IToolba
   }
 
   return (
-    <Space separator={<MinusOutlined aria-hidden rotate={90} />}>
+    <Space separator={<MinusOutlined className="text-grey" rotate={90} />}>
       {!saisieEvtRenfort && auth.user?.isPlanificateur && (
         <ProgressAffectation evenements={evenements} />
       )}

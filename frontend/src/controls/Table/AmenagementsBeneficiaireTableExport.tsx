@@ -12,7 +12,6 @@ import { ITag, ITypeAmenagement } from "@api/ApiTypeHelpers";
 import { useEffect, useMemo, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
-import { TableExportButton } from "@controls/Buttons/TableExportButton";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import {
@@ -25,6 +24,7 @@ import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Ame
 import { useAuth } from "@/auth/AuthProvider";
 import { Utilisateur } from "@lib/Utilisateur";
 import { env } from "@/env";
+import ExportButton from "@controls/Buttons/ExportButton";
 
 function getHeader(
   typesAmenagementsUtilises: TypesDomainesAmenagements[],
@@ -126,12 +126,11 @@ export default function AmenagementsBeneficiaireTableExport({
   filtreAmenagement,
   typesAmenagements,
 }: TableAmenagementsExportProps) {
+  const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
-  const [loading, setLoading] = useState(false);
   const user = useAuth().user;
 
-  const { data: amenagements, isFetching: isFetchingAmenagements } = useApi().useGetCollection({
+  const { data: amenagements } = useApi().useGetCollection({
     path: "/amenagements/utilisateurs",
     query: {
       ...filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParBeneficiaire),
@@ -141,51 +140,42 @@ export default function AmenagementsBeneficiaireTableExport({
     enabled: exportSubmit,
   });
 
-  const { data: tags, isFetching: isFetchingTags } = useApi().useGetCollection({
+  const { data: tags } = useApi().useGetCollection({
     ...PREFETCH_TAGS,
     enabled: exportSubmit,
   });
 
-  // --- Prepare data
-
-  const typesAmenagementsUtilises = useMemo(() => {
-    return getTypesAmenagements(amenagements?.items || [], typesAmenagements).sort((a, b) =>
-      a.typeAmenagement.libelle.localeCompare(b.typeAmenagement.libelle),
-    );
-  }, [amenagements?.items, typesAmenagements]);
-
-  const data = useMemo(() => {
-    return buildAmenagementsBenefDatasource(amenagements?.items || [], typesAmenagementsUtilises);
-  }, [amenagements?.items, typesAmenagementsUtilises]);
-
-  // ---
-
   useEffect(() => {
-    if (amenagements?.items && tags?.items) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoading(false);
-    } else {
-      setLoading(isFetchingAmenagements || isFetchingTags);
-    }
-  }, [exportSubmit, isFetchingAmenagements, amenagements?.items, tags?.items, isFetchingTags]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setExportKey((k) => k + 1);
+    setExportSubmit(false);
+  }, [filtreAmenagement]);
 
-  // --- Export
+  const typesAmenagementsUtilises = useMemo(
+    () =>
+      getTypesAmenagements(amenagements?.items || [], typesAmenagements).sort((a, b) =>
+        a.typeAmenagement.libelle.localeCompare(b.typeAmenagement.libelle),
+      ),
+    [amenagements?.items, typesAmenagements],
+  );
 
-  const headers = getHeader(typesAmenagementsUtilises, user);
+  const data = useMemo(
+    () => buildAmenagementsBenefDatasource(amenagements?.items || [], typesAmenagementsUtilises),
+    [amenagements?.items, typesAmenagementsUtilises],
+  );
+
+  const refDataReady = !!(amenagements?.items && tags?.items);
 
   return (
-    <TableExportButton
-      loading={loading}
-      setLoading={setLoading}
-      submitted={exportSubmit}
-      setSubmitted={setExportSubmit}
+    <ExportButton
+      key={exportKey}
       getData={() =>
         getAmenagementsBeneficiaireData(user, data || [], typesAmenagementsUtilises, tags?.items)
       }
-      downloaded={downloaded}
-      setDownloaded={setDownloaded}
-      headers={headers}
+      headers={getHeader(typesAmenagementsUtilises, user)}
       filename="amenagements"
+      ready={refDataReady}
+      onStart={() => setExportSubmit(true)}
     />
   );
 }

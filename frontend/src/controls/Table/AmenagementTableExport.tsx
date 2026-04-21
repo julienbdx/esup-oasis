@@ -18,7 +18,6 @@ import {
 import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
-import { TableExportButton } from "@controls/Buttons/TableExportButton";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { getDomaineAmenagement } from "@lib/amenagements";
 import dayjs from "dayjs";
@@ -32,7 +31,6 @@ import { RoleValues } from "@lib/Utilisateur";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 import { env } from "@/env";
 import SplitFetcher from "@api/SplitFetcher";
-import { ExportOutlined } from "@ant-design/icons";
 
 const headers = [
   { label: "Nom", key: "nom" },
@@ -106,12 +104,8 @@ function getAmenagementsData(
         .join(", "),
       avisESE: beneficiaire?.etatAvisEse,
       tags: (beneficiaire?.tags || [])
-        ?.map((tag) => {
-          return tags?.find((t) => t["@id"] === tag);
-        })
-        .map((tag) => {
-          return tag?.libelle?.replaceAll('"', '""');
-        })
+        ?.map((tag) => tags?.find((t) => t["@id"] === tag))
+        .map((tag) => tag?.libelle?.replaceAll('"', '""'))
         .join(", "),
     };
   });
@@ -124,87 +118,58 @@ interface TableAmenagementsExportProps {
 export default function AmenagementTableExport({
   filtreAmenagement,
 }: TableAmenagementsExportProps) {
+  const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [fetchingAmenagements, setFetchingAmenagements] = useState(false);
-  const { data: categories, isFetching: isFetchingCategories } = useApi().useGetCollection({
+
+  const { data: categories } = useApi().useGetCollection({
     ...PREFETCH_CATEGORIES_AMENAGEMENTS,
     enabled: exportSubmit,
   });
-  const { data: types, isFetching: isFetchingTypes } = useApi().useGetCollection({
+  const { data: types } = useApi().useGetCollection({
     ...PREFETCH_TYPES_AMENAGEMENTS,
     enabled: exportSubmit,
   });
-  const { data: suivis, isFetching: isFetchingSuivis } = useApi().useGetCollection({
+  const { data: suivis } = useApi().useGetCollection({
     ...PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
     enabled: exportSubmit,
   });
-  const { data: cas, isFetching: isFetchingCas } = useApi().useGetCollectionPaginated({
+  const { data: cas } = useApi().useGetCollectionPaginated({
     path: "/roles/{roleId}/utilisateurs",
     page: 1,
     itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     parameters: { roleId: `/roles/${RoleValues.ROLE_GESTIONNAIRE}` },
     enabled: exportSubmit,
   });
-  const { data: tags, isFetching: isFetchingTags } = useApi().useGetCollection({
+  const { data: tags } = useApi().useGetCollection({
     ...PREFETCH_TAGS,
     enabled: exportSubmit,
   });
 
-  const [amenagements, setAmenagements] = useState<IAmenagement[] | null>(null);
-
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setAmenagements(null);
+    setExportKey((k) => k + 1);
+    setExportSubmit(false);
   }, [filtreAmenagement]);
 
-  useEffect(() => {
-    if (
-      categories?.items &&
-      types?.items &&
-      fetchingAmenagements &&
-      suivis?.items &&
-      cas?.items &&
-      tags?.items
-    ) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoading(false);
-    } else {
-      setLoading(
-        isFetchingCategories ||
-          isFetchingTypes ||
-          fetchingAmenagements ||
-          isFetchingSuivis ||
-          isFetchingTags ||
-          isFetchingCas,
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    exportSubmit,
-    amenagements,
-    categories?.items,
-    types?.items,
-    isFetchingCategories,
-    isFetchingTypes,
-    suivis?.items,
-    isFetchingSuivis,
-    cas?.items,
-    isFetchingCas,
-    tags?.items,
-    isFetchingTags,
-  ]);
+  const refDataReady = !!(
+    categories?.items &&
+    types?.items &&
+    suivis?.items &&
+    cas?.items &&
+    tags?.items
+  );
 
-  return amenagements ? (
-    <TableExportButton
-      loading={loading}
-      setLoading={setLoading}
-      submitted={true}
-      setSubmitted={setExportSubmit}
-      getData={() =>
+  return (
+    <SplitFetcher<"/amenagements">
+      key={exportKey}
+      path="/amenagements"
+      itemsPerPage={200}
+      query={filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParAmenagement)}
+      headers={headers}
+      filename="amenagements"
+      getData={(items) =>
         getAmenagementsData(
-          amenagements || [],
+          items,
           categories?.items,
           types?.items,
           suivis?.items,
@@ -212,21 +177,8 @@ export default function AmenagementTableExport({
           tags?.items,
         )
       }
-      downloaded={downloaded}
-      setDownloaded={setDownloaded}
-      headers={headers}
-      filename="amenagements"
+      ready={refDataReady}
+      onStart={() => setExportSubmit(true)}
     />
-  ) : (
-    <>
-      <SplitFetcher
-        itemsPerPage={200}
-        query={filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParAmenagement)}
-        setData={setAmenagements}
-        setIsFetching={setFetchingAmenagements}
-        icon={<ExportOutlined />}
-        label="Exporter"
-      />
-    </>
   );
 }

@@ -11,14 +11,11 @@ import { IIntervenant, IInterventionForfait, IPeriode, ITypeEvenement } from "@a
 import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
-import { TableExportButton } from "@controls/Buttons/TableExportButton";
 import { getLibellePeriode } from "@utils/dates";
 import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import ExportButton from "@controls/Buttons/ExportButton";
 
-const headers: {
-  label: string;
-  key: string;
-}[] = [
+const headers: { label: string; key: string }[] = [
   { label: "Période", key: "periode" },
   { label: "Intervenant", key: "intervenant" },
   { label: "Intervenant (numéro étudiant)", key: "numeroEtudiant" },
@@ -58,55 +55,37 @@ interface TableInterventionsForfaitExportProps {
 export default function InterventionForfaitTableExport({
   interventionsForfait,
 }: TableInterventionsForfaitExportProps) {
+  const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { data: periodes, isFetching: isFetchingPeriodes } = useApi().useGetCollectionPaginated({
+
+  const { data: periodes } = useApi().useGetCollectionPaginated({
     path: "/periodes",
     itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     page: 1,
     enabled: exportSubmit,
   });
-  const { data: intervenants, isFetching: isFetchingIntervenants } =
-    useApi().useGetCollectionPaginated({
-      path: "/intervenants",
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      page: 1,
-      enabled: exportSubmit,
-    });
-  const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
-    useApi().useGetCollection({ ...PREFETCH_TYPES_EVENEMENTS, enabled: exportSubmit });
-
-  useEffect(() => {
-    if (periodes?.items && intervenants?.items && typesEvenements?.items) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoading(false);
-    } else {
-      setLoading(isFetchingPeriodes || isFetchingIntervenants || isFetchingTypesEvenements);
-    }
-  }, [
-    periodes,
-    intervenants,
-    typesEvenements,
-    isFetchingPeriodes,
-    isFetchingIntervenants,
-    isFetchingTypesEvenements,
-    exportSubmit,
-  ]);
+  const { data: intervenants } = useApi().useGetCollectionPaginated({
+    path: "/intervenants",
+    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
+    page: 1,
+    enabled: exportSubmit,
+  });
+  const { data: typesEvenements } = useApi().useGetCollection({
+    ...PREFETCH_TYPES_EVENEMENTS,
+    enabled: exportSubmit,
+  });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
+    setExportKey((k) => k + 1);
     setExportSubmit(false);
-
-    setDownloaded(false);
   }, [interventionsForfait]);
 
+  const refDataReady = !!(periodes?.items && intervenants?.items && typesEvenements?.items);
+
   return (
-    <TableExportButton
-      loading={loading}
-      setLoading={setLoading}
-      submitted={exportSubmit}
-      setSubmitted={setExportSubmit}
+    <ExportButton
+      key={exportKey}
       getData={() =>
         getInterventionsForfaitData(
           interventionsForfait,
@@ -115,10 +94,10 @@ export default function InterventionForfaitTableExport({
           typesEvenements?.items,
         )
       }
-      downloaded={downloaded}
-      setDownloaded={setDownloaded}
       headers={headers}
       filename="interventionsForfait"
+      ready={refDataReady}
+      onStart={() => setExportSubmit(true)}
     />
   );
 }
