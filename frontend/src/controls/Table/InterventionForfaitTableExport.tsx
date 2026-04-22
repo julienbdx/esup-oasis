@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { getLibellePeriode } from "@utils/dates";
 import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
-import ExportButton from "@controls/Buttons/ExportButton";
+import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers: { label: string; key: string }[] = [
   { label: "Période", key: "periode" },
@@ -94,7 +94,7 @@ export default function InterventionForfaitTableExport({
   const refDataReady = !!(periodes?.items && intervenants?.items && typesEvenements?.items);
 
   return (
-    <ExportButton
+    <CsvExportButton
       key={exportKey}
       getData={() =>
         getInterventionsForfaitData(

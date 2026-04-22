@@ -23,7 +23,7 @@ import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Ame
 import { useAuth } from "@/auth/AuthProvider";
 import { Utilisateur } from "@lib/Utilisateur";
 import { env } from "@/env";
-import ExportButton from "@controls/Buttons/ExportButton";
+import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 function getHeader(
   typesAmenagementsUtilises: TypesDomainesAmenagements[],
@@ -172,7 +172,7 @@ export default function AmenagementsBeneficiaireTableExport({
   const globalTotalItems = amTotalItems + tagsTotalItems;
 
   return (
-    <ExportButton
+    <CsvExportButton
       key={exportKey}
       getData={() =>
         formatAmenagementsBeneficiaireData(data || [], typesAmenagementsUtilises, tags?.items)

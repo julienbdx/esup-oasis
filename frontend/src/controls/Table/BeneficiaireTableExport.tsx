@@ -13,7 +13,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { PREFETCH_COMPOSANTES, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import { env } from "@/env";
-import SplitFetcher from "@api/SplitFetcher";
+import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers = [
   { label: "Nom", key: "nom" },
@@ -106,7 +106,7 @@ export default function BeneficiaireTableExport({
   const refDataReady = !!(composantes?.items && gestionnaires?.items && tags?.items);
 
   return (
-    <SplitFetcher<"/beneficiaires">
+    <CsvExportButton<"/beneficiaires">
       key={exportKey}
       path="/beneficiaires"
       itemsPerPage={200}
