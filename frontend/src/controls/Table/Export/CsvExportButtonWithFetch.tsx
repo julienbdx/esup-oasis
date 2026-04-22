@@ -5,15 +5,15 @@ import {
   ApiPathMethodParameters,
   ApiPathMethodQuery,
   ApiPathMethodResponse,
-  Path,
+  PaginatedPath,
 } from "@api/SchemaHelpers";
 import { CSVLink } from "react-csv";
 import { ExportOutlined } from "@ant-design/icons";
 import { env } from "@/env";
 
-type FetchItems<P extends Path> = PaginateResult<ApiPathMethodResponse<P, "get">>["items"];
+type FetchItems<P extends PaginatedPath> = PaginateResult<ApiPathMethodResponse<P, "get">>["items"];
 
-export interface CsvExportButtonWithFetchProps<P extends Path, T extends object = object> {
+export interface CsvExportButtonWithFetchProps<P extends PaginatedPath, T extends object = object> {
   path: P;
   itemsPerPage: number;
   query?: ApiPathMethodQuery<P, "get">;
@@ -37,7 +37,10 @@ export interface CsvExportButtonWithFetchProps<P extends Path, T extends object 
 Ce composant est utilisé pour réaliser des exports de données en plusieurs requêtes, en utilisant un endpoint unique.
 Pour des exports sur plusieurs endpoints ou demandant de retravailler les données, il est conseillé d'utiliser CsvExportButton.
  */
-export default function CsvExportButtonWithFetch<P extends Path, T extends object = object>({
+export default function CsvExportButtonWithFetch<
+  P extends PaginatedPath,
+  T extends object = object,
+>({
   path,
   itemsPerPage,
   query,

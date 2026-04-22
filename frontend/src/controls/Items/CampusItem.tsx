@@ -61,6 +61,7 @@ export default function CampusItem({
       {showAvatar && (!responsive || screens[responsive]) && <CampusAvatar campus={item} />}
       <span>
         {item?.libelle}
+        {!item?.actif && " (Inactif)"}
         {salle && <Typography.Text type="secondary"> &bull; {salle}</Typography.Text>}
       </span>
     </Space>
