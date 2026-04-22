@@ -13,7 +13,7 @@ import { CSVLink } from "react-csv";
 import { ExportOutlined } from "@ant-design/icons";
 import { env } from "@/env";
 
-interface ExportButtonProps<T extends object = object> {
+export interface CsvExportButtonWithoutFetchProps<T extends object = object> {
   getData: () => T[];
   headers: { label: string; key: string }[];
   filename: string;
@@ -32,9 +32,9 @@ interface ExportButtonProps<T extends object = object> {
 
 /*
 Ce composant permet d'exporter des données au format CSV. Il est utilisé quand la source de données est préparée et prête.
-Pour des exports simples (un endpoint unique), il est conseillé d'utiliser SplitFetcher.
+Pour des exports simples (un endpoint unique), il est conseillé d'utiliser CsvExportButtonWithFetch.
  */
-export default function ExportButton<T extends object = object>({
+export default function CsvExportButtonWithoutFetch<T extends object = object>({
   getData,
   headers,
   filename,
@@ -45,7 +45,7 @@ export default function ExportButton<T extends object = object>({
   onDownloaded,
   icon = <ExportOutlined />,
   label = "Exporter",
-}: ExportButtonProps<T>) {
+}: CsvExportButtonWithoutFetchProps<T>) {
   const [started, setStarted] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

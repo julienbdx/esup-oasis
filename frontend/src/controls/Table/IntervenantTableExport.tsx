@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 import { PREFETCH_CAMPUS, PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
-import SplitFetcher from "@api/SplitFetcher";
+import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers: { label: string; key: string }[] = [
   { label: "Nom", key: "nom" },
@@ -82,7 +82,7 @@ export default function IntervenantTableExport({
   const refDataReady = !!(competences?.items && campus?.items);
 
   return (
-    <SplitFetcher<"/intervenants">
+    <CsvExportButton<"/intervenants">
       key={exportKey}
       path="/intervenants"
       itemsPerPage={200}

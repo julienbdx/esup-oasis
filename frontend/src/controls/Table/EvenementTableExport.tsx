@@ -13,7 +13,7 @@ import { Evenement } from "@lib/Evenement";
 import dayjs from "dayjs";
 import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { ICampus, ITypeEvenement, IUtilisateur } from "@api/ApiTypeHelpers";
-import ExportButton from "@controls/Buttons/ExportButton";
+import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers = [
   { label: "Début", key: "debut" },
@@ -114,7 +114,7 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
   );
 
   return (
-    <ExportButton
+    <CsvExportButton
       key={exportKey}
       getData={() =>
         getEvenementsData(

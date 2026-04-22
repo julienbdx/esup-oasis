@@ -18,7 +18,7 @@ import {
   PREFETCH_PROFILS,
   PREFETCH_TYPES_DEMANDES,
 } from "@api/ApiPrefetchHelpers";
-import SplitFetcher from "@api/SplitFetcher";
+import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers = [
   { label: "Demandeur (nom)", key: "demandeur.nom" },
@@ -102,7 +102,7 @@ export default function DemandeTableExport(props: { filtreDemande: FiltreDemande
   );
 
   return (
-    <SplitFetcher<"/demandes">
+    <CsvExportButton<"/demandes">
       key={exportKey}
       path="/demandes"
       itemsPerPage={200}

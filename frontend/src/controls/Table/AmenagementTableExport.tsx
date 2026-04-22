@@ -29,7 +29,7 @@ import {
 import { RoleValues } from "@lib/Utilisateur";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 import { env } from "@/env";
-import SplitFetcher from "@api/SplitFetcher";
+import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers = [
   { label: "Nom", key: "nom" },
@@ -157,7 +157,7 @@ export default function AmenagementTableExport({
   );
 
   return (
-    <SplitFetcher<"/amenagements">
+    <CsvExportButton<"/amenagements">
       key={exportKey}
       path="/amenagements"
       itemsPerPage={500}
