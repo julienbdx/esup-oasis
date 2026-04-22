@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
@@ -44,6 +45,19 @@ export default defineConfig(() => {
                quietDeps: true,
                silenceDeprecations: ["legacy-js-api"],
             },
+         },
+      },
+
+      test: {
+         globals: true,
+         environment: "jsdom",
+         setupFiles: ["./src/setupTests.ts"],
+         include: ["src/**/*.{test,spec}.{ts,tsx}"],
+         coverage: {
+            provider: "v8",
+            reporter: ["text", "lcov"],
+            include: ["src/**/*.{ts,tsx}"],
+            exclude: ["src/**/*.d.ts", "src/api/schema.d.ts", "src/main.tsx"],
          },
       },
 
