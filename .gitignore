@@ -5,3 +5,5 @@
 installation/frontend/.env
 installation/backend/.env
 installation/.env
+# Added by code-review-graph
+.code-review-graph/
