@@ -45,9 +45,10 @@ export function FilterPanel<T extends FiltreDecrivable>({
   refFavoris,
   refFiltres,
 }: FilterPanelProps<T>) {
-  function calculerNombreFiltresPose(): number {
+  function calculerNombreFiltresPoses(): number {
     // le nombre de filtres posés est le nombre de valeurs de filtre qui sont différentes du filtre par défaut defaultFilter
     const filtresPose = Object.entries(filtre).filter(([key, value]) => {
+      if (key === "page" || key === "itemsPerPage" || key.startsWith("order[")) return false;
       const defaultValue = defaultFilter[key as keyof T];
       if (Array.isArray(value) || Array.isArray(defaultValue)) {
         const a = Array.isArray(value) ? value : [];
@@ -94,7 +95,7 @@ export function FilterPanel<T extends FiltreDecrivable>({
           label: (
             <>
               <Space className="float-right">
-                <Badge count={calculerNombreFiltresPose()} />
+                <Badge count={calculerNombreFiltresPoses()} />
                 <FilterOutlined style={{ marginTop: 4 }} aria-hidden />
               </Space>
               Filtres complémentaires
