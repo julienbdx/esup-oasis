@@ -33,7 +33,7 @@ export function TypesDemandesEdition({
   setEditedItem,
 }: TypesDemandesEditionProps): ReactElement {
   const [form] = Form.useForm();
-  const { data: profils, isFetching } = useApi().useGetCollection(PREFETCH_PROFILS);
+  const { data: profils, isFetching } = useApi().useGetFullCollection(PREFETCH_PROFILS);
 
   const mutationPost = useApi().usePost({
     path: "/types_demandes",

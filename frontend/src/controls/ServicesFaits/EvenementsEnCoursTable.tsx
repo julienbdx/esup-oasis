@@ -11,7 +11,6 @@ import React, { ReactElement } from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import { useModals } from "@context/modals/ModalsContext";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import Spinner from "@controls/Spinner/Spinner";
 import { Table } from "antd";
 import { Evenement } from "@lib/Evenement";
@@ -25,10 +24,8 @@ import { evenementTableColumns } from "@controls/Table/EvenementTableColumns";
 export function EvenementsEnCoursTable(): ReactElement {
   const user = useAuth().user;
   const { setModalEvenementId } = useModals();
-  const { data: evenementsEnCours, isLoading } = useApi().useGetCollectionPaginated({
+  const { data: evenementsEnCours, isLoading } = useApi().useGetFullCollection({
     path: "/evenements",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       intervenant: user?.["@id"],
       "exists[periodePriseEnCompteRH]": false,

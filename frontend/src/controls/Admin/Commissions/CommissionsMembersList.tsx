@@ -26,7 +26,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS } from "@api/queryKeys";
 import { RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
+
 import { CommissionsMemberAddForm } from "@controls/Admin/Commissions/CommissionsMemberAddForm";
 
 interface CommissionsMembersListProps {
@@ -190,12 +190,8 @@ function CommissionsEditionMembre(props: { membre: ICommissionMembre }) {
 
 export const CommissionsMembersList: React.FC<CommissionsMembersListProps> = ({ commissionId }) => {
   const [ajouterMembre, setAjouterMembre] = useState<boolean>(false);
-  const { data: membres, isFetching } = useApi().useGetCollection({
+  const { data: membres, isFetching } = useApi().useGetFullCollection({
     path: "/commissions/{commissionId}/membres",
-    query: {
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    },
     parameters: {
       commissionId: commissionId as string,
     },

@@ -10,7 +10,6 @@
 import React, { ReactElement } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Tag, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { MinusOutlined, SendOutlined } from "@ant-design/icons";
@@ -42,10 +41,8 @@ export default function PeriodeRhItem({
   showTooltip = true,
   className,
 }: IItemPeriode): ReactElement {
-  const { data: periodeData } = useApi().useGetCollectionPaginated({
+  const { data: periodeData } = useApi().useGetFullCollection({
     path: "/periodes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
   const item = periode ?? periodeData?.items.find((x) => x["@id"] === periodeId);
   if (!item) return <Spinner />;

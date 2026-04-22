@@ -23,7 +23,7 @@ interface ITabCategorie {
  * @returns {ReactElement} - The rendered JSX for the tab.
  */
 export function TabTypeEvenement({ defaultValue }: ITabCategorie): ReactElement {
-  const { data } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   return (
     <>

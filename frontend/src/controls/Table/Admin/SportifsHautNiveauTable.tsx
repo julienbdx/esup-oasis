@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { App, Button, Popconfirm, Space, Table, Tag, Typography } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
@@ -45,10 +44,8 @@ export function SportifsHautNiveauTable({ onEdit }: SportifsHautNiveauTableProps
     "order[nom]": "asc",
   });
 
-  const { data: sportifsHautNiveau, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: sportifsHautNiveau, isFetching } = useApi().useGetFullCollection({
     path: "/sportifs_haut_niveau",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: filtre,
   });
 

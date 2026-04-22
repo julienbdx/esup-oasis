@@ -14,7 +14,7 @@ import { Tag } from "antd";
 import React from "react";
 
 export function CategorieAmenagementTag(props: { categorieId: undefined | string }) {
-  const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_AMENAGEMENTS);
+  const { data: categories } = useApi().useGetFullCollection(PREFETCH_CATEGORIES_AMENAGEMENTS);
 
   if (!categories) return <Spinner />;
 

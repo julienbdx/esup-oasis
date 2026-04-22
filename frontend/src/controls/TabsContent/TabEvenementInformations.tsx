@@ -42,7 +42,7 @@ export default function TabEvenementInformations({
   intervenantDisabled,
   formIsDirty,
 }: ITabEvenementInformations): ReactElement {
-  const { data: categories } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: categories } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   const [typeSelectionne, setTypeSelectionne] = useState(evenement?.type);
 

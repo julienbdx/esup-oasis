@@ -24,7 +24,7 @@ interface TypesEvenementsTableProps {
 export function TypesEvenementsTable({ onEdit, editedItem }: TypesEvenementsTableProps) {
   const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
   const { data: typesEvenements, isFetching } =
-    useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+    useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   function handleEdition(record: ITypeEvenement) {
     onEdit(undefined);

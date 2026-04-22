@@ -8,7 +8,7 @@
  */
 
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { PaginateResult, RequestMethod } from "@context/api/ApiProvider";
 import {
@@ -37,6 +37,8 @@ export type UseGetFullCollectionHook = <P extends Path>(options: {
   concurrency?: number;
 }) => {
   data: PaginateResult<ApiPathMethodResponse<P, "get">> | undefined;
+  fetchedCount: number;
+  totalItems: number;
   isLoading: boolean;
   isFetching: boolean;
   isError: boolean;
@@ -132,19 +134,36 @@ export function useGetFullCollection<P extends Path>(
 
   const page1Items = (page1.data?.items ?? []) as unknown[];
   const remainingItems = remainingQueries.flatMap((q) => (q.data?.items ?? []) as unknown[]);
-  const allItems = [...page1Items, ...remainingItems] as PaginateResult<
-    ApiPathMethodResponse<P, "get">
-  >["items"];
+
+  const fetchedCount =
+    page1Items.length +
+    remainingQueries.reduce((sum, q) => sum + ((q.data?.items as unknown[])?.length ?? 0), 0);
+
+  // Memoize data via timestamps pour éviter une nouvelle référence à chaque rendu
+  // (sinon les useEffect qui dépendent de `data` boucleraient infiniment)
+  const dataTimestamps = [
+    page1.dataUpdatedAt,
+    ...remainingQueries.map((q) => q.dataUpdatedAt),
+  ].join("-");
+
+  const stableData = useMemo(() => {
+    if (!allDone) return undefined;
+    const allItems = [...page1Items, ...remainingItems] as PaginateResult<
+      ApiPathMethodResponse<P, "get">
+    >["items"];
+    return {
+      items: allItems,
+      totalItems,
+      currentPage: 1,
+      itemsPerPage: PAGE_SIZE,
+    } as PaginateResult<ApiPathMethodResponse<P, "get">>;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allDone, dataTimestamps, totalItems]);
 
   return {
-    data: allDone
-      ? ({
-          items: allItems,
-          totalItems,
-          currentPage: 1,
-          itemsPerPage: PAGE_SIZE,
-        } as PaginateResult<ApiPathMethodResponse<P, "get">>)
-      : undefined,
+    data: stableData,
+    fetchedCount,
+    totalItems,
     isLoading: page1.isLoading || remainingQueries.some((q) => q.isLoading),
     isFetching: page1.isFetching || remainingQueries.some((q) => q.isFetching),
     isError: page1.isError || remainingQueries.some((q) => q.isError),

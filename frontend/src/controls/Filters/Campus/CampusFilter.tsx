@@ -29,7 +29,7 @@ interface ICampusFilter {
  */
 export default function CampusFilter({ value, onChange, mode }: ICampusFilter): ReactElement {
   const [filter, setFilter] = useState("");
-  const { data, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  const { data, isFetching } = useApi().useGetFullCollection(PREFETCH_CAMPUS);
 
   return (
     <Select

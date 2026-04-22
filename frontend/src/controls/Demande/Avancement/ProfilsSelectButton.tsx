@@ -32,7 +32,7 @@ export default function ProfilsSelectButton(props: {
   const [modaleCommissionOpen, setModaleCommissionOpen] = React.useState<boolean>(false);
   const [profil, setProfil] = React.useState<string>();
   const [commentaire, setCommentaire] = React.useState<string>("");
-  const { data: profils } = useApi().useGetCollection(PREFETCH_PROFILS);
+  const { data: profils } = useApi().useGetFullCollection(PREFETCH_PROFILS);
 
   const mutation = useApi().usePatch({
     path: props.demande["@id"] as "/demandes/{id}",

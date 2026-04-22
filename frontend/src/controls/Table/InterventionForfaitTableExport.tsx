@@ -10,7 +10,6 @@
 import { IIntervenant, IInterventionForfait, IPeriode, ITypeEvenement } from "@api/ApiTypeHelpers";
 import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { getLibellePeriode } from "@utils/dates";
 import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import ExportButton from "@controls/Buttons/ExportButton";
@@ -58,22 +57,33 @@ export default function InterventionForfaitTableExport({
   const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
 
-  const { data: periodes } = useApi().useGetCollectionPaginated({
+  const {
+    data: periodes,
+    fetchedCount: periodesFetchedCount,
+    totalItems: periodesTotalItems,
+  } = useApi().useGetFullCollection({
     path: "/periodes",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     enabled: exportSubmit,
   });
-  const { data: intervenants } = useApi().useGetCollectionPaginated({
+  const {
+    data: intervenants,
+    fetchedCount: intFetchedCount,
+    totalItems: intTotalItems,
+  } = useApi().useGetFullCollection({
     path: "/intervenants",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     enabled: exportSubmit,
   });
-  const { data: typesEvenements } = useApi().useGetCollection({
+  const {
+    data: typesEvenements,
+    fetchedCount: typesFetchedCount,
+    totalItems: typesTotalItems,
+  } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_EVENEMENTS,
     enabled: exportSubmit,
   });
+
+  const globalFetchedCount = periodesFetchedCount + intFetchedCount + typesFetchedCount;
+  const globalTotalItems = periodesTotalItems + intTotalItems + typesTotalItems;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -97,6 +107,8 @@ export default function InterventionForfaitTableExport({
       headers={headers}
       filename="interventionsForfait"
       ready={refDataReady}
+      fetchedCount={globalFetchedCount}
+      totalItems={globalTotalItems}
       onStart={() => setExportSubmit(true)}
     />
   );

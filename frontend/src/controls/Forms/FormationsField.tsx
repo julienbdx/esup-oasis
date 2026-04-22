@@ -19,7 +19,7 @@ export default function FormationsField(props: {
   mode?: "multiple" | "tags";
   placeholder?: string;
 }) {
-  const { data: formations, isFetching } = useApi().useGetCollection(PREFETCH_FORMATIONS);
+  const { data: formations, isFetching } = useApi().useGetFullCollection(PREFETCH_FORMATIONS);
 
   return (
     <Select

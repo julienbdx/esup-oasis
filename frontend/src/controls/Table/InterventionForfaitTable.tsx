@@ -11,7 +11,6 @@ import React, { useState } from "react";
 import interventionForfaitTableColumns from "@controls/Table/InterventionForfaitTableColumns";
 import { Button, Flex, Space, Table } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FilterFilled, FilterOutlined } from "@ant-design/icons";
 import { useAuth } from "@/auth/AuthProvider";
 import InterventionForfaitTableExport from "@controls/Table/InterventionForfaitTableExport";
@@ -46,10 +45,8 @@ export default function InterventionForfaitTable({ onEdit }: TableInterventionsF
         "type[]": filtres["type[]"] || [],
       },
     });
-  const { data: periodes, isFetching: isFetchingPeriodes } = useApi().useGetCollectionPaginated({
+  const { data: periodes, isFetching: isFetchingPeriodes } = useApi().useGetFullCollection({
     path: "/periodes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   return (

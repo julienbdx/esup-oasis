@@ -19,7 +19,6 @@ import {
   PREFETCH_CATEGORIES_AMENAGEMENTS,
   PREFETCH_TYPES_AMENAGEMENTS,
 } from "@api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Avatar, Button, Card, Col, Empty, Flex, Row, Space, Tag, Tooltip, Typography } from "antd";
 import {
   ArrowRightOutlined,
@@ -44,17 +43,15 @@ export function TabAmenagements(props: {
   const screens = useBreakpoint();
   const [searchParams] = useSearchParams();
   const [editedAmenagement, setEditedAmenagement] = React.useState<IAmenagement>();
-  const { data: typesAmenagements } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
-  const { data: categoriesAmenagements } = useApi().useGetCollection(
+  const { data: typesAmenagements } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: categoriesAmenagements } = useApi().useGetFullCollection(
     PREFETCH_CATEGORIES_AMENAGEMENTS,
   );
-  const { data: amenagements } = useApi().useGetCollectionPaginated({
+  const { data: amenagements } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/amenagements",
     parameters: {
       uid: props.utilisateurId,
     },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   const amenagementsByCategories = useMemo(() => {

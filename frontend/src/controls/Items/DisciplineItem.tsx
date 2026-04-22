@@ -11,7 +11,6 @@ import React, { ReactElement } from "react";
 import { Breakpoint, Tag, Tooltip } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { IDiscipline } from "@api/ApiTypeHelpers";
 
 interface IItemDiscipline {
@@ -36,10 +35,8 @@ export default function DisciplineItem({
   discipline,
   disciplineId,
 }: IItemDiscipline): ReactElement {
-  const { data: dataDiscipline, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: dataDiscipline, isFetching } = useApi().useGetFullCollection({
     path: "/disciplines_sportives",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
   const item = discipline ?? dataDiscipline?.items.find((t) => t["@id"] === disciplineId);
 

@@ -21,9 +21,9 @@ import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 export function useIntervenantFilterOptions(_filtreIntervenant: FiltreIntervenant) {
   const api = useApi();
 
-  const { data: campuses } = api.useGetCollection(PREFETCH_CAMPUS);
-  const { data: competences } = api.useGetCollection(PREFETCH_COMPETENCES);
-  const { data: categories } = api.useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: campuses } = api.useGetFullCollection(PREFETCH_CAMPUS);
+  const { data: competences } = api.useGetFullCollection(PREFETCH_COMPETENCES);
+  const { data: categories } = api.useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   return {
     campuses,

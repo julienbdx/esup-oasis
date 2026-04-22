@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Flex, Typography } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
@@ -21,13 +20,11 @@ import { env } from "@/env";
 export function TabAvisEse(props: { utilisateurId: string }) {
   const screens = useBreakpoint();
   const [editedItem, setEditedItem] = React.useState<IAvisEse>();
-  const { data: avis } = useApi().useGetCollectionPaginated({
+  const { data: avis } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/avis_ese",
     parameters: {
       uid: props.utilisateurId,
     },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[debut]": "desc",
     },

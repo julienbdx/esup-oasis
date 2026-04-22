@@ -34,7 +34,7 @@ interface IItemFormation {
  * @returns {ReactElement} The rendered formation item component.
  */
 function FormationItem({ formation, formationId }: IItemFormation): ReactElement {
-  const { data: dataFormation, isFetching } = useApi().useGetCollection(PREFETCH_FORMATIONS);
+  const { data: dataFormation, isFetching } = useApi().useGetFullCollection(PREFETCH_FORMATIONS);
   const item = formation ?? dataFormation?.items.find((t) => t["@id"] === formationId);
 
   if (!item || isFetching) return <Spinner />;

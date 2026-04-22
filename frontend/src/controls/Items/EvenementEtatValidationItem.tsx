@@ -29,7 +29,7 @@ interface IItemEtatValidationProps {
 export default function EvenementEtatValidationItem({
   evenement,
 }: IItemEtatValidationProps): ReactElement | null {
-  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: typesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   if (typesEvenements?.items.find((t) => t["@id"] === evenement.type)?.avecValidation === false)
     return null;

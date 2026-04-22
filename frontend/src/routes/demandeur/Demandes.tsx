@@ -13,7 +13,6 @@ import CampagneDemandeList from "@controls/List/CampagneDemandeList";
 import { useApi } from "@context/api/ApiProvider";
 import { InfoCircleOutlined, LinkOutlined, PlusOutlined } from "@ant-design/icons";
 import NouvelleDemandeModale from "@controls/Modals/Demande/NouvelleDemandeModale";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useAuth } from "@/auth/AuthProvider";
 import { env } from "@/env";
@@ -26,13 +25,11 @@ export default function Demandes() {
   const screens = useBreakpoint();
   const user = useAuth().user;
   const [modaleNouvelleDemande, setModaleNouvelleDemande] = useState<boolean>(false);
-  const { data: demandes, isFetching: isFetchingDemandes } = useApi().useGetCollectionPaginated({
+  const { data: demandes, isFetching: isFetchingDemandes } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/demandes",
     query: { format_simple: true },
     enabled: !!user,
     parameters: { uid: user?.["@id"] as string },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   return (

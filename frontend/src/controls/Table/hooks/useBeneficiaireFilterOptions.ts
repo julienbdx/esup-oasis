@@ -15,7 +15,6 @@ import {
   PREFETCH_PROFILS,
   PREFETCH_TAGS,
 } from "@api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 
 /**
@@ -25,7 +24,7 @@ export function useBeneficiaireFilterOptions(_filtreBeneficiaire: FiltreBenefici
   const { user, impersonate } = useAuth();
   const api = useApi();
 
-  const { data: profils } = api.useGetCollection({
+  const { data: profils } = api.useGetFullCollection({
     ...PREFETCH_PROFILS,
     enabled: user?.isGestionnaire,
   });
@@ -41,19 +40,16 @@ export function useBeneficiaireFilterOptions(_filtreBeneficiaire: FiltreBenefici
       !!user?.["@id"] && (user?.isPlanificateur || user?.isIntervenant) && !impersonate,
   });
 
-  const { data: composantes } = api.useGetCollection(PREFETCH_COMPOSANTES);
-  const { data: formations } = api.useGetCollection(PREFETCH_FORMATIONS);
-  const { data: tags } = api.useGetCollection(PREFETCH_TAGS);
+  const { data: composantes } = api.useGetFullCollection(PREFETCH_COMPOSANTES);
+  const { data: formations } = api.useGetFullCollection(PREFETCH_FORMATIONS);
+  const { data: tags } = api.useGetFullCollection(PREFETCH_TAGS);
 
-  const { data: gestionnaires, isFetching: isFetchingGestionnaires } =
-    api.useGetCollectionPaginated({
-      path: "/roles/{roleId}/utilisateurs",
-      parameters: { roleId: "/roles/ROLE_GESTIONNAIRE" },
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: { "order[nom]": "asc" },
-      enabled: user?.isPlanificateur,
-    });
+  const { data: gestionnaires, isFetching: isFetchingGestionnaires } = api.useGetFullCollection({
+    path: "/roles/{roleId}/utilisateurs",
+    parameters: { roleId: "/roles/ROLE_GESTIONNAIRE" },
+    query: { "order[nom]": "asc" },
+    enabled: user?.isPlanificateur,
+  });
 
   return {
     profils,

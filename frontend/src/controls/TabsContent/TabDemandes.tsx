@@ -11,7 +11,6 @@
 import { Button, Empty, Flex, List, Space, Tooltip } from "antd";
 import React, { ReactElement, useState } from "react";
 import { IDemande, IUtilisateur } from "@api/ApiTypeHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
@@ -89,10 +88,8 @@ function TabDemandesItem({ demande }: ITabDemandesItemProps): ReactElement {
  */
 export function TabDemandes({ utilisateur, title }: ITabDemandesProps): ReactElement {
   const [nouvelleDemande, setNouvelleDemande] = useState<boolean>(false);
-  const { data: demandes, isFetching: fetchingDemandes } = useApi().useGetCollectionPaginated({
+  const { data: demandes, isFetching: fetchingDemandes } = useApi().useGetFullCollection({
     path: "/demandes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       demandeur: utilisateur["@id"],
       "order[dateDepot]": "desc",

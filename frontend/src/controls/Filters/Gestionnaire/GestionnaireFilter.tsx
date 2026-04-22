@@ -10,7 +10,6 @@
 import React, { ReactElement, useState } from "react";
 import { Select } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 interface IGestionnaireFilter {
   value?: string[];
@@ -29,11 +28,9 @@ interface IGestionnaireFilter {
 export default function GestionnaireFilter({ value, setValue }: IGestionnaireFilter): ReactElement {
   const [filter, setFilter] = useState("");
   // Récupération de la liste des gestionnaires (dont renforts)
-  const { data: gestionnaires, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: gestionnaires, isFetching } = useApi().useGetFullCollection({
     path: "/roles/{roleId}/utilisateurs",
     parameters: { roleId: "/roles/ROLE_PLANIFICATEUR" },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: { "order[nom]": "asc" },
   });
 

@@ -10,20 +10,15 @@
 import React, { useState } from "react";
 import { Button, Space, Table } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { EditOutlined, FileOutlined } from "@ant-design/icons";
 import ParametresEdition from "@controls/Admin/Parametres/ParametresEdition";
 import { IParametre, IParametreValeur } from "@api/ApiTypeHelpers";
 
 export default function ParametresTable() {
   const [editedItem, setEditedItem] = useState<IParametre>();
-  const { data: parametres, isFetching: isFetchingParametres } = useApi().useGetCollectionPaginated(
-    {
-      path: "/parametres",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    },
-  );
+  const { data: parametres, isFetching: isFetchingParametres } = useApi().useGetFullCollection({
+    path: "/parametres",
+  });
 
   return (
     <>
@@ -31,11 +26,6 @@ export default function ParametresTable() {
         loading={isFetchingParametres}
         dataSource={parametres?.items as IParametre[]}
         rowKey={(record) => record["@id"] as string}
-        pagination={{
-          total: parametres?.totalItems,
-          pageSize: NB_MAX_ITEMS_PER_PAGE,
-          showSizeChanger: false,
-        }}
         columns={[
           {
             title: "Nom du paramètre",

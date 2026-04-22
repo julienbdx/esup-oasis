@@ -31,7 +31,7 @@ function TypeEquipementItem({
   typeEquipement,
   typeEquipementId,
 }: IItemTypeEquipement): ReactElement {
-  const { data: typeEquipementData } = useApi().useGetCollection(PREFETCH_TYPES_EQUIPEMENTS);
+  const { data: typeEquipementData } = useApi().useGetFullCollection(PREFETCH_TYPES_EQUIPEMENTS);
   const item =
     typeEquipement ?? typeEquipementData?.items.find((x) => x["@id"] === typeEquipementId);
 

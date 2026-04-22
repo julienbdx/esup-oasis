@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React from "react";
@@ -21,10 +20,8 @@ interface ChartesTableProps {
 }
 
 export function ChartesTable({ editedItem, onEdit }: ChartesTableProps) {
-  const { data: Chartes, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: Chartes, isFetching } = useApi().useGetFullCollection({
     path: "/chartes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   return (

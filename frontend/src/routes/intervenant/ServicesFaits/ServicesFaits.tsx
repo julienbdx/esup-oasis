@@ -10,7 +10,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Alert, Button, Card, Layout, Modal, Space, Table, Tabs, Typography } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useAuth } from "@/auth/AuthProvider";
 import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
 import { EyeOutlined } from "@ant-design/icons";
@@ -146,10 +145,8 @@ export function ServicesFaitsIntervenantTable(): ReactElement {
 export function ServicesFaits(): ReactElement {
   const [periodeEnCours, setPeriodeEnCours] = useState<IPeriode>();
   const screens = useBreakpoint();
-  const { data: periodes } = useApi().useGetCollectionPaginated({
+  const { data: periodes } = useApi().useGetFullCollection({
     path: "/periodes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[debut]": "desc",
     },

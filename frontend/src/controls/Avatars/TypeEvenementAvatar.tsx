@@ -48,7 +48,7 @@ export const TypeEvenementAvatar = memo(
       typeEvenement,
     );
     const { data: typesEvenements, isFetching } =
-      useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+      useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
     const { accessibilite: appAccessibilite } = useAccessibilite();
 

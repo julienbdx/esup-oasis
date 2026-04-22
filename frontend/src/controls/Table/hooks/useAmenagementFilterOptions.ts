@@ -17,7 +17,6 @@ import {
   PREFETCH_TYPES_AMENAGEMENTS,
   PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
 } from "@api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 
 /**
@@ -28,7 +27,7 @@ export function useAmenagementFilterOptions(filtreAmenagement: FiltreAmenagement
   const api = useApi();
 
   // Récupération des catégories d'aménagements filtrées par domaine
-  const { data: categoriesAmenagements } = api.useGetCollection({
+  const { data: categoriesAmenagements } = api.useGetFullCollection({
     ...PREFETCH_CATEGORIES_AMENAGEMENTS,
     query: {
       "order[libelle]": "asc",
@@ -42,7 +41,7 @@ export function useAmenagementFilterOptions(filtreAmenagement: FiltreAmenagement
   });
 
   // Récupération des types d'aménagements filtrés par domaine
-  const { data: typesAmenagements } = api.useGetCollection({
+  const { data: typesAmenagements } = api.useGetFullCollection({
     ...PREFETCH_TYPES_AMENAGEMENTS,
     query: {
       "order[libelle]": "asc",
@@ -54,21 +53,18 @@ export function useAmenagementFilterOptions(filtreAmenagement: FiltreAmenagement
   });
 
   // Récupération des données de référence
-  const { data: suivis } = api.useGetCollection(PREFETCH_TYPES_SUIVI_AMENAGEMENTS);
-  const { data: composantes } = api.useGetCollection(PREFETCH_COMPOSANTES);
-  const { data: formations } = api.useGetCollection(PREFETCH_FORMATIONS);
-  const { data: tags } = api.useGetCollection(PREFETCH_TAGS);
+  const { data: suivis } = api.useGetFullCollection(PREFETCH_TYPES_SUIVI_AMENAGEMENTS);
+  const { data: composantes } = api.useGetFullCollection(PREFETCH_COMPOSANTES);
+  const { data: formations } = api.useGetFullCollection(PREFETCH_FORMATIONS);
+  const { data: tags } = api.useGetFullCollection(PREFETCH_TAGS);
 
   // Récupération de la liste des gestionnaires (hors renforts)
-  const { data: gestionnaires, isFetching: isFetchingGestionnaires } =
-    api.useGetCollectionPaginated({
-      path: "/roles/{roleId}/utilisateurs",
-      parameters: { roleId: "/roles/ROLE_GESTIONNAIRE" },
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: { "order[nom]": "asc" },
-      enabled: user?.isPlanificateur || user?.isRenfort,
-    });
+  const { data: gestionnaires, isFetching: isFetchingGestionnaires } = api.useGetFullCollection({
+    path: "/roles/{roleId}/utilisateurs",
+    parameters: { roleId: "/roles/ROLE_GESTIONNAIRE" },
+    query: { "order[nom]": "asc" },
+    enabled: user?.isPlanificateur || user?.isRenfort,
+  });
 
   // Helpers pour les profils utilisateur
   const estRenfort = !!(user && user.isRenfort && !user.isGestionnaire);

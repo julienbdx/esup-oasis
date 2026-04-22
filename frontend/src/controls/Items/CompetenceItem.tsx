@@ -46,7 +46,7 @@ export default function CompetenceItem({
   className,
   styleLibelle,
 }: IItemCompetence): ReactElement {
-  const { data: dataCompetence, isFetching } = useApi().useGetCollection(PREFETCH_COMPETENCES);
+  const { data: dataCompetence, isFetching } = useApi().useGetFullCollection(PREFETCH_COMPETENCES);
   const item = competence ?? dataCompetence?.items.find((t) => t["@id"] === competenceId);
   const screens = useBreakpoint();
 

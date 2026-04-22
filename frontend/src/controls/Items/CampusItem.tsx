@@ -50,7 +50,7 @@ export default function CampusItem({
   className,
   salle,
 }: IItemCampus): ReactElement {
-  const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  const { data: dataCampus, isFetching } = useApi().useGetFullCollection(PREFETCH_CAMPUS);
   const item = campus ?? dataCampus?.items.find((t) => t["@id"] === campusId);
   const screens = useBreakpoint();
 

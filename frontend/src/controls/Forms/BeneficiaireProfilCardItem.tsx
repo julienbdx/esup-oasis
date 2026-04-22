@@ -11,7 +11,6 @@ import React, { useState } from "react";
 import { Avatar, Button, Card, Space, Tooltip } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { IBeneficiaireProfil, IUtilisateur } from "@api/ApiTypeHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import Spinner from "@controls/Spinner/Spinner";
 import { getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 import { CheckOutlined, EditOutlined, InfoCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -49,17 +48,15 @@ function BeneficiaireProfilCardItem({
 }: IBeneficiaireProfilFormItemProps) {
   const [profilEdited, setProfilEdited] = useState<IBeneficiaireProfil>();
   const { data: profils, isFetching: isFetchingProfils } =
-    useApi().useGetCollection(PREFETCH_PROFILS);
+    useApi().useGetFullCollection(PREFETCH_PROFILS);
   const { data, isFetching } = useApi().useGetItem({
     path: "/utilisateurs/{uid}/profils/{id}",
     url: value as string,
     enabled: !!value,
   });
   const { data: typologiesData, isFetching: isFetchingTypologiesData } =
-    useApi().useGetCollectionPaginated({
+    useApi().useGetFullCollection({
       path: "/typologies",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     });
 
   if (isFetching || isFetchingProfils || isFetchingTypologiesData) return <Spinner />;

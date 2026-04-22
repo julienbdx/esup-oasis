@@ -12,7 +12,6 @@ import { Breadcrumb, FloatButton, Layout, Space, Typography } from "antd";
 import { NavLink, useParams } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import Spinner from "@controls/Spinner/Spinner";
 import { ICommission } from "@api/ApiTypeHelpers";
 import { CommissionsEdition } from "@controls/Admin/Commissions/CommissionsEdition";
@@ -22,10 +21,8 @@ export default function Commissions(): React.ReactElement {
   const [idChargement, setIdChargement] = useState<string | undefined>(useParams<"id">().id);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [editedItem, setEditedItem] = useState<ICommission>();
-  const { data: commissions, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: commissions, isFetching } = useApi().useGetFullCollection({
     path: "/commissions",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[libelle]": order,
     },

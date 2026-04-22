@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { App, Button, Flex, List, Space, Typography } from "antd";
 import React from "react";
 import { IDocumentBeneficiaire } from "@api/ApiTypeHelpers";
@@ -72,13 +71,11 @@ export function TabDocuments(props: { utilisateurId: string }) {
   const [editedItem, setEditedItem] = React.useState<IDocumentBeneficiaire>();
   const screens = useBreakpoint();
 
-  const { data: documents } = useApi().useGetCollectionPaginated({
+  const { data: documents } = useApi().useGetFullCollection({
     path: "/beneficiaires/{uid}/pieces_jointes",
     parameters: {
       uid: props.utilisateurId.replace("/utilisateurs/", "/beneficiaires/"),
     },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   return (

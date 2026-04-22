@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Table } from "antd";
 import { ServicesFaitsButton } from "@controls/Admin/Bilans/ServicesFaitsButton";
 import { EditOutlined } from "@ant-design/icons";
@@ -22,10 +21,8 @@ interface PeriodeRhTableProps {
 
 export function PeriodesRhTable({ onEdit }: PeriodeRhTableProps) {
   const [order, setOrder] = useState<"asc" | "desc">("desc");
-  const { data: periodes, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: periodes, isFetching } = useApi().useGetFullCollection({
     path: "/periodes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[debut]": order,
     },

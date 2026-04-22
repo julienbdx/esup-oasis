@@ -11,7 +11,6 @@ import { Button, Empty, List, Tag, Typography } from "antd";
 import React, { ReactElement, useState } from "react";
 import { IAmenagement, IUtilisateur } from "@api/ApiTypeHelpers";
 import { getLibellePeriode } from "@utils/dates";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
@@ -42,7 +41,7 @@ export function AideHumaineListItem({
   titleClassName = "text-primary",
   setEditedItem,
 }: ITabAidesHumainesItemProps): ReactElement {
-  const { data: types } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: types } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
 
   return (
     <List.Item>
@@ -94,12 +93,10 @@ export function AideHumaineListItem({
  */
 export function TabAidesHumaines({ utilisateur }: ITabAidesHumainesProps): ReactElement {
   const [editedItem, setEditedItem] = useState<string>();
-  const { data: amenagements, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: amenagements, isFetching } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/amenagements",
     parameters: { uid: utilisateur["@id"] as string },
     enabled: !!utilisateur["@id"],
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   if (isFetching) return <Spinner />;

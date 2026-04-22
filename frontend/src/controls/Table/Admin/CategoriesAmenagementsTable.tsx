@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Switch, Table } from "antd";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
@@ -31,10 +30,8 @@ export function CategoriesAmenagementsTable({
   const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
   const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
 
-  const { data: categoriesAmenagements, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: categoriesAmenagements, isFetching } = useApi().useGetFullCollection({
     path: "/categories_amenagements",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[libelle]": order,
     },

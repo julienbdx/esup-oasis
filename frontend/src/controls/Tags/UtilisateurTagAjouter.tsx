@@ -16,8 +16,8 @@ import React from "react";
 
 export function UtilisateurTagAjouter(props: { utilisateurId: string }) {
   const { message } = App.useApp();
-  const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
-  const { data: tags } = useApi().useGetCollection(PREFETCH_TAGS);
+  const { data: categories } = useApi().useGetFullCollection(PREFETCH_CATEGORIES_TAGS);
+  const { data: tags } = useApi().useGetFullCollection(PREFETCH_TAGS);
 
   const mutatePost = useApi().usePost({
     path: "/utilisateurs/{uid}/tags",

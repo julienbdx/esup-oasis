@@ -34,8 +34,8 @@ export default function DashboardUtilisateurStats({
 }: IDashboardUtilisateurProps): ReactElement {
   const user = useAuth().user;
   const navigate = useNavigate();
-  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-  const { data: etatsDemande } = useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
+  const { data: typesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: etatsDemande } = useApi().useGetFullCollection(PREFETCH_ETAT_DEMANDE);
   const { data: stats, isFetching } = useApi().useGetItem({
     path: "/statistiques",
     url: "/statistiques",

@@ -88,10 +88,8 @@ export const useUtilisateurSearch = ({
   });
 
   const { data: utilisateursTrouves, isFetching: isFetchingUtilisateursTrouves } =
-    useApi().useGetCollectionPaginated({
+    useApi().useGetFullCollection({
       path: getPath(forcerRechercheEnBase, roleUtilisateur),
-      page: 1,
-      itemsPerPage: itemsPerPage,
       enabled: search.length > 1,
       query: getFiltre(
         forcerRechercheEnBase,

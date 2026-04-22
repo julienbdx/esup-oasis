@@ -9,7 +9,6 @@
 
 import React, { ReactElement } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Skeleton, Tag, Tooltip } from "antd";
 
 interface IItemProfilProps {
@@ -35,10 +34,8 @@ export default function ProfilItem({
   className,
 }: IItemProfilProps): ReactElement {
   const data = profil ? [profil] : profils;
-  const { data: dataProfils, isFetching: isFetchingProfils } = useApi().useGetCollectionPaginated({
+  const { data: dataProfils, isFetching: isFetchingProfils } = useApi().useGetFullCollection({
     path: "/profils",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   if (isFetchingProfils || !data) return <Skeleton.Input className="mb-05" active />;

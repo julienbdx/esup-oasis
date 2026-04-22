@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Switch, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
@@ -24,10 +23,8 @@ export function ClubsSportifsTable({ editedItem, onEdit }: ClubsSportifsTablePro
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
 
-  const { data: clubsSportifs, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: clubsSportifs, isFetching } = useApi().useGetFullCollection({
     path: "/clubs_sportifs",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[libelle]": order,
     },

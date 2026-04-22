@@ -22,8 +22,8 @@ export function UtilisateurTag(props: {
   className?: string;
 }) {
   const { message } = App.useApp();
-  const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
-  const { data: tags } = useApi().useGetCollection(PREFETCH_TAGS);
+  const { data: categories } = useApi().useGetFullCollection(PREFETCH_CATEGORIES_TAGS);
+  const { data: tags } = useApi().useGetFullCollection(PREFETCH_TAGS);
 
   const mutationDelete = useApi().useDelete({
     path: `/utilisateurs/{uid}/tags/{id}`,

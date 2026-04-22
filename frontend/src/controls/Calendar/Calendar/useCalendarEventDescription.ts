@@ -25,9 +25,9 @@ export function useCalendarEventDescription(event: CalendarEvenement) {
     url: event.data.intervenant as string,
     enabled: !!event.data.intervenant,
   });
-  const { data: dataCampus } = useApi().useGetCollection(PREFETCH_CAMPUS);
-  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
-  const { data: equipements } = useApi().useGetCollection(PREFETCH_TYPES_EQUIPEMENTS);
+  const { data: dataCampus } = useApi().useGetFullCollection(PREFETCH_CAMPUS);
+  const { data: typesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: equipements } = useApi().useGetFullCollection(PREFETCH_TYPES_EQUIPEMENTS);
 
   const getDescriptionAccessible = useCallback((): string => {
     const evenement: Evenement = event.data;

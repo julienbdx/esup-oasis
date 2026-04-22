@@ -125,10 +125,10 @@ export default function AmenagementTableLayout(props: { modeAffichage: ModeAffic
   const [count, setCount] = React.useState<number>();
   const [filtreAmenagement, setFiltreAmenagement] = useAmenagementFilter(props.modeAffichage);
 
-  const { data: categoriesAmenagements } = useApi().useGetCollection(
+  const { data: categoriesAmenagements } = useApi().useGetFullCollection(
     PREFETCH_CATEGORIES_AMENAGEMENTS,
   );
-  const { data: typesAmenagements } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: typesAmenagements } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
 
   return (
     <>

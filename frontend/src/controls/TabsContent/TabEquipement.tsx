@@ -18,7 +18,7 @@ import { PREFETCH_TYPES_EQUIPEMENTS } from "@api/ApiPrefetchHelpers";
  * @return {ReactElement} The JSX code to render the equipment checkboxes.
  */
 export function TabEquipement(): ReactElement {
-  const { data } = useApi().useGetCollection(PREFETCH_TYPES_EQUIPEMENTS);
+  const { data } = useApi().useGetFullCollection(PREFETCH_TYPES_EQUIPEMENTS);
 
   return (
     <>

@@ -33,6 +33,10 @@ export interface SplitFetcherProps<P extends Path, T extends object = object> {
   label?: React.ReactNode;
 }
 
+/*
+Ce composant est utilisé pour réaliser des exports de données en plusieurs requêtes, en utilisant un endpoint unique.
+Pour des exports sur plusieurs endpoints ou demandant de retravailler les données, il est conseillé d'utiliser ExportButton.
+ */
 export default function SplitFetcher<P extends Path, T extends object = object>({
   path,
   itemsPerPage,
@@ -48,52 +52,21 @@ export default function SplitFetcher<P extends Path, T extends object = object>(
   label = "Exporter",
 }: SplitFetcherProps<P, T>) {
   const [enabled, setEnabled] = useState(false);
-  const [page, setPage] = useState(1);
-  const [fetchedCount, setFetchedCount] = useState(0);
-  const [fetchComplete, setFetchComplete] = useState(false);
-  const [fetchedItems, setFetchedItems] = useState<FetchItems<P> | null>(null);
   const [downloaded, setDownloaded] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const refDownload = useRef<any>(null);
 
-  const { data, isError } = useApi().useGetCollectionPaginated({
+  const { data, isError, isSuccess, fetchedCount, totalItems } = useApi().useGetFullCollection({
     path,
-    page,
     itemsPerPage,
     query,
     parameters,
     enabled,
   });
 
-  // Accumule les pages sans déclencher de re-rendu intermédiaire
-  const allDataRef = useRef<unknown[]>([]);
-  // Persiste le total même quand data est undefined entre deux chargements de pages
-  const totalItemsRef = useRef<number | null>(null);
-  // Empêche la double exécution de l'effet en React StrictMode
-  const lastProcessedDataRef = useRef<typeof data | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const refDownload = useRef<any>(null);
-
-  useEffect(() => {
-    if (!data || data === lastProcessedDataRef.current) return;
-    lastProcessedDataRef.current = data;
-
-    if (totalItemsRef.current === null) {
-      totalItemsRef.current = data.totalItems;
-    }
-
-    allDataRef.current = [...allDataRef.current, ...(data.items as unknown[])];
-    setFetchedCount(allDataRef.current.length);
-
-    if (allDataRef.current.length < data.totalItems) {
-      Promise.resolve().then(() => setPage((p) => p + 1));
-    } else {
-      setFetchedItems(allDataRef.current as unknown as FetchItems<P>);
-      setFetchComplete(true);
-    }
-  }, [data]);
-
   // Déclenche le téléchargement dès que fetch + ready sont réunis
   useEffect(() => {
-    if (refDownload.current && fetchComplete && ready && !downloaded) {
+    if (refDownload.current && isSuccess && ready && !downloaded) {
       refDownload.current.link.click();
     }
   });
@@ -112,16 +85,12 @@ export default function SplitFetcher<P extends Path, T extends object = object>(
     );
   }
 
-  if (!fetchComplete) {
+  if (!isSuccess) {
     return (
       <Progress
         style={{ width: 200 }}
         status={isError ? "exception" : undefined}
-        percent={
-          totalItemsRef.current
-            ? Math.min(100, Math.round((fetchedCount / totalItemsRef.current) * 100))
-            : 0
-        }
+        percent={totalItems > 0 ? Math.min(100, Math.round((fetchedCount / totalItems) * 100)) : 0}
       />
     );
   }
@@ -135,12 +104,12 @@ export default function SplitFetcher<P extends Path, T extends object = object>(
   }
 
   const csvHeaders =
-    typeof headers === "function" ? headers(fetchedItems as FetchItems<P>) : headers;
+    typeof headers === "function" ? headers(data!.items as FetchItems<P>) : headers;
 
   return (
     <CSVLink
       ref={refDownload}
-      data={fetchedItems ? getData(fetchedItems) : []}
+      data={data ? getData(data.items as FetchItems<P>) : []}
       headers={csvHeaders}
       filename={`${env.REACT_APP_TITRE}-${filename}.csv`}
       separator=";"

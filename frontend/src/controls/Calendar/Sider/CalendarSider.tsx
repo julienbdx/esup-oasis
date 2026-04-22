@@ -52,7 +52,7 @@ export default function CalendarSider({ saisieEvtRenfort = false }: ICalendarSid
   const auth = useAuth();
   const screens = useBreakpoint();
   const [collapsedSider, setCollapsedSider] = useState(false);
-  const { data: dataTypesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: dataTypesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
   const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
 
   // CSS pour formatage du label des filtres avec valeur

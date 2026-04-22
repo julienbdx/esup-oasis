@@ -25,7 +25,7 @@ export default function TarifEvenementField({
   as = "input",
 }: ITarifEvenementFieldProps) {
   const { data: typesEvenements, isFetching: isFetchingTypeEvenement } =
-    useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+    useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
   const dureeTotale =
     dayjs(evenement.fin).diff(dayjs(evenement.debut), "minute") +
     Number(evenement.tempsPreparation || 0) +

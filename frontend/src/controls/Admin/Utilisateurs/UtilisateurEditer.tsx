@@ -11,7 +11,6 @@ import { Button, Card, Dropdown, Form, Input, MenuProps, Popconfirm, Select, Spa
 import { ROLE_INCONNU, ROLES_SELECT, RoleValues, Utilisateur } from "@lib/Utilisateur";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { DeleteOutlined, DownOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { env } from "@/env";
@@ -33,13 +32,9 @@ interface IUtilisateursEditer {
 export function UtilisateurEditer({ utilisateur, onEdited }: IUtilisateursEditer): ReactElement {
   const [form] = Form.useForm<Utilisateur>();
   const [rolesSelectionnes, setRolesSelectionnes] = useState(utilisateur.roles);
-  const { data: dataServices, isFetching: isFetchingServices } = useApi().useGetCollectionPaginated(
-    {
-      path: "/services",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    },
-  );
+  const { data: dataServices, isFetching: isFetchingServices } = useApi().useGetFullCollection({
+    path: "/services",
+  });
   const mutationPatch = useApi().usePatch({
     path: "/utilisateurs/{uid}",
     invalidationQueryKeys: [QK_ROLES_UTILISATEURS],

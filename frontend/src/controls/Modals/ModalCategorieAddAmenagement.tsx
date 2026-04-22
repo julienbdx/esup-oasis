@@ -31,7 +31,7 @@ export function ModalCategorieAddAmenagement(props: {
 }) {
   const user = useAuth().user;
   const [form] = Form.useForm<IAmenagementForm>();
-  const { data: typesAmenagements } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: typesAmenagements } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [amenagementsACreer, setAmenagementsACreer] = React.useState<IAmenagement[]>([]);
 

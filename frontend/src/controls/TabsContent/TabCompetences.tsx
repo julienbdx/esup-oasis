@@ -9,9 +9,9 @@
 
 import { Checkbox, Form } from "antd";
 import React, { ReactElement } from "react";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 import { Utilisateur } from "@lib/Utilisateur";
+import { PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
 
 interface ITabCompetencesProps {
   label: string;
@@ -32,11 +32,7 @@ export function TabCompetences({
   utilisateur,
   setUtilisateur,
 }: ITabCompetencesProps): ReactElement {
-  const { data } = useApi().useGetCollectionPaginated({
-    path: "/competences",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-  });
+  const { data } = useApi().useGetFullCollection(PREFETCH_COMPETENCES);
 
   return (
     <>

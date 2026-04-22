@@ -41,7 +41,7 @@ export function TypeAmenagementEdition({
 }: AmenagementsEditionProps): ReactElement {
   const [form] = Form.useForm();
 
-  const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_AMENAGEMENTS);
+  const { data: categories } = useApi().useGetFullCollection(PREFETCH_CATEGORIES_AMENAGEMENTS);
 
   const mutationPost = useApi().usePost({
     path: "/types_amenagements",

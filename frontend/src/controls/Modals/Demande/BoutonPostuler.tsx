@@ -13,17 +13,14 @@ import { Button } from "antd";
 import { ITypeDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { QK_DEMANDES, QK_UTILISATEURS_DEMANDES } from "@api/queryKeys";
 import { useState } from "react";
 
 export default function PostulerButton(props: { typeDemande: ITypeDemande; demandeurId: string }) {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
-  const { data: demandesEnCours } = useApi().useGetCollectionPaginated({
+  const { data: demandesEnCours } = useApi().useGetFullCollection({
     path: "/demandes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       demandeur: props.demandeurId,
       format_simple: true,

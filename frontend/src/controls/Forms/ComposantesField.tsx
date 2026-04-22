@@ -19,7 +19,7 @@ export default function ComposantesField(props: {
   mode?: "multiple" | "tags";
   placeholder?: string;
 }) {
-  const { data: composantes, isFetching } = useApi().useGetCollection(PREFETCH_COMPOSANTES);
+  const { data: composantes, isFetching } = useApi().useGetFullCollection(PREFETCH_COMPOSANTES);
 
   return (
     <Select

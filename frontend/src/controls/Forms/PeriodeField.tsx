@@ -12,7 +12,6 @@ import { Select } from "antd";
 import dayjs from "dayjs";
 import { IPeriode } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 export default function PeriodeField(props: {
   value?: IPeriode;
@@ -21,10 +20,8 @@ export default function PeriodeField(props: {
   placeholder?: string;
   seulementPeriodesEnvoyees?: boolean;
 }) {
-  const { data: periodes, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: periodes, isFetching } = useApi().useGetFullCollection({
     path: "/periodes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[debut]": "desc",
     },

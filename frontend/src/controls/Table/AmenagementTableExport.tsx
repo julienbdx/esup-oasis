@@ -17,7 +17,6 @@ import {
 } from "@api/ApiTypeHelpers";
 import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { getDomaineAmenagement } from "@lib/amenagements";
 import dayjs from "dayjs";
@@ -121,26 +120,24 @@ export default function AmenagementTableExport({
   const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
 
-  const { data: categories } = useApi().useGetCollection({
+  const { data: categories } = useApi().useGetFullCollection({
     ...PREFETCH_CATEGORIES_AMENAGEMENTS,
     enabled: exportSubmit,
   });
-  const { data: types } = useApi().useGetCollection({
+  const { data: types } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_AMENAGEMENTS,
     enabled: exportSubmit,
   });
-  const { data: suivis } = useApi().useGetCollection({
+  const { data: suivis } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
     enabled: exportSubmit,
   });
-  const { data: cas } = useApi().useGetCollectionPaginated({
+  const { data: cas } = useApi().useGetFullCollection({
     path: "/roles/{roleId}/utilisateurs",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     parameters: { roleId: `/roles/${RoleValues.ROLE_GESTIONNAIRE}` },
     enabled: exportSubmit,
   });
-  const { data: tags } = useApi().useGetCollection({
+  const { data: tags } = useApi().useGetFullCollection({
     ...PREFETCH_TAGS,
     enabled: exportSubmit,
   });
@@ -163,7 +160,7 @@ export default function AmenagementTableExport({
     <SplitFetcher<"/amenagements">
       key={exportKey}
       path="/amenagements"
-      itemsPerPage={200}
+      itemsPerPage={500}
       query={filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParAmenagement)}
       headers={headers}
       filename="amenagements"

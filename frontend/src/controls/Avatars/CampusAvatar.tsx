@@ -31,7 +31,7 @@ interface IAvatarCampus {
 export const CampusAvatar: React.FC<IAvatarCampus> = memo(
   ({ campus, campusId }: IAvatarCampus): ReactElement => {
     const [campusData, setCampusData] = useState<ICampus | undefined>(campus);
-    const { data: dataCampus, isFetching } = useApi().useGetCollection(PREFETCH_CAMPUS);
+    const { data: dataCampus, isFetching } = useApi().useGetFullCollection(PREFETCH_CAMPUS);
 
     useEffect(() => {
       if (dataCampus && campusId) {

@@ -26,7 +26,7 @@ export function CategorieSelectWithAvatar({
   forfait = false,
 }: TabEvenenentInformationsCategorieProps) {
   const screens = useBreakpoint();
-  const { data: categories, isFetching: isFetchingCategories } = useApi().useGetCollection({
+  const { data: categories, isFetching: isFetchingCategories } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_EVENEMENTS,
     query: {
       ...PREFETCH_TYPES_EVENEMENTS.query,

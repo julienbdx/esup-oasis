@@ -9,7 +9,6 @@
 
 import { Button, Flex, Modal, Space } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { ITypeDemande } from "@api/ApiTypeHelpers";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import React, { useState } from "react";
@@ -28,11 +27,9 @@ export default function NouvelleDemandeModaleGestionnaire(props: {
 }) {
   const screens = useBreakpoint();
   const [demandeurId, setDemandeurId] = useState<string | undefined>(props.demandeurId);
-  const { data: typesDemandes } = useApi().useGetCollectionPaginated({
+  const { data: typesDemandes } = useApi().useGetFullCollection({
     path: "/types_demandes",
     enabled: true,
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   const { data: demandeur } = useApi().useGetItem({

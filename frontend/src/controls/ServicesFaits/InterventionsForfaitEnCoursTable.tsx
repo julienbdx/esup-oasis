@@ -10,7 +10,6 @@
 import React, { ReactElement } from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import Spinner from "@controls/Spinner/Spinner";
 import { Table } from "antd";
 import { IInterventionForfait } from "@api/ApiTypeHelpers";
@@ -24,10 +23,8 @@ import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
  */
 export function InterventionsForfaitEnCoursTable(): ReactElement {
   const user = useAuth().user;
-  const { data: interventionsEnCours, isLoading } = useApi().useGetCollectionPaginated({
+  const { data: interventionsEnCours, isLoading } = useApi().useGetFullCollection({
     path: "/interventions_forfait",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       intervenant: user?.["@id"],
       "periode.debut[before]": dayjs().format("YYYY-MM-DD"),

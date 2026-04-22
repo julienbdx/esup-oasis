@@ -10,7 +10,6 @@
 import { Badge } from "antd";
 import React, { useMemo } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { DomaineAmenagementInfos, getDomaineAmenagement } from "@lib/amenagements";
 import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
 
@@ -23,14 +22,12 @@ export default function AmenagementDomaineBadge(props: {
   utilisateurId: string;
   domaineAmenagement?: DomaineAmenagementInfos;
 }) {
-  const { data: types } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
-  const { data: amenagements } = useApi().useGetCollectionPaginated({
+  const { data: types } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: amenagements } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/amenagements",
     parameters: {
       uid: props.utilisateurId,
     },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   const nb = useMemo(() => {

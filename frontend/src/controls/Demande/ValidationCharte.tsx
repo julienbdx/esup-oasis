@@ -11,20 +11,17 @@ import { IDemande } from "@api/ApiTypeHelpers";
 import { App, Button, Card, Checkbox, Form } from "antd";
 import React from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "@api/queryKeys";
 import Spinner from "@controls/Spinner/Spinner";
 import { sanitizeHtml } from "@utils/sanitize";
 
 export function ValidationCharte(props: { demande: IDemande }) {
   const { message } = App.useApp();
-  const { data: chartes } = useApi().useGetCollectionPaginated({
+  const { data: chartes } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/chartes",
     parameters: {
       uid: props.demande.demandeur?.["@id"] as string,
     },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
   const mutationAccepterCharte = useApi().usePatch({
     path: `/utilisateurs/{uid}/chartes/{id}`,

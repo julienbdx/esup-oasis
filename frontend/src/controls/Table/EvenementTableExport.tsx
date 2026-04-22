@@ -9,7 +9,6 @@
 
 import React, { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Evenement } from "@lib/Evenement";
 import dayjs from "dayjs";
 import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
@@ -64,26 +63,42 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
   const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
 
-  const { data: beneficiaires } = useApi().useGetCollectionPaginated({
+  const {
+    data: beneficiaires,
+    fetchedCount: benefFetchedCount,
+    totalItems: benefTotalItems,
+  } = useApi().useGetFullCollection({
     path: "/beneficiaires",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     enabled: exportSubmit,
   });
-  const { data: intervenants } = useApi().useGetCollectionPaginated({
+  const {
+    data: intervenants,
+    fetchedCount: intFetchedCount,
+    totalItems: intTotalItems,
+  } = useApi().useGetFullCollection({
     path: "/intervenants",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     enabled: exportSubmit,
   });
-  const { data: campus } = useApi().useGetCollection({
+  const {
+    data: campus,
+    fetchedCount: campusFetchedCount,
+    totalItems: campusTotalItems,
+  } = useApi().useGetFullCollection({
     ...PREFETCH_CAMPUS,
     enabled: exportSubmit,
   });
-  const { data: typesEvenements } = useApi().useGetCollection({
+  const {
+    data: typesEvenements,
+    fetchedCount: typesFetchedCount,
+    totalItems: typesTotalItems,
+  } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_EVENEMENTS,
     enabled: exportSubmit,
   });
+
+  const globalFetchedCount =
+    benefFetchedCount + intFetchedCount + campusFetchedCount + typesFetchedCount;
+  const globalTotalItems = benefTotalItems + intTotalItems + campusTotalItems + typesTotalItems;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -113,6 +128,8 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
       headers={headers}
       filename="evenements"
       ready={refDataReady}
+      fetchedCount={globalFetchedCount}
+      totalItems={globalTotalItems}
       onStart={() => setExportSubmit(true)}
     />
   );
