@@ -20,6 +20,10 @@ import {
   UseGetCollectionHook,
   UseGetCollectionPaginatedHook,
 } from "@context/api/ApiContextFn/UseGetCollection";
+import {
+  useGetFullCollection,
+  UseGetFullCollectionHook,
+} from "@context/api/ApiContextFn/UseGetFullCollection";
 import { usePatch, UsePatchHook } from "@context/api/ApiContextFn/UsePatch";
 import { usePost, UsePostHook } from "@context/api/ApiContextFn/UsePost";
 import { useDelete, UseDeleteHook } from "@context/api/ApiContextFn/UseDelete";
@@ -80,6 +84,7 @@ export interface ApiContextType {
   useGetItem: UseGetItemHook;
   useGetCollection: UseGetCollectionHook;
   useGetCollectionPaginated: UseGetCollectionPaginatedHook;
+  useGetFullCollection: UseGetFullCollectionHook;
   usePatch: UsePatchHook;
   usePut: UsePutHook;
   usePost: UsePostHook;
@@ -220,6 +225,18 @@ export function ApiProvider({
           enabled: options.enabled,
           onError: options.onError,
         });
+      },
+
+      useGetFullCollection: <P extends Path>(options: {
+        path: P;
+        query?: ApiPathMethodQuery<P, "get">;
+        enabled?: boolean;
+        parameters?: ApiPathMethodParameters<P, "get">;
+        onError?: (error: IErreurNotification) => void;
+        itemsPerPage?: number;
+        concurrency?: number;
+      }) => {
+        return useGetFullCollection(baseUrl, fetchOptions, options);
       },
 
       /**
