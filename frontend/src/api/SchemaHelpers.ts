@@ -131,3 +131,12 @@ export type ApiPathMethodQuery<
 > = "query" extends keyof WApiPathMethodParameters<P, M>
   ? WApiPathMethodParameters<P, M>["query"]
   : never;
+
+/** Union de tous les paths GET dont la query supporte la pagination (`page` et `itemsPerPage`). */
+export type PaginatedPath = {
+  [P in Path]: "page" extends keyof NonNullable<ApiPathMethodQuery<P, "get">>
+    ? "itemsPerPage" extends keyof NonNullable<ApiPathMethodQuery<P, "get">>
+      ? P
+      : never
+    : never;
+}[Path];

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Breadcrumb, Empty, Form, Layout, Space, Typography } from "antd";
+import { Alert, Breadcrumb, Empty, Form, Layout, Space, Spin, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
@@ -28,8 +28,8 @@ import {
 } from "@routes/administration/Bilans/BeneficiairesIntervenants/components/BilanTable";
 import { IActiviteExport } from "@routes/administration/Bilans/BeneficiairesIntervenants/components/BilanExportButton";
 
-type FiltreBilanIntervenant = ApiPathMethodQuery<"/suivis/intervenants", "get">;
-type FiltreBilanBeneficiaire = ApiPathMethodQuery<"/suivis/beneficiaires", "get">;
+type FiltreBilanIntervenant = NonNullable<ApiPathMethodQuery<"/suivis/intervenants", "get">>;
+type FiltreBilanBeneficiaire = NonNullable<ApiPathMethodQuery<"/suivis/beneficiaires", "get">>;
 type FiltreBilan = FiltreBilanBeneficiaire | FiltreBilanIntervenant;
 
 /**
@@ -56,11 +56,27 @@ export default function BilanBeneficiaireIntervenant(props: {
     url: PARAMETRE_COEF_COUT_CHARGE,
   });
 
-  const { data: dataRaw, isFetching } = useApi().useGetFullCollection({
-    path: `/suivis/${props.type === "bénéficiaire" ? "beneficiaire" : "intervenant"}s`,
-    query: filtre,
-    enabled: !!filtre,
+  const {
+    data: dataRawBenef,
+    isFetching: isFetchingBenef,
+    isError: isErrorBenef,
+  } = useApi().useGetCollection({
+    path: "/suivis/beneficiaires",
+    query: props.type === "bénéficiaire" ? (filtre as FiltreBilanBeneficiaire) : undefined,
+    enabled: !!filtre && props.type === "bénéficiaire",
   });
+  const {
+    data: dataRawInterv,
+    isFetching: isFetchingInterv,
+    isError: isErrorInterv,
+  } = useApi().useGetCollection({
+    path: "/suivis/intervenants",
+    query: props.type === "intervenant" ? (filtre as FiltreBilanIntervenant) : undefined,
+    enabled: !!filtre && props.type === "intervenant",
+  });
+  const dataRaw = props.type === "bénéficiaire" ? dataRawBenef : dataRawInterv;
+  const isFetching = props.type === "bénéficiaire" ? isFetchingBenef : isFetchingInterv;
+  const isError = props.type === "bénéficiaire" ? isErrorBenef : isErrorInterv;
 
   useEffect(() => {
     if (dataRaw && coef?.valeursCourantes && coef?.valeursCourantes.length === 1) {
@@ -145,7 +161,7 @@ export default function BilanBeneficiaireIntervenant(props: {
         isFetchingCampus={isFetchingCampus}
         isFetchingTypesEvenements={isFetchingTypesEvenements}
         campusOptions={campus?.items.map((c) => ({
-          label: c.libelle,
+          label: c.libelle + (c.actif ? "" : " (désactivé)"),
           value: c["@id"] as string,
         }))}
         typesEvenementsOptions={typesEvenements?.items.map((c) => ({
@@ -158,7 +174,21 @@ export default function BilanBeneficiaireIntervenant(props: {
         totalItems={dataRaw?.totalItems}
       />
 
-      {submitted && dataRaw && dataRaw.totalItems === 0 && <Empty className="mt-2" />}
+      {submitted && isFetching && !dataRaw && (
+        <Spin size="large" style={{ display: "block", marginTop: 24, textAlign: "center" }} />
+      )}
+
+      {submitted && isError && (
+        <Alert
+          className="mt-2"
+          type="error"
+          showIcon
+          title="Erreur lors du chargement des données"
+          description="Une erreur est survenue lors de la récupération des données. Veuillez réessayer."
+        />
+      )}
+
+      {submitted && !isError && dataRaw && dataRaw.totalItems === 0 && <Empty className="mt-2" />}
 
       {submitted && dataRaw && dataRaw.totalItems > 0 && (
         <BilanTable type={props.type} loading={isFetching} data={dataRaw.items as IActivite[]} />

@@ -15,7 +15,7 @@ import {
   ApiPathMethodParameters,
   ApiPathMethodQuery,
   ApiPathMethodResponse,
-  Path,
+  PaginatedPath,
 } from "@api/SchemaHelpers";
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import {
@@ -27,7 +27,7 @@ import { useAuth } from "@/auth/AuthProvider";
 const DEFAULT_ITEMS_PER_PAGE = 200;
 const DEFAULT_CONCURRENCY = 5;
 
-export type UseGetFullCollectionHook = <P extends Path>(options: {
+export type UseGetFullCollectionHook = <P extends PaginatedPath>(options: {
   path: P;
   query?: ApiPathMethodQuery<P, "get">;
   enabled?: boolean;
@@ -45,7 +45,7 @@ export type UseGetFullCollectionHook = <P extends Path>(options: {
   isSuccess: boolean;
 };
 
-export function useGetFullCollection<P extends Path>(
+export function useGetFullCollection<P extends PaginatedPath>(
   baseUrl: string,
   fetchOptions: RequestInit,
   options: {
@@ -95,7 +95,7 @@ export function useGetFullCollection<P extends Path>(
 
   const page1Url = buildPageUrl(1);
   const page1 = useQuery({
-    queryKey: [options.path, page1Url, auth.user?.uid],
+    queryKey: [options.path, page1Url.toString(), auth.user?.uid],
     queryFn: makeFetchFn(1),
     enabled: isEnabled && Boolean(page1Url),
   });
@@ -116,7 +116,7 @@ export function useGetFullCollection<P extends Path>(
 
       const url = buildPageUrl(page);
       return {
-        queryKey: [options.path, url, auth.user?.uid],
+        queryKey: [options.path, url.toString(), auth.user?.uid],
         queryFn: makeFetchFn(page),
         enabled: isEnabled && !!page1.data && prerequisiteDone,
       };
@@ -129,15 +129,21 @@ export function useGetFullCollection<P extends Path>(
     isError: q.isError,
   }));
 
-  const allDone =
-    page1.isSuccess && (totalPages <= 1 || remainingQueries.every((q) => q.isSuccess || q.isError));
-
   const page1Items = (page1.data?.items ?? []) as unknown[];
   const remainingItems = remainingQueries.flatMap((q) => (q.data?.items ?? []) as unknown[]);
 
   const fetchedCount =
     page1Items.length +
     remainingQueries.reduce((sum, q) => sum + ((q.data?.items as unknown[])?.length ?? 0), 0);
+
+  // allDone est vrai quand toutes les pages sont chargées, OU quand le nombre d'items récupérés
+  // atteint le total déclaré par l'API — cas où l'API renvoie plus d'items que itemsPerPage sur
+  // une seule page (hydra:totalItems incohérent) ou quand la fenêtre glissante ne peut pas avancer.
+  const allDone =
+    page1.isSuccess &&
+    (totalPages <= 1 ||
+      remainingQueries.every((q) => q.isSuccess || q.isError) ||
+      (totalItems > 0 && fetchedCount >= totalItems));
 
   // Memoize data via timestamps pour éviter une nouvelle référence à chaque rendu
   // (sinon les useEffect qui dépendent de `data` boucleraient infiniment)

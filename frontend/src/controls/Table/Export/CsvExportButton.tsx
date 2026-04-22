@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { Path } from "@api/SchemaHelpers";
+import { PaginatedPath } from "@api/SchemaHelpers";
 import CsvExportButtonWithoutFetch, {
   CsvExportButtonWithoutFetchProps,
 } from "./CsvExportButtonWithoutFetch";
@@ -21,11 +21,11 @@ Wrapper unifié pour les exports CSV.
 - Avec `path` : délègue à CsvExportButtonWithFetch (fetch paginé intégré, endpoint unique).
 - Sans `path` : délègue à CsvExportButton (données préparées par l'appelant).
 */
-type CsvExportButtonProps<P extends Path, T extends object = object> =
+type CsvExportButtonProps<P extends PaginatedPath, T extends object = object> =
   | ({ path: P } & CsvExportButtonWithFetchProps<P, T>)
   | CsvExportButtonWithoutFetchProps<T>;
 
-export default function CsvExportButton<P extends Path, T extends object = object>(
+export default function CsvExportButton<P extends PaginatedPath, T extends object = object>(
   props: CsvExportButtonProps<P, T>,
 ) {
   if ("path" in props) {

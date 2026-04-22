@@ -36,6 +36,7 @@ import {
   ApiPathMethodRequestBody,
   ApiPathMethodResponse,
   ContentTypePatch,
+  PaginatedPath,
   Path,
 } from "@api/SchemaHelpers";
 import { usePut, UsePutHook } from "@context/api/ApiContextFn/UsePut";
@@ -227,7 +228,7 @@ export function ApiProvider({
         });
       },
 
-      useGetFullCollection: <P extends Path>(options: {
+      useGetFullCollection: <P extends PaginatedPath>(options: {
         path: P;
         query?: ApiPathMethodQuery<P, "get">;
         enabled?: boolean;
