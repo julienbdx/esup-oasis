@@ -9,7 +9,6 @@
 
 import { useApi } from "@context/api/ApiProvider";
 import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Space, Switch, Table } from "antd";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
@@ -28,10 +27,8 @@ export function ReferentielTable({ referentielConfig, onEdit, editedItem }: Refe
   const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
 
   // --- API méthodes
-  const { data, isFetching } = useApi().useGetCollectionPaginated({
+  const { data, isFetching } = useApi().useGetFullCollection({
     path: referentielConfig?.apiPath as APIPathsReferentiel,
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[libelle]": order,
     },

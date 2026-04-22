@@ -31,7 +31,7 @@ export default function SuiviAmenagementItem({
   className,
   couleur,
 }: ISuiviAmenagementItemProps): ReactElement {
-  const { data: suivis, isFetching: isFetchingSuivis } = useApi().useGetCollection(
+  const { data: suivis, isFetching: isFetchingSuivis } = useApi().useGetFullCollection(
     PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
   );
 

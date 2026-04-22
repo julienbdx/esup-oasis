@@ -7,7 +7,6 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { createDateFromStringAsUTC } from "@utils/dates";
 import dayjs from "dayjs";
 import { Utilisateur } from "@lib/Utilisateur";
@@ -26,10 +25,6 @@ export const PREFETCH_TYPES_EVENEMENTS: {
   parameters?: ApiPathMethodParameters<"/types_evenements", "get">;
 } = {
   path: "/types_evenements" as const,
-  query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
-  },
 };
 
 /**
@@ -42,8 +37,6 @@ export const PREFETCH_CAMPUS: {
 } = {
   path: "/campus" as const,
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
   },
 };
@@ -57,10 +50,6 @@ export const PREFETCH_ETAT_DEMANDE: {
   parameters?: ApiPathMethodParameters<"/etats_demandes", "get">;
 } = {
   path: "/etats_demandes" as const,
-  query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
-  },
 };
 
 /**
@@ -92,8 +81,6 @@ export const PREFETCH_TYPES_EQUIPEMENTS: {
   parameters?: ApiPathMethodParameters<"/types_equipements", "get">;
 } = {
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
   },
   path: "/types_equipements" as const,
@@ -108,8 +95,6 @@ export const PREFETCH_COMPETENCES: {
   parameters?: ApiPathMethodParameters<"/competences", "get">;
 } = {
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
   },
   path: "/competences" as const,
@@ -124,8 +109,6 @@ export const PREFETCH_COMPOSANTES: {
   parameters?: ApiPathMethodParameters<"/composantes", "get">;
 } = {
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
   },
   path: "/composantes" as const,
@@ -140,8 +123,6 @@ export const PREFETCH_FORMATIONS: {
   parameters?: ApiPathMethodParameters<"/formations", "get">;
 } = {
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
     avecInscriptions: true,
   },
@@ -157,8 +138,6 @@ export const PREFETCH_TYPES_DEMANDES: {
   parameters?: ApiPathMethodParameters<"/types_demandes", "get">;
 } = {
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
   },
   path: "/types_demandes" as const,
@@ -173,8 +152,6 @@ export const PREFETCH_PROFILS: {
   parameters?: ApiPathMethodParameters<"/profils", "get">;
 } = {
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
   },
   path: "/profils" as const,
@@ -190,8 +167,6 @@ export const PREFETCH_CATEGORIES_AMENAGEMENTS: {
 } = {
   query: {
     "order[libelle]": "asc" as "asc" | "desc",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
   },
   path: "/categories_amenagements" as const,
 };
@@ -205,8 +180,6 @@ export const PREFETCH_TYPES_AMENAGEMENTS: {
   parameters?: ApiPathMethodParameters<"/types_amenagements", "get">;
 } = {
   query: {
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
     "order[libelle]": "asc" as "asc" | "desc",
   },
   path: "/types_amenagements" as const,
@@ -222,8 +195,6 @@ export const PREFETCH_TYPES_SUIVI_AMENAGEMENTS: {
 } = {
   query: {
     "order[libelle]": "asc" as "asc" | "desc",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
   },
   path: "/types_suivi_amenagements" as const,
 };
@@ -238,8 +209,6 @@ export const PREFETCH_CATEGORIES_TAGS: {
 } = {
   query: {
     "order[libelle]": "asc" as "asc" | "desc",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
   },
   path: "/categories_tags" as const,
 };
@@ -254,8 +223,6 @@ export const PREFETCH_TAGS: {
 } = {
   query: {
     "order[libelle]": "asc" as "asc" | "desc",
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    page: 1,
   },
   path: "/tags" as const,
 };

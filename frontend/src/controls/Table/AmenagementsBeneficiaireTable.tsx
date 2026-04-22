@@ -17,7 +17,7 @@ import {
 import { useApi } from "@context/api/ApiProvider";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
-import { Table, Slider } from "antd";
+import { Slider, Table } from "antd";
 import { DomaineAmenagementInfos, getDomaineAmenagement } from "@lib/amenagements";
 import { amenagementsBeneficiaireTableColumns } from "@controls/Table/AmenagementsBeneficiaireTableColumns";
 import { useNavigate } from "react-router-dom";

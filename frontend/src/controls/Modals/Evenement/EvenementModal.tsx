@@ -115,7 +115,7 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
   });
 
   const { data: typesEvenements, isFetching: isFetchingType } =
-    useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+    useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   // -------- INITIALISATION --------
 

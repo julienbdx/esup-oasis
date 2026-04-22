@@ -18,7 +18,6 @@ import React, {
 } from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { queryClient } from "@/queryClient";
 import { QK_UTILISATEURS_PARAMETRES_UI } from "@api/queryKeys";
@@ -47,11 +46,9 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
   const auth = useAuth();
   const { setContrast, setDyslexieArial, setDyslexieOpenDys, setPoliceLarge } = useAccessibilite();
   const [preferencesChargees, setPreferencesChargees] = React.useState<boolean>(false);
-  const { data: preferences } = useApi().useGetCollectionPaginated({
+  const { data: preferences } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/parametres_ui",
     parameters: { uid: auth.user?.["@id"] as string },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     enabled: !!auth.user,
     onError: (error) => {
       console.error(error);

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, Suspense, lazy, useMemo } from "react";
+import React, { lazy, ReactElement, Suspense, useMemo } from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { Navigate, Route, Routes } from "react-router-dom";
 import OAuthCallback from "@/auth/OAuthCallback";

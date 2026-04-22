@@ -71,19 +71,19 @@ export default function DemandeTableExport(props: { filtreDemande: FiltreDemande
   const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
 
-  const { data: composantes } = useApi().useGetCollection({
+  const { data: composantes } = useApi().useGetFullCollection({
     ...PREFETCH_COMPOSANTES,
     enabled: exportSubmit,
   });
-  const { data: etats } = useApi().useGetCollection({
+  const { data: etats } = useApi().useGetFullCollection({
     ...PREFETCH_ETAT_DEMANDE,
     enabled: exportSubmit,
   });
-  const { data: typesDemandes } = useApi().useGetCollection({
+  const { data: typesDemandes } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_DEMANDES,
     enabled: exportSubmit,
   });
-  const { data: profils } = useApi().useGetCollection({
+  const { data: profils } = useApi().useGetFullCollection({
     ...PREFETCH_PROFILS,
     enabled: exportSubmit,
   });

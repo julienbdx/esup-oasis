@@ -11,7 +11,6 @@ import React, { useMemo } from "react";
 import { Alert, Form, FormInstance, InputNumber, Select } from "antd";
 import { ExclamationOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { RoleValues } from "@lib/Utilisateur";
@@ -41,16 +40,12 @@ export const InterventionsForfaitForm: React.FC<InterventionsForfaitFormProps> =
   setBeneficiairesModifies,
 }) => {
   const user = useAuth().user;
-  const { data: periodes, isFetching: isFetchingPeriodes } = useApi().useGetCollectionPaginated({
+  const { data: periodes, isFetching: isFetchingPeriodes } = useApi().useGetFullCollection({
     path: "/periodes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
   const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
-    useApi().useGetCollectionPaginated({
+    useApi().useGetFullCollection({
       path: "/types_evenements",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
       query: {
         forfait: true,
       },

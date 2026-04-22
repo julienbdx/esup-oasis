@@ -64,11 +64,11 @@ export default function IntervenantTableExport({
   const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
 
-  const { data: competences } = useApi().useGetCollection({
+  const { data: competences } = useApi().useGetFullCollection({
     ...PREFETCH_COMPETENCES,
     enabled: exportSubmit,
   });
-  const { data: campus } = useApi().useGetCollection({
+  const { data: campus } = useApi().useGetFullCollection({
     ...PREFETCH_CAMPUS,
     enabled: exportSubmit,
   });

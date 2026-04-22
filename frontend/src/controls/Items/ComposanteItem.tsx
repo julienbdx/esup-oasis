@@ -49,7 +49,7 @@ function ComposanteItem({
   maxWidth,
   popoverContent,
 }: IItemComposante): ReactElement {
-  const { data: composantes } = useApi().useGetCollection(PREFETCH_COMPOSANTES);
+  const { data: composantes } = useApi().useGetFullCollection(PREFETCH_COMPOSANTES);
   const item = composante ?? composantes?.items.find((c) => c["@id"] === composanteId);
   const screens = useBreakpoint();
 

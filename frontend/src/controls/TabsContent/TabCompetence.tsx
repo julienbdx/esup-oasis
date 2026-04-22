@@ -9,8 +9,8 @@
 
 import { Form, Radio } from "antd";
 import React, { ReactElement } from "react";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
+import { PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
 
 interface ITabCompetence {
   defaultValue?: string;
@@ -25,11 +25,7 @@ interface ITabCompetence {
  * @returns {ReactElement} - The rendered tab component.
  */
 export function TabCompetence({ defaultValue }: ITabCompetence): ReactElement {
-  const { data } = useApi().useGetCollectionPaginated({
-    path: "/competences",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-  });
+  const { data } = useApi().useGetFullCollection(PREFETCH_COMPETENCES);
 
   return (
     <>

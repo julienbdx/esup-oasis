@@ -26,7 +26,7 @@ interface ITabCampus {
  * @return {ReactElement} The rendered radio group component.
  */
 export function TabCampus({ defaultValue }: ITabCampus): ReactElement {
-  const { data } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  const { data } = useApi().useGetFullCollection(PREFETCH_CAMPUS);
 
   return (
     <>

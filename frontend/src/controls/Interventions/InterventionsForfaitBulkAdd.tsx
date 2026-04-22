@@ -11,7 +11,6 @@ import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import "@routes/administration/Administration.scss";
 import { App, Button, Card, Col, Drawer, Form, InputNumber, Row, Select, Space } from "antd";
 import { MinusCircleOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { RoleValues } from "@lib/Utilisateur";
 import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
 import { CategorieSelectWithAvatar } from "@controls/Forms/CategorieSelectWithAvatar";
@@ -50,10 +49,8 @@ export default function InterventionsForfaitBulkAdd({
   const [submitted, setSubmitted] = useState(false);
   const [bulkInformations, setBulkInformations] = useState<InterventionsForfaitBulkInformations>();
   const [form] = Form.useForm<InterventionsForfaitBulkInformations>();
-  const { data: periodes, isFetching: isFetchingPeriodes } = useApi().useGetCollectionPaginated({
+  const { data: periodes, isFetching: isFetchingPeriodes } = useApi().useGetFullCollection({
     path: "/periodes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   // --- Mutations

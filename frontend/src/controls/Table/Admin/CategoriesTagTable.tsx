@@ -21,7 +21,7 @@ export function CategoriesTagTable(props: {
   setEditedItem: (item?: ICategorieTag) => void;
 }) {
   const [afficherDesactives, setAfficherDesactives] = React.useState<boolean>(false);
-  const { data: categories, isFetching } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
+  const { data: categories, isFetching } = useApi().useGetFullCollection(PREFETCH_CATEGORIES_TAGS);
 
   return (
     <Table<ICategorieTag>

@@ -51,7 +51,7 @@ export default function TypeEvenementItem({
   className,
 }: IItemTypeEvenement): ReactElement {
   const { accessibilite: appAccessibilite } = useAccessibilite();
-  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: typesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
   const item = typeEvenement ?? typesEvenements?.items.find((t) => t["@id"] === typeEvenementId);
   const screens = useBreakpoint();
 

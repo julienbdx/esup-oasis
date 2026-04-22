@@ -14,7 +14,7 @@ import { Tag } from "antd";
 import React from "react";
 
 export function TypeAmenagementTag(props: { typeId: undefined | string }) {
-  const { data: types } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: types } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
 
   if (!types) return <Spinner />;
 

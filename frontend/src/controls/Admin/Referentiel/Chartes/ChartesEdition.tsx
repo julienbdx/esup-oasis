@@ -9,7 +9,7 @@
 
 import { Button, Card, Drawer, Form, Input, Select } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import React, { ReactElement, Suspense, lazy, useEffect } from "react";
+import React, { lazy, ReactElement, Suspense, useEffect } from "react";
 import { ICharte } from "@api/ApiTypeHelpers";
 import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
@@ -32,7 +32,7 @@ interface ChartesEditionProps {
  */
 export function ChartesEdition({ editedItem, setEditedItem }: ChartesEditionProps): ReactElement {
   const [form] = Form.useForm();
-  const { data: profils, isFetching } = useApi().useGetCollection(PREFETCH_PROFILS);
+  const { data: profils, isFetching } = useApi().useGetFullCollection(PREFETCH_PROFILS);
   const [contenu, setContenu] = React.useState<string>(editedItem?.contenu || "");
 
   const mutationPost = useApi().usePost({

@@ -18,9 +18,8 @@ import {
   filtrerEvenements,
   filtreToApi,
   PlanningLayout,
+  useAffichageFiltres,
 } from "@context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { calculateRange } from "@utils/dates";
@@ -48,14 +47,12 @@ export default function PlanningWithSider({
 
   const { affichageFiltres: appAffichageFiltres, setFiltres } = useAffichageFiltres();
   // Get /types_evenements
-  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: typesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   // GET /evenements
-  const { data: evenements, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: evenements, isFetching } = useApi().useGetFullCollection({
     path: "/evenements",
     query: filtreToApi(appAffichageFiltres.filtres) as ApiPathMethodQuery<"/evenements">,
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   // Mutation d'un évènement

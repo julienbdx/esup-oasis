@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { Avatar, Drawer, Form, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import IntervenantRechercherFilters, {
   IFiltreRechercheIntervenant,
 } from "@controls/Drawers/Intervenant/IntervenantRechercherFilters";
@@ -55,10 +54,8 @@ export default function IntervenantRechercherDrawer({
   );
   const [selectedIntervenant, setSelectedIntervenant] = useState<string>();
   const [submitted, setSubmitted] = useState(false);
-  const { data: intervenantsProposes, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: intervenantsProposes, isFetching } = useApi().useGetFullCollection({
     path: "/intervenants",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     enabled: submitted,
     query: filtreRecherche,
   });

@@ -9,7 +9,6 @@
 
 import { Modal } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { ITypeDemande } from "@api/ApiTypeHelpers";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import React from "react";
@@ -23,19 +22,15 @@ export default function NouvelleDemandeModale(props: {
 }) {
   const screens = useBreakpoint();
   const auth = useAuth();
-  const { data: typesDemandes } = useApi().useGetCollectionPaginated({
+  const { data: typesDemandes } = useApi().useGetFullCollection({
     path: "/types_demandes",
     enabled: true,
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
-  const { data: demandes } = useApi().useGetCollectionPaginated({
+  const { data: demandes } = useApi().useGetFullCollection({
     path: "/demandes",
     query: { format_simple: true },
     enabled: true,
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   function getTypesDemandesPostulables(): ITypeDemande[] {

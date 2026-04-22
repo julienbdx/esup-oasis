@@ -14,7 +14,7 @@ import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
 import { UtilisateurTagAjouter } from "@controls/Tags/UtilisateurTagAjouter";
 
 export function UtilisateurTags(props: { utilisateurId: string }) {
-  const { data: tagsUtilisateur } = useApi().useGetCollection({
+  const { data: tagsUtilisateur } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/tags",
     parameters: {
       uid: props.utilisateurId,

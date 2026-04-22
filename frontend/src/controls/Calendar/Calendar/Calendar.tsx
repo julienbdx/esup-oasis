@@ -29,10 +29,12 @@ import {
   stringOrDateToDate,
   stringOrDateToString,
 } from "@utils/dates";
-import { DensiteValues } from "@context/affichageFiltres/AffichageFiltresContext";
+import {
+  DensiteValues,
+  useAffichageFiltres,
+} from "@context/affichageFiltres/AffichageFiltresContext";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { useModals } from "@context/modals/ModalsContext";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { PREFETCH_LAST_PERIODES_RH, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
@@ -63,7 +65,7 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
   const { accessibilite: appAccessibilite } = useAccessibilite();
   const { affichageFiltres: appAffichageFiltres, setAffichage, setFiltres } = useAffichageFiltres();
   const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
-    useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+    useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   // Dernière période dont la date butoir est dépassée
   const { data: lastPeriodes } = useApi().useGetCollection(PREFETCH_LAST_PERIODES_RH(user));

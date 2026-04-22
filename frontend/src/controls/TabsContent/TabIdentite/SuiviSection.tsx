@@ -14,10 +14,10 @@ import {
   Descriptions,
   Flex,
   Form,
+  FormInstance,
   Skeleton,
   Tooltip,
   Typography,
-  FormInstance,
 } from "antd";
 import { InfoCircleOutlined, LockOutlined, MinusOutlined } from "@ant-design/icons";
 import { IUtilisateur } from "@api/ApiTypeHelpers";

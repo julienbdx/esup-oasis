@@ -10,7 +10,6 @@
 import React from "react";
 import "@routes/administration/Administration.scss";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import CalendarTable from "@controls/Calendar/Table/CalendarTable";
 import { Evenement } from "@lib/Evenement";
 import { Alert, Breadcrumb, Layout, Space, Typography } from "antd";
@@ -21,11 +20,9 @@ import { HomeFilled, InfoCircleFilled } from "@ant-design/icons";
  * Renders the page for ROLE_GESTIONNAIRE to manage his own interventions.
  */
 export default function EvenementsSansBeneficiaires() {
-  const { data } = useApi().useGetCollection({
+  const { data } = useApi().useGetFullCollection({
     path: "/evenements",
     query: {
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
       "exists[beneficiaires]": false,
       "type.avecValidation": false,
       "type.forfait": false,

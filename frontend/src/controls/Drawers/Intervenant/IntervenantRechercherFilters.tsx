@@ -8,7 +8,7 @@
  */
 
 import React, { useEffect } from "react";
-import { Button, Collapse, Form, Tag, Typography, FormInstance } from "antd";
+import { Button, Collapse, Form, FormInstance, Tag, Typography } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { TabTypeEvenement } from "@controls/TabsContent/TabTypeEvenement";
 import { TabCompetence } from "@controls/TabsContent/TabCompetence";

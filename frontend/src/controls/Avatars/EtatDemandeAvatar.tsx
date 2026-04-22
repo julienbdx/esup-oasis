@@ -41,7 +41,8 @@ export const EtatDemandeAvatar: React.FC<IEtatDemandeAvatar> = memo(
     className,
   }: IEtatDemandeAvatar): ReactElement => {
     const [item, setItem] = useState<IEtatDemande | undefined>(etatDemande);
-    const { data: dataEtatDemande, isFetching } = useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
+    const { data: dataEtatDemande, isFetching } =
+      useApi().useGetFullCollection(PREFETCH_ETAT_DEMANDE);
 
     const [etatDemandeInfo, setEtatDemandeInfo] = useState<EtatInfo>();
 

@@ -39,18 +39,6 @@ export default function ReferentsTable({ onEdit }: TableReferentsProps) {
     query: filtre,
   });
 
-  /*const { data: referents } = useApi().useGetCollectionPaginated({
-      path: `/roles/{roleId}/utilisateurs`,
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      parameters: {
-         roleId: `/roles/${RoleValues.ROLE_REFERENT_COMPOSANTE}`,
-      },
-      query: {
-         "order[nom]": "asc",
-      },
-   });*/
-
   return (
     <>
       <Table<IComposante>

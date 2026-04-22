@@ -10,8 +10,10 @@
 import React, { useEffect } from "react";
 import "@routes/administration/Administration.scss";
 import PlanningWithSider from "@controls/Calendar/PlanningWithSider";
-import { PlanningLayout } from "@context/affichageFiltres/AffichageFiltresContext";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import {
+  PlanningLayout,
+  useAffichageFiltres,
+} from "@context/affichageFiltres/AffichageFiltresContext";
 import { useAuth } from "@/auth/AuthProvider";
 
 /**

@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import { capitalize } from "@utils/string";
 import { useApi } from "@context/api/ApiProvider";
 import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE, PARAMETRE_COEF_COUT_CHARGE } from "@/constants";
+import { PARAMETRE_COEF_COUT_CHARGE } from "@/constants";
 import { IPeriode } from "@api/ApiTypeHelpers";
 import { ApiPathMethodQuery } from "@api/SchemaHelpers";
 import { montantToString, to2Digits } from "@utils/number";
@@ -47,18 +47,17 @@ export default function BilanBeneficiaireIntervenant(props: {
   const [submitted, setSubmitted] = useState(false);
   const [filtre, setFiltre] = useState<FiltreBilan>();
   const [data, setData] = useState<IActiviteExport[]>();
-  const { data: campus, isFetching: isFetchingCampus } = useApi().useGetCollection(PREFETCH_CAMPUS);
+  const { data: campus, isFetching: isFetchingCampus } =
+    useApi().useGetFullCollection(PREFETCH_CAMPUS);
   const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
-    useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+    useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
   const { data: coef } = useApi().useGetItem({
     path: "/parametres/{cle}",
     url: PARAMETRE_COEF_COUT_CHARGE,
   });
 
-  const { data: dataRaw, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: dataRaw, isFetching } = useApi().useGetFullCollection({
     path: `/suivis/${props.type === "bénéficiaire" ? "beneficiaire" : "intervenant"}s`,
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: filtre,
     enabled: !!filtre,
   });

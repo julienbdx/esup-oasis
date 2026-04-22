@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Flex, Typography } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
@@ -20,13 +19,11 @@ import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 export function TabEntretiens(props: { utilisateurId: string }) {
   const screens = useBreakpoint();
   const [editedItem, setEditedItem] = React.useState<IAvisEse>();
-  const { data: entretiens } = useApi().useGetCollectionPaginated({
+  const { data: entretiens } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/entretiens",
     parameters: {
       uid: props.utilisateurId,
     },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[date]": "desc",
     },

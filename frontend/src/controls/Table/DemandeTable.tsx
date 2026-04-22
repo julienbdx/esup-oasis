@@ -123,7 +123,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
       },
     },
   );
-  const { data: etats } = useApi().useGetCollection(PREFETCH_ETAT_DEMANDE);
+  const { data: etats } = useApi().useGetFullCollection(PREFETCH_ETAT_DEMANDE);
 
   useEffect(() => {
     // N'applique le filtre favori des préférences que s'il n'y avait pas de filtre de session

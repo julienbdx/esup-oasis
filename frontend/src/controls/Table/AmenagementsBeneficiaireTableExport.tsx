@@ -11,7 +11,6 @@
 import { ITag, ITypeAmenagement } from "@api/ApiTypeHelpers";
 import { useEffect, useMemo, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import {
@@ -71,8 +70,7 @@ function getHeader(
   return headers.filter((h) => h) as { label: string; key: string }[];
 }
 
-function getAmenagementsBeneficiaireData(
-  user: Utilisateur | undefined,
+function formatAmenagementsBeneficiaireData(
   amenagements: any[],
   typesAmenagementsUtilises: TypesDomainesAmenagements[],
   tags?: ITag[],
@@ -130,17 +128,22 @@ export default function AmenagementsBeneficiaireTableExport({
   const [exportSubmit, setExportSubmit] = useState(false);
   const user = useAuth().user;
 
-  const { data: amenagements } = useApi().useGetCollection({
+  const {
+    data: amenagements,
+    fetchedCount: amFetchedCount,
+    totalItems: amTotalItems,
+  } = useApi().useGetFullCollection({
     path: "/amenagements/utilisateurs",
-    query: {
-      ...filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParBeneficiaire),
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    },
+    query: filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParBeneficiaire),
     enabled: exportSubmit,
+    concurrency: 5,
   });
 
-  const { data: tags } = useApi().useGetCollection({
+  const {
+    data: tags,
+    fetchedCount: tagsFetchedCount,
+    totalItems: tagsTotalItems,
+  } = useApi().useGetFullCollection({
     ...PREFETCH_TAGS,
     enabled: exportSubmit,
   });
@@ -165,16 +168,20 @@ export default function AmenagementsBeneficiaireTableExport({
   );
 
   const refDataReady = !!(amenagements?.items && tags?.items);
+  const globalFetchedCount = amFetchedCount + tagsFetchedCount;
+  const globalTotalItems = amTotalItems + tagsTotalItems;
 
   return (
     <ExportButton
       key={exportKey}
       getData={() =>
-        getAmenagementsBeneficiaireData(user, data || [], typesAmenagementsUtilises, tags?.items)
+        formatAmenagementsBeneficiaireData(data || [], typesAmenagementsUtilises, tags?.items)
       }
       headers={getHeader(typesAmenagementsUtilises, user)}
       filename="amenagements"
       ready={refDataReady}
+      fetchedCount={globalFetchedCount}
+      totalItems={globalTotalItems}
       onStart={() => setExportSubmit(true)}
     />
   );

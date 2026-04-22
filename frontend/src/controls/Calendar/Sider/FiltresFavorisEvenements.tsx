@@ -8,10 +8,12 @@
  */
 
 import { App, Button, Dropdown, Flex, Input, Modal, Popconfirm } from "antd";
-import { initialAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
+import {
+  initialAffichageFiltres,
+  useAffichageFiltres,
+} from "@context/affichageFiltres/AffichageFiltresContext";
 import { DeleteOutlined, FilterOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useApi } from "@context/api/ApiProvider";
 import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
@@ -19,7 +21,7 @@ import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPrefe
 export function FiltresFavorisEvenements() {
   const { message } = App.useApp();
   const { getPreferenceArray, setPreferenceArray } = usePreferences();
-  const { data: typesEvenements } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data: typesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
   const {
     affichageFiltres: appAffichageFiltres,
     restoreFiltres,

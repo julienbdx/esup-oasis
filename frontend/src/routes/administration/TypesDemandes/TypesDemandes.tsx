@@ -12,7 +12,6 @@ import { Badge, Breadcrumb, Button, Layout, Space, Table, Tabs, Tooltip, Typogra
 import { NavLink } from "react-router-dom";
 import { CaretRightFilled, EditOutlined, HomeFilled } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import Spinner from "@controls/Spinner/Spinner";
 import { ITypeDemande } from "@api/ApiTypeHelpers";
 import BooleanState from "@controls/State/BooleanState";
@@ -24,10 +23,8 @@ export default function TypesDemandes(): React.ReactElement {
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
   const [editedItem, setEditedItem] = useState<ITypeDemande>();
-  const { data: typesDemandes, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: typesDemandes, isFetching } = useApi().useGetFullCollection({
     path: "/types_demandes",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[libelle]": order,
     },

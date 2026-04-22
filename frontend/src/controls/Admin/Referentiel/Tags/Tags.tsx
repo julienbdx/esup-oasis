@@ -16,17 +16,14 @@ import React, { useState } from "react";
 import { TagEdition } from "@controls/Admin/Referentiel/Tags/TagEdition";
 import { ITag } from "@api/ApiTypeHelpers";
 import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 export function Tags(props: { categorieId: string; afficherDesactives: boolean }) {
   const [editedItem, setEditedItem] = useState<ITag | undefined>();
-  const { data: tags } = useApi().useGetCollectionPaginated({
+  const { data: tags } = useApi().useGetFullCollection({
     path: "/categories_tags/{id}/tags",
     parameters: {
       id: props.categorieId,
     },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   if (!tags) return <Spinner />;

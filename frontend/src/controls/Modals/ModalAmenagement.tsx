@@ -56,7 +56,7 @@ export function ModalAmenagement(props: {
     url: props.amenagementId,
     enabled: !!props.amenagementId,
   });
-  const { data: suivis } = useApi().useGetCollection(PREFETCH_TYPES_SUIVI_AMENAGEMENTS);
+  const { data: suivis } = useApi().useGetFullCollection(PREFETCH_TYPES_SUIVI_AMENAGEMENTS);
 
   const mutateDeleteAmenagement = useApi().useDelete({
     path: "/utilisateurs/{uid}/amenagements/{id}",

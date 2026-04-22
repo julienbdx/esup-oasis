@@ -8,7 +8,6 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Button, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
@@ -28,10 +27,8 @@ export function TypesAmenagementsTable({
   afficherDesactives,
 }: TypesAmenagementsTableProps) {
   const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const { data: typesAmenagements, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: typesAmenagements, isFetching } = useApi().useGetFullCollection({
     path: "/types_amenagements",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[libelle]": order,
     },

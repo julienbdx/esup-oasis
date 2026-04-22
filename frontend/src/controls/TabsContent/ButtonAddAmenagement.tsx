@@ -28,8 +28,8 @@ export function ButtonAddAmenagement(props: {
     React.useState<ICategorieAmenagement>();
   const [typeAmenagementAjoute, setTypeAmenagementAjoute] = React.useState<ITypeAmenagement>();
 
-  const { data: typesAmenagements } = useApi().useGetCollection(PREFETCH_TYPES_AMENAGEMENTS);
-  const { data: categoriesAmenagements } = useApi().useGetCollection(
+  const { data: typesAmenagements } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
+  const { data: categoriesAmenagements } = useApi().useGetFullCollection(
     PREFETCH_CATEGORIES_AMENAGEMENTS,
   );
 

@@ -11,7 +11,6 @@ import React from "react";
 import { Select } from "antd";
 import { IProfil } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 
 export default function ProfilsField(props: {
   value?: string | string[] | undefined;
@@ -20,10 +19,8 @@ export default function ProfilsField(props: {
   placeholder?: string;
   seulementActifs?: boolean;
 }) {
-  const { data: profils, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: profils, isFetching } = useApi().useGetFullCollection({
     path: "/profils",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     query: {
       "order[libelle]": "asc",
     },

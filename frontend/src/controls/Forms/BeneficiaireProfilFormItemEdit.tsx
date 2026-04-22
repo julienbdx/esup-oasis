@@ -12,7 +12,6 @@ import { useAuth } from "@/auth/AuthProvider";
 import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { createDateAsUTC } from "@utils/dates";
 import Spinner from "@controls/Spinner/Spinner";
 import { CaretRightOutlined, EditOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
@@ -84,23 +83,17 @@ export function BeneficiaireProfilFormItemEdit({
     url: `${utilisateur["@id"]}/profils` as string,
   });
 
-  const { data: profils, isFetching: isFetchingProfils } = useApi().useGetCollectionPaginated({
+  const { data: profils, isFetching: isFetchingProfils } = useApi().useGetFullCollection({
     path: "/profils",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
   const { data: typologiesData, isFetching: isFetchingTypologiesData } =
-    useApi().useGetCollectionPaginated({
+    useApi().useGetFullCollection({
       path: "/typologies",
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     });
 
-  const { data: gestionnaires, isFetching } = useApi().useGetCollectionPaginated({
+  const { data: gestionnaires, isFetching } = useApi().useGetFullCollection({
     path: "/roles/{roleId}/utilisateurs",
     parameters: { roleId: "/roles/ROLE_GESTIONNAIRE" },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
 
   function createOrUpdateProfil() {

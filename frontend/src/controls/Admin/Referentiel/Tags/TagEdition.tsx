@@ -29,7 +29,7 @@ interface TagEditionProps {
  */
 export function TagEdition({ editedItem, setEditedItem }: TagEditionProps): ReactElement {
   const [form] = Form.useForm();
-  const { data: categories } = useApi().useGetCollection(PREFETCH_CATEGORIES_TAGS);
+  const { data: categories } = useApi().useGetFullCollection(PREFETCH_CATEGORIES_TAGS);
 
   const mutationPost = useApi().usePost({
     path: "/tags",

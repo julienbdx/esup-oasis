@@ -28,7 +28,7 @@ interface ICategoriesFilter {
  * @returns {ReactElement} - The JSX element of the filter component.
  */
 export default function TypeEvenementFilter({ value, setValue }: ICategoriesFilter): ReactElement {
-  const { data } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
   const { accessibilite: appAccessibilite } = useAccessibilite();
 
   return (

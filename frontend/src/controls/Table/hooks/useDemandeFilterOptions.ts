@@ -15,7 +15,6 @@ import {
   PREFETCH_FORMATIONS,
   PREFETCH_TYPES_DEMANDES,
 } from "@api/ApiPrefetchHelpers";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
 
 /**
@@ -26,28 +25,23 @@ export function useDemandeFilterOptions(_filtreDemande: FiltreDemande) {
   const api = useApi();
 
   // Récupération de la liste des gestionnaires (hors renforts)
-  const { data: gestionnaires, isFetching: isFetchingGestionnaires } =
-    api.useGetCollectionPaginated({
-      path: "/roles/{roleId}/utilisateurs",
-      parameters: { roleId: "/roles/ROLE_GESTIONNAIRE" },
-      page: 1,
-      itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-      query: { "order[nom]": "asc" },
-      enabled: !impersonate && user?.isPlanificateur,
-    });
-
-  // Récupération des disciplines sportives
-  const { data: disciplines } = api.useGetCollectionPaginated({
-    path: "/disciplines_sportives",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
-    query: { "order[libelle]": "asc", page: 1, itemsPerPage: NB_MAX_ITEMS_PER_PAGE },
+  const { data: gestionnaires, isFetching: isFetchingGestionnaires } = api.useGetFullCollection({
+    path: "/roles/{roleId}/utilisateurs",
+    parameters: { roleId: "/roles/ROLE_GESTIONNAIRE" },
+    query: { "order[nom]": "asc" },
+    enabled: !impersonate && user?.isPlanificateur,
   });
 
-  const { data: etats } = api.useGetCollection(PREFETCH_ETAT_DEMANDE);
-  const { data: composantes } = api.useGetCollection(PREFETCH_COMPOSANTES);
-  const { data: formations } = api.useGetCollection(PREFETCH_FORMATIONS);
-  const { data: types } = api.useGetCollection(PREFETCH_TYPES_DEMANDES);
+  // Récupération des disciplines sportives
+  const { data: disciplines } = api.useGetFullCollection({
+    path: "/disciplines_sportives",
+    query: { "order[libelle]": "asc" },
+  });
+
+  const { data: etats } = api.useGetFullCollection(PREFETCH_ETAT_DEMANDE);
+  const { data: composantes } = api.useGetFullCollection(PREFETCH_COMPOSANTES);
+  const { data: formations } = api.useGetFullCollection(PREFETCH_FORMATIONS);
+  const { data: types } = api.useGetFullCollection(PREFETCH_TYPES_DEMANDES);
 
   return {
     gestionnaires,

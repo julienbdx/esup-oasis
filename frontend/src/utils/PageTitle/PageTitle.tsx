@@ -99,7 +99,8 @@ export default function PageTitle(props: {
     }
 
     document.title = title;
-  }, [location, props]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, props.setSelectedMenuKey]);
 
   return <></>;
 }

@@ -10,7 +10,6 @@
 import { IBeneficiaire, IComposante, ITag, IUtilisateur } from "@api/ApiTypeHelpers";
 import { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { PREFETCH_COMPOSANTES, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import { env } from "@/env";
@@ -84,18 +83,16 @@ export default function BeneficiaireTableExport({
   const [exportKey, setExportKey] = useState(0);
   const [exportSubmit, setExportSubmit] = useState(false);
 
-  const { data: composantes } = useApi().useGetCollection({
+  const { data: composantes } = useApi().useGetFullCollection({
     ...PREFETCH_COMPOSANTES,
     enabled: exportSubmit,
   });
-  const { data: gestionnaires } = useApi().useGetCollectionPaginated({
+  const { data: gestionnaires } = useApi().useGetFullCollection({
     path: "/roles/{roleId}/utilisateurs",
     parameters: { roleId: "/roles/ROLE_PLANIFICATEUR" },
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
     enabled: exportSubmit,
   });
-  const { data: tags } = useApi().useGetCollection({
+  const { data: tags } = useApi().useGetFullCollection({
     ...PREFETCH_TAGS,
     enabled: exportSubmit,
   });

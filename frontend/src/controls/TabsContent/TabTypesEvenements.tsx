@@ -31,7 +31,7 @@ export function TabTypesEvenements({
   utilisateur,
   setUtilisateur,
 }: ITabTypesEvenementsProps): ReactElement {
-  const { data } = useApi().useGetCollection(PREFETCH_TYPES_EVENEMENTS);
+  const { data } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
   return (
     <>

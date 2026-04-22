@@ -8,7 +8,7 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "antd";
+import { Button, Progress } from "antd";
 import { CSVLink } from "react-csv";
 import { ExportOutlined } from "@ant-design/icons";
 import { env } from "@/env";
@@ -19,6 +19,10 @@ interface ExportButtonProps<T extends object = object> {
   filename: string;
   /** Quand false, diffère le téléchargement jusqu'à ce que les données de référence soient prêtes */
   ready?: boolean;
+  /** Progression optionnelle : nombre d'items déjà chargés */
+  fetchedCount?: number;
+  /** Progression optionnelle : nombre total d'items à charger */
+  totalItems?: number;
   /** Appelé quand l'utilisateur clique sur le bouton d'export */
   onStart?: () => void;
   onDownloaded?: () => void;
@@ -26,11 +30,17 @@ interface ExportButtonProps<T extends object = object> {
   label?: React.ReactNode;
 }
 
+/*
+Ce composant permet d'exporter des données au format CSV. Il est utilisé quand la source de données est préparée et prête.
+Pour des exports simples (un endpoint unique), il est conseillé d'utiliser SplitFetcher.
+ */
 export default function ExportButton<T extends object = object>({
   getData,
   headers,
   filename,
   ready = true,
+  fetchedCount,
+  totalItems,
   onStart,
   onDownloaded,
   icon = <ExportOutlined />,
@@ -63,6 +73,14 @@ export default function ExportButton<T extends object = object>({
   }
 
   if (!ready) {
+    if (totalItems && totalItems > 0) {
+      return (
+        <Progress
+          style={{ width: 200 }}
+          percent={Math.min(100, Math.round(((fetchedCount ?? 0) / totalItems) * 100))}
+        />
+      );
+    }
     return (
       <Button icon={<ExportOutlined />} loading disabled>
         Préparation des données...

@@ -21,7 +21,6 @@ import {
   Typography,
 } from "antd";
 import { HomeOutlined, SaveOutlined } from "@ant-design/icons";
-import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -56,11 +55,9 @@ export default function MonProfil(): ReactElement {
     url: user?.["@id"] as string,
     enabled: !!user,
   });
-  const { data: dataCampus } = useApi().useGetCollection(PREFETCH_CAMPUS);
-  const { data: dataCompetences } = useApi().useGetCollectionPaginated({
+  const { data: dataCampus } = useApi().useGetFullCollection(PREFETCH_CAMPUS);
+  const { data: dataCompetences } = useApi().useGetFullCollection({
     path: "/competences",
-    page: 1,
-    itemsPerPage: NB_MAX_ITEMS_PER_PAGE,
   });
   const screens = useBreakpoint();
   const mutationPatch = useApi().usePatch({
