@@ -14,7 +14,6 @@ import { Alert, App, Drawer, Form } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { getRoleLabel, RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { useAuth } from "@/auth/AuthProvider";
-import { queryClient } from "@/queryClient";
 import { arrayUnique } from "@utils/array";
 import {
   QK_BENEFICIAIRES,
@@ -81,9 +80,9 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
       QK_INTERVENANTS,
       QK_BENEFICIAIRES,
       QK_STATISTIQUES_EVENEMENTS,
+      QK_COMPOSANTES,
     ],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QK_COMPOSANTES] }).then();
       message.success("Utilisateur mis à jour").then();
       handleClose();
     },

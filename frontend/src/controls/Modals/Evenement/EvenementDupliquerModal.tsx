@@ -49,11 +49,7 @@ export default function EvenementDupliquerModal({
   });
 
   const handleClose = () => {
-    setOpen(() => {
-      queryClient.invalidateQueries({ queryKey: [QK_EVENEMENTS] }).then();
-      queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
-      return false;
-    });
+    setOpen(false);
   };
 
   async function handleSubmit(values: IDuplicationOptions) {
@@ -109,7 +105,10 @@ export default function EvenementDupliquerModal({
         setDatesSelectionnees([...datesToProcess]);
       }
 
-      notification.success({ message: "Évènement dupliqué avec succès" });
+      notification.success({ title: "Évènement dupliqué avec succès" });
+      await queryClient.invalidateQueries({ queryKey: [QK_EVENEMENTS] });
+      await queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] });
+
       handleClose();
     } catch {
       notification.error({

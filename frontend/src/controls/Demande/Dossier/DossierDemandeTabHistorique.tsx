@@ -15,9 +15,8 @@ import { IModificationEtatDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
-import EtudiantItem from "@controls/Items/EtudiantItem";
+import { EtudiantItem, ProfilItem } from "@controls/Items";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import ProfilItem from "@controls/Items/ProfilItem";
 import Spinner from "@controls/Spinner/Spinner";
 
 export function DossierDemandeTabHistorique(): React.ReactElement {

@@ -46,8 +46,9 @@ function FormationItem({ formation, formationId }: IItemFormation): ReactElement
   );
 }
 
-export default memo(
+const FormationItemMemo = memo(
   FormationItem,
   (prev, next) =>
     prev.formationId === next.formationId && prev.formation?.["@id"] === next.formation?.["@id"],
 );
+export { FormationItemMemo as FormationItem };

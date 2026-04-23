@@ -14,11 +14,13 @@ import { MinusOutlined } from "@ant-design/icons";
 import { CalendarEvenement } from "@lib/Evenement";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { RoleValues } from "@lib/Utilisateur";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
-import EtudiantItem from "@controls/Items/EtudiantItem";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
-import CampusItem from "@controls/Items/CampusItem";
-import TypeEquipementItem from "@controls/Items/TypeEquipementItem";
+import {
+  CampusItem,
+  EtudiantItem,
+  GestionnaireItem,
+  TypeEquipementItem,
+  TypeEvenementItem,
+} from "@controls/Items";
 import EventCopyButton from "@controls/Buttons/EventCopyButton";
 
 interface CalendarEventPopoverContentProps {

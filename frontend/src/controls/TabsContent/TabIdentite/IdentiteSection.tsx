@@ -14,9 +14,8 @@ import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import dayjs from "dayjs";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { useAuth } from "@/auth/AuthProvider";
-import { GenreItem } from "@controls/Items/GenreItem";
+import { GenreItem, UtilisateurEmailItem } from "@controls/Items";
 import { calculerAge } from "@utils/dates";
-import UtilisateurEmailItem from "@controls/Items/UtilisateurEmailItem";
 import { MailSmallButton } from "@controls/Forms/MailSmallButton";
 import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
 

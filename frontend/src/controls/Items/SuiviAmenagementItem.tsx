@@ -26,7 +26,7 @@ interface ISuiviAmenagementItemProps {
  *
  * @returns {ReactElement} - The rendered list of suivi items.
  */
-export default function SuiviAmenagementItem({
+export function SuiviAmenagementItem({
   suiviId,
   className,
   couleur,

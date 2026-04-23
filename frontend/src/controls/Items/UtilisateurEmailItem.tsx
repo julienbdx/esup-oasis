@@ -29,7 +29,7 @@ interface IItemIntervenant {
  * @param {string} [params.utilisateurId] - The ID of the user.
  * @return {string|ReactElement} The email of the user.
  */
-export default function UtilisateurEmailItem({
+export function UtilisateurEmailItem({
   utilisateur,
   utilisateurId,
   emailPerso,

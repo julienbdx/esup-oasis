@@ -14,7 +14,6 @@ import { useApi } from "@context/api/ApiProvider";
 import { ITauxHoraire, ITypeEvenement } from "@api/ApiTypeHelpers";
 import { createDateAsUTC, getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 import dayjs from "dayjs";
-import { queryClient } from "@/queryClient";
 import { QK_TYPES_EVENEMENTS } from "@api/queryKeys";
 
 interface ITauxHoraireFormItem {
@@ -74,9 +73,8 @@ function TauxHoraireFormItem({
 
   const deleteTaux = useApi().useDelete({
     path: "/types_evenements/{typeId}/taux/{id}",
-    // invalidationQueryKeys: [QK_TYPES_EVENEMENTS],
+    invalidationQueryKeys: [QK_TYPES_EVENEMENTS],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QK_TYPES_EVENEMENTS] }).then();
       message.success("Taux horaire supprimé").then();
       setEditingItem(undefined);
       setTypeEvenementSavable?.(true);

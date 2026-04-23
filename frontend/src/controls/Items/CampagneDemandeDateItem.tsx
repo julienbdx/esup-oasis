@@ -11,7 +11,7 @@ import { ICampagneDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
 
-export default function CampagneDemandeDateItem(props: {
+export function CampagneDemandeDateItem(props: {
   campagneDemande?: ICampagneDemande;
   campagneDemandeId?: string;
   templateString: string;

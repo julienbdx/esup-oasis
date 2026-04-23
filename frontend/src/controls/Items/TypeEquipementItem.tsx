@@ -44,9 +44,10 @@ function TypeEquipementItem({
   );
 }
 
-export default memo(
+const TypeEquipementItemMemo = memo(
   TypeEquipementItem,
   (prev, next) =>
     prev.typeEquipementId === next.typeEquipementId &&
     prev.typeEquipement?.["@id"] === next.typeEquipement?.["@id"],
 );
+export { TypeEquipementItemMemo as TypeEquipementItem };

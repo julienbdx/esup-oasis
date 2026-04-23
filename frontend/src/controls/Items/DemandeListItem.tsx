@@ -4,7 +4,7 @@
  * This file is part of the Esup-Oasis project (https://github.com/EsupPortail/esup-oasis).
  *  For full copyright and license information please view the LICENSE file distributed with the source code.
  *
- *  @author Manuel Rossard <manuel.rossard@u-bordeaux.fr>
+ * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  *
  */
 
@@ -23,7 +23,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import CampagneDemandeDateItem from "@controls/Items/CampagneDemandeDateItem";
+import { CampagneDemandeDateItem } from "@controls/Items/CampagneDemandeDateItem";
 
 function CampagneItem(props: { campagneId?: string }) {
   let templateString: string;
@@ -56,7 +56,7 @@ function CampagneItem(props: { campagneId?: string }) {
   );
 }
 
-export default function DemandeListItem(props: { demande?: IDemande; demandeId?: string }) {
+export function DemandeListItem(props: { demande?: IDemande; demandeId?: string }) {
   const screens = useBreakpoint();
   const navigate = useNavigate();
   const { data: demandeData } = useApi().useGetItem({

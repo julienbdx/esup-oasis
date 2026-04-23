@@ -10,13 +10,15 @@
 import { ColumnType } from "antd/es/table";
 import { Evenement } from "@lib/Evenement";
 import dayjs from "dayjs";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
-import CampusItem from "@controls/Items/CampusItem";
-import EvenementIconeEnvoiRhItem from "@controls/Items/EvenementIconeEnvoiRhItem";
+import {
+  CampusItem,
+  EtudiantItem,
+  EvenementIconeEnvoiRhItem,
+  TypeEvenementItem,
+} from "@controls/Items";
 import { Button, Space } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import React from "react";
-import EtudiantItem from "@controls/Items/EtudiantItem";
 import { RoleValues } from "@lib/Utilisateur";
 
 interface TableCalendarColumnsProps {

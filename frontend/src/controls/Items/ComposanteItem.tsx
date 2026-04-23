@@ -102,7 +102,7 @@ function ComposanteItem({
   );
 }
 
-export default memo(
+const ComposanteItemMemo = memo(
   ComposanteItem,
   (prev, next) =>
     prev.composanteId === next.composanteId &&
@@ -111,3 +111,4 @@ export default memo(
     prev.ellipsis === next.ellipsis &&
     prev.maxWidth === next.maxWidth,
 );
+export { ComposanteItemMemo as ComposanteItem };

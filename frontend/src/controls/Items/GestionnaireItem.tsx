@@ -101,7 +101,7 @@ function GestionnaireItem({
   );
 }
 
-export default memo(
+const GestionnaireItemMemo = memo(
   GestionnaireItem,
   (prev, next) =>
     prev.gestionnaireId === next.gestionnaireId &&
@@ -109,3 +109,4 @@ export default memo(
     prev.showAvatar === next.showAvatar &&
     prev.showEmail === next.showEmail,
 );
+export { GestionnaireItemMemo as GestionnaireItem };

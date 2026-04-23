@@ -34,7 +34,7 @@ interface IItemPeriode {
  * @param {string} [IItemPeriode.className] - The class name for the item.
  * @returns {ReactElement} The rendered period item.
  */
-export default function PeriodeRhItem({
+export function PeriodeRhItem({
   periode,
   periodeId,
   showIcon = true,

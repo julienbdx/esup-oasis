@@ -8,15 +8,13 @@
  */
 
 import { ColumnType } from "antd/es/table";
-import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import { EtudiantItem, PeriodeRhItem, TypeEvenementItem } from "@controls/Items";
 import { Button, Space, Tag, Tooltip } from "antd";
 import { EditOutlined, EyeOutlined, FilterFilled, FilterOutlined } from "@ant-design/icons";
 import React from "react";
 import { FilterProps } from "@utils/table";
 import { FiltreInterventionsForfait } from "@controls/Table/InterventionForfaitTable";
 import { IInterventionForfait, IPeriode } from "@api/ApiTypeHelpers";
-import EtudiantItem from "@controls/Items/EtudiantItem";
 import { RoleValues } from "@lib/Utilisateur";
 
 import { UseStateDispatch } from "@utils/utils";

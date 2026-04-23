@@ -26,7 +26,7 @@ interface IItemEtatValidationProps {
  *
  * @return {ReactElement | null} - The validation status component, or null if validation is not required.
  */
-export default function EvenementEtatValidationItem({
+export function EvenementEtatValidationItem({
   evenement,
 }: IItemEtatValidationProps): ReactElement | null {
   const { data: typesEvenements } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);

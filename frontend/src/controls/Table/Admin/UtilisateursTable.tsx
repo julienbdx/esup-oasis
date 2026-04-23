@@ -8,8 +8,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import RoleCalculeItem from "@controls/Items/RoleCalculeItem";
-import ServiceItem from "@controls/Items/ServiceItem";
+import { RoleCalculeItem, ServiceItem } from "@controls/Items";
 import { Button, Flex, Popconfirm, Segmented, Space, Table, Tooltip } from "antd";
 import { BellOutlined, EditOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";

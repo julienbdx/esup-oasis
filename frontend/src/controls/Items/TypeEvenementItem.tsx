@@ -40,7 +40,7 @@ interface IItemTypeEvenement {
  * @param {boolean} [param.forceBlackText=false] - Whether to force black text or not.
  * @returns {ReactElement} - The rendered item component.
  */
-export default function TypeEvenementItem({
+export function TypeEvenementItem({
   typeEvenement,
   typeEvenementId,
   showAvatar = true,

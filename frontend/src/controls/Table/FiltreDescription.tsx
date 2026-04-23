@@ -19,7 +19,7 @@ import Icon from "@ant-design/icons";
 import FilterMore from "@/assets/images/filter-more.svg?react";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 import CampusItem from "@controls/Items/CampusItem";
-import CompetenceItem from "@controls/Items/CompetenceItem";
+import { CompetenceItem } from "@controls/Items";
 import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
 import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
