@@ -124,6 +124,17 @@ export class Evenement implements IEvenement {
     };
   }
 
+  public toFcEvent() {
+    return {
+      id: this["@id"] ?? String(this.id),
+      title: this.libelle,
+      start: this.debutDate(),
+      end: this.finDate(),
+      allDay: false,
+      extendedProps: { data: this },
+    };
+  }
+
   public hashCode(): string {
     return (
       this["@id"] + this.beneficiaires.join("-") + this.enseignants?.join("-") + this.intervenant

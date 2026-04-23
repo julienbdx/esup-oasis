@@ -10,8 +10,9 @@
 import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { RightOutlined } from "@ant-design/icons";
-import { stringOrDate } from "react-big-calendar";
 import { isSameDay } from "@utils/dates/range";
+
+type StringOrDate = string | Date;
 
 /**
  * Converts a string or existing Date object to a Date object.
@@ -19,7 +20,7 @@ import { isSameDay } from "@utils/dates/range";
  * @param {string | Date} date - The string or Date object to be converted.
  * @returns {Date} - The converted Date object.
  */
-export const stringOrDateToDate = (date: stringOrDate): Date => {
+export const stringOrDateToDate = (date: StringOrDate): Date => {
   if (typeof date === "string") {
     return new Date(date);
   }
@@ -32,7 +33,7 @@ export const stringOrDateToDate = (date: stringOrDate): Date => {
  * @param {string | Date} date - The date or string representation of a date to be converted.
  * @returns {string} - The converted date as a string.
  */
-export const stringOrDateToString = (date: stringOrDate): string => {
+export const stringOrDateToString = (date: StringOrDate): string => {
   if (typeof date === "string") {
     return date;
   }

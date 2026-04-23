@@ -8,28 +8,10 @@
  */
 
 import React, { ReactElement } from "react";
-import { Messages } from "react-big-calendar";
 import { isSameDay } from "@utils/dates";
 import { CaretRightOutlined, LockOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { Tooltip } from "antd";
-
-export const calendarMessages: Messages = {
-  allDay: "journée",
-  previous: "<",
-  next: ">",
-  today: "Aujourd'hui",
-  month: "mois",
-
-  work_week: "5 jours",
-  week: "semaine",
-  day: "jour",
-  agenda: "agenda",
-  date: "date",
-  time: "heure",
-  event: "évènement",
-  showMore: (total: number) => `+ ${total} évènement(s) supp.`,
-};
 
 /**
  * Generates the week header element for a given date.
@@ -43,7 +25,7 @@ export function getWeekHeader(date: Date, locked: boolean): ReactElement {
   return (
     <div className="week-header">
       {isSameDay(date, new Date()) ? (
-        <CaretRightOutlined className="today-carret" rotate={90} />
+        <CaretRightOutlined className="today-carret fs-09" />
       ) : undefined}
       <span className="jour">
         {dayjs(date).format("dddd")}
@@ -70,9 +52,7 @@ export function getWeekHeader(date: Date, locked: boolean): ReactElement {
 export function getMonthHeader(date: Date): ReactElement {
   return (
     <div className="month-header">
-      {isSameDay(date, new Date()) ? (
-        <CaretRightOutlined className="today-carret" rotate={90} />
-      ) : undefined}
+      {isSameDay(date, new Date()) ? <CaretRightOutlined className="today-carret" /> : undefined}
       <span className="jour">
         {dayjs(date).format("dddd")}
         <br />

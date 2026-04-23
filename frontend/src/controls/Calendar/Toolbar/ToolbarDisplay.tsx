@@ -92,22 +92,6 @@ export default function ToolbarDisplay({ saisieEvtRenfort, evenements }: IToolba
         label: "Densité d'affichage",
       },
       {
-        key: "compact",
-        label: "Compact",
-        className: affichageFiltres.affichage.densite === DensiteValues.compact ? "active" : "",
-        icon: (
-          <CheckOutlined
-            className={
-              affichageFiltres.affichage.densite === DensiteValues.compact ? "" : "v-hidden"
-            }
-          />
-        ),
-        onClick: () =>
-          setAffichage({
-            densite: DensiteValues.compact,
-          }),
-      },
-      {
         key: "normal",
         label: "Normal",
         className: affichageFiltres.affichage.densite === DensiteValues.normal ? "active" : "",

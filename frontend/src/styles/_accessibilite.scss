@@ -19,7 +19,7 @@ body.accessibilite-contraste {
   background: variables.$white !important;
 
 
-  .text-primary, .logo, .rbc-today .week-header, .rbc-today .week-header .date, .ant-btn-link, .today-carret, a, .ant-empty-description {
+  .text-primary, .logo, .fc-day-today .week-header, .fc-day-today .week-header .date, .ant-btn-link, .today-carret, a, .ant-empty-description {
     color: variables.$primary-contrast !important;
   }
 
@@ -260,37 +260,37 @@ body.accessibilite-dyslexie-arial, body.accessibilite-dyslexie-open-dys, body.ac
     line-height: 1.5;
   }
 
-  .rbc-event-label {
+  .fc-event-time {
     font-size: 1rem;
     margin-bottom: 8px;
     font-weight: 600;
   }
 
-  .calendar .rbc-header button .date {
+  .calendar .fc-col-header-cell a .date {
     font-size: 1rem;
   }
 }
 
 body.accessibilite-dyslexie-open-dys {
-  &, .rbc-label, .month-header, .rbc-header button {
+  &, .fc-timegrid-slot-label-cushion, .month-header, .fc-col-header-cell a {
     font-family: $fontDyslexieOpenDys, serif !important;
   }
 }
 
 body.accessibilite-dyslexie-arial {
-  &, .rbc-label, .month-header, .rbc-header button {
+  &, .fc-timegrid-slot-label-cushion, .month-header, .fc-col-header-cell a {
     font-family: $fontDyslexieArial, serif !important;
   }
 }
 
 body.accessibilite-dyslexie-lexend {
-  &, .rbc-label, .month-header, .rbc-header button {
+  &, .fc-timegrid-slot-label-cushion, .month-header, .fc-col-header-cell a {
     font-family: $fontDyslexieLexend, serif !important;
   }
 }
 
 body.accessibilite-police-large {
-  .ant-tag, .header button, .identite, .ant-steps-item-title, .rbc-event, .legende {
+  .ant-tag, .header button, .identite, .ant-steps-item-title, .fc-event, .legende {
     font-size: 1.2rem !important;
   }
 
