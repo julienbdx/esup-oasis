@@ -9,7 +9,9 @@ body.dark-mode {
   --blanc: rgba(255, 255, 255, 0.85);
   --gris: rgba(255, 255, 255, 0.25);
   --noir: rgba(32, 32, 32, 0.85);
+  --noir-mid: rgba(32, 32, 32, 0.66);
   --ant-color-text-description: rgba(255,255,255,0.6);
+  --ant-button-default-color: var(--blanc);
 
   background-color: var(--noir);
 
