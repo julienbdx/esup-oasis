@@ -8,7 +8,7 @@
  */
 
 import { IIntervenant, IInterventionForfait, IPeriode, ITypeEvenement } from "@api/ApiTypeHelpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { getLibellePeriode } from "@utils/dates";
 import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
@@ -54,13 +54,25 @@ interface TableInterventionsForfaitExportProps {
 export default function InterventionForfaitTableExport({
   interventionsForfait,
 }: TableInterventionsForfaitExportProps) {
-  const [exportKey, setExportKey] = useState(0);
-  const [exportSubmit, setExportSubmit] = useState(false);
+  const [{ exportKey, exportSubmit, prevData }, setExportState] = useState({
+    exportKey: 0,
+    exportSubmit: false,
+    prevData: interventionsForfait,
+  });
+
+  if (prevData !== interventionsForfait) {
+    setExportState((prev) => ({
+      exportKey: prev.exportKey + 1,
+      exportSubmit: false,
+      prevData: interventionsForfait,
+    }));
+  }
 
   const {
     data: periodes,
     fetchedCount: periodesFetchedCount,
     totalItems: periodesTotalItems,
+    isLoadingPage1: periodesIsLoadingPage1,
   } = useApi().useGetFullCollection({
     path: "/periodes",
     enabled: exportSubmit,
@@ -69,6 +81,7 @@ export default function InterventionForfaitTableExport({
     data: intervenants,
     fetchedCount: intFetchedCount,
     totalItems: intTotalItems,
+    isLoadingPage1: intIsLoadingPage1,
   } = useApi().useGetFullCollection({
     path: "/intervenants",
     enabled: exportSubmit,
@@ -77,19 +90,17 @@ export default function InterventionForfaitTableExport({
     data: typesEvenements,
     fetchedCount: typesFetchedCount,
     totalItems: typesTotalItems,
+    isLoadingPage1: typesIsLoadingPage1,
   } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_EVENEMENTS,
     enabled: exportSubmit,
   });
 
   const globalFetchedCount = periodesFetchedCount + intFetchedCount + typesFetchedCount;
-  const globalTotalItems = periodesTotalItems + intTotalItems + typesTotalItems;
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExportKey((k) => k + 1);
-    setExportSubmit(false);
-  }, [interventionsForfait]);
+  const globalTotalItems =
+    periodesIsLoadingPage1 || intIsLoadingPage1 || typesIsLoadingPage1
+      ? 0
+      : periodesTotalItems + intTotalItems + typesTotalItems;
 
   const refDataReady = !!(periodes?.items && intervenants?.items && typesEvenements?.items);
 
@@ -109,7 +120,7 @@ export default function InterventionForfaitTableExport({
       ready={refDataReady}
       fetchedCount={globalFetchedCount}
       totalItems={globalTotalItems}
-      onStart={() => setExportSubmit(true)}
+      onStart={() => setExportState((prev) => ({ ...prev, exportSubmit: true }))}
     />
   );
 }

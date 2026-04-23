@@ -8,7 +8,7 @@
  */
 
 import { Col, Form, Input, Row } from "antd";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import CampusFilter from "@controls/Filters/Campus/CampusFilter";
 import { useApi } from "@context/api/ApiProvider";
 import { Evenement } from "@lib/Evenement";
@@ -25,17 +25,6 @@ interface ITabEvenementInformations {
   formIsDirty: boolean;
 }
 
-/**
- * Renders the tab for event information.
- *
- * @param {Object} options - The options for the tab.
- * @param {Evenement} [options.evenement] - The event object.
- * @param {Function} options.setEvenement - The function to update the event object.
- * @param {boolean} [options.intervenantDisabled] - Indicates whether the intervenant is disabled or not.
- * @param {boolean} options.formIsDirty - Indicates whether the form is dirty or not.
- *
- * @return {ReactElement} The rendered tab.
- */
 export default function TabEvenementInformations({
   evenement,
   setEvenement,
@@ -44,12 +33,7 @@ export default function TabEvenementInformations({
 }: ITabEvenementInformations): ReactElement {
   const { data: categories } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
-  const [typeSelectionne, setTypeSelectionne] = useState(evenement?.type);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTypeSelectionne(evenement?.type);
-  }, [evenement]);
+  const typeSelectionne = evenement?.type;
 
   return (
     <>
@@ -60,7 +44,7 @@ export default function TabEvenementInformations({
       >
         <CategorieSelectWithAvatar
           typeSelectionne={typeSelectionne}
-          setTypeSelectionne={setTypeSelectionne}
+          setTypeSelectionne={() => {}}
         />
 
         <Form.Item name="libelle" label="Libellé">

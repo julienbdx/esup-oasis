@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { Evenement } from "@lib/Evenement";
 import dayjs from "dayjs";
@@ -60,13 +60,25 @@ interface TableEvenementsExportProps {
 }
 
 export default function EvenementTableExport({ evenements }: TableEvenementsExportProps) {
-  const [exportKey, setExportKey] = useState(0);
-  const [exportSubmit, setExportSubmit] = useState(false);
+  const [{ exportKey, exportSubmit, prevData }, setExportState] = useState({
+    exportKey: 0,
+    exportSubmit: false,
+    prevData: evenements,
+  });
+
+  if (prevData !== evenements) {
+    setExportState((prev) => ({
+      exportKey: prev.exportKey + 1,
+      exportSubmit: false,
+      prevData: evenements,
+    }));
+  }
 
   const {
     data: beneficiaires,
     fetchedCount: benefFetchedCount,
     totalItems: benefTotalItems,
+    isLoadingPage1: benefIsLoadingPage1,
   } = useApi().useGetFullCollection({
     path: "/beneficiaires",
     enabled: exportSubmit,
@@ -75,6 +87,7 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
     data: intervenants,
     fetchedCount: intFetchedCount,
     totalItems: intTotalItems,
+    isLoadingPage1: intIsLoadingPage1,
   } = useApi().useGetFullCollection({
     path: "/intervenants",
     enabled: exportSubmit,
@@ -83,6 +96,7 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
     data: campus,
     fetchedCount: campusFetchedCount,
     totalItems: campusTotalItems,
+    isLoadingPage1: campusIsLoadingPage1,
   } = useApi().useGetFullCollection({
     ...PREFETCH_CAMPUS,
     enabled: exportSubmit,
@@ -91,6 +105,7 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
     data: typesEvenements,
     fetchedCount: typesFetchedCount,
     totalItems: typesTotalItems,
+    isLoadingPage1: typesIsLoadingPage1,
   } = useApi().useGetFullCollection({
     ...PREFETCH_TYPES_EVENEMENTS,
     enabled: exportSubmit,
@@ -98,13 +113,10 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
 
   const globalFetchedCount =
     benefFetchedCount + intFetchedCount + campusFetchedCount + typesFetchedCount;
-  const globalTotalItems = benefTotalItems + intTotalItems + campusTotalItems + typesTotalItems;
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExportKey((k) => k + 1);
-    setExportSubmit(false);
-  }, [evenements]);
+  const globalTotalItems =
+    benefIsLoadingPage1 || typesIsLoadingPage1 || campusIsLoadingPage1 || intIsLoadingPage1
+      ? 0
+      : benefTotalItems + intTotalItems + campusTotalItems + typesTotalItems;
 
   const refDataReady = !!(
     beneficiaires?.items &&
@@ -130,7 +142,7 @@ export default function EvenementTableExport({ evenements }: TableEvenementsExpo
       ready={refDataReady}
       fetchedCount={globalFetchedCount}
       totalItems={globalTotalItems}
-      onStart={() => setExportSubmit(true)}
+      onStart={() => setExportState((prev) => ({ ...prev, exportSubmit: true }))}
     />
   );
 }
