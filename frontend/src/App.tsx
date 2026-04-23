@@ -38,13 +38,13 @@ function App() {
           <div className="full-app">
             <QueryClientProvider client={queryClient}>
               <Router />
-              {env.REACT_APP_VERSION === "localdev" && (
+              {env.REACT_APP_ENVIRONMENT === "localdev" && (
                 <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
               )}
             </QueryClientProvider>
           </div>
         </ApiProvider>
-        {env.REACT_APP_VERSION === "localdev" && <BreakPoint />}
+        {env.REACT_APP_ENVIRONMENT === "localdev" && <BreakPoint />}
       </AntApp>
     </AppConfigProvider>
   );

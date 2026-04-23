@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { IAccessibilite, ThemeMode } from "@context/accessibilite/AccessibiliteContext";
 import { Button, MenuProps } from "antd";
 import Icon, { CheckOutlined } from "@ant-design/icons";
 import React from "react";
@@ -23,6 +23,8 @@ import IconeAccessibilite from "@/assets/images/accessibilite.svg?react";
  * @param setDyslexieLexend
  * @param setPoliceLarge
  * @param setPreference
+ * @param isDark
+ * @param setThemeMode
  * @returns {MenuProps["items"]} - The generated menu items.
  */
 export function menuItemAccessibilite(
@@ -33,6 +35,8 @@ export function menuItemAccessibilite(
   setDyslexieLexend: (value: boolean) => void,
   setPoliceLarge: (value: boolean) => void,
   setPreference: (key: string, value: string) => void,
+  isDark: boolean,
+  setThemeMode: (value: ThemeMode) => void,
 ): MenuProps["items"] {
   return [
     {
@@ -42,7 +46,7 @@ export function menuItemAccessibilite(
       label: (
         <Button
           type="text"
-          className="bg-transparent p-0 pt-1"
+          className="bg-transparent p-0"
           aria-label="Ajuster les préférences d'accessibilité"
         >
           <span className="show-on-overflow">Accessibilité</span>
@@ -62,8 +66,13 @@ export function menuItemAccessibilite(
             />
           ),
           onClick: () => {
-            setContrast(!appAccessibilite.contrast);
-            setPreference("contrast", !appAccessibilite.contrast ? "true" : "false");
+            const nextContrast = !appAccessibilite.contrast;
+            if (isDark && nextContrast) {
+              setThemeMode("light");
+              setPreference("theme-mode", "light");
+            }
+            setContrast(nextContrast);
+            setPreference("contrast", nextContrast ? "true" : "false");
           },
         },
         {

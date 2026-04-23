@@ -1,0 +1,340 @@
+// --- Surcharge des styles pour le dark mode ---
+
+@use "sass:color";
+@use "sass:map";
+@use "colors";
+@use "variables";
+
+body.dark-mode {
+  --blanc: rgba(255, 255, 255, 0.85);
+  --gris: rgba(255, 255, 255, 0.5);
+  --noir: rgba(0, 0, 0, 0.85);
+  --ant-color-text-description: rgba(255,255,255,0.6);
+
+  background-color: var(--noir);
+
+  // Le fond principal (Ant Design gère le background global via darkAlgorithm)
+  color: var(--blanc);
+
+  // Redéfinition des variables de rôles pour lisibilité sur fond sombre
+  // On utilise les variantes "regular" (lighten-3) comme couleur principale
+  // et les variantes "light" (lighten-4) comme variante claire (suffisamment contrastées sur fond sombre)
+  --color-intervenant: #{map.get(colors.$colors-light, "indigo")};
+  --color-intervenant-light: rgba(197, 202, 233, 0.15);
+  --color-beneficiaire: #{map.get(colors.$colors-light, "purple")};
+  --color-beneficiaire-light: rgba(225, 190, 231, 0.15);
+  --color-renfort: #{map.get(colors.$colors-light, "pink")};
+  --color-renfort-light: rgba(248, 187, 208, 0.15);
+  --color-demandeur: #{map.get(colors.$colors-light, "amber")};
+  --color-demandeur-light: rgba(255, 236, 179, 0.15);
+  --color-danger: #{map.get(colors.$colors-light, "red")};
+  --color-danger-light: rgba(255, 205, 210, 0.15);
+
+  // Couleurs d'événements Material : regular devient "light" pour fonds, "regular" pour texte
+  @each $key, $val in colors.$colors-light {
+    --color-#{$key}: #{$val};
+  }
+
+  // Fond de l'app (remplace le gradient clair)
+  .full-app {
+    background-image: none;
+    background-color: var(--ant-color-bg-layout);
+  }
+
+  // Utilitaires de fond
+  .bg-white {
+    background-color: var(--ant-color-bg-container) !important;
+  }
+
+  .bg-light-grey {
+    background-color: var(--ant-color-bg-layout) !important;
+  }
+
+  // Texte
+  .text-legende,
+  .legende {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  .text-light {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  // Ombres adaptées au dark mode
+  .shadow-1 {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  .shadow-2 {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55) !important;
+  }
+
+  .shadow-5 {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65) !important;
+  }
+
+  // Classes de fond pour les rôles
+  .bg-intervenant {
+    background-color: var(--color-intervenant) !important;
+    color: #000 !important;
+  }
+
+  .bg-beneficiaire {
+    background-color: var(--color-beneficiaire) !important;
+    color: #000 !important;
+  }
+
+  .bg-renfort {
+    background-color: var(--color-renfort) !important;
+    color: #000 !important;
+  }
+
+  .bg-demandeur {
+    background-color: var(--color-demandeur) !important;
+    color: #000 !important;
+  }
+
+  // Classes utilitaires de couleur pour les types d'événements Material
+  @each $key, $val in colors.$colors-dark {
+    .bg-#{$key}-xlight,
+    .bg-#{$key}-xxlight {
+      background-color: #{color.change($val, $alpha: 0.15)} !important;
+    }
+
+    .bg-#{$key}-light {
+      background-color: #{color.change($val, $alpha: 0.25)} !important;
+    }
+
+    .bg-#{$key} {
+      background-color: #{map.get(colors.$colors-regular, $key)} !important;
+    }
+
+    .text-#{$key},
+    .text-#{$key} .ant-select-selection-item {
+      color: #{map.get(colors.$colors-regular, $key)} !important;
+    }
+
+    .text-#{$key}-dark,
+    .text-#{$key}-dark .ant-select-selection-item {
+      color: #{map.get(colors.$colors-light, $key)} !important;
+    }
+  }
+
+  // Fond du menu/header : Ant Design gère via darkAlgorithm, surcharger si nécessaire
+  header.ant-layout-header {
+    background-color: var(--ant-color-bg-container);
+    border-bottom: 1px solid var(--ant-color-border);
+  }
+
+  // Footer
+  .ant-layout-footer {
+    background-color: var(--ant-color-bg-layout);
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  // Statistiques
+  .statistic-danger,
+  .statistic-warning {
+    background-color: var(--ant-color-bg-elevated);
+  }
+
+  // Calendrier : Ant Design + FullCalendar
+  .fc-theme-standard {
+    .fc-scrollgrid {
+      border-color: var(--ant-color-border);
+    }
+
+    td,
+    th {
+      border-color: var(--ant-color-border);
+    }
+  }
+
+  .fc-day-today {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+  }
+
+  .fc-col-header-cell.fc-day-today {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  // Not affecté
+  .not-affecte {
+    background-color: transparent !important;
+  }
+
+  // Segmented
+  .ant-segmented {
+    background-color: var(--ant-color-bg-layout);
+  }
+
+  // Séparateurs et bordures légères
+  .border-light {
+    border-color: var(--ant-color-border) !important;
+  }
+
+  .border-light-grey {
+    border-color: var(--ant-color-border-secondary) !important;
+  }
+
+  // .text-text : la valeur SCSS $text est #333 (trop sombre pour fond sombre)
+  .text-text,
+  .text-text input,
+  .text-text .ant-input-group-addon {
+    color: rgba(255, 255, 255, 0.85);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  textarea {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  // Stats sous-lignes (dashboard)
+  .stats-subrow {
+    background-color: var(--ant-color-bg-elevated);
+    border-color: var(--ant-color-border);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  }
+
+  // Hover sur les lignes de tableau
+  .table-responsive .ant-table tbody tr:hover td {
+    background-color: var(--ant-color-bg-text-hover) !important;
+    border-top-color: var(--ant-color-border) !important;
+    border-bottom-color: var(--ant-color-border) !important;
+  }
+
+  // Steps
+  .ant-steps .ant-steps-item-title {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  .ant-steps .ant-steps-item-rail {
+    border-color: var(--ant-color-border) !important;
+  }
+
+  // Inputs / selects / textareas désactivés : meilleur contraste
+  .ant-input[disabled],
+  .ant-input-number-input[disabled],
+  .ant-select-disabled .ant-select-selector,
+  textarea[disabled],
+  .ant-picker-disabled .ant-picker-input input {
+    color: rgba(255, 255, 255, 0.4) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  // Header / menu principal
+  .header {
+    background-color: rgba(20, 20, 30, 0.9);
+    border-bottom-color: var(--ant-color-border);
+
+    // Pilules d'icône dans le menu
+    .anticon:not(.anticon-enter) {
+      background-color: var(--ant-color-bg-text-hover);
+    }
+
+    .user .ant-menu-title-content,
+    .recherche .ant-menu-title-content {
+      background-color: var(--ant-color-bg-text-hover);
+    }
+
+    .ant-menu-submenu-selected .ant-menu-title-content,
+    .recherche.recherche-en-cours .ant-menu-title-content,
+    .recherche.recherche-en-cours .anticon.anticon-search {
+      background-color: var(--ant-color-primary-bg);
+    }
+  }
+
+  // Couleur de texte des items du menu Ant Design
+  --ant-menu-item-color: rgba(255, 255, 255, 0.85);
+
+  // Calendrier FullCalendar : fond des cellules et grille
+  .calendar-content {
+    background: var(--ant-color-bg-container);
+  }
+
+  .calendar {
+    .fc-timegrid {
+      background-color: var(--ant-color-bg-container);
+    }
+
+    .fc-timegrid-slot-label-cushion {
+      color: rgba(255, 255, 255, 0.45);
+      background-color: var(--ant-color-bg-container);
+    }
+
+    .fc-timegrid-col {
+      border-color: var(--ant-color-border-secondary) !important;
+    }
+
+    .fc-col-header-cell a .date {
+      color: rgba(255, 255, 255, 0.45);
+    }
+  }
+
+  .fc-col-header {
+    border-bottom-color: var(--ant-color-border);
+  }
+
+  .toolbar-container {
+    background-color: var(--ant-color-bg-container);
+  }
+
+  // Tableau caption
+  .ant-table-caption {
+    background-color: var(--ant-color-bg-layout);
+  }
+
+  .bg-app.text-text {
+    color: var(--noir);
+  }
+
+  .ant-ribbon .ant-ribbon-content {
+    color: var(--noir);
+  }
+
+  .ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
+    color: var(--gris);
+  }
+
+  .ant-input, .ant-select:not(.ant-select-customize) .ant-select-input, .user.ant-menu-submenu-selected .role,
+  .ant-menu-submenu.user .identite,  .ant-menu-submenu.user .role, .ant-menu-light .ant-menu-submenu-selected>.ant-menu-submenu-title {
+    color: var(--blanc);
+  }
+
+  // Liste avec bordures et rayon
+  .ant-list-radius .ant-list-item {
+    border-color: var(--ant-color-border) !important;
+
+    &:hover {
+      background-color: var(--ant-color-bg-text-hover);
+    }
+  }
+
+  // Onglets en mode carte : contenu
+  .tabs-tab-card .ant-tabs-content-holder {
+    background-color: var(--ant-color-bg-container);
+    border-color: var(--ant-color-border);
+  }
+
+  .calendar-sider.ant-layout-sider, .fc .fc-scrollgrid-section-sticky > * {
+    background-color: var(--ant-color-bg-layout);
+  }
+
+  .event-annule {
+    opacity: .75;
+  }
+  .fc-timegrid-event-harness-inset .fc-timegrid-event {
+    box-shadow: 0 0 0 1px var(--ant-color-border);
+  }
+
+  .stats-subrow::before {
+    background-image: url("../assets/images/corner-dark.svg");
+  }
+
+  .ant-avatar-icon {
+    --color-text: var(--noir);
+  }
+}

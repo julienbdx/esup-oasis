@@ -8,6 +8,7 @@
 @import "lexend/styles.css";
 @include meta.load-css("root_variables");
 @include meta.load-css("accessibilite");
+@include meta.load-css("dark");
 
 
 body {
@@ -122,10 +123,10 @@ body {
 
 
 .text-text, .text-text input, .text-text .ant-input-group-addon {
-  color: variables.$text !important;
+  color: variables.$text;
 
   &:hover {
-    color: variables.$text !important;
+    color: variables.$text;
   }
 }
 

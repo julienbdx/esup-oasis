@@ -19,6 +19,7 @@ import PageTitle from "@utils/PageTitle/PageTitle";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 import { menuItemNotifications } from "@controls/AppLayout/menuItems/MenuItemNotifications";
 import { menuItemAccessibilite } from "@controls/AppLayout/menuItems/MenuItemAccessibilite";
+import { menuItemTheme } from "@controls/AppLayout/menuItems/MenuItemTheme";
 import { menuItemLogo } from "@controls/AppLayout/menuItems/MenuItemLogo";
 import { menuItemPlanningBeneficiaireIntervenant } from "@controls/AppLayout/menuItems/MenuItemPlanningBeneficiaireIntervenant";
 import { menuItemDemandeur } from "@controls/AppLayout/menuItems/MenuItemDemandeur";
@@ -33,6 +34,7 @@ import { menuItemRecherche } from "@controls/AppLayout/menuItems/MenuItemRecherc
 import { menuItemUtilisateur } from "@controls/AppLayout/menuItems/MenuItemUtilisateur";
 
 import { useNotificationStats } from "@controls/AppLayout/menuItems/useNotificationStats";
+import { DARKMODE_ENABLED, useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
 /**
  * Render the application's horizontal menu layout.
@@ -52,11 +54,13 @@ export default function AppLayoutMenu(): ReactElement {
     setDyslexieOpenDys,
     setDyslexieLexend,
     setPoliceLarge,
+    setThemeMode,
   } = useAccessibilite();
   const [selectedKey, setSelectedKey] = useState<string>();
   const [modeRecherche, setModeRecherche] = useState(false);
   const { setPreference } = usePreferences();
   const { stats, isFetchingStats } = useNotificationStats();
+  const isDark = useEffectiveTheme(appAccessibilite.themeMode) === "dark";
 
   const menuItems: MenuProps["items"] = useMemo(() => {
     const items = [];
@@ -110,6 +114,14 @@ export default function AppLayoutMenu(): ReactElement {
       );
     }
 
+    // Thème (masqué si dark mode désactivé par la configuration)
+    if (DARKMODE_ENABLED) {
+      items.push(
+        ...(menuItemTheme(appAccessibilite.themeMode, setThemeMode, setPreference, setContrast) ||
+          []),
+      );
+    }
+
     // Accessibilité
     items.push(
       ...(menuItemAccessibilite(
@@ -120,6 +132,8 @@ export default function AppLayoutMenu(): ReactElement {
         setDyslexieLexend,
         setPoliceLarge,
         setPreference,
+        isDark,
+        setThemeMode,
       ) || []),
     );
 
@@ -136,6 +150,8 @@ export default function AppLayoutMenu(): ReactElement {
     setDyslexieOpenDys,
     setDyslexieLexend,
     setPoliceLarge,
+    setThemeMode,
+    isDark,
   ]);
 
   const menuNotifications: MenuProps["items"] = useMemo(() => {

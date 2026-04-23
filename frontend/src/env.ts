@@ -41,6 +41,7 @@ type EnvType = {
   // Autres variables de l'application
   REACT_APP_VISITE_GUIDEE: string | null;
   REACT_APP_MSG_ACCUEIL: string | null;
+  REACT_APP_DARKMODE: string | null;
 
   // Variables liées aux couleurs de l'application
   REACT_APP_PRIMARY_COLOR: string;
@@ -73,6 +74,7 @@ declare global {
 
 export const env: EnvType = {
   ...{ REACT_APP_API_PREFIX: "" },
+  ...{ REACT_APP_DARKMODE: "true" },
   ...(import.meta.env as unknown as EnvType),
   ...window.env,
 };
