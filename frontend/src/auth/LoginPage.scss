@@ -215,20 +215,21 @@
 
 body.dark-mode {
   .login-image {
-    background-color: var(--gris);
+    background-color: var(--noir);
 
     &:before {
-      background: radial-gradient(ellipse 95% 65% at 50% 68%, color-mix(in srgb, var(--color-primary) 95%, transparent), transparent), linear-gradient(170deg, var(--noir) 0%, transparent 55%)
+      background: none
     }
 
     &:after {
-      background: radial-gradient(ellipse 55% 45% at 12% 13%, rgba(0, 0, 0, 0.55) 0%, transparent 60%), linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.04) 100%)
+      background: none
     }
   }
 
   .login-form {
-    background: var(--noir);
+    background: var(--noir-mid);
     color: var(--blanc);
+    box-shadow: none;
 
     .content .info {
       background: var(--noir);
