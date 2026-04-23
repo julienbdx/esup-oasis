@@ -25,6 +25,7 @@ du projet. Un fichier `.env.example` est fourni pour servir de base à la config
 | `REACT_APP_EMAIL_DPD`                 | Email du Délégué à la Protection des Données                  | dpo@esup-portail.org                        | Non             |
 | `REACT_APP_INFOS_AUTH`                | URL d'aide à la connexion au SI de l'établissement            | https://identite-numerique.esup-portail.org | Non             |
 | `REACT_APP_LOGO`                      | Logo de l'établissement (URL)                                 | /images/logo.svg                            | Non             |
+| `REACT_APP_LOGO_DARK`                 | Logo de l'établissement (URL) pour le mode dark               | /images/logo-dark.svg                       | Non             |
 
 Pour la personnalisation du logo de l'établissement : se reporter à
 la [section dédiée](personnalisation-ui.md#logo-de-létablissement).

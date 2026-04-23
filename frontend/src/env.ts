@@ -25,6 +25,7 @@ type EnvType = {
   REACT_APP_EMAIL_DPD: string | null;
   REACT_APP_INFOS_AUTH: string | null;
   REACT_APP_LOGO: string | null;
+  REACT_APP_LOGO_DARK: string | null;
 
   // Variables pour l'affichage des photos des étudiants
   REACT_APP_PHOTO: string | null;
