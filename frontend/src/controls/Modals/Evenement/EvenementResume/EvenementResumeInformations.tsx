@@ -8,9 +8,8 @@
  */
 
 import { Descriptions } from "antd";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import { CampusItem, TypeEvenementItem } from "@controls/Items";
 import dayjs from "dayjs";
-import CampusItem from "@controls/Items/CampusItem";
 import React, { ReactElement, useMemo } from "react";
 import { Evenement } from "@lib/Evenement";
 

@@ -19,7 +19,6 @@ import React, {
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
-import { queryClient } from "@/queryClient";
 import { QK_UTILISATEURS_PARAMETRES_UI } from "@api/queryKeys";
 
 export interface UtilisateurPreferencesType {
@@ -58,9 +57,7 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
 
   const mutatePreference = useApi().usePut({
     path: "/utilisateurs/{uid}/parametres_ui/{cle}",
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QK_UTILISATEURS_PARAMETRES_UI] }).then();
-    },
+    invalidationQueryKeys: [QK_UTILISATEURS_PARAMETRES_UI],
   });
   const { mutate: mutatePreferenceRaw } = mutatePreference;
 

@@ -9,10 +9,9 @@
 
 import React, { ReactElement } from "react";
 import { Typography } from "antd";
-import PeriodeRhItem from "@controls/Items/PeriodeRhItem";
+import { GestionnaireItem, PeriodeRhItem } from "@controls/Items";
 import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
 import Spinner from "@controls/Spinner/Spinner";
 import { ServicesFaitsDetailsTable } from "@controls/Table/ServicesFaitsDetailsTable";
 import { IPeriode } from "@api/ApiTypeHelpers";

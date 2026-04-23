@@ -38,7 +38,7 @@ interface IItemCompetence {
  *
  * @returns {ReactElement} The rendered competence item component.
  */
-export default function CompetenceItem({
+export function CompetenceItem({
   competence,
   competenceId,
   showAvatar = true,

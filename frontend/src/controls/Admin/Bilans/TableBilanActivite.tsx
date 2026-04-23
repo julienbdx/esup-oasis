@@ -20,10 +20,7 @@ import { Fichier } from "@controls/Fichier/Fichier";
 import Spinner from "@controls/Spinner/Spinner";
 import { QK_SUIVIS_ACTIVITE } from "@api/queryKeys";
 import { operations } from "@api/schema";
-import ProfilItem from "@controls/Items/ProfilItem";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
-import ComposanteItem from "@controls/Items/ComposanteItem";
-import FormationItem from "@controls/Items/FormationItem";
+import { ComposanteItem, FormationItem, GestionnaireItem, ProfilItem } from "@controls/Items";
 import { FiltreBilanActivitesForm } from "@routes/administration/Bilans/BilanActivites/BilanActivites";
 
 import { UseStateDispatch } from "@utils/utils";

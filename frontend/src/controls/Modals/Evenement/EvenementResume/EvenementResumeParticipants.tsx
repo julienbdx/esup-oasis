@@ -9,9 +9,8 @@
 
 import { Evenement } from "@lib/Evenement";
 import { Descriptions, List } from "antd";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { EtudiantItem, GestionnaireItem } from "@controls/Items";
 import React, { ReactElement, useMemo } from "react";
-import EtudiantItem from "@controls/Items/EtudiantItem";
 import { RoleValues } from "@lib/Utilisateur";
 
 /**

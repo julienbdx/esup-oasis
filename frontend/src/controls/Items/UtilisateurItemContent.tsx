@@ -34,7 +34,7 @@ interface IUtilisateurBeneficiaire {
  *
  * @returns {ReactElement} The rendered Beneficiaireutilisateur component.
  */
-export default function UtilisateurContent({
+export function UtilisateurContent({
   utilisateur,
   showEmail = false,
   showTelephone = false,

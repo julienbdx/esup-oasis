@@ -12,7 +12,6 @@ import { CaretDownOutlined, CheckOutlined, CloseOutlined } from "@ant-design/ico
 import React from "react";
 import { ETAT_DEMANDE_CONFORME, ETAT_DEMANDE_NON_CONFORME } from "@lib/demande";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/queryClient";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { QK_DEMANDES } from "@api/queryKeys";
 
@@ -25,9 +24,7 @@ export default function ConformiteSelectButton(props: { demande: IDemande }): Re
     path: props.demande["@id"] as "/demandes/{id}",
     invalidationQueryKeys: [QK_DEMANDES],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QK_DEMANDES, props.demande["@id"]] }).then(() => {
-        message.success("Conformité mise à jour").then();
-      });
+      message.success("Conformité mise à jour").then();
     },
   });
 

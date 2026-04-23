@@ -16,7 +16,6 @@ import {
   ETAT_DEMANDE_REFUSEE,
 } from "@lib/demande";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/queryClient";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { QK_DEMANDES } from "@api/queryKeys";
 import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
@@ -38,9 +37,7 @@ export default function ProfilsSelectButton(props: {
     path: props.demande["@id"] as "/demandes/{id}",
     invalidationQueryKeys: [QK_DEMANDES],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QK_DEMANDES, props.demande["@id"]] }).then(() => {
-        message.success("Demande mise à jour").then();
-      });
+      message.success("Demande mise à jour").then();
     },
   });
 

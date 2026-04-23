@@ -11,13 +11,12 @@ import React from "react";
 import "@routes/administration/Administration.scss";
 import { Space } from "antd";
 import dayjs from "dayjs";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import { EtudiantItem, TypeEvenementItem } from "@controls/Items";
 import { ColumnType } from "antd/es/table";
 import { FilterProps } from "@utils/table";
 import { FiltreValidationInterventions } from "@controls/Table/ValidationInterventionTable";
 import { FilterFilled, FilterOutlined } from "@ant-design/icons";
 import { IEvenement, ITypeEvenement } from "@api/ApiTypeHelpers";
-import EtudiantItem from "@controls/Items/EtudiantItem";
 import { RoleValues } from "@lib/Utilisateur";
 
 import { UseStateDispatch } from "@utils/utils";

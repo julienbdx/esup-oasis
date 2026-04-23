@@ -26,7 +26,7 @@ interface IItemRoleProps {
  * @param {Array<string>} [props.roles] - The roles associated with the item.
  * @returns {ReactElement} - The JSX element representing the calculated role tag.
  */
-export default function RoleCalculeItem({ role, roles, className }: IItemRoleProps): ReactElement {
+export function RoleCalculeItem({ role, roles, className }: IItemRoleProps): ReactElement {
   const utilisateur = new Utilisateur({ roles: role ? [role] : roles });
 
   return (

@@ -31,10 +31,7 @@ interface IItemDiscipline {
  *
  * @returns {ReactElement} The rendered discipline item component.
  */
-export default function DisciplineItem({
-  discipline,
-  disciplineId,
-}: IItemDiscipline): ReactElement {
+export function DisciplineItem({ discipline, disciplineId }: IItemDiscipline): ReactElement {
   const { data: dataDiscipline, isFetching } = useApi().useGetFullCollection({
     path: "/disciplines_sportives",
   });

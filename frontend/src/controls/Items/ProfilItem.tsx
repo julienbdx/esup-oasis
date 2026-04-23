@@ -27,7 +27,7 @@ interface IItemProfilProps {
  *
  * @returns {ReactElement} - The rendered list of profil items.
  */
-export default function ProfilItem({
+export function ProfilItem({
   profil,
   profils,
   maxWidth,

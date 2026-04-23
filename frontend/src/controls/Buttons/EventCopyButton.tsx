@@ -10,13 +10,15 @@
 import React, { ReactElement, useMemo } from "react";
 import { App, Button } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import {
+  CampusItem,
+  EtudiantItem,
+  GestionnaireItem,
+  TypeEquipementItem,
+  TypeEvenementItem,
+} from "@controls/Items";
 import dayjs from "dayjs";
-import CampusItem from "@controls/Items/CampusItem";
-import TypeEquipementItem from "@controls/Items/TypeEquipementItem";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
 import { IEvenement } from "@api/ApiTypeHelpers";
-import EtudiantItem from "@controls/Items/EtudiantItem";
 import { RoleValues } from "@lib/Utilisateur";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 

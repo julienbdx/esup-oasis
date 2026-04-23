@@ -15,7 +15,7 @@ import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { MinusOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { IUtilisateur } from "@api/ApiTypeHelpers";
-import UtilisateurContent from "@controls/Items/UtilisateurItemContent";
+import { UtilisateurContent } from "@controls/Items/UtilisateurItemContent";
 import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
 import { entiteParent } from "@api/Utils";
 
@@ -83,7 +83,7 @@ function EtudiantItem({
   );
 }
 
-export default memo(
+const EtudiantItemMemo = memo(
   EtudiantItem,
   (prev, next) =>
     prev.utilisateurId === next.utilisateurId &&
@@ -94,3 +94,4 @@ export default memo(
     prev.showTelephone === next.showTelephone &&
     prev.highlight === next.highlight,
 );
+export { EtudiantItemMemo as EtudiantItem };

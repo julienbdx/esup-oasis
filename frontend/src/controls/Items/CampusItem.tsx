@@ -42,7 +42,7 @@ interface IItemCampus {
  *
  * @returns {ReactElement} The rendered campus item component.
  */
-export default function CampusItem({
+export function CampusItem({
   campus,
   campusId,
   showAvatar = true,

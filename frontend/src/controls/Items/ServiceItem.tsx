@@ -26,7 +26,7 @@ interface IItemServiceProps {
  *
  * @returns {ReactElement} - The rendered list of service items.
  */
-export default function ServiceItem({ service, services }: IItemServiceProps): ReactElement {
+export function ServiceItem({ service, services }: IItemServiceProps): ReactElement {
   const data = service ? [service] : services;
   const { data: dataServices, isFetching: isFetchingServices } = useApi().useGetFullCollection({
     path: "/services",

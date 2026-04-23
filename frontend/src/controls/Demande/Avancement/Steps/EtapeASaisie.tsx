@@ -4,7 +4,7 @@
  * This file is part of the Esup-Oasis project (https://github.com/EsupPortail/esup-oasis).
  *  For full copyright and license information please view the LICENSE file distributed with the source code.
  *
- *  @author Manuel Rossard <manuel.rossard@u-bordeaux.fr>
+ * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  *
  */
 
@@ -18,7 +18,6 @@ import {
 } from "@lib/demande";
 import { IDemande } from "@api/ApiTypeHelpers";
 import { useApi } from "@context/api/ApiProvider";
-import { queryClient } from "@/queryClient";
 import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { QK_DEMANDES } from "@api/queryKeys";
 
@@ -32,8 +31,7 @@ export default function EtapeASaisie({ etatDemande, demande }: EtapeASaisieProps
   const mutation = useApi().usePatch({
     path: demande["@id"] as "/demandes/{id}",
     invalidationQueryKeys: [QK_DEMANDES],
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [QK_DEMANDES, demande["@id"]] });
+    onSuccess: () => {
       message.success("Demande déclarée réceptionnée");
     },
   });

@@ -10,8 +10,7 @@
 import { Evenement } from "@lib/Evenement";
 import { useAuth } from "@/auth/AuthProvider";
 import { Descriptions, List, Space, Typography } from "antd";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
-import TypeEquipementItem from "@controls/Items/TypeEquipementItem";
+import { GestionnaireItem, TypeEquipementItem } from "@controls/Items";
 import dayjs from "dayjs";
 import React, { useMemo } from "react";
 import TarifEvenementField from "@controls/Forms/TarifEvenementField";

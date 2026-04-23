@@ -32,10 +32,9 @@ interface ITabProfilsProps {
 export function TabProfils({ utilisateur, title }: ITabProfilsProps): ReactElement {
   const mutationDeleteProfil = useApi().useDelete({
     path: "/utilisateurs/{uid}/profils/{id}",
+    invalidationQueryKeys: [QK_BENEFICIAIRES, QK_STATISTIQUES_EVENEMENTS],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [utilisateur["@id"]] }).then();
-      queryClient.invalidateQueries({ queryKey: [QK_BENEFICIAIRES] }).then();
-      queryClient.invalidateQueries({ queryKey: [QK_STATISTIQUES_EVENEMENTS] }).then();
     },
   });
   return (
