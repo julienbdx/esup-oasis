@@ -13,8 +13,10 @@
 }
 
 // Neutralise les styles par défaut de FullCalendar sur les événements
-// (les couleurs sont appliquées via eventDidMount)
+// (les couleurs sont appliquées via eventContent — réactif aux mises à jour)
 .fc-event {
+  background: none !important;
+  border: none !important;
   padding: 0 !important;
   animation: helpers.$anim-appear;
 }
