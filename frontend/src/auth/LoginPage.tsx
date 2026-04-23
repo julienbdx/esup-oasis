@@ -31,6 +31,7 @@ import { env } from "@/env";
  */
 export default function LoginPage(): ReactElement {
   const auth = useAuth();
+  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   function getMessageAccueil() {
     if (env.REACT_APP_MSG_ACCUEIL) {
@@ -66,7 +67,9 @@ export default function LoginPage(): ReactElement {
                 aria-label={`Visiter le site de ${env.REACT_APP_ETABLISSEMENT}`}
               >
                 <img
-                  src={env.REACT_APP_LOGO}
+                  src={
+                    isDark && env.REACT_APP_LOGO_DARK ? env.REACT_APP_LOGO_DARK : env.REACT_APP_LOGO
+                  }
                   alt=""
                   style={{
                     maxWidth: "50vw",
