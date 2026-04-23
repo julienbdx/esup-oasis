@@ -16,6 +16,7 @@ import { IEtatDemande, IStatistiquesEvenements } from "@api/ApiTypeHelpers";
 import Statistic from "@controls/Dashboard/Statistic";
 import MonoStackedBar from "@controls/Dashboard/MonoStackedBar/MonoStackedBar";
 import { getEtatDemandeInfo } from "@lib/demande";
+import { getContrastColor } from "@utils/colors";
 
 interface IDemandesAccompagnementStatsProps {
   stats: IStatistiquesEvenements | undefined;
@@ -76,6 +77,9 @@ export default function DemandesAccompagnementStats({
                       ),
                       tooltip: etat?.libelle || "",
                       color: etatInfos?.hexColor || etatInfos?.color || "grey",
+                      foreground: etatInfos?.hexColor
+                        ? getContrastColor(etatInfos.hexColor as string)
+                        : "#000000",
                     };
                   })}
                 />

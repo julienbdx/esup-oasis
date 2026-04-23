@@ -33,9 +33,9 @@ lors du redémarrage du conteneur, évitant ainsi les problèmes de cache.
 | `REACT_APP_OAUTH_PROVIDER`  | URL du fournisseur OAuth                             | https://cas.esup-portail.org/cas/oauth2.0/authorize | Oui             |
 | `REACT_APP_PHOTO`           | Afficher les photos des étudiants dans l'application | true                                                | Non             |
 | `REACT_APP_PHOTO_DEMO`      | Remplacer les photos par un avatar                   | false                                               | Non             |
-| `REACT_APP_DARKMODE`        | Activer le dark mode pour les utilisateurs           | true                                                | Non             |
+| `REACT_APP_DARKMODE`        | Activer le dark mode pour les utilisateurs *         | false                                               | Non             |
 
-Remarque : le dark-mode est activé par défaut, mais peut être désactivé en modifiant la variable d'environnement `REACT_APP_DARKMODE` à `false`.
+> **Remarque :** en version beta, le dark-mode est désactivé par défaut, mais peut être activé en modifiant la variable d'environnement `REACT_APP_DARKMODE` à `true`.
 L'activation du mode Contraste (menu Accessibilité) désactive automatiquement le dark-mode.
 Les préférences de mode, comme celles d'accessibilité, sont stockées en backend pour être récupérées lors de la connexion de l'utilisateur.
 

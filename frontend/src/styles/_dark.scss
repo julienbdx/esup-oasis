@@ -15,6 +15,21 @@ body.dark-mode {
 
   background-color: var(--noir);
 
+  // --- Pour les types d'évènements
+  @each $key, $val in colors.$colors-dark {
+    --color-xlight-#{$key}: #{$val};
+  }
+  @each $key, $val in colors.$colors-regular {
+    --color-light-#{$key}: #{$val};
+  }
+  @each $key, $val in colors.$colors-light {
+    --color-#{$key}: #{$val};
+  }
+  @each $key, $val in colors.$colors-xlight {
+    --color-dark-#{$key}: #{$val};
+  }
+
+
   // Le fond principal (Ant Design gère le background global via darkAlgorithm)
   color: var(--blanc);
 

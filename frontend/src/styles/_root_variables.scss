@@ -17,14 +17,14 @@
 
   // --- Pour les types d'évènements
 
-  @each $key, $val in colors.$colors-regular {
-    --color-#{$key}: #{$val};
+  @each $key, $val in colors.$colors-xlight {
+    --color-xlight-#{$key}: #{$val};
   }
   @each $key, $val in colors.$colors-light {
     --color-light-#{$key}: #{$val};
   }
-  @each $key, $val in colors.$colors-xlight {
-    --color-xlight-#{$key}: #{$val};
+  @each $key, $val in colors.$colors-regular {
+    --color-#{$key}: #{$val};
   }
   @each $key, $val in colors.$colors-dark {
     --color-dark-#{$key}: #{$val};

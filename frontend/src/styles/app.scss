@@ -97,7 +97,8 @@ body {
   font-style: italic;
 }
 
-.text-primary, .text-primary input, .text-primary .ant-input-group-addon {
+.text-primary, .text-primary input, .text-primary .ant-input-group-addon, .ant-btn-link, .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn
+{
   color: variables.$primary !important;
 }
 
