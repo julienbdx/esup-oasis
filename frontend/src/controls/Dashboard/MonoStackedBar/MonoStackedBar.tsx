@@ -17,6 +17,7 @@ interface BarData {
   color?: string;
   caption?: string;
   tooltip?: string;
+  foreground?: string;
 }
 
 interface MonoStackedBarProps {
@@ -41,6 +42,10 @@ const getSectionValue = (section: number | BarData): number => {
 
 const getSectionColor = (section: number | BarData): string | undefined => {
   return isNumber(section) ? undefined : (section as BarData).color;
+};
+
+const getSectionForegroundColor = (section: number | BarData): string | undefined => {
+  return isNumber(section) ? undefined : (section as BarData).foreground;
 };
 
 function isBarDataValues(arr: (number | BarData)[]): arr is BarData[] {
@@ -116,7 +121,7 @@ export default function MonoStackedBar({
                     <span
                       style={{
                         fontSize: height - height / 4,
-                        color: labelColor,
+                        color: getSectionForegroundColor(section) || labelColor,
                       }}
                       className={styles.sectionLabel}
                     >

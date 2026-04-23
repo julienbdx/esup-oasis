@@ -493,3 +493,33 @@ export function pSBC(p: number, c0: string, c1?: string, l?: boolean): string | 
       .toString(16)
       .slice(1, hasAlpha ? undefined : -2)}`;
 }
+
+/**
+ * Calcule la couleur de contraste (noir ou blanc) pour une couleur hexadécimale donnée.
+ * Respecte les principes de luminance relative du WCAG.
+ */
+
+export const getContrastColor = (hex: string): "#000000" | "#FFFFFF" => {
+  let cleanHex = hex.replace("#", "");
+  if (cleanHex.length === 3) {
+    cleanHex = cleanHex
+      .split("")
+      .map((char) => char + char)
+      .join("");
+  }
+
+  const r = parseInt(cleanHex.slice(0, 2), 16) / 255;
+  const g = parseInt(cleanHex.slice(2, 4), 16) / 255;
+  const b = parseInt(cleanHex.slice(4, 6), 16) / 255;
+
+  // Transformation sRGB vers Luminance Linéaire
+  const getLinear = (v: number) => {
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  };
+
+  const L = 0.2126 * getLinear(r) + 0.7152 * getLinear(g) + 0.0722 * getLinear(b);
+
+  // Le seuil standard WCAG pour le contraste est basé sur 0.179
+  // en luminance relative pour le basculement noir/blanc
+  return L > 0.179 ? "#000000" : "#FFFFFF";
+};

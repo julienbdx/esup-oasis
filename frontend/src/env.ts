@@ -75,7 +75,7 @@ declare global {
 
 export const env: EnvType = {
   ...{ REACT_APP_API_PREFIX: "" },
-  ...{ REACT_APP_DARKMODE: "true" },
+  ...{ REACT_APP_DARKMODE: "false" },
   ...(import.meta.env as unknown as EnvType),
   ...window.env,
 };
