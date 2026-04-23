@@ -40,6 +40,7 @@ export type UseGetFullCollectionHook = <P extends PaginatedPath>(options: {
   fetchedCount: number;
   totalItems: number;
   isLoading: boolean;
+  isLoadingPage1: boolean;
   isFetching: boolean;
   isError: boolean;
   isSuccess: boolean;
@@ -172,6 +173,7 @@ export function useGetFullCollection<P extends PaginatedPath>(
     totalItems,
     isLoading: page1.isLoading || remainingQueries.some((q) => q.isLoading),
     isFetching: page1.isFetching || remainingQueries.some((q) => q.isFetching),
+    isLoadingPage1: page1.isLoading,
     isError: page1.isError || remainingQueries.some((q) => q.isError),
     isSuccess: allDone,
   };

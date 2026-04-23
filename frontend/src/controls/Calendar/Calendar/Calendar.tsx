@@ -146,7 +146,7 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
 
       if (appAccessibilite.contrast) {
         return {
-          className: `border-radius ${eventData.dateAnnulation ? "event-annule" : ""} ${hasNote ? "event-has-note" : ""}`,
+          className: `border-radius${eventData.dateAnnulation ? " event-annule" : ""}${hasNote ? " event-has-note" : ""}`,
           style: {
             fontSize:
               appAffichageFiltres.affichage.densite === DensiteValues.compact ? "0.8rem" : "1rem",
@@ -156,12 +156,13 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
             color: eventData.isAffecte() ? "#FFF" : "#000",
             border: eventData.isAffecte() ? "none" : `5px solid var(--color-danger)`,
             backgroundImage: "",
+            padding: appAffichageFiltres.affichage.type === "month" ? "0.2rem" : "0.5rem",
           },
         };
       }
 
       return {
-        className: `border-radius ${eventData.dateAnnulation ? "event-annule" : ""} ${hasNote ? "event-has-note" : ""}`,
+        className: `border-radius${eventData.dateAnnulation ? " event-annule" : ""}${hasNote ? " event-has-note" : ""}`,
         style: {
           fontSize:
             appAffichageFiltres.affichage.densite === DensiteValues.compact ? "0.8rem" : "1rem",
@@ -171,10 +172,16 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
           color: `var(--color-dark-${typeEvenement?.couleur})`,
           border: "none",
           backgroundImage: eventData.isAffecte() ? "" : "url(/images/strip.svg)",
+          padding: appAffichageFiltres.affichage.type === "month" ? "0.2rem" : "0.33rem",
         },
       };
     },
-    [typesEvenements, appAffichageFiltres.affichage.densite, appAccessibilite.contrast],
+    [
+      typesEvenements?.items,
+      appAccessibilite.contrast,
+      appAffichageFiltres.affichage.densite,
+      appAffichageFiltres.affichage.type,
+    ],
   );
 
   function handleOpenModal(data: Evenement) {
