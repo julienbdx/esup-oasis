@@ -91,7 +91,7 @@ export default function CsvExportButtonWithFetch<
   if (!isSuccess) {
     return (
       <Progress
-        style={{ width: 200 }}
+        style={{ width: "40vw" }}
         status={isError ? "exception" : undefined}
         percent={totalItems > 0 ? Math.min(100, Math.round((fetchedCount / totalItems) * 100)) : 0}
       />
@@ -100,7 +100,7 @@ export default function CsvExportButtonWithFetch<
 
   if (!ready) {
     return (
-      <Button icon={<ExportOutlined />} loading disabled>
+      <Button type="text" icon={<ExportOutlined />} loading disabled>
         Préparation des données...
       </Button>
     );

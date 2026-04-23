@@ -9,7 +9,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ITag, ITypeAmenagement } from "@api/ApiTypeHelpers";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
@@ -124,14 +124,27 @@ export default function AmenagementsBeneficiaireTableExport({
   filtreAmenagement,
   typesAmenagements,
 }: TableAmenagementsExportProps) {
-  const [exportKey, setExportKey] = useState(0);
-  const [exportSubmit, setExportSubmit] = useState(false);
+  const [{ exportKey, exportSubmit, prevFilter }, setExportState] = useState({
+    exportKey: 0,
+    exportSubmit: false,
+    prevFilter: filtreAmenagement,
+  });
+
+  if (prevFilter !== filtreAmenagement) {
+    setExportState((prev) => ({
+      exportKey: prev.exportKey + 1,
+      exportSubmit: false,
+      prevFilter: filtreAmenagement,
+    }));
+  }
+
   const user = useAuth().user;
 
   const {
     data: amenagements,
     fetchedCount: amFetchedCount,
     totalItems: amTotalItems,
+    isLoadingPage1: amIsLoadingPage1,
   } = useApi().useGetFullCollection({
     path: "/amenagements/utilisateurs",
     query: filtreAmenagementToApi(filtreAmenagement, ModeAffichageAmenagement.ParBeneficiaire),
@@ -148,12 +161,6 @@ export default function AmenagementsBeneficiaireTableExport({
     enabled: exportSubmit,
   });
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExportKey((k) => k + 1);
-    setExportSubmit(false);
-  }, [filtreAmenagement]);
-
   const typesAmenagementsUtilises = useMemo(
     () =>
       getTypesAmenagements(amenagements?.items || [], typesAmenagements).sort((a, b) =>
@@ -169,7 +176,7 @@ export default function AmenagementsBeneficiaireTableExport({
 
   const refDataReady = !!(amenagements?.items && tags?.items);
   const globalFetchedCount = amFetchedCount + tagsFetchedCount;
-  const globalTotalItems = amTotalItems + tagsTotalItems;
+  const globalTotalItems = amIsLoadingPage1 ? 0 : amTotalItems + tagsTotalItems;
 
   return (
     <CsvExportButton
@@ -182,7 +189,7 @@ export default function AmenagementsBeneficiaireTableExport({
       ready={refDataReady}
       fetchedCount={globalFetchedCount}
       totalItems={globalTotalItems}
-      onStart={() => setExportSubmit(true)}
+      onStart={() => setExportState((prev) => ({ ...prev, exportSubmit: true }))}
     />
   );
 }

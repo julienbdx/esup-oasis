@@ -24,7 +24,10 @@ export function TabIdentite(props: {
   const { message } = App.useApp();
   const [form] = Form.useForm();
   const user = useAuth().user;
-  const [commentaire, setCommentaire] = useState<string>();
+  const [commentaireState, setCommentaireState] = useState<{
+    demandeId: string | undefined;
+    value: string;
+  }>({ demandeId: undefined, value: "" });
 
   const { data: utilisateur, isFetching } = useApi().useGetItem({
     path: "/utilisateurs/{uid}",
@@ -56,10 +59,13 @@ export function TabIdentite(props: {
     form.setFieldsValue(utilisateur);
   }, [form, utilisateur]);
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCommentaire(demande?.commentaire || "");
-  }, [demande]);
+  // Initialise le commentaire quand la demande charge pour un nouveau demandeId (sans écraser la saisie)
+  if (demande && props.demandeId !== commentaireState.demandeId) {
+    setCommentaireState({ demandeId: props.demandeId, value: demande.commentaire || "" });
+  }
+
+  const commentaire = commentaireState.value;
+  const setCommentaire = (v: string) => setCommentaireState((prev) => ({ ...prev, value: v }));
 
   if (!utilisateur) {
     return (

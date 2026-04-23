@@ -8,7 +8,7 @@
  */
 
 import { IComposante, IDemande, IEtatDemande, IProfil, ITypeDemande } from "@api/ApiTypeHelpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
@@ -68,8 +68,19 @@ function getDemandesExportData(
 }
 
 export default function DemandeTableExport(props: { filtreDemande: FiltreDemande }) {
-  const [exportKey, setExportKey] = useState(0);
-  const [exportSubmit, setExportSubmit] = useState(false);
+  const [{ exportKey, exportSubmit, prevFilter }, setExportState] = useState({
+    exportKey: 0,
+    exportSubmit: false,
+    prevFilter: props.filtreDemande,
+  });
+
+  if (prevFilter !== props.filtreDemande) {
+    setExportState((prev) => ({
+      exportKey: prev.exportKey + 1,
+      exportSubmit: false,
+      prevFilter: props.filtreDemande,
+    }));
+  }
 
   const { data: composantes } = useApi().useGetFullCollection({
     ...PREFETCH_COMPOSANTES,
@@ -87,12 +98,6 @@ export default function DemandeTableExport(props: { filtreDemande: FiltreDemande
     ...PREFETCH_PROFILS,
     enabled: exportSubmit,
   });
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExportKey((k) => k + 1);
-    setExportSubmit(false);
-  }, [props.filtreDemande]);
 
   const refDataReady = !!(
     composantes?.items &&
@@ -119,7 +124,7 @@ export default function DemandeTableExport(props: { filtreDemande: FiltreDemande
         )
       }
       ready={refDataReady}
-      onStart={() => setExportSubmit(true)}
+      onStart={() => setExportState((prev) => ({ ...prev, exportSubmit: true }))}
     />
   );
 }

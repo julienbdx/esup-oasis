@@ -15,7 +15,7 @@ import {
   ITypeSuiviAmenagement,
   IUtilisateur,
 } from "@api/ApiTypeHelpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { getDomaineAmenagement } from "@lib/amenagements";
@@ -117,8 +117,19 @@ interface TableAmenagementsExportProps {
 export default function AmenagementTableExport({
   filtreAmenagement,
 }: TableAmenagementsExportProps) {
-  const [exportKey, setExportKey] = useState(0);
-  const [exportSubmit, setExportSubmit] = useState(false);
+  const [{ exportKey, exportSubmit, prevFilter }, setExportState] = useState({
+    exportKey: 0,
+    exportSubmit: false,
+    prevFilter: filtreAmenagement,
+  });
+
+  if (prevFilter !== filtreAmenagement) {
+    setExportState((prev) => ({
+      exportKey: prev.exportKey + 1,
+      exportSubmit: false,
+      prevFilter: filtreAmenagement,
+    }));
+  }
 
   const { data: categories } = useApi().useGetFullCollection({
     ...PREFETCH_CATEGORIES_AMENAGEMENTS,
@@ -141,12 +152,6 @@ export default function AmenagementTableExport({
     ...PREFETCH_TAGS,
     enabled: exportSubmit,
   });
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExportKey((k) => k + 1);
-    setExportSubmit(false);
-  }, [filtreAmenagement]);
 
   const refDataReady = !!(
     categories?.items &&
@@ -175,7 +180,7 @@ export default function AmenagementTableExport({
         )
       }
       ready={refDataReady}
-      onStart={() => setExportSubmit(true)}
+      onStart={() => setExportState((prev) => ({ ...prev, exportSubmit: true }))}
     />
   );
 }

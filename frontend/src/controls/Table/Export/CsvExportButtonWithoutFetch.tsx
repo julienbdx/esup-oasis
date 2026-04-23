@@ -76,13 +76,13 @@ export default function CsvExportButtonWithoutFetch<T extends object = object>({
     if (totalItems && totalItems > 0) {
       return (
         <Progress
-          style={{ width: 200 }}
+          style={{ width: "40vw" }}
           percent={Math.min(100, Math.round(((fetchedCount ?? 0) / totalItems) * 100))}
         />
       );
     }
     return (
-      <Button icon={<ExportOutlined />} loading disabled>
+      <Button type="text" icon={<ExportOutlined />} loading disabled>
         Préparation des données...
       </Button>
     );

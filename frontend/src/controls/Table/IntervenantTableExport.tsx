@@ -8,7 +8,7 @@
  */
 
 import { ICampus, ICompetence, IIntervenant } from "@api/ApiTypeHelpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 import { PREFETCH_CAMPUS, PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
@@ -61,8 +61,19 @@ interface TableIntervenantsExportProps {
 export default function IntervenantTableExport({
   filtreIntervenant,
 }: TableIntervenantsExportProps) {
-  const [exportKey, setExportKey] = useState(0);
-  const [exportSubmit, setExportSubmit] = useState(false);
+  const [{ exportKey, exportSubmit, prevFilter }, setExportState] = useState({
+    exportKey: 0,
+    exportSubmit: false,
+    prevFilter: filtreIntervenant,
+  });
+
+  if (prevFilter !== filtreIntervenant) {
+    setExportState((prev) => ({
+      exportKey: prev.exportKey + 1,
+      exportSubmit: false,
+      prevFilter: filtreIntervenant,
+    }));
+  }
 
   const { data: competences } = useApi().useGetFullCollection({
     ...PREFETCH_COMPETENCES,
@@ -72,12 +83,6 @@ export default function IntervenantTableExport({
     ...PREFETCH_CAMPUS,
     enabled: exportSubmit,
   });
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExportKey((k) => k + 1);
-    setExportSubmit(false);
-  }, [filtreIntervenant]);
 
   const refDataReady = !!(competences?.items && campus?.items);
 
@@ -97,7 +102,7 @@ export default function IntervenantTableExport({
       filename="intervenants"
       getData={(items) => getIntervenantsData(items, competences?.items, campus?.items)}
       ready={refDataReady}
-      onStart={() => setExportSubmit(true)}
+      onStart={() => setExportState((prev) => ({ ...prev, exportSubmit: true }))}
     />
   );
 }

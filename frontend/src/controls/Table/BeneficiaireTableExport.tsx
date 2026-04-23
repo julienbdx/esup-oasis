@@ -8,7 +8,7 @@
  */
 
 import { IBeneficiaire, IComposante, ITag, IUtilisateur } from "@api/ApiTypeHelpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { PREFETCH_COMPOSANTES, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
@@ -80,8 +80,19 @@ interface TableBeneficiairesExportProps {
 export default function BeneficiaireTableExport({
   filtreBeneficiaire,
 }: TableBeneficiairesExportProps) {
-  const [exportKey, setExportKey] = useState(0);
-  const [exportSubmit, setExportSubmit] = useState(false);
+  const [{ exportKey, exportSubmit, prevFilter }, setExportState] = useState({
+    exportKey: 0,
+    exportSubmit: false,
+    prevFilter: filtreBeneficiaire,
+  });
+
+  if (prevFilter !== filtreBeneficiaire) {
+    setExportState((prev) => ({
+      exportKey: prev.exportKey + 1,
+      exportSubmit: false,
+      prevFilter: filtreBeneficiaire,
+    }));
+  }
 
   const { data: composantes } = useApi().useGetFullCollection({
     ...PREFETCH_COMPOSANTES,
@@ -97,12 +108,6 @@ export default function BeneficiaireTableExport({
     enabled: exportSubmit,
   });
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExportKey((k) => k + 1);
-    setExportSubmit(false);
-  }, [filtreBeneficiaire]);
-
   const refDataReady = !!(composantes?.items && gestionnaires?.items && tags?.items);
 
   return (
@@ -117,7 +122,7 @@ export default function BeneficiaireTableExport({
         getBeneficiairesData(items, composantes?.items, gestionnaires?.items, tags?.items)
       }
       ready={refDataReady}
-      onStart={() => setExportSubmit(true)}
+      onStart={() => setExportState((prev) => ({ ...prev, exportSubmit: true }))}
     />
   );
 }
