@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useCallback, useEffect, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import { App, Form, Modal } from "antd";
 import { Evenement } from "@lib/Evenement";
 import { useAuth } from "@/auth/AuthProvider";
@@ -41,6 +41,8 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
   const { message } = App.useApp();
   const [evenementId, setEvenementId] = useState(id);
   const [evenement, setEvenement] = useState<Evenement | undefined>();
+  const evenementRef = useRef<Evenement | undefined>(undefined);
+  evenementRef.current = evenement;
   const [formIsDirty, setFormIsDirty] = useState(false);
   const { setModalEvenementId, setModalEvenement } = useModals();
   const [form] = Form.useForm<Evenement | undefined>();
@@ -65,17 +67,15 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
 
   const updateSourceEvenement = useCallback(
     (values: IPartialEvenement | undefined, forceResetForm = false) => {
-      setEvenement((prev) => {
-        const evt = new Evenement({
-          beneficiaires: [""],
-          ...prev,
-          ...values,
-        } as IEvenement);
+      const evt = new Evenement({
+        beneficiaires: [""],
+        ...evenementRef.current,
+        ...values,
+      } as IEvenement);
 
-        if (forceResetForm) form.resetFields();
-        form.setFieldsValue(evt);
-        return evt;
-      });
+      setEvenement(evt);
+      if (forceResetForm) form.resetFields();
+      form.setFieldsValue(evt);
     },
     [form],
   );
@@ -90,7 +90,6 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
 
   useEffect(() => {
     if (evenementData) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       updateSourceEvenement(evenementData);
     }
   }, [evenementData, updateSourceEvenement]);
@@ -128,7 +127,6 @@ export default function EvenementModal({ id, initialEvenement }: IEvenementModal
   // Initialisation via props : initialEvenement
   useEffect(() => {
     if (initialEvenement) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       updateSourceEvenement(initialEvenement, true);
     }
   }, [updateSourceEvenement, initialEvenement]);

@@ -229,24 +229,24 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
         stickyHeaderDates={true}
         height="auto"
         events={events.map((event) => event.toFcEvent())}
-        eventClassNames={(arg) =>
-          getEventStyle(arg.event.extendedProps.data as Evenement)
-            .className.split(" ")
-            .filter(Boolean)
-        }
-        eventDidMount={(arg) => {
-          const { style } = getEventStyle(arg.event.extendedProps.data as Evenement);
-          Object.assign(arg.el.style, style);
-        }}
         eventContent={(arg: EventContentArg) => {
+          const eventData = arg.event.extendedProps.data as Evenement;
+          const { style, className } = getEventStyle(eventData);
           const calEvent: CalendarEvenement = {
             title: arg.event.title,
             start: arg.event.start ?? undefined,
             end: arg.event.end ?? undefined,
             allDay: arg.event.allDay,
-            data: arg.event.extendedProps.data as Evenement,
+            data: eventData,
           };
-          return <CalendarEvent key={calEvent.data.hashCode()} event={calEvent} />;
+          return (
+            <div
+              style={{ ...style, height: "100%", width: "100%", overflow: "hidden" }}
+              className={className}
+            >
+              <CalendarEvent key={calEvent.data.hashCode()} event={calEvent} />
+            </div>
+          );
         }}
         dayHeaderContent={dayHeaderContent}
         selectable={user?.isPlanificateur}

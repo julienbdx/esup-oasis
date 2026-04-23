@@ -173,7 +173,10 @@ function UtilisateurFormItemSelect({
   existeNumeroEtudiant,
   forcerRechercheEnBase,
 }: IUtilisateurFormItemSelect) {
-  const [utilisateurId, setUtilisateurId] = useState(value === "" ? undefined : value);
+  const utilisateurId = value === "" ? undefined : value;
+  const [userWantsToEdit, setUserWantsToEdit] = useState(false);
+  const isEditing = !utilisateurId || userWantsToEdit;
+  const [open, setOpen] = useState(false);
   const { setDrawerUtilisateur } = useDrawers();
 
   const {
@@ -193,9 +196,6 @@ function UtilisateurFormItemSelect({
     existeNumeroEtudiant,
     forcerRechercheEnBase,
   });
-
-  const [isEditing, setIsEditing] = useState(utilisateurId === undefined);
-  const [open, setOpen] = useState(false);
 
   function launchSearch() {
     if (tappedSearch.length > 1) {
@@ -245,7 +245,7 @@ function UtilisateurFormItemSelect({
         className={`m-0 p-0 ${classNameButton}`}
         style={styleButton}
         onClick={() => {
-          setIsEditing(true);
+          setUserWantsToEdit(true);
         }}
       />
     );
@@ -269,9 +269,8 @@ function UtilisateurFormItemSelect({
         placeholder={placeholder}
         onSelect={(v) => {
           setOpen(false);
-          setUtilisateurId(v as string);
           if (onSelect) onSelect(v);
-          setIsEditing(false);
+          setUserWantsToEdit(false);
         }}
         onChange={onChange}
       />
