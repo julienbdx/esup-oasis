@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 99;
-  background-color: rgb(255, 255, 255, .9) !important;
+  background-color: rgb(255, 255, 255, .9);
   height: 80px;
   font-weight: 300;
   border-bottom: 1.5px solid variables.$light-grey-border;
@@ -73,7 +73,7 @@
     transition: background-color .5s;
   }
 
-  .logo, .recherche:not(.recherche-en-cours), .notifications, .item-accessibilite {
+  .logo, .recherche:not(.recherche-en-cours), .notifications, .item-accessibilite, .item-theme {
     .ant-menu-title-content {
       background-color: transparent;
       padding: 0;
@@ -81,9 +81,8 @@
     }
   }
 
-  .item-accessibilite .ant-menu-submenu-title {
-    display: flex;
-    align-items: center;
+  .item-accessibilite, .item-theme {
+    margin-top: 7px !important;
   }
 
   .ant-menu .recherche {
@@ -158,7 +157,6 @@
   color: #AAA !important;
   background: none;
 }
-
 
 
 .sider-trigger {

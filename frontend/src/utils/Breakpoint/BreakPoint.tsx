@@ -8,7 +8,7 @@
  */
 
 import React, { ReactElement, useState } from "react";
-import { Button, Grid, Tag } from "antd";
+import { Button, Grid, Space, Tag } from "antd";
 import "@utils/Breakpoint/BreakPoint.scss";
 import { CloseOutlined, EllipsisOutlined } from "@ant-design/icons";
 
@@ -23,10 +23,10 @@ function BreakPoint(): ReactElement {
   const screens = useBreakpoint();
   const [open, setOpen] = useState(false);
   return (
-    <div className="breakpoints hide-on-print d-flex-center">
+    <Space className="breakpoints hide-on-print d-flex-center">
       {open &&
         Object.entries(screens).map((screen) => (
-          <Tag color={screen[1] ? "success" : "#edeef3"} key={screen[0]}>
+          <Tag color={screen[1] ? "success" : undefined} key={screen[0]}>
             {screen[0]}
           </Tag>
         ))}
@@ -37,7 +37,7 @@ function BreakPoint(): ReactElement {
         shape="circle"
         onClick={() => setOpen(!open)}
       />
-    </div>
+    </Space>
   );
 }
 

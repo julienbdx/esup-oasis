@@ -9,8 +9,9 @@
 
 import React, { useEffect } from "react";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import frFR from "antd/lib/locale/fr_FR";
+import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 import {
   APP_ERROR_COLOR,
   APP_ERROR_LIGHT_COLOR,
@@ -33,6 +34,8 @@ function getColorVariant(color: string | null, fallbackColor: string, fallbackCo
 
 export function AppConfigProvider({ children }: { children: React.ReactNode }) {
   const { accessibilite: appAccessibilite } = useAccessibilite();
+  const effectiveTheme = useEffectiveTheme(appAccessibilite.themeMode);
+  const isDark = effectiveTheme === "dark";
 
   // Ajoute les couleurs de l'application aux variables CSS
   useEffect(() => {
@@ -123,6 +126,7 @@ export function AppConfigProvider({ children }: { children: React.ReactNode }) {
     <ConfigProvider
       locale={frFR}
       theme={{
+        algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
         token: {
           colorPrimary: appAccessibilite.contrast
             ? getColorVariant(APP_PRIMARY_CONTRAST_COLOR, APP_PRIMARY_COLOR, -0.5)
@@ -133,8 +137,8 @@ export function AppConfigProvider({ children }: { children: React.ReactNode }) {
           colorError: APP_ERROR_COLOR,
           colorSuccess: APP_SUCCESS_COLOR,
           colorWarning: APP_WARNING_COLOR,
-          colorText: appAccessibilite.contrast ? "#000000" : "#333333",
-          colorTextDisabled: appAccessibilite.contrast ? "#333" : "#555",
+          colorText: appAccessibilite.contrast ? "#000000" : undefined,
+          colorTextDisabled: appAccessibilite.contrast ? "#333" : undefined,
           fontSize: getFontSize(),
           fontWeightStrong: getFontWeight(),
           wireframe: false,

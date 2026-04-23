@@ -256,7 +256,7 @@ export function menuItemNotifications(
       label: (
         <Button
           type="text"
-          className="bg-transparent p-0 pt-1"
+          className="bg-transparent p-0"
           aria-label="Notifications de l'application"
         >
           <Badge

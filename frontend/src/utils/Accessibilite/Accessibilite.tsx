@@ -9,6 +9,7 @@
 
 import React, { ReactElement, useEffect } from "react";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
 /**
  * Gère les paramètres d'accessibilité de l'application.
@@ -19,6 +20,7 @@ import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
  */
 export default function Accessibilite(): ReactElement {
   const { accessibilite: appAccessibilite } = useAccessibilite();
+  const effectiveTheme = useEffectiveTheme(appAccessibilite.themeMode);
 
   useEffect(() => {
     if (appAccessibilite.contrast) {
@@ -51,6 +53,14 @@ export default function Accessibilite(): ReactElement {
       document.body.classList.remove("accessibilite-police-large");
     }
   }, [appAccessibilite]);
+
+  useEffect(() => {
+    if (effectiveTheme === "dark") {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [effectiveTheme]);
 
   return <></>;
 }

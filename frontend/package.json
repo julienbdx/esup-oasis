@@ -1,6 +1,6 @@
 {
   "name": "oasis",
-  "version": "2.3.0",
+  "version": "2.4.0-a11",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^6.1.0",

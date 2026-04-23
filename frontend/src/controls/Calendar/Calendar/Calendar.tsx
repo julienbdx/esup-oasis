@@ -32,6 +32,7 @@ import {
   useAffichageFiltres,
 } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 import { useModals } from "@context/modals/ModalsContext";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
@@ -65,6 +66,7 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
   const calendarRef = useRef<FullCalendar>(null);
   const { setModalEvenementId, setModalEvenement } = useModals();
   const { accessibilite: appAccessibilite } = useAccessibilite();
+  const isDark = useEffectiveTheme(appAccessibilite.themeMode) === "dark";
   const { affichageFiltres: appAffichageFiltres, setAffichage } = useAffichageFiltres();
   const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
     useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
@@ -170,8 +172,11 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
             ? `var(--color-${typeEvenement?.couleur})`
             : `var(--color-xlight-${typeEvenement?.couleur})`,
           color: `var(--color-dark-${typeEvenement?.couleur})`,
-          border: "none",
-          backgroundImage: eventData.isAffecte() ? "" : "url(/images/strip.svg)",
+          border:
+            !eventData.isAffecte() && isDark
+              ? `2px dashed var(--color-${typeEvenement?.couleur})`
+              : "none",
+          backgroundImage: eventData.isAffecte() || isDark ? "" : "url(/images/strip.svg)",
           padding: appAffichageFiltres.affichage.type === "month" ? "0.2rem" : "0.33rem",
         },
       };
@@ -179,6 +184,7 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
     [
       typesEvenements?.items,
       appAccessibilite.contrast,
+      isDark,
       appAffichageFiltres.affichage.densite,
       appAffichageFiltres.affichage.type,
     ],
