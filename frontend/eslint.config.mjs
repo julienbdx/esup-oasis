@@ -101,7 +101,7 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.jest,
         ...globals.es2020,
-      },
+      vi: "readonly",},
       parser: tseslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
@@ -132,7 +132,11 @@ export default tseslint.config(
       "import/no-extraneous-dependencies": [
         "error",
         {
-          devDependencies: false,
+          devDependencies: [
+                  "**/*.test.{ts,tsx}",
+                  "**/*.spec.{ts,tsx}",
+                  "**/setupTests.ts",
+               ],
           optionalDependencies: false,
           peerDependencies: false,
         },
