@@ -9,9 +9,9 @@
 
 import { Avatar, Card, Empty, List, Tooltip } from "antd";
 import React, { ReactElement } from "react";
-import { IInscription, IUtilisateur } from "@api/ApiTypeHelpers";
+import { IInscription, IUtilisateur } from "@api";
 import { getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
-import ComposanteItem from "@controls/Items/ComposanteItem";
+import { ComposanteItem } from "@controls/Items/ComposanteItem";
 import { env } from "@/env";
 import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
 

@@ -10,7 +10,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Col, Modal, Row, Skeleton } from "antd";
 import { useModals } from "@context/modals/ModalsContext";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { EvenementResumeInformations } from "@controls/Modals/Evenement/EvenementResume/EvenementResumeInformations";

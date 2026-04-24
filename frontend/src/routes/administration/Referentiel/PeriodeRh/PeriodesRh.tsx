@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { PeriodesRhEdition } from "@controls/Admin/Referentiel/PeriodeRh/PeriodesRhEdition";
 import { PeriodesRhTable } from "@controls/Table/Admin/PeriodesRhTable";
-import { IPeriode } from "@api/ApiTypeHelpers";
+import { IPeriode } from "@api";
 
 /**
  * Renders the Administration page for managing RH periods.

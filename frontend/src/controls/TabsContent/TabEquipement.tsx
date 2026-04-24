@@ -10,7 +10,7 @@
 import { Checkbox, Form } from "antd";
 import React, { ReactElement } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_EQUIPEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_EQUIPEMENTS } from "@api";
 
 /**
  * Retrieves a collection of equipment items from the API and displays them as checkboxes in a form.

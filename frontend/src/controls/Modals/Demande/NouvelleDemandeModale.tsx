@@ -9,7 +9,7 @@
 
 import { Modal } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande } from "@api";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import React from "react";
 import { useAuth } from "@/auth/AuthProvider";

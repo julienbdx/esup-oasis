@@ -8,7 +8,7 @@
  */
 
 import dayjs from "dayjs";
-import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
+import { IDemande, ITypeDemande } from "@api";
 import { Questionnaire, QuestionnaireEtape } from "@context/demande/QuestionnaireTypes";
 
 /**

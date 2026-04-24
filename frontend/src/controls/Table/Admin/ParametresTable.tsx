@@ -12,7 +12,7 @@ import { Button, Space, Table } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { EditOutlined, FileOutlined } from "@ant-design/icons";
 import ParametresEdition from "@controls/Admin/Parametres/ParametresEdition";
-import { IParametre, IParametreValeur } from "@api/ApiTypeHelpers";
+import { IParametre, IParametreValeur } from "@api";
 
 export default function ParametresTable() {
   const [editedItem, setEditedItem] = useState<IParametre>();

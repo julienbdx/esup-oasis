@@ -13,10 +13,8 @@ import { HomeFilled } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { capitalize } from "@utils/string";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { ApiPathMethodQuery, IPeriode, PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { PARAMETRE_COEF_COUT_CHARGE } from "@/constants";
-import { IPeriode } from "@api/ApiTypeHelpers";
-import { ApiPathMethodQuery } from "@api/SchemaHelpers";
 import { montantToString, to2Digits } from "@utils/number";
 import {
   BilanFilterForm,

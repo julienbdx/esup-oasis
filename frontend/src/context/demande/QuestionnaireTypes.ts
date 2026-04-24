@@ -9,8 +9,8 @@
 
 import { FormInstance } from "antd";
 import dayjs from "dayjs";
-import { ICampagneDemande, IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
-import { EtatInfo } from "@lib/demande";
+import { ICampagneDemande, IDemande, ITypeDemande } from "@api";
+import { EtatInfo } from "@lib";
 
 export enum FONCTIONNALITES {
   DECLARER_RECEPTIONNEE = "DECLARER_RECEPTIONNEE",

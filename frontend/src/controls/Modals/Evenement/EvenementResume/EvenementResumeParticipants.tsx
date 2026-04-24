@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Evenement } from "@lib/Evenement";
+import { Evenement, RoleValues } from "@lib";
 import { Descriptions, List } from "antd";
-import { EtudiantItem, GestionnaireItem } from "@controls/Items";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
 import React, { ReactElement, useMemo } from "react";
-import { RoleValues } from "@lib/Utilisateur";
 
 /**
  * Renders a description list of participants for a given event.

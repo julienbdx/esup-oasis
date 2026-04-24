@@ -8,7 +8,7 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { Col, Form, Row, Select } from "antd";
 import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
 import React from "react";

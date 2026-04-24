@@ -14,7 +14,7 @@ import { ServicesFaitsItem } from "@controls/Admin/Bilans/ServicesFaitsItem";
 import { useAuth } from "@/auth/AuthProvider";
 import apiDownloader from "@utils/apiDownloader";
 import dayjs from "dayjs";
-import { IPeriode } from "@api/ApiTypeHelpers";
+import { IPeriode } from "@api";
 import { env } from "@/env";
 
 interface ServicesFaitsButtonProps {

@@ -12,7 +12,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { isEnCoursSurPeriode } from "@utils/dates";
 import { Avatar, Tooltip } from "antd";
 import { CheckOutlined, HourglassOutlined, MinusOutlined } from "@ant-design/icons";
-import { IAvisEse } from "@api/ApiTypeHelpers";
+import { IAvisEse } from "@api";
 import { env } from "@/env";
 
 export function AvisEseAvatar(props: {

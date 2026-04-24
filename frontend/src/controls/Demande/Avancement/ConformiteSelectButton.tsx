@@ -10,10 +10,9 @@
 import { App, Button, Dropdown, Input, MenuProps, Modal, Space } from "antd";
 import { CaretDownOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import React from "react";
-import { ETAT_DEMANDE_CONFORME, ETAT_DEMANDE_NON_CONFORME } from "@lib/demande";
+import { ETAT_DEMANDE_CONFORME, ETAT_DEMANDE_NON_CONFORME } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
-import { IDemande } from "@api/ApiTypeHelpers";
-import { QK_DEMANDES } from "@api/queryKeys";
+import { IDemande, QK_DEMANDES } from "@api";
 
 export default function ConformiteSelectButton(props: { demande: IDemande }): React.ReactElement {
   const { message } = App.useApp();

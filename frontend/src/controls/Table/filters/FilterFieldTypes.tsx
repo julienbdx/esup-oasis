@@ -10,8 +10,8 @@
 import React from "react";
 import { Col, Select } from "antd";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
-import { ITypeAmenagement } from "@api/ApiTypeHelpers";
-import { getDomaineAmenagement } from "@lib/amenagements";
+import { ITypeAmenagement } from "@api";
+import { getDomaineAmenagement } from "@lib";
 
 interface FilterFieldTypesProps {
   filtreAmenagement: FiltreAmenagement;

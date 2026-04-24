@@ -8,13 +8,12 @@
  */
 
 import { Button, Card, Dropdown, Form, Input, MenuProps, Popconfirm, Select, Space } from "antd";
-import { ROLE_INCONNU, ROLES_SELECT, RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { ROLE_INCONNU, ROLES_SELECT, RoleValues, Utilisateur } from "@lib";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { DeleteOutlined, DownOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur, QK_ROLES_UTILISATEURS } from "@api";
 import { env } from "@/env";
-import { QK_ROLES_UTILISATEURS } from "@api/queryKeys";
 
 interface IUtilisateursEditer {
   utilisateur: IUtilisateur;

@@ -23,9 +23,8 @@ import {
 import { NavLink } from "react-router-dom";
 import { HomeFilled } from "@ant-design/icons";
 import React from "react";
-import { Paths } from "@api/SchemaHelpers";
+import { IComposante, IFormation, IProfil, IUtilisateur, Paths, QK_SUIVIS_ACTIVITE } from "@api";
 import ProfilsField from "@controls/Forms/ProfilsField";
-import { IComposante, IFormation, IProfil, IUtilisateur } from "@api/ApiTypeHelpers";
 import ComposantesField from "@controls/Forms/ComposantesField";
 import FormationsField from "@controls/Forms/FormationsField";
 import GestionnairesField from "@controls/Forms/GestionnairesField";
@@ -33,7 +32,6 @@ import { Dayjs } from "dayjs";
 import { useApi } from "@context/api/ApiProvider";
 import { TableBilanActivite } from "@controls/Admin/Bilans/TableBilanActivite";
 import { env } from "@/env";
-import { QK_SUIVIS_ACTIVITE } from "@api/queryKeys";
 
 type FiltreBilan =
   Paths["/suivis/activite"]["post"]["requestBody"]["content"]["application/ld+json"];

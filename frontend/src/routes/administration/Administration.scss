@@ -10,7 +10,6 @@
   grid-gap: 10px;
 
   .grid-admin-item {
-
     .grid-admin-item-content-title {
       font-size: 1.2rem;
       margin: 10px 0;
@@ -28,21 +27,20 @@
         color: variables.$text;
         border-color: variables.$app;
         box-shadow: 0 5px 7px rgb(0 0 0 / 5%) !important;
-        transition: all .25s;
+        transition: all 0.25s;
 
         .grid-admin-item-content-desc {
           color: variables.$text;
         }
       }
     }
-
   }
 }
 
 .ref-inactif td:not(.commandes) {
   background-color: variables.$light-grey;
   color: variables.$light-color;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .administration {

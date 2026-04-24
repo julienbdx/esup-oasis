@@ -10,7 +10,7 @@
 import React, { ReactElement } from "react";
 import { App, Button, Col, FormInstance, Row, Space } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import EventDeleteButton from "@controls/Buttons/EventDeleteButton";
 import EventCopyButton from "@controls/Buttons/EventCopyButton";
 

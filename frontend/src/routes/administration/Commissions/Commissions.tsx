@@ -13,7 +13,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
-import { ICommission } from "@api/ApiTypeHelpers";
+import { ICommission } from "@api";
 import { CommissionsEdition } from "@controls/Admin/Commissions/CommissionsEdition";
 import { CommissionsTable } from "@controls/Table/Admin/CommissionsTable";
 

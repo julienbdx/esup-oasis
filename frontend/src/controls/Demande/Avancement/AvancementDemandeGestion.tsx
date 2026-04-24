@@ -14,7 +14,7 @@ import {
   ETAT_ATTENTE_CHARTES,
   ETAT_DEMANDE_ATTENTE_COMMISSION,
   ETAT_DEMANDE_NON_CONFORME,
-} from "@lib/demande";
+} from "@lib";
 import "@controls/Demande/Avancement/AvancementDemande.scss";
 import { useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemandeLabel";

@@ -31,7 +31,7 @@ import { useApi } from "@context/api/ApiProvider";
 import AnnulationFilter, {
   AnnulationFilterValues,
 } from "@controls/Filters/Annulation/AnnulationFilter";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api";
 import BeneficiaireIntervenantFilter from "@controls/Filters/BeneficiaireIntervenant/BeneficiaireIntervenantFilter";
 import { FiltresFavorisEvenements } from "@controls/Calendar/Sider/FiltresFavorisEvenements";
 import { env } from "@/env";

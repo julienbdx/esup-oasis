@@ -7,7 +7,12 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAvisEse } from "@api/ApiTypeHelpers";
+import {
+  IAvisEse,
+  QK_BENEFICIAIRES,
+  QK_UTILISATEURS_AVIS_ESE,
+  QK_UTILISATEURS_AVIS_ESE_ITEM,
+} from "@api";
 import { App, Button, Col, DatePicker, Form, Input, Modal, Row } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect } from "react";
@@ -15,11 +20,6 @@ import dayjs, { Dayjs } from "dayjs";
 import { Fichier } from "@controls/Fichier/Fichier";
 import { FichierDepot } from "@controls/Fichier/FichierDepot";
 import { env } from "@/env";
-import {
-  QK_BENEFICIAIRES,
-  QK_UTILISATEURS_AVIS_ESE,
-  QK_UTILISATEURS_AVIS_ESE_ITEM,
-} from "@api/queryKeys";
 
 type IAvisForm = IAvisEse & { dateDebut: Dayjs; dateFin: Dayjs | null };
 

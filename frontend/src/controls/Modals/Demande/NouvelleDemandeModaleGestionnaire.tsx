@@ -9,12 +9,12 @@
 
 import { Button, Flex, Modal, Space } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande } from "@api";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import React, { useState } from "react";
 import { TypesDemandesListItems } from "@controls/Modals/Demande/TypesDemandesListItems";
 import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
 import Spinner from "@controls/Spinner/Spinner";
 import { ClearOutlined } from "@ant-design/icons";

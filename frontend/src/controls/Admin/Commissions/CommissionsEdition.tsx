@@ -9,7 +9,7 @@
 
 import React, { ReactElement } from "react";
 import { Drawer } from "antd";
-import { ICommission } from "@api/ApiTypeHelpers";
+import { ICommission } from "@api";
 import { CommissionsForm } from "@controls/Admin/Commissions/CommissionsForm";
 import { CommissionsMembersList } from "@controls/Admin/Commissions/CommissionsMembersList";
 

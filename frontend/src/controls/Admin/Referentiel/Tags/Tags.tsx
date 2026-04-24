@@ -14,7 +14,7 @@ import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import BooleanState from "@controls/State/BooleanState";
 import React, { useState } from "react";
 import { TagEdition } from "@controls/Admin/Referentiel/Tags/TagEdition";
-import { ITag } from "@api/ApiTypeHelpers";
+import { ITag } from "@api";
 import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
 
 export function Tags(props: { categorieId: string; afficherDesactives: boolean }) {

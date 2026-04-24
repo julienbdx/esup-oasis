@@ -11,11 +11,10 @@ import { Alert, Button, Col, DatePicker, Divider, Form, Popconfirm, Row, Space }
 import React, { ReactElement, useState } from "react";
 import { InfoCircleFilled, SaveOutlined, WarningFilled } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { RoleValues, Utilisateur } from "@lib";
 import dayjs from "dayjs";
 import { createDateAsUTC } from "@utils/dates";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
-import { QK_INTERVENANTS, QK_UTILISATEURS } from "@api/queryKeys";
+import { IUtilisateur, QK_INTERVENANTS, QK_UTILISATEURS } from "@api";
 
 interface ITabDisponibilitesProps {
   utilisateur: IUtilisateur;

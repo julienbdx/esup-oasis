@@ -5,9 +5,13 @@
          "@/*": ["./src/*"],
          "@assets/*": ["./src/assets/*"],
          "@controls/*": ["./src/controls/*"],
+         "@controls/Items": ["./src/controls/Items/index.ts"],
          "@context/*": ["./src/context/*"],
+         "@lib": ["./src/lib/index.ts"],
          "@lib/*": ["./src/lib/*"],
          "@utils/*": ["./src/utils/*"],
+         "@utils/dates": ["./src/utils/dates/index.ts"],
+         "@api": ["./src/api/index.ts"],
          "@api/*": ["./src/api/*"],
          "@routes/*": ["./src/routes/*"]
       },

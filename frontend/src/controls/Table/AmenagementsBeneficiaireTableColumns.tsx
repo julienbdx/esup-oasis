@@ -10,11 +10,12 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { DomaineAmenagementInfos } from "@lib/amenagements";
+import { DomaineAmenagementInfos, RoleValues, Utilisateur } from "@lib";
 import React from "react";
 import { Badge, Button, Flex, Space, Tooltip } from "antd";
 import Icon, { CheckOutlined, MinusOutlined, PauseOutlined } from "@ant-design/icons";
-import ComposanteItem from "@controls/Items/ComposanteItem";
+import { ComposanteItem } from "@controls/Items/ComposanteItem";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
 import {
   AmenagementCellData,
   IAmenagementsBeneficiaireTableDataSource,
@@ -28,12 +29,10 @@ import ExternalLink from "@/assets/images/external-link.svg?react";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";
-import EtudiantItem from "@controls/Items/EtudiantItem";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
 import { ascToAscend } from "@utils/array";
 import { FilterProps } from "@utils/table";
 import { ColumnsType } from "antd/lib/table";
-import { IBeneficiaire, ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { IBeneficiaire, ICategorieAmenagement, ITypeAmenagement } from "@api";
 import { ColumnType } from "antd/es/table";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 import { env } from "@/env";

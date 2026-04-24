@@ -24,7 +24,7 @@ import {
   TeamOutlined,
   ToolOutlined,
 } from "@ant-design/icons";
-import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
+import { APIPathsReferentiel } from "@api";
 import { AdminPanel } from "@controls/Admin/AdminPanel";
 import React from "react";
 import MedalIcon from "@/assets/images/medal.svg?react";

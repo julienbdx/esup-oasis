@@ -9,12 +9,11 @@
  */
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { IDemande } from "@api/ApiTypeHelpers";
+import { IDemande, PREFETCH_ETAT_DEMANDE } from "@api";
 import { Button, Flex, Space, Table } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { SorterResult } from "antd/es/table/interface";
-import { PREFETCH_ETAT_DEMANDE } from "@api/ApiPrefetchHelpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DemandeTableExport from "@controls/Table/DemandeTableExport";
 import { demandeTableColumns } from "@controls/Table/DemandeTableColumns";

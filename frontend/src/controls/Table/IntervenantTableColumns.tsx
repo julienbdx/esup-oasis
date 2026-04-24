@@ -8,9 +8,9 @@
  */
 
 import { Button, Popconfirm, Space, Tooltip } from "antd";
-import RoleCalculeItem from "@controls/Items/RoleCalculeItem";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
-import { IIntervenant, IUtilisateur } from "@api/ApiTypeHelpers";
+import { RoleCalculeItem } from "@controls/Items/RoleCalculeItem";
+import { RoleValues, Utilisateur } from "@lib";
+import { IIntervenant, IUtilisateur } from "@api";
 import { EyeOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import React from "react";
 import { ColumnType } from "antd/es/table";

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande } from "@api";
 import { Avatar } from "antd";
 import { LockFilled, UnlockOutlined } from "@ant-design/icons";
 import React from "react";

@@ -10,27 +10,27 @@
 import React from "react";
 import { Button, List, Modal, Tag, Tooltip } from "antd";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
-import ProfilItem from "@controls/Items/ProfilItem";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { CampusItem } from "@controls/Items/CampusItem";
+import { CompetenceItem } from "@controls/Items/CompetenceItem";
+import { ComposanteItem } from "@controls/Items/ComposanteItem";
+import { DisciplineItem } from "@controls/Items/DisciplineItem";
+import { FormationItem } from "@controls/Items/FormationItem";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
+import { ProfilItem } from "@controls/Items/ProfilItem";
+import { SuiviAmenagementItem } from "@controls/Items/SuiviAmenagementItem";
+import { TypeDemandeItem } from "@controls/Items/TypeDemandeItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
-import ComposanteItem from "@controls/Items/ComposanteItem";
-import FormationItem from "@controls/Items/FormationItem";
 import Icon from "@ant-design/icons";
 import FilterMore from "@/assets/images/filter-more.svg?react";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
-import CampusItem from "@controls/Items/CampusItem";
-import { CompetenceItem } from "@controls/Items";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
-import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
-import DisciplineItem from "@controls/Items/DisciplineItem";
 import type { ButtonType } from "antd/es/button/buttonHelpers";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 import { CategorieAmenagementTag } from "@controls/Avatars/CategorieAmenagementTag";
 import { TypeAmenagementTag } from "@controls/Avatars/TypeAmenagementTag";
-import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
-import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib/amenagements";
+import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib";
 import { env } from "@/env";
 
 export type FiltreDecrivable =

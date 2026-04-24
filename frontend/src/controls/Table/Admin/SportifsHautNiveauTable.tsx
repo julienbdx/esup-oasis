@@ -11,13 +11,12 @@ import { useApi } from "@context/api/ApiProvider";
 import { App, Button, Popconfirm, Space, Table, Tag, Typography } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { ISportifHautNiveau } from "@api/ApiTypeHelpers";
+import { ISportifHautNiveau, QK_SPORTIFS_HAUT_NIVEAU } from "@api";
 import { ascendToAsc, ascToAscend } from "@utils/array";
 import { FilterProps } from "@utils/table";
 import { SorterResult } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { removeAccents } from "@utils/string";
-import { QK_SPORTIFS_HAUT_NIVEAU } from "@api/queryKeys";
 import { ColumnsType } from "antd/lib/table";
 
 interface SportifsHautNiveauTableProps {

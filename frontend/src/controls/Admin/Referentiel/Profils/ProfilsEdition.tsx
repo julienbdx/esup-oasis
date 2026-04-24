@@ -10,8 +10,7 @@
 import { Button, Card, Drawer, Form, Input, Switch } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
-import { IProfil } from "@api/ApiTypeHelpers";
-import { QK_PROFILS } from "@api/queryKeys";
+import { IProfil, QK_PROFILS } from "@api";
 
 interface ProfilsEditionProps {
   editedItem?: IProfil;

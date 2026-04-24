@@ -11,13 +11,8 @@
 import React from "react";
 import { Button, Space, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
-import {
-  ETAT_ATTENTE_CHARTES,
-  ETAT_DEMANDE_REFUSEE,
-  ETAT_DEMANDE_VALIDEE,
-  EtatInfo,
-} from "@lib/demande";
-import { IDemande } from "@api/ApiTypeHelpers";
+import { ETAT_ATTENTE_CHARTES, ETAT_DEMANDE_REFUSEE, ETAT_DEMANDE_VALIDEE, EtatInfo } from "@lib";
+import { IDemande } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import ValidationAccompagnementButton from "@controls/Demande/ValidationAccompagnementButton";

@@ -9,11 +9,10 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 import "@routes/administration/Administration.scss";
-import { QK_INTERVENTIONS_FORFAIT } from "@api/queryKeys";
+import { IInterventionForfait, QK_INTERVENTIONS_FORFAIT } from "@api";
 import { Button, Card, Drawer, Dropdown, Form, Popconfirm, Space } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { DeleteOutlined, DownOutlined, SaveOutlined } from "@ant-design/icons";
-import { IInterventionForfait } from "@api/ApiTypeHelpers";
 import { UseStateDispatch } from "@utils/utils";
 import { InterventionsForfaitForm } from "@controls/Interventions/InterventionsForfaitForm";
 

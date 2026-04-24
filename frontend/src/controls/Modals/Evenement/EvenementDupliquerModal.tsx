@@ -10,14 +10,13 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Form, Modal, notification } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
 import { queryClient } from "@/queryClient";
 import { arrayContainsDuplicates } from "@utils/array";
 import { createDateAsUTC } from "@utils/dates";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
-import { IEvenement } from "@api/ApiTypeHelpers";
-import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
+import { IEvenement, QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api";
 import { UseStateDispatch } from "@utils/utils";
 import {
   EvenementDupliquerForm,

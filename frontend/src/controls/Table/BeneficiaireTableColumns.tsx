@@ -9,18 +9,19 @@
  */
 
 import { ColumnType } from "antd/es/table";
-import { IBeneficiaire, IDecisionEtablissement, IUtilisateur } from "@api/ApiTypeHelpers";
-import ComposanteItem from "@controls/Items/ComposanteItem";
+import { IBeneficiaire, IDecisionEtablissement, IUtilisateur } from "@api";
+import { BeneficiaireProfilItem } from "@controls/Items/BeneficiaireProfilItem";
+import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
+import { ComposanteItem } from "@controls/Items/ComposanteItem";
 import React from "react";
 import { Button, Popconfirm, Space, Tooltip } from "antd";
 import Icon, { EyeOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { ascToAscend } from "@utils/array";
 import { FilterProps } from "@utils/table";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { RoleValues, Utilisateur } from "@lib";
 import ExternalLink from "@/assets/images/external-link.svg?react";
 
-import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
 import { UtilisateurTag } from "@controls/Tags/UtilisateurTag";
 import {
   BeneficiaireAvisEseAvatar,
@@ -31,7 +32,6 @@ import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 import Highlighter from "react-highlight-words";
 import { removeAccents } from "@utils/string";
 import { DecisionEtablissementAvatar } from "@controls/Avatars/DecisionEtablissementAvatar";
-import { BeneficiaireProfilItem } from "@controls/Items/BeneficiaireProfilItem";
 
 import { UseStateDispatch } from "@utils/utils";
 import { env } from "@/env";

@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { Button, Flex, Table } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
 import "@controls/Table/EvenementTable.scss";

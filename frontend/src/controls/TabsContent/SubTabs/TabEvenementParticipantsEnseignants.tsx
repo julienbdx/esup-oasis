@@ -10,11 +10,10 @@
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { Button, Form, Space } from "antd";
 import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "@lib/Utilisateur";
+import { Evenement, RoleValues } from "@lib";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { ReactElement } from "react";
-import { Evenement } from "@lib/Evenement";
-import { IPartialEvenement } from "@api/ApiTypeHelpers";
+import { IPartialEvenement } from "@api";
 
 interface TabEvenementParticipantsEnseignantsProps {
   evenement: Evenement | undefined;

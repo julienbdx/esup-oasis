@@ -10,8 +10,8 @@
 import { Checkbox, Form } from "antd";
 import React, { ReactElement } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { Utilisateur } from "@lib/Utilisateur";
-import { PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
+import { Utilisateur } from "@lib";
+import { PREFETCH_COMPETENCES } from "@api";
 
 interface ITabCompetencesProps {
   label: string;

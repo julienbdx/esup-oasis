@@ -15,8 +15,7 @@ import { FilterFilled, FilterOutlined } from "@ant-design/icons";
 import { useAuth } from "@/auth/AuthProvider";
 import InterventionForfaitTableExport from "@controls/Table/InterventionForfaitTableExport";
 import { SorterResult } from "antd/es/table/interface";
-import { IInterventionForfait } from "@api/ApiTypeHelpers";
-import { Paths } from "@api/SchemaHelpers";
+import { IInterventionForfait, Paths } from "@api";
 
 export declare type FiltreInterventionsForfait = Exclude<
   Paths["/interventions_forfait"]["get"]["parameters"]["query"],

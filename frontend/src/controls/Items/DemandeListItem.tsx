@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { IDemande } from "@api/ApiTypeHelpers";
+import { IDemande } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { Badge, Button, List, Space } from "antd";
@@ -19,11 +19,11 @@ import {
   ETAT_DEMANDE_EN_COURS,
   ETAT_DEMANDE_NON_CONFORME,
   ETAT_DEMANDE_REFUSEE,
-} from "@lib/demande";
+} from "@lib";
 import { useNavigate } from "react-router-dom";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import { CampagneDemandeDateItem } from "@controls/Items/CampagneDemandeDateItem";
+import { CampagneDemandeDateItem } from "./CampagneDemandeDateItem";
 
 function CampagneItem(props: { campagneId?: string }) {
   let templateString: string;

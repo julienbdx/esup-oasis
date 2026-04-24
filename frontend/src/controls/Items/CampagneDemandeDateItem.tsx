@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICampagneDemande } from "@api/ApiTypeHelpers";
+import { ICampagneDemande } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
 

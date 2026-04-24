@@ -13,8 +13,8 @@ import { TabEvenementParticipantsIntervenant } from "@controls/TabsContent/SubTa
 import { TabEvenementParticipantsSuppleants } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsSuppleants";
 import { TabEvenementParticipantsEnseignants } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsEnseignants";
 import React, { ReactElement } from "react";
-import { Evenement } from "@lib/Evenement";
-import { IPartialEvenement } from "@api/ApiTypeHelpers";
+import { Evenement } from "@lib";
+import { IPartialEvenement } from "@api";
 import EventMailCopyButton from "@controls/Buttons/EventMailCopyButton";
 
 interface TabEvenementParticipantsProps {

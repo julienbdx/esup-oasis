@@ -11,16 +11,13 @@ import React from "react";
 import { Alert, App, Space } from "antd";
 import dayjs from "dayjs";
 import { MinusOutlined } from "@ant-design/icons";
-import { CalendarEvenement } from "@lib/Evenement";
+import { CalendarEvenement, RoleValues } from "@lib";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
-import { RoleValues } from "@lib/Utilisateur";
-import {
-  CampusItem,
-  EtudiantItem,
-  GestionnaireItem,
-  TypeEquipementItem,
-  TypeEvenementItem,
-} from "@controls/Items";
+import { CampusItem } from "@controls/Items/CampusItem";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
+import { TypeEquipementItem } from "@controls/Items/TypeEquipementItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 import EventCopyButton from "@controls/Buttons/EventCopyButton";
 
 interface CalendarEventPopoverContentProps {

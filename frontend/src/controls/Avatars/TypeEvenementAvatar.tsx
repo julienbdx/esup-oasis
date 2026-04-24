@@ -12,8 +12,7 @@ import { Avatar } from "antd";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
+import { ITypeEvenement, PREFETCH_TYPES_EVENEMENTS } from "@api";
 
 interface IAvatarTypeEvenement {
   typeEvenement?: ITypeEvenement;

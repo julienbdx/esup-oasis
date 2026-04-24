@@ -11,11 +11,10 @@ import React, { ReactElement, useState } from "react";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { Button, Form } from "antd";
 import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "@lib/Utilisateur";
+import { Evenement, RoleValues } from "@lib";
 import { MinusCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import IntervenantRechercherDrawer from "@controls/Drawers/Intervenant/IntervenantRechercherDrawer";
-import { Evenement } from "@lib/Evenement";
-import { IPartialEvenement } from "@api/ApiTypeHelpers";
+import { IPartialEvenement } from "@api";
 import { env } from "@/env";
 
 interface TabEvenementParticipantsIntervenantProps {

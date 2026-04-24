@@ -8,7 +8,7 @@
  */
 
 import { ComponentType } from "react";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import { COMMUN_ROUTES } from "@routes/features/communRoutes";
 import { ADMIN_ROUTES } from "@routes/features/adminRoutes";
 import { GESTIONNAIRE_ROUTES } from "@routes/features/gestionnaireRoutes";

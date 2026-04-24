@@ -24,7 +24,7 @@ import { HomeOutlined, SaveOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
+import { IUtilisateur, PREFETCH_CAMPUS, QK_UTILISATEURS } from "@api";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { MonProfilContact } from "@controls/Profil/MonProfilContact";
 import { MonProfilCampus } from "@controls/Profil/MonProfilCampus";
@@ -36,9 +36,7 @@ import {
 } from "@controls/Profil/MonProfilNotification";
 import { MonProfilContactPhase } from "@controls/Profil/MonProfilContactPhase";
 import "@routes/commun/MonProfil.scss";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
 import { env } from "@/env";
-import { QK_UTILISATEURS } from "@api/queryKeys";
 
 /**
  * Renders the current user's profile page.

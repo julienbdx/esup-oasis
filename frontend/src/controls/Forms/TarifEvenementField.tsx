@@ -11,8 +11,7 @@ import React from "react";
 import { Button, Input, Skeleton, Space } from "antd";
 import dayjs from "dayjs";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
-import { IEvenement } from "@api/ApiTypeHelpers";
+import { IEvenement, PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { montantToString } from "@utils/number";
 
 interface ITarifEvenementFieldProps {

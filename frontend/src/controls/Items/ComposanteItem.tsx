@@ -12,8 +12,7 @@ import { Breakpoint, Popover, Space, Tag, Tooltip, Typography } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { BankFilled } from "@ant-design/icons";
-import { IComposante } from "@api/ApiTypeHelpers";
-import { PREFETCH_COMPOSANTES } from "@api/ApiPrefetchHelpers";
+import { IComposante, PREFETCH_COMPOSANTES } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 
 interface IItemComposante {

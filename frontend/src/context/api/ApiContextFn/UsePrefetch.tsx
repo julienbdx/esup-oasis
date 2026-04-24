@@ -11,12 +11,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import { PaginateResult, RequestMethod } from "@context/api/ApiProvider";
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
-import {
-  ApiPathMethodParameters,
-  ApiPathMethodQuery,
-  ApiPathMethodResponse,
-  Path,
-} from "@api/SchemaHelpers";
+import { ApiPathMethodParameters, ApiPathMethodQuery, ApiPathMethodResponse, Path } from "@api";
 
 /**
  * Précharge une collection dans le cache React Query sans déclencher de rendu.

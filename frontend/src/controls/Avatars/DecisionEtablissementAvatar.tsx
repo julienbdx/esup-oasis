@@ -16,7 +16,7 @@ import {
   HourglassOutlined,
   SendOutlined,
 } from "@ant-design/icons";
-import { IDecisionEtablissement } from "@api/ApiTypeHelpers";
+import { IDecisionEtablissement } from "@api";
 
 export enum EtatDecisionEtablissement {
   "EDITE" = "EDITE",

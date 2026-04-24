@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import React from "react";
 import { useApi } from "@context/api/ApiProvider";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { GestionnaireItem } from "./GestionnaireItem";
 import { useInView } from "react-intersection-observer";
 import { Skeleton } from "antd";
 

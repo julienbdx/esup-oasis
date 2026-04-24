@@ -11,8 +11,7 @@ import React, { memo, ReactElement } from "react";
 import { Breakpoint, Tooltip } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_FORMATIONS } from "@api/ApiPrefetchHelpers";
-import { IFormation } from "@api/ApiTypeHelpers";
+import { IFormation, PREFETCH_FORMATIONS } from "@api";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";
 
 interface IItemFormation {

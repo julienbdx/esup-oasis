@@ -12,8 +12,7 @@ import { firstFridayAfter, firstMondayBefore } from "@utils/dates";
 import { AffectationFilterValues } from "@controls/Filters/Affectation/AffectationFilter";
 import { AnnulationFilterValues } from "@controls/Filters/Annulation/AnnulationFilter";
 import dayjs from "dayjs";
-import { RoleValues } from "@lib/Utilisateur";
-import { Evenement } from "@lib/Evenement";
+import { Evenement, RoleValues } from "@lib";
 import { DateAsString } from "@utils/string";
 
 // Types

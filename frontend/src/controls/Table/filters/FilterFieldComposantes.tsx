@@ -10,7 +10,7 @@
 import React from "react";
 import { Col, Select } from "antd";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
-import { IComposante } from "@api/ApiTypeHelpers";
+import { IComposante } from "@api";
 
 interface FilterFieldComposantesProps {
   filtreAmenagement: FiltreAmenagement;

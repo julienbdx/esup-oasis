@@ -11,7 +11,7 @@ import React, { ReactElement, useState } from "react";
 import { Breadcrumb, Col, Layout, Row, Space, Typography } from "antd";
 import { HomeFilled } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { IComposante } from "@api/ApiTypeHelpers";
+import { IComposante } from "@api";
 import ReferentsTable from "@controls/Table/Admin/ReferentsTable";
 import { ComposanteEdition } from "@controls/Admin/Referentiel/Referents/ComposanteEdition";
 

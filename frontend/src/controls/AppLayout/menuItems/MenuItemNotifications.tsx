@@ -11,8 +11,8 @@ import React from "react";
 import { NavigateFunction } from "react-router-dom";
 import { Badge, Button, MenuProps } from "antd";
 import { BellOutlined } from "@ant-design/icons";
-import { IStatistiquesEvenements } from "@api/ApiTypeHelpers";
-import { Utilisateur } from "@lib/Utilisateur";
+import { IStatistiquesEvenements } from "@api";
+import { Utilisateur } from "@lib";
 import {
   IAffichage,
   IFiltresEvenements,

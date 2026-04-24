@@ -13,7 +13,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { useModals } from "@context/modals/ModalsContext";
 import Spinner from "@controls/Spinner/Spinner";
 import { Table } from "antd";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { evenementTableColumns } from "@controls/Table/EvenementTableColumns";
 
 /**

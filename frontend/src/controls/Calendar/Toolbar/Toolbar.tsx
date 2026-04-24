@@ -9,7 +9,7 @@
 
 import React, { useEffect } from "react";
 import { Col, Row } from "antd";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { MesInterventionsIntro } from "@controls/Calendar/Toolbar/MesInterventionsIntro";
 import ToolbarNavigation from "@controls/Calendar/Toolbar/ToolbarNavigation";
 import ToolbarDisplay from "@controls/Calendar/Toolbar/ToolbarDisplay";

@@ -11,7 +11,7 @@ import React from "react";
 import { Col, Select, Space } from "antd";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 import { UseStateDispatch } from "@utils/utils";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
+import { ITypeEvenement } from "@api";
 
 interface FilterFieldTypesEvenementsProps {
   filtreIntervenant: FiltreIntervenant;

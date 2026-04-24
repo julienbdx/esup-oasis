@@ -8,11 +8,7 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import {
-  PREFETCH_CAMPUS,
-  PREFETCH_COMPETENCES,
-  PREFETCH_TYPES_EVENEMENTS,
-} from "@api/ApiPrefetchHelpers";
+import { PREFETCH_CAMPUS, PREFETCH_COMPETENCES, PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
 
 /**

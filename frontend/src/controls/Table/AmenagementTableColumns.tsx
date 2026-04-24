@@ -8,21 +8,20 @@
  *
  */
 
-import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
-import { getDomaineAmenagement } from "@lib/amenagements";
+import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "@api";
+import { getDomaineAmenagement, RoleValues } from "@lib";
 import React from "react";
 import { Badge, Button, Flex, Space, Tag, Tooltip } from "antd";
 import { getLibellePeriode } from "@utils/dates";
-import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
+import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { InscriptionItem } from "@controls/Items/InscriptionItem";
+import { SuiviAmenagementItem } from "@controls/Items/SuiviAmenagementItem";
 import { NavigateFunction } from "react-router-dom";
 import Icon, { EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { InscriptionItem } from "@controls/Items/InscriptionItem";
-import { ChargesAccompagnementsItem } from "@controls/Items/ChargesAccompagnementsItem";
 import { ListeUtilisateurTag } from "@controls/Tags/ListeUtilisateurTag";
 import ExternalLink from "@/assets/images/external-link.svg?react";
 import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";
-import EtudiantItem from "@controls/Items/EtudiantItem";
-import { RoleValues } from "@lib/Utilisateur";
 import { ascToAscend } from "@utils/array";
 import { FilterProps } from "@utils/table";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";

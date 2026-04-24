@@ -16,11 +16,10 @@ import dayjs from "dayjs";
 import Icon, { EditOutlined, EyeOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { isEnCoursSurPeriode } from "@utils/dates";
 import { CampagneEdition } from "@controls/Admin/TypesDemandes/CampagneEdition";
-import { ICampagneDemande } from "@api/ApiTypeHelpers";
+import { entiteParent, ICampagneDemande } from "@api";
 import QuestionnaireModale from "@controls/Admin/TypesDemandes/QuestionnaireModale";
 import { useNavigate } from "react-router-dom";
 import ExternalLink from "@/assets/images/external-link.svg?react";
-import { entiteParent } from "@api/Utils";
 
 export function Campagne(props: {
   title: string;

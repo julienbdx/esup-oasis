@@ -5,14 +5,14 @@
   background-position: left top;
 }
 
-.not-affecte, .not-affecte .ant-table-column-sort {
+.not-affecte,
+.not-affecte .ant-table-column-sort {
   background-color: variables.$error-light !important;
 
   td:first-child {
     border-left: 3px solid variables.$error;
   }
 }
-
 
 .affecte td:first-child {
   border-left: 3px solid transparent;

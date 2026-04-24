@@ -8,7 +8,7 @@
  */
 
 import React, { createContext, useCallback, useContext, useReducer } from "react";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 
 // Types
 export interface IDrawers {

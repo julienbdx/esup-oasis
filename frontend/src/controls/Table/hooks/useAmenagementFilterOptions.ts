@@ -16,7 +16,7 @@ import {
   PREFETCH_TAGS,
   PREFETCH_TYPES_AMENAGEMENTS,
   PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
-} from "@api/ApiPrefetchHelpers";
+} from "@api";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
 
 /**

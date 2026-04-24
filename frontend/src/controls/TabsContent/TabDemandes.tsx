@@ -10,9 +10,9 @@
 
 import { Button, Empty, Flex, List, Space, Tooltip } from "antd";
 import React, { ReactElement, useState } from "react";
-import { IDemande, IUtilisateur } from "@api/ApiTypeHelpers";
+import { IDemande, IUtilisateur } from "@api";
 import { useApi } from "@context/api/ApiProvider";
-import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
+import { TypeDemandeItem } from "@controls/Items/TypeDemandeItem";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import dayjs from "dayjs";
 import Icon, { EyeOutlined, PlusOutlined } from "@ant-design/icons";

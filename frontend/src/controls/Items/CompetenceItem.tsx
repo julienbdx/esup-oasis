@@ -13,8 +13,7 @@ import Spinner from "@controls/Spinner/Spinner";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useApi } from "@context/api/ApiProvider";
 import { CrownOutlined } from "@ant-design/icons";
-import { PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
-import { ICompetence } from "@api/ApiTypeHelpers";
+import { ICompetence, PREFETCH_COMPETENCES } from "@api";
 
 interface IItemCompetence {
   competence?: ICompetence;

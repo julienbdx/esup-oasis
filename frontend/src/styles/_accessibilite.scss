@@ -8,7 +8,6 @@ $fontDyslexieOpenDys: "OpenDys";
 $fontDyslexieLexend: "Lexend";
 
 body.accessibilite-contraste {
-
   color: #000 !important;
 
   * {
@@ -18,16 +17,25 @@ body.accessibilite-contraste {
 
   background: variables.$white !important;
 
-
-  .text-primary, .logo, .fc-day-today .week-header, .fc-day-today .week-header .date, .ant-btn-link, .today-carret, a, .ant-empty-description {
+  .text-primary,
+  .logo,
+  .fc-day-today .week-header,
+  .fc-day-today .week-header .date,
+  .ant-btn-link,
+  .today-carret,
+  a,
+  .ant-empty-description {
     color: variables.$primary-contrast !important;
   }
 
-  .ant-picker-calendar .today, .ant-picker-calendar table.ant-picker-content thead tr th {
+  .ant-picker-calendar .today,
+  .ant-picker-calendar table.ant-picker-content thead tr th {
     color: #000 !important;
   }
 
-  .bg-primary, .ant-float-btn-primary, .ant-picker-calendar .has-event:after {
+  .bg-primary,
+  .ant-float-btn-primary,
+  .ant-picker-calendar .has-event:after {
     background-color: variables.$primary-contrast !important;
   }
 
@@ -35,7 +43,8 @@ body.accessibilite-contraste {
     border-color: variables.$primary-contrast !important;
   }
 
-  .bg-primary-light, .ant-alert-info {
+  .bg-primary-light,
+  .ant-alert-info {
     background-color: #f7f8fc !important;
   }
 
@@ -43,20 +52,25 @@ body.accessibilite-contraste {
     border: none !important;
   }
 
-  .user-space .role, .ant-layout-footer, .ant-picker-calendar .ant-picker-cell,
-  .ant-statistic .ant-statistic-title, .ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
+  .user-space .role,
+  .ant-layout-footer,
+  .ant-picker-calendar .ant-picker-cell,
+  .ant-statistic .ant-statistic-title,
+  .ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
     color: #555 !important;
   }
 
-  .statistic-danger, .statistic-warning {
-    background-color: #FFF;
+  .statistic-danger,
+  .statistic-warning {
+    background-color: #fff;
   }
 
   .calendar-sider {
     border-right: 1.5px solid #edeef3;
   }
 
-  .statistic-warning .ant-statistic-content-value span, .statistic-warning svg {
+  .statistic-warning .ant-statistic-content-value span,
+  .statistic-warning svg {
     color: #b56004 !important;
     fill: #b56004 !important;
   }
@@ -86,10 +100,10 @@ body.accessibilite-contraste {
     }
 
     .bg-#{$key}-xlight {
-      background-color: #FFF !important;
+      background-color: #fff !important;
     }
     .bg-#{$key}-xxlight {
-      background-color: #FFF !important;
+      background-color: #fff !important;
     }
   }
 
@@ -97,12 +111,12 @@ body.accessibilite-contraste {
     background-color: transparent !important;
   }
 
-
   .ant-ribbon .ant-ribbon-text {
     color: #000;
   }
 
-  .text-warning, .ant-tag-warning {
+  .text-warning,
+  .ant-tag-warning {
     color: #b56004 !important;
   }
 
@@ -111,61 +125,72 @@ body.accessibilite-contraste {
   }
 
   .ant-tag-warning {
-    background-color: #FFF;
+    background-color: #fff;
   }
 
   .bg-warning {
     background-color: #b56004 !important;
   }
 
-  .legende, .text-legende, .ant-typography-secondary {
+  .legende,
+  .text-legende,
+  .ant-typography-secondary {
     color: var(--ant-color-text-secondary) !important;
   }
 
-  .ant-tag-green, .ant-badge-color-green {
+  .ant-tag-green,
+  .ant-badge-color-green {
     background-color: var(--color-dark-green) !important;
     border-color: var(--color-dark-green) !important;
-    color: #FFF !important;
+    color: #fff !important;
   }
 
-  .ant-tag-orange, .ant-badge-color-orange {
+  .ant-tag-orange,
+  .ant-badge-color-orange {
     background-color: var(--color-dark-orange) !important;
     border-color: var(--color-dark-orange) !important;
-    color: #FFF !important;
+    color: #fff !important;
   }
 
-  .ant-tag-red, .ant-badge-color-red {
+  .ant-tag-red,
+  .ant-badge-color-red {
     background-color: var(--color-dark-red) !important;
     border-color: var(--color-dark-red) !important;
-    color: #FFF !important;
+    color: #fff !important;
   }
 
-  .ant-tag-blue, .ant-badge-color-blue {
+  .ant-tag-blue,
+  .ant-badge-color-blue {
     background-color: var(--color-dark-blue) !important;
     border-color: var(--color-dark-blue) !important;
-    color: #FFF !important;
+    color: #fff !important;
   }
 
-  .ant-tag-purple, .ant-badge-color-purple {
+  .ant-tag-purple,
+  .ant-badge-color-purple {
     background-color: var(--color-dark-purple) !important;
     border-color: var(--color-dark-purple) !important;
-    color: #FFF !important;
+    color: #fff !important;
   }
 
-  .ant-tag-cyan, .ant-badge-color-cyan {
+  .ant-tag-cyan,
+  .ant-badge-color-cyan {
     background-color: var(--color-dark-cyan) !important;
     border-color: var(--color-dark-cyan) !important;
-    color: #FFF !important;
+    color: #fff !important;
   }
 
-  .ant-tag-yellow, .ant-badge-color-yellow {
+  .ant-tag-yellow,
+  .ant-badge-color-yellow {
     background-color: var(--color-dark-yellow) !important;
     border-color: var(--color-dark-yellow) !important;
-    color: #FFF !important;
+    color: #fff !important;
   }
 
-  .ant-tag:not(.ant-tag-green):not(.ant-tag-orange):not(.ant-tag-red):not(.ant-tag-blue):not(.ant-tag-purple):not(.ant-tag-cyan):not(.ant-tag-yellow) {
-    background-color: #FFF !important;
+  .ant-tag:not(.ant-tag-green):not(.ant-tag-orange):not(.ant-tag-red):not(.ant-tag-blue):not(
+      .ant-tag-purple
+    ):not(.ant-tag-cyan):not(.ant-tag-yellow) {
+    background-color: #fff !important;
     border-color: #000 !important;
     color: #000 !important;
   }
@@ -179,7 +204,8 @@ body.accessibilite-contraste {
   }
 
   .ant-steps {
-    .ant-steps-item-finish, .ant-steps-item-active {
+    .ant-steps-item-finish,
+    .ant-steps-item-active {
       .ant-steps-item-icon {
         background-color: variables.$primary-contrast !important;
         color: #fff !important;
@@ -195,7 +221,10 @@ body.accessibilite-contraste {
     border: none;
   }
 
-  .ant-input-outlined, .ant-select-outlined, .ant-input-number-outlined, .ant-upload-btn {
+  .ant-input-outlined,
+  .ant-select-outlined,
+  .ant-input-number-outlined,
+  .ant-upload-btn {
     background: #ffffff;
     border-width: 2px;
     border-style: solid;
@@ -223,7 +252,8 @@ body.accessibilite-contraste {
     padding-bottom: 1rem;
   }
 
-  .ant-input-number-input, header .ant-btn {
+  .ant-input-number-input,
+  header .ant-btn {
     font-weight: 500;
   }
 
@@ -241,7 +271,8 @@ body.accessibilite-contraste {
     padding-bottom: 1rem;
   }
 
-  .bg-beneficiaire, .bg-intervenant {
+  .bg-beneficiaire,
+  .bg-intervenant {
     background-color: #000 !important;
     color: #fff;
   }
@@ -255,7 +286,9 @@ body.accessibilite-contraste {
   }
 }
 
-body.accessibilite-dyslexie-arial, body.accessibilite-dyslexie-open-dys, body.accessibilite-dyslexie-lexend {
+body.accessibilite-dyslexie-arial,
+body.accessibilite-dyslexie-open-dys,
+body.accessibilite-dyslexie-lexend {
   .libelle-evenement {
     line-height: 1.5;
   }
@@ -272,25 +305,39 @@ body.accessibilite-dyslexie-arial, body.accessibilite-dyslexie-open-dys, body.ac
 }
 
 body.accessibilite-dyslexie-open-dys {
-  &, .fc-timegrid-slot-label-cushion, .month-header, .fc-col-header-cell a {
+  &,
+  .fc-timegrid-slot-label-cushion,
+  .month-header,
+  .fc-col-header-cell a {
     font-family: $fontDyslexieOpenDys, serif !important;
   }
 }
 
 body.accessibilite-dyslexie-arial {
-  &, .fc-timegrid-slot-label-cushion, .month-header, .fc-col-header-cell a {
+  &,
+  .fc-timegrid-slot-label-cushion,
+  .month-header,
+  .fc-col-header-cell a {
     font-family: $fontDyslexieArial, serif !important;
   }
 }
 
 body.accessibilite-dyslexie-lexend {
-  &, .fc-timegrid-slot-label-cushion, .month-header, .fc-col-header-cell a {
+  &,
+  .fc-timegrid-slot-label-cushion,
+  .month-header,
+  .fc-col-header-cell a {
     font-family: $fontDyslexieLexend, serif !important;
   }
 }
 
 body.accessibilite-police-large {
-  .ant-tag, .header button, .identite, .ant-steps-item-title, .fc-event, .legende {
+  .ant-tag,
+  .header button,
+  .identite,
+  .ant-steps-item-title,
+  .fc-event,
+  .legende {
     font-size: 1.2rem !important;
   }
 

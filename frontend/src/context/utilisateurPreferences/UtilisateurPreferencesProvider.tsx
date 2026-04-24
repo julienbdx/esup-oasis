@@ -19,7 +19,7 @@ import React, {
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
-import { QK_UTILISATEURS_PARAMETRES_UI } from "@api/queryKeys";
+import { QK_UTILISATEURS_PARAMETRES_UI } from "@api";
 
 export interface UtilisateurPreferencesType {
   getPreference: (cle: string) => string | undefined;

@@ -21,7 +21,7 @@ import {
 } from "@ant-design/icons";
 import { TabIdentite } from "@controls/TabsContent/TabIdentite";
 import { TabDemandes } from "@controls/TabsContent/TabDemandes";
-import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib/amenagements";
+import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib";
 import { TabAmenagements } from "@controls/TabsContent/TabAmenagements";
 import { useAuth } from "@/auth/AuthProvider";
 import { UtilisateurTags } from "@controls/Tags/UtilisateurTags";

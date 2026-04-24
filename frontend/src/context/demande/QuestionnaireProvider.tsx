@@ -18,8 +18,8 @@ import React, {
   useState,
 } from "react";
 import { Form } from "antd";
-import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
-import { getEtatDemande } from "@lib/demande";
+import { IDemande, ITypeDemande } from "@api";
+import { getEtatDemande } from "@lib";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import {

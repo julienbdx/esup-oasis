@@ -10,10 +10,10 @@
 import React, { ReactElement, useMemo } from "react";
 import { App, Button, Dropdown, Tooltip } from "antd";
 import { CopyOutlined, MailOutlined, SendOutlined } from "@ant-design/icons";
-import UtilisateurEmailItem from "@controls/Items/UtilisateurEmailItem";
-import { Evenement } from "@lib/Evenement";
+import { UtilisateurEmailItem } from "@controls/Items/UtilisateurEmailItem";
+import { Evenement } from "@lib";
 import { MessageInstance } from "antd/es/message/interface";
-import { IEvenement } from "@api/ApiTypeHelpers";
+import { IEvenement } from "@api";
 
 interface EventMailCopyButtonProps {
   evenement: IEvenement | Evenement | undefined;

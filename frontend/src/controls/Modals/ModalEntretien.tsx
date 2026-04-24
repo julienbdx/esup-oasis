@@ -7,8 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IEntretien } from "@api/ApiTypeHelpers";
-import { QK_UTILISATEURS_ENTRETIENS } from "@api/queryKeys";
+import { IEntretien, QK_UTILISATEURS_ENTRETIENS } from "@api";
 import { App, Button, Col, DatePicker, Form, Input, Modal, Row } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect } from "react";

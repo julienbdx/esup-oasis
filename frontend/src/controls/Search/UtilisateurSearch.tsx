@@ -13,7 +13,7 @@ import { NB_MAX_ITEMS_PER_PAGE } from "@/constants";
 import { Avatar, Drawer, Input, List } from "antd";
 import ListSelectable from "@controls/Forms/ListSelectable/ListSelectable";
 import { UserOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { env } from "@/env";
 
 interface IUtilisateurSearchProps {

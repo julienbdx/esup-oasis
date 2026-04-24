@@ -6,7 +6,7 @@ import {
   ApiPathMethodQuery,
   ApiPathMethodResponse,
   PaginatedPath,
-} from "@api/SchemaHelpers";
+} from "@api";
 import { CSVLink } from "react-csv";
 import { ExportOutlined } from "@ant-design/icons";
 import { env } from "@/env";

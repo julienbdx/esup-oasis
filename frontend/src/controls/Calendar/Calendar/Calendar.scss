@@ -1,7 +1,6 @@
 @use "../../../styles/variables" as variables;
 @use "../../../styles/helpers" as helpers;
 
-
 .calendar-content {
   background: white;
 }
@@ -32,7 +31,7 @@
 
 .fc-event:hover {
   box-shadow: 0 10px 17px rgb(0 0 0 / 15%);
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .calendar {
@@ -71,14 +70,13 @@
   .fc-timegrid-slot-label-cushion {
     color: variables.$legende;
     background-color: white;
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-family: NoirPro, sans-serif;
     display: inline-block;
   }
 
   // En-têtes de jours (semaine / jour)
   .fc-col-header-cell {
-
     a {
       display: flex;
       align-items: center;
@@ -92,7 +90,7 @@
       margin-top: 10px;
 
       .date {
-        font-size: .9rem;
+        font-size: 0.9rem;
         color: variables.$legende;
       }
 
@@ -142,7 +140,8 @@
   }
 }
 
-.calendar-view-month, .fit-to-screen {
+.calendar-view-month,
+.fit-to-screen {
   height: calc(100vh - 190px);
   overflow-y: auto;
 
@@ -165,7 +164,8 @@
 .fc-day-today {
   background-color: transparent !important;
 
-  .week-header, .week-header .date {
+  .week-header,
+  .week-header .date {
     color: variables.$primary !important;
   }
 }
@@ -197,7 +197,6 @@
 @media screen and (max-width: 768px) {
   .calendar {
     .fc-col-header-cell {
-
       .jour {
         display: none;
       }

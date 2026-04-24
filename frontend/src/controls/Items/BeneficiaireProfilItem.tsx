@@ -8,7 +8,7 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import ProfilItem from "@controls/Items/ProfilItem";
+import { ProfilItem } from "./ProfilItem";
 import React from "react";
 import { isEnCoursSurPeriode } from "@utils/dates";
 import { Skeleton, Space, Tooltip } from "antd";

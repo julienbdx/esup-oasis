@@ -21,7 +21,7 @@
   .ant-picker-cell {
     color: variables.$legende;
     font-weight: 100 !important;
-    font-size: .9rem;
+    font-size: 0.9rem;
 
     .bg-app {
       color: variables.$text;
@@ -54,7 +54,8 @@
     border-radius: 10px;
   }
 
-  .has-event:after, .has-event-warning:after {
+  .has-event:after,
+  .has-event-warning:after {
     content: "";
     position: absolute;
     width: 6px;
@@ -69,4 +70,3 @@
     background: variables.$warning;
   }
 }
-

@@ -15,8 +15,8 @@ import {
   ETAT_DEMANDE_CONFORME,
   ETAT_DEMANDE_REFUSEE,
   EtatInfo,
-} from "@lib/demande";
-import { IDemande } from "@api/ApiTypeHelpers";
+} from "@lib";
+import { IDemande } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
 import { useAuth } from "@/auth/AuthProvider";

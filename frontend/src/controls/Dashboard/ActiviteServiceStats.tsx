@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { WarningFilled } from "@ant-design/icons";
 import { pluriel } from "@utils/string";
 import { useAuth } from "@/auth/AuthProvider";
-import { IStatistiquesEvenements } from "@api/ApiTypeHelpers";
+import { IStatistiquesEvenements } from "@api";
 import Statistic from "@controls/Dashboard/Statistic";
 import { EtatDecisionEtablissement } from "@controls/Avatars/DecisionEtablissementAvatar";
 import { EtatAvisEse } from "@controls/Avatars/BeneficiaireAvisEseAvatar";

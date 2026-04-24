@@ -14,8 +14,7 @@ import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import ColorPicker from "@controls/ColorPicker/ColorPicker";
 import TauxHoraireFormItem from "@controls/Forms/TauxHoraireFormItem";
 import { PlusOutlined } from "@ant-design/icons";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
-import { QK_TYPES_EVENEMENTS } from "@api/queryKeys";
+import { ITypeEvenement, QK_TYPES_EVENEMENTS } from "@api";
 
 interface TypesEvenementsEditionProps {
   typeEvenement: ITypeEvenement;

@@ -10,7 +10,7 @@
 import React, { ReactElement, useMemo, useState } from "react";
 import { Select } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import { UtilisateurAsString } from "@controls/Items/UtilisateurAsString";
 
 interface IBeneficiaireIntervenantFilterFilter {

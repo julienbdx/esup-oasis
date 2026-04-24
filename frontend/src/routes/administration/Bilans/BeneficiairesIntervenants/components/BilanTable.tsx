@@ -11,11 +11,13 @@ import React from "react";
 import { Card, Space, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { capitalize } from "@utils/string";
-import { IActiviteBeneficiaire, IActiviteIntervenant } from "@api/ApiTypeHelpers";
-import { CampusItem, EtudiantItem, TypeEvenementItem } from "@controls/Items";
+import { IActiviteBeneficiaire, IActiviteIntervenant } from "@api";
+import { CampusItem } from "@controls/Items/CampusItem";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 import { montantToString, to2Digits } from "@utils/number";
 import { CoutCharge } from "@controls/Admin/Bilans/CoutCharge";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 
 export type IActivite = IActiviteBeneficiaire | IActiviteIntervenant;
 

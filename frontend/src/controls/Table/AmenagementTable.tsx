@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { IAmenagement, ICategorieAmenagement, ITypeAmenagement } from "@api";
 import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "@context/api/ApiProvider";

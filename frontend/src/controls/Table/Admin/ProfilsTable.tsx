@@ -12,7 +12,7 @@ import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
 import { Button, Space, Switch, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { IProfil } from "@api/ApiTypeHelpers";
+import { IProfil } from "@api";
 import BooleanState from "@controls/State/BooleanState";
 
 interface ProfilsTableProps {

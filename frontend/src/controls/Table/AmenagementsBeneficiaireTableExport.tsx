@@ -8,20 +8,18 @@
  */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ITag, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { ITag, ITypeAmenagement, PREFETCH_TAGS } from "@api";
 import { useMemo, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
-import { PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import {
   buildAmenagementsBenefDatasource,
   getTypesAmenagements,
   TypesDomainesAmenagements,
 } from "@controls/Table/AmenagementsBeneficiaireTable";
-import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib/amenagements";
+import { DOMAINES_AMENAGEMENTS_INFOS, Utilisateur } from "@lib";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 import { useAuth } from "@/auth/AuthProvider";
-import { Utilisateur } from "@lib/Utilisateur";
 import { env } from "@/env";
 import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 

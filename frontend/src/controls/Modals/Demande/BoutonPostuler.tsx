@@ -10,10 +10,9 @@
 
 import { EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande, QK_DEMANDES, QK_UTILISATEURS_DEMANDES } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
-import { QK_DEMANDES, QK_UTILISATEURS_DEMANDES } from "@api/queryKeys";
 import { useState } from "react";
 
 export default function PostulerButton(props: { typeDemande: ITypeDemande; demandeurId: string }) {

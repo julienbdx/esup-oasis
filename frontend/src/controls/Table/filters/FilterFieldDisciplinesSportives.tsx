@@ -11,7 +11,7 @@ import React from "react";
 import { Col, Select, Space } from "antd";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
 import { UseStateDispatch } from "@utils/utils";
-import { IDiscipline } from "@api/ApiTypeHelpers";
+import { IDiscipline } from "@api";
 import { PaginateResult } from "@context/api/ApiProvider";
 
 interface FilterFieldDisciplinesSportivesProps {

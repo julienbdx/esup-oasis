@@ -15,11 +15,10 @@ import {
   ETAT_DEMANDE_RECEPTIONNEE,
   EtatInfo,
   getEtatDemandeInfo,
-} from "@lib/demande";
-import { IDemande } from "@api/ApiTypeHelpers";
+} from "@lib";
+import { IDemande, QK_DEMANDES } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import { FONCTIONNALITES, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
-import { QK_DEMANDES } from "@api/queryKeys";
 
 interface EtapeASaisieProps {
   etatDemande: EtatInfo;

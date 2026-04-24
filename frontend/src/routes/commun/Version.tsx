@@ -18,7 +18,7 @@ import {
   MinusOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import RoleCalculeItem from "@controls/Items/RoleCalculeItem";
+import { RoleCalculeItem } from "@controls/Items/RoleCalculeItem";
 import { env } from "@/env";
 
 /**

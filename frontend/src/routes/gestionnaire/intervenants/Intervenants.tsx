@@ -12,7 +12,7 @@ import { FloatButton, Layout, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import UtilisateurCreerDrawer from "@controls/Drawers/Utilisateur/UtilisateurCreerDrawer";
 import { useDrawers } from "@context/drawers/DrawersContext";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import IntervenantTable from "@controls/Table/IntervenantTable";
 
 /**

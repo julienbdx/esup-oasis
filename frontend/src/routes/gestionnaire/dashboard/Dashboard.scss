@@ -1,4 +1,4 @@
-@use '../../../styles/variables' as variables;
+@use "../../../styles/variables" as variables;
 
 .ant-statistic-content-value {
   font-weight: 500;
@@ -13,7 +13,7 @@
 
 .ant-card-stats-hoverable:hover {
   box-shadow: 0 5px 7px rgb(0 0 0 / 5%) !important;
-  transition: all .25s;
+  transition: all 0.25s;
 }
 
 .statistic-warning {
@@ -41,7 +41,10 @@
 }
 
 .stats-subrow {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.03),
+    0 1px 6px -1px rgba(0, 0, 0, 0.02),
+    0 2px 4px 0 rgba(0, 0, 0, 0.02);
   border: 1px solid variables.$light-grey-border;
   border-radius: variables.$radius;
   padding: 1rem;

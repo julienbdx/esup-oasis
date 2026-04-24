@@ -12,7 +12,7 @@ import { Avatar, Image, Tooltip } from "antd";
 import { useAuth } from "@/auth/AuthProvider";
 import { UserOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
-import { APIEndpointByRole, IUtilisateurBase, RoleValues } from "@lib/Utilisateur";
+import { APIEndpointByRole, IUtilisateurBase, RoleValues } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { ScreenMap } from "antd/es/_util/responsiveObserver";

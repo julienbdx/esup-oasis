@@ -11,7 +11,7 @@ import { App, Upload, UploadProps } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useAuth } from "@/auth/AuthProvider";
 import { envoyerFichierFetch } from "@utils/upload";
-import { ITelechargement } from "@api/ApiTypeHelpers";
+import { ITelechargement } from "@api";
 import { env } from "@/env";
 
 export function FichierDepot(props: {

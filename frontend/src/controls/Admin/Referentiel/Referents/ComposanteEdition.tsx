@@ -7,14 +7,13 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IComposante } from "@api/ApiTypeHelpers";
+import { IComposante, QK_COMPOSANTES } from "@api";
 import { Button, Card, Divider, Drawer, Flex, Form, Input, Popconfirm } from "antd";
 import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "@lib/Utilisateur";
-import { QK_COMPOSANTES } from "@api/queryKeys";
+import { RoleValues } from "@lib";
 
 export function ComposanteEdition(props: {
   editedItem: IComposante;

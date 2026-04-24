@@ -7,8 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IEntretien } from "@api/ApiTypeHelpers";
-import { QK_UTILISATEURS_ENTRETIENS } from "@api/queryKeys";
+import { IEntretien, QK_UTILISATEURS_ENTRETIENS } from "@api";
 import { App, Button, Card, Col, Empty, Popconfirm, Row, Space } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import {
@@ -21,8 +20,7 @@ import {
 import { Fichier } from "@controls/Fichier/Fichier";
 import React from "react";
 import dayjs from "dayjs";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
-
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
 // import relativeTime plugin
 import relativeTime from "dayjs/plugin/relativeTime";
 import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";

@@ -10,7 +10,7 @@
 import React from "react";
 import { Button, Input, Space } from "antd";
 import dayjs from "dayjs";
-import { IEvenement } from "@api/ApiTypeHelpers";
+import { IEvenement } from "@api";
 
 interface IDureeEvenementFieldProps {
   evenement: IEvenement;

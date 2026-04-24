@@ -9,9 +9,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Flex, Space, Table } from "antd";
-import { IBeneficiaire, IIntervenant } from "@api/ApiTypeHelpers";
+import { IBeneficiaire, IIntervenant } from "@api";
 import { intervenantTableColumns } from "@controls/Table/IntervenantTableColumns";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
 import { useDrawers } from "@context/drawers/DrawersContext";
 import IntervenantTableExport from "@controls/Table/IntervenantTableExport";

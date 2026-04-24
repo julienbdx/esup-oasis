@@ -7,11 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IDemande } from "@api/ApiTypeHelpers";
+import { IDemande, QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "@api";
 import { App, Button, Card, Checkbox, Form } from "antd";
 import React from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { QK_DEMANDES, QK_UTILISATEURS_CHARTES } from "@api/queryKeys";
 import Spinner from "@controls/Spinner/Spinner";
 import { sanitizeHtml } from "@utils/sanitize";
 

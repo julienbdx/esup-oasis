@@ -15,14 +15,15 @@ import { useApi } from "@context/api/ApiProvider";
 import { createDateAsUTC } from "@utils/dates";
 import Spinner from "@controls/Spinner/Spinner";
 import { CaretRightOutlined, EditOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
-import { IBeneficiaireProfil, IUtilisateur } from "@api/ApiTypeHelpers";
-import { env } from "@/env";
 import {
+  IBeneficiaireProfil,
+  IUtilisateur,
   QK_BENEFICIAIRES,
   QK_INTERVENANTS,
   QK_STATISTIQUES_EVENEMENTS,
   QK_UTILISATEURS,
-} from "@api/queryKeys";
+} from "@api";
+import { env } from "@/env";
 
 interface IBeneficiaireProfilFormItemEditProps {
   utilisateur: IUtilisateur;

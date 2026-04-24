@@ -10,10 +10,8 @@
 import { Button, Card, Drawer, Form, Input, Select } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import React, { lazy, ReactElement, Suspense, useEffect } from "react";
-import { ICharte } from "@api/ApiTypeHelpers";
-import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
+import { ICharte, PREFETCH_PROFILS, QK_CHARTES } from "@api";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
-import { QK_CHARTES } from "@api/queryKeys";
 
 const HtmlEditor = lazy(() => import("@controls/Forms/HtmlEditor"));
 

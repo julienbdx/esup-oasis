@@ -7,18 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import {
-  AmenagementDomaine,
-  DomaineAmenagementInfos,
-  getAmenagementsByCategories,
-} from "@lib/amenagements";
+import { AmenagementDomaine, DomaineAmenagementInfos, getAmenagementsByCategories } from "@lib";
 import React, { useMemo } from "react";
-import { IAmenagement } from "@api/ApiTypeHelpers";
+import { IAmenagement, PREFETCH_CATEGORIES_AMENAGEMENTS, PREFETCH_TYPES_AMENAGEMENTS } from "@api";
 import { useApi } from "@context/api/ApiProvider";
-import {
-  PREFETCH_CATEGORIES_AMENAGEMENTS,
-  PREFETCH_TYPES_AMENAGEMENTS,
-} from "@api/ApiPrefetchHelpers";
 import { Avatar, Button, Card, Col, Empty, Flex, Row, Space, Tag, Tooltip, Typography } from "antd";
 import {
   ArrowRightOutlined,
@@ -29,7 +21,7 @@ import {
 } from "@ant-design/icons";
 import { ModalAmenagement } from "@controls/Modals/ModalAmenagement";
 import { getLibellePeriode } from "@utils/dates";
-import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
+import { SuiviAmenagementItem } from "@controls/Items/SuiviAmenagementItem";
 import { useSearchParams } from "react-router-dom";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { EllipsisParagraph } from "@controls/Typography/EllipsisParagraph";

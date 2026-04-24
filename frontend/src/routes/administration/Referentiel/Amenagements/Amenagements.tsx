@@ -12,7 +12,7 @@ import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "an
 import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { TypeAmenagementEdition } from "@controls/Admin/Referentiel/Amenagements/TypeAmenagementEdition";
-import { ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { ICategorieAmenagement, ITypeAmenagement } from "@api";
 import { CategoriesAmenagementsTable } from "@controls/Table/Admin/CategoriesAmenagementsTable";
 import { CategorieAmenagementEdition } from "@controls/Admin/Referentiel/Amenagements/CategorieAmenagementEdition";
 

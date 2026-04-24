@@ -10,8 +10,8 @@
 import { Badge } from "antd";
 import React, { useMemo } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { DomaineAmenagementInfos, getDomaineAmenagement } from "@lib/amenagements";
-import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
+import { DomaineAmenagementInfos, getDomaineAmenagement } from "@lib";
+import { PREFETCH_TYPES_AMENAGEMENTS } from "@api";
 
 /**
  * Badge pour afficher le nombre d'aménagements d'un domaine pour un utilisateur

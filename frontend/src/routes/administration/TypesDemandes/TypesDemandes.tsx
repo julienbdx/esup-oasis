@@ -13,9 +13,9 @@ import { NavLink } from "react-router-dom";
 import { CaretRightFilled, EditOutlined, HomeFilled } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
-import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande } from "@api";
 import BooleanState from "@controls/State/BooleanState";
-import ProfilItem from "@controls/Items/ProfilItem";
+import { ProfilItem } from "@controls/Items/ProfilItem";
 import { TypesDemandesEdition } from "@controls/Admin/TypesDemandes/TypesDemandesEdition";
 import { Campagne } from "@controls/Admin/TypesDemandes/Campagne";
 

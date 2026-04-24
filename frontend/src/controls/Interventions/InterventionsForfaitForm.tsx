@@ -13,12 +13,13 @@ import { ExclamationOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
-import { RoleValues } from "@lib/Utilisateur";
-import { PeriodeRhItem, TypeEvenementItem } from "@controls/Items";
+import { RoleValues } from "@lib";
+import { PeriodeRhItem } from "@controls/Items/PeriodeRhItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
 import { TabEvenementParticipantsBeneficiaires } from "@controls/TabsContent/SubTabs/TabEvenementParticipantsBeneficiaires";
 import { InterventionsForfaitMetadata } from "@controls/Interventions/InterventionsForfaitMetadata";
-import { IInterventionForfait } from "@api/ApiTypeHelpers";
+import { IInterventionForfait } from "@api";
 import { UseStateDispatch } from "@utils/utils";
 
 interface InterventionsForfaitFormProps {

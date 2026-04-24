@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { ProfilsEdition } from "@controls/Admin/Referentiel/Profils/ProfilsEdition";
 import { ProfilsTable } from "@controls/Table/Admin/ProfilsTable";
-import { IProfil } from "@api/ApiTypeHelpers";
+import { IProfil } from "@api";
 
 /**
  * Renders admin page for managing Profils.

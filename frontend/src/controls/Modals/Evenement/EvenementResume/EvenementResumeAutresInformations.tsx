@@ -7,10 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { useAuth } from "@/auth/AuthProvider";
 import { Descriptions, List, Space, Typography } from "antd";
-import { GestionnaireItem, TypeEquipementItem } from "@controls/Items";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
+import { TypeEquipementItem } from "@controls/Items/TypeEquipementItem";
 import dayjs from "dayjs";
 import React, { useMemo } from "react";
 import TarifEvenementField from "@controls/Forms/TarifEvenementField";

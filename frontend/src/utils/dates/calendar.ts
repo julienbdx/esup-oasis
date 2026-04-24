@@ -8,8 +8,8 @@
  */
 
 import dayjs from "dayjs";
-import { Utilisateur } from "@lib/Utilisateur";
-import { IPeriode } from "@api/ApiTypeHelpers";
+import { Utilisateur } from "@lib";
+import { IPeriode } from "@api";
 
 export enum TypeOperationHeure {
   Inchangee = 0,

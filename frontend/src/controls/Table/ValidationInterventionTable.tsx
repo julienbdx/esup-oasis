@@ -14,8 +14,7 @@ import { CheckOutlined, DeleteOutlined, MenuOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { queryClient } from "@/queryClient";
 import validationInterventionTableColumns from "@controls/Table/ValidationInterventionTableColumns";
-import { IEvenement } from "@api/ApiTypeHelpers";
-import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
+import { IEvenement, QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api";
 import { createDateAsUTC } from "@utils/dates";
 
 export interface FiltreValidationInterventions {

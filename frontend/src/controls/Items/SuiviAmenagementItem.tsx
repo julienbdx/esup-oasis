@@ -11,7 +11,7 @@ import React, { ReactElement } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { Tag } from "antd";
-import { PREFETCH_TYPES_SUIVI_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_SUIVI_AMENAGEMENTS } from "@api";
 
 interface ISuiviAmenagementItemProps {
   suiviId?: string;

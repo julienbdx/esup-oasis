@@ -8,13 +8,13 @@
  */
 
 import React, { memo, ReactElement } from "react";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import { Breakpoint, Button, Skeleton, Space } from "antd";
 import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useApi } from "@context/api/ApiProvider";
 import { MinusOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 
 interface IItemGestionnaire {
   gestionnaire?: IUtilisateur;

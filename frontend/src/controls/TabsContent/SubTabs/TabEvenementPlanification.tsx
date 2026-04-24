@@ -9,16 +9,14 @@
 
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_LAST_PERIODES_RH } from "@api/ApiPrefetchHelpers";
+import { IPartialEvenement, PREFETCH_LAST_PERIODES_RH } from "@api";
 import React, { ReactElement, useState } from "react";
 import { Button, Col, DatePicker, Divider, Form, Row, TimePicker, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { canCreateEventOnDate } from "@utils/dates";
 import { InfoCircleOutlined, RedoOutlined, RightOutlined } from "@ant-design/icons";
 import EvenementDupliquerModal from "@controls/Modals/Evenement/EvenementDupliquerModal";
-import { Evenement } from "@lib/Evenement";
-import { IPartialEvenement } from "@api/ApiTypeHelpers";
-
+import { Evenement } from "@lib";
 import "dayjs/locale/fr";
 
 dayjs.locale("fr"); // use loaded locale globally

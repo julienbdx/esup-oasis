@@ -11,7 +11,7 @@ import React from "react";
 import "@routes/administration/Administration.scss";
 import { useApi } from "@context/api/ApiProvider";
 import CalendarTable from "@controls/Calendar/Table/CalendarTable";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { Alert, Breadcrumb, Layout, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, InfoCircleFilled } from "@ant-design/icons";

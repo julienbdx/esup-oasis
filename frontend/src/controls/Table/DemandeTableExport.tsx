@@ -7,17 +7,21 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IComposante, IDemande, IEtatDemande, IProfil, ITypeDemande } from "@api/ApiTypeHelpers";
-import { useState } from "react";
-import { useApi } from "@context/api/ApiProvider";
-import dayjs from "dayjs";
-import { FiltreDemande } from "@controls/Table/DemandeTable";
 import {
+  IComposante,
+  IDemande,
+  IEtatDemande,
+  IProfil,
+  ITypeDemande,
   PREFETCH_COMPOSANTES,
   PREFETCH_ETAT_DEMANDE,
   PREFETCH_PROFILS,
   PREFETCH_TYPES_DEMANDES,
-} from "@api/ApiPrefetchHelpers";
+} from "@api";
+import { useState } from "react";
+import { useApi } from "@context/api/ApiProvider";
+import dayjs from "dayjs";
+import { FiltreDemande } from "@controls/Table/DemandeTable";
 import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers = [

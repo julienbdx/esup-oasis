@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICommission } from "@api/ApiTypeHelpers";
+import { ICommission } from "@api";
 import React, { useState } from "react";
 import { Button, Table, Typography } from "antd";
 import { CommissionsEditionMembres } from "@controls/Admin/Commissions/CommissionsEdition";

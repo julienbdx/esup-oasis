@@ -7,9 +7,8 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICategorieTag } from "@api/ApiTypeHelpers";
+import { ICategorieTag, PREFETCH_CATEGORIES_TAGS } from "@api";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_CATEGORIES_TAGS } from "@api/ApiPrefetchHelpers";
 import { Button, Space, Switch, Table } from "antd";
 import BooleanState from "@controls/State/BooleanState";
 import { EditOutlined } from "@ant-design/icons";

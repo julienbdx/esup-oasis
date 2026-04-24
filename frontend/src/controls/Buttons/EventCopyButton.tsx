@@ -10,16 +10,14 @@
 import React, { ReactElement, useMemo } from "react";
 import { App, Button } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
-import {
-  CampusItem,
-  EtudiantItem,
-  GestionnaireItem,
-  TypeEquipementItem,
-  TypeEvenementItem,
-} from "@controls/Items";
+import { CampusItem } from "@controls/Items/CampusItem";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
+import { TypeEquipementItem } from "@controls/Items/TypeEquipementItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 import dayjs from "dayjs";
-import { IEvenement } from "@api/ApiTypeHelpers";
-import { RoleValues } from "@lib/Utilisateur";
+import { IEvenement } from "@api";
+import { RoleValues } from "@lib";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 interface IEventCopyButtonProps {

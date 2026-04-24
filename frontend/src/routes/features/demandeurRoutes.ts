@@ -9,7 +9,7 @@
 
 import { lazy } from "react";
 import { IRoute } from "@routes/AppRoutes";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 
 const DEMANDEUR_ROLES = [
   RoleValues.ROLE_DEMANDEUR,

@@ -10,12 +10,11 @@
 import { useApi } from "@context/api/ApiProvider";
 import { App, Button, Flex, List, Space, Typography } from "antd";
 import React from "react";
-import { IDocumentBeneficiaire } from "@api/ApiTypeHelpers";
-import { QK_BENEFICIAIRES_PIECES_JOINTES } from "@api/queryKeys";
+import { IDocumentBeneficiaire, QK_BENEFICIAIRES_PIECES_JOINTES } from "@api";
 import { FileOutlined, PlusOutlined } from "@ant-design/icons";
 import { ModalDocument } from "@controls/Modals/ModalDocument";
 import dayjs from "dayjs";
-import EtudiantItem from "@controls/Items/EtudiantItem";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
 import { Fichier } from "@controls/Fichier/Fichier";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 

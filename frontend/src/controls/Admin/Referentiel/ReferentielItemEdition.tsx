@@ -9,10 +9,10 @@
 
 import { Button, Card, Drawer, Form, Input, Switch } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
+import { APIPathsReferentiel } from "@api";
 import React, { ReactElement, useEffect } from "react";
 import Spinner from "@controls/Spinner/Spinner";
-import { IReferentielEditable } from "@lib/referentiels";
+import { IReferentielEditable } from "@lib";
 import { SaveOutlined } from "@ant-design/icons";
 import { AdminConfig } from "@routes/administration/AdminConfig";
 
