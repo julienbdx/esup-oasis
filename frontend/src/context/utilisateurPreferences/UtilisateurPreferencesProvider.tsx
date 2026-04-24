@@ -25,10 +25,10 @@ import { logger } from "@utils/logger";
 export interface UtilisateurPreferencesType {
   getPreference: (cle: string) => string | undefined;
   getPreferenceJson: (cle: string) => object | undefined;
-  getPreferenceArray: (cle: string) => unknown[];
+  getPreferenceArray: (cle: string) => any[];
   setPreference: (cle: string, value: string) => void;
   setPreferenceJson: (cle: string, value: object) => void;
-  setPreferenceArray: (cle: string, value: unknown[]) => void;
+  setPreferenceArray: (cle: string, value: any[]) => void;
   preferencesChargees: boolean;
 }
 
