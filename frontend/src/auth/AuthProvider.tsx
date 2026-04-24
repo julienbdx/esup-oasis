@@ -19,6 +19,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { useNavigate } from "react-router-dom";
 import { env } from "@/env";
 import { jwtDecode } from "jwt-decode";
+import { logger } from "@utils/logger";
 
 /**
  * Contexte d'authentification exposé aux composants via `useAuth()`.
@@ -165,7 +166,7 @@ export function AuthProvider({
         if (!mounted) return;
         removeLocalStorageLogin();
         setUser(undefined);
-        console.error(error);
+        logger.error(error);
         setErrorUser(error.message);
         setLoadingUser(false);
       });
@@ -255,11 +256,11 @@ export function AuthProvider({
               description: <p>L'application est actuellement inaccessible.</p>,
             });
             setLoadingUser(false);
-            console.error(`Impossible de se connecter au serveur`, err);
+            logger.error(`Impossible de se connecter au serveur`, err);
           });
       }
     },
-    onError: (error_) => console.error("Error", error_),
+    onError: (error_) => logger.error("Error", error_),
   });
 
   // noinspection JSUnusedGlobalSymbols

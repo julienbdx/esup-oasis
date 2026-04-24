@@ -15,6 +15,7 @@ import { MutationPatchParams, RequestMethod } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
 import { ApiContentTypePatch, ApiPathMethodResponse, Path } from "@api";
 import { useAuth } from "@/auth/AuthProvider";
+import { logger } from "@utils/logger";
 
 /**
  * Mutation PATCH typée sur un endpoint API.
@@ -75,7 +76,7 @@ export function usePatch<P extends Path>(
       if (options.onSuccess) options.onSuccess(data, variables);
     },
     onError: (error) => {
-      console.error(error);
+      logger.error(error);
       if (options.onError) options.onError(error);
     },
   });

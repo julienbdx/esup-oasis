@@ -15,6 +15,7 @@ import { ReactElement } from "react";
 import { RequestMethod } from "@context/api/ApiProvider";
 import { queryClient } from "@/queryClient";
 import { AuthContextType } from "@/auth/AuthProvider";
+import { logger } from "@utils/logger";
 
 /** Structure d'une notification d'erreur affichée via Ant Design `notification.error`. Passer une instance à `onError` pour intercepter l'erreur avant son affichage global. */
 export interface IErreurNotification {
@@ -62,7 +63,7 @@ export async function handleApiResponse(
       // Nouvelle erreur : l'enregistrer et afficher la notification
       activeErrors.add(key);
       notification.error({ ...notif, duration: notif.duration || 5 });
-      console.error(response, options);
+      logger.error(response, options);
 
       window.setTimeout(() => {
         // Libérer la clé après 1,5 s pour permettre l'affichage futur de la même erreur

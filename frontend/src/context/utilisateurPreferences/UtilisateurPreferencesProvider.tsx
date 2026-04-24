@@ -20,14 +20,15 @@ import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { QK_UTILISATEURS_PARAMETRES_UI } from "@api";
+import { logger } from "@utils/logger";
 
 export interface UtilisateurPreferencesType {
   getPreference: (cle: string) => string | undefined;
   getPreferenceJson: (cle: string) => object | undefined;
-  getPreferenceArray: (cle: string) => any[];
+  getPreferenceArray: (cle: string) => unknown[];
   setPreference: (cle: string, value: string) => void;
   setPreferenceJson: (cle: string, value: object) => void;
-  setPreferenceArray: (cle: string, value: any[]) => void;
+  setPreferenceArray: (cle: string, value: unknown[]) => void;
   preferencesChargees: boolean;
 }
 
@@ -51,7 +52,7 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
     parameters: { uid: auth.user?.["@id"] as string },
     enabled: !!auth.user,
     onError: (error) => {
-      console.error(error);
+      logger.error(error);
     },
   });
 

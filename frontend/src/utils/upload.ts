@@ -12,6 +12,7 @@ import { RcFile } from "antd/es/upload";
 import { ITelechargement } from "@api";
 import { AuthContextType } from "@/auth/AuthProvider";
 import { env } from "@/env";
+import { logger } from "@utils/logger";
 
 export async function envoyerFichierXhr(
   apiUrl: string,
@@ -40,14 +41,14 @@ export async function envoyerFichierXhr(
     if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 201)) {
       onSuccess(xhr.response);
     } else {
-      console.error("Error:", xhr);
+      logger.error("Error:", xhr);
       onError?.(new Error("Upload error"));
     }
   };
 
   // error
   xhr.onerror = () => {
-    console.error("Error:", xhr);
+    logger.error("Error:", xhr);
     onError?.(new Error("Upload error"));
   };
 
@@ -94,11 +95,11 @@ export async function envoyerFichierFetch(
       const json = await response.json();
       onSuccess(json);
     } else {
-      console.error("Error:", response);
+      logger.error("Error:", response);
       onError?.(new Error("Upload error"));
     }
   } catch (err) {
-    console.error("Error:", err);
+    logger.error("Error:", err);
     onError?.(new Error("Upload error"));
   }
 }
