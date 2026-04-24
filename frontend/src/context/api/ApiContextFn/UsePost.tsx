@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { ApiPathMethodParameters, ApiPathMethodResponse, Path } from "@api";
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import { useAuth } from "@/auth/AuthProvider";
+import { logger } from "@utils/logger";
 
 /**
  * Mutation POST typée sur un endpoint API.
@@ -72,7 +73,7 @@ export function usePost<P extends Path>(
       if (options.onSuccess) options.onSuccess(data, variables);
     },
     onError: (error) => {
-      console.error(error);
+      logger.error(error);
       if (options.onError) options.onError();
     },
   });

@@ -9,6 +9,7 @@
 
 import React, { ReactNode } from "react";
 import { Button, Result, Space } from "antd";
+import { logger } from "@utils/logger";
 
 interface IErrorBoundaryProps {
   children: ReactNode;
@@ -31,7 +32,7 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo): void {
-    console.error("[ErrorBoundary]", error, info.componentStack);
+    logger.error("[ErrorBoundary]", error, info.componentStack);
   }
 
   render(): ReactNode {

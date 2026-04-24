@@ -15,6 +15,7 @@ import { MutationPutParams, RequestMethod } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
 import { ApiPathMethodResponse, Path } from "@api";
 import { useAuth } from "@/auth/AuthProvider";
+import { logger } from "@utils/logger";
 
 /**
  * Mutation PUT typée sur un endpoint API (remplacement complet de la ressource).
@@ -72,7 +73,7 @@ export function usePut<P extends Path>(
       if (options.onSuccess) options.onSuccess(data, variables);
     },
     onError: (error) => {
-      console.error(error);
+      logger.error(error);
       if (options.onError) options.onError(error);
     },
   });

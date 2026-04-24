@@ -15,6 +15,7 @@ import { MutationDeleteParams, RequestMethod } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
 import { ApiPathMethodResponse, Path } from "@api";
 import { useAuth } from "@/auth/AuthProvider";
+import { logger } from "@utils/logger";
 
 /**
  * Mutation DELETE typée sur un endpoint API.
@@ -63,7 +64,7 @@ export function useDelete<P extends Path>(
       if (options.onSuccess) options.onSuccess(variables);
     },
     onError: (error) => {
-      console.error(error);
+      logger.error(error);
     },
   });
 }
