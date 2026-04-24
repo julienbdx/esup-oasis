@@ -11,7 +11,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { Button, Flex, Typography } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { IAvisEse } from "@api/ApiTypeHelpers";
+import { IAvisEse } from "@api";
 import { ModalAvisEse } from "@controls/Modals/ModalAvisEse";
 import { AvisEseList } from "@controls/List/AvisEseList";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";

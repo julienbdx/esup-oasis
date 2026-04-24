@@ -11,7 +11,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { Button, Space, Switch, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { IClubSportif } from "@api/ApiTypeHelpers";
+import { IClubSportif } from "@api";
 import BooleanState from "@controls/State/BooleanState";
 
 interface ClubsSportifsTableProps {

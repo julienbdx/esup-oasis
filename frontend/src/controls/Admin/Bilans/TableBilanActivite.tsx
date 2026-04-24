@@ -12,15 +12,17 @@ import { App, Button, Descriptions, Empty, Flex, FormInstance, Space, Table } fr
 import React, { useEffect } from "react";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
-import { ISuiviAcitivite } from "@api/ApiTypeHelpers";
+import { ISuiviAcitivite, QK_SUIVIS_ACTIVITE } from "@api";
 import { FilterOutlined, PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { getLibellePeriode } from "@utils/dates";
 import { Fichier } from "@controls/Fichier/Fichier";
 import Spinner from "@controls/Spinner/Spinner";
-import { QK_SUIVIS_ACTIVITE } from "@api/queryKeys";
 import { operations } from "@api/schema";
-import { ComposanteItem, FormationItem, GestionnaireItem, ProfilItem } from "@controls/Items";
+import { ComposanteItem } from "@controls/Items/ComposanteItem";
+import { FormationItem } from "@controls/Items/FormationItem";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
+import { ProfilItem } from "@controls/Items/ProfilItem";
 import { FiltreBilanActivitesForm } from "@routes/administration/Bilans/BilanActivites/BilanActivites";
 
 import { UseStateDispatch } from "@utils/utils";

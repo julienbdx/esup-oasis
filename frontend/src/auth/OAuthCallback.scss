@@ -14,10 +14,10 @@
   }
 
   #icone-outer {
-    animation: zoomIn .5s 0, rotation-hourglass 5s 1s infinite linear;
+    animation:
+      zoomIn 0.5s 0,
+      rotation-hourglass 5s 1s infinite linear;
     transform-origin: center;
     transform-box: fill-box;
   }
 }
-
-

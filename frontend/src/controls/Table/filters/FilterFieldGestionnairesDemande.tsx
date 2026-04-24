@@ -12,7 +12,7 @@ import { Col, Select, Space } from "antd";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
 import { UseStateDispatch } from "@utils/utils";
 import { PaginateResult } from "@context/api/ApiProvider";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 
 interface FilterFieldGestionnairesDemandePProps {
   filtreDemande: FiltreDemande;

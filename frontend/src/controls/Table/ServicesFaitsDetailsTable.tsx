@@ -8,12 +8,13 @@
  */
 
 import { Flex, Space, Table } from "antd";
-import { IPeriode, IServicesFaits, IServicesFaitsLigne, ITauxHoraire } from "@api/ApiTypeHelpers";
+import { IPeriode, IServicesFaits, IServicesFaitsLigne, ITauxHoraire } from "@api";
 import { ServicesFaitsButton } from "@controls/Admin/Bilans/ServicesFaitsButton";
-import { EtudiantItem, TypeEvenementItem } from "@controls/Items";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 import React from "react";
 import { montantToString, to2Digits } from "@utils/number";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 
 interface ServicesFaitsDetailsTableProps {
   isFetching?: boolean;

@@ -8,7 +8,7 @@
  */
 
 import React, { memo, ReactElement } from "react";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import {
   filtreToApiOnBackend,
   IAffichageFiltres,
@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 import { isSameDay } from "@utils/dates";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
-import { ApiPathMethodQuery } from "@api/SchemaHelpers";
+import { ApiPathMethodQuery } from "@api";
 
 interface ISmallCalendarCellProps {
   date: dayjs.Dayjs;

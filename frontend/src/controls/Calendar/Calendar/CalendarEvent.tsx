@@ -9,7 +9,7 @@
 
 import React, { memo } from "react";
 import { Popover } from "antd";
-import { CalendarEvenement } from "@lib/Evenement";
+import { CalendarEvenement } from "@lib";
 import { useModals } from "@context/modals/ModalsContext";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { EllipsisMiddle } from "@controls/Typography/EllipsisMiddle";

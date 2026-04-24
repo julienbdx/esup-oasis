@@ -13,17 +13,16 @@ import {
   ICategorieAmenagement,
   IFormation,
   ITypeAmenagement,
-} from "@api/ApiTypeHelpers";
+} from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { Slider, Table } from "antd";
-import { DomaineAmenagementInfos, getDomaineAmenagement } from "@lib/amenagements";
+import { DomaineAmenagementInfos, getDomaineAmenagement, Utilisateur } from "@lib";
 import { amenagementsBeneficiaireTableColumns } from "@controls/Table/AmenagementsBeneficiaireTableColumns";
 import { useNavigate } from "react-router-dom";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 import { useAuth } from "@/auth/AuthProvider";
-import { Utilisateur } from "@lib/Utilisateur";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import "@controls/Table/AmenagementsBeneficiaireTable.scss";
 

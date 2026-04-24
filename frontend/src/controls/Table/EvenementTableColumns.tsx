@@ -8,18 +8,15 @@
  */
 
 import { ColumnType } from "antd/es/table";
-import { Evenement } from "@lib/Evenement";
+import { Evenement, RoleValues } from "@lib";
 import dayjs from "dayjs";
-import {
-  CampusItem,
-  EtudiantItem,
-  EvenementIconeEnvoiRhItem,
-  TypeEvenementItem,
-} from "@controls/Items";
+import { CampusItem } from "@controls/Items/CampusItem";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { EvenementIconeEnvoiRhItem } from "@controls/Items/EvenementIconeEnvoiRhItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 import { Button, Space } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import React from "react";
-import { RoleValues } from "@lib/Utilisateur";
 
 interface TableCalendarColumnsProps {
   saisieEvtRenfort?: boolean;

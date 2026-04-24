@@ -22,7 +22,7 @@ import {
 } from "@fullcalendar/core";
 import frLocale from "@fullcalendar/core/locales/fr";
 import { getMonthHeader, getWeekHeader } from "@controls/Calendar/Calendar/utils";
-import { CalendarEvenement, Evenement } from "@lib/Evenement";
+import { CalendarEvenement, Evenement } from "@lib";
 import CalendarEvent from "@controls/Calendar/Calendar/CalendarEvent";
 import Spinner from "@controls/Spinner/Spinner";
 import { canCreateEventOnDate, createDateFromStringAsUTC } from "@utils/dates";
@@ -36,9 +36,8 @@ import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 import { useModals } from "@context/modals/ModalsContext";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
-import { PREFETCH_LAST_PERIODES_RH, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { ITypeEvenement, PREFETCH_LAST_PERIODES_RH, PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { App } from "antd";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
 
 function toFcView(type: TypeAffichageCustomValues): string {
   switch (type) {

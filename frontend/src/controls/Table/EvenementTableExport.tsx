@@ -9,10 +9,15 @@
 
 import React, { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import dayjs from "dayjs";
-import { PREFETCH_CAMPUS, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
-import { ICampus, ITypeEvenement, IUtilisateur } from "@api/ApiTypeHelpers";
+import {
+  ICampus,
+  ITypeEvenement,
+  IUtilisateur,
+  PREFETCH_CAMPUS,
+  PREFETCH_TYPES_EVENEMENTS,
+} from "@api";
 import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers = [

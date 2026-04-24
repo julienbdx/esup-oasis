@@ -10,7 +10,7 @@
 import { Form, Radio } from "antd";
 import React, { ReactElement } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api";
 
 interface ITabCategorie {
   defaultValue?: string;

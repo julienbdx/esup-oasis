@@ -8,14 +8,14 @@
  */
 
 import React from "react";
-import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { Flex, Popover, Space } from "antd";
-import { CampagneDemandeDateItem } from "@controls/Items/CampagneDemandeDateItem";
+import { CampagneDemandeDateItem } from "./CampagneDemandeDateItem";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import TypeDemandeAvatar from "@controls/Avatars/TypeDemandeAvatar";
-import { ProfilItem } from "@controls/Items/ProfilItem";
+import { ProfilItem } from "./ProfilItem";
 
 export function TypeDemandeItem(props: {
   typeDemande?: ITypeDemande;

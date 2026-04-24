@@ -8,8 +8,12 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_CATEGORIES_TAGS, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
-import { QK_BENEFICIAIRES, QK_UTILISATEURS_TAGS } from "@api/queryKeys";
+import {
+  PREFETCH_CATEGORIES_TAGS,
+  PREFETCH_TAGS,
+  QK_BENEFICIAIRES,
+  QK_UTILISATEURS_TAGS,
+} from "@api";
 import { App, Button, Dropdown } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import React from "react";

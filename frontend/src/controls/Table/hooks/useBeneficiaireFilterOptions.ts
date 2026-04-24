@@ -9,12 +9,7 @@
 
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
-import {
-  PREFETCH_COMPOSANTES,
-  PREFETCH_FORMATIONS,
-  PREFETCH_PROFILS,
-  PREFETCH_TAGS,
-} from "@api/ApiPrefetchHelpers";
+import { PREFETCH_COMPOSANTES, PREFETCH_FORMATIONS, PREFETCH_PROFILS, PREFETCH_TAGS } from "@api";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
 
 /**

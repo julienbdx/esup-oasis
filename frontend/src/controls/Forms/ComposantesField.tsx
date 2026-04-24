@@ -9,9 +9,8 @@
 
 import React from "react";
 import { Select } from "antd";
-import { IComposante } from "@api/ApiTypeHelpers";
+import { IComposante, PREFETCH_COMPOSANTES } from "@api";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_COMPOSANTES } from "@api/ApiPrefetchHelpers";
 
 export default function ComposantesField(props: {
   value?: string | string[] | undefined;

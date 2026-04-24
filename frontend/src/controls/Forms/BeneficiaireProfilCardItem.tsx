@@ -10,12 +10,11 @@
 import React, { useState } from "react";
 import { Avatar, Button, Card, Space, Tooltip } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { IBeneficiaireProfil, IUtilisateur } from "@api/ApiTypeHelpers";
+import { IBeneficiaireProfil, IUtilisateur, PREFETCH_PROFILS } from "@api";
 import Spinner from "@controls/Spinner/Spinner";
 import { getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 import { CheckOutlined, EditOutlined, InfoCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
-import { PREFETCH_PROFILS } from "@api/ApiPrefetchHelpers";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
 import { AccompagnementAvatar } from "@controls/Avatars/AccompagnementAvatar";
 import { BeneficiaireProfilFormItemEdit } from "@controls/Forms/BeneficiaireProfilFormItemEdit";
 

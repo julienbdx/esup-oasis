@@ -11,7 +11,7 @@ import React from "react";
 import { Col, Select, Space } from "antd";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
 import { UseStateDispatch } from "@utils/utils";
-import { IComposante } from "@api/ApiTypeHelpers";
+import { IComposante } from "@api";
 
 interface FilterFieldComposantesDemandePProps {
   filtreDemande: FiltreDemande;

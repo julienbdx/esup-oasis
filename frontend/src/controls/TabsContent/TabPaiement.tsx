@@ -10,11 +10,12 @@
 import { Alert, Button, Col, Divider, Form, FormInstance, InputNumber, Row, Space } from "antd";
 import React, { ReactElement, useState } from "react";
 import ColStyled from "@controls/ColStyled/ColStyled";
-import { EvenementEtatEnvoiRHItem, EvenementEtatValidationItem } from "@controls/Items";
+import { EvenementEtatEnvoiRHItem } from "@controls/Items/EvenementEtatEnvoiRHItem";
+import { EvenementEtatValidationItem } from "@controls/Items/EvenementEtatValidationItem";
 import DureeEvenementField from "@controls/Forms/DureeEvenementField";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import TarifEvenementField from "@controls/Forms/TarifEvenementField";
-import { IEvenement, IPartialEvenement } from "@api/ApiTypeHelpers";
+import { IEvenement, IPartialEvenement } from "@api";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { DownOutlined, InfoCircleFilled, UpOutlined } from "@ant-design/icons";
 import { DureeTotaleEvenementField } from "@controls/Forms/DureeTotalEvenementField";

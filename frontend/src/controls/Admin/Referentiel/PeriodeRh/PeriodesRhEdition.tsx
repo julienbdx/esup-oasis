@@ -14,8 +14,7 @@ import { Alert, Button, Card, DatePicker, Drawer, Space, Switch, Typography } fr
 import { SendOutlined, WarningFilled } from "@ant-design/icons";
 import React, { ReactElement } from "react";
 
-import { IPeriode } from "@api/ApiTypeHelpers";
-import { QK_PERIODES } from "@api/queryKeys";
+import { IPeriode, QK_PERIODES } from "@api";
 
 interface PeriodesRhEditionProps {
   periode: IPeriode;

@@ -8,7 +8,7 @@
  */
 
 import Spinner from "@controls/Spinner/Spinner";
-import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
+import { TypeDemandeItem } from "@controls/Items/TypeDemandeItem";
 import React from "react";
 import { Affix, Card } from "antd";
 import AvancementDemandeGestion from "@controls/Demande/Avancement/AvancementDemandeGestion";

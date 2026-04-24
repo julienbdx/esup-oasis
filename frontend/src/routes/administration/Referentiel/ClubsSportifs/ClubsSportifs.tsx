@@ -12,7 +12,7 @@ import { Breadcrumb, Col, FloatButton, Layout, Row, Space, Typography } from "an
 import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { ClubSportifEdition } from "@controls/Admin/Referentiel/ClubsSportifs/ClubSportifEdition";
-import { IClubSportif } from "@api/ApiTypeHelpers";
+import { IClubSportif } from "@api";
 import { ClubsSportifsTable } from "@controls/Table/Admin/ClubsSportifsTable";
 
 /**

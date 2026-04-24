@@ -8,8 +8,8 @@
  *
  */
 
-import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
-import CampagneDemandeDateItem from "@controls/Items/CampagneDemandeDateItem";
+import { IDemande, ITypeDemande } from "@api";
+import { CampagneDemandeDateItem } from "@controls/Items/CampagneDemandeDateItem";
 import React from "react";
 import { Button, Space } from "antd";
 import { useNavigate } from "react-router-dom";

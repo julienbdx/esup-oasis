@@ -8,7 +8,7 @@
  */
 
 import { NavigateFunction } from "react-router-dom";
-import { Utilisateur } from "@lib/Utilisateur";
+import { Utilisateur } from "@lib";
 import { Button, MenuProps } from "antd";
 import React from "react";
 

@@ -8,9 +8,9 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { IBeneficiaire } from "@api/ApiTypeHelpers";
+import { IBeneficiaire } from "@api";
 import { beneficiaireTableColumns } from "@controls/Table/BeneficiaireTableColumns";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import { Button, Flex, Space, Table } from "antd";
 import Icon from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";

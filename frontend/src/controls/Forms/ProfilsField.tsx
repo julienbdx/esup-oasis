@@ -9,7 +9,7 @@
 
 import React from "react";
 import { Select } from "antd";
-import { IProfil } from "@api/ApiTypeHelpers";
+import { IProfil } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 
 export default function ProfilsField(props: {

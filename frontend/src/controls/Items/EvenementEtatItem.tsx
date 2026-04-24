@@ -7,12 +7,12 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { Space, Tag, Tooltip } from "antd";
 import { WarningFilled } from "@ant-design/icons";
 import React, { ReactElement } from "react";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
+import { ITypeEvenement } from "@api";
 
 /**
  * Renders the state of an event item and returns an appropriate message.

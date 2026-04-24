@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { WarningFilled } from "@ant-design/icons";
 import { pluriel } from "@utils/string";
 import { useAuth } from "@/auth/AuthProvider";
-import { IStatistiquesEvenements, ITypeEvenement } from "@api/ApiTypeHelpers";
+import { IStatistiquesEvenements, ITypeEvenement } from "@api";
 import {
   TypeAffichageValues,
   useAffichageFiltres,

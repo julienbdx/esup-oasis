@@ -10,7 +10,7 @@
 import React from "react";
 import { Col, Select } from "antd";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
-import { IFormation } from "@api/ApiTypeHelpers";
+import { IFormation } from "@api";
 
 interface FilterFieldFormationsBeneficiaireProps {
   filtreBeneficiaire: FiltreBeneficiaire;

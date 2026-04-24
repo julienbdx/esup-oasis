@@ -12,7 +12,7 @@ import { Button, Space, Table } from "antd";
 import { ServicesFaitsButton } from "@controls/Admin/Bilans/ServicesFaitsButton";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { IPeriode } from "@api/ApiTypeHelpers";
+import { IPeriode } from "@api";
 import BooleanState from "@controls/State/BooleanState";
 
 interface PeriodeRhTableProps {

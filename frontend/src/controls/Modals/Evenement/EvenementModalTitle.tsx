@@ -8,9 +8,9 @@
  */
 
 import React, { ReactElement } from "react";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { EvenementEtatItem } from "@controls/Items/EvenementEtatItem";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
+import { ITypeEvenement } from "@api";
 
 interface IEvenementModalTitleProps {
   evenement: Evenement;

@@ -18,7 +18,7 @@ import {
 } from "@ant-design/icons";
 import React from "react";
 import { useAuth } from "@/auth/AuthProvider";
-import { QK_BENEFICIAIRES, QK_UTILISATEURS_DECISIONS, QK_UTILISATEURS_ITEM } from "@api/queryKeys";
+import { QK_BENEFICIAIRES, QK_UTILISATEURS_DECISIONS, QK_UTILISATEURS_ITEM } from "@api";
 import apiDownloader from "@utils/apiDownloader";
 import { EtatDecisionEtablissement } from "@controls/Avatars/DecisionEtablissementAvatar";
 import { queryClient } from "@/queryClient";

@@ -9,7 +9,7 @@
  */
 
 import { UseStateDispatch } from "@utils/utils";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { RoleValues, Utilisateur } from "@lib";
 import { NavigateFunction } from "react-router-dom";
 import { Button, MenuProps, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";

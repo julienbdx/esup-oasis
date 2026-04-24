@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ITypeDemande } from "@api/ApiTypeHelpers";
+import { ITypeDemande } from "@api";
 import { Empty, List } from "antd";
 import TypeDemandeAvatar from "@controls/Avatars/TypeDemandeAvatar";
-import { getTypeDemandeDescription } from "@lib/demande";
+import { getTypeDemandeDescription } from "@lib";
 import React from "react";
 import PostulerButton from "@controls/Modals/Demande/BoutonPostuler";
 

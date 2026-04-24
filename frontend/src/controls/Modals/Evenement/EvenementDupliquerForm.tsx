@@ -10,11 +10,11 @@
 import React, { ReactElement } from "react";
 import { Alert, Button, Col, DatePicker, Empty, Form, FormInstance, List, Row, Switch } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
-import { PREFETCH_LAST_PERIODES_RH } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_LAST_PERIODES_RH } from "@api";
 import { UseStateDispatch } from "@utils/utils";
 import dayjs, { Dayjs } from "dayjs";
 

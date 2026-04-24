@@ -9,7 +9,7 @@
 
 import { lazy } from "react";
 import { IRoute } from "@routes/AppRoutes";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 
 export const GESTIONNAIRE_ROUTES: IRoute[] = [
   // --- Gestionnaire / Chargé d'accompagnement ---

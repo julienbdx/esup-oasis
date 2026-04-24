@@ -10,9 +10,8 @@
 import React, { memo, ReactElement, useEffect, useState } from "react";
 import { Space, Spin, Tag, Tooltip } from "antd";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_ETAT_DEMANDE } from "@api/ApiPrefetchHelpers";
-import { IEtatDemande } from "@api/ApiTypeHelpers";
-import { EtatInfo, getEtatDemandeInfo } from "@lib/demande";
+import { IEtatDemande, PREFETCH_ETAT_DEMANDE } from "@api";
+import { EtatInfo, getEtatDemandeInfo } from "@lib";
 import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemandeLabel";
 
 interface IEtatDemandeAvatar {

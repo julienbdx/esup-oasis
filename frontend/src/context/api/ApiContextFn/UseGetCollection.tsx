@@ -11,12 +11,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { PaginateResult, RequestMethod } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
-import {
-  ApiPathMethodParameters,
-  ApiPathMethodQuery,
-  ApiPathMethodResponse,
-  Path,
-} from "@api/SchemaHelpers";
+import { ApiPathMethodParameters, ApiPathMethodQuery, ApiPathMethodResponse, Path } from "@api";
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import {
   handleApiResponse,

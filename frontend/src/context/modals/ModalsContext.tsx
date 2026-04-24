@@ -8,7 +8,7 @@
  */
 
 import React, { createContext, useCallback, useContext, useReducer } from "react";
-import { IEvenement, IPartialEvenement } from "@api/ApiTypeHelpers";
+import { IEvenement, IPartialEvenement } from "@api";
 
 // Types
 export interface IModals {

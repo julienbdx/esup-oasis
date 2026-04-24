@@ -16,7 +16,7 @@ import { UtilisateurSearch } from "@controls/Search/UtilisateurSearch";
 import DashboardUtilisateurStats from "@controls/Dashboard/DashboardUtilisateurStats";
 import { UtilisateurEditer } from "@controls/Admin/Utilisateurs/UtilisateurEditer";
 import UtilisateursTable from "@controls/Table/Admin/UtilisateursTable";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { env } from "@/env";
 
 /**

@@ -12,8 +12,7 @@ import { useApi } from "@context/api/ApiProvider";
 import React, { useEffect } from "react";
 import { Fichier } from "@controls/Fichier/Fichier";
 import { FichierDepot } from "@controls/Fichier/FichierDepot";
-import { IDocumentBeneficiaire } from "@api/ApiTypeHelpers";
-import { QK_BENEFICIAIRES_PIECES_JOINTES } from "@api/queryKeys";
+import { IDocumentBeneficiaire, QK_BENEFICIAIRES_PIECES_JOINTES } from "@api";
 
 type IDocumentForm = IDocumentBeneficiaire;
 

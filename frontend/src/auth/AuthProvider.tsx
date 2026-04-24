@@ -9,11 +9,11 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Utilisateur } from "@lib/Utilisateur";
+import { Utilisateur } from "@lib";
 import { message, notification } from "antd";
 import useOAuth2 from "@/auth/hook/useOAuth2";
 
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { queryClient } from "@/queryClient";
 import useLocalStorageState from "use-local-storage-state";
 import { useNavigate } from "react-router-dom";

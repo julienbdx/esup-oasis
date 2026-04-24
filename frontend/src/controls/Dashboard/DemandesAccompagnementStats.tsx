@@ -12,10 +12,10 @@ import { Avatar, Button, Card, Col, Flex, Row, Tooltip, Typography } from "antd"
 import { useNavigate } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import { pluriel } from "@utils/string";
-import { IEtatDemande, IStatistiquesEvenements } from "@api/ApiTypeHelpers";
+import { IEtatDemande, IStatistiquesEvenements } from "@api";
 import Statistic from "@controls/Dashboard/Statistic";
 import MonoStackedBar from "@controls/Dashboard/MonoStackedBar/MonoStackedBar";
-import { getEtatDemandeInfo } from "@lib/demande";
+import { getEtatDemandeInfo } from "@lib";
 import { getContrastColor } from "@utils/colors";
 
 interface IDemandesAccompagnementStatsProps {

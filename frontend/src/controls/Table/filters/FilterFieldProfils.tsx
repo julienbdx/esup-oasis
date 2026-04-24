@@ -10,8 +10,8 @@
 import React from "react";
 import { Col, Select, Space } from "antd";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
-import { IProfil } from "@api/ApiTypeHelpers";
-import { Utilisateur } from "@lib/Utilisateur";
+import { IProfil } from "@api";
+import { Utilisateur } from "@lib";
 import { BENEFICIAIRE_PROFIL_A_DETERMINER } from "@/constants";
 
 interface FilterFieldProfilsProps {

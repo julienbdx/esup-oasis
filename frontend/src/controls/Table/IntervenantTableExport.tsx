@@ -7,11 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ICampus, ICompetence, IIntervenant } from "@api/ApiTypeHelpers";
+import { ICampus, ICompetence, IIntervenant, PREFETCH_CAMPUS, PREFETCH_COMPETENCES } from "@api";
 import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreIntervenant } from "@controls/Table/IntervenantTable";
-import { PREFETCH_CAMPUS, PREFETCH_COMPETENCES } from "@api/ApiPrefetchHelpers";
 import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers: { label: string; key: string }[] = [

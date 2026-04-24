@@ -7,11 +7,16 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IIntervenant, IInterventionForfait, IPeriode, ITypeEvenement } from "@api/ApiTypeHelpers";
+import {
+  IIntervenant,
+  IInterventionForfait,
+  IPeriode,
+  ITypeEvenement,
+  PREFETCH_TYPES_EVENEMENTS,
+} from "@api";
 import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { getLibellePeriode } from "@utils/dates";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 
 const headers: { label: string; key: string }[] = [

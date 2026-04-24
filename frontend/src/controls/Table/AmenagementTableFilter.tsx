@@ -13,7 +13,7 @@ import {
   getFiltreAmenagementDefault,
 } from "@controls/Table/AmenagementTableLayout";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
-import { Utilisateur } from "@lib/Utilisateur";
+import { Utilisateur } from "@lib";
 import { useAmenagementFilterOptions } from "@controls/Table/hooks/useAmenagementFilterOptions";
 import { FilterFieldNom } from "@controls/Table/filters/FilterFieldNom";
 import { FilterFieldDomaine } from "@controls/Table/filters/FilterFieldDomaine";

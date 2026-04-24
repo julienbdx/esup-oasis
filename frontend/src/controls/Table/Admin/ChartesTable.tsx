@@ -11,8 +11,8 @@ import { useApi } from "@context/api/ApiProvider";
 import { Button, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React from "react";
-import { ICharte } from "@api/ApiTypeHelpers";
-import ProfilItem from "@controls/Items/ProfilItem";
+import { ICharte } from "@api";
+import { ProfilItem } from "@controls/Items/ProfilItem";
 
 interface ChartesTableProps {
   editedItem?: ICharte;

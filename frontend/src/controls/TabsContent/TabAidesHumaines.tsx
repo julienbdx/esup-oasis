@@ -9,12 +9,11 @@
 
 import { Button, Empty, List, Tag, Typography } from "antd";
 import React, { ReactElement, useState } from "react";
-import { IAmenagement, IUtilisateur } from "@api/ApiTypeHelpers";
+import { IAmenagement, IUtilisateur, PREFETCH_TYPES_AMENAGEMENTS } from "@api";
 import { getLibellePeriode } from "@utils/dates";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
-import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
-import SuiviAmenagementItem from "@controls/Items/SuiviAmenagementItem";
+import { SuiviAmenagementItem } from "@controls/Items/SuiviAmenagementItem";
 import { EditOutlined } from "@ant-design/icons";
 import { ModalAmenagement } from "@controls/Modals/ModalAmenagement";
 

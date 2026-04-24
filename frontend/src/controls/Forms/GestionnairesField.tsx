@@ -9,9 +9,9 @@
 
 import React from "react";
 import { Select } from "antd";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { useApi } from "@context/api/ApiProvider";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 
 export default function GestionnairesField(props: {
   value?: string | string[] | undefined;

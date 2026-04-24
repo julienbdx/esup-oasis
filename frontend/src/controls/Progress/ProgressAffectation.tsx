@@ -8,7 +8,7 @@
  */
 
 import React, { ReactElement, useMemo } from "react";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import Progress from "@controls/Progress/Progress";
 
 interface IProgressAffectation {

@@ -9,13 +9,13 @@
  */
 
 import { ascToAscend } from "@utils/array";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
-import { IDemande, IEtatDemande, IUtilisateur } from "@api/ApiTypeHelpers";
+import { RoleValues, Utilisateur } from "@lib";
+import { IDemande, IEtatDemande, IUtilisateur } from "@api";
 import { ColumnType } from "antd/es/table";
 import { Button, Flex, Popconfirm, Space, Tooltip } from "antd";
 import { FilterProps } from "@utils/table";
-import TypeDemandeItem from "@controls/Items/TypeDemandeItem";
-import ComposanteItem from "@controls/Items/ComposanteItem";
+import { ComposanteItem } from "@controls/Items/ComposanteItem";
+import { TypeDemandeItem } from "@controls/Items/TypeDemandeItem";
 import dayjs from "dayjs";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
 import Icon, { EyeOutlined, MinusOutlined, UserSwitchOutlined } from "@ant-design/icons";

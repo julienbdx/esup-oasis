@@ -9,7 +9,7 @@
 
 import { createDateFromStringAsUTC } from "@utils/dates";
 import dayjs from "dayjs";
-import { Utilisateur } from "@lib/Utilisateur";
+import { Utilisateur } from "@lib";
 import { ApiPathMethodParameters, ApiPathMethodQuery } from "@api/SchemaHelpers";
 
 /**

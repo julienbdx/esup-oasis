@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { TypesEvenementsEdition } from "@controls/Admin/Referentiel/TypesEvenements/TypesEvenementsEdition";
 import { TypesEvenementsTable } from "@controls/Table/Admin/TypesEvenementsTable";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
+import { ITypeEvenement } from "@api";
 
 /**
  * Renders the admin page for managing TypesEvenements.

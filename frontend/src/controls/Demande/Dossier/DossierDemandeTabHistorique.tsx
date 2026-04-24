@@ -11,11 +11,12 @@ import React from "react";
 import { List, Space, Timeline } from "antd";
 
 import { useQuestionnaire } from "@context/demande/QuestionnaireProvider";
-import { IModificationEtatDemande } from "@api/ApiTypeHelpers";
+import { IModificationEtatDemande } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 import dayjs from "dayjs";
 import { EtatDemandeAvatar } from "@controls/Avatars/EtatDemandeAvatar";
-import { EtudiantItem, ProfilItem } from "@controls/Items";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { ProfilItem } from "@controls/Items/ProfilItem";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import Spinner from "@controls/Spinner/Spinner";
 

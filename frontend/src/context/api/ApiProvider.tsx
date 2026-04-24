@@ -38,7 +38,7 @@ import {
   ContentTypePatch,
   PaginatedPath,
   Path,
-} from "@api/SchemaHelpers";
+} from "@api";
 import { usePut, UsePutHook } from "@context/api/ApiContextFn/UsePut";
 import { IErreurNotification } from "@context/api/ApiContextFn/HandleApiResponse";
 

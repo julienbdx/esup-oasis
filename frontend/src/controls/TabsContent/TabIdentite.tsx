@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { App, Form, Row, Skeleton } from "antd";
 import { useAuth } from "@/auth/AuthProvider";
-import { QK_UTILISATEURS } from "@api/queryKeys";
+import { QK_UTILISATEURS } from "@api";
 import { IdentiteSection } from "@controls/TabsContent/TabIdentite/IdentiteSection";
 import { ScolariteSection } from "@controls/TabsContent/TabIdentite/ScolariteSection";
 import { SuiviSection } from "@controls/TabsContent/TabIdentite/SuiviSection";

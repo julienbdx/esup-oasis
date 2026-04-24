@@ -8,7 +8,7 @@
  *
  */
 
-import { ApiPathMethodParameters, ApiPathMethodQuery, Method, Path } from "@api/SchemaHelpers";
+import { ApiPathMethodParameters, ApiPathMethodQuery, Method, Path } from "@api";
 import { env } from "@/env";
 
 export function buildUrl<P extends Path, M extends Method>(

@@ -13,7 +13,7 @@ import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
 import { CheckOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api";
 
 interface ICategoriesFilter {
   value?: string[];

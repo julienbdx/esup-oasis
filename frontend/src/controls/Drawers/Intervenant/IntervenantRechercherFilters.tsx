@@ -13,7 +13,9 @@ import { SearchOutlined } from "@ant-design/icons";
 import { TabTypeEvenement } from "@controls/TabsContent/TabTypeEvenement";
 import { TabCompetence } from "@controls/TabsContent/TabCompetence";
 import { TabCampus } from "@controls/TabsContent/TabCampus";
-import { CampusItem, CompetenceItem, TypeEvenementItem } from "@controls/Items";
+import { CampusItem } from "@controls/Items/CampusItem";
+import { CompetenceItem } from "@controls/Items/CompetenceItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 
 export interface IFiltreRechercheIntervenant {
   nom?: string;

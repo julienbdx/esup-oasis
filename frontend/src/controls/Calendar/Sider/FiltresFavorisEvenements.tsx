@@ -15,7 +15,7 @@ import {
 import { DeleteOutlined, FilterOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 
 export function FiltresFavorisEvenements() {

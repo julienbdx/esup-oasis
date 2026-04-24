@@ -10,7 +10,7 @@
 import React from "react";
 import { Select } from "antd";
 import dayjs from "dayjs";
-import { IPeriode } from "@api/ApiTypeHelpers";
+import { IPeriode } from "@api";
 import { useApi } from "@context/api/ApiProvider";
 
 export default function PeriodeField(props: {

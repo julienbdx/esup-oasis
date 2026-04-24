@@ -11,7 +11,7 @@ import React from "react";
 import { Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import UtilisateurAvatarImage from "@controls/Avatars/UtilisateurAvatarImage";
-import { Utilisateur } from "@lib/Utilisateur";
+import { Utilisateur } from "@lib";
 
 interface UtilisateurDrawerHeaderProps {
   utilisateur: Utilisateur;

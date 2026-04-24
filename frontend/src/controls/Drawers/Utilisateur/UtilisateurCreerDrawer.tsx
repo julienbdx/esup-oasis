@@ -12,8 +12,8 @@ import { Avatar, Button, Drawer, Empty, Form, Input, List, Space } from "antd";
 import { SaveOutlined, SearchOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import ListSelectable from "@controls/Forms/ListSelectable/ListSelectable";
-import { getRoleLabel, RoleValues } from "@lib/Utilisateur";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { getRoleLabel, RoleValues } from "@lib";
+import { IUtilisateur } from "@api";
 
 interface IUtilisateurCreerDrawer {
   type: RoleValues;

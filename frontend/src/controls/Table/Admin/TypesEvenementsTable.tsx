@@ -8,12 +8,11 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
+import { ITypeEvenement, PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { Button, Space, Switch, Table } from "antd";
 import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useEffect } from "react";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
 import BooleanState from "@controls/State/BooleanState";
 
 interface TypesEvenementsTableProps {

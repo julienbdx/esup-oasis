@@ -8,15 +8,16 @@
  */
 
 import React from "react";
-import { IAmenagementBeneficiaireQuery, IAmenagementQuery } from "@api/ApiTypeHelpers";
+import {
+  IAmenagementBeneficiaireQuery,
+  IAmenagementQuery,
+  PREFETCH_CATEGORIES_AMENAGEMENTS,
+  PREFETCH_TYPES_AMENAGEMENTS,
+} from "@api";
 import { Button, Flex, Space } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { AmenagementTableFilter } from "@controls/Table/AmenagementTableFilter";
-import { AmenagementDomaine } from "@lib/amenagements";
-import {
-  PREFETCH_CATEGORIES_AMENAGEMENTS,
-  PREFETCH_TYPES_AMENAGEMENTS,
-} from "@api/ApiPrefetchHelpers";
+import { AmenagementDomaine, Utilisateur } from "@lib";
 import Icon from "@ant-design/icons";
 import Unfilter from "@/assets/images/unfilter.svg?react";
 import { useAuth } from "@/auth/AuthProvider";
@@ -26,7 +27,6 @@ import { AmenagementTable } from "@controls/Table/AmenagementTable";
 import { AmenagementsBeneficiaireTable } from "@controls/Table/AmenagementsBeneficiaireTable";
 import AmenagementsBeneficiaireTableExport from "@controls/Table/AmenagementsBeneficiaireTableExport";
 import FiltreDescription from "@controls/Table/FiltreDescription";
-import { Utilisateur } from "@lib/Utilisateur";
 import { getCountLibelle } from "@utils/table";
 import { useAmenagementFilter } from "@controls/Table/hooks/useAmenagementFilter";
 

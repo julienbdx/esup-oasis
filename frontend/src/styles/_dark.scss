@@ -10,7 +10,7 @@ body.dark-mode {
   --gris: rgba(255, 255, 255, 0.25);
   --noir: rgba(32, 32, 32, 0.85);
   --noir-mid: rgba(32, 32, 32, 0.66);
-  --ant-color-text-description: rgba(255,255,255,0.6);
+  --ant-color-text-description: rgba(255, 255, 255, 0.6);
   --ant-button-default-color: var(--blanc);
 
   background-color: var(--noir);
@@ -28,7 +28,6 @@ body.dark-mode {
   @each $key, $val in colors.$colors-xlight {
     --color-dark-#{$key}: #{$val};
   }
-
 
   // Le fond principal (Ant Design gère le background global via darkAlgorithm)
   color: var(--blanc);
@@ -316,8 +315,12 @@ body.dark-mode {
     color: var(--gris);
   }
 
-  .ant-input, .ant-select:not(.ant-select-customize) .ant-select-input, .user.ant-menu-submenu-selected .role,
-  .ant-menu-submenu.user .identite,  .ant-menu-submenu.user .role, .ant-menu-light .ant-menu-submenu-selected>.ant-menu-submenu-title {
+  .ant-input,
+  .ant-select:not(.ant-select-customize) .ant-select-input,
+  .user.ant-menu-submenu-selected .role,
+  .ant-menu-submenu.user .identite,
+  .ant-menu-submenu.user .role,
+  .ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
     color: var(--blanc);
   }
 
@@ -336,12 +339,13 @@ body.dark-mode {
     border-color: var(--ant-color-border);
   }
 
-  .calendar-sider.ant-layout-sider, .fc .fc-scrollgrid-section-sticky > * {
+  .calendar-sider.ant-layout-sider,
+  .fc .fc-scrollgrid-section-sticky > * {
     background-color: var(--ant-color-bg-layout);
   }
 
   .event-annule {
-    opacity: .75;
+    opacity: 0.75;
   }
   .fc-timegrid-event-harness-inset .fc-timegrid-event {
     box-shadow: 0 0 0 1px var(--ant-color-border);

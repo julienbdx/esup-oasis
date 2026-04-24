@@ -10,10 +10,8 @@
 import { Button, Card, Divider, Drawer, Form, Input, Radio, Select, Switch } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import React, { ReactElement, useEffect } from "react";
-import { ITypeAmenagement } from "@api/ApiTypeHelpers";
-import { DOMAINES_AMENAGEMENTS_INFOS, getDomaineAmenagement } from "@lib/amenagements";
-import { PREFETCH_CATEGORIES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
-import { QK_TYPES_AMENAGEMENTS } from "@api/queryKeys";
+import { ITypeAmenagement, PREFETCH_CATEGORIES_AMENAGEMENTS, QK_TYPES_AMENAGEMENTS } from "@api";
+import { DOMAINES_AMENAGEMENTS_INFOS, getDomaineAmenagement } from "@lib";
 
 interface AmenagementsEditionProps {
   editedItem?: ITypeAmenagement;

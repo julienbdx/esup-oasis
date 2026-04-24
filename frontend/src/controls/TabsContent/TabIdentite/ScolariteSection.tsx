@@ -10,7 +10,7 @@
 import React from "react";
 import { Col, Descriptions, Flex, Skeleton, Typography } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { ScolariteListItem } from "@controls/TabsContent/TabScolarite";
 
 interface ScolariteSectionProps {

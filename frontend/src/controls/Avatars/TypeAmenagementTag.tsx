@@ -8,7 +8,7 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_AMENAGEMENTS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_TYPES_AMENAGEMENTS } from "@api";
 import Spinner from "@controls/Spinner/Spinner";
 import { Tag } from "antd";
 import React from "react";

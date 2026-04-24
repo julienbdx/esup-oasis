@@ -13,7 +13,7 @@ import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/Questi
 import { useNavigate } from "react-router-dom";
 import { queryClient } from "@/queryClient";
 import { env } from "@/env";
-import { QK_DEMANDES } from "@api/queryKeys";
+import { QK_DEMANDES } from "@api";
 
 export function QuestionSubmit(props: { question: QuestionnaireQuestion }) {
   const { notification } = App.useApp();

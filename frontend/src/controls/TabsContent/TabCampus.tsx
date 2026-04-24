@@ -10,7 +10,7 @@
 import { Form, Radio } from "antd";
 import React, { ReactElement } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_CAMPUS } from "@api/ApiPrefetchHelpers";
+import { PREFETCH_CAMPUS } from "@api";
 
 interface ITabCampus {
   defaultValue?: string;

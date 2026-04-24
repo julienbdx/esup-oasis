@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IDemande } from "@api/ApiTypeHelpers";
+import { IDemande } from "@api";
 import React from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { Flex, Space, Steps, Typography } from "antd";
@@ -23,10 +23,10 @@ import {
   EtatDescription,
   getEtatDemande,
   getEtatDemandeOrdre,
-} from "@lib/demande";
+} from "@lib";
 import "@controls/Demande/Avancement/AvancementDemande.scss";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import ProfilItem from "@controls/Items/ProfilItem";
+import { ProfilItem } from "@controls/Items/ProfilItem";
 import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemandeLabel";
 import Spinner from "@controls/Spinner/Spinner";
 import { env } from "@/env";

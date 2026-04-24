@@ -8,12 +8,12 @@
  */
 
 import { UserSwitchOutlined } from "@ant-design/icons";
-import { ROLES, RoleValues } from "@lib/Utilisateur";
+import { ROLES, RoleValues } from "@lib";
 import React, { ReactElement } from "react";
 import { AuthContextType } from "@/auth/AuthProvider";
 import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
 import { Flex, Space } from "antd";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { ItemType } from "antd/es/menu/interface";
 
 /**

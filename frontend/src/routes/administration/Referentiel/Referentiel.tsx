@@ -13,7 +13,7 @@ import "@routes/administration/Administration.scss";
 import { HomeFilled, PlusOutlined } from "@ant-design/icons";
 import { NavLink, useParams } from "react-router-dom";
 import ADMIN_CONFIG from "@routes/administration/AdminConfig";
-import { IReferentielEditable } from "@lib/referentiels";
+import { IReferentielEditable } from "@lib";
 import { ReferentielItemEdition } from "@controls/Admin/Referentiel/ReferentielItemEdition";
 import { ReferentielTable } from "@controls/Table/Admin/ReferentielTable";
 import { removeAccents } from "@utils/string";

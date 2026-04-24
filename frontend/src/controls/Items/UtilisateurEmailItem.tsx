@@ -10,7 +10,7 @@
 import React, { ReactElement } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { MinusOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 

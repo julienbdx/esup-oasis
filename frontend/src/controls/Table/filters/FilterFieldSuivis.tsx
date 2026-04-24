@@ -10,7 +10,7 @@
 import React from "react";
 import { Col, Select } from "antd";
 import { FiltreAmenagement } from "@controls/Table/AmenagementTableLayout";
-import { ITypeSuiviAmenagement } from "@api/ApiTypeHelpers";
+import { ITypeSuiviAmenagement } from "@api";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 
 interface FilterFieldSuivisProps {

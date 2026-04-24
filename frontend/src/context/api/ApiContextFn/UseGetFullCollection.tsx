@@ -16,7 +16,7 @@ import {
   ApiPathMethodQuery,
   ApiPathMethodResponse,
   PaginatedPath,
-} from "@api/SchemaHelpers";
+} from "@api";
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import {
   handleApiResponse,
@@ -112,8 +112,8 @@ export function useGetFullCollection<P extends PaginatedPath>(
       const prerequisiteIdx = idx - CONCURRENCY;
       const prerequisiteDone =
         prerequisiteIdx < 0 ||
-        prevResultsRef.current[prerequisiteIdx]?.isSuccess === true ||
-        prevResultsRef.current[prerequisiteIdx]?.isError === true;
+        prevResultsRef.current[prerequisiteIdx]?.isSuccess ||
+        prevResultsRef.current[prerequisiteIdx]?.isError;
 
       const url = buildPageUrl(page);
       return {

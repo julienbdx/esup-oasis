@@ -13,10 +13,10 @@ import dayjs from "dayjs";
 import TabEvenementInformations from "@controls/TabsContent/TabEvenementInformations";
 import { TabEquipement } from "@controls/TabsContent/TabEquipement";
 import { TabPaiement } from "@controls/TabsContent/TabPaiement";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { isDateValid } from "@utils/dates";
-import { IPartialEvenement } from "@api/ApiTypeHelpers";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
+import { IPartialEvenement } from "@api";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
 
 interface IEvenementFormProps {
   form: FormInstance<Evenement | undefined>;

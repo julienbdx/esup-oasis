@@ -11,7 +11,7 @@ import { Form, Radio, Space } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
 import { QuestionAide } from "@controls/Questionnaire/Question/QuestionAide";
 import { QuestionnaireQuestion, useQuestionnaire } from "@context/demande/QuestionnaireProvider";
-import { IQuestion } from "@api/ApiTypeHelpers";
+import { IQuestion } from "@api";
 import React from "react";
 import { cleanUri } from "@utils/string";
 

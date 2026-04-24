@@ -13,7 +13,7 @@ import { handleApiResponse } from "@context/api/ApiContextFn/HandleApiResponse";
 import { handleInvalidation } from "@context/api/ApiContextFn/HandleInvalidation";
 import { MutationPutParams, RequestMethod } from "@context/api/ApiProvider";
 import { useNavigate } from "react-router-dom";
-import { ApiPathMethodResponse, Path } from "@api/SchemaHelpers";
+import { ApiPathMethodResponse, Path } from "@api";
 import { useAuth } from "@/auth/AuthProvider";
 
 /**

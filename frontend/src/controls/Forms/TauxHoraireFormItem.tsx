@@ -11,10 +11,9 @@ import React, { useState } from "react";
 import { App, Avatar, Button, Card, DatePicker, InputNumber, Popconfirm, Space } from "antd";
 import { DeleteOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { ITauxHoraire, ITypeEvenement } from "@api/ApiTypeHelpers";
+import { ITauxHoraire, ITypeEvenement, QK_TYPES_EVENEMENTS } from "@api";
 import { createDateAsUTC, getLibellePeriode, isEnCoursSurPeriode } from "@utils/dates";
 import dayjs from "dayjs";
-import { QK_TYPES_EVENEMENTS } from "@api/queryKeys";
 
 interface ITauxHoraireFormItem {
   value?: string;

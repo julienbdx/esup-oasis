@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IDemande, ITypeDemande } from "@api/ApiTypeHelpers";
+import { IDemande, ITypeDemande } from "@api";
 import { Button, Form, FormInstance, Tabs, TabsProps } from "antd";
 import { RefsTourDemande } from "@routes/gestionnaire/demandeurs/Demande";
 import React from "react";
@@ -21,7 +21,7 @@ import {
   HistoryOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { getEtatDemandeInfo } from "@lib/demande";
+import { getEtatDemandeInfo } from "@lib";
 import { EtapeDemande } from "@controls/Questionnaire/EtapeDemande";
 import { DossierDemandeTabPiecesJustificatives } from "@controls/Demande/Dossier/DossierDemandeTabPiecesJustificatives";
 import { DossierDemandeTabHistorique } from "@controls/Demande/Dossier/DossierDemandeTabHistorique";

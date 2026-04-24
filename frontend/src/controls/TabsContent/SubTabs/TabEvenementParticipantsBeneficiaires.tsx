@@ -10,11 +10,10 @@
 import { Button, Form } from "antd";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import UtilisateurFormItemSelect from "@controls/Forms/UtilisateurFormItemSelect";
-import { RoleValues } from "@lib/Utilisateur";
+import { Evenement, RoleValues } from "@lib";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { ReactElement } from "react";
-import { Evenement } from "@lib/Evenement";
-import { IInterventionForfait, IPartialEvenement } from "@api/ApiTypeHelpers";
+import { IInterventionForfait, IPartialEvenement } from "@api";
 
 interface TabEvenementParticipantsBeneficiairesProps {
   evenement: Evenement | Partial<IInterventionForfait> | undefined;

@@ -12,8 +12,8 @@ import React, { ReactElement, useMemo, useState } from "react";
 import { Select, Spin } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { EnterOutlined } from "@ant-design/icons";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
-import EtudiantItem from "@controls/Items/EtudiantItem";
+import { RoleValues, Utilisateur } from "@lib";
+import { EtudiantItem } from "@controls/Items/EtudiantItem";
 
 interface IBeneficiaireIntervenantSearchProps {
   onSelect: (

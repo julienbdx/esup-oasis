@@ -11,7 +11,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { Button, Space, Switch, Table } from "antd";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { ICategorieAmenagement, ITypeAmenagement } from "@api";
 import BooleanState from "@controls/State/BooleanState";
 import { TypesAmenagementsTable } from "@controls/Table/Admin/TypesAmenagementsTable";
 

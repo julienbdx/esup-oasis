@@ -10,8 +10,7 @@
 import React, { memo, ReactElement } from "react";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_TYPES_EQUIPEMENTS } from "@api/ApiPrefetchHelpers";
-import { ITypeEquipement } from "@api/ApiTypeHelpers";
+import { ITypeEquipement, PREFETCH_TYPES_EQUIPEMENTS } from "@api";
 
 interface IItemTypeEquipement {
   typeEquipement?: ITypeEquipement;

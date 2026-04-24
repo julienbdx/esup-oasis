@@ -7,11 +7,17 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IBeneficiaire, IComposante, ITag, IUtilisateur } from "@api/ApiTypeHelpers";
+import {
+  IBeneficiaire,
+  IComposante,
+  ITag,
+  IUtilisateur,
+  PREFETCH_COMPOSANTES,
+  PREFETCH_TAGS,
+} from "@api";
 import { useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { FiltreBeneficiaire } from "@controls/Table/BeneficiaireTable";
-import { PREFETCH_COMPOSANTES, PREFETCH_TAGS } from "@api/ApiPrefetchHelpers";
 import { env } from "@/env";
 import CsvExportButton from "@controls/Table/Export/CsvExportButton";
 

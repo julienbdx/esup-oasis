@@ -23,10 +23,9 @@ import {
 } from "antd";
 import React, { ReactElement, useEffect } from "react";
 import { useApi } from "@context/api/ApiProvider";
-import { ICampagneDemande } from "@api/ApiTypeHelpers";
+import { ICampagneDemande, QK_TYPES_DEMANDES, QK_TYPES_DEMANDES_CAMPAGNES } from "@api";
 import dayjs from "dayjs";
 import { createDateAsUTC } from "@utils/dates";
-import { QK_TYPES_DEMANDES, QK_TYPES_DEMANDES_CAMPAGNES } from "@api/queryKeys";
 
 interface CampagneEditionProps {
   editedItem?: ICampagneDemande;

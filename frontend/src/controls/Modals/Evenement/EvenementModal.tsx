@@ -9,15 +9,20 @@
 
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import { App, Form, Modal } from "antd";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { canCreateEventOnDate, createDateAsUTC } from "@utils/dates";
-import { IEvenement, IPartialEvenement } from "@api/ApiTypeHelpers";
+import {
+  IEvenement,
+  IPartialEvenement,
+  PREFETCH_LAST_PERIODES_RH,
+  PREFETCH_TYPES_EVENEMENTS,
+  QK_EVENEMENTS,
+  QK_STATISTIQUES_EVENEMENTS,
+} from "@api";
 import { queryClient } from "@/queryClient";
-import { QK_EVENEMENTS, QK_STATISTIQUES_EVENEMENTS } from "@api/queryKeys";
-import { PREFETCH_LAST_PERIODES_RH, PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
 import { useModals } from "@context/modals/ModalsContext";
 import EvenementForm from "@controls/Modals/Evenement/EvenementForm";
 import EvenementModalFooter from "@controls/Modals/Evenement/EvenementModalFooter";

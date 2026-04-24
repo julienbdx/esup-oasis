@@ -8,12 +8,13 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { RoleCalculeItem, ServiceItem } from "@controls/Items";
+import { RoleCalculeItem } from "@controls/Items/RoleCalculeItem";
+import { ServiceItem } from "@controls/Items/ServiceItem";
 import { Button, Flex, Popconfirm, Segmented, Space, Table, Tooltip } from "antd";
 import { BellOutlined, EditOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
-import { ROLES_SELECT, RoleValues } from "@lib/Utilisateur";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { ROLES_SELECT, RoleValues } from "@lib";
+import { IUtilisateur } from "@api";
 import { ColumnsType } from "antd/lib/table";
 import { useNavigate } from "react-router-dom";
 import { FilterProps } from "@utils/table";

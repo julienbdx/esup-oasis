@@ -9,8 +9,8 @@
 
 import React from "react";
 import { Empty, List, Skeleton } from "antd";
-import DemandeListItem from "@controls/Items/DemandeListItem";
-import { IDemande } from "@api/ApiTypeHelpers";
+import { DemandeListItem } from "@controls/Items/DemandeListItem";
+import { IDemande } from "@api";
 
 /**
  * Liste des types de demandes

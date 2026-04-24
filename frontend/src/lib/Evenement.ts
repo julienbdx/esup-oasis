@@ -8,8 +8,7 @@
  */
 
 import { MaterialColorAmount } from "@utils/colors";
-import { IEvenement } from "@api/ApiTypeHelpers";
-
+import { IEvenement } from "@api";
 import { DateAsString } from "@utils/string";
 
 export interface CalendarEvenement {

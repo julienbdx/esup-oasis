@@ -25,7 +25,7 @@ import {
   useAffichageFiltres,
 } from "@context/affichageFiltres/AffichageFiltresContext";
 import ProgressAffectation from "@controls/Progress/ProgressAffectation";
-import { Evenement } from "@lib/Evenement";
+import { Evenement } from "@lib";
 import { ItemType } from "antd/es/menu/interface";
 
 interface IToolbarDisplay {

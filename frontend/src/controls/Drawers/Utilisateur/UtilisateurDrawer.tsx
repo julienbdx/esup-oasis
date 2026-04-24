@@ -12,7 +12,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { useDrawers } from "@context/drawers/DrawersContext";
 import { Alert, App, Drawer, Form } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
-import { getRoleLabel, RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { getRoleLabel, RoleValues, Utilisateur } from "@lib";
 import { useAuth } from "@/auth/AuthProvider";
 import { arrayUnique } from "@utils/array";
 import {
@@ -21,7 +21,7 @@ import {
   QK_INTERVENANTS,
   QK_STATISTIQUES_EVENEMENTS,
   QK_UTILISATEURS,
-} from "@api/queryKeys";
+} from "@api";
 import UtilisateurDrawerHeader from "@controls/Drawers/Utilisateur/UtilisateurDrawerHeader";
 import UtilisateurDrawerTabs from "@controls/Drawers/Utilisateur/UtilisateurDrawerTabs";
 import UtilisateurDrawerFooter from "@controls/Drawers/Utilisateur/UtilisateurDrawerFooter";

@@ -9,9 +9,8 @@
 
 import React from "react";
 import { Select } from "antd";
-import { IFormation } from "@api/ApiTypeHelpers";
+import { IFormation, PREFETCH_FORMATIONS } from "@api";
 import { useApi } from "@context/api/ApiProvider";
-import { PREFETCH_FORMATIONS } from "@api/ApiPrefetchHelpers";
 
 export default function FormationsField(props: {
   value?: string | string[] | undefined;

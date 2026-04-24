@@ -16,7 +16,7 @@ import {
   MaterialColorName,
   MaterialColorsTraductions,
 } from "@utils/colors";
-import { EventColors } from "@lib/Evenement";
+import { EventColors } from "@lib";
 import "@controls/ColorPicker/ColorPicker.scss";
 
 interface ICouleur {

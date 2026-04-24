@@ -7,14 +7,15 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { DomaineAmenagementInfos, getTypesAmenagementByCategories } from "@lib/amenagements";
+import { DomaineAmenagementInfos, getTypesAmenagementByCategories } from "@lib";
 import React, { useMemo } from "react";
-import { ICategorieAmenagement, ITypeAmenagement } from "@api/ApiTypeHelpers";
-import { useApi } from "@context/api/ApiProvider";
 import {
+  ICategorieAmenagement,
+  ITypeAmenagement,
   PREFETCH_CATEGORIES_AMENAGEMENTS,
   PREFETCH_TYPES_AMENAGEMENTS,
-} from "@api/ApiPrefetchHelpers";
+} from "@api";
+import { useApi } from "@context/api/ApiProvider";
 import { ModalAmenagement } from "@controls/Modals/ModalAmenagement";
 import { ModalCategorieAddAmenagement } from "@controls/Modals/ModalCategorieAddAmenagement";
 import { Button, Dropdown } from "antd";

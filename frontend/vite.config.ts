@@ -6,68 +6,68 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { resolve } from "path";
 
 export default defineConfig(() => {
-   const isAnalyze = process.env.ANALYZE === "true";
-   const isHttps = process.env.HTTPS === "true";
+  const isAnalyze = process.env.ANALYZE === "true";
+  const isHttps = process.env.HTTPS === "true";
 
-   return {
-      plugins: [
-         react(),
-         svgr(),
-         ...(isHttps ? [basicSsl()] : []),
-         ...(isAnalyze
-            ? [visualizer({ open: true, filename: "dist/stats.html", gzipSize: true })]
-            : []),
-      ],
+  return {
+    plugins: [
+      react(),
+      svgr(),
+      ...(isHttps ? [basicSsl()] : []),
+      ...(isAnalyze
+        ? [visualizer({ open: true, filename: "dist/stats.html", gzipSize: true })]
+        : []),
+    ],
 
-      envPrefix: "REACT_APP_",
+    envPrefix: "REACT_APP_",
 
-      resolve: {
-         alias: {
-            "@assets": resolve(__dirname, "src/assets"),
-            "@controls": resolve(__dirname, "src/controls"),
-            "@context": resolve(__dirname, "src/context"),
-            "@lib": resolve(__dirname, "src/lib"),
-            "@utils": resolve(__dirname, "src/utils"),
-            "@api": resolve(__dirname, "src/api"),
-            "@routes": resolve(__dirname, "src/routes"),
-            "@": resolve(__dirname, "src"),
-         },
+    resolve: {
+      alias: {
+        "@assets": resolve(__dirname, "src/assets"),
+        "@controls": resolve(__dirname, "src/controls"),
+        "@context": resolve(__dirname, "src/context"),
+        "@lib": resolve(__dirname, "src/lib"),
+        "@utils": resolve(__dirname, "src/utils"),
+        "@api": resolve(__dirname, "src/api"),
+        "@routes": resolve(__dirname, "src/routes"),
+        "@": resolve(__dirname, "src"),
       },
+    },
 
-      server: {
-         port: 3000,
-      },
+    server: {
+      port: 3000,
+    },
 
-      css: {
-         preprocessorOptions: {
-            scss: {
-               quietDeps: true,
-               silenceDeprecations: ["legacy-js-api"],
-            },
-         },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          quietDeps: true,
+          silenceDeprecations: ["legacy-js-api"],
+        },
       },
+    },
 
-      build: {
-         outDir: "dist",
-         sourcemap: false,
-         rollupOptions: {
-            output: {
-               manualChunks(id) {
-                  if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) {
-                     return "vendor-react";
-                  }
-                  if (/node_modules\/(antd|@ant-design)\//.test(id)) {
-                     return "vendor-antd";
-                  }
-                  if (/node_modules\/(rc-[a-z-]+)\//.test(id)) {
-                     return "vendor-rc";
-                  }
-                  if (/node_modules\/(@tiptap|prosemirror-)/.test(id)) {
-                     return "vendor-tiptap";
-                  }
-               },
-            },
-         },
+    build: {
+      outDir: "dist",
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) {
+              return "vendor-react";
+            }
+            if (/node_modules\/(antd|@ant-design)\//.test(id)) {
+              return "vendor-antd";
+            }
+            if (/node_modules\/(rc-[a-z-]+)\//.test(id)) {
+              return "vendor-rc";
+            }
+            if (/node_modules\/(@tiptap|prosemirror-)/.test(id)) {
+              return "vendor-tiptap";
+            }
+          },
+        },
       },
-   };
+    },
+  };
 });

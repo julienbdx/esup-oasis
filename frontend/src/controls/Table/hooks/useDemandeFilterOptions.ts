@@ -14,7 +14,7 @@ import {
   PREFETCH_ETAT_DEMANDE,
   PREFETCH_FORMATIONS,
   PREFETCH_TYPES_DEMANDES,
-} from "@api/ApiPrefetchHelpers";
+} from "@api";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
 
 /**

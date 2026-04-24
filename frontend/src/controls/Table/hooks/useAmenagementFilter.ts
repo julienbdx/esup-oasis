@@ -14,7 +14,7 @@ import {
   FiltreAmenagement,
   getFiltreAmenagementDefault,
 } from "@controls/Table/AmenagementTableLayout";
-import { Utilisateur } from "@lib/Utilisateur";
+import { Utilisateur } from "@lib";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 
 function getSessionKey(mode: ModeAffichageAmenagement): string {

@@ -21,10 +21,14 @@ import {
   Typography,
 } from "antd";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { ICommissionMembre, IUtilisateur } from "@api/ApiTypeHelpers";
+import {
+  ICommissionMembre,
+  IUtilisateur,
+  QK_COMMISSIONS_MEMBRES,
+  QK_ROLES_UTILISATEURS,
+} from "@api";
 import { useApi } from "@context/api/ApiProvider";
-import { QK_COMMISSIONS_MEMBRES, QK_ROLES_UTILISATEURS } from "@api/queryKeys";
-import { RoleValues, Utilisateur } from "@lib/Utilisateur";
+import { RoleValues, Utilisateur } from "@lib";
 import { UtilisateurAvatar } from "@controls/Avatars/UtilisateurAvatar";
 
 import { CommissionsMemberAddForm } from "@controls/Admin/Commissions/CommissionsMemberAddForm";

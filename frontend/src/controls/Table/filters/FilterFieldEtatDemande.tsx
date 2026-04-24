@@ -11,8 +11,8 @@ import React from "react";
 import { Col, Select, Space } from "antd";
 import { FiltreDemande } from "@controls/Table/DemandeTable";
 import { UseStateDispatch } from "@utils/utils";
-import { IEtatDemande } from "@api/ApiTypeHelpers";
-import { getEtatDemandeInfo } from "@lib/demande";
+import { IEtatDemande } from "@api";
+import { getEtatDemandeInfo } from "@lib";
 
 interface FilterFieldEtatDemandeProps {
   filtreDemande: FiltreDemande;

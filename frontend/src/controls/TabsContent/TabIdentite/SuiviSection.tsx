@@ -20,8 +20,8 @@ import {
   Typography,
 } from "antd";
 import { InfoCircleOutlined, LockOutlined, MinusOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
-import { RoleValues } from "@lib/Utilisateur";
+import { IUtilisateur } from "@api";
+import { RoleValues } from "@lib";
 import { env } from "@/env";
 import { TabProfils } from "@controls/TabsContent/TabProfils";
 

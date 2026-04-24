@@ -11,9 +11,9 @@ import { useApi } from "@context/api/ApiProvider";
 import { Button, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { ITypeAmenagement } from "@api/ApiTypeHelpers";
+import { ITypeAmenagement } from "@api";
 import BooleanState from "@controls/State/BooleanState";
-import { getDomaineAmenagement } from "@lib/amenagements";
+import { getDomaineAmenagement } from "@lib";
 
 interface TypesAmenagementsTableProps {
   categorieId: string;

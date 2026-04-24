@@ -11,8 +11,7 @@ import React, { ReactElement, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { App, Card } from "antd";
 import { createDateAsUTC } from "@utils/dates";
-import { IParametre, IParametreValeur } from "@api/ApiTypeHelpers";
-import { QK_PARAMETRES } from "@api/queryKeys";
+import { IParametre, IParametreValeur, QK_PARAMETRES } from "@api";
 import { ParametreFormItemFichier } from "@controls/Admin/Parametres/items/ParametreFormItemFichier";
 import { ParametreFormItemString } from "@controls/Admin/Parametres/items/ParametreFormItemString";
 

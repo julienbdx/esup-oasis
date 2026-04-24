@@ -11,7 +11,7 @@ import React, { ReactElement } from "react";
 import { Breakpoint, Tag, Tooltip } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
 import { useApi } from "@context/api/ApiProvider";
-import { IDiscipline } from "@api/ApiTypeHelpers";
+import { IDiscipline } from "@api";
 
 interface IItemDiscipline {
   discipline?: IDiscipline;

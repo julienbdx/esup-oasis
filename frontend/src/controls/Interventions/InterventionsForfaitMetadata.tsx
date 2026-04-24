@@ -10,8 +10,8 @@
 import React from "react";
 import { Col, Row } from "antd";
 import dayjs from "dayjs";
-import GestionnaireItem from "@controls/Items/GestionnaireItem";
-import { IInterventionForfait } from "@api/ApiTypeHelpers";
+import { GestionnaireItem } from "@controls/Items/GestionnaireItem";
+import { IInterventionForfait } from "@api";
 
 interface InterventionsForfaitMetadataProps {
   editedItem: Partial<IInterventionForfait>;

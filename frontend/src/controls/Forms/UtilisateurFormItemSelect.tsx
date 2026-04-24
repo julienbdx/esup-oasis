@@ -11,10 +11,10 @@ import React, { useState } from "react";
 import { Button, Input, Select, Space, Tooltip } from "antd";
 import { EnterOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { useDrawers } from "@context/drawers/DrawersContext";
-import { RoleValues } from "@lib/Utilisateur";
+import { RoleValues } from "@lib";
 import Spinner from "@controls/Spinner/Spinner";
 
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { MailSmallButton } from "@controls/Forms/MailSmallButton";
 import { useUtilisateurSearch } from "@controls/Forms/useUtilisateurSearch";
 

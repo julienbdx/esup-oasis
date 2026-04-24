@@ -12,9 +12,9 @@ import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { Table } from "antd";
-import { IInterventionForfait } from "@api/ApiTypeHelpers";
+import { IInterventionForfait } from "@api";
 import dayjs from "dayjs";
-import TypeEvenementItem from "@controls/Items/TypeEvenementItem";
+import { TypeEvenementItem } from "@controls/Items/TypeEvenementItem";
 
 /**
  * Returns a table component that displays ongoing events.

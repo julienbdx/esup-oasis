@@ -10,7 +10,7 @@
 import { useApi } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { useWait } from "@utils/Wait/useWait";
-import { IStatistiquesEvenements } from "@api/ApiTypeHelpers";
+import { IStatistiquesEvenements } from "@api";
 
 /**
  * Hook to retrieve the notification statistics for the current user.

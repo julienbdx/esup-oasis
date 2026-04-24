@@ -9,13 +9,9 @@
 
 import { useCallback } from "react";
 import dayjs from "dayjs";
-import { CalendarEvenement, Evenement } from "@lib/Evenement";
+import { CalendarEvenement, Evenement } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
-import {
-  PREFETCH_CAMPUS,
-  PREFETCH_TYPES_EQUIPEMENTS,
-  PREFETCH_TYPES_EVENEMENTS,
-} from "@api/ApiPrefetchHelpers";
+import { PREFETCH_CAMPUS, PREFETCH_TYPES_EQUIPEMENTS, PREFETCH_TYPES_EVENEMENTS } from "@api";
 import { TYPE_EVENEMENT_RENFORT } from "@/constants";
 import { UtilisateurAsString } from "@controls/Items/UtilisateurAsString";
 

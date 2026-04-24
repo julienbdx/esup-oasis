@@ -10,7 +10,7 @@
 import React from "react";
 import { App, Button, Dropdown } from "antd";
 import { CopyOutlined, MailOutlined, SendOutlined } from "@ant-design/icons";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 
 export function MailSmallButton(props: {
   utilisateur: IUtilisateur | undefined;

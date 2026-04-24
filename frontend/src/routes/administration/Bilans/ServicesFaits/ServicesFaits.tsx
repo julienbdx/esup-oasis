@@ -12,7 +12,7 @@ import { Breadcrumb, Card, Layout, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { HomeFilled, InfoCircleFilled } from "@ant-design/icons";
 import { ServicesFaitsItem } from "@controls/Admin/Bilans/ServicesFaitsItem";
-import { IPeriode } from "@api/ApiTypeHelpers";
+import { IPeriode } from "@api";
 import PeriodeField from "@controls/Forms/PeriodeField";
 
 /**

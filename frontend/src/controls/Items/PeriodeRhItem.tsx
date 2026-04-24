@@ -13,7 +13,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { Tag, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { MinusOutlined, SendOutlined } from "@ant-design/icons";
-import { IPeriode } from "@api/ApiTypeHelpers";
+import { IPeriode } from "@api";
 
 interface IItemPeriode {
   periode?: IPeriode;

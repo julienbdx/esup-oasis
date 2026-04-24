@@ -7,10 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Utilisateur } from "@lib/Utilisateur";
+import { Utilisateur } from "@lib";
 import React, { ReactElement } from "react";
 import { Checkbox, Col, Form, Typography } from "antd";
-import { ICampus } from "@api/ApiTypeHelpers";
+import { ICampus } from "@api";
 
 /**
  * Render the campus section of the user profile

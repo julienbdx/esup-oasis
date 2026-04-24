@@ -10,8 +10,7 @@
 import React, { memo, ReactElement, useEffect, useState } from "react";
 import { Avatar, Tooltip } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { APIEndpointByRole, IUtilisateurBase, RoleValues } from "@lib/Utilisateur";
-
+import { APIEndpointByRole, IUtilisateurBase, RoleValues } from "@lib";
 import { useApi } from "@context/api/ApiProvider";
 import Spinner from "@controls/Spinner/Spinner";
 

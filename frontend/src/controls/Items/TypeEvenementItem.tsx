@@ -14,8 +14,7 @@ import { TypeEvenementAvatar } from "@controls/Avatars/TypeEvenementAvatar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { useApi } from "@context/api/ApiProvider";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
-import { PREFETCH_TYPES_EVENEMENTS } from "@api/ApiPrefetchHelpers";
-import { ITypeEvenement } from "@api/ApiTypeHelpers";
+import { ITypeEvenement, PREFETCH_TYPES_EVENEMENTS } from "@api";
 
 interface IItemTypeEvenement {
   typeEvenement?: ITypeEvenement;

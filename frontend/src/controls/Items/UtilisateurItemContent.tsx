@@ -9,7 +9,7 @@
 
 import React, { ReactElement } from "react";
 import { Breakpoint, Button } from "antd";
-import { IUtilisateur } from "@api/ApiTypeHelpers";
+import { IUtilisateur } from "@api";
 import { PhoneOutlined } from "@ant-design/icons";
 import { useAuth } from "@/auth/AuthProvider";
 import Highlighter from "react-highlight-words";

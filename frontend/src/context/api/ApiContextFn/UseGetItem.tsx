@@ -14,12 +14,7 @@ import {
   IErreurNotification,
 } from "@context/api/ApiContextFn/HandleApiResponse";
 import { useNavigate } from "react-router-dom";
-import {
-  ApiPathMethodParameters,
-  ApiPathMethodQuery,
-  ApiPathMethodResponse,
-  Path,
-} from "@api/SchemaHelpers";
+import { ApiPathMethodParameters, ApiPathMethodQuery, ApiPathMethodResponse, Path } from "@api";
 import { buildUrl } from "@context/api/ApiContextFn/UrlBuilder";
 import { RequestMethod } from "@context/api/ApiProvider";
 import { useAuth } from "@/auth/AuthProvider";

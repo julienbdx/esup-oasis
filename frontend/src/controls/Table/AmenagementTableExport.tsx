@@ -14,19 +14,16 @@ import {
   ITypeAmenagement,
   ITypeSuiviAmenagement,
   IUtilisateur,
-} from "@api/ApiTypeHelpers";
-import { useState } from "react";
-import { useApi } from "@context/api/ApiProvider";
-import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
-import { getDomaineAmenagement } from "@lib/amenagements";
-import dayjs from "dayjs";
-import {
   PREFETCH_CATEGORIES_AMENAGEMENTS,
   PREFETCH_TAGS,
   PREFETCH_TYPES_AMENAGEMENTS,
   PREFETCH_TYPES_SUIVI_AMENAGEMENTS,
-} from "@api/ApiPrefetchHelpers";
-import { RoleValues } from "@lib/Utilisateur";
+} from "@api";
+import { useState } from "react";
+import { useApi } from "@context/api/ApiProvider";
+import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
+import { getDomaineAmenagement, RoleValues } from "@lib";
+import dayjs from "dayjs";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
 import { env } from "@/env";
 import CsvExportButton from "@controls/Table/Export/CsvExportButton";

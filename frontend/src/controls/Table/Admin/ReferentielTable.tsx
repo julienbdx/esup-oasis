@@ -8,12 +8,12 @@
  */
 
 import { useApi } from "@context/api/ApiProvider";
-import { APIPathsReferentiel } from "@api/ApiTypeHelpers";
+import { APIPathsReferentiel } from "@api";
 import { Button, Space, Switch, Table } from "antd";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import ADMIN_CONFIG from "@routes/administration/AdminConfig";
-import { IReferentielEditable } from "@lib/referentiels";
+import { IReferentielEditable } from "@lib";
 import BooleanState from "@controls/State/BooleanState";
 
 interface ReferentielTableProps {

@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { PaginatedPath } from "@api/SchemaHelpers";
+import { PaginatedPath } from "@api";
 import CsvExportButtonWithoutFetch, {
   CsvExportButtonWithoutFetchProps,
 } from "./CsvExportButtonWithoutFetch";

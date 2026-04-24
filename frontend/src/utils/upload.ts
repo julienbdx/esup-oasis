@@ -9,7 +9,7 @@
  */
 
 import { RcFile } from "antd/es/upload";
-import { ITelechargement } from "@api/ApiTypeHelpers";
+import { ITelechargement } from "@api";
 import { AuthContextType } from "@/auth/AuthProvider";
 import { env } from "@/env";
 
