@@ -20,10 +20,10 @@ import {
   ETAT_DEMANDE_REFUSEE,
   ETAT_DEMANDE_VALIDEE,
   EtatDemande,
-  EtatDescription,
   getEtatDemande,
   getEtatDemandeOrdre,
 } from "@lib";
+import { EtatDescription } from "@controls/Demande/EtatDescription";
 import "@controls/Demande/Avancement/AvancementDemande.scss";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { ProfilItem } from "@controls/Items/ProfilItem";
@@ -173,7 +173,7 @@ export default function AvancementDemande({
         current={getEtatDemande(item?.etat as EtatDemande)?.etapeIndex}
         titlePlacement="vertical"
         type={screens.md ? "navigation" : "default"}
-        orientation="vertical" // screens.xl ? "horizontal" : "vertical"}
+        orientation="vertical"
       />
       <Typography.Paragraph className={`mt-1 mb-0${screens.md ? " mt-3 text-center" : ""}`}>
         <span className="sr-only">État de votre demande :</span>

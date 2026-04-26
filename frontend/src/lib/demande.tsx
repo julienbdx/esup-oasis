@@ -8,11 +8,7 @@
  *
  */
 
-import { IDemande, ITypeDemande } from "@api";
-import { CampagneDemandeDateItem } from "@controls/Items/CampagneDemandeDateItem";
 import React from "react";
-import { Button, Space } from "antd";
-import { useNavigate } from "react-router-dom";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -26,7 +22,6 @@ import { env } from "@/env";
 
 export interface EtatInfo {
   id: string;
-  // libelle: string;
   description: string;
   etape: string;
   icone: React.ReactElement;
@@ -55,7 +50,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_EN_COURS,
     etape: "A",
-    // libelle: "En cours de saisie",
     description:
       "{Article} demande est en cours de saisie, elle n'a pas été envoyée au service {service}.",
     icone: <EditOutlined aria-hidden />,
@@ -71,7 +65,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_RECEPTIONNEE,
     etape: "A",
-    // libelle: "Receptionnée",
     description:
       "{Article} demande a été reçue par le service {service}, elle est en cours de traitement.",
     icone: <HourglassOutlined aria-hidden />,
@@ -87,7 +80,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_CONFORME,
     etape: "B",
-    // libelle: "Conforme",
     description:
       "Les informations de {article} demande sont conformes, elle sera bientôt examinée.",
     icone: <FileDoneOutlined aria-hidden />,
@@ -103,7 +95,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_NON_CONFORME,
     etape: "B",
-    // libelle: "Non conforme",
     description:
       "Les informations de {article} demande ne sont pas conformes. Vous devez corriger votre demande.",
     icone: <FileExclamationOutlined aria-hidden />,
@@ -119,7 +110,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_ATTENTE_COMMISSION,
     etape: "C",
-    // libelle: "En attente commission",
     description: "{Article} demande est en cours d'examen par la commission.",
     icone: <PaperClipOutlined aria-hidden />,
     ordre: 30,
@@ -135,7 +125,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_ATTENTE_CHARTES,
     etape: "D",
-    // libelle: "Attente acceptation chartes",
     description: "L'acceptation de la charte est nécessaire pour valider {article} demande.",
     icone: <HourglassOutlined aria-hidden />,
     ordre: 40,
@@ -151,7 +140,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_PROFIL_ACCEPTE,
     etape: "D",
-    // libelle: "Profil accepté",
     description:
       "{Article} demande de profil a été acceptée, des instructions {contexte}ont été transmises par email.",
     icone: <PaperClipOutlined aria-hidden />,
@@ -168,7 +156,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_ATTENTE_ACCOMPAGNEMENT,
     etape: "D",
-    // libelle: "Attente accompagnement",
     description: `Le service ${env.REACT_APP_SERVICE} est en train de mettre en place l'accompagnement associé à votre demande.`,
     icone: <HourglassOutlined aria-hidden />,
     ordre: 45,
@@ -184,7 +171,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_VALIDEE,
     etape: "D",
-    // libelle: "Accompagnement accepté",
     description:
       "{Article} demande a été acceptée, des instructions {contexte}ont été transmises par email.",
     icone: <CheckCircleOutlined aria-hidden />,
@@ -200,7 +186,6 @@ export const ETATS_DEMANDES: EtatInfo[] = [
   {
     id: ETAT_DEMANDE_REFUSEE,
     etape: "D",
-    // libelle: "Accompagnement refusé",
     description:
       "{Article} demande a été refusée, un email contenant plus d'informations {contexte}a été adressé.",
     icone: <CloseCircleOutlined aria-hidden />,
@@ -226,6 +211,7 @@ export type EtatDemande =
   | typeof ETAT_DEMANDE_NON_CONFORME
   | typeof ETAT_ATTENTE_CHARTES;
 
+// — Fonctions utilitaires
 export function getEtatDemandeInfo(etat: string) {
   return ETATS_DEMANDES.find((e) => e.id === etat);
 }
@@ -240,76 +226,4 @@ export function getEtatDemandeOrdre(etat: string) {
 
 export function getEtatDemande(etat: string) {
   return ETATS_DEMANDES.find((e) => e.id === etat);
-}
-
-interface IEtatDescriptionProps {
-  demande: IDemande;
-  avecCommission?: boolean;
-}
-
-export function EtatDescription({ demande }: IEtatDescriptionProps) {
-  const article = "Votre";
-  const navigate = useNavigate();
-  let description = ETATS_DEMANDES.find((e) => e.id === demande.etat)?.description;
-
-  if (!description) return null;
-  description = description
-    .replaceAll("{article}", article.toLocaleLowerCase())
-    .replaceAll("{Article}", article.charAt(0).toUpperCase() + article.slice(1))
-    .replaceAll("{service}", env.REACT_APP_SERVICE || "")
-    .replaceAll("{contexte}", "vous ");
-
-  switch (demande.etat) {
-    case ETAT_DEMANDE_EN_COURS:
-      return (
-        <Space orientation="vertical">
-          <span>{description}.</span>
-          <Button
-            className="mt-2"
-            type="primary"
-            onClick={() => navigate(`/demandes/${demande.id}/saisie`)}
-          >
-            Reprendre la saisie
-          </Button>
-        </Space>
-      );
-    case ETAT_DEMANDE_RECEPTIONNEE:
-    case ETAT_DEMANDE_CONFORME:
-    case ETAT_DEMANDE_VALIDEE:
-    case ETAT_DEMANDE_REFUSEE:
-    case ETAT_DEMANDE_ATTENTE_COMMISSION:
-    case ETAT_ATTENTE_CHARTES:
-    case ETAT_ATTENTE_ACCOMPAGNEMENT:
-      return description;
-  }
-}
-
-export function getTypeDemandeDescription(typeDemande: ITypeDemande) {
-  if (typeDemande.campagneEnCours)
-    return (
-      <CampagneDemandeDateItem
-        campagneDemandeId={typeDemande.campagneEnCours}
-        templateString="Campagne ouverte du {{debut}} au {{fin}}."
-      />
-    );
-
-  if (typeDemande.campagneSuivante) {
-    return (
-      <CampagneDemandeDateItem
-        campagneDemandeId={typeDemande.campagneSuivante}
-        templateString="Campagne fermée. Prochaine campagne du {{debut}} au {{fin}}."
-      />
-    );
-  }
-
-  if (typeDemande.campagnePrecedente) {
-    return (
-      <CampagneDemandeDateItem
-        campagneDemandeId={typeDemande.campagnePrecedente}
-        templateString="Campagne fermée depuis le {{fin}}."
-      />
-    );
-  }
-
-  return "Aucune campagne ouverte.";
 }

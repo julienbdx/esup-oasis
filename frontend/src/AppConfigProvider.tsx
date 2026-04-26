@@ -10,7 +10,7 @@
 import React, { useEffect } from "react";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { ConfigProvider, theme } from "antd";
-import frFR from "antd/lib/locale/fr_FR";
+import frFR from "antd/locale/fr_FR";
 import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 import {
   APP_ERROR_COLOR,
@@ -37,7 +37,6 @@ export function AppConfigProvider({ children }: { children: React.ReactNode }) {
   const effectiveTheme = useEffectiveTheme(appAccessibilite.themeMode);
   const isDark = effectiveTheme === "dark";
 
-  // Ajoute les couleurs de l'application aux variables CSS
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--color-primary",
@@ -143,7 +142,6 @@ export function AppConfigProvider({ children }: { children: React.ReactNode }) {
           fontWeightStrong: getFontWeight(),
           wireframe: false,
           fontFamily: getFontFamily(),
-          //fontWeightStrong: 500,
           borderRadius: 7,
           opacityLoading: 0.75,
           linkDecoration:

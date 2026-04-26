@@ -7,27 +7,29 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement } from "react";
+import React, { lazy, ReactElement, Suspense } from "react";
 import "@controls/Modals/AllModals.scss";
-import EvenementModal from "@controls/Modals/Evenement/EvenementModal";
 import { useAuth } from "@/auth/AuthProvider";
-import EvenementResumeModal from "@controls/Modals/Evenement/EvenementResumeModal";
 import { useModals } from "@context/modals/ModalsContext";
 
-/**
- * Renders app modals
- *
- * @returns {ReactElement|null} The rendered modal component.
- */
+const EvenementModal = lazy(() => import("@controls/Modals/Evenement/EvenementModal"));
+const EvenementResumeModal = lazy(() => import("@controls/Modals/Evenement/EvenementResumeModal"));
+
 export default function AllModals(): ReactElement | null {
   const user = useAuth().user;
   const { modals: appModals } = useModals();
 
   if (user?.isPlanificateur) {
     return appModals.EVENEMENT || appModals.EVENEMENT_ID ? (
-      <EvenementModal id={appModals.EVENEMENT_ID} initialEvenement={appModals.EVENEMENT} />
+      <Suspense>
+        <EvenementModal id={appModals.EVENEMENT_ID} initialEvenement={appModals.EVENEMENT} />
+      </Suspense>
     ) : null;
   }
 
-  return appModals.EVENEMENT_ID ? <EvenementResumeModal id={appModals.EVENEMENT_ID} /> : null;
+  return appModals.EVENEMENT_ID ? (
+    <Suspense>
+      <EvenementResumeModal id={appModals.EVENEMENT_ID} />
+    </Suspense>
+  ) : null;
 }

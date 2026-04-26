@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { Avatar } from "antd";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { useApi } from "@context/api/ApiProvider";
@@ -23,17 +23,6 @@ interface IAvatarTypeEvenement {
   style?: React.CSSProperties;
 }
 
-/**
- * Renders an avatar component for a given event type
- * @param {IAvatarTypeEvenement} props - The properties passed to the component
- * @param {ITypeEvenement} [props.typeEvenement] - The event type
- * @param {string} [props.typeEvenementId] - The event type ID
- * @param {number} [props.size] - The size of the avatar
- * @param {string} [props.className] - The class name of the avatar
- * @param {React.ReactNode} [props.icon] - The icon to display in the avatar
- * @param {React.CSSProperties} [props.style] - The style of the avatar
- * @returns {ReactElement} - The generated avatar component
- */
 export const TypeEvenementAvatar = memo(
   ({
     typeEvenement,
@@ -43,23 +32,13 @@ export const TypeEvenementAvatar = memo(
     icon,
     style,
   }: IAvatarTypeEvenement): ReactElement => {
-    const [typeEvenementData, setTypeEvenementData] = useState<ITypeEvenement | undefined>(
-      typeEvenement,
-    );
     const { data: typesEvenements, isFetching } =
       useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
 
     const { accessibilite: appAccessibilite } = useAccessibilite();
 
-    useEffect(() => {
-      if (typesEvenements && typeEvenementId) {
-        setTypeEvenementData(typesEvenements.items.find((t) => t["@id"] === typeEvenementId));
-      }
-    }, [typesEvenements, typeEvenementId]);
-
-    useEffect(() => {
-      if (typeEvenement) setTypeEvenementData(typeEvenement);
-    }, [typeEvenement]);
+    const typeEvenementData =
+      typeEvenement ?? typesEvenements?.items.find((t) => t["@id"] === typeEvenementId);
 
     if (isFetching || !typeEvenementData) {
       return (

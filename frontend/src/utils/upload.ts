@@ -14,55 +14,6 @@ import { AuthContextType } from "@/auth/AuthProvider";
 import { env } from "@/env";
 import { logger } from "@utils/logger";
 
-export async function envoyerFichierXhr(
-  apiUrl: string,
-  auth: AuthContextType,
-  file: string | Blob | RcFile,
-  onSuccess: (pj: ITelechargement) => void,
-  onError?: (err: Error) => void,
-  onProgress?: (percent: number) => void,
-) {
-  const fmData = new FormData();
-  fmData.append("file", file);
-
-  const xhr = new XMLHttpRequest();
-  xhr.responseType = "json";
-
-  // progress
-  xhr.upload.onprogress = (event) => {
-    if (event.lengthComputable) {
-      const percent = (event.loaded / event.total) * 100;
-      onProgress?.(percent);
-    }
-  };
-
-  // end
-  xhr.onload = () => {
-    if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 201)) {
-      onSuccess(xhr.response);
-    } else {
-      logger.error("Error:", xhr);
-      onError?.(new Error("Upload error"));
-    }
-  };
-
-  // error
-  xhr.onerror = () => {
-    logger.error("Error:", xhr);
-    onError?.(new Error("Upload error"));
-  };
-
-  // send
-  xhr.open("POST", `${apiUrl}${env.REACT_APP_API_PREFIX}/telechargements`, true);
-  //xhr.setRequestHeader("Authorization", `Bearer ${auth.token}`);
-  if (auth.impersonate) {
-    xhr.setRequestHeader("X-Switch-User", auth.impersonate);
-  }
-
-  xhr.withCredentials = true;
-  xhr.send(fmData);
-}
-
 export async function envoyerFichierFetch(
   apiUrl: string,
   auth: AuthContextType,

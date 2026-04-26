@@ -7,11 +7,10 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import "@/styles/app.scss";
 import { App as AntApp } from "antd";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "dayjs/locale/fr";
 import Accessibilite from "@utils/Accessibilite/Accessibilite";
 import { ApiProvider } from "@context/api/ApiProvider";
@@ -24,7 +23,11 @@ import { AppConfigProvider } from "@/AppConfigProvider";
 import { env } from "@/env";
 import { queryClient } from "@/queryClient";
 
-dayjs.locale("fr"); // use loaded locale globally
+const ReactQueryDevtools = lazy(() =>
+  import("@tanstack/react-query-devtools").then((m) => ({ default: m.ReactQueryDevtools })),
+);
+
+dayjs.locale("fr"); // applique la locale globalement (pas uniquement par instance)
 
 function App() {
   const auth = useAuth();
@@ -39,7 +42,9 @@ function App() {
             <QueryClientProvider client={queryClient}>
               <Router />
               {env.REACT_APP_ENVIRONMENT === "localdev" && (
-                <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+                <Suspense>
+                  <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+                </Suspense>
               )}
             </QueryClientProvider>
           </div>
