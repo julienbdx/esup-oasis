@@ -54,7 +54,8 @@ export const formatExchangeCodeForTokenServerURL = (
     queryIndex === -1
       ? exchangeCodeForTokenServerURL
       : exchangeCodeForTokenServerURL.slice(0, queryIndex);
-  const anySearchParameters = queryToObject(exchangeCodeForTokenServerURL.slice(queryIndex + 1));
+  const anySearchParameters =
+    queryIndex === -1 ? {} : queryToObject(exchangeCodeForTokenServerURL.slice(queryIndex + 1));
 
   return `${url}?${objectToQuery({
     ...anySearchParameters,

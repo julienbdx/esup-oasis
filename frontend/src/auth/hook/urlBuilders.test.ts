@@ -116,4 +116,21 @@ describe("formatExchangeCodeForTokenServerURL", () => {
     );
     expect(result.startsWith("https://api.example.com/token?")).toBe(true);
   });
+
+  it("n'ajoute pas de paramètre parasite quand l'URL n'a pas de query string", () => {
+    const url = new URL(
+      formatExchangeCodeForTokenServerURL(
+        "https://api.example.com/token",
+        "client123",
+        "code",
+        "https://app.example.com/callback",
+        "state",
+      ),
+    );
+    const paramKeys = Array.from(url.searchParams.keys());
+    expect(paramKeys).toEqual(
+      expect.arrayContaining(["client_id", "grant_type", "code", "redirect_uri", "state"]),
+    );
+    expect(paramKeys).toHaveLength(5);
+  });
 });
