@@ -12,7 +12,6 @@ import {
   DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD,
   OAUTH_CALLBACK_PAYLOAD_KEY,
 } from "@/auth/hook/constants";
-import { objectToQuery, queryToObject } from "@utils/url";
 import {
   generateNonce,
   generateState,
@@ -22,10 +21,8 @@ import {
   saveNonce,
   saveState,
 } from "@/auth/hook/state";
+import { enhanceAuthorizeUrl, formatExchangeCodeForTokenServerURL } from "@/auth/hook/urlBuilders";
 
-/**
- * Auth token payload
- */
 export type AuthTokenPayload = {
   token_type: string;
   expires_in: number;
@@ -34,9 +31,6 @@ export type AuthTokenPayload = {
   refresh_token: string;
 };
 
-/**
- * Response type based props
- */
 export type ResponseTypeBasedProps<TData> =
   | {
       responseType: "code";
@@ -53,9 +47,6 @@ export type ResponseTypeBasedProps<TData> =
       onSuccess?: (payload: TData) => void;
     };
 
-/**
- * Oauth2 props
- */
 export type Oauth2Props<TData = AuthTokenPayload> = {
   authorizeUrl: string;
   clientId: string;
@@ -66,63 +57,6 @@ export type Oauth2Props<TData = AuthTokenPayload> = {
   extraQueryParameters?: Record<string, string | number | boolean>;
   onError?: (error: string) => void;
 } & ResponseTypeBasedProps<TData>;
-
-/**
- * Création de l'url d'autorisation
- */
-const enhanceAuthorizeUrl = (
-  authorizeUrl: string,
-  clientId: string,
-  redirectUri: string,
-  scope: string,
-  state: string,
-  nonce: string,
-  responseType: Oauth2Props["responseType"],
-  extraQueryParametersRef: React.RefObject<Oauth2Props["extraQueryParameters"]>,
-) => {
-  const queryObj: Record<string, string | number | boolean | undefined> = {
-    response_type: responseType,
-    client_id: clientId,
-    redirect_uri: redirectUri,
-    scope,
-    state,
-    nonce,
-    ...extraQueryParametersRef.current,
-  };
-
-  const cleanQueryObj: Record<string, string> = {};
-  Object.entries(queryObj).forEach(([key, value]) => {
-    if (value !== undefined) {
-      cleanQueryObj[key] = value.toString();
-    }
-  });
-
-  return `${authorizeUrl}?${objectToQuery(cleanQueryObj)}`;
-};
-
-const formatExchangeCodeForTokenServerURL = (
-  exchangeCodeForTokenServerURL: string,
-  clientId: string,
-  code: string,
-  redirectUri: string,
-  state: string,
-) => {
-  const queryIndex = exchangeCodeForTokenServerURL.indexOf("?");
-  const url =
-    queryIndex === -1
-      ? exchangeCodeForTokenServerURL
-      : exchangeCodeForTokenServerURL.slice(0, queryIndex);
-  const anySearchParameters = queryToObject(exchangeCodeForTokenServerURL.slice(queryIndex + 1));
-
-  return `${url}?${objectToQuery({
-    ...anySearchParameters,
-    client_id: clientId,
-    grant_type: "authorization_code",
-    code,
-    redirect_uri: redirectUri,
-    state,
-  })}`;
-};
 
 /**
  * Hook `useOAuth2` — flow redirect (sans popup).
@@ -248,7 +182,7 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
       state,
       nonce,
       responseType,
-      extraQueryParametersRef,
+      extraQueryParametersRef.current,
     );
   }, [authorizeUrl, clientId, redirectUri, scope, responseType]);
 

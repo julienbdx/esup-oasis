@@ -26,17 +26,13 @@ export interface CsvExportButtonWithFetchProps<P extends PaginatedPath, T extend
   getData: (items: FetchItems<P>) => T[];
   /** Quand false, diffère le téléchargement jusqu'à ce que les données de référence soient prêtes */
   ready?: boolean;
-  /** Appelé quand l'utilisateur clique sur le bouton d'export */
   onStart?: () => void;
   onDownloaded?: () => void;
   icon?: React.ReactNode;
   label?: React.ReactNode;
 }
 
-/*
-Ce composant est utilisé pour réaliser des exports de données en plusieurs requêtes, en utilisant un endpoint unique.
-Pour des exports sur plusieurs endpoints ou demandant de retravailler les données, il est conseillé d'utiliser CsvExportButton.
- */
+// Pour des exports sur plusieurs endpoints ou demandant de retravailler les données, utiliser CsvExportButton.
 export default function CsvExportButtonWithFetch<
   P extends PaginatedPath,
   T extends object = object,
@@ -56,6 +52,7 @@ export default function CsvExportButtonWithFetch<
 }: CsvExportButtonWithFetchProps<P, T>) {
   const [enabled, setEnabled] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  // Le type Link de react-csv ne déclare pas la propriété link dans ses typings : any nécessaire
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const refDownload = useRef<any>(null);
 
@@ -67,7 +64,6 @@ export default function CsvExportButtonWithFetch<
     enabled,
   });
 
-  // Déclenche le téléchargement dès que fetch + ready sont réunis
   useEffect(() => {
     if (refDownload.current && isSuccess && ready && !downloaded) {
       refDownload.current.link.click();

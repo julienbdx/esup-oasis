@@ -59,6 +59,7 @@ export function ModalAmenagement(props: {
   });
   const { data: suivis } = useApi().useGetFullCollection(PREFETCH_TYPES_SUIVI_AMENAGEMENTS);
 
+  // — Mutations
   const mutateDeleteAmenagement = useApi().useDelete({
     path: "/utilisateurs/{uid}/amenagements/{id}",
     invalidationQueryKeys: [
@@ -101,6 +102,7 @@ export function ModalAmenagement(props: {
     ],
   });
 
+  // — Soumission
   function handleSubmit(values: IAmenagementForm) {
     const data = {
       typeAmenagement: props.typeAmenagementAjoute?.["@id"],
@@ -119,19 +121,6 @@ export function ModalAmenagement(props: {
       commentaire: values.commentaire || null,
       suivi: values.suivi || null,
     } as IAmenagement;
-
-    /*
-      TODO: attente validation métier ; ajouter les required + traiter l'ajout par catégorie
-      if (user?.isGestionnaire) {
-         if (!values.semestre1 && !values.semestre2 && !values.dateDebut) {
-            message.error("Une date de début ou un semestre doit être renseigné").then();
-            return;
-         }
-         if (!values.semestre1 && !values.semestre2 && !values.dateFin) {
-            message.error("Une date de fin ou un semestre doit être renseigné").then();
-            return;
-         }
-      }*/
 
     if (props.amenagementId) {
       mutatePatchAmenagement.mutate({

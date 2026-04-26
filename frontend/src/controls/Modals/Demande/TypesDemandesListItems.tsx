@@ -10,7 +10,7 @@
 import { ITypeDemande } from "@api";
 import { Empty, List } from "antd";
 import TypeDemandeAvatar from "@controls/Avatars/TypeDemandeAvatar";
-import { getTypeDemandeDescription } from "@lib";
+import { TypeDemandeDescription } from "@controls/Demande/TypeDemandeDescription";
 import React from "react";
 import PostulerButton from "@controls/Modals/Demande/BoutonPostuler";
 
@@ -40,7 +40,7 @@ export function TypesDemandesListItems(props: {
                 <List.Item.Meta
                   avatar={<TypeDemandeAvatar typeDemande={item} />}
                   title={item.libelle}
-                  description={getTypeDemandeDescription(item)}
+                  description={<TypeDemandeDescription typeDemande={item} />}
                 />
               </List.Item>
             ))}

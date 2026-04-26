@@ -7,11 +7,11 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { Space, Spin, Tag, Tooltip } from "antd";
 import { useApi } from "@context/api/ApiProvider";
 import { IEtatDemande, PREFETCH_ETAT_DEMANDE } from "@api";
-import { EtatInfo, getEtatDemandeInfo } from "@lib";
+import { getEtatDemandeInfo } from "@lib";
 import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemandeLabel";
 
 interface IEtatDemandeAvatar {
@@ -22,15 +22,6 @@ interface IEtatDemandeAvatar {
   className?: string;
 }
 
-/**
- * React an etat demande avatar.
- *
- * @component
- * @param {IEtatDemandeAvatar} props - The component props.
- * @param {IEtatDemande} [props.etatDemande] - The etatDemande object.
- * @param {string} [props.etatDemandeId] - The ID of the etatDemande.
- * @returns {ReactElement} - The rendered component.
- */
 export const EtatDemandeAvatar: React.FC<IEtatDemandeAvatar> = memo(
   ({
     etatDemande,
@@ -39,25 +30,11 @@ export const EtatDemandeAvatar: React.FC<IEtatDemandeAvatar> = memo(
     demandeId,
     className,
   }: IEtatDemandeAvatar): ReactElement => {
-    const [item, setItem] = useState<IEtatDemande | undefined>(etatDemande);
     const { data: dataEtatDemande, isFetching } =
       useApi().useGetFullCollection(PREFETCH_ETAT_DEMANDE);
 
-    const [etatDemandeInfo, setEtatDemandeInfo] = useState<EtatInfo>();
-
-    useEffect(() => {
-      if (dataEtatDemande && etatDemandeId) {
-        setItem(dataEtatDemande.items.find((t) => t["@id"] === etatDemandeId));
-      }
-    }, [dataEtatDemande, etatDemandeId]);
-
-    useEffect(() => {
-      if (etatDemande) setItem(etatDemande);
-    }, [etatDemande]);
-
-    useEffect(() => {
-      if (item) setEtatDemandeInfo(getEtatDemandeInfo(item["@id"] as string));
-    }, [item]);
+    const item = etatDemande ?? dataEtatDemande?.items.find((t) => t["@id"] === etatDemandeId);
+    const etatDemandeInfo = item ? getEtatDemandeInfo(item["@id"] as string) : undefined;
 
     if (isFetching || item === undefined) {
       return <Spin />;

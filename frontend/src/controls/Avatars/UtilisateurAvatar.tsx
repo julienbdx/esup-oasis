@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement, useEffect, useState } from "react";
+import React, { memo, ReactElement } from "react";
 import { Avatar, Tooltip } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { APIEndpointByRole, IUtilisateurBase, RoleValues } from "@lib";
@@ -46,16 +46,6 @@ export const getRoleClassName = (role?: RoleValues) => {
   }
 };
 
-/**
- * Avatar pour l'utilisateur
- *
- * @param {Object} props - The props object.
- * @param {IUtilisateurBase} [props.utilisateur] - The user data.
- * @param {string} [props.utilisateurId] - The user ID.
- * @param {string} [props.role=RoleValues.ROLE_GESTIONNAIRE] - The user role.
- * @param {string} [props.className] - The additional CSS class for the avatar.
- * @returns {ReactElement} The rendered avatar.
- */
 export const UtilisateurAvatar = memo(
   ({
     utilisateur,
@@ -69,25 +59,13 @@ export const UtilisateurAvatar = memo(
     shape,
     showTooltip,
   }: IAvatarUtilisateur): ReactElement => {
-    const [utilisateurData, setUtilisateurData] = useState<IUtilisateurBase | undefined>(
-      utilisateur,
-    );
     const { data, isFetching } = useApi().useGetItem({
       path: APIEndpointByRole(role),
       url: utilisateurId as string,
       enabled: utilisateurId !== undefined,
     });
 
-    useEffect(() => {
-      if (utilisateur) setUtilisateurData(utilisateur);
-    }, [utilisateur]);
-
-    useEffect(() => {
-      if (utilisateurData === undefined && data !== undefined) {
-        setUtilisateurData(data as IUtilisateurBase);
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data]);
+    const utilisateurData = utilisateur ?? (data as IUtilisateurBase | undefined);
 
     if (loading) {
       return (

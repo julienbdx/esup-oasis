@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { ReactElement, useCallback, useEffect, useState } from "react";
+import React, { ReactElement, useCallback, useMemo, useState } from "react";
 import { useApi } from "@context/api/ApiProvider";
 import { useDrawers } from "@context/drawers/DrawersContext";
 import { Alert, App, Drawer, Form } from "antd";
@@ -25,38 +25,43 @@ import {
 import UtilisateurDrawerHeader from "@controls/Drawers/Utilisateur/UtilisateurDrawerHeader";
 import UtilisateurDrawerTabs from "@controls/Drawers/Utilisateur/UtilisateurDrawerTabs";
 import UtilisateurDrawerFooter from "@controls/Drawers/Utilisateur/UtilisateurDrawerFooter";
+import { useUtilisateurDrawerState } from "@controls/Drawers/Utilisateur/useUtilisateurDrawerState";
 
 interface IUtilisateurDrawerProps {
   id?: string;
   onClose?: () => void;
 }
 
-/**
- * Draws the user details in a drawer, allow edition
- *
- * @param {IUtilisateurDrawerProps} props - The props object.
- * @param {string} [props.id] - The user id.
- * @param {Function} [props.onClose] - The function to handle the onClose event.
- *
- * @returns {ReactElement} - The user details drawer component.
- */
 export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerProps): ReactElement {
-  const [role, setRole] = useState<RoleValues>();
-  const [utilisateurId, setUtilisateurId] = useState(id);
-  const [utilisateur, setUtilisateur] = useState<Utilisateur>();
-  const { drawers, setDrawerUtilisateur } = useDrawers();
-  const [form] = Form.useForm();
-  const auth = useAuth();
-  const [isBeneficiaireSansProfil, setIsBeneficiaireSansProfil] = useState(false);
-  const [isIntervenantSansTypeEvenement, setIsIntervenantSansTypeEvenement] = useState(false);
+  const [form] = Form.useForm<Utilisateur>();
   const [activeTab, setActiveTab] = useState("informations");
+  const auth = useAuth();
+  const { setDrawerUtilisateur } = useDrawers();
   const { message } = App.useApp();
 
-  const getRole = useCallback((): RoleValues | string | undefined => {
-    if (role) return role;
-    if (utilisateur) return utilisateur.roleCalcule;
-    return undefined;
-  }, [role, utilisateur]);
+  const { role, utilisateur, setUtilisateur, data, isFetching } = useUtilisateurDrawerState(
+    id,
+    form,
+  );
+
+  const currentRole: RoleValues | string | undefined = role ?? utilisateur?.roleCalcule;
+
+  const isBeneficiaireSansProfil = useMemo(
+    () =>
+      !!utilisateur &&
+      currentRole === RoleValues.ROLE_BENEFICIAIRE &&
+      (auth.user?.isGestionnaire || false) &&
+      (!utilisateur.profils || utilisateur.profils.length === 0),
+    [currentRole, auth.user, utilisateur],
+  );
+
+  const isIntervenantSansTypeEvenement = useMemo(
+    () =>
+      !!utilisateur &&
+      currentRole === RoleValues.ROLE_INTERVENANT &&
+      (!utilisateur.typesEvenements || utilisateur.typesEvenements.length === 0),
+    [currentRole, utilisateur],
+  );
 
   const handleClose = useCallback(() => {
     setActiveTab("informations");
@@ -64,15 +69,6 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
     if (!id) setDrawerUtilisateur(undefined);
   }, [id, onClose, setDrawerUtilisateur]);
 
-  // ----- API
-  // Récupération des données
-  const { data, isFetching } = useApi().useGetItem({
-    path: "/utilisateurs/{uid}",
-    url: utilisateurId as string,
-    enabled: !!utilisateurId,
-  });
-
-  // Mutation de l'utilisateur
   const mutateUtilisateur = useApi().usePatch({
     path: "/utilisateurs/{uid}",
     invalidationQueryKeys: [
@@ -88,57 +84,6 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
     },
   });
 
-  // ----- FORM
-
-  // Initialisation via contexte : UTILISATEUR
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (!id) setUtilisateurId(drawers.UTILISATEUR);
-  }, [id, drawers.UTILISATEUR]);
-
-  // Initialisation via contexte : UTILISATEUR_ROLE
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (!id) setRole(drawers.UTILISATEUR_ROLE);
-  }, [id, drawers.UTILISATEUR_ROLE]);
-
-  // Synchronisation des données data avec la variable utilisateur
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (data) setUtilisateur(new Utilisateur(data));
-  }, [data]);
-
-  // Synchronisation de la variable utilisateur avec le formulaire
-  useEffect(() => {
-    form.resetFields();
-    form.setFieldsValue(utilisateur);
-  }, [form, utilisateur]);
-
-  // --- Message alerte Bénéficiaire sans profil
-  useEffect(() => {
-    if (utilisateur && getRole() === RoleValues.ROLE_BENEFICIAIRE) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsBeneficiaireSansProfil(
-        (auth.user?.isGestionnaire || false) &&
-          (!utilisateur.profils || utilisateur.profils.length === 0),
-      );
-
-      setIsIntervenantSansTypeEvenement(false);
-    }
-  }, [auth.user, getRole, utilisateur]);
-
-  // --- Message alerte Intervenant sans type evt
-  useEffect(() => {
-    if (utilisateur && getRole() === RoleValues.ROLE_INTERVENANT) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsIntervenantSansTypeEvenement(
-        !utilisateur.typesEvenements || utilisateur.typesEvenements.length === 0,
-      );
-
-      setIsBeneficiaireSansProfil(false);
-    }
-  }, [getRole, utilisateur]);
-
   if (!data) return <Form form={form} />;
   if (isFetching || !utilisateur)
     return (
@@ -147,7 +92,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
       </Form>
     );
 
-  if (getRole() === "intervenant")
+  if (currentRole === "intervenant")
     return (
       <Form form={form}>
         <Alert title="Rôle de l'utilisateur inconnu" type="error" />
@@ -158,7 +103,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
     <Drawer
       destroyOnHidden
       title={
-        role ? getRoleLabel(getRole() as RoleValues).toLocaleUpperCase() : "PROFIL UTILISATEUR"
+        role ? getRoleLabel(currentRole as RoleValues).toLocaleUpperCase() : "PROFIL UTILISATEUR"
       }
       placement="right"
       onClose={handleClose}
@@ -174,7 +119,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
             "@id": utilisateur?.["@id"] as string,
             data: {
               ...{ ...values, nom: undefined, prenom: undefined, email: undefined },
-              roles: [...(utilisateur?.roles || []), getRole() as RoleValues]
+              roles: [...(utilisateur?.roles || []), currentRole as RoleValues]
                 .filter((r) => r !== RoleValues.ROLE_DEMANDEUR && r !== "ROLE_USER")
                 .filter(arrayUnique),
             },
@@ -184,7 +129,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
         form={form}
       >
         <UtilisateurDrawerTabs
-          role={getRole()}
+          role={currentRole}
           utilisateur={utilisateur}
           setUtilisateur={setUtilisateur}
           activeKey={activeTab}

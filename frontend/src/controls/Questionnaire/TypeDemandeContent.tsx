@@ -18,22 +18,17 @@ import "@controls/Questionnaire/TypeDemandeContent.scss";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
-/**
- * @function TypeDemandeContent
- * @returns {React.ReactElement} The Steps component with the current step from the typeDemande context.
- */
 export function TypeDemandeContent(): React.ReactElement {
   const { notification } = App.useApp();
-  // Use the typeDemande context
   const { questionnaire, form, questUtils, submitting, blocage } = useQuestionnaire();
   const screens = useBreakpoint();
   const initialisation = React.useRef<boolean>(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function scrollToError(error: any) {
+  function scrollToError(error: unknown) {
     let field = null;
-    if (error.errorFields && error.errorFields[0]) {
-      const fieldName = error.errorFields[0]?.name?.[0];
+    const formError = error as { errorFields?: Array<{ name?: string[] }> };
+    if (formError.errorFields?.[0]) {
+      const fieldName = formError.errorFields[0]?.name?.[0];
       field = document.querySelector(`label[for="${fieldName}"]`) as HTMLElement;
     }
 
@@ -78,7 +73,6 @@ export function TypeDemandeContent(): React.ReactElement {
       : `à l'étape ${etapeCourante + 1} nommée "${questionnaire.etapes[etapeCourante].libelle}".`
   }`;
 
-  // Return the Steps component
   return (
     <Layout.Content>
       <Typography.Title level={2}>
