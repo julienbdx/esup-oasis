@@ -77,6 +77,12 @@ export default defineConfig(() => {
             if (/node_modules\/(@tiptap|prosemirror-)/.test(id)) {
               return "vendor-tiptap";
             }
+            if (/node_modules\/@fullcalendar\//.test(id)) {
+              return "vendor-fullcalendar";
+            }
+            if (/node_modules\/@tanstack\/react-query-devtools\//.test(id)) {
+              return "vendor-devtools";
+            }
           },
         },
       },
