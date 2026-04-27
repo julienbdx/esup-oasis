@@ -24,6 +24,12 @@
         Expires "-1"
     }
 
+    # Fichiers personnalisables par l'établissement : servis tels quels, sans fallback SPA.
+    # Si le fichier est absent, Caddy retourne 404 (et non index.html).
+    handle /mentions-legales.html {
+        file_server
+    }
+
     try_files {path} /index.html
     file_server
 }
