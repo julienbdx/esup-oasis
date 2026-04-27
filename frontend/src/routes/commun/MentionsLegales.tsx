@@ -61,7 +61,15 @@ export default function MentionsLegales() {
                   rel="noreferrer"
                   referrerPolicy="no-referrer"
                 >
-                  <img src={env.REACT_APP_LOGO} alt="Logo" style={{ height: 100 }} />
+                  <img
+                    src={
+                      isDark && env.REACT_APP_LOGO_DARK
+                        ? env.REACT_APP_LOGO_DARK
+                        : env.REACT_APP_LOGO
+                    }
+                    alt="Logo"
+                    style={{ height: 100 }}
+                  />
                 </a>
               </Col>
             )}
