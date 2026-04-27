@@ -67,11 +67,7 @@ export function TypeDemandeContent(): React.ReactElement {
 
   const avancementAccessibilite = `Avancement dans le remplissage du questionnaire : le questionnaire contient ${
     questionnaire.etapes.length
-  } étapes. Vous êtes actuellement ${
-    etapeCourante === questionnaire.etapes.length
-      ? "à la dernière étape de validation."
-      : `à l'étape ${etapeCourante + 1} nommée "${questionnaire.etapes[etapeCourante].libelle}".`
-  }`;
+  } étapes. Vous êtes actuellement à l'étape ${etapeCourante + 1} nommée "${questionnaire.etapes[etapeCourante].libelle}".`;
 
   return (
     <Layout.Content>

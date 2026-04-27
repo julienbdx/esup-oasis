@@ -30,7 +30,6 @@ import {
 import { MATRICE_DROITS_ROLES } from "@context/demande/QuestionnaireRights";
 import {
   getFormInitialValues,
-  getReponseValue,
   questionnaireFromDemande,
   questionnaireFromTypeDemande,
 } from "@context/demande/QuestionnaireUtils";
@@ -247,7 +246,6 @@ export function QuestionnaireProvider(props: {
       questUtils: {
         isGrantedQuestionnaire,
         envoyerReponse,
-        getReponseValue,
         getFormInitialValues: () => getFormInitialValues(questionnaire),
       },
     }),
