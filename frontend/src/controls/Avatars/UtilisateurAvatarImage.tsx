@@ -141,7 +141,6 @@ export default function UtilisateurAvatarImage(props: {
     if (photo.data)
       return (
         <Image
-          alt={`Photo de ${utilisateurData.prenom} ${utilisateurData.nom}`}
           aria-hidden
           width={props.width}
           height={props.height}
