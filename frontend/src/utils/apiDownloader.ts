@@ -53,11 +53,12 @@ const apiDownloader = async (
     .then((blob) => {
       const privateUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
-      document.body.appendChild(a);
       a.style.display = "none";
       a.href = privateUrl;
       a.download = filename;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       window.URL.revokeObjectURL(privateUrl);
 
       if (onSuccess) {
