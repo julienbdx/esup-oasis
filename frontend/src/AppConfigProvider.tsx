@@ -34,7 +34,7 @@ function getColorVariant(color: string | null, fallbackColor: string, fallbackCo
 
 export function AppConfigProvider({ children }: { children: React.ReactNode }) {
   const { accessibilite: appAccessibilite } = useAccessibilite();
-  const effectiveTheme = useEffectiveTheme(appAccessibilite.themeMode);
+  const effectiveTheme = useEffectiveTheme();
   const isDark = effectiveTheme === "dark";
 
   useEffect(() => {

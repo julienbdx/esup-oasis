@@ -12,6 +12,7 @@ import PageTitle from "@utils/PageTitle/PageTitle";
 import { env } from "@/env";
 import { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
+import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
 /**
  * Page des mentions légales.
@@ -23,7 +24,7 @@ import DOMPurify from "dompurify";
 export default function MentionsLegales() {
   const [mentionsHtml, setMentionsHtml] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isDark = useEffectiveTheme() === "dark";
 
   useEffect(() => {
     fetch("/mentions-legales.html")

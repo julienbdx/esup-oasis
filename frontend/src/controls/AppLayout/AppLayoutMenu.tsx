@@ -60,7 +60,7 @@ export default function AppLayoutMenu(): ReactElement {
   const [modeRecherche, setModeRecherche] = useState(false);
   const { setPreference } = usePreferences();
   const { stats, isFetchingStats } = useNotificationStats();
-  const isDark = useEffectiveTheme(appAccessibilite.themeMode) === "dark";
+  const isDark = useEffectiveTheme() === "dark";
 
   const menuItems: MenuProps["items"] = useMemo(() => {
     const items = [];

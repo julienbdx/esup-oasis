@@ -20,7 +20,7 @@ import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
  */
 export default function Accessibilite(): ReactElement {
   const { accessibilite: appAccessibilite } = useAccessibilite();
-  const effectiveTheme = useEffectiveTheme(appAccessibilite.themeMode);
+  const effectiveTheme = useEffectiveTheme();
 
   useEffect(() => {
     if (appAccessibilite.contrast) {
