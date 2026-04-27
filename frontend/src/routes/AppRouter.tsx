@@ -16,6 +16,7 @@ import { APP_ROUTES } from "@routes/AppRoutes";
 import Spinner from "@controls/Spinner/Spinner";
 
 const LoginPage = lazy(() => import("@/auth/LoginPage"));
+const NotFound = lazy(() => import("@/routes/commun/NotFound"));
 
 /**
  * Router principal de l'application.
@@ -76,7 +77,8 @@ export default function AppRouter(): ReactElement {
     return (
       <Route element={<AppLayout />}>
         {userAuthorizedRoutes}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     );
   }, [auth]);

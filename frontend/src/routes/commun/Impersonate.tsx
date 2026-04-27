@@ -39,8 +39,7 @@ export default function Impersonate() {
     }
     setAffichageFiltres(initialAffichageFiltres.affichage, initialAffichageFiltres.filtres);
     auth.setImpersonate(uid);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [auth, navigate, setAffichageFiltres, uid]);
 
   // Étape 2 : naviguer vers "/" uniquement quand auth.user a été mis à jour
   // (auth.loading passe à false une fois le fetch de l'utilisateur impersonné terminé)

@@ -96,6 +96,10 @@ export default function PageTitle(props: {
       case "credits":
         title += " : crédits";
         break;
+
+      case "404":
+        title += " : page non trouvée";
+        break;
     }
 
     document.title = title;

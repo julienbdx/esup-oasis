@@ -26,4 +26,9 @@ export const COMMUN_ROUTES: IRoute[] = [
     element: lazy(() => import("@routes/commun/Version")),
     roles: null,
   },
+  {
+    path: "/404",
+    element: lazy(() => import("@routes/commun/NotFound")),
+    roles: null,
+  },
 ];
