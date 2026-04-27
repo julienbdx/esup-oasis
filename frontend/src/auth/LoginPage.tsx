@@ -56,7 +56,7 @@ export default function LoginPage(): ReactElement {
     <>
       <PageTitle />
       <Row style={{ minHeight: "calc(100vh - 70px)" }}>
-        <Col xs={0} sm={24} md={24} lg={16} className="login-image" onClick={auth.authenticate}>
+        <Col xs={0} sm={24} md={24} lg={16} className="login-image">
           {env.REACT_APP_LOGO && (
             <div className="login-universite-top">
               <a
@@ -64,20 +64,19 @@ export default function LoginPage(): ReactElement {
                 target="_blank"
                 referrerPolicy="no-referrer"
                 rel="noopener noreferrer"
-                aria-label={`Visiter le site de ${env.REACT_APP_ETABLISSEMENT}`}
+                aria-label={`Visiter le site de ${env.REACT_APP_ETABLISSEMENT_ARTICLE}`}
               >
                 <img
                   src={
                     isDark && env.REACT_APP_LOGO_DARK ? env.REACT_APP_LOGO_DARK : env.REACT_APP_LOGO
                   }
-                  alt=""
+                  alt={`Logo de ${env.REACT_APP_ETABLISSEMENT_ARTICLE}`}
                   style={{
                     maxWidth: "50vw",
                     maxHeight: "10vh",
                     width: "100%",
                     objectFit: "scale-down",
                   }}
-                  aria-hidden="true"
                 />
               </a>
             </div>

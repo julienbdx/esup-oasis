@@ -10,6 +10,11 @@
 @include meta.load-css("accessibilite");
 @include meta.load-css("dark");
 
+:focus-visible {
+  outline: 2px solid variables.$primary;
+  outline-offset: 2px;
+}
+
 body {
   font-family: "NoirPro", serif;
   margin: 0;

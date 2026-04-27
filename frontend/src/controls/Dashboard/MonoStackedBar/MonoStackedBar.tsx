@@ -90,7 +90,17 @@ export default function MonoStackedBar({
         maxWidth: width,
       }}
     >
-      <div className={`${styles.stackedBar}${onClick ? " pointer" : ""}`} onClick={onClick}>
+      <div
+        role="button"
+        tabIndex={0}
+        className={`${styles.stackedBar}${onClick ? " pointer" : ""}`}
+        onClick={onClick}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            onClick?.();
+          }
+        }}
+      >
         {data.length &&
           data.map((section, index) => {
             const radiusPx = toPx(radius);
