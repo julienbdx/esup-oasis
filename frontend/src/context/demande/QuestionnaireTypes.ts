@@ -76,11 +76,6 @@ export interface QuestionnaireContextType {
       onSuccess?: () => void,
       onError?: (error: unknown) => void,
     ) => void;
-    getReponseValue: (
-      type: string,
-      value: string | string[] | null | undefined,
-      commentaire: string | null | undefined,
-    ) => string | string[] | boolean | dayjs.Dayjs | null | undefined;
     getFormInitialValues: () =>
       | undefined
       | FlatArray<
