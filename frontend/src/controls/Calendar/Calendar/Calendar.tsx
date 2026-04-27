@@ -65,7 +65,7 @@ export default function Calendar({ events, setEvent }: ICalendar): ReactElement 
   const calendarRef = useRef<FullCalendar>(null);
   const { setModalEvenementId, setModalEvenement } = useModals();
   const { accessibilite: appAccessibilite } = useAccessibilite();
-  const isDark = useEffectiveTheme(appAccessibilite.themeMode) === "dark";
+  const isDark = useEffectiveTheme() === "dark";
   const { affichageFiltres: appAffichageFiltres, setAffichage } = useAffichageFiltres();
   const { data: typesEvenements, isFetching: isFetchingTypesEvenements } =
     useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);

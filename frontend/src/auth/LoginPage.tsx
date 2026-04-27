@@ -22,6 +22,7 @@ import { useTypedText } from "@utils/TypedText/useTypedText";
 import HomepageImage from "@controls/Images/HomepageImage";
 import PageTitle from "@utils/PageTitle/PageTitle";
 import { env } from "@/env";
+import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
 /**
  * Renders the login page with authentication functionality.
@@ -31,7 +32,7 @@ import { env } from "@/env";
  */
 export default function LoginPage(): ReactElement {
   const auth = useAuth();
-  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isDark = useEffectiveTheme() === "dark";
 
   function getMessageAccueil() {
     if (env.REACT_APP_MSG_ACCUEIL) {
