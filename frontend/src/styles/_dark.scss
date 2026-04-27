@@ -7,27 +7,13 @@
 
 body.dark-mode {
   --blanc: rgba(255, 255, 255, 0.85);
-  --gris: rgba(255, 255, 255, 0.25);
+  --gris: rgba(255, 255, 255, 0.5);
   --noir: rgba(32, 32, 32, 0.85);
   --noir-mid: rgba(32, 32, 32, 0.66);
   --ant-color-text-description: rgba(255, 255, 255, 0.6);
   --ant-button-default-color: var(--blanc);
 
   background-color: var(--noir);
-
-  // --- Pour les types d'évènements
-  @each $key, $val in colors.$colors-dark {
-    --color-xlight-#{$key}: #{$val};
-  }
-  @each $key, $val in colors.$colors-regular {
-    --color-light-#{$key}: #{$val};
-  }
-  @each $key, $val in colors.$colors-light {
-    --color-#{$key}: #{$val};
-  }
-  @each $key, $val in colors.$colors-xlight {
-    --color-dark-#{$key}: #{$val};
-  }
 
   // Le fond principal (Ant Design gère le background global via darkAlgorithm)
   color: var(--blanc);
