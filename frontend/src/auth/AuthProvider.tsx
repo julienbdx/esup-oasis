@@ -129,6 +129,7 @@ export function AuthProvider({
     )
       .then(async (userResponse) => {
         if (!mounted) return;
+        setErrorUser(null);
 
         if (!userResponse.ok) {
           removeLocalStorageLogin();

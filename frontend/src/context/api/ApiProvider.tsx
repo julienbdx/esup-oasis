@@ -122,7 +122,6 @@ export function ApiProvider({
       credentials: "include",
       headers: {
         Accept: ApiContentType,
-        //  Authorization: `Bearer ${auth?.token}`,
         "Content-Type": ApiContentType,
       },
     };
