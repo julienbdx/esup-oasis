@@ -61,8 +61,6 @@ export function buildUrl<P extends Path, M extends Method>(
       .filter(([, value]) => value !== undefined && value !== null)
       .forEach(([key, value]) => {
         if (Array.isArray(value)) {
-          // Modif ici : value.forEach((v) => url.searchParams.append(`${key}[]`, v.toString()));
-          // A voir effets de bord...
           value.forEach((v) => resUrl.searchParams.append(`${key}`, v.toString()));
         } else {
           resUrl.searchParams.set(key, (value as string | Date | boolean | number).toString());
