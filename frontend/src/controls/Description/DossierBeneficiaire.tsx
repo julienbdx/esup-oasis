@@ -65,26 +65,28 @@ export default function DossierBeneficiaire(props: { beneficiaireId: string }): 
             children: <TabIdentite utilisateurId={props.beneficiaireId as string} />,
             icon: <UserOutlined />,
           },
-          {
-            key: "demandes",
-            label: (
-              <Space>
-                Demandes
-                <DemandesBadge utilisateurId={props.beneficiaireId} />
-              </Space>
-            ),
-            children: (
-              <TabDemandes
-                utilisateur={beneficiaire}
-                title={
-                  <Typography.Title level={3} className="mt-1">
-                    Demandes déposées
-                  </Typography.Title>
-                }
-              />
-            ),
-            icon: <FileDoneOutlined />,
-          },
+          env.REACT_APP_GERER_DEMANDES
+            ? {
+                key: "demandes",
+                label: (
+                  <Space>
+                    Demandes
+                    <DemandesBadge utilisateurId={props.beneficiaireId} />
+                  </Space>
+                ),
+                children: (
+                  <TabDemandes
+                    utilisateur={beneficiaire}
+                    title={
+                      <Typography.Title level={3} className="mt-1">
+                        Demandes déposées
+                      </Typography.Title>
+                    }
+                  />
+                ),
+                icon: <FileDoneOutlined />,
+              }
+            : null,
           ...Object.values(DOMAINES_AMENAGEMENTS_INFOS)
             .filter(
               (typeAmenagement) =>
@@ -139,7 +141,7 @@ export default function DossierBeneficiaire(props: { beneficiaireId: string }): 
             children: <TabDocuments utilisateurId={props.beneficiaireId as string} />,
             icon: <FileTextOutlined />,
           },
-        ]}
+        ].filter((t) => t !== null)}
       />
     </>
   );

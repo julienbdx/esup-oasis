@@ -19,10 +19,10 @@ body {
   font-family: "NoirPro", serif;
   margin: 0;
   padding: 0;
-  color: variables.$text;
+  color: #{variables.$text};
 
-  --ant-button-default-color: variables.$text;
-  --ant-select-color: variables.$text;
+  --ant-button-default-color: #{variables.$text};
+  --ant-select-color: #{variables.$text};
 }
 
 .full-app {
@@ -454,7 +454,7 @@ th.pointer {
   }
 
   .ant-tabs-content-holder {
-    border: 1px solid #f0f0f0;
+    border: 1px solid var(--ant-color-border);
     border-top: transparent;
     border-radius: 0 variables.$radius variables.$radius variables.$radius;
     padding: 20px;
@@ -612,10 +612,7 @@ th.pointer {
   }
 
   .ant-tabs-content-holder {
-    background-color: #fff;
-    border-left: 1px solid #f0f0f0;
-    border-right: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
+    background-color: var(--ant-color-bg-container);
     border-radius: 0 0 variables.$radius variables.$radius;
     padding: 20px;
   }
@@ -738,8 +735,8 @@ th.pointer {
 }
 
 .btb-1 {
-  border-top: 2px solid variables.$light-grey-border;
-  border-bottom: 2px solid variables.$light-grey-border;
+  border-top: 2px solid var(--ant-color-border);
+  border-bottom: 2px solid var(--ant-color-border);
 }
 
 .avisese-non-en-cours {
