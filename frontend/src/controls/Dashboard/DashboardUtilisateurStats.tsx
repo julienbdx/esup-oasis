@@ -18,6 +18,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import ActiviteServiceStats from "@controls/Dashboard/ActiviteServiceStats";
 import DemandesAccompagnementStats from "@controls/Dashboard/DemandesAccompagnementStats";
 import PlanificationEvenementsStats from "@controls/Dashboard/PlanificationEvenementsStats";
+import { env } from "@/env";
 
 interface IDashboardUtilisateurProps {
   utilisateurId: string;
@@ -69,11 +70,13 @@ export default function DashboardUtilisateurStats({
       )}
       <Row>
         <ActiviteServiceStats stats={stats} isFetching={isFetching} />
-        <DemandesAccompagnementStats
-          stats={stats}
-          etatsDemande={etatsDemande?.items}
-          isFetching={isFetching}
-        />
+        {env.REACT_APP_GERER_DEMANDES && (
+          <DemandesAccompagnementStats
+            stats={stats}
+            etatsDemande={etatsDemande?.items}
+            isFetching={isFetching}
+          />
+        )}
         <PlanificationEvenementsStats
           stats={stats}
           typesEvenements={typesEvenements?.items}

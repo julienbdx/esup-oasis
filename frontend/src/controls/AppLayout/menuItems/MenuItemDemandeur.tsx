@@ -10,6 +10,7 @@
 import { NavigateFunction } from "react-router-dom";
 import { Button, MenuProps } from "antd";
 import React from "react";
+import { env } from "@/env";
 
 /**
  * Generates the menu items for the beneficiary/intervenant planning menu.
@@ -24,24 +25,27 @@ export function menuItemDemandeur(
   navigate: NavigateFunction,
   className?: string,
 ): MenuProps["items"] {
-  return [
-    {
-      key: "demandes",
-      label: (
-        <Button
-          type="text"
-          className="no-hover p-0"
-          onClick={() => {
-            setSelectedKey("demandes");
-            navigate("/demandes");
-          }}
-        >
-          Demandes
-        </Button>
-      ),
-      className: className,
-      children: [],
-      popupClassName: "d-none",
-    },
-  ];
+  if (env.REACT_APP_GERER_DEMANDES)
+    return [
+      {
+        key: "demandes",
+        label: (
+          <Button
+            type="text"
+            className="no-hover p-0"
+            onClick={() => {
+              setSelectedKey("demandes");
+              navigate("/demandes");
+            }}
+          >
+            Demandes
+          </Button>
+        ),
+        className: className,
+        children: [],
+        popupClassName: "d-none",
+      },
+    ];
+
+  return [];
 }

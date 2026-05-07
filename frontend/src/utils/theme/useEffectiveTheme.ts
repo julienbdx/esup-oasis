@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { env } from "@/env";
 
-export const DARKMODE_ENABLED = env.REACT_APP_DARKMODE !== "false";
+export const DARKMODE_ENABLED = env.REACT_APP_DARKMODE;
 
 function getSystemTheme(): "light" | "dark" {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";

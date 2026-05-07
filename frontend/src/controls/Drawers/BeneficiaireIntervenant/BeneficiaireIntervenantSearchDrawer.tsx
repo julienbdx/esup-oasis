@@ -14,6 +14,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { EnterOutlined } from "@ant-design/icons";
 import { RoleValues, Utilisateur } from "@lib";
 import { EtudiantItem } from "@controls/Items/EtudiantItem";
+import { env } from "@/env";
 
 interface IBeneficiaireIntervenantSearchProps {
   onSelect: (
@@ -65,7 +66,7 @@ export default function BeneficiaireIntervenantSearchDrawer({
     parameters: {
       roleId: `/roles/${RoleValues.ROLE_DEMANDEUR}`,
     },
-    enabled: recherche.length > 1,
+    enabled: recherche.length > 1 && env.REACT_APP_GERER_DEMANDES,
   });
 
   const options = useMemo(() => {

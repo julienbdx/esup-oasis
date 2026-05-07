@@ -6,14 +6,17 @@ développement, staging, production). Par exemple, l'URL de l'API peut varier se
 Pour éviter de reconstruire l'image pour chaque environnement, il est possible de définir des variables d'environnement
 qui seront injectées dynamiquement dans l'application au moment de son exécution.
 
-La gestion de ces variables d'environnement repose sur un script shell (`docker-entrypoint.sh`) qui génère automatiquement
-un fichier JavaScript `env.{timestamp}.js` au démarrage du conteneur. Ce fichier contient toutes les variables d'environnement
+La gestion de ces variables d'environnement repose sur un script shell (`docker-entrypoint.sh`) qui génère
+automatiquement
+un fichier JavaScript `env.{timestamp}.js` au démarrage du conteneur. Ce fichier contient toutes les variables
+d'environnement
 dont le nom commence par `REACT_APP_` et les expose via l'objet global `window.env`.
 
 Le timestamp dans le nom du fichier garantit que le navigateur charge toujours la version la plus récente des variables
 lors du redémarrage du conteneur, évitant ainsi les problèmes de cache.
 
-> **Remarque :** Vous pouvez déplacer les variables d'environnement entre les fichiers `.env` et les variables d'environnement
+> **Remarque :** Vous pouvez déplacer les variables d'environnement entre les fichiers `.env` et les variables
+> d'environnement
 > du conteneur en fonction des besoins et de la portée souhaitée de chaque variable.
 
 > **Remarque :** Les variables injectées au runtime sont prioritaires sur celles définies dans le fichier `.env`.
@@ -31,13 +34,16 @@ lors du redémarrage du conteneur, évitant ainsi les problèmes de cache.
 | `REACT_APP_FRONTEND`        | URL de l'application (frontend)                      | https://oasis.esup-portail.org                      | Oui             |
 | `REACT_APP_OAUTH_CLIENT_ID` | Identifiant du client OAuth                          | oasis                                               | Oui             |
 | `REACT_APP_OAUTH_PROVIDER`  | URL du fournisseur OAuth                             | https://cas.esup-portail.org/cas/oauth2.0/authorize | Oui             |
-| `REACT_APP_PHOTO`           | Afficher les photos des étudiants dans l'application | true                                                | Non             |
+| `REACT_APP_PHOTO`  ¬        | Afficher les photos des étudiants dans l'application | true                                                | Non             |
 | `REACT_APP_PHOTO_DEMO`      | Remplacer les photos par un avatar                   | false                                               | Non             |
 | `REACT_APP_DARKMODE`        | Activer le dark mode pour les utilisateurs *         | false                                               | Non             |
+| `REACT_APP_GERER_DEMANDES`  | Gestion des demandes dans l'application              | true                                                | Non             |
 
-> **Remarque :** en version beta, le dark-mode est désactivé par défaut, mais peut être activé en modifiant la variable d'environnement `REACT_APP_DARKMODE` à `true`.
-L'activation du mode Contraste (menu Accessibilité) désactive automatiquement le dark-mode.
-Les préférences de mode, comme celles d'accessibilité, sont stockées en backend pour être récupérées lors de la connexion de l'utilisateur.
+> **\* REACT_APP_DARKMODE :** en version beta, le dark-mode est désactivé par défaut, mais peut être activé en modifiant la variable
+> d'environnement `REACT_APP_DARKMODE` à `true`.
+> L'activation du mode Contraste (menu Accessibilité) désactive automatiquement le dark-mode.
+> Les préférences de mode, comme celles d'accessibilité, sont stockées en backend pour être récupérées lors de la
+> connexion de l'utilisateur.
 
 ## Focus sur l'affichage des photos des étudiants
 

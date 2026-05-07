@@ -42,7 +42,8 @@ type EnvType = {
   // Autres variables de l'application
   REACT_APP_VISITE_GUIDEE: string | null;
   REACT_APP_MSG_ACCUEIL: string | null;
-  REACT_APP_DARKMODE: string | null;
+  REACT_APP_DARKMODE: boolean;
+  REACT_APP_GERER_DEMANDES: boolean;
 
   // Variables liées aux couleurs de l'application
   REACT_APP_PRIMARY_COLOR: string;
@@ -72,12 +73,36 @@ declare global {
     env: EnvType;
   }
 }
+console.log(import.meta.env as unknown as EnvType, window.env);
+
+function toFeatureEnabled(
+  value1: boolean | string | undefined,
+  value2: boolean | string | undefined,
+  defaultValue: boolean,
+): boolean {
+  if (value1) {
+    return typeof value1 === "boolean" ? value1 : value1 === "true";
+  }
+  if (value2) {
+    return typeof value2 === "boolean" ? value2 : value2 === "true";
+  }
+  return defaultValue;
+}
 
 export const env: EnvType = {
   ...{ REACT_APP_API_PREFIX: "" },
-  ...{ REACT_APP_DARKMODE: "false" },
   ...(import.meta.env as unknown as EnvType),
-  ...window.env,
+  ...(window.env as unknown as EnvType),
+  REACT_APP_GERER_DEMANDES: toFeatureEnabled(
+    window.env.REACT_APP_GERER_DEMANDES,
+    import.meta.env.REACT_APP_GERER_DEMANDES,
+    true,
+  ),
+  REACT_APP_DARKMODE: toFeatureEnabled(
+    window.env.REACT_APP_DARKMODE,
+    import.meta.env.REACT_APP_DARKMODE,
+    false,
+  ),
 };
 
 const REQUIRED_ENV_VARS: (keyof EnvType)[] = [

@@ -12,6 +12,8 @@ import { Anchor, Layout, Typography } from "antd";
 import "@routes/administration/Administration.scss";
 import { getAdminPanelsByCategorie } from "@routes/administration/AdminConfig";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
+import { env } from "@/env";
+import { AnchorLinkItemProps } from "antd/es/anchor/Anchor";
 
 /**
  * Page d'accueil de l'administration.
@@ -27,7 +29,9 @@ export default function Administration(): ReactElement {
       href: "#utilisateurs",
       key: "utilisateurs",
     },
-    { title: "Demandes", className: "fs-09", href: "#demandes", key: "demandes" },
+    env.REACT_APP_GERER_DEMANDES
+      ? { title: "Demandes", className: "fs-09", href: "#demandes", key: "demandes" }
+      : null,
     {
       title: "Bénéficiaires",
       className: "fs-09",
@@ -52,7 +56,7 @@ export default function Administration(): ReactElement {
       href: "#parametres",
       key: "parametres",
     },
-  ];
+  ].filter(Boolean);
 
   return (
     <Layout.Content className="administration" style={{ padding: "0 50px" }}>
@@ -64,7 +68,7 @@ export default function Administration(): ReactElement {
           style={{ position: "fixed", right: 16, top: 100, textAlign: "right" }}
         >
           <div className="semi-bold mb-1">Raccourcis</div>
-          <Anchor offsetTop={100} items={anchors} />
+          <Anchor offsetTop={100} items={anchors as AnchorLinkItemProps[]} />
         </div>
       )}
 
@@ -73,10 +77,14 @@ export default function Administration(): ReactElement {
       </Typography.Title>
       <div className="grid-admin">{getAdminPanelsByCategorie("utilisateurs")}</div>
 
-      <Typography.Title id="demandes" level={2}>
-        Demandes
-      </Typography.Title>
-      <div className="grid-admin">{getAdminPanelsByCategorie("demandes")}</div>
+      {env.REACT_APP_GERER_DEMANDES && (
+        <>
+          <Typography.Title id="demandes" level={2}>
+            Demandes
+          </Typography.Title>
+          <div className="grid-admin">{getAdminPanelsByCategorie("demandes")}</div>
+        </>
+      )}
 
       <Typography.Title id="beneficiaires" level={2}>
         Bénéficiaires
