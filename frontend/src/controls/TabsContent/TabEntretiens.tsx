@@ -11,14 +11,14 @@ import { useApi } from "@context/api/ApiProvider";
 import { Button, Flex, Typography } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { IAvisEse } from "@api";
+import { IEntretien } from "@api";
 import { EntretienList } from "@controls/List/EntretienList";
 import { ModalEntretien } from "@controls/Modals/ModalEntretien";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 
 export function TabEntretiens(props: { utilisateurId: string }) {
   const screens = useBreakpoint();
-  const [editedItem, setEditedItem] = React.useState<IAvisEse>();
+  const [editedItem, setEditedItem] = React.useState<IEntretien>();
   const { data: entretiens } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/entretiens",
     parameters: {
@@ -48,7 +48,11 @@ export function TabEntretiens(props: { utilisateurId: string }) {
               setEditedItem={setEditedItem}
             />
           )}
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setEditedItem({})}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => setEditedItem({} as IEntretien)}
+          >
             Ajouter un entretien
           </Button>
         </div>

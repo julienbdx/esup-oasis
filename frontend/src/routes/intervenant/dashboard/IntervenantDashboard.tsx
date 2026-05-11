@@ -27,7 +27,7 @@ export function IntervenantDashboard(): ReactElement {
       <Typography.Title level={1}>Tableau de bord</Typography.Title>
       <AlertCompleterProfil />
 
-      {user && user.isRenfort && (
+      {user?.isIntervenantOuRenfort && (
         <DashboardUtilisateurStats utilisateurId={user?.["@id"] as string} />
       )}
 

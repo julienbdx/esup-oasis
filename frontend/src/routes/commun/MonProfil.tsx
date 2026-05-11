@@ -37,6 +37,7 @@ import {
 import { MonProfilContactPhase } from "@controls/Profil/MonProfilContactPhase";
 import "@routes/commun/MonProfil.scss";
 import { env } from "@/env";
+import { RoleApi } from "@lib";
 
 /**
  * Renders the current user's profile page.
@@ -110,7 +111,7 @@ export default function MonProfil(): ReactElement {
           initialValues={{
             ...utilisateur,
             notifications: notificationFrequences
-              .filter((freq) => freq.roles.some((role) => user?.roles?.includes(role)))
+              .filter((freq) => freq.roles.some((role) => user?.roles?.includes(role as RoleApi)))
               .filter((freq) => freq.visible)
               .map((freq) => {
                 if (utilisateur?.[freq.key as keyof IUtilisateur]) {

@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { Utilisateur } from "@lib";
+import { RoleApi, Utilisateur } from "@lib";
 import React, { ReactElement } from "react";
 import { Checkbox, Col, Form, Typography } from "antd";
 import EtudiantDashboardImage from "@controls/Images/EtudiantNotificationImage";
@@ -69,7 +69,9 @@ export function MonProfilNotification(props: { user: Utilisateur | undefined }):
             <Checkbox.Group className="checkbox-group-vertical">
               {notificationFrequences
                 .filter((freq) => freq.visible)
-                .filter((freq) => freq.roles.some((role) => props.user?.roles?.includes(role)))
+                .filter((freq) =>
+                  freq.roles.some((role) => props.user?.roles?.includes(role as RoleApi)),
+                )
                 .map((freq) => (
                   <Checkbox key={freq.key} value={freq.key}>
                     {freq.label}

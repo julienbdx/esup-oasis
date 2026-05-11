@@ -60,7 +60,7 @@ export type IActiviteIntervenant =
 export type IActiviteBeneficiaire =
   Components["schemas"]["ActiviteBeneficiaire.jsonld-ActiviteBeneficiaire.out"];
 
-export type IEvenement = ApiPathMethodResponse<"/evenements/{id}", "get">;
+export type IEvenement = Components["schemas"]["Evenement.jsonld-evenement.out"];
 export type IPartialEvenement = Partial<IEvenement>;
 export type IInscription = Components["schemas"]["Inscription.jsonld-utilisateur.out"];
 

@@ -40,11 +40,11 @@ export default function ParametreFormItem({
   const [editingItem, setEditingItem] = useState<IParametreValeur | undefined>(
     value
       ? undefined
-      : {
+      : ({
           debut: "",
           fin: undefined,
           valeur: "",
-        },
+        } as IParametreValeur),
   );
   const { data: valeur, isFetching: isFetchingValeur } = useApi().useGetItem({
     path: "/parametres/{cle}/valeurs/{id}",

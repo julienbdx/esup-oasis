@@ -42,7 +42,7 @@ export function ParametreFormItemFichier(props: ParametreFormItemFichierProps): 
                     props.setEditingItem({
                       ...props.editingItem,
                       debut: date?.format("YYYY-MM-DD") as string,
-                    });
+                    } as IParametreValeur);
                   }}
                 />
               </Space>
@@ -56,7 +56,7 @@ export function ParametreFormItemFichier(props: ParametreFormItemFichierProps): 
                       ...props.editingItem,
                       debut: props.editingItem?.debut as string,
                       fin: date?.format("YYYY-MM-DD") as string,
-                    });
+                    } as IParametreValeur);
                   }}
                 />
               </Space>
@@ -68,7 +68,7 @@ export function ParametreFormItemFichier(props: ParametreFormItemFichierProps): 
                       ...props.editingItem,
                       debut: props.editingItem?.debut as string,
                       fichier: fichier["@id"] as string,
-                    });
+                    } as IParametreValeur);
                   }}
                 />
               </Space>

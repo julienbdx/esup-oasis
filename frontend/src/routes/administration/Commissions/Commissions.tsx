@@ -85,7 +85,7 @@ export default function Commissions(): React.ReactElement {
         type="primary"
         tooltip="Ajouter une commission"
         onClick={() => {
-          setEditedItem({});
+          setEditedItem({} as ICommission);
         }}
       />
     </Layout.Content>

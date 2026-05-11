@@ -141,11 +141,13 @@ export function QuestionnaireProvider(props: {
     (fonctionnalite: FONCTIONNALITES, rolesCommission?: string[]): boolean => {
       if (!auth.user) return false;
       for (const role of auth.user.roles) {
-        const droits = MATRICE_DROITS_ROLES[role];
-        if (droits && droits[fonctionnalite] && typeof droits[fonctionnalite] === "boolean") {
-          return droits[fonctionnalite] as boolean;
-        } else if (droits && droits[fonctionnalite]) {
-          return (droits[fonctionnalite] as (r: string[]) => boolean)(rolesCommission || []);
+        if (role) {
+          const droits = MATRICE_DROITS_ROLES[role];
+          if (droits && droits[fonctionnalite] && typeof droits[fonctionnalite] === "boolean") {
+            return droits[fonctionnalite] as boolean;
+          } else if (droits && droits[fonctionnalite]) {
+            return (droits[fonctionnalite] as (r: string[]) => boolean)(rolesCommission || []);
+          }
         }
       }
       return false;

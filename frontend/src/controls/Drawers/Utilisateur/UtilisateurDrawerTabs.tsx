@@ -44,7 +44,7 @@ export default function UtilisateurDrawerTabs({
   const { message } = App.useApp();
 
   function getTabsByRole() {
-    if (role === RoleValues.ROLE_INTERVENANT) {
+    if (role === RoleValues.ROLE_INTERVENANT || role === RoleValues.ROLE_RENFORT) {
       return [
         {
           key: "campus",

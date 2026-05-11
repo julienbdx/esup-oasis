@@ -95,7 +95,11 @@ export function TabDocuments(props: { utilisateurId: string }) {
               setEditedItem={setEditedItem}
             />
           )}
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setEditedItem({})}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => setEditedItem({} as IDocumentBeneficiaire)}
+          >
             Ajouter un document
           </Button>
         </div>

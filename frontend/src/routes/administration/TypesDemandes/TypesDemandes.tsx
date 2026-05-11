@@ -149,7 +149,6 @@ export default function TypesDemandes(): React.ReactElement {
           expandable={{
             expandRowByClick: true,
             expandedRowKeys,
-            expandedRowClassName: () => "bg-white",
             onExpand: (expanded, record) => {
               if (expanded) {
                 setExpandedRowKeys([record["@id"] as string]);

@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { Button, Input, Select, Space, Tooltip } from "antd";
 import { EnterOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { useDrawers } from "@context/drawers/DrawersContext";
-import { RoleValues } from "@lib";
+import { RoleApi, RoleValues } from "@lib";
 import Spinner from "@controls/Spinner/Spinner";
 
 import { IUtilisateur } from "@api";
@@ -80,7 +80,7 @@ function UtilisateurSelectEditing({
             return true;
           }
           if (forcerRechercheEnBase) {
-            return u.roles?.includes(roleUtilisateur as RoleValues);
+            return u.roles?.includes(roleUtilisateur as RoleApi);
           }
           return true;
         })

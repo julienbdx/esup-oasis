@@ -49,7 +49,11 @@ export function TabAvisEse(props: { utilisateurId: string }) {
               setEditedItem={setEditedItem}
             />
           )}
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setEditedItem({})}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => setEditedItem({} as IAvisEse)}
+          >
             Ajouter un avis {env.REACT_APP_ESPACE_SANTE_ABV || "santé"}
           </Button>
         </div>

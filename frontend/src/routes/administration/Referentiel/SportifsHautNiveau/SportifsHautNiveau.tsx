@@ -42,7 +42,7 @@ function AddFloatButton(props: {
         />
         <FloatButton
           onClick={() => {
-            props.setEditedItem({});
+            props.setEditedItem({} as ISportifHautNiveau);
           }}
           icon={<UserOutlined />}
           tooltip="Ajouter un sportif haut niveau"
@@ -54,7 +54,7 @@ function AddFloatButton(props: {
   return (
     <FloatButton
       onClick={() => {
-        props.setEditedItem({});
+        props.setEditedItem({} as ISportifHautNiveau);
       }}
       icon={<UserOutlined />}
       tooltip="Ajouter un sportif haut niveau"

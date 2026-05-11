@@ -43,11 +43,14 @@ export function Tags(props: { categorieId: string; afficherDesactives: boolean }
               type="primary"
               icon={<PlusOutlined />}
               onClick={() =>
-                setEditedItem(() => ({
-                  libelle: "",
-                  actif: true,
-                  categorie: props.categorieId as string,
-                }))
+                setEditedItem(
+                  () =>
+                    ({
+                      libelle: "",
+                      actif: true,
+                      categorie: props.categorieId as string,
+                    }) as ITag,
+                )
               }
             >
               Ajouter un tag

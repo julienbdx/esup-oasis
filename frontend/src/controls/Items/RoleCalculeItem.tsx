@@ -11,6 +11,7 @@ import React, { ReactElement } from "react";
 import { getRoleLabel, RoleValues, Utilisateur } from "@lib";
 import { Tag } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { IUtilisateur } from "@api";
 
 interface IItemRoleProps {
   role?: string;
@@ -27,7 +28,7 @@ interface IItemRoleProps {
  * @returns {ReactElement} - The JSX element representing the calculated role tag.
  */
 export function RoleCalculeItem({ role, roles, className }: IItemRoleProps): ReactElement {
-  const utilisateur = new Utilisateur({ roles: role ? [role] : roles });
+  const utilisateur = new Utilisateur({ roles: role ? [role] : roles } as IUtilisateur);
 
   return (
     <Tag
