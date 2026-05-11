@@ -24,9 +24,9 @@ export class Evenement implements IEvenement {
 
   "@context"?: string | { "@vocab": string; hydra: "http://www.w3.org/ns/hydra/core#" };
 
-  "@id": string | undefined;
+  "@id": string;
 
-  "@type": "Evenement" | undefined = "Evenement";
+  "@type" = "Evenement" as const;
 
   beneficiaires: string[] = [];
 
@@ -69,28 +69,33 @@ export class Evenement implements IEvenement {
   utilisateurModification?: string = undefined;
 
   constructor(event: IEvenement | undefined) {
-    this["@id"] = event?.["@id"];
-    this.id = event?.id;
-    this.beneficiaires = event?.beneficiaires || [];
-    this.campus = event?.campus || "";
-    this.dateAnnulation = event?.dateAnnulation ?? undefined;
-    this.dateEnvoiRH = event?.dateEnvoiRH ?? undefined;
-    this.debut = event?.debut ?? "";
-    this.fin = event?.fin ?? "";
-    this.intervenant = event?.intervenant ?? undefined;
-    this.libelle = event?.libelle ?? "";
-    this.salle = event?.salle;
-    this.suppleants = event?.suppleants;
-    this.enseignants = event?.enseignants;
-    this.tempsPreparation = event?.tempsPreparation ? Number(event.tempsPreparation) : 0;
-    this.tempsSupplementaire = event?.tempsSupplementaire ? Number(event.tempsSupplementaire) : 0;
-    this.type = event?.type || "";
-    this.equipements = event?.equipements;
-    this.dateCreation = event?.dateCreation ?? undefined;
-    this.dateModification = event?.dateModification ?? undefined;
-    this.dateValidation = event?.dateValidation ?? undefined;
-    this.utilisateurCreation = event?.utilisateurCreation ?? undefined;
-    this.utilisateurModification = event?.utilisateurModification ?? undefined;
+    if (event) {
+      this["@id"] = event?.["@id"];
+      this.id = event?.id;
+      this.beneficiaires = event?.beneficiaires || [];
+      this.campus = event?.campus || "";
+      this.dateAnnulation = event?.dateAnnulation ?? undefined;
+      this.dateEnvoiRH = event?.dateEnvoiRH ?? undefined;
+      this.debut = event?.debut ?? "";
+      this.fin = event?.fin ?? "";
+      this.intervenant = event?.intervenant ?? undefined;
+      this.libelle = event?.libelle ?? "";
+      this.salle = event?.salle;
+      this.suppleants = event?.suppleants;
+      this.enseignants = event?.enseignants;
+      this.tempsPreparation = event?.tempsPreparation ? Number(event.tempsPreparation) : 0;
+      this.tempsSupplementaire = event?.tempsSupplementaire ? Number(event.tempsSupplementaire) : 0;
+      this.type = event?.type || "";
+      this.equipements = event?.equipements;
+      this.dateCreation = event?.dateCreation ?? undefined;
+      this.dateModification = event?.dateModification ?? undefined;
+      this.dateValidation = event?.dateValidation ?? undefined;
+      this.utilisateurCreation = event?.utilisateurCreation ?? undefined;
+      this.utilisateurModification = event?.utilisateurModification ?? undefined;
+    } else {
+      this.debut = "";
+      this.fin = "";
+    }
   }
 
   static fromJson(json: string): Evenement {

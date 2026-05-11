@@ -12,7 +12,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { useDrawers } from "@context/drawers/DrawersContext";
 import { Alert, App, Drawer, Form } from "antd";
 import Spinner from "@controls/Spinner/Spinner";
-import { getRoleLabel, RoleValues, Utilisateur } from "@lib";
+import { getRoleLabel, RoleApi, RoleValues, Utilisateur } from "@lib";
 import { useAuth } from "@/auth/AuthProvider";
 import { arrayUnique } from "@utils/array";
 import {
@@ -119,7 +119,7 @@ export default function UtilisateurDrawer({ id, onClose }: IUtilisateurDrawerPro
             "@id": utilisateur?.["@id"] as string,
             data: {
               ...{ ...values, nom: undefined, prenom: undefined, email: undefined },
-              roles: [...(utilisateur?.roles || []), currentRole as RoleValues]
+              roles: [...(utilisateur?.roles || []), currentRole as RoleApi]
                 .filter((r) => r !== RoleValues.ROLE_DEMANDEUR && r !== "ROLE_USER")
                 .filter(arrayUnique),
             },

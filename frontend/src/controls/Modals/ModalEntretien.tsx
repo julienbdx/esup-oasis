@@ -160,7 +160,7 @@ export function ModalEntretien(props: {
         {!entretien?.["@id"] && (
           <div className="text-center">
             <Button
-              type="dashed"
+              className="w-100"
               onClick={async () => {
                 try {
                   await form.validateFields();

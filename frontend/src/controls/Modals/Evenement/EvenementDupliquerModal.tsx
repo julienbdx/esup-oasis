@@ -94,7 +94,7 @@ export default function EvenementDupliquerModal({
           equipements: values.equipements ? evenement.equipements : undefined,
           tempsPreparation: values.paiement ? evenement.tempsPreparation : undefined,
           tempsSupplementaire: values.paiement ? evenement.tempsSupplementaire : undefined,
-        };
+        } as IEvenement;
 
         await postEvenement.mutateAsync({
           data: nvoEvenement,

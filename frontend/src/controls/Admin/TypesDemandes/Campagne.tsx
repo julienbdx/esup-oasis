@@ -184,7 +184,11 @@ export function Campagne(props: {
           type={props.showError ? "error" : "info"}
           showIcon
           action={
-            <Button type="primary" icon={<PlusOutlined />} onClick={() => setEditedItem({})}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => setEditedItem({} as ICampagneDemande)}
+            >
               Ajouter une campagne
             </Button>
           }

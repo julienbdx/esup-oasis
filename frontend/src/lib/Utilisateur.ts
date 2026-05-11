@@ -24,7 +24,11 @@ export enum RoleValues {
   ROLE_MEMBRE_COMMISSION = "ROLE_MEMBRE_COMMISSION",
   ROLE_ATTRIBUER_PROFIL = "ROLE_ATTRIBUER_PROFIL",
   ROLE_VALIDER_CONFORMITE_DEMANDE = "ROLE_VALIDER_CONFORMITE_DEMANDE",
+  ROLE_USER = "ROLE_USER",
 }
+
+export type Role = keyof typeof RoleValues;
+export type RoleApi = Exclude<keyof typeof RoleValues, "ROLE_ENSEIGNANT">;
 
 export const ROLES_PLANIFICATEURS = [
   {
@@ -119,9 +123,9 @@ export const ROLES_SELECT = [
 ];
 
 export class Utilisateur implements IUtilisateur {
-  "@id"?: string;
+  "@id": string;
 
-  "@type"?: "Utilisateur";
+  "@type": "Utilisateur";
 
   uid?: string;
 
@@ -135,7 +139,7 @@ export class Utilisateur implements IUtilisateur {
 
   emailPerso?: string | null;
 
-  roles: string[] = [];
+  roles: RoleApi[] = [];
 
   renfort?: boolean;
 
@@ -169,7 +173,7 @@ export class Utilisateur implements IUtilisateur {
     this.nom = object.nom;
     this.prenom = object.prenom;
     this.email = object.email;
-    this.roles = object.roles || [];
+    this.roles = (object.roles as RoleApi[]) || [];
     this.profils = object.profils;
     this.typesEvenements = object.typesEvenements;
     this.competences = object.competences;
@@ -208,6 +212,10 @@ export class Utilisateur implements IUtilisateur {
 
   get isIntervenant(): boolean {
     return this.hasRole(RoleValues.ROLE_INTERVENANT);
+  }
+
+  get isIntervenantOuRenfort(): boolean {
+    return this.isIntervenant || this.isRenfort;
   }
 
   get isBeneficiaire(): boolean {
@@ -250,7 +258,7 @@ export class Utilisateur implements IUtilisateur {
   }
 
   public hasRole(role: RoleValues): boolean {
-    return this.roles.includes(role);
+    return this.roles.includes(role as RoleApi);
   }
 
   public getRoleColor(): string {

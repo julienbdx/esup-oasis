@@ -127,7 +127,7 @@ export function CategoriesAmenagementsTable({
                     onEditType({
                       libelle: "",
                       categorie: record["@id"] as string,
-                    });
+                    } as ITypeAmenagement);
                   }}
                 >
                   Ajouter un type d'aménagement

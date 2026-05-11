@@ -16,7 +16,7 @@ import { DerniereModifDemandeLabel } from "@controls/Avatars/DerniereModifDemand
 
 interface IEtatDemandeAvatar {
   etatDemande?: IEtatDemande;
-  etatDemandeId?: string;
+  etatDemandeId?: string | null;
   afficherDerniereModification?: boolean;
   demandeId?: string;
   className?: string;

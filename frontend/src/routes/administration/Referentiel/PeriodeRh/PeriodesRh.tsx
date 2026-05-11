@@ -22,6 +22,7 @@ import { IPeriode } from "@api";
  */
 export default function PeriodesRh(): ReactElement {
   const [editedItem, setEditedItem] = useState<IPeriode | undefined>();
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   return (
     <Layout.Content className="administration" style={{ padding: "0 50px" }}>
@@ -57,7 +58,12 @@ export default function PeriodesRh(): ReactElement {
       <Typography.Title level={2}>Périodes RH</Typography.Title>
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <PeriodesRhTable onEdit={setEditedItem} />
+          <PeriodesRhTable
+            onEdit={(p: IPeriode) => {
+              setEditedItem(p);
+              setOpenDrawer(true);
+            }}
+          />
         </Col>
       </Row>
       <FloatButton
@@ -65,14 +71,17 @@ export default function PeriodesRh(): ReactElement {
         type="primary"
         tooltip="Ajouter une période"
         onClick={() => {
-          setEditedItem({
-            debut: null,
-            fin: null,
-            butoir: null,
-          });
+          setEditedItem(undefined);
+          setOpenDrawer(true);
         }}
       />
-      {editedItem && <PeriodesRhEdition periode={editedItem} setPeriode={setEditedItem} />}
+      {openDrawer && (
+        <PeriodesRhEdition
+          periode={editedItem}
+          setPeriode={setEditedItem}
+          onClose={() => setOpenDrawer(false)}
+        />
+      )}
     </Layout.Content>
   );
 }

@@ -149,11 +149,4 @@ describe("canCreateEventOnDate", () => {
     const periode = { butoir: "2024-12-31" } as IPeriode;
     expect(canCreateEventOnDate(new Date(2024, 0, 1), regularUser, periode)).toBe(false);
   });
-
-  it("retourne false si butoir est null", () => {
-    // période avec butoir null : dayjs(null) = date d'aujourd'hui, comportement de garde
-    const periode = { butoir: null } as IPeriode;
-    // Sans date future certaine, on vérifie juste que ça ne plante pas
-    expect(() => canCreateEventOnDate(new Date(2025, 0, 1), regularUser, periode)).not.toThrow();
-  });
 });

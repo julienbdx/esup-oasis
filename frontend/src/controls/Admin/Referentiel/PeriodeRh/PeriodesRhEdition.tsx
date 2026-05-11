@@ -17,8 +17,9 @@ import React, { ReactElement } from "react";
 import { IPeriode, QK_PERIODES } from "@api";
 
 interface PeriodesRhEditionProps {
-  periode: IPeriode;
+  periode: IPeriode | undefined;
   setPeriode: (item: IPeriode | undefined) => void;
+  onClose: () => void;
 }
 
 const { RangePicker } = DatePicker;
@@ -26,24 +27,26 @@ const { RangePicker } = DatePicker;
 /**
  * Editing component for a PeriodeRhItem.
  *
- * @param {IPeriode} periode - The periode object to be edited or added.
- * @param {Function} setPeriode - The function to set the periode state.
- * @return {ReactElement} - The JSX element representing the PeriodesRhEdition component.
  */
-export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProps): ReactElement {
+export function PeriodesRhEdition({
+  periode,
+  setPeriode,
+  onClose,
+}: PeriodesRhEditionProps): ReactElement {
+  function handleClose() {
+    setPeriode(undefined);
+    onClose();
+  }
+
   const mutationPost = useApi().usePost({
     path: "/periodes",
     invalidationQueryKeys: [QK_PERIODES],
-    onSuccess: () => {
-      setPeriode(undefined);
-    },
+    onSuccess: handleClose,
   });
   const mutationPatch = useApi().usePatch({
     path: `/periodes/{id}`,
     invalidationQueryKeys: [QK_PERIODES],
-    onSuccess: () => {
-      setPeriode(undefined);
-    },
+    onSuccess: handleClose,
   });
 
   function createOrUpdate() {
@@ -71,12 +74,11 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
   }
 
   function setSelectedDayRange(value: { from: Dayjs | null; to: Dayjs | null }) {
-    if (!periode) return;
     if (!value.from || !value.to) return;
     setPeriode({
-      ...periode,
-      debut: value.from ? createDateAsUTC(value.from.toDate()).toISOString() : null,
-      fin: value.to ? createDateAsUTC(value.to.toDate()).toISOString() : null,
+      ...(periode as IPeriode),
+      debut: createDateAsUTC(value.from.toDate()).toISOString(),
+      fin: createDateAsUTC(value.to.toDate()).toISOString(),
     });
   }
 
@@ -84,9 +86,9 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
     <Drawer
       open
       title={
-        periode["@id"] ? "Éditer un élément du référentiel" : "Ajouter un élément au référentiel"
+        periode?.["@id"] ? "Éditer un élément du référentiel" : "Ajouter un élément au référentiel"
       }
-      onClose={() => setPeriode(undefined)}
+      onClose={handleClose}
       size="large"
       className="bg-light-grey"
     >
@@ -94,8 +96,7 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
         title="Période RH"
         actions={[
           <Button
-            type="primary"
-            disabled={!periode.debut || !periode.fin || !periode.butoir}
+            disabled={!periode?.debut || !periode?.fin || !periode?.butoir}
             onClick={createOrUpdate}
           >
             Enregistrer
@@ -107,8 +108,8 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
         <RangePicker
           format="DD/MM/YYYY"
           defaultValue={[
-            periode.debut ? dayjs(new Date(periode.debut)) : null,
-            periode.fin ? dayjs(new Date(periode.fin)) : null,
+            periode?.debut ? dayjs(new Date(periode.debut)) : null,
+            periode?.fin ? dayjs(new Date(periode.fin)) : null,
           ]}
           onCalendarChange={(dates) => setSelectedDayRange({ from: dates[0], to: dates[1] })}
         />
@@ -118,12 +119,14 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
           <DatePicker
             className="w-100"
             format="DD/MM/YYYY"
-            value={periode.butoir ? dayjs(periode.butoir) : null}
+            value={periode?.butoir ? dayjs(periode.butoir) : null}
             onChange={(date) => {
-              setPeriode({
-                ...periode,
-                butoir: date ? createDateAsUTC(date?.toDate()).toISOString() : null,
-              });
+              if (date) {
+                setPeriode({
+                  ...(periode as IPeriode),
+                  butoir: createDateAsUTC(date?.toDate()).toISOString(),
+                });
+              }
             }}
           />
         </div>
@@ -139,12 +142,12 @@ export function PeriodesRhEdition({ periode, setPeriode }: PeriodesRhEditionProp
               description="Les évènements contenus dans la période ne seront plus modifiables."
             />
             <Switch
-              disabled={periode["@id"] === undefined}
-              checked={periode.envoyee}
+              disabled={periode?.["@id"] === undefined}
+              checked={periode?.envoyee}
               checkedChildren={<SendOutlined style={{ marginTop: 5 }} />}
               onChange={(value) => {
                 setPeriode({
-                  ...periode,
+                  ...(periode as IPeriode),
                   envoyee: value,
                 });
               }}

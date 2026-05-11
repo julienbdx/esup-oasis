@@ -25,8 +25,9 @@ export default function TelechargementImagePreview(props: {
   type?: ButtonType;
 }): ReactElement {
   const auth = useAuth();
-  const [visible, setVisible] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const [isErreur, setIsErreur] = useState<boolean>(false);
   const { data: telechargement } = useApi().useGetItem({
     path: "/telechargements/{id}",
     url: props.telechargementId,
@@ -59,43 +60,48 @@ export default function TelechargementImagePreview(props: {
       };
     }
 
+    let objectUrl: string | undefined;
+
     fetch(
       `${env.REACT_APP_API}${env.REACT_APP_API_PREFIX}${telechargement?.urlContenu}`,
       fetchOptions,
     )
       .then((response) => response.blob())
       .then((blob) => {
-        setPhoto(() => {
-          return window.URL.createObjectURL(blob);
-        });
+        objectUrl = window.URL.createObjectURL(blob);
+        setPhoto(objectUrl);
       })
       .catch(() => {
         setPhoto(undefined);
+        setIsErreur(true);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [telechargement]);
+
+    return () => {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [telechargement, auth.impersonate]);
 
   if (!photo) return <Spinner />;
 
   return (
     <Tooltip title="Prévisualiser">
-      <Button
-        type={props.type}
-        aria-label="Prévisualiser l'image"
-        aria-hidden={true}
-        disabled={false}
-        icon={<EyeOutlined aria-hidden className="pr-2 pl-2" />}
-        onClick={() => setVisible(true)}
-        className={props.className}
-        style={{ width: "auto" }}
-      />
+      {!isErreur && (
+        <Button
+          type={props.type}
+          aria-label="Prévisualiser l'image"
+          aria-hidden={true}
+          disabled={false}
+          icon={<EyeOutlined aria-hidden className="pr-2 pl-2" />}
+          onClick={() => setOpen(true)}
+          className={props.className}
+          style={{ width: "auto" }}
+        />
+      )}
       <Image
         preview={{
-          open: visible,
+          open,
           src: photo,
-          onOpenChange: (value) => {
-            setVisible(value);
-          },
+          onOpenChange: setOpen,
         }}
         alt="Image de la pièce justificative"
         src={photo}

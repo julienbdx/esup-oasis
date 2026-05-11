@@ -48,7 +48,7 @@ export function GestionnaireDashboard(): ReactElement {
       </Typography.Title>
       <AlertCompleterProfil />
       <DashboardUtilisateurStats utilisateurId={user?.["@id"] as string} />
-      {user?.isIntervenant && <IntervenantDashboardServicesFaits />}
+      {user?.isIntervenantOuRenfort && <IntervenantDashboardServicesFaits />}
       {!screens.lg && (
         <DashboardUtilisateurStatsRefresh
           utilisateurId={user?.["@id"] as string}

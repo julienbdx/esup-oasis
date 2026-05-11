@@ -15,16 +15,16 @@ export const INTERVENANT_ROUTES: IRoute[] = [
   {
     path: "/profil",
     element: lazy(() => import("@routes/commun/MonProfil")),
-    roles: [RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT],
+    roles: [RoleValues.ROLE_BENEFICIAIRE, RoleValues.ROLE_INTERVENANT, RoleValues.ROLE_RENFORT],
   },
   {
     path: "/dashboard",
     element: lazy(() => import("@routes/intervenant/dashboard/IntervenantDashboard")),
-    roles: [RoleValues.ROLE_INTERVENANT],
+    roles: [RoleValues.ROLE_INTERVENANT, RoleValues.ROLE_RENFORT],
   },
   {
     path: "/services-faits",
     element: lazy(() => import("@routes/intervenant/ServicesFaits/ServicesFaits")),
-    roles: [RoleValues.ROLE_INTERVENANT],
+    roles: [RoleValues.ROLE_INTERVENANT, RoleValues.ROLE_RENFORT],
   },
 ];

@@ -3,14 +3,11 @@
  * Do not make direct changes to the file.
  */
 
+
 /** OneOf type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
-type OneOf<T extends any[]> = T extends [infer Only]
-  ? Only
-  : T extends [infer A, infer B, ...infer Rest]
-    ? OneOf<[XOR<A, B>, ...Rest]>
-    : never;
+type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
 
 export interface paths {
   "/utilisateurs/{uid}/avis_ese": {
@@ -1247,7 +1244,7 @@ export interface components {
       type?: string;
       tauxHoraire?: components["schemas"]["TauxHoraire.html-ActiviteBeneficiaire.out"] | null;
     };
-    "ActiviteBeneficiaire.jsonld-ActiviteBeneficiaire.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "ActiviteBeneficiaire.jsonld-ActiviteBeneficiaire.out": components["schemas"]["HydraItemBaseSchema"] & ({
       nbEvenements?: number;
       nbHeures?: string;
       utilisateur?: components["schemas"]["Utilisateur.jsonld-ActiviteBeneficiaire.out"];
@@ -1262,7 +1259,7 @@ export interface components {
        */
       type?: string;
       tauxHoraire?: components["schemas"]["TauxHoraire.jsonld-ActiviteBeneficiaire.out"] | null;
-    };
+    });
     "ActiviteBilanFinancier.customcsv": {
       /**
        * Format: iri-reference
@@ -1321,7 +1318,7 @@ export interface components {
       type?: string;
       tauxHoraire?: components["schemas"]["TauxHoraire.html-ActiviteIntervenant.out"] | null;
     };
-    "ActiviteIntervenant.jsonld-ActiviteIntervenant.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "ActiviteIntervenant.jsonld-ActiviteIntervenant.out": components["schemas"]["HydraItemBaseSchema"] & ({
       nbEvenements?: number;
       nbHeures?: string;
       utilisateur?: components["schemas"]["Utilisateur.jsonld-ActiviteIntervenant.out"];
@@ -1336,15 +1333,15 @@ export interface components {
        */
       type?: string;
       tauxHoraire?: components["schemas"]["TauxHoraire.jsonld-ActiviteIntervenant.out"] | null;
-    };
+    });
     "Amenagement-amenagement.in": {
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      typeAmenagement: string | null;
-      semestre1?: boolean | null;
-      semestre2?: boolean | null;
+      typeAmenagement: string;
+      semestre1?: boolean;
+      semestre2?: boolean;
       /** Format: date-time */
       debut?: string | null;
       /** Format: date-time */
@@ -1361,9 +1358,9 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      typeAmenagement?: string | null;
-      semestre1?: boolean | null;
-      semestre2?: boolean | null;
+      typeAmenagement?: string;
+      semestre1?: boolean;
+      semestre2?: boolean;
       /** Format: date-time */
       debut?: string | null;
       /** Format: date-time */
@@ -1381,9 +1378,9 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      typeAmenagement: string | null;
-      semestre1?: boolean | null;
-      semestre2?: boolean | null;
+      typeAmenagement: string;
+      semestre1?: boolean;
+      semestre2?: boolean;
       /** Format: date-time */
       debut?: string | null;
       /** Format: date-time */
@@ -1397,20 +1394,18 @@ export interface components {
     };
     "Amenagement.html-amenagements_utilisateurs.out": {
       id?: number | null;
-      typeAmenagement:
-        | components["schemas"]["TypeAmenagement.html-amenagements_utilisateurs.out"]
-        | null;
+      typeAmenagement: components["schemas"]["TypeAmenagement.html-amenagements_utilisateurs.out"];
       commentaire?: string | null;
     };
-    "Amenagement.jsonld-amenagement.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Amenagement.jsonld-amenagement.out": components["schemas"]["HydraItemBaseSchema"] & ({
       beneficiaire?: components["schemas"]["Utilisateur.jsonld-amenagement.out"];
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      typeAmenagement: string | null;
-      semestre1?: boolean | null;
-      semestre2?: boolean | null;
+      typeAmenagement: string;
+      semestre1?: boolean;
+      semestre2?: boolean;
       /** Format: date-time */
       debut?: string | null;
       /** Format: date-time */
@@ -1421,19 +1416,17 @@ export interface components {
        * @example https://example.com/
        */
       suivi?: string | null;
-    };
-    "Amenagement.jsonld-amenagements_utilisateurs.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "Amenagement.jsonld-amenagements_utilisateurs.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      typeAmenagement:
-        | components["schemas"]["TypeAmenagement.jsonld-amenagements_utilisateurs.out"]
-        | null;
+      typeAmenagement: components["schemas"]["TypeAmenagement.jsonld-amenagements_utilisateurs.out"];
       commentaire?: string | null;
-    };
+    });
     "AvisEse-avis_ese.in": {
-      libelle?: string | null;
+      libelle?: string;
       commentaire?: string | null;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
       /**
@@ -1443,10 +1436,10 @@ export interface components {
       fichier?: string | null;
     };
     "AvisEse-avis_ese.in.jsonMergePatch": {
-      libelle?: string | null;
+      libelle?: string;
       commentaire?: string | null;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
       /**
@@ -1457,10 +1450,10 @@ export interface components {
     };
     "AvisEse.html-avis_ese.out": {
       id?: number | null;
-      libelle?: string | null;
+      libelle?: string;
       commentaire?: string | null;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
       /**
@@ -1469,12 +1462,12 @@ export interface components {
        */
       fichier?: string | null;
     };
-    "AvisEse.jsonld-avis_ese.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "AvisEse.jsonld-avis_ese.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
+      libelle?: string;
       commentaire?: string | null;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
       /**
@@ -1482,24 +1475,23 @@ export interface components {
        * @example https://example.com/
        */
       fichier?: string | null;
-    };
+    });
     "BeneficiaireProfil-beneficiaires_profils.in": {
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      profil?: string | null;
+      profil?: string;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
       fin?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      gestionnaire: string | null;
+      gestionnaire: string;
       typologies?: string[];
-      /** @default true */
       avecAccompagnement?: boolean;
     };
     "BeneficiaireProfil-beneficiaires_profils.in.jsonMergePatch": {
@@ -1507,18 +1499,17 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      profil?: string | null;
+      profil?: string;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      gestionnaire?: string | null;
+      gestionnaire?: string;
       typologies?: string[];
-      /** @default true */
       avecAccompagnement?: boolean;
     };
     "BeneficiaireProfil.html-beneficiaires_profils.out": {
@@ -1527,45 +1518,43 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      profil?: string | null;
+      profil?: string;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      gestionnaire?: string | null;
+      gestionnaire?: string;
       typologies?: string[];
-      /** @default true */
       avecAccompagnement?: boolean;
     };
-    "BeneficiaireProfil.jsonld-beneficiaires_profils.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "BeneficiaireProfil.jsonld-beneficiaires_profils.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      profil?: string | null;
+      profil?: string;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      gestionnaire?: string | null;
+      gestionnaire?: string;
       typologies?: string[];
-      /** @default true */
       avecAccompagnement?: boolean;
-    };
+    });
     "BilanActivite-bilan-activite.in": {
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       gestionnaires?: string[];
       profils?: string[];
       composantes?: string[];
@@ -1577,13 +1566,13 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      demandeur?: string | null;
+      demandeur?: string;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
-      dateDemande?: string | null;
+      dateDemande?: string;
       /** Format: date-time */
       dateGeneration?: string | null;
       /**
@@ -1596,19 +1585,19 @@ export interface components {
       composantes?: string[];
       formations?: string[];
     };
-    "BilanActivite.jsonld-bilan-activite.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "BilanActivite.jsonld-bilan-activite.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      demandeur?: string | null;
+      demandeur?: string;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
-      dateDemande?: string | null;
+      dateDemande?: string;
       /** Format: date-time */
       dateGeneration?: string | null;
       /**
@@ -1620,7 +1609,7 @@ export interface components {
       profils?: string[];
       composantes?: string[];
       formations?: string[];
-    };
+    });
     "BilanFinancier.customcsv": {
       /** Format: date-time */
       debut?: string;
@@ -1638,11 +1627,11 @@ export interface components {
       periodes?: string[];
     };
     "CampagneDemande-campagne.in": {
-      libelle?: string | null;
+      libelle?: string;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
-      fin?: string | null;
+      fin?: string;
       /** Format: date-time */
       dateCommission?: string | null;
       /** Format: date-time */
@@ -1655,11 +1644,11 @@ export interface components {
       anneeCible?: number | null;
     };
     "CampagneDemande-campagne.in.jsonMergePatch": {
-      libelle?: string | null;
+      libelle?: string;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
-      fin?: string | null;
+      fin?: string;
       /** Format: date-time */
       dateCommission?: string | null;
       /** Format: date-time */
@@ -1673,11 +1662,11 @@ export interface components {
     };
     "CampagneDemande.html-campagne.out": {
       id?: number | null;
-      libelle?: string | null;
+      libelle?: string;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
-      fin?: string | null;
+      fin?: string;
       /** Format: date-time */
       dateCommission?: string | null;
       /** Format: date-time */
@@ -1689,13 +1678,13 @@ export interface components {
       commission?: string | null;
       anneeCible?: number | null;
     };
-    "CampagneDemande.jsonld-campagne.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "CampagneDemande.jsonld-campagne.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
+      libelle?: string;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
-      fin?: string | null;
+      fin?: string;
       /** Format: date-time */
       dateCommission?: string | null;
       /** Format: date-time */
@@ -1706,61 +1695,61 @@ export interface components {
        */
       commission?: string | null;
       anneeCible?: number | null;
-    };
+    });
     "Campus-campus.in": {
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
     "Campus-campus.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "Campus.html-campus.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
-    "Campus.jsonld-campus.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Campus.jsonld-campus.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+    });
     "CategorieAmenagement-categorie_amenagement.in": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "CategorieAmenagement-categorie_amenagement.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "CategorieAmenagement.html": {
       id?: number | null;
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
-    "CategorieAmenagement.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+    "CategorieAmenagement.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-      actif?: boolean | null;
-    };
+      libelle?: string;
+      actif?: boolean;
+    });
     "CategorieTag-categorie_tag.in": {
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
     "CategorieTag-categorie_tag.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "CategorieTag.html-categorie_tag.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
-    "CategorieTag.jsonld-categorie_tag.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "CategorieTag.jsonld-categorie_tag.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+    });
     Charte: {
       libelle?: string;
       contenu?: string;
@@ -1786,89 +1775,89 @@ export interface components {
       dateValidation?: string | null;
     };
     "CharteUtilisateur.html": {
-      libelle?: string | null;
-      contenu?: string | null;
+      libelle?: string;
+      contenu?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      demande?: string | null;
+      demande?: string;
       /** Format: date-time */
       dateValidation?: string | null;
     };
-    "CharteUtilisateur.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
-      libelle?: string | null;
-      contenu?: string | null;
+    "CharteUtilisateur.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
+      libelle?: string;
+      contenu?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      demande?: string | null;
+      demande?: string;
       /** Format: date-time */
       dateValidation?: string | null;
-    };
+    });
     "ClubSportif-club_sportif.in": {
-      libelle: string | null;
-      actif?: boolean | null;
-      centreFormation?: boolean | null;
-      professionnel?: boolean | null;
+      libelle: string;
+      actif?: boolean;
+      centreFormation?: boolean;
+      professionnel?: boolean;
     };
     "ClubSportif-club_sportif.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
-      centreFormation?: boolean | null;
-      professionnel?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
+      centreFormation?: boolean;
+      professionnel?: boolean;
     };
     "ClubSportif.html-club_sportif.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-      centreFormation?: boolean | null;
-      professionnel?: boolean | null;
+      libelle: string;
+      actif?: boolean;
+      centreFormation?: boolean;
+      professionnel?: boolean;
     };
-    "ClubSportif.jsonld-club_sportif.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "ClubSportif.jsonld-club_sportif.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-      centreFormation?: boolean | null;
-      professionnel?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+      centreFormation?: boolean;
+      professionnel?: boolean;
+    });
     "Commission-commission.in": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "Commission-commission.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "Commission.html-commission.out": {
       id?: number | null;
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
-    "Commission.jsonld-commission.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Commission.jsonld-commission.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-      actif?: boolean | null;
-    };
+      libelle?: string;
+      actif?: boolean;
+    });
     "Competence-competence.in": {
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
     "Competence-competence.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "Competence.html-competence.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
-    "Competence.jsonld-competence.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Competence.jsonld-competence.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+    });
     "Composante-composante.in.jsonMergePatch": {
       referents?: string[];
     };
@@ -1899,48 +1888,48 @@ export interface components {
       /** @default 422 */
       status?: number;
       violations?: {
-        /** @description The property path of the violation */
-        propertyPath: string;
-        /** @description The message associated with the violation */
-        message: string;
-        /** @description The code of the violation */
-        code?: string;
-        /** @description An extra hint to understand the violation */
-        hint?: string;
-        /** @description The serialized payload of the violation */
-        payload?: {
-          [key: string]: unknown;
-        };
-      }[];
+          /** @description The property path of the violation */
+          propertyPath: string;
+          /** @description The message associated with the violation */
+          message: string;
+          /** @description The code of the violation */
+          code?: string;
+          /** @description An extra hint to understand the violation */
+          hint?: string;
+          /** @description The serialized payload of the violation */
+          payload?: {
+            [key: string]: unknown;
+          };
+        }[];
       detail?: string;
       type?: string;
       title?: string | null;
       instance?: string | null;
     };
     /** @description Unprocessable entity */
-    "ConstraintViolation.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+    "ConstraintViolation.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
       /** @default 422 */
       status?: number;
       violations?: {
-        /** @description The property path of the violation */
-        propertyPath: string;
-        /** @description The message associated with the violation */
-        message: string;
-        /** @description The code of the violation */
-        code?: string;
-        /** @description An extra hint to understand the violation */
-        hint?: string;
-        /** @description The serialized payload of the violation */
-        payload?: {
-          [key: string]: unknown;
-        };
-      }[];
+          /** @description The property path of the violation */
+          propertyPath: string;
+          /** @description The message associated with the violation */
+          message: string;
+          /** @description The code of the violation */
+          code?: string;
+          /** @description An extra hint to understand the violation */
+          hint?: string;
+          /** @description The serialized payload of the violation */
+          payload?: {
+            [key: string]: unknown;
+          };
+        }[];
       detail?: string;
       description?: string;
       type?: string;
       title?: string | null;
       instance?: string | null;
-    };
+    });
     "DecisionAmenagementExamens-decision.in.jsonMergePatch": {
       etat?: string;
     };
@@ -1951,10 +1940,10 @@ export interface components {
     "DecisionAmenagementExamens.html-utilisateur.out": {
       etat?: string;
     };
-    "DecisionAmenagementExamens.jsonld-decision.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "DecisionAmenagementExamens.jsonld-decision.out": components["schemas"]["HydraItemBaseSchema"] & ({
       etat?: string;
       urlContenu?: string | null;
-    };
+    });
     "DecisionAmenagementExamens.jsonld-utilisateur.out": components["schemas"]["HydraItemBaseSchema"] & {
       etat?: string;
     };
@@ -1972,14 +1961,14 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      typeDemande: string | null;
+      typeDemande: string;
     };
     "Demande-demande.modif.jsonMergePatch": {
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      etat?: string | null;
+      etat?: string;
       commentaireChangementEtat?: string | null;
       /**
        * Format: iri-reference
@@ -1995,12 +1984,12 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      campagne?: string | null;
+      campagne?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      typeDemande: string | null;
+      typeDemande: string;
       idCommission?: number | null;
       /** Format: date-time */
       dateDepot?: string | null;
@@ -2008,7 +1997,7 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      etat?: string | null;
+      etat?: string;
       etapes?: components["schemas"]["EtapeDemandeEtudiant.html-demande.out"][];
       /** @default false */
       complete?: boolean;
@@ -2019,19 +2008,19 @@ export interface components {
       profilAttribue?: string | null;
       commentaire?: string | null;
     };
-    "Demande.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Demande.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       demandeur: components["schemas"]["Utilisateur.jsonld-demande.out"] | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      campagne?: string | null;
+      campagne?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      typeDemande: string | null;
+      typeDemande: string;
       idCommission?: number | null;
       /** Format: date-time */
       dateDepot?: string | null;
@@ -2039,7 +2028,7 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      etat?: string | null;
+      etat?: string;
       etapes?: components["schemas"]["EtapeDemandeEtudiant.jsonld-demande.out"][];
       /** @default false */
       complete?: boolean;
@@ -2049,47 +2038,47 @@ export interface components {
        */
       profilAttribue?: string | null;
       commentaire?: string | null;
-    };
+    });
     "DisciplineArtistique-disciplines_artistiques.in": {
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
     "DisciplineArtistique-disciplines_artistiques.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "DisciplineArtistique.html-disciplines_artistiques.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
-    "DisciplineArtistique.jsonld-disciplines_artistiques.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "DisciplineArtistique.jsonld-disciplines_artistiques.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+    });
     "DisciplineSportive-discipline_sportive.in": {
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
     "DisciplineSportive-discipline_sportive.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "DisciplineSportive.html-discipline_sportive.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
-    "DisciplineSportive.jsonld-discipline_sportive.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "DisciplineSportive.jsonld-discipline_sportive.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+    });
     "Entretien-entretien.in": {
       commentaire?: string | null;
       /** Format: date-time */
-      date?: string | null;
+      date?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2099,7 +2088,7 @@ export interface components {
     "Entretien-entretien.in.jsonMergePatch": {
       commentaire?: string | null;
       /** Format: date-time */
-      date?: string | null;
+      date?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2110,7 +2099,7 @@ export interface components {
       id?: number | null;
       commentaire?: string | null;
       /** Format: date-time */
-      date?: string | null;
+      date?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2120,13 +2109,13 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      gestionnaire?: string | null;
+      gestionnaire?: string;
     };
-    "Entretien.jsonld-entretien.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Entretien.jsonld-entretien.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       commentaire?: string | null;
       /** Format: date-time */
-      date?: string | null;
+      date?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2136,8 +2125,8 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      gestionnaire?: string | null;
-    };
+      gestionnaire?: string;
+    });
     /** @description A representation of common errors. */
     Error: {
       /** @description A short, human-readable summary of the problem. */
@@ -2152,7 +2141,7 @@ export interface components {
       type?: string;
     };
     /** @description A representation of common errors. */
-    "Error.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+    "Error.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
       /** @description A short, human-readable summary of the problem. */
       title?: string | null;
       /** @description A human-readable explanation specific to this occurrence of the problem. */
@@ -2164,53 +2153,49 @@ export interface components {
       /** @description A URI reference that identifies the problem type */
       type?: string;
       description?: string | null;
-    };
+    });
     "EtablissementEnseignementArtistique-etablissements_enseignement_artistique.in": {
       libelle: string;
-      /** @default true */
       actif?: boolean;
     };
     "EtablissementEnseignementArtistique-etablissements_enseignement_artistique.in.jsonMergePatch": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
     };
     "EtablissementEnseignementArtistique.html-etablissements_enseignement_artistique.out": {
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
     };
-    "EtablissementEnseignementArtistique.jsonld-etablissements_enseignement_artistique.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "EtablissementEnseignementArtistique.jsonld-etablissements_enseignement_artistique.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
-    };
+    });
     "EtapeDemande.html-etape_demande.out": {
       id?: number | null;
-      libelle?: string | null;
-      ordre?: number | null;
+      libelle?: string;
+      ordre?: number;
       questions?: string[];
     };
     "EtapeDemande.html-type_demande.out": {
       id?: number | null;
-      libelle?: string | null;
-      ordre?: number | null;
+      libelle?: string;
+      ordre?: number;
       questions?: string[];
     };
-    "EtapeDemande.jsonld-etape_demande.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "EtapeDemande.jsonld-etape_demande.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-      ordre?: number | null;
+      libelle?: string;
+      ordre?: number;
       questions?: string[];
-    };
-    "EtapeDemande.jsonld-type_demande.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "EtapeDemande.jsonld-type_demande.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-      ordre?: number | null;
+      libelle?: string;
+      ordre?: number;
       questions?: string[];
-    };
+    });
     "EtapeDemandeEtudiant.html-demande.out": {
       id?: number;
       libelle?: string;
@@ -2229,17 +2214,17 @@ export interface components {
       id?: number | null;
       libelle?: string;
     };
-    "EtatDemande.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+    "EtatDemande.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle?: string;
-    };
+    });
     "Evenement-evenement.in": {
       libelle?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      type: string | null;
+      type: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
@@ -2249,16 +2234,16 @@ export interface components {
       suppleants?: string[];
       enseignants?: string[];
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
-      tempsPreparation?: number | null;
-      tempsSupplementaire?: number | null;
+      fin: string;
+      tempsPreparation?: number;
+      tempsSupplementaire?: number;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      campus: string | null;
+      campus: string;
       salle?: string | null;
       equipements?: string[];
       /** Format: date-time */
@@ -2271,7 +2256,7 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      type?: string | null;
+      type?: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
@@ -2281,16 +2266,16 @@ export interface components {
       suppleants?: string[];
       enseignants?: string[];
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
-      fin?: string | null;
-      tempsPreparation?: number | null;
-      tempsSupplementaire?: number | null;
+      fin?: string;
+      tempsPreparation?: number;
+      tempsSupplementaire?: number;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      campus?: string | null;
+      campus?: string;
       salle?: string | null;
       equipements?: string[];
       /** Format: date-time */
@@ -2304,7 +2289,7 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      type: string | null;
+      type: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
@@ -2314,16 +2299,16 @@ export interface components {
       suppleants?: string[];
       enseignants?: string[];
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
-      tempsPreparation?: number | null;
-      tempsSupplementaire?: number | null;
+      fin: string;
+      tempsPreparation?: number;
+      tempsSupplementaire?: number;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      campus: string | null;
+      campus: string;
       salle?: string | null;
       equipements?: string[];
       /** Format: date-time */
@@ -2331,7 +2316,7 @@ export interface components {
       /** Format: date-time */
       dateEnvoiRH?: string | null;
       /** Format: date-time */
-      dateCreation?: string | null;
+      dateCreation?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2348,14 +2333,14 @@ export interface components {
       /** Format: date-time */
       dateValidation?: string | null;
     };
-    "Evenement.jsonld-evenement.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Evenement.jsonld-evenement.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      type: string | null;
+      type: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
@@ -2365,16 +2350,16 @@ export interface components {
       suppleants?: string[];
       enseignants?: string[];
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
-      tempsPreparation?: number | null;
-      tempsSupplementaire?: number | null;
+      fin: string;
+      tempsPreparation?: number;
+      tempsSupplementaire?: number;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      campus: string | null;
+      campus: string;
       salle?: string | null;
       equipements?: string[];
       /** Format: date-time */
@@ -2382,7 +2367,7 @@ export interface components {
       /** Format: date-time */
       dateEnvoiRH?: string | null;
       /** Format: date-time */
-      dateCreation?: string | null;
+      dateCreation?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2398,7 +2383,7 @@ export interface components {
       valide?: boolean | null;
       /** Format: date-time */
       dateValidation?: string | null;
-    };
+    });
     "Formation.html": {
       id?: number;
       /**
@@ -2440,7 +2425,7 @@ export interface components {
       discipline?: string | null;
       diplome?: string | null;
     };
-    "Formation.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+    "Formation.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number;
       /**
        * Format: iri-reference
@@ -2452,7 +2437,7 @@ export interface components {
       niveau?: string | null;
       discipline?: string | null;
       diplome?: string | null;
-    };
+    });
     "Formation.jsonld-amenagement.out": components["schemas"]["HydraItemBaseSchema"] & {
       composante?: components["schemas"]["Composante.jsonld-amenagement.out"];
       libelle?: string;
@@ -2469,7 +2454,7 @@ export interface components {
       composante?: string;
       libelle?: string;
     };
-    "Formation.jsonld-utilisateur.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Formation.jsonld-utilisateur.out": components["schemas"]["HydraItemBaseSchema"] & ({
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2480,7 +2465,7 @@ export interface components {
       niveau?: string | null;
       discipline?: string | null;
       diplome?: string | null;
-    };
+    });
     HydraCollectionBaseSchema: components["schemas"]["HydraCollectionBaseSchemaNoPagination"] & {
       /**
        * @example {
@@ -2512,26 +2497,21 @@ export interface components {
         "@type"?: string;
         "hydra:template"?: string;
         "hydra:variableRepresentation"?: string;
-        "hydra:mapping"?: {
-          "@type"?: string;
-          variable?: string;
-          property?: string | null;
-          required?: boolean;
-        }[];
+        "hydra:mapping"?: ({
+            "@type"?: string;
+            variable?: string;
+            property?: string | null;
+            required?: boolean;
+          })[];
       };
     };
     HydraItemBaseSchema: {
-      "@context"?: OneOf<
-        [
-          string,
-          {
-            "@vocab": string;
-            /** @enum {string} */
-            hydra: "http://www.w3.org/ns/hydra/core#";
-            [key: string]: unknown;
-          },
-        ]
-      >;
+      "@context"?: OneOf<[string, {
+        "@vocab": string;
+        /** @enum {string} */
+        hydra: "http://www.w3.org/ns/hydra/core#";
+        [key: string]: unknown;
+      }]>;
       "@id": string;
       "@type": string;
     };
@@ -2606,38 +2586,38 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      intervenant: string | null;
+      intervenant: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      periode: string | null;
+      periode: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      type: string | null;
-      heures: string | null;
+      type: string;
+      heures: string;
     };
     "InterventionForfait-forfait.in.jsonMergePatch": {
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      intervenant?: string | null;
+      intervenant?: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      periode?: string | null;
+      periode?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      type?: string | null;
-      heures?: string | null;
+      type?: string;
+      heures?: string;
     };
     "InterventionForfait.html-forfait.out": {
       id?: number | null;
@@ -2645,26 +2625,26 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      intervenant: string | null;
+      intervenant: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      periode: string | null;
+      periode: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      type: string | null;
-      heures: string | null;
+      type: string;
+      heures: string;
       /** Format: date-time */
-      dateCreation?: string | null;
+      dateCreation?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      utilisateurCreation?: string | null;
+      utilisateurCreation?: string;
       /** Format: date-time */
       dateModification?: string | null;
       /**
@@ -2673,32 +2653,32 @@ export interface components {
        */
       utilisateurModification?: string | null;
     };
-    "InterventionForfait.jsonld-forfait.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "InterventionForfait.jsonld-forfait.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      intervenant: string | null;
+      intervenant: string;
       beneficiaires?: string[];
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      periode: string | null;
+      periode: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      type: string | null;
-      heures: string | null;
+      type: string;
+      heures: string;
       /** Format: date-time */
-      dateCreation?: string | null;
+      dateCreation?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      utilisateurCreation?: string | null;
+      utilisateurCreation?: string;
       /** Format: date-time */
       dateModification?: string | null;
       /**
@@ -2706,7 +2686,7 @@ export interface components {
        * @example https://example.com/
        */
       utilisateurModification?: string | null;
-    };
+    });
     "LigneServiceFait.customcsv-services_faits.out": {
       /**
        * Format: iri-reference
@@ -2784,12 +2764,12 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      utilisateur?: string | null;
+      utilisateur?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      commission?: string | null;
+      commission?: string;
       roles?: string[];
     };
     "MembreCommission.jsonld-membre_commission.out": components["schemas"]["HydraItemBaseSchema"] & {
@@ -2797,12 +2777,12 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      utilisateur?: string | null;
+      utilisateur?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      commission?: string | null;
+      commission?: string;
       roles?: string[];
     };
     "ModificationEtatDemande.html": {
@@ -2810,52 +2790,22 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      demande?: string | null;
+      demande?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      etat?: string | null;
+      etat?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      etatPrecedent?: string | null;
+      etatPrecedent?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      utilisateurModification?: string | null;
-      /**
-       * Format: iri-reference
-       * @example https://example.com/
-       */
-      profil?: string | null;
-      commentaire?: string | null;
-      /** Format: date-time */
-      dateModification?: string | null;
-    };
-    "ModificationEtatDemande.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
-      /**
-       * Format: iri-reference
-       * @example https://example.com/
-       */
-      demande?: string | null;
-      /**
-       * Format: iri-reference
-       * @example https://example.com/
-       */
-      etat?: string | null;
-      /**
-       * Format: iri-reference
-       * @example https://example.com/
-       */
-      etatPrecedent?: string | null;
-      /**
-       * Format: iri-reference
-       * @example https://example.com/
-       */
-      utilisateurModification?: string | null;
+      utilisateurModification?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
@@ -2865,79 +2815,109 @@ export interface components {
       /** Format: date-time */
       dateModification?: string | null;
     };
+    "ModificationEtatDemande.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
+      /**
+       * Format: iri-reference
+       * @example https://example.com/
+       */
+      demande?: string;
+      /**
+       * Format: iri-reference
+       * @example https://example.com/
+       */
+      etat?: string;
+      /**
+       * Format: iri-reference
+       * @example https://example.com/
+       */
+      etatPrecedent?: string;
+      /**
+       * Format: iri-reference
+       * @example https://example.com/
+       */
+      utilisateurModification?: string;
+      /**
+       * Format: iri-reference
+       * @example https://example.com/
+       */
+      profil?: string | null;
+      commentaire?: string | null;
+      /** Format: date-time */
+      dateModification?: string | null;
+    });
     "OptionReponse.html-demande.out": {
       id?: number | null;
-      libelle?: string | null;
+      libelle?: string;
     };
     "OptionReponse.html-question.out": {
       id?: number | null;
-      libelle?: string | null;
-      questionsLiees?: (string | null)[] | null;
+      libelle?: string;
+      questionsLiees?: (string | null)[];
     };
     "OptionReponse.html-reponse.out": {
       id?: number | null;
-      libelle?: string | null;
-      questionsLiees?: (string | null)[] | null;
+      libelle?: string;
+      questionsLiees?: (string | null)[];
     };
-    "OptionReponse.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "OptionReponse.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-    };
-    "OptionReponse.jsonld-question.out": components["schemas"]["HydraItemBaseSchema"] & {
+      libelle?: string;
+    });
+    "OptionReponse.jsonld-question.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-      questionsLiees?: (string | null)[] | null;
-    };
-    "OptionReponse.jsonld-reponse.out": components["schemas"]["HydraItemBaseSchema"] & {
+      libelle?: string;
+      questionsLiees?: (string | null)[];
+    });
+    "OptionReponse.jsonld-reponse.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-      questionsLiees?: (string | null)[] | null;
-    };
+      libelle?: string;
+      questionsLiees?: (string | null)[];
+    });
     "Parametre.html-param.out": {
-      cle?: string | null;
+      cle?: string;
       fichier?: boolean | null;
       valeurs?: string[];
       valeursCourantes?: components["schemas"]["ValeurParametre.html-param.out"][];
     };
-    "Parametre.jsonld-param.out": components["schemas"]["HydraItemBaseSchema"] & {
-      cle?: string | null;
+    "Parametre.jsonld-param.out": components["schemas"]["HydraItemBaseSchema"] & ({
+      cle?: string;
       fichier?: boolean | null;
       valeurs?: string[];
       valeursCourantes?: components["schemas"]["ValeurParametre.jsonld-param.out"][];
-    };
+    });
     ParametreUI: {
-      valeur?: string | null;
+      valeur?: string;
     };
     "ParametreUI.html": {
-      valeur?: string | null;
+      valeur?: string;
     };
     "ParametreUI.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
-      valeur?: string | null;
+      valeur?: string;
     };
     "PeriodeRH-periode.in": {
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
-      butoir: string | null;
-      envoyee?: boolean | null;
+      butoir: string;
+      envoyee?: boolean;
     };
     "PeriodeRH-periode.in.jsonMergePatch": {
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
-      fin?: string | null;
+      fin?: string;
       /** Format: date-time */
-      butoir?: string | null;
-      envoyee?: boolean | null;
+      butoir?: string;
+      envoyee?: boolean;
     };
     "PeriodeRH.customcsv-services_faits.out": {
       id?: number | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
       dateEnvoi?: string | null;
       /**
@@ -2949,12 +2929,12 @@ export interface components {
     "PeriodeRH.html-periode.out": {
       id?: number | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
-      butoir: string | null;
-      envoyee?: boolean | null;
+      butoir: string;
+      envoyee?: boolean;
       /** Format: date-time */
       dateEnvoi?: string | null;
       /**
@@ -2966,9 +2946,9 @@ export interface components {
     "PeriodeRH.html-services_faits.out": {
       id?: number | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
       dateEnvoi?: string | null;
       /**
@@ -2977,15 +2957,15 @@ export interface components {
        */
       utilisateurEnvoi?: string | null;
     };
-    "PeriodeRH.jsonld-periode.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "PeriodeRH.jsonld-periode.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
-      butoir: string | null;
-      envoyee?: boolean | null;
+      butoir: string;
+      envoyee?: boolean;
       /** Format: date-time */
       dateEnvoi?: string | null;
       /**
@@ -2993,13 +2973,13 @@ export interface components {
        * @example https://example.com/
        */
       utilisateurEnvoi?: string | null;
-    };
-    "PeriodeRH.jsonld-services_faits.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "PeriodeRH.jsonld-services_faits.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
       dateEnvoi?: string | null;
       /**
@@ -3007,13 +2987,13 @@ export interface components {
        * @example https://example.com/
        */
       utilisateurEnvoi?: string | null;
-    };
+    });
     "PeriodeRH.pdf-services_faits.out": {
       id?: number | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
-      fin: string | null;
+      fin: string;
       /** Format: date-time */
       dateEnvoi?: string | null;
       /**
@@ -3027,93 +3007,85 @@ export interface components {
       data?: string;
     };
     "PieceJointeBeneficiaire-piece_beneficiaire.in": {
-      libelle?: string | null;
+      libelle?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      fichier?: string | null;
+      fichier?: string;
     };
     "PieceJointeBeneficiaire.html-piece_beneficiaire.out": {
-      libelle?: string | null;
+      libelle?: string;
       /** Format: date-time */
       dateDepot?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      utilisateurCreation?: string | null;
+      utilisateurCreation?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      fichier?: string | null;
+      fichier?: string;
     };
-    "PieceJointeBeneficiaire.jsonld-piece_beneficiaire.out": components["schemas"]["HydraItemBaseSchema"] & {
-      libelle?: string | null;
+    "PieceJointeBeneficiaire.jsonld-piece_beneficiaire.out": components["schemas"]["HydraItemBaseSchema"] & ({
+      libelle?: string;
       /** Format: date-time */
       dateDepot?: string | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      utilisateurCreation?: string | null;
+      utilisateurCreation?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      fichier?: string | null;
-    };
+      fichier?: string;
+    });
     "ProfilBeneficiaire-profil.in": {
       libelle: string;
-      /** @default true */
       actif?: boolean;
-      /** @default false */
       avecTypologie?: boolean;
     };
     "ProfilBeneficiaire-profil.in.jsonMergePatch": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
-      /** @default false */
       avecTypologie?: boolean;
     };
     "ProfilBeneficiaire.html-profil.out": {
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
-      /** @default false */
       avecTypologie?: boolean;
     };
-    "ProfilBeneficiaire.jsonld-profil.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "ProfilBeneficiaire.jsonld-profil.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
-      /** @default false */
       avecTypologie?: boolean;
-    };
+    });
     "Question.html-question.out": {
       id?: number | null;
-      libelle?: string | null;
+      libelle?: string;
       aide?: string | null;
-      typeReponse?: string | null;
-      obligatoire?: boolean | null;
-      choixMultiple?: boolean | null;
+      typeReponse?: string;
+      obligatoire?: boolean;
+      choixMultiple?: boolean;
       optionsReponses?: components["schemas"]["OptionReponse.html-question.out"][];
       tableOptions?: string | null;
     };
-    "Question.jsonld-question.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Question.jsonld-question.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
+      libelle?: string;
       aide?: string | null;
-      typeReponse?: string | null;
-      obligatoire?: boolean | null;
-      choixMultiple?: boolean | null;
+      typeReponse?: string;
+      obligatoire?: boolean;
+      choixMultiple?: boolean;
       optionsReponses?: components["schemas"]["OptionReponse.jsonld-question.out"][];
       tableOptions?: string | null;
-    };
+    });
     "QuestionDemande.html-demande.out": {
       id?: number | null;
       libelle?: string;
@@ -3124,7 +3096,7 @@ export interface components {
       reponse?: components["schemas"]["ReponseDemande.html-demande.out"] | null;
       question?: string;
     };
-    "QuestionDemande.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "QuestionDemande.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle?: string;
       aide?: string | null;
@@ -3133,7 +3105,7 @@ export interface components {
       choixMultiple?: boolean;
       reponse?: components["schemas"]["ReponseDemande.jsonld-demande.out"] | null;
       question?: string;
-    };
+    });
     "Reponse-reponse.in": {
       optionsChoisies?: string[];
       commentaire?: string | null;
@@ -3144,73 +3116,73 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      repondant?: string | null;
+      repondant?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      demande?: string | null;
+      demande?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      question?: string | null;
+      question?: string;
       optionsChoisies?: components["schemas"]["OptionReponse.html-reponse.out"][];
       commentaire?: string | null;
       piecesJustificatives?: string[];
       /** Format: date-time */
       dateModification?: string | null;
     };
-    "Reponse.jsonld-reponse.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Reponse.jsonld-reponse.out": components["schemas"]["HydraItemBaseSchema"] & ({
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      repondant?: string | null;
+      repondant?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      demande?: string | null;
+      demande?: string;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      question?: string | null;
+      question?: string;
       optionsChoisies?: components["schemas"]["OptionReponse.jsonld-reponse.out"][];
       commentaire?: string | null;
       piecesJustificatives?: string[];
       /** Format: date-time */
       dateModification?: string | null;
-    };
+    });
     "ReponseDemande.html-demande.out": {
       commentaire?: string | null;
       optionsReponses?: components["schemas"]["OptionReponse.html-demande.out"][];
       piecesJustificatives?: string[];
     };
-    "ReponseDemande.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "ReponseDemande.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & ({
       commentaire?: string | null;
       optionsReponses?: components["schemas"]["OptionReponse.jsonld-demande.out"][];
       piecesJustificatives?: string[];
-    };
+    });
     "Service-service.in": {
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
     "Service-service.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "Service.html-service.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
-    "Service.jsonld-service.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Service.jsonld-service.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+    });
     "ServicesFaits.customcsv-services_faits.out": {
       id?: number;
       periode?: components["schemas"]["PeriodeRH.customcsv-services_faits.out"];
@@ -3252,12 +3224,12 @@ export interface components {
       prenom?: string | null;
       anneeNaissance?: number | null;
     };
-    "SportifHautNiveau.jsonld-sportif_haut_niveau.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "SportifHautNiveau.jsonld-sportif_haut_niveau.out": components["schemas"]["HydraItemBaseSchema"] & ({
       identifiantExterne?: string;
       nom?: string | null;
       prenom?: string | null;
       anneeNaissance?: number | null;
-    };
+    });
     "TableauDeBord.html": {
       /** @description nb total d'événements pour le jour courant */
       evenementsJour?: number;
@@ -3297,7 +3269,7 @@ export interface components {
       nbDecisionsAEditer?: number;
       nbAmenagementsEnCours?: number;
     };
-    "TableauDeBord.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+    "TableauDeBord.jsonld": components["schemas"]["HydraItemBaseSchema"] & ({
       /** @description nb total d'événements pour le jour courant */
       evenementsJour?: number;
       /** @description différence par rapport à la veille */
@@ -3335,10 +3307,9 @@ export interface components {
       nbDecisionsAttenteValidation?: number;
       nbDecisionsAEditer?: number;
       nbAmenagementsEnCours?: number;
-    };
+    });
     "Tag-tag.in": {
       libelle: string;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
@@ -3348,7 +3319,6 @@ export interface components {
     };
     "Tag-tag.in.jsonMergePatch": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
@@ -3359,7 +3329,6 @@ export interface components {
     "Tag.html-tag.out": {
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
@@ -3367,17 +3336,16 @@ export interface components {
        */
       categorie?: string;
     };
-    "Tag.jsonld-tag.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Tag.jsonld-tag.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
       categorie?: string;
-    };
+    });
     "TagUtilisateur-tag_utilisateur.in": {
       /**
        * Format: iri-reference
@@ -3392,13 +3360,13 @@ export interface components {
        */
       tag: string | null;
     };
-    "TagUtilisateur.jsonld-tag_utilisateur.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TagUtilisateur.jsonld-tag_utilisateur.out": components["schemas"]["HydraItemBaseSchema"] & ({
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
       tag: string | null;
-    };
+    });
     "TauxHoraire-taux.in": {
       montant: string;
       /** Format: date-time */
@@ -3437,26 +3405,26 @@ export interface components {
       /** Format: date-time */
       fin?: string | null;
     };
-    "TauxHoraire.jsonld-ActiviteBeneficiaire.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TauxHoraire.jsonld-ActiviteBeneficiaire.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       montant: string;
-    };
-    "TauxHoraire.jsonld-ActiviteIntervenant.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "TauxHoraire.jsonld-ActiviteIntervenant.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       montant: string;
-    };
-    "TauxHoraire.jsonld-services_faits.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "TauxHoraire.jsonld-services_faits.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       montant: string;
-    };
-    "TauxHoraire.jsonld-taux.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "TauxHoraire.jsonld-taux.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       montant: string;
       /** Format: date-time */
       debut?: string;
       /** Format: date-time */
       fin?: string | null;
-    };
+    });
     "TauxHoraire.pdf-services_faits.out": {
       id?: number | null;
       montant: string;
@@ -3466,48 +3434,46 @@ export interface components {
        * Format: iri-reference
        * @example https://example.com/
        */
-      proprietaire?: string | null;
-      nom?: string | null;
-      typeMime?: string | null;
-      urlContenu?: string | null;
+      proprietaire?: string;
+      nom?: string;
+      typeMime?: string;
+      urlContenu?: string;
     };
     "Telechargement.jsonld-telechargement.out": components["schemas"]["HydraItemBaseSchema"] & {
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
-      proprietaire?: string | null;
-      nom?: string | null;
-      typeMime?: string | null;
-      urlContenu?: string | null;
+      proprietaire?: string;
+      nom?: string;
+      typeMime?: string;
+      urlContenu?: string;
     };
     "TypeAmenagement-type_amenagement.in": {
       libelle: string;
       libelleLong?: string | null;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
       categorie: string;
-      pedagogique?: boolean | null;
-      examens?: boolean | null;
-      aideHumaine?: boolean | null;
+      pedagogique?: boolean;
+      examens?: boolean;
+      aideHumaine?: boolean;
     };
     "TypeAmenagement-type_amenagement.in.jsonMergePatch": {
       libelle?: string;
       libelleLong?: string | null;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
       categorie?: string;
-      pedagogique?: boolean | null;
-      examens?: boolean | null;
-      aideHumaine?: boolean | null;
+      pedagogique?: boolean;
+      examens?: boolean;
+      aideHumaine?: boolean;
     };
     "TypeAmenagement.html-amenagements_utilisateurs.out": {
       id?: number | null;
@@ -3521,58 +3487,56 @@ export interface components {
       id?: number | null;
       libelle: string;
       libelleLong?: string | null;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
       categorie: string;
-      pedagogique?: boolean | null;
-      examens?: boolean | null;
-      aideHumaine?: boolean | null;
+      pedagogique?: boolean;
+      examens?: boolean;
+      aideHumaine?: boolean;
     };
-    "TypeAmenagement.jsonld-amenagements_utilisateurs.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TypeAmenagement.jsonld-amenagements_utilisateurs.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
       categorie: string;
-    };
-    "TypeAmenagement.jsonld-type_amenagement.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "TypeAmenagement.jsonld-type_amenagement.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle: string;
       libelleLong?: string | null;
-      /** @default true */
       actif?: boolean;
       /**
        * Format: iri-reference
        * @example https://example.com/
        */
       categorie: string;
-      pedagogique?: boolean | null;
-      examens?: boolean | null;
-      aideHumaine?: boolean | null;
-    };
+      pedagogique?: boolean;
+      examens?: boolean;
+      aideHumaine?: boolean;
+    });
     "TypeDemande-type_demande.in": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
       profilsCibles?: string[];
-      visibiliteLimitee?: boolean | null;
-      accompagnementOptionnel?: boolean | null;
+      visibiliteLimitee?: boolean;
+      accompagnementOptionnel?: boolean;
     };
     "TypeDemande-type_demande.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
       profilsCibles?: string[];
-      visibiliteLimitee?: boolean | null;
-      accompagnementOptionnel?: boolean | null;
+      visibiliteLimitee?: boolean;
+      accompagnementOptionnel?: boolean;
     };
     "TypeDemande.html-type_demande.out": {
       id?: number | null;
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
       profilsCibles?: string[];
       /**
        * Format: iri-reference
@@ -3590,13 +3554,13 @@ export interface components {
        */
       campagneSuivante?: string | null;
       etapes?: components["schemas"]["EtapeDemande.html-type_demande.out"][];
-      visibiliteLimitee?: boolean | null;
-      accompagnementOptionnel?: boolean | null;
+      visibiliteLimitee?: boolean;
+      accompagnementOptionnel?: boolean;
     };
-    "TypeDemande.jsonld-type_demande.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TypeDemande.jsonld-type_demande.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
       profilsCibles?: string[];
       /**
        * Format: iri-reference
@@ -3614,82 +3578,70 @@ export interface components {
        */
       campagneSuivante?: string | null;
       etapes?: components["schemas"]["EtapeDemande.jsonld-type_demande.out"][];
-      visibiliteLimitee?: boolean | null;
-      accompagnementOptionnel?: boolean | null;
-    };
+      visibiliteLimitee?: boolean;
+      accompagnementOptionnel?: boolean;
+    });
     "TypeEngagement-types_engagements.in": {
       libelle: string;
-      /** @default true */
       actif?: boolean;
     };
     "TypeEngagement-types_engagements.in.jsonMergePatch": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
     };
     "TypeEngagement.html-types_engagements.out": {
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
     };
-    "TypeEngagement.jsonld-types_engagements.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TypeEngagement.jsonld-types_engagements.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle: string;
-      /** @default true */
+      actif?: boolean;
+    });
+    "TypeEquipement-type_equipement.in": {
+      libelle: string;
       actif?: boolean;
     };
-    "TypeEquipement-type_equipement.in": {
-      libelle: string | null;
-      actif?: boolean | null;
-    };
     "TypeEquipement-type_equipement.in.jsonMergePatch": {
-      libelle?: string | null;
-      actif?: boolean | null;
+      libelle?: string;
+      actif?: boolean;
     };
     "TypeEquipement.html-type_equipement.out": {
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
+      libelle: string;
+      actif?: boolean;
     };
-    "TypeEquipement.jsonld-type_equipement.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TypeEquipement.jsonld-type_equipement.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
-      libelle: string | null;
-      actif?: boolean | null;
-    };
+      libelle: string;
+      actif?: boolean;
+    });
     "TypeEvenement-typesEvenements.in": {
       libelle: string;
-      /** @default true */
       actif?: boolean;
       couleur?: string | null;
-      /** @default true */
       visibleParDefaut?: boolean;
       /** @default false */
       avecValidation?: boolean;
       tauxHoraires?: string[];
-      /** @default false */
       forfait?: boolean;
     };
     "TypeEvenement-typesEvenements.in.jsonMergePatch": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
       couleur?: string | null;
-      /** @default true */
       visibleParDefaut?: boolean;
       /** @default false */
       avecValidation?: boolean;
       tauxHoraires?: string[];
-      /** @default false */
       forfait?: boolean;
     };
     "TypeEvenement.html-typesEvenements.out": {
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
       couleur?: string | null;
-      /** @default true */
       visibleParDefaut?: boolean;
       /** @default false */
       avecValidation?: boolean;
@@ -3699,16 +3651,13 @@ export interface components {
        * @example https://example.com/
        */
       tauxActif?: string | null;
-      /** @default false */
       forfait?: boolean;
     };
-    "TypeEvenement.jsonld-typesEvenements.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TypeEvenement.jsonld-typesEvenements.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
       couleur?: string | null;
-      /** @default true */
       visibleParDefaut?: boolean;
       /** @default false */
       avecValidation?: boolean;
@@ -3718,59 +3667,50 @@ export interface components {
        * @example https://example.com/
        */
       tauxActif?: string | null;
-      /** @default false */
       forfait?: boolean;
-    };
+    });
     "TypeSuiviAmenagement-type_suivi_amenagement.in": {
       libelle: string;
-      /** @default true */
       actif?: boolean;
     };
     "TypeSuiviAmenagement-type_suivi_amenagement.in.jsonMergePatch": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
     };
     "TypeSuiviAmenagement.html-type_suivi_amenagement.out": {
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
     };
-    "TypeSuiviAmenagement.jsonld-type_suivi_amenagement.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TypeSuiviAmenagement.jsonld-type_suivi_amenagement.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle: string;
-      /** @default true */
       actif?: boolean;
-    };
+    });
     "TypologieHandicap-typologies.in": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
     };
     "TypologieHandicap-typologies.in.jsonMergePatch": {
       libelle?: string;
-      /** @default true */
       actif?: boolean;
     };
     "TypologieHandicap.html-typologies.out": {
       id?: number | null;
       libelle?: string;
-      /** @default true */
       actif?: boolean;
     };
-    "TypologieHandicap.jsonld-typologies.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "TypologieHandicap.jsonld-typologies.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       libelle?: string;
-      /** @default true */
       actif?: boolean;
-    };
+    });
     "Utilisateur-utilisateur.in.jsonMergePatch": {
       /** Format: email */
       emailPerso?: string | null;
       telPerso?: string | null;
       contactUrgence?: string | null;
-      roles?: (string | null)[];
+      roles?: ("ROLE_ADMIN" | "ROLE_GESTIONNAIRE" | "ROLE_RENFORT" | "ROLE_USER" | "ROLE_BENEFICIAIRE" | "ROLE_DEMANDEUR" | "ROLE_INTERVENANT" | "ROLE_PLANIFICATEUR" | "ROLE_ADMIN_TECHNIQUE" | "ROLE_MEMBRE_COMMISSION" | "ROLE_REFERENT_COMPOSANTE" | "ROLE_VALIDER_CONFORMITE_DEMANDE" | "ROLE_ATTRIBUER_PROFIL")[];
       services?: string[];
       campus?: string[];
       competences?: string[];
@@ -3780,13 +3720,9 @@ export interface components {
       intervenantDebut?: string | null;
       /** Format: date-time */
       intervenantFin?: string | null;
-      /** @default false */
       abonneImmediat?: boolean;
-      /** @default false */
       abonneVeille?: boolean;
-      /** @default false */
       abonneAvantVeille?: boolean;
-      /** @default false */
       abonneRecapHebdo?: boolean;
       numeroAnonyme?: number | null;
     };
@@ -3841,7 +3777,7 @@ export interface components {
       emailPerso?: string | null;
       telPerso?: string | null;
       contactUrgence?: string | null;
-      roles?: (string | null)[];
+      roles?: ("ROLE_ADMIN" | "ROLE_GESTIONNAIRE" | "ROLE_RENFORT" | "ROLE_USER" | "ROLE_BENEFICIAIRE" | "ROLE_DEMANDEUR" | "ROLE_INTERVENANT" | "ROLE_PLANIFICATEUR" | "ROLE_ADMIN_TECHNIQUE" | "ROLE_MEMBRE_COMMISSION" | "ROLE_REFERENT_COMPOSANTE" | "ROLE_VALIDER_CONFORMITE_DEMANDE" | "ROLE_ATTRIBUER_PROFIL")[];
       services?: string[];
       campus?: string[];
       competences?: string[];
@@ -3857,17 +3793,11 @@ export interface components {
       inscriptions?: components["schemas"]["Inscription.html-utilisateur.out"][];
       boursier?: boolean | null;
       statutEtudiant?: string | null;
-      /** @default false */
       abonneImmediat?: boolean;
-      /** @default false */
       abonneVeille?: boolean;
-      /** @default false */
       abonneAvantVeille?: boolean;
-      /** @default false */
       abonneRecapHebdo?: boolean;
-      decisionAmenagementAnneeEnCours?:
-        | components["schemas"]["DecisionAmenagementExamens.html-utilisateur.out"]
-        | null;
+      decisionAmenagementAnneeEnCours?: components["schemas"]["DecisionAmenagementExamens.html-utilisateur.out"] | null;
       numeroAnonyme?: number | null;
     };
     "Utilisateur.jsonld-ActiviteBeneficiaire.out": components["schemas"]["HydraItemBaseSchema"] & {
@@ -3880,7 +3810,7 @@ export interface components {
       nom?: string;
       prenom?: string;
     };
-    "Utilisateur.jsonld-amenagement.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Utilisateur.jsonld-amenagement.out": components["schemas"]["HydraItemBaseSchema"] & ({
       uid?: string;
       email?: string;
       nom?: string;
@@ -3890,8 +3820,8 @@ export interface components {
       tags?: string[];
       gestionnairesActifs?: string[];
       inscriptions?: components["schemas"]["Inscription.jsonld-amenagement.out"][];
-    };
-    "Utilisateur.jsonld-amenagements_utilisateurs.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "Utilisateur.jsonld-amenagements_utilisateurs.out": components["schemas"]["HydraItemBaseSchema"] & ({
       uid?: string;
       email?: string;
       nom?: string;
@@ -3901,14 +3831,14 @@ export interface components {
       amenagements?: components["schemas"]["Amenagement.jsonld-amenagements_utilisateurs.out"][];
       tags?: string[];
       inscriptions?: components["schemas"]["Inscription.jsonld-amenagements_utilisateurs.out"][];
-    };
+    });
     "Utilisateur.jsonld-demande.out": components["schemas"]["HydraItemBaseSchema"] & {
       uid?: string;
       nom?: string;
       prenom?: string;
       inscriptions?: components["schemas"]["Inscription.jsonld-demande.out"][];
     };
-    "Utilisateur.jsonld-utilisateur.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "Utilisateur.jsonld-utilisateur.out": components["schemas"]["HydraItemBaseSchema"] & ({
       uid?: string;
       email?: string;
       nom?: string;
@@ -3921,7 +3851,7 @@ export interface components {
       emailPerso?: string | null;
       telPerso?: string | null;
       contactUrgence?: string | null;
-      roles?: (string | null)[];
+      roles?: ("ROLE_ADMIN" | "ROLE_GESTIONNAIRE" | "ROLE_RENFORT" | "ROLE_USER" | "ROLE_BENEFICIAIRE" | "ROLE_DEMANDEUR" | "ROLE_INTERVENANT" | "ROLE_PLANIFICATEUR" | "ROLE_ADMIN_TECHNIQUE" | "ROLE_MEMBRE_COMMISSION" | "ROLE_REFERENT_COMPOSANTE" | "ROLE_VALIDER_CONFORMITE_DEMANDE" | "ROLE_ATTRIBUER_PROFIL")[];
       services?: string[];
       campus?: string[];
       competences?: string[];
@@ -3937,19 +3867,13 @@ export interface components {
       inscriptions?: components["schemas"]["Inscription.jsonld-utilisateur.out"][];
       boursier?: boolean | null;
       statutEtudiant?: string | null;
-      /** @default false */
       abonneImmediat?: boolean;
-      /** @default false */
       abonneVeille?: boolean;
-      /** @default false */
       abonneAvantVeille?: boolean;
-      /** @default false */
       abonneRecapHebdo?: boolean;
-      decisionAmenagementAnneeEnCours?:
-        | components["schemas"]["DecisionAmenagementExamens.jsonld-utilisateur.out"]
-        | null;
+      decisionAmenagementAnneeEnCours?: components["schemas"]["DecisionAmenagementExamens.jsonld-utilisateur.out"] | null;
       numeroAnonyme?: number | null;
-    };
+    });
     "ValeurParametre-valeur_param.in": {
       valeur?: string | null;
       /**
@@ -3958,7 +3882,7 @@ export interface components {
        */
       fichier?: string | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
       fin?: string | null;
     };
@@ -3970,7 +3894,7 @@ export interface components {
        */
       fichier?: string | null;
       /** Format: date-time */
-      debut?: string | null;
+      debut?: string;
       /** Format: date-time */
       fin?: string | null;
     };
@@ -3983,7 +3907,7 @@ export interface components {
        */
       fichier?: string | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
       fin?: string | null;
     };
@@ -3996,11 +3920,11 @@ export interface components {
        */
       fichier?: string | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
       fin?: string | null;
     };
-    "ValeurParametre.jsonld-param.out": components["schemas"]["HydraItemBaseSchema"] & {
+    "ValeurParametre.jsonld-param.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       valeur?: string | null;
       /**
@@ -4009,11 +3933,11 @@ export interface components {
        */
       fichier?: string | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
       fin?: string | null;
-    };
-    "ValeurParametre.jsonld-valeur_param.out": components["schemas"]["HydraItemBaseSchema"] & {
+    });
+    "ValeurParametre.jsonld-valeur_param.out": components["schemas"]["HydraItemBaseSchema"] & ({
       id?: number | null;
       valeur?: string | null;
       /**
@@ -4022,15 +3946,19 @@ export interface components {
        */
       fichier?: string | null;
       /** Format: date-time */
-      debut: string | null;
+      debut: string;
       /** Format: date-time */
       fin?: string | null;
-    };
+    });
   };
-  responses: {};
-  parameters: {};
-  requestBodies: {};
-  headers: {};
+  responses: {
+  };
+  parameters: {
+  };
+  requestBodies: {
+  };
+  headers: {
+  };
   pathItems: never;
 }
 
@@ -4039,6 +3967,7 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
+
   /**
    * Retrieves the collection of AvisEse resources.
    * @description Retrieves the collection of AvisEse resources.
@@ -4053,7 +3982,7 @@ export interface operations {
         "order[debut]"?: "asc" | "desc";
       };
       path: {
-        /** @description AvisEse identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };
@@ -4076,7 +4005,7 @@ export interface operations {
   api_utilisateurs_uidavis_ese_post: {
     parameters: {
       path: {
-        /** @description AvisEse identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };
@@ -4128,7 +4057,7 @@ export interface operations {
   api_utilisateurs_uidavis_ese_id_get: {
     parameters: {
       path: {
-        /** @description AvisEse identifier */
+        /** @description Utilisateur identifier */
         uid: string;
         /** @description AvisEse identifier */
         id: string;
@@ -4159,7 +4088,7 @@ export interface operations {
   api_utilisateurs_uidavis_ese_id_delete: {
     parameters: {
       path: {
-        /** @description AvisEse identifier */
+        /** @description Utilisateur identifier */
         uid: string;
         /** @description AvisEse identifier */
         id: string;
@@ -4195,7 +4124,7 @@ export interface operations {
   api_utilisateurs_uidavis_ese_id_patch: {
     parameters: {
       path: {
-        /** @description AvisEse identifier */
+        /** @description Utilisateur identifier */
         uid: string;
         /** @description AvisEse identifier */
         id: string;
@@ -4434,7 +4363,7 @@ export interface operations {
         itemsPerPage?: number;
       };
       path: {
-        /** @description MembreCommission identifier */
+        /** @description Commission identifier */
         commissionId: string;
       };
     };
@@ -4457,9 +4386,9 @@ export interface operations {
   api_commissions_commissionIdmembres_uid_get: {
     parameters: {
       path: {
-        /** @description MembreCommission identifier */
+        /** @description Commission identifier */
         commissionId: string;
-        /** @description MembreCommission identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };
@@ -4488,9 +4417,9 @@ export interface operations {
   api_commissions_commissionIdmembres_uid_put: {
     parameters: {
       path: {
-        /** @description MembreCommission identifier */
+        /** @description Commission identifier */
         commissionId: string;
-        /** @description MembreCommission identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };
@@ -4550,9 +4479,9 @@ export interface operations {
   api_commissions_commissionIdmembres_uid_delete: {
     parameters: {
       path: {
-        /** @description MembreCommission identifier */
+        /** @description Commission identifier */
         commissionId: string;
-        /** @description MembreCommission identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };
@@ -4706,7 +4635,7 @@ export interface operations {
         /** @description format simplifié */
         format_simple?: boolean;
         /** @description inclure les demandes des campagnes archivées ? */
-        archivees?: string;
+        archivees?: boolean;
       };
     };
     responses: {
@@ -4780,7 +4709,7 @@ export interface operations {
         "demande[]"?: string[];
       };
       path: {
-        /** @description ModificationEtatDemande identifier */
+        /** @description Demande identifier */
         demandeId: string;
       };
     };
@@ -4803,7 +4732,7 @@ export interface operations {
   api_demandes_demandeIdmodifications_id_get: {
     parameters: {
       path: {
-        /** @description ModificationEtatDemande identifier */
+        /** @description Demande identifier */
         demandeId: string;
         /** @description ModificationEtatDemande identifier */
         id: string;
@@ -5455,7 +5384,7 @@ export interface operations {
         /** @description format simplifié */
         format_simple?: boolean;
         /** @description inclure les demandes des campagnes archivées ? */
-        archivees?: string;
+        archivees?: boolean;
       };
       path: {
         /** @description Demande identifier */
@@ -5496,7 +5425,7 @@ export interface operations {
         "order[date]"?: "asc" | "desc";
       };
       path: {
-        /** @description Entretien identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };
@@ -5527,7 +5456,7 @@ export interface operations {
   api_utilisateurs_uidentretiens_post: {
     parameters: {
       path: {
-        /** @description Entretien identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };
@@ -5579,7 +5508,7 @@ export interface operations {
   api_utilisateurs_uidentretiens_id_get: {
     parameters: {
       path: {
-        /** @description Entretien identifier */
+        /** @description Utilisateur identifier */
         uid: string;
         /** @description Entretien identifier */
         id: string;
@@ -5610,7 +5539,7 @@ export interface operations {
   api_utilisateurs_uidentretiens_id_delete: {
     parameters: {
       path: {
-        /** @description Entretien identifier */
+        /** @description Utilisateur identifier */
         uid: string;
         /** @description Entretien identifier */
         id: string;
@@ -5638,7 +5567,7 @@ export interface operations {
   api_utilisateurs_uidentretiens_id_patch: {
     parameters: {
       path: {
-        /** @description Entretien identifier */
+        /** @description Utilisateur identifier */
         uid: string;
         /** @description Entretien identifier */
         id: string;
@@ -5724,7 +5653,7 @@ export interface operations {
         /** @description IRI utilisateur */
         utilisateurCreation?: string;
         /** @description uniquement les événements à valider ? */
-        aValider?: string;
+        aValider?: boolean;
         /** @description Recherche sur le nom de l'intervenant */
         nomIntervenant?: string;
       };
@@ -6618,7 +6547,7 @@ export interface operations {
         "order[libelle]"?: "asc" | "desc";
       };
       path: {
-        /** @description Tag identifier */
+        /** @description CategorieTag identifier */
         id: string;
       };
     };
@@ -7786,7 +7715,7 @@ export interface operations {
         "composante[]"?: string[];
         "order[libelle]"?: "asc" | "desc";
         /** @description uniquement les formations avec inscription */
-        avecInscriptions?: string;
+        avecInscriptions?: boolean;
       };
     };
     responses: {
@@ -9595,11 +9524,11 @@ export interface operations {
         page?: number;
         /** @description The number of items per page */
         itemsPerPage?: number;
-        /** @description Taux horaire valide pour la date passée */
-        taux?: string;
+        /** @description date pour laquelle on veut le taux valide */
+        date?: string;
       };
       path: {
-        /** @description TauxHoraire identifier */
+        /** @description TypeEvenement identifier */
         typeId: string;
       };
     };
@@ -10443,6 +10372,8 @@ export interface operations {
         "exists[dateAnnulation]"?: boolean;
         /** @description Période RH concernée */
         periode?: string;
+        /** @description Périodes RH concernées */
+        "periode[]"?: string[];
       };
     };
     responses: {
@@ -10528,6 +10459,8 @@ export interface operations {
         "exists[dateAnnulation]"?: boolean;
         /** @description Période RH concernée */
         periode?: string;
+        /** @description Périodes RH concernées */
+        "periode[]"?: string[];
       };
     };
     responses: {
@@ -10737,17 +10670,21 @@ export interface operations {
         /** @description The number of items per page */
         itemsPerPage?: number;
         /** @description App\Filter\BeneficiaireAvecAmenagementEnCoursFilter */
-        "App\Filter\BeneficiaireAvecAmenagementEnCoursFilter"?: string;
+        "App\Filter\BeneficiaireAvecAmenagementEnCoursFilter"?: boolean;
         /** @description categorie */
         categorie?: string;
+        /** @description categorie */
+        "categorie[]"?: string[];
         /** @description type */
         type?: string;
+        /** @description type */
+        "type[]"?: string[];
         /** @description examens */
-        examens?: string;
+        examens?: boolean;
         /** @description pedagogique */
-        pedagogique?: string;
+        pedagogique?: boolean;
         /** @description aideHumaine */
-        aideHumaine?: string;
+        aideHumaine?: boolean;
         term?: string;
         /** @description IRI utilisateur du beneficiaire concerné */
         beneficiaire?: string;
@@ -10774,7 +10711,7 @@ export interface operations {
         /** @description Recherche sur le nom du gestionnaire du bénéficiaire */
         nomGestionnaire?: string;
         /** @description filtre sur l'état de l'intervenant à l'instant T */
-        intervenantArchive?: string;
+        intervenantArchive?: boolean;
         "order[nom]"?: "asc" | "desc";
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
@@ -10847,7 +10784,7 @@ export interface operations {
         /** @description Recherche sur le nom du gestionnaire du bénéficiaire */
         nomGestionnaire?: string;
         /** @description filtre sur l'état de l'intervenant à l'instant T */
-        intervenantArchive?: string;
+        intervenantArchive?: boolean;
         "order[nom]"?: "asc" | "desc";
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
@@ -11076,7 +11013,7 @@ export interface operations {
         /** @description Recherche sur le nom du gestionnaire du bénéficiaire */
         nomGestionnaire?: string;
         /** @description filtre sur l'état de l'intervenant à l'instant T */
-        intervenantArchive?: string;
+        intervenantArchive?: boolean;
         "order[nom]"?: "asc" | "desc";
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
@@ -11141,7 +11078,7 @@ export interface operations {
         /** @description Recherche sur le nom du gestionnaire du bénéficiaire */
         nomGestionnaire?: string;
         /** @description filtre sur l'état de l'intervenant à l'instant T */
-        intervenantArchive?: string;
+        intervenantArchive?: boolean;
         "order[nom]"?: "asc" | "desc";
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
@@ -11206,7 +11143,7 @@ export interface operations {
         /** @description Recherche sur le nom du gestionnaire du bénéficiaire */
         nomGestionnaire?: string;
         /** @description filtre sur l'état de l'intervenant à l'instant T */
-        intervenantArchive?: string;
+        intervenantArchive?: boolean;
         "order[nom]"?: "asc" | "desc";
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
@@ -11283,7 +11220,7 @@ export interface operations {
         /** @description Recherche sur le nom du gestionnaire du bénéficiaire */
         nomGestionnaire?: string;
         /** @description filtre sur l'état de l'intervenant à l'instant T */
-        intervenantArchive?: string;
+        intervenantArchive?: boolean;
         "order[nom]"?: "asc" | "desc";
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
@@ -11754,7 +11691,7 @@ export interface operations {
         itemsPerPage?: number;
       };
       path: {
-        /** @description ParametreUI identifier */
+        /** @description Utilisateur identifier */
         uid: string;
       };
     };

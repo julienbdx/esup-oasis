@@ -40,7 +40,7 @@ export function ParametreFormItemString(props: ParametreFormItemStringProps): Re
                     props.setEditingItem({
                       ...props.editingItem,
                       debut: date?.format("YYYY-MM-DD") as string,
-                    });
+                    } as IParametreValeur);
                   }}
                 />
               </Space>
@@ -54,7 +54,7 @@ export function ParametreFormItemString(props: ParametreFormItemStringProps): Re
                       ...props.editingItem,
                       debut: props.editingItem?.debut as string,
                       fin: date?.format("YYYY-MM-DD") as string,
-                    });
+                    } as IParametreValeur);
                   }}
                 />
               </Space>
@@ -68,7 +68,7 @@ export function ParametreFormItemString(props: ParametreFormItemStringProps): Re
                       ...props.editingItem,
                       debut: props.editingItem?.debut as string,
                       valeur: (v.currentTarget.value || "") as string,
-                    })
+                    } as IParametreValeur)
                   }
                 />
               </Space>

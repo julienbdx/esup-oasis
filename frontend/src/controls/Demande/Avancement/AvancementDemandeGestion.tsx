@@ -43,27 +43,27 @@ export default function AvancementDemandeGestion(props: {
             {
               title: "Saisie",
               status: calculerEtatStep("A"),
-              description: <EtapeASaisie etatDemande={etatDemande} demande={demande} />,
+              content: <EtapeASaisie etatDemande={etatDemande} demande={demande} />,
             },
             {
               title: "Conformité",
               status: calculerEtatStep("B"),
-              description: <EtapeBConformite demande={demande} etatDemande={etatDemande} />,
+              content: <EtapeBConformite demande={demande} etatDemande={etatDemande} />,
             },
             ((typeDemande?.profilsCibles || []).length > 1 || campagne?.commission) && {
               title: "Profil",
               status: etatDemande.etape >= "C" ? "finish" : "wait",
-              description: <EtapeCProfil demande={demande} etatDemande={etatDemande} />,
+              content: <EtapeCProfil demande={demande} etatDemande={etatDemande} />,
             },
             demande.etat === ETAT_ATTENTE_CHARTES && {
               title: "Charte(s)",
               status: "process",
-              description: <>Attente validation charte(s)</>,
+              content: <>Attente validation charte(s)</>,
             },
             {
               title: "Accompagnement",
               status: calculerEtatStep("D"),
-              description: <EtapeDAccompagnement demande={demande} etatDemande={etatDemande} />,
+              content: <EtapeDAccompagnement demande={demande} etatDemande={etatDemande} />,
             },
           ].filter((step) => step) as []
         }

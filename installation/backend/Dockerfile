@@ -1,5 +1,5 @@
 ARG APP_VERSION=latest
-FROM ghcr.io/esupportail/esup-oasis/backend:${APP_VERSION}
+FROM ghcr.io/mrossard/esup-oasis/backend:${APP_VERSION}
 
 # perso apogée
 COPY ./personnalisation/config/apogee/* /app/config/apogee/
