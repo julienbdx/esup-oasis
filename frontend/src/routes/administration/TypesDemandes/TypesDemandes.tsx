@@ -18,6 +18,7 @@ import BooleanState from "@controls/State/BooleanState";
 import { ProfilItem } from "@controls/Items/ProfilItem";
 import { TypesDemandesEdition } from "@controls/Admin/TypesDemandes/TypesDemandesEdition";
 import { Campagne } from "@controls/Admin/TypesDemandes/Campagne";
+import TypesDemandesCampagnes from "./TypesDemandesCampagnes";
 
 export default function TypesDemandes(): React.ReactElement {
   const [order, setOrder] = useState<"asc" | "desc">("asc");
@@ -30,7 +31,6 @@ export default function TypesDemandes(): React.ReactElement {
     },
   });
 
-  // noinspection JSUnusedGlobalSymbols
   return (
     <Layout.Content className="administration" style={{ padding: "0 50px" }}>
       <Typography.Title level={1}>Administration</Typography.Title>
@@ -196,6 +196,13 @@ export default function TypesDemandes(): React.ReactElement {
                             campagneId={record.campagneSuivante}
                             showError={false}
                           />
+                        ),
+                      },
+                      {
+                        key: "toutes",
+                        label: "Toutes les campagnes",
+                        children: (
+                          <TypesDemandesCampagnes typeDemandeId={record["@id"] as string} />
                         ),
                       },
                     ]}

@@ -5191,6 +5191,7 @@ export interface operations {
         page?: number;
         /** @description The number of items per page */
         itemsPerPage?: number;
+        "order[debut]"?: "asc" | "desc";
       };
       path: {
         /** @description CampagneDemande identifier */
