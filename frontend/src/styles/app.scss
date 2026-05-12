@@ -607,6 +607,14 @@ th.pointer {
 .campagnes-tabs {
   padding: 20px;
 
+  .ant-tabs-nav-list {
+    width: 100%;
+
+    .ant-tabs-tab:not(:has(~ .ant-tabs-tab)) {
+      margin-left: auto !important;
+    }
+  }
+
   .ant-tabs-nav {
     margin-bottom: 0;
   }

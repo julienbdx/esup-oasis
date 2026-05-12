@@ -26,6 +26,8 @@ export function Campagne(props: {
   typeDemandeId: string;
   campagneId: string | null | undefined;
   showError?: boolean;
+  showHeader?: boolean;
+  readOnly?: boolean;
 }): React.ReactElement {
   const navigate = useNavigate();
   const [typeDemandeApercu, setTypeDemandeApercu] = useState<string>();
@@ -147,11 +149,13 @@ export function Campagne(props: {
 
   return (
     <>
-      <CampagneEdition
-        setEditedItem={setEditedItem}
-        typeDemandeId={props.typeDemandeId}
-        editedItem={editedItem}
-      />
+      {!props.readOnly && (
+        <CampagneEdition
+          setEditedItem={setEditedItem}
+          typeDemandeId={props.typeDemandeId}
+          editedItem={editedItem}
+        />
+      )}
       {campagne ? (
         <>
           <QuestionnaireModale
@@ -160,15 +164,19 @@ export function Campagne(props: {
           />
           <Descriptions
             extra={
-              <Button icon={<EditOutlined />} onClick={() => setEditedItem(campagne)}>
-                Editer la campagne
-              </Button>
+              !props.readOnly && (
+                <Button icon={<EditOutlined />} onClick={() => setEditedItem(campagne)}>
+                  Editer la campagne
+                </Button>
+              )
             }
             title={
-              <Space>
-                <MinusOutlined />
-                {props.title}
-              </Space>
+              props.showHeader !== false && (
+                <Space>
+                  <MinusOutlined />
+                  {props.title}
+                </Space>
+              )
             }
             bordered
             items={items}
@@ -184,13 +192,15 @@ export function Campagne(props: {
           type={props.showError ? "error" : "info"}
           showIcon
           action={
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => setEditedItem({} as ICampagneDemande)}
-            >
-              Ajouter une campagne
-            </Button>
+            !props.readOnly && (
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={() => setEditedItem({} as ICampagneDemande)}
+              >
+                Ajouter une campagne
+              </Button>
+            )
           }
         />
       )}
