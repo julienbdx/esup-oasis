@@ -4622,12 +4622,20 @@ export interface operations {
         gestionnaire?: string;
         /** @description libellé de la composante */
         libelleComposante?: string;
+        /** @description libellé de la composante */
+        "libelleComposante[]"?: string[];
         /** @description libellé de la formation */
         libelleFormation?: string;
+        /** @description libellé de la formation */
+        "libelleFormation[]"?: string[];
         /** @description libellé de la composante */
         composante?: string;
+        /** @description libellé de la composante */
+        "composante[]"?: string[];
         /** @description libellé de la formation */
         formation?: string;
+        /** @description libellé de la formation */
+        "formation[]"?: string[];
         /** @description discipline sportive */
         discipline?: string;
         "order[demandeur.nom]"?: "asc" | "desc";
@@ -5371,12 +5379,20 @@ export interface operations {
         gestionnaire?: string;
         /** @description libellé de la composante */
         libelleComposante?: string;
+        /** @description libellé de la composante */
+        "libelleComposante[]"?: string[];
         /** @description libellé de la formation */
         libelleFormation?: string;
+        /** @description libellé de la formation */
+        "libelleFormation[]"?: string[];
         /** @description libellé de la composante */
         composante?: string;
+        /** @description libellé de la composante */
+        "composante[]"?: string[];
         /** @description libellé de la formation */
         formation?: string;
+        /** @description libellé de la formation */
+        "formation[]"?: string[];
         /** @description discipline sportive */
         discipline?: string;
         "order[demandeur.nom]"?: "asc" | "desc";
@@ -10624,18 +10640,28 @@ export interface operations {
         "suivi[]"?: string[];
         /** @description Nom du bénéficiaire */
         nom?: string;
+        /** @description Nom du bénéficiaire */
+        "nom[]"?: string[];
         "type.pedagogique"?: boolean;
         "type.examens"?: boolean;
         "type.aideHumaine"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description tags */
         tags?: string;
+        /** @description tags */
+        "tags[]"?: string[];
         "order[beneficiaires.utilisateur.nom]"?: "asc" | "desc";
         /** @description gestionnaire du bénéficiaire de l'aménagement */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire de l'aménagement */
+        "gestionnaire[]"?: string[];
       };
     };
     responses: {
@@ -10694,6 +10720,8 @@ export interface operations {
         recherche?: string;
         /** @description filtrer par tag */
         tags?: string;
+        /** @description filtrer par tag */
+        "tags[]"?: string[];
         nom?: string;
         prenom?: string;
         "intervenant.typesEvenements"?: string;
@@ -10716,11 +10744,17 @@ export interface operations {
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire */
+        "gestionnaire[]"?: string[];
         "exists[numeroEtudiant]"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description Etat avis ESE */
         etatAvisEse?: string;
         /** @description Etat Décision */
@@ -10767,6 +10801,8 @@ export interface operations {
         recherche?: string;
         /** @description filtrer par tag */
         tags?: string;
+        /** @description filtrer par tag */
+        "tags[]"?: string[];
         nom?: string;
         prenom?: string;
         "intervenant.typesEvenements"?: string;
@@ -10789,11 +10825,17 @@ export interface operations {
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire */
+        "gestionnaire[]"?: string[];
         "exists[numeroEtudiant]"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description Etat avis ESE */
         etatAvisEse?: string;
         /** @description Etat Décision */
@@ -10996,6 +11038,8 @@ export interface operations {
         recherche?: string;
         /** @description filtrer par tag */
         tags?: string;
+        /** @description filtrer par tag */
+        "tags[]"?: string[];
         nom?: string;
         prenom?: string;
         "intervenant.typesEvenements"?: string;
@@ -11018,11 +11062,17 @@ export interface operations {
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire */
+        "gestionnaire[]"?: string[];
         "exists[numeroEtudiant]"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description Etat avis ESE */
         etatAvisEse?: string;
         /** @description Etat Décision */
@@ -11061,6 +11111,8 @@ export interface operations {
         recherche?: string;
         /** @description filtrer par tag */
         tags?: string;
+        /** @description filtrer par tag */
+        "tags[]"?: string[];
         nom?: string;
         prenom?: string;
         "intervenant.typesEvenements"?: string;
@@ -11083,11 +11135,17 @@ export interface operations {
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire */
+        "gestionnaire[]"?: string[];
         "exists[numeroEtudiant]"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description Etat avis ESE */
         etatAvisEse?: string;
         /** @description Etat Décision */
@@ -11126,6 +11184,8 @@ export interface operations {
         recherche?: string;
         /** @description filtrer par tag */
         tags?: string;
+        /** @description filtrer par tag */
+        "tags[]"?: string[];
         nom?: string;
         prenom?: string;
         "intervenant.typesEvenements"?: string;
@@ -11148,11 +11208,17 @@ export interface operations {
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire */
+        "gestionnaire[]"?: string[];
         "exists[numeroEtudiant]"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description Etat avis ESE */
         etatAvisEse?: string;
         /** @description Etat Décision */
@@ -11203,6 +11269,8 @@ export interface operations {
         recherche?: string;
         /** @description filtrer par tag */
         tags?: string;
+        /** @description filtrer par tag */
+        "tags[]"?: string[];
         nom?: string;
         prenom?: string;
         "intervenant.typesEvenements"?: string;
@@ -11225,11 +11293,17 @@ export interface operations {
         "beneficiaires.avecAccompagnement"?: boolean;
         /** @description gestionnaire du bénéficiaire */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire */
+        "gestionnaire[]"?: string[];
         "exists[numeroEtudiant]"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description Etat avis ESE */
         etatAvisEse?: string;
         /** @description Etat Décision */
@@ -11347,18 +11421,28 @@ export interface operations {
         "suivi[]"?: string[];
         /** @description Nom du bénéficiaire */
         nom?: string;
+        /** @description Nom du bénéficiaire */
+        "nom[]"?: string[];
         "type.pedagogique"?: boolean;
         "type.examens"?: boolean;
         "type.aideHumaine"?: boolean;
         /** @description composante d'inscription du bénéficiaire */
         composante?: string;
+        /** @description composante(s) d'inscription du bénéficiaire */
+        "composante[]"?: string[];
         /** @description formation d'inscription du bénéficiaire */
         formation?: string;
+        /** @description formation(s) d'inscription du bénéficiaire */
+        "formation[]"?: string[];
         /** @description tags */
         tags?: string;
+        /** @description tags */
+        "tags[]"?: string[];
         "order[beneficiaires.utilisateur.nom]"?: "asc" | "desc";
         /** @description gestionnaire du bénéficiaire de l'aménagement */
         gestionnaire?: string;
+        /** @description gestionnaire du bénéficiaire de l'aménagement */
+        "gestionnaire[]"?: string[];
       };
       path: {
         /** @description Amenagement identifier */
