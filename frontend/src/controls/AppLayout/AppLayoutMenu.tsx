@@ -12,6 +12,7 @@ import { Menu, MenuProps } from "antd";
 import { useAuth } from "@/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useTheme } from "@context/theme/ThemeContext";
 import { useDrawers } from "@context/drawers/DrawersContext";
 import { useAffichageFiltres } from "@context/affichageFiltres/AffichageFiltresContext";
 import { useIsFetching } from "@tanstack/react-query";
@@ -34,7 +35,7 @@ import { menuItemRecherche } from "@controls/AppLayout/menuItems/MenuItemRecherc
 import { menuItemUtilisateur } from "@controls/AppLayout/menuItems/MenuItemUtilisateur";
 
 import { useNotificationStats } from "@controls/AppLayout/menuItems/useNotificationStats";
-import { DARKMODE_ENABLED, useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
+import { DARKMODE_ENABLED } from "@utils/theme/useEffectiveTheme";
 
 /**
  * Render the application's horizontal menu layout.
@@ -54,14 +55,12 @@ export default function AppLayoutMenu(): ReactElement {
     setDyslexieOpenDys,
     setDyslexieLexend,
     setPoliceLarge,
-    setThemeMode,
   } = useAccessibilite();
+  const { themeMode, setThemeMode } = useTheme();
   const [selectedKey, setSelectedKey] = useState<string>();
   const [modeRecherche, setModeRecherche] = useState(false);
   const { setPreference } = usePreferences();
   const { stats, isFetchingStats } = useNotificationStats();
-  const isDark = useEffectiveTheme() === "dark";
-
   const menuItems: MenuProps["items"] = useMemo(() => {
     const items = [];
 
@@ -116,10 +115,7 @@ export default function AppLayoutMenu(): ReactElement {
 
     // Thème (masqué si dark mode désactivé par la configuration)
     if (DARKMODE_ENABLED) {
-      items.push(
-        ...(menuItemTheme(appAccessibilite.themeMode, setThemeMode, setPreference, setContrast) ||
-          []),
-      );
+      items.push(...(menuItemTheme(themeMode, setThemeMode, setPreference) || []));
     }
 
     // Accessibilité
@@ -132,8 +128,6 @@ export default function AppLayoutMenu(): ReactElement {
         setDyslexieLexend,
         setPoliceLarge,
         setPreference,
-        isDark,
-        setThemeMode,
       ) || []),
     );
 
@@ -145,13 +139,13 @@ export default function AppLayoutMenu(): ReactElement {
     navigate,
     auth,
     appAccessibilite,
+    themeMode,
     setContrast,
     setDyslexieArial,
     setDyslexieOpenDys,
     setDyslexieLexend,
     setPoliceLarge,
     setThemeMode,
-    isDark,
   ]);
 
   const menuNotifications: MenuProps["items"] = useMemo(() => {

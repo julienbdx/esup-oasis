@@ -45,7 +45,7 @@
   }
 
   &.ant-layout-sider {
-    background: variables.$light-grey;
+    background: var(--ant-color-bg-layout);
   }
 
   .filters {

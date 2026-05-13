@@ -132,7 +132,7 @@ export function EvenementDupliquerForm({
                 ))}
               </List>
             ) : (
-              <Empty description="Aucune date sélectionnée" />
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Aucune date sélectionnée" />
             )}
           </Col>
           <Col lg={12} sm={24}>

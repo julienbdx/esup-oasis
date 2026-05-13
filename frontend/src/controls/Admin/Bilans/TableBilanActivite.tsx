@@ -140,7 +140,7 @@ export function TableBilanActivite(props: {
     <Table<ISuiviAcitivite>
       dataSource={bilans?.items || []}
       locale={{
-        emptyText: <Empty description="Aucun bilan demandé" />,
+        emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Aucun bilan demandé" />,
       }}
       className="table-responsive mt-2"
       pagination={{

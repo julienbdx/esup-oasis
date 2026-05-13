@@ -19,6 +19,7 @@ import React, {
 import { useAuth } from "@/auth/AuthProvider";
 import { useApi } from "@context/api/ApiProvider";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useTheme } from "@context/theme/ThemeContext";
 import { QK_UTILISATEURS_PARAMETRES_UI } from "@api";
 import { logger } from "@utils/logger";
 
@@ -44,8 +45,9 @@ const UtilisateurPreferencesContext = createContext<UtilisateurPreferencesType>(
 
 export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
   const auth = useAuth();
-  const { setContrast, setDyslexieArial, setDyslexieOpenDys, setPoliceLarge, setThemeMode } =
+  const { setContrast, setDyslexieArial, setDyslexieOpenDys, setDyslexieLexend, setPoliceLarge } =
     useAccessibilite();
+  const { setThemeMode } = useTheme();
   const [preferencesChargees, setPreferencesChargees] = React.useState<boolean>(false);
   const { data: preferences } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/parametres_ui",
@@ -81,16 +83,10 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
         : "system";
       if (themeMode) setThemeMode(restoredThemeMode);
 
-      // Le contraste n'est disponible qu'en light mode
-      const effectiveDark =
-        restoredThemeMode === "dark" ||
-        (restoredThemeMode === "system" &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches);
-
       const contrast = preferences.items.find(
         (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/contrast`,
       );
-      if (contrast) setContrast(!effectiveDark && contrast.valeur === "true");
+      if (contrast) setContrast(contrast.valeur === "true");
 
       const dyslexieArial = preferences.items.find(
         (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/dyslexie-arial`,
@@ -101,6 +97,11 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
         (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/dyslexie-opendys`,
       );
       if (dyslexieOpenDys) setDyslexieOpenDys(dyslexieOpenDys?.valeur === "true");
+
+      const dyslexieLexend = preferences.items.find(
+        (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/dyslexie-lexend`,
+      );
+      if (dyslexieLexend) setDyslexieLexend(dyslexieLexend?.valeur === "true");
 
       const policeLarge = preferences.items.find(
         (p) => p["@id"] === `${auth.user?.["@id"]}/parametres_ui/police-large`,
@@ -113,6 +114,7 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
     setContrast,
     setDyslexieArial,
     setDyslexieOpenDys,
+    setDyslexieLexend,
     setPoliceLarge,
     setThemeMode,
   ]);

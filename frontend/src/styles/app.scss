@@ -7,8 +7,8 @@
 @import "opendyslexic/styles.css";
 @import "lexend/styles.css";
 @include meta.load-css("root_variables");
-@include meta.load-css("accessibilite");
 @include meta.load-css("dark");
+@include meta.load-css("accessibilite");
 
 :focus-visible {
   outline: 2px solid variables.$primary;
@@ -35,7 +35,7 @@ body {
   top: -100px;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: var(--ant-color-bg-container);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -226,7 +226,7 @@ h4 {
 }
 
 .ant-segmented {
-  background-color: variables.$light-grey;
+  background-color: var(--ant-color-fill-tertiary);
   font-weight: 300;
 
   .ant-segmented-item-selected {
@@ -445,7 +445,7 @@ th.pointer {
 }
 
 .ant-space-item-split {
-  color: variables.$light-grey-border-dark;
+  color: var(--ant-color-border);
 }
 
 .tab-bordered {
@@ -581,7 +581,7 @@ th.pointer {
 }
 
 .table-row-deleted {
-  background-color: variables.$light-grey;
+  background-color: var(--ant-color-fill-secondary);
   opacity: 0.75;
   filter: grayscale(1);
 }
@@ -652,7 +652,7 @@ th.pointer {
 }
 
 .ant-list-bordered {
-  border: 1px solid #f0f0f0;
+  border: 1px solid var(--ant-color-border);
   border-radius: variables.$radius;
 }
 
@@ -775,7 +775,7 @@ th.pointer {
 }
 
 .border-split-left {
-  border-left: 3px solid variables.$light-grey-border-dark;
+  border-left: 3px solid var(--ant-color-border);
 
   &:before {
     content: "";
@@ -784,7 +784,7 @@ th.pointer {
     top: -3px;
     height: 3px;
     width: 11px;
-    background-color: color.adjust(variables.$light-grey-border-dark, $lightness: 25%);
+    background-color: var(--ant-color-border-secondary);
   }
 
   &:after {
@@ -794,12 +794,8 @@ th.pointer {
     bottom: -3px;
     height: 3px;
     width: 11px;
-    background-color: color.adjust(variables.$light-grey-border-dark, $lightness: 25%);
+    background-color: var(--ant-color-border-secondary);
   }
-}
-
-.ant-empty .ant-empty-description {
-  color: variables.$text;
 }
 
 a,

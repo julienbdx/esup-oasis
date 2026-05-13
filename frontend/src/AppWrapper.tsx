@@ -14,6 +14,7 @@ import { AuthProvider } from "@/auth/AuthProvider";
 import Spinner from "@controls/Spinner/Spinner";
 import { ErrorBoundary } from "@controls/ErrorBoundary/ErrorBoundary";
 import { AccessibiliteProvider } from "@context/accessibilite/AccessibiliteContext";
+import { ThemeProvider } from "@context/theme/ThemeContext";
 import { ModalsProvider } from "@context/modals/ModalsContext";
 import { DrawersProvider } from "@context/drawers/DrawersContext";
 import { AffichageFiltresProvider } from "@context/affichageFiltres/AffichageFiltresContext";
@@ -30,6 +31,7 @@ function composeProviders(
 
 const AppProviders = composeProviders([
   AccessibiliteProvider,
+  ThemeProvider,
   DrawersProvider,
   ModalsProvider,
   AffichageFiltresProvider,

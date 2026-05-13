@@ -8,7 +8,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
+import { useTheme } from "@context/theme/ThemeContext";
 import { env } from "@/env";
 
 export const DARKMODE_ENABLED = env.REACT_APP_DARKMODE;
@@ -18,7 +18,7 @@ function getSystemTheme(): "light" | "dark" {
 }
 
 export function useEffectiveTheme(): "light" | "dark" {
-  const { accessibilite } = useAccessibilite();
+  const { themeMode } = useTheme();
   const [systemTheme, setSystemTheme] = useState<"light" | "dark">(getSystemTheme);
 
   useEffect(() => {
@@ -30,6 +30,6 @@ export function useEffectiveTheme(): "light" | "dark" {
   }, []);
 
   if (!DARKMODE_ENABLED) return "light";
-  if (accessibilite.themeMode === "system") return systemTheme;
-  return accessibilite.themeMode;
+  if (themeMode === "system") return systemTheme;
+  return themeMode;
 }

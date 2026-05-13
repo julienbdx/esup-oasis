@@ -7,7 +7,7 @@ $fontDyslexieArial: "Arial";
 $fontDyslexieOpenDys: "OpenDys";
 $fontDyslexieLexend: "Lexend";
 
-body.accessibilite-contraste {
+body.accessibilite-contraste:not(.dark-mode) {
   color: #000 !important;
 
   * {
@@ -283,6 +283,269 @@ body.accessibilite-contraste {
 
   .text-light {
     color: #333;
+  }
+}
+
+// --- Contraste : mode SOMBRE ---
+body.dark-mode.accessibilite-contraste {
+  background: #000000 !important;
+  color: #ffffff !important;
+
+  * {
+    --color-primary: var(--color-primary-contrast);
+    --ant-color-text-secondary: rgba(255, 255, 255, 0.85) !important;
+    --ant-color-text-placeholder: rgba(255, 255, 255, 0.65) !important;
+    --ant-color-text-quaternary: rgba(255, 255, 255, 0.5) !important;
+    --ant-color-text-description: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  // Fond général
+  .full-app,
+  .ant-layout,
+  .ant-layout-content {
+    background: #000000 !important;
+    background-image: none !important;
+  }
+
+  // Header : fond sombre + bordure visible
+  .header {
+    background-color: #0a0a0a !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35) !important;
+
+    // Rétablir les pilules d'icônes en dark (sombre, pas blanc)
+    .ant-menu-title-content,
+    .anticon {
+      background-color: transparent !important;
+    }
+
+    .anticon:not(.anticon-enter),
+    .user .ant-menu-title-content,
+    .recherche .ant-menu-title-content {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .ant-menu-submenu-selected .ant-menu-title-content,
+    .recherche.recherche-en-cours .ant-menu-title-content,
+    .recherche.recherche-en-cours .anticon.anticon-search {
+      background-color: var(--ant-color-primary-bg) !important;
+    }
+  }
+
+  // Panneaux / cartes : bordure visible pour délimiter les zones
+  .ant-card {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+
+    .ant-card-head {
+      border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+
+  .bg-white,
+  .bg-light-grey {
+    background-color: #0d0d0d !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .text-primary,
+  .logo,
+  .fc-day-today .week-header,
+  .fc-day-today .week-header .date,
+  .ant-btn-link,
+  .today-carret,
+  a,
+  .ant-empty-description {
+    color: var(--color-primary-contrast) !important;
+  }
+
+  .bg-primary,
+  .ant-float-btn-primary,
+  .ant-picker-calendar .has-event:after {
+    background-color: var(--color-primary-contrast) !important;
+  }
+
+  .border-primary {
+    border-color: var(--color-primary-contrast) !important;
+  }
+
+  .bg-primary-light,
+  .ant-alert-info {
+    background-color: #1a1a1a !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+
+  // Texte secondaire : plus lisible qu'en dark normal (0.45 → 0.85)
+  .text-light {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+
+  .legende,
+  .text-legende,
+  .ant-typography-secondary {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  // Rôles : texte blanc (en dark normal c'est #000 sur fond coloré light)
+  .bg-intervenant,
+  .bg-beneficiaire,
+  .bg-renfort,
+  .bg-demandeur {
+    color: #ffffff !important;
+  }
+
+  // Inputs / selects : bordures blanches épaisses
+  .ant-input-outlined,
+  .ant-select-outlined,
+  .ant-input-number-outlined,
+  .ant-upload-btn {
+    background: #0d0d0d;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0 !important;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    .ant-select-selector {
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .ant-select-selection-item {
+      font-weight: 500;
+    }
+  }
+
+  .ant-select-outlined {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .ant-select .ant-select-arrow {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  // Boutons
+  main .ant-btn:not(.contrast-no-border) {
+    border-radius: 0;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.75);
+    font-weight: 600;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  // Warning / success : couleurs lumineuses sur fond noir
+  .text-warning,
+  .ant-tag-warning {
+    color: #ffb74d !important;
+  }
+
+  .statistic-warning .ant-statistic-content-value span,
+  .statistic-warning svg {
+    color: #ffb74d !important;
+    fill: #ffb74d !important;
+  }
+
+  .text-success {
+    color: #69db7c !important;
+  }
+
+  // Tags colorés : palette dark (saturée, contraste élevé sur fond noir)
+  .ant-tag-green,
+  .ant-badge-color-green {
+    background-color: var(--color-dark-green) !important;
+    border-color: var(--color-dark-green) !important;
+    color: #fff !important;
+  }
+
+  .ant-tag-orange,
+  .ant-badge-color-orange {
+    background-color: var(--color-dark-orange) !important;
+    border-color: var(--color-dark-orange) !important;
+    color: #fff !important;
+  }
+
+  .ant-tag-red,
+  .ant-badge-color-red {
+    background-color: var(--color-dark-red) !important;
+    border-color: var(--color-dark-red) !important;
+    color: #fff !important;
+  }
+
+  .ant-tag-blue,
+  .ant-badge-color-blue {
+    background-color: var(--color-dark-blue) !important;
+    border-color: var(--color-dark-blue) !important;
+    color: #fff !important;
+  }
+
+  .ant-tag-purple,
+  .ant-badge-color-purple {
+    background-color: var(--color-dark-purple) !important;
+    border-color: var(--color-dark-purple) !important;
+    color: #fff !important;
+  }
+
+  .ant-tag-cyan,
+  .ant-badge-color-cyan {
+    background-color: var(--color-dark-cyan) !important;
+    border-color: var(--color-dark-cyan) !important;
+    color: #fff !important;
+  }
+
+  .ant-tag-yellow,
+  .ant-badge-color-yellow {
+    background-color: var(--color-dark-yellow) !important;
+    border-color: var(--color-dark-yellow) !important;
+    color: #fff !important;
+  }
+
+  .ant-tag:not(.ant-tag-green):not(.ant-tag-orange):not(.ant-tag-red):not(.ant-tag-blue):not(
+      .ant-tag-purple
+    ):not(.ant-tag-cyan):not(.ant-tag-yellow) {
+    background-color: #1a1a1a !important;
+    border-color: rgba(255, 255, 255, 0.55) !important;
+    color: #fff !important;
+  }
+
+  // Steps
+  .ant-steps {
+    .ant-steps-item-finish,
+    .ant-steps-item-active {
+      .ant-steps-item-icon {
+        background-color: var(--color-primary-contrast) !important;
+        color: #fff !important;
+
+        & > .ant-steps-icon {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+
+
+
+  // Sélection dans les dropdowns
+  .ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: var(--color-app) !important;
+  }
+
+  // Tableau : séparateurs plus visibles
+  .ant-table {
+    .ant-table-thead > tr > th {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .ant-table-tbody > tr > td {
+      border-bottom-color: rgba(255, 255, 255, 0.15) !important;
+    }
+  }
+
+  // Focus : outline encore plus visible
+  :focus-visible {
+    outline: 3px solid var(--color-primary-contrast) !important;
+    outline-offset: 2px;
   }
 }
 

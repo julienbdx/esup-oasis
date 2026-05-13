@@ -9,16 +9,12 @@
 
 import React, { createContext, useCallback, useContext, useReducer } from "react";
 
-// Types
-export type ThemeMode = "light" | "dark" | "system";
-
 export interface IAccessibilite {
   contrast: boolean;
   dyslexieArial: boolean;
   dyslexieOpenDys: boolean;
   dyslexieLexend: boolean;
   policeLarge: boolean;
-  themeMode: ThemeMode;
 }
 
 const initialAccessibilite: IAccessibilite = {
@@ -27,36 +23,28 @@ const initialAccessibilite: IAccessibilite = {
   dyslexieOpenDys: false,
   dyslexieLexend: false,
   policeLarge: false,
-  themeMode: "system",
 };
 
-// Action types
 const ACCESSIBILITE_CONTRAST = "ACCESSIBILITE_CONTRAST";
 const ACCESSIBILITE_DYSLEXIE_ARIAL = "ACCESSIBILITE_DYSLEXIE_ARIAL";
 const ACCESSIBILITE_DYSLEXIE_OPENDYS = "ACCESSIBILITE_DYSLEXIE_OPENDYS";
 const ACCESSIBILITE_DYSLEXIE_LEXEND = "ACCESSIBILITE_DYSLEXIE_LEXEND";
 const ACCESSIBILITE_POLICE_LARGE = "ACCESSIBILITE_POLICE_LARGE";
-const ACCESSIBILITE_THEME_MODE = "ACCESSIBILITE_THEME_MODE";
 
 type AccessibiliteAction =
   | { type: typeof ACCESSIBILITE_CONTRAST; payload: boolean }
   | { type: typeof ACCESSIBILITE_DYSLEXIE_ARIAL; payload: boolean }
   | { type: typeof ACCESSIBILITE_DYSLEXIE_OPENDYS; payload: boolean }
   | { type: typeof ACCESSIBILITE_DYSLEXIE_LEXEND; payload: boolean }
-  | { type: typeof ACCESSIBILITE_POLICE_LARGE; payload: boolean }
-  | { type: typeof ACCESSIBILITE_THEME_MODE; payload: ThemeMode };
+  | { type: typeof ACCESSIBILITE_POLICE_LARGE; payload: boolean };
 
-// Reducer
 const AccessibiliteReducer = (
   state: IAccessibilite,
   action: AccessibiliteAction,
 ): IAccessibilite => {
   switch (action.type) {
     case ACCESSIBILITE_CONTRAST:
-      return {
-        ...state,
-        contrast: action.payload,
-      };
+      return { ...state, contrast: action.payload };
 
     case ACCESSIBILITE_DYSLEXIE_ARIAL:
       return {
@@ -83,16 +71,7 @@ const AccessibiliteReducer = (
       };
 
     case ACCESSIBILITE_POLICE_LARGE:
-      return {
-        ...state,
-        policeLarge: action.payload,
-      };
-
-    case ACCESSIBILITE_THEME_MODE:
-      return {
-        ...state,
-        themeMode: action.payload,
-      };
+      return { ...state, policeLarge: action.payload };
 
     default:
       return state;
@@ -106,7 +85,6 @@ interface IAccessibiliteContext {
   setDyslexieOpenDys: (value: boolean) => void;
   setDyslexieLexend: (value: boolean) => void;
   setPoliceLarge: (value: boolean) => void;
-  setThemeMode: (value: ThemeMode) => void;
 }
 
 const AccessibiliteContext = createContext<IAccessibiliteContext | undefined>(undefined);
@@ -134,10 +112,6 @@ export function AccessibiliteProvider({ children }: { children: React.ReactNode 
     (value: boolean) => dispatch({ type: ACCESSIBILITE_POLICE_LARGE, payload: value }),
     [],
   );
-  const setThemeMode = useCallback(
-    (value: ThemeMode) => dispatch({ type: ACCESSIBILITE_THEME_MODE, payload: value }),
-    [],
-  );
 
   return (
     <AccessibiliteContext.Provider
@@ -148,7 +122,6 @@ export function AccessibiliteProvider({ children }: { children: React.ReactNode 
         setDyslexieOpenDys,
         setDyslexieLexend,
         setPoliceLarge,
-        setThemeMode,
       }}
     >
       {children}

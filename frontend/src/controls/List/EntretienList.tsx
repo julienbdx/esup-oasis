@@ -46,7 +46,11 @@ export function EntretienList(props: {
     <>
       {props.entretiens.length === 0 && (
         <div>
-          <Empty description="Aucun entretien" className="m-auto mt-2 mb-2" />
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="Aucun entretien"
+            className="m-auto mt-2 mb-2"
+          />
         </div>
       )}
       <Row gutter={[16, 16]}>

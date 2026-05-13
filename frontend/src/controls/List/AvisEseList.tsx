@@ -37,6 +37,7 @@ export function AvisEseList(props: {
       {props.avis.length === 0 && (
         <div>
           <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
             description={`Aucun avis ${env.REACT_APP_ESPACE_SANTE_ABV || "santé"}`}
             className="m-auto mt-2 mb-2"
           />

@@ -14,12 +14,12 @@
   }
 
   table.ant-picker-content thead tr th {
-    color: variables.$legende;
+    color: var(--ant-color-text-secondary);
     padding-bottom: 10px;
   }
 
   .ant-picker-cell {
-    color: variables.$legende;
+    color: var(--ant-color-text-quaternary);
     font-weight: 100 !important;
     font-size: 0.9rem;
 
@@ -29,7 +29,7 @@
   }
 
   .ant-picker-cell-in-view {
-    color: variables.$text;
+    color: var(--ant-color-text);
     font-weight: 400 !important;
   }
 

@@ -46,7 +46,11 @@ export function TypesDemandesListItems(props: {
             ))}
           {props.items.length === 0 && (
             <List.Item>
-              <Empty className="w-100" description="Aucune campagne disponible." />
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                className="w-100"
+                description="Aucune campagne disponible."
+              />
             </List.Item>
           )}
         </ul>

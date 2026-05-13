@@ -88,7 +88,7 @@ function ComposanteItem({
         <Tooltip title={item?.libelle}>
           <Tag key={item["@id"]} className="bg-app text-text" icon={<BankFilled />}>
             {ellipsis ? (
-              <Typography.Text ellipsis style={{ maxWidth: maxWidth ?? 175 }}>
+              <Typography.Text ellipsis style={{ maxWidth: maxWidth ?? 175, color: "inherit" }}>
                 {item?.libelle}
               </Typography.Text>
             ) : (

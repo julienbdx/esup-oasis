@@ -100,13 +100,13 @@ export function TabAidesHumaines({ utilisateur }: ITabAidesHumainesProps): React
 
   if (isFetching) return <Spinner />;
   if (!amenagements || amenagements.totalItems === 0)
-    return <Empty description="Aucun amenagement" />;
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Aucun amenagement" />;
 
   return (
     <>
       <p className="semi-bold">Aides humaines</p>
       {utilisateur.inscriptions?.length === 0 ? (
-        <Empty description="Aucun aménagement" />
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Aucun aménagement" />
       ) : (
         <>
           {editedItem !== undefined && (
