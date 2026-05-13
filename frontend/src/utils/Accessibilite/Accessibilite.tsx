@@ -23,43 +23,21 @@ export default function Accessibilite(): ReactElement {
   const effectiveTheme = useEffectiveTheme();
 
   useEffect(() => {
-    if (appAccessibilite.contrast) {
-      document.body.classList.add("accessibilite-contraste");
-    } else {
-      document.body.classList.remove("accessibilite-contraste");
-    }
-
-    if (appAccessibilite.dyslexieArial) {
-      document.body.classList.add("accessibilite-dyslexie-arial");
-    } else {
-      document.body.classList.remove("accessibilite-dyslexie-arial");
-    }
-
-    if (appAccessibilite.dyslexieLexend) {
-      document.body.classList.add("accessibilite-dyslexie-lexend");
-    } else {
-      document.body.classList.remove("accessibilite-dyslexie-lexend");
-    }
-
-    if (appAccessibilite.dyslexieOpenDys) {
-      document.body.classList.add("accessibilite-dyslexie-open-dys");
-    } else {
-      document.body.classList.remove("accessibilite-dyslexie-open-dys");
-    }
-
-    if (appAccessibilite.policeLarge) {
-      document.body.classList.add("accessibilite-police-large");
-    } else {
-      document.body.classList.remove("accessibilite-police-large");
-    }
+    document.body.classList.toggle("accessibilite-contraste", appAccessibilite.contrast);
+    document.body.classList.toggle("accessibilite-dyslexie-arial", appAccessibilite.dyslexieArial);
+    document.body.classList.toggle(
+      "accessibilite-dyslexie-lexend",
+      appAccessibilite.dyslexieLexend,
+    );
+    document.body.classList.toggle(
+      "accessibilite-dyslexie-open-dys",
+      appAccessibilite.dyslexieOpenDys,
+    );
+    document.body.classList.toggle("accessibilite-police-large", appAccessibilite.policeLarge);
   }, [appAccessibilite]);
 
   useEffect(() => {
-    if (effectiveTheme === "dark") {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
+    document.body.classList.toggle("dark-mode", effectiveTheme === "dark");
   }, [effectiveTheme]);
 
   return <></>;

@@ -33,22 +33,13 @@ export interface UtilisateurPreferencesType {
   preferencesChargees: boolean;
 }
 
-const UtilisateurPreferencesContext = createContext<UtilisateurPreferencesType>({
-  getPreference: () => "",
-  getPreferenceJson: () => ({}),
-  getPreferenceArray: () => [],
-  setPreference: () => {},
-  setPreferenceJson: () => {},
-  setPreferenceArray: () => {},
-  preferencesChargees: false,
-});
+const UtilisateurPreferencesContext = createContext<UtilisateurPreferencesType>(null!);
 
 export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
   const auth = useAuth();
   const { setContrast, setDyslexieArial, setDyslexieOpenDys, setDyslexieLexend, setPoliceLarge } =
     useAccessibilite();
   const { setThemeMode } = useTheme();
-  const [preferencesChargees, setPreferencesChargees] = React.useState<boolean>(false);
   const { data: preferences } = useApi().useGetFullCollection({
     path: "/utilisateurs/{uid}/parametres_ui",
     parameters: { uid: auth.user?.["@id"] as string },
@@ -57,19 +48,13 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
       logger.error(error);
     },
   });
+  const preferencesChargees = preferences !== undefined;
 
   const mutatePreference = useApi().usePut({
     path: "/utilisateurs/{uid}/parametres_ui/{cle}",
     invalidationQueryKeys: [QK_UTILISATEURS_PARAMETRES_UI],
   });
   const { mutate: mutatePreferenceRaw } = mutatePreference;
-
-  useEffect(() => {
-    if (preferences) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setPreferencesChargees(true);
-    }
-  }, [preferences]);
 
   // Accessibilité
   useEffect(() => {
@@ -193,5 +178,8 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
 }
 
 export function usePreferences(): UtilisateurPreferencesType {
-  return useContext(UtilisateurPreferencesContext);
+  const ctx = useContext(UtilisateurPreferencesContext);
+  if (ctx === null)
+    throw new Error("usePreferences doit être utilisé dans un <UtilisateurPreferencesProvider>");
+  return ctx;
 }

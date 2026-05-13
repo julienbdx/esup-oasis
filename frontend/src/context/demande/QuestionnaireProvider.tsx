@@ -38,14 +38,7 @@ export * from "@context/demande/QuestionnaireTypes";
 export { MATRICE_DROITS_ROLES } from "@context/demande/QuestionnaireRights";
 export { useQuestionnaireNavigation } from "@context/demande/useQuestionnaireNavigation";
 
-// Create a context for the Questionnaire with a default value of null.
-const QuestionnaireContext = createContext<QuestionnaireContextType>({
-  mode: "saisie",
-  setMode: () => {},
-  setSubmitting: () => {},
-  blocage: false,
-  setBlocage: () => {},
-});
+const QuestionnaireContext = createContext<QuestionnaireContextType>(null!);
 
 /**
  * Provide the questionnaire context to child components.
@@ -279,6 +272,8 @@ export function QuestionnaireProvider(props: {
  * @returns {QuestionnaireContextType} The context for the questionnaire.
  */
 export function useQuestionnaire(): QuestionnaireContextType {
-  // Use the context for the questionnaire.
-  return useContext(QuestionnaireContext);
+  const ctx = useContext(QuestionnaireContext);
+  if (ctx === null)
+    throw new Error("useQuestionnaire doit être utilisé dans un <QuestionnaireProvider>");
+  return ctx;
 }
