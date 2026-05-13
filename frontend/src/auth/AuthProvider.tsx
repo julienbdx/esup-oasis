@@ -288,6 +288,8 @@ export function AuthProvider({
   return <AuthContext.Provider value={authenticator}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
-  return React.useContext(AuthContext);
+export function useAuth(): AuthContextType {
+  const ctx = React.useContext(AuthContext);
+  if (ctx === null) throw new Error("useAuth doit être utilisé dans un <AuthProvider>");
+  return ctx;
 }

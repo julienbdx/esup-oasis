@@ -52,7 +52,6 @@ export default function CsvExportButtonWithFetch<
 }: CsvExportButtonWithFetchProps<P, T>) {
   const [enabled, setEnabled] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
-  // Le type Link de react-csv ne déclare pas la propriété link dans ses typings : any nécessaire
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const refDownload = useRef<any>(null);
 
