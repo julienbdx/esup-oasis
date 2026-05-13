@@ -92,10 +92,15 @@ describe("getEtatDemandeOrdre", () => {
 // ---------------------------------------------------------------------------
 
 describe("getEtatDemande", () => {
-  it("fonctionne de manière identique à getEtatDemandeInfo", () => {
-    const res1 = getEtatDemandeInfo(ETAT_DEMANDE_EN_COURS);
-    const res2 = getEtatDemande(ETAT_DEMANDE_EN_COURS);
-    expect(res1).toEqual(res2);
+  it.each(ETATS_DEMANDES.map((e) => e.id))(
+    "retourne le même résultat que getEtatDemandeInfo pour l'état '%s'",
+    (id) => {
+      expect(getEtatDemande(id)).toEqual(getEtatDemandeInfo(id));
+    },
+  );
+
+  it("fonctionne aussi pour un état inconnu", () => {
+    expect(getEtatDemande("inconnu")).toEqual(getEtatDemandeInfo("inconnu"));
   });
 });
 

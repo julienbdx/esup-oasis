@@ -8,7 +8,10 @@
  */
 
 import "@testing-library/jest-dom";
+import { toHaveNoViolations } from "vitest-axe/dist/matchers";
 import nodeCrypto from "crypto";
+
+expect.extend({ toHaveNoViolations });
 
 // window.env est injecté au runtime via public/env.js — on le mock pour les tests
 (window as unknown as Record<string, unknown>).env = {};

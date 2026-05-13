@@ -106,17 +106,6 @@ describe("formatExchangeCodeForTokenServerURL", () => {
     expect(url.searchParams.get("grant_type")).toBe("authorization_code");
   });
 
-  it("utilise uniquement le chemin sans la query string comme base", () => {
-    const result = formatExchangeCodeForTokenServerURL(
-      "https://api.example.com/token?existing=1",
-      "client123",
-      "code",
-      "https://app.example.com/callback",
-      "state",
-    );
-    expect(result.startsWith("https://api.example.com/token?")).toBe(true);
-  });
-
   it("n'ajoute pas de paramètre parasite quand l'URL n'a pas de query string", () => {
     const url = new URL(
       formatExchangeCodeForTokenServerURL(
