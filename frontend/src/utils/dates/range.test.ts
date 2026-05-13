@@ -204,6 +204,7 @@ describe("affichageNbJours", () => {
   });
 
   it("retourne 7 pour 'work_week'", () => {
+    // work_week affiche 7 jours dans la grille ; les weekends sont masqués via CSS côté rendu
     expect(affichageNbJours("work_week", new Date(2024, 2, 1))).toBe(7);
   });
 

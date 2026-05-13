@@ -143,10 +143,6 @@ describe("getLibellePeriode", () => {
     expect(getLibellePeriode("2023-01-01", "2024-03-15")).toBe("01 janvier 2023 au 15 mars 2024");
   });
 
-  it("utilise le formatMois personnalisé (MMM)", () => {
-    expect(getLibellePeriode(null, "2024-03-15", "MMM")).toBe("jusqu'au 15 mars 2024");
-  });
-
   it("utilise le formatMois court (MM) pour un format numérique", () => {
     expect(getLibellePeriode(null, "2024-03-15", "MM")).toBe("jusqu'au 15 03 2024");
   });

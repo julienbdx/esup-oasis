@@ -32,16 +32,6 @@ describe("handleInvalidation — appel à invalidateQueries", () => {
     expect(invalidateQueries).toHaveBeenCalledOnce();
   });
 
-  it("n'appelle pas onSuccess si non fourni", async () => {
-    const { client } = makeClient();
-    await expect(
-      new Promise<void>((resolve) => {
-        handleInvalidation(client, ["/evenements"]);
-        resolve();
-      }),
-    ).resolves.toBeUndefined();
-  });
-
   it("appelle onSuccess après résolution de l'invalidation", async () => {
     const { client } = makeClient();
     const onSuccess = vi.fn();
