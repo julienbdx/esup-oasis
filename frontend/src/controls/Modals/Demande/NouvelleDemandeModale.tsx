@@ -60,11 +60,7 @@ export default function NouvelleDemandeModale(props: {
   return (
     <Modal
       centered
-      title={
-        <h2 autoFocus className="m-0">
-          Nouvelle demande
-        </h2>
-      }
+      title={<h2 className="m-0">Nouvelle demande</h2>}
       open={props.open}
       onCancel={() => {
         props.setOpen(false);

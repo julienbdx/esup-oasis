@@ -117,7 +117,7 @@ export function TabDemandes({ utilisateur, title }: ITabDemandesProps): ReactEle
         demandeurId={utilisateur["@id"]}
       />
       {!demandes || demandes?.items?.length === 0 ? (
-        <Empty description="Aucune demande" />
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Aucune demande" />
       ) : (
         <List loading={fetchingDemandes} className="ant-list-radius ant-list-animated">
           {demandes?.items?.map((demande) => (

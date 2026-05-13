@@ -160,7 +160,7 @@ export default function UtilisateurCreerDrawer({
 
       {utilisateursProposes && utilisateursProposes.items.length === 0 && (
         <div className="text-center">
-          <Empty />
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
           <Button className="mt-2" onClick={() => setRecherche("")}>
             Nouvelle recherche
           </Button>

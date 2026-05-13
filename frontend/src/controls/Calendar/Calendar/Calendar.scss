@@ -2,7 +2,7 @@
 @use "../../../styles/helpers" as helpers;
 
 .calendar-content {
-  background: white;
+  background: var(--ant-color-bg-container);
 }
 
 .ant-dropdown-menu-item {
@@ -37,9 +37,9 @@
 .calendar {
   display: block;
 
-  // Fond blanc pour la vue time grid
+  // Fond de la vue time grid
   .fc-timegrid {
-    background-color: white;
+    background-color: var(--ant-color-bg-container);
   }
 
   // Densité : hauteur des créneaux de 15 min
@@ -63,13 +63,13 @@
 
   // Bordures entre colonnes de jours
   .fc-timegrid-col {
-    border-color: #e9ebf2;
+    border-color: var(--ant-color-border-secondary);
   }
 
   // Étiquettes des heures
   .fc-timegrid-slot-label-cushion {
-    color: variables.$legende;
-    background-color: white;
+    color: var(--ant-color-text-secondary);
+    background-color: var(--ant-color-bg-container);
     font-size: 0.8rem;
     font-family: NoirPro, sans-serif;
     display: inline-block;
@@ -91,7 +91,7 @@
 
       .date {
         font-size: 0.9rem;
-        color: variables.$legende;
+        color: var(--ant-color-text-secondary);
       }
 
       .jour {
@@ -154,7 +154,7 @@
   .fc-col-header {
     position: sticky;
     top: 0;
-    border-bottom: 1px solid variables.$light-grey-border;
+    border-bottom: 1px solid var(--ant-color-border);
     z-index: 20;
     height: 81px;
   }
@@ -191,7 +191,7 @@
   display: flex;
   align-items: center;
   padding: 0 20px;
-  background-color: variables.$light-grey;
+  background-color: var(--ant-color-bg-layout);
 }
 
 @media screen and (max-width: 768px) {
@@ -204,12 +204,7 @@
   }
 }
 
-body.accessibilite-contraste {
-  .calendar .fc-col-header-cell a .date,
-  .calendar .fc-timegrid-slot-label-cushion {
-    color: #666 !important;
-  }
-
+body.accessibilite-contraste:not(.dark-mode) {
   .ant-picker-calendar .ant-picker-cell {
     font-weight: 400 !important;
 

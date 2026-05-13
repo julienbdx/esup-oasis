@@ -62,7 +62,11 @@ export function IntervenantDashboardServicesFaits() {
                 })}
                 {servicesFaitsIntervenant?.items.length === 0 && (
                   <List.Item className="" key="empty">
-                    <Empty className="m-auto" description="Aucun relevé de services faits" />
+                    <Empty
+                      image={Empty.PRESENTED_IMAGE_SIMPLE}
+                      className="m-auto"
+                      description="Aucun relevé de services faits"
+                    />
                   </List.Item>
                 )}
               </ul>

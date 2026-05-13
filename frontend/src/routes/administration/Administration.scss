@@ -38,8 +38,8 @@
 }
 
 .ref-inactif td:not(.commandes) {
-  background-color: variables.$light-grey;
-  color: variables.$light-color;
+  background-color: var(--ant-color-bg-layout);
+  color: var(--ant-color-text-secondary);
   opacity: 0.5;
 }
 

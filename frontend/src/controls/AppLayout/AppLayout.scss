@@ -236,7 +236,7 @@
   }
 }
 
-.accessibilite-contraste {
+.accessibilite-contraste:not(.dark-mode) {
   .header {
     background-color: variables.$white !important;
   }

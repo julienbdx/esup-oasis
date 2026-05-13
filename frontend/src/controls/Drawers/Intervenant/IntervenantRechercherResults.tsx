@@ -86,7 +86,10 @@ const IntervenantRechercherResults: React.FC<IntervenantRechercherResultsProps> 
         </>
       ) : (
         <>
-          <Empty description="Aucun intervenant ne correspond aux critères" />
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="Aucun intervenant ne correspond aux critères"
+          />
           <div className="text-center mt-3">
             <Button onClick={onBack} size="large">
               Retour

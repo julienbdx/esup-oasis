@@ -14,6 +14,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import { useApi } from "@context/api/ApiProvider";
 import { useAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { PREFETCH_TYPES_EVENEMENTS } from "@api";
+import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
 interface ICategoriesFilter {
   value?: string[];
@@ -30,6 +31,7 @@ interface ICategoriesFilter {
 export default function TypeEvenementFilter({ value, setValue }: ICategoriesFilter): ReactElement {
   const { data } = useApi().useGetFullCollection(PREFETCH_TYPES_EVENEMENTS);
   const { accessibilite: appAccessibilite } = useAccessibilite();
+  const isDark = useEffectiveTheme() === "dark";
 
   return (
     <>
@@ -48,7 +50,9 @@ export default function TypeEvenementFilter({ value, setValue }: ICategoriesFilt
               value={c["@id"]}
               className={`border-radius checkbox-hide-check bg-white-hover border-radius checkbox-${c.couleur}`}
               style={{
-                color: `var(--color-dark-${c.couleur})`,
+                color: isDark
+                  ? `var(--color-light-${c.couleur})`
+                  : `var(--color-dark-${c.couleur})`,
                 margin: "6px 0px",
                 padding: "2px 0",
               }}

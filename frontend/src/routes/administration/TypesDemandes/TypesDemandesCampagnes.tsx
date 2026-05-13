@@ -17,7 +17,7 @@ export default function TypesDemandesCampagnes(props: { typeDemandeId: string })
 
   if (isFetching) return <Spinner />;
   if (typesDemandesCampagnes?.items.length === 0) {
-    return <Empty description="Aucune campagne trouvée" />;
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Aucune campagne trouvée" />;
   }
 
   return (

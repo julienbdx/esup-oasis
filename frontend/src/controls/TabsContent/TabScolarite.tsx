@@ -85,7 +85,7 @@ export function TabScolarite({ utilisateur }: ITabScolariteProps): ReactElement 
     <>
       <p className="semi-bold">Inscriptions à {env.REACT_APP_ETABLISSEMENT_ABV_ARTICLE}</p>
       {utilisateur.inscriptions?.length === 0 ? (
-        <Empty description="Aucune inscription" />
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Aucune inscription" />
       ) : (
         <List className="ant-list-radius no-hover">
           {utilisateur.inscriptions?.map((inscription) => (

@@ -193,7 +193,11 @@ export function TabAmenagements(props: {
           </Row>
         </div>
         {amenagementsByCategories?.length === 0 && (
-          <Empty className="mt-3 mb-1" description="Aucun aménagement" />
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            className="mt-3 mb-1"
+            description="Aucun aménagement"
+          />
         )}
       </div>
     </>

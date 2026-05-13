@@ -30,6 +30,7 @@ function TypeDemandeList(props: { isFetching?: boolean; demandes?: IDemande[] })
   if (props.demandes.length === 0)
     return (
       <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
         description={
           <>
             <div className="semi-bold">Vous n'avez aucune demande en cours.</div>

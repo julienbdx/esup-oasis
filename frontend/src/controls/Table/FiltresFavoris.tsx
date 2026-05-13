@@ -171,7 +171,11 @@ export function FiltresFavoris<T extends FiltreDecrivable>(props: {
           ))}
         {getPreferenceArray(props.filtreType).length === 0 && (
           <List.Item>
-            <Empty className="m-auto mt-1 mb-1" description="Aucun filtre enregistré" />
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              className="m-auto mt-1 mb-1"
+              description="Aucun filtre enregistré"
+            />
           </List.Item>
         )}
       </List>

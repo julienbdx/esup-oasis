@@ -239,7 +239,11 @@ export const CommissionsMembersList: React.FC<CommissionsMembersListProps> = ({ 
         ))}
         {membres.items.length === 0 && (
           <List.Item>
-            <Empty className="m-auto" description="Aucun membre dans cette commission" />
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              className="m-auto"
+              description="Aucun membre dans cette commission"
+            />
           </List.Item>
         )}
       </List>

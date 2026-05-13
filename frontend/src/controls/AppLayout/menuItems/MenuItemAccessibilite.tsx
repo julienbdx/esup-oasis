@@ -7,26 +7,12 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { IAccessibilite, ThemeMode } from "@context/accessibilite/AccessibiliteContext";
+import { IAccessibilite } from "@context/accessibilite/AccessibiliteContext";
 import { Button, MenuProps } from "antd";
 import Icon, { CheckOutlined } from "@ant-design/icons";
 import React from "react";
 import IconeAccessibilite from "@/assets/images/accessibilite.svg?react";
 
-/**
- * Generate menu items for accessibility options.
- *
- * @param {IAccessibilite} appAccessibilite - The accessibility settings object.
- * @param setContrast
- * @param setDyslexieArial
- * @param setDyslexieOpenDys
- * @param setDyslexieLexend
- * @param setPoliceLarge
- * @param setPreference
- * @param isDark
- * @param setThemeMode
- * @returns {MenuProps["items"]} - The generated menu items.
- */
 export function menuItemAccessibilite(
   appAccessibilite: IAccessibilite,
   setContrast: (value: boolean) => void,
@@ -35,8 +21,6 @@ export function menuItemAccessibilite(
   setDyslexieLexend: (value: boolean) => void,
   setPoliceLarge: (value: boolean) => void,
   setPreference: (key: string, value: string) => void,
-  isDark: boolean,
-  setThemeMode: (value: ThemeMode) => void,
 ): MenuProps["items"] {
   return [
     {
@@ -67,10 +51,6 @@ export function menuItemAccessibilite(
           ),
           onClick: () => {
             const nextContrast = !appAccessibilite.contrast;
-            if (isDark && nextContrast) {
-              setThemeMode("light");
-              setPreference("theme-mode", "light");
-            }
             setContrast(nextContrast);
             setPreference("contrast", nextContrast ? "true" : "false");
           },

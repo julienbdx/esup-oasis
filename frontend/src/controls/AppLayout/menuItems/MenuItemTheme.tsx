@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { ThemeMode } from "@context/accessibilite/AccessibiliteContext";
+import { ThemeMode } from "@context/theme/ThemeContext";
 import { Button, MenuProps } from "antd";
 import { CheckOutlined, DesktopOutlined, MoonOutlined, SunOutlined } from "@ant-design/icons";
 import React from "react";
@@ -22,21 +22,10 @@ export function menuItemTheme(
   themeMode: ThemeMode,
   setThemeMode: (value: ThemeMode) => void,
   setPreference: (key: string, value: string) => void,
-  setContrast: (value: boolean) => void,
 ): MenuProps["items"] {
-  const willBeDark = (value: ThemeMode) => {
-    if (value === "dark") return true;
-    if (value === "light") return false;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  };
-
   const onChange = (value: ThemeMode) => {
     setThemeMode(value);
     setPreference("theme-mode", value);
-    if (willBeDark(value)) {
-      setContrast(false);
-      setPreference("contrast", "false");
-    }
   };
 
   return [

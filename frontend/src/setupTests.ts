@@ -10,6 +10,9 @@
 import "@testing-library/jest-dom";
 import nodeCrypto from "crypto";
 
+// window.env est injecté au runtime via public/env.js — on le mock pour les tests
+(window as unknown as Record<string, unknown>).env = {};
+
 global.matchMedia =
   global.matchMedia ||
   function () {

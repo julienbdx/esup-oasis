@@ -186,7 +186,9 @@ export default function BilanBeneficiaireIntervenant(props: {
         />
       )}
 
-      {submitted && !isError && dataRaw && dataRaw.totalItems === 0 && <Empty className="mt-2" />}
+      {submitted && !isError && dataRaw && dataRaw.totalItems === 0 && (
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="mt-2" />
+      )}
 
       {submitted && dataRaw && dataRaw.totalItems > 0 && (
         <BilanTable type={props.type} loading={isFetching} data={dataRaw.items as IActivite[]} />
