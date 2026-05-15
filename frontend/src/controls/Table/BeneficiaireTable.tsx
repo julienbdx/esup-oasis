@@ -149,6 +149,7 @@ export default function BeneficiaireTable() {
 
   useEffect(() => {
     if (searchParams.get("filtreType") && searchParams.get("filtreValeur")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreBeneficiaire(
         filtreBeneficiaireDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
       );

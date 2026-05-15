@@ -68,47 +68,47 @@ export function AmenagementTable(props: {
       <div ref={tableRef}>
         <Table<IAmenagement>
           loading={isFetchingAmenagements}
-        dataSource={amenagements?.items || []}
-        rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
-        rowHoverable={false}
-        columns={amenagementTableColumns({
-          filtre: props.filtreAmenagement,
-          setFiltre: props.setFiltreAmenagement,
-          typesAmenagements: props.typesAmenagements,
-          categoriesAmenagements: props.categoriesAmenagements,
-          navigate: navigate,
-          isGestionnaire: auth?.user?.isGestionnaire,
-          setEditedItem: auth?.user?.isGestionnaire ? undefined : setEditedItem,
-        })}
-        className="table-responsive table-thead-sticky mt-2"
-        pagination={{
-          pageSize: props.filtreAmenagement.itemsPerPage,
-          total: amenagements?.totalItems,
-          current: props.filtreAmenagement.page,
-          showTotal: (total, range) => (
-            <div className="text-legende mr-1">
-              {range[0]} à {range[1]} / {total}
-            </div>
-          ),
-          showSizeChanger: true,
-          pageSizeOptions: [25, 50, 100, 200],
-        }}
-        rowKey={(record) => record["@id"] as string}
-        onChange={(
-          pagination,
-          _filters,
-          sorter: SorterResult<IAmenagement> | SorterResult<IAmenagement>[],
-        ) => {
-          if (Array.isArray(sorter)) {
-            return;
-          }
-          props.setFiltreAmenagement({
-            ...props.filtreAmenagement,
-            page: pagination.current ?? 1,
-            itemsPerPage: pagination.pageSize ?? 25,
-          });
-        }}
-      />
+          dataSource={amenagements?.items || []}
+          rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
+          rowHoverable={false}
+          columns={amenagementTableColumns({
+            filtre: props.filtreAmenagement,
+            setFiltre: props.setFiltreAmenagement,
+            typesAmenagements: props.typesAmenagements,
+            categoriesAmenagements: props.categoriesAmenagements,
+            navigate: navigate,
+            isGestionnaire: auth?.user?.isGestionnaire,
+            setEditedItem: auth?.user?.isGestionnaire ? undefined : setEditedItem,
+          })}
+          className="table-responsive table-thead-sticky mt-2"
+          pagination={{
+            pageSize: props.filtreAmenagement.itemsPerPage,
+            total: amenagements?.totalItems,
+            current: props.filtreAmenagement.page,
+            showTotal: (total, range) => (
+              <div className="text-legende mr-1">
+                {range[0]} à {range[1]} / {total}
+              </div>
+            ),
+            showSizeChanger: true,
+            pageSizeOptions: [25, 50, 100, 200],
+          }}
+          rowKey={(record) => record["@id"] as string}
+          onChange={(
+            pagination,
+            _filters,
+            sorter: SorterResult<IAmenagement> | SorterResult<IAmenagement>[],
+          ) => {
+            if (Array.isArray(sorter)) {
+              return;
+            }
+            props.setFiltreAmenagement({
+              ...props.filtreAmenagement,
+              page: pagination.current ?? 1,
+              itemsPerPage: pagination.pageSize ?? 25,
+            });
+          }}
+        />
       </div>
       {editedItem !== undefined && (
         <ModalAmenagement
