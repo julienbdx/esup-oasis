@@ -9,7 +9,7 @@
 
 import { useAuth } from "@/auth/AuthProvider";
 import { Alert, Avatar, Button, Col, Row, Spin } from "antd";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useMemo } from "react";
 import "@/auth/LoginPage.scss";
 import {
   HourglassOutlined,
@@ -24,22 +24,20 @@ import PageTitle from "@utils/PageTitle/PageTitle";
 import { env } from "@/env";
 import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
-/**
- * Renders the login page with authentication functionality.
- * Button to redirect to CAS authentication.
- *
- * @returns {ReactElement} The rendered login page component.
- */
+function getMessageAccueil() {
+  if (env.REACT_APP_MSG_ACCUEIL) {
+    return env.REACT_APP_MSG_ACCUEIL.split(";");
+  }
+  return [env.REACT_APP_ETABLISSEMENT, env.REACT_APP_TITRE];
+}
+
 export default function LoginPage(): ReactElement {
   const auth = useAuth();
   const isDark = useEffectiveTheme() === "dark";
-
-  function getMessageAccueil() {
-    if (env.REACT_APP_MSG_ACCUEIL) {
-      return env.REACT_APP_MSG_ACCUEIL.split(";");
-    }
-    return [env.REACT_APP_ETABLISSEMENT, env.REACT_APP_TITRE];
-  }
+  const prefersReducedMotion = useMemo(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    []
+  );
 
   const {
     text: typedText,
@@ -57,7 +55,7 @@ export default function LoginPage(): ReactElement {
     <>
       <PageTitle />
       <Row style={{ minHeight: "calc(100vh - 70px)" }}>
-        <Col xs={0} sm={24} md={24} lg={16} className="login-image">
+        <Col xs={0} sm={0} md={0} lg={16} className="login-image">
           {env.REACT_APP_LOGO && (
             <div className="login-universite-top">
               <a
@@ -104,7 +102,10 @@ export default function LoginPage(): ReactElement {
             <h1 aria-label={`${env.REACT_APP_ETABLISSEMENT} : ${env.REACT_APP_TITRE}`}>
               <span
                 aria-hidden
-                style={{ transition: "opacity 0.6s", opacity: typedFading ? 0 : 1 }}
+                style={{
+                  transition: prefersReducedMotion ? undefined : "opacity 0.6s",
+                  opacity: !prefersReducedMotion && typedFading ? 0 : 1,
+                }}
               >
                 {typedText}
                 {showCursor && (
@@ -133,8 +134,10 @@ export default function LoginPage(): ReactElement {
             )}
 
             <div className="info fs-09">
-              La connexion à l'application se fait en utilisant vos identifiants fournis par{" "}
-              {env.REACT_APP_ETABLISSEMENT_ARTICLE}.<br />
+              <p className="mb-0">
+                La connexion à l'application se fait en utilisant vos identifiants fournis par{" "}
+                {env.REACT_APP_ETABLISSEMENT_ARTICLE}.
+              </p>
               {env.REACT_APP_INFOS_AUTH && (
                 <a target="_blank" href={env.REACT_APP_INFOS_AUTH} rel="noreferrer">
                   En savoir plus
@@ -170,18 +173,21 @@ export default function LoginPage(): ReactElement {
       </Row>
 
       <footer className="bg-light-grey">
-        <Row className="pt-2 pb-2">
-          <Col span={24} className="text-center fs-09">
-            Des cookies sont utilisés afin de garantir le bon fonctionnement de l'application. En
-            continuant, vous acceptez l'utilisation de ces cookies. Pour en savoir plus, merci de
-            contacter{" "}
-            <a style={{ whiteSpace: "nowrap" }} href={`mailto:${env.REACT_APP_EMAIL_SERVICE}`}>
-              le service {env.REACT_APP_SERVICE}
-            </a>
-            .
-            <br />
-            <a href="/rgpd">Politique d'utilisation des données</a> <MinusOutlined aria-hidden />{" "}
-            <a href="/credits">Mentions légales & crédits</a>
+        <Row className="p-2">
+          <Col span={24} className="text-center">
+            <p className="mb-0">
+              Des cookies sont utilisés afin de garantir le bon fonctionnement de l'application. En
+              continuant, vous acceptez l'utilisation de ces cookies. Pour en savoir plus, merci de
+              contacter{" "}
+              <a style={{ whiteSpace: "nowrap" }} href={`mailto:${env.REACT_APP_EMAIL_SERVICE}`}>
+                le service {env.REACT_APP_SERVICE}
+              </a>
+              .
+            </p>
+            <p className="mb-0">
+              <a href="/rgpd">Politique d'utilisation des données</a> <MinusOutlined aria-hidden />{" "}
+              <a href="/credits">Mentions légales &amp; crédits</a>
+            </p>
           </Col>
         </Row>
       </footer>
