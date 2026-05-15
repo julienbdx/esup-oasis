@@ -25,6 +25,6 @@ export function ListeUtilisateurTag(props: { utilisateurId: string }) {
   if (!utilisateur) return null;
 
   return utilisateur.tags?.map((tag) => (
-    <UtilisateurTag key={tag} tagId={tag} className="mb-05" utilisateurId={props.utilisateurId} />
+    <UtilisateurTag key={tag} tagId={tag} className="mr-05" utilisateurId={props.utilisateurId} />
   ));
 }

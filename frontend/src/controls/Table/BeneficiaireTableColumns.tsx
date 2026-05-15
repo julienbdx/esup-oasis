@@ -150,7 +150,7 @@ export function beneficiaireTableColumns({
                 tagId={tag}
                 key={tag}
                 utilisateurId={record.uid as string}
-                className="mb-1"
+                className="mr-05"
               />
             ))}
           </div>
