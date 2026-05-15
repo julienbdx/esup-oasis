@@ -50,12 +50,6 @@
   }
 }
 
-.assistance {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-}
-
 .login-form {
   display: flex;
   align-items: center;
@@ -70,12 +64,12 @@
     margin-bottom: 28px;
     // Anneau blanc + halo discret + ombre portée
     box-shadow:
-      0 0 0 5px #ffffff,
-      0 0 0 7px rgba(0, 0, 0, 0.07),
-      0 10px 34px rgba(0, 0, 0, 0.22) !important;
+    0 0 0 5px var(--ant-color-bg-container),
+    0 0 0 7px rgba(0, 0, 0, 0.07),
+    0 10px 34px rgba(0, 0, 0, 0.22) !important;
     transition:
-      transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.38s ease !important;
+      transform 0.38s cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.38s ease-out !important;
   }
 
   .content {
@@ -117,12 +111,18 @@
   letter-spacing: 0.03em;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18) !important;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease !important;
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out !important;
   text-transform: uppercase;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22) !important;
+  }
 
   &:active {
     transform: translateY(0) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
   }
 }
 
@@ -141,12 +141,11 @@
   z-index: 9;
 }
 
-.subtitle {
-  margin-top: 0;
-  font-weight: lighter;
-}
-
 @media screen and (max-width: 992px) {
+  .login-image {
+    display: none;
+  }
+
   .login-universite-top {
     display: none;
   }
@@ -154,13 +153,6 @@
   .login-universite-bottom {
     display: block;
     padding: 0 20px !important;
-    z-index: 0;
-  }
-
-  .login-image {
-    background-size: 40%;
-    flex: 0 0 100%;
-    box-shadow: none;
   }
 
   .login-form {
@@ -169,12 +161,6 @@
     &::before {
       display: none;
     }
-  }
-
-  .login-footer {
-    position: relative;
-    bottom: 20px;
-    margin-top: 80px;
   }
 }
 
@@ -221,6 +207,25 @@
 
   &:hover {
     color: var(--ant-color-text) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-image #robot {
+    animation: none;
+  }
+
+  .typed-cursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  .login-avatar {
+    transition: none !important;
+  }
+
+  .login-btn {
+    transition: none !important;
   }
 }
 

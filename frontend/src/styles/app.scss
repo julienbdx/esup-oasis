@@ -32,7 +32,7 @@ body {
 .header-skip-nav {
   position: fixed;
   z-index: 500;
-  top: -100px;
+  top: 0;
   left: 0;
   width: 100%;
   background: var(--ant-color-bg-container);
@@ -40,7 +40,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 82px;
-  transition: top 0.3s;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-out;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 
   button span {
@@ -49,8 +50,7 @@ body {
   }
 
   &:focus-within {
-    top: 0;
-    transition: top 0.3s;
+    transform: translateY(0);
   }
 }
 
@@ -398,7 +398,7 @@ h4 {
 
 .item-selected {
   transform: scale(1.05);
-  transition: all 0.25s;
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
   @extend .shadow-1;
 }
 
@@ -424,7 +424,7 @@ h4 {
 
 .ant-card-hoverable:hover {
   background-color: var(--color-app);
-  transition: all 0.3s;
+  transition: background-color 0.3s ease-out;
 }
 
 .pointer,
@@ -667,7 +667,7 @@ th.pointer {
     }
 
     &:hover {
-      transition: all 0.5s;
+      transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
       background-color: variables.$light-grey;
       @extend .shadow-1;
     }
@@ -698,17 +698,17 @@ th.pointer {
 @keyframes slide {
   75% {
     opacity: 0;
+    transform: translateX(-10px);
   }
   100% {
-    left: 0;
     opacity: 1;
+    transform: translateX(0);
   }
 }
 
 .ant-list-animated .ant-list-item {
-  position: relative;
-  left: -1000px;
   opacity: 0;
+  transform: translateX(-10px);
   animation: slide 0.25s forwards;
 }
 
@@ -753,7 +753,7 @@ th.pointer {
 
 .avisese-non-en-cours:hover {
   opacity: 1;
-  transition: 0.3s;
+  transition: opacity 0.3s ease-out;
 }
 
 .ant-badge .ant-badge-count-sm,
