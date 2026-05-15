@@ -158,69 +158,69 @@ export default function IntervenantTable() {
       <div ref={tableRef}>
         <Table<IIntervenant>
           loading={isFetchingIntervenants}
-        dataSource={dataIntervenants?.items || []}
-        className="table-responsive table-thead-sticky mt-2"
-        pagination={{
-          pageSize: filtreIntervenant.itemsPerPage || 50,
-          total: dataIntervenants?.totalItems,
-          current: filtreIntervenant.page,
-          showSizeChanger: true,
-          pageSizeOptions: [25, 50, 100, 200],
-          onChange: (p, ps) => {
-            setFiltreIntervenant({
-              ...filtreIntervenant,
-              page: p,
-              itemsPerPage: ps,
-            });
-          },
-          showTotal: (total, range) => (
-            <div className="text-legende mr-1">
-              {range[0]} à {range[1]} / {total}
-            </div>
-          ),
-        }}
-        rowKey={(record) => record["@id"] as string}
-        rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
-        onChange={(
-          pagination,
-          _filters,
-          sorter: SorterResult<IBeneficiaire> | SorterResult<IBeneficiaire>[],
-        ) => {
-          if (Array.isArray(sorter)) {
-            return;
-          }
-          if (sorter.field && sorter.field === "nom") {
-            setFiltreIntervenant({
-              ...filtreIntervenant,
-              page: pagination.current || 1,
-              itemsPerPage: pagination.pageSize || 50,
-              "order[nom]": ascendToAsc(sorter.order),
-            });
-          } else {
-            setFiltreIntervenant({
-              ...filtreIntervenant,
-              page: pagination.current || 1,
-              itemsPerPage: pagination.pageSize || 50,
-            });
-          }
-        }}
-        columns={intervenantTableColumns({
-          user: auth.user,
-          filter: filtreIntervenant,
-          setFilter: setFiltreIntervenant,
-          onIntervenantSelected: (intervenant) => {
-            setDrawerUtilisateur({
-              utilisateur: intervenant["@id"],
-              role: intervenant.roles?.includes(RoleValues.ROLE_RENFORT)
-                ? RoleValues.ROLE_RENFORT
-                : RoleValues.ROLE_INTERVENANT,
-            });
-          },
-          onImpersonate: (intervenantUid) => {
-            navigate(`/impersonate/${intervenantUid}`);
-          },
-        })}
-      />
+          dataSource={dataIntervenants?.items || []}
+          className="table-responsive table-thead-sticky mt-2"
+          pagination={{
+            pageSize: filtreIntervenant.itemsPerPage || 50,
+            total: dataIntervenants?.totalItems,
+            current: filtreIntervenant.page,
+            showSizeChanger: true,
+            pageSizeOptions: [25, 50, 100, 200],
+            onChange: (p, ps) => {
+              setFiltreIntervenant({
+                ...filtreIntervenant,
+                page: p,
+                itemsPerPage: ps,
+              });
+            },
+            showTotal: (total, range) => (
+              <div className="text-legende mr-1">
+                {range[0]} à {range[1]} / {total}
+              </div>
+            ),
+          }}
+          rowKey={(record) => record["@id"] as string}
+          rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
+          onChange={(
+            pagination,
+            _filters,
+            sorter: SorterResult<IBeneficiaire> | SorterResult<IBeneficiaire>[],
+          ) => {
+            if (Array.isArray(sorter)) {
+              return;
+            }
+            if (sorter.field && sorter.field === "nom") {
+              setFiltreIntervenant({
+                ...filtreIntervenant,
+                page: pagination.current || 1,
+                itemsPerPage: pagination.pageSize || 50,
+                "order[nom]": ascendToAsc(sorter.order),
+              });
+            } else {
+              setFiltreIntervenant({
+                ...filtreIntervenant,
+                page: pagination.current || 1,
+                itemsPerPage: pagination.pageSize || 50,
+              });
+            }
+          }}
+          columns={intervenantTableColumns({
+            user: auth.user,
+            filter: filtreIntervenant,
+            setFilter: setFiltreIntervenant,
+            onIntervenantSelected: (intervenant) => {
+              setDrawerUtilisateur({
+                utilisateur: intervenant["@id"],
+                role: intervenant.roles?.includes(RoleValues.ROLE_RENFORT)
+                  ? RoleValues.ROLE_RENFORT
+                  : RoleValues.ROLE_INTERVENANT,
+              });
+            },
+            onImpersonate: (intervenantUid) => {
+              navigate(`/impersonate/${intervenantUid}`);
+            },
+          })}
+        />
       </div>
     </>
   );

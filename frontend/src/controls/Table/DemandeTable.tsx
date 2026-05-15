@@ -226,7 +226,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
       cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [props.refs.table]);
 
   return (
     <>
