@@ -47,9 +47,11 @@ const apiDownloader = async (
     };
   }
 
-  // Change this to use your HTTP client
-  fetch(url, fetchOptions) // FETCH BLOB FROM IT
-    .then((response) => response.blob())
+  fetch(url, fetchOptions)
+    .then((response) => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.blob();
+    })
     .then((blob) => {
       const privateUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");

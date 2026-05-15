@@ -113,12 +113,24 @@ export function UtilisateurPreferencesProvider(props: { children: ReactNode }) {
   );
 
   const getPreferenceJson = useCallback(
-    (cle: string): object => JSON.parse(getPreference(cle) || "{}"),
+    (cle: string): object => {
+      try {
+        return JSON.parse(getPreference(cle) || "{}");
+      } catch {
+        return {};
+      }
+    },
     [getPreference],
   );
 
   const getPreferenceArray = useCallback(
-    (cle: string): any[] => JSON.parse(getPreference(cle) || "[]"),
+    (cle: string): any[] => {
+      try {
+        return JSON.parse(getPreference(cle) || "[]");
+      } catch {
+        return [];
+      }
+    },
     [getPreference],
   );
 

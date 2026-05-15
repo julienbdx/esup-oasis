@@ -136,6 +136,7 @@ export default tseslint.config(
                   "**/*.test.{ts,tsx}",
                   "**/*.spec.{ts,tsx}",
                   "**/setupTests.ts",
+                  "**/mocks/**",
                ],
           optionalDependencies: false,
           peerDependencies: false,
