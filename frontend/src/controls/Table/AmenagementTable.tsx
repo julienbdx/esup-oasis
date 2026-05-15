@@ -14,7 +14,7 @@ import { useApi } from "@context/api/ApiProvider";
 import { Table } from "antd";
 import { amenagementTableColumns } from "@controls/Table/AmenagementTableColumns";
 import { SorterResult } from "antd/es/table/interface";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiltreAmenagement, filtreAmenagementToApi } from "@controls/Table/AmenagementTableLayout";
 import { ModalAmenagement } from "@controls/Modals/ModalAmenagement";
 import { ModeAffichageAmenagement } from "@routes/gestionnaire/beneficiaires/Amenagements";
@@ -29,6 +29,7 @@ export function AmenagementTable(props: {
   const auth = useAuth();
   const navigate = useNavigate();
   const [editedItem, setEditedItem] = useState<string>();
+  const tableRef = useRef<HTMLDivElement>(null);
 
   const { data: amenagements, isFetching: isFetchingAmenagements } = useApi().useGetCollection({
     path: "/amenagements",
@@ -43,24 +44,32 @@ export function AmenagementTable(props: {
 
   // Sticky header
   useEffect(() => {
+    let rafId: number;
     function handleScroll() {
-      const table = document.querySelector("table") as HTMLElement;
-      const tHead = document.querySelector(".ant-table-thead") as HTMLElement;
-      tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const container = tableRef.current;
+        const table = container?.querySelector("table");
+        const tHead = container?.querySelector<HTMLElement>(".ant-table-thead");
+        if (!table || !tHead) return;
+        tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      });
     }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <>
-      <Table<IAmenagement>
-        loading={isFetchingAmenagements}
+      <div ref={tableRef}>
+        <Table<IAmenagement>
+          loading={isFetchingAmenagements}
         dataSource={amenagements?.items || []}
-        rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-xlight" : "")}
+        rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
         rowHoverable={false}
         columns={amenagementTableColumns({
           filtre: props.filtreAmenagement,
@@ -100,6 +109,7 @@ export function AmenagementTable(props: {
           });
         }}
       />
+      </div>
       {editedItem !== undefined && (
         <ModalAmenagement
           amenagementId={editedItem}

@@ -487,10 +487,10 @@ th.pointer {
 
   tbody tr:hover {
     td {
-      transition: background-color 0.3s;
+      transition: background-color 0.2s ease-out;
       border-top: 1px solid color.adjust(variables.$light-grey-border-dark, $lightness: -10%);
       border-bottom: 1px solid color.adjust(variables.$light-grey-border-dark, $lightness: -10%);
-      background-color: color.adjust(variables.$light-grey, $lightness: -1%);
+      background-color: color.adjust(variables.$light-grey, $lightness: -4%) !important;
     }
   }
 }
@@ -850,3 +850,8 @@ footer .ant-btn-link {
 .ant-table-has-fix-start {
   overflow-y: hidden;
 }
+
+.bg-grey-light, .bg-grey-light td {
+  background-color: variables.$light-grey !important;
+}
+

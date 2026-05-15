@@ -79,7 +79,7 @@ export function demandeTableColumns({
                 responsive="lg"
               />
               <span>
-                <span className="semi-bold">
+                <span className="bold">
                   <Highlighter
                     textToHighlight={(record.demandeur?.nom || "").toLocaleUpperCase()}
                     searchWords={[removeAccents(filter["demandeur.nom"] || "")]}

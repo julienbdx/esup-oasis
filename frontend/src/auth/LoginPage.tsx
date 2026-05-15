@@ -36,7 +36,7 @@ export default function LoginPage(): ReactElement {
   const isDark = useEffectiveTheme() === "dark";
   const prefersReducedMotion = useMemo(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    []
+    [],
   );
 
   const {

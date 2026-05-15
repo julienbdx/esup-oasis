@@ -55,6 +55,7 @@ export default function IntervenantTable() {
   const { getPreferenceArray, preferencesChargees } = usePreferences();
 
   const hadSessionFilter = useRef(!!sessionStorage.getItem(SESSION_KEY_FILTRE_INTERVENANT));
+  const tableRef = useRef<HTMLDivElement>(null);
 
   const [filtreIntervenant, setFiltreIntervenant] = useState<FiltreIntervenant>(() => {
     // Priorité 1 : filtre de session
@@ -107,14 +108,21 @@ export default function IntervenantTable() {
 
   // Sticky header
   useEffect(() => {
+    let rafId: number;
     function handleScroll() {
-      const table = document.querySelector("table") as HTMLElement;
-      const tHead = document.querySelector(".ant-table-thead") as HTMLElement;
-      tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const container = tableRef.current;
+        const table = container?.querySelector("table");
+        const tHead = container?.querySelector<HTMLElement>(".ant-table-thead");
+        if (!table || !tHead) return;
+        tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      });
     }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -126,7 +134,7 @@ export default function IntervenantTable() {
         setFiltreIntervenant={setFiltreIntervenant}
       />
       <Flex justify="space-between" align="center">
-        <span className="legende">{getCountLibelle(count, "intervenant")}</span>
+        <span className="text-legende">{getCountLibelle(count, "intervenant")}</span>
         <div>
           {JSON.stringify(FILTRE_INTERVENANT_DEFAULT) !== JSON.stringify(filtreIntervenant) && (
             <Space.Compact>
@@ -147,8 +155,9 @@ export default function IntervenantTable() {
           <IntervenantTableExport filtreIntervenant={filtreIntervenant} />
         </div>
       </Flex>
-      <Table<IIntervenant>
-        loading={isFetchingIntervenants}
+      <div ref={tableRef}>
+        <Table<IIntervenant>
+          loading={isFetchingIntervenants}
         dataSource={dataIntervenants?.items || []}
         className="table-responsive table-thead-sticky mt-2"
         pagination={{
@@ -171,7 +180,7 @@ export default function IntervenantTable() {
           ),
         }}
         rowKey={(record) => record["@id"] as string}
-        rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-xlight" : "")}
+        rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
         onChange={(
           pagination,
           _filters,
@@ -212,6 +221,7 @@ export default function IntervenantTable() {
           },
         })}
       />
+      </div>
     </>
   );
 }

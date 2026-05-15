@@ -22,10 +22,6 @@ body.dark-mode {
     background-color: var(--ant-color-bg-container) !important;
   }
 
-  .bg-light-grey {
-    background-color: var(--ant-color-bg-layout) !important;
-  }
-
   // Texte
   .text-legende,
   .legende {
@@ -160,7 +156,7 @@ body.dark-mode {
 
   // Hover sur les lignes de tableau
   .table-responsive .ant-table tbody tr:hover td {
-    background-color: var(--ant-color-bg-text-hover) !important;
+    background-color: #3D3D3D !important;
     border-top-color: var(--ant-color-border) !important;
     border-bottom-color: var(--ant-color-border) !important;
   }
@@ -254,5 +250,9 @@ body.dark-mode {
 
   .ant-avatar-icon {
     --color-text: var(--noir);
+  }
+
+  .bg-light-grey, .bg-grey-light, .bg-grey-light td, .bg-light-grey td {
+    background-color: var(--ant-color-bg-layout) !important;
   }
 }

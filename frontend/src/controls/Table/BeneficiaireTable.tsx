@@ -88,6 +88,7 @@ export default function BeneficiaireTable() {
     searchParams.get("filtreType") === null &&
       !!sessionStorage.getItem(SESSION_KEY_FILTRE_BENEFICIAIRE),
   );
+  const tableRef = useRef<HTMLDivElement>(null);
 
   const [filtreBeneficiaire, setFiltreBeneficiaire] = useState<FiltreBeneficiaire>(() => {
     // Priorité 1 : filtre URL
@@ -148,7 +149,6 @@ export default function BeneficiaireTable() {
 
   useEffect(() => {
     if (searchParams.get("filtreType") && searchParams.get("filtreValeur")) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiltreBeneficiaire(
         filtreBeneficiaireDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur")),
       );
@@ -170,14 +170,21 @@ export default function BeneficiaireTable() {
 
   // Sticky header
   useEffect(() => {
+    let rafId: number;
     function handleScroll() {
-      const table = document.querySelector("table") as HTMLElement;
-      const tHead = document.querySelector(".ant-table-thead") as HTMLElement;
-      tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const container = tableRef.current;
+        const table = container?.querySelector("table");
+        const tHead = container?.querySelector<HTMLElement>(".ant-table-thead");
+        if (!table || !tHead) return;
+        tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      });
     }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -189,7 +196,7 @@ export default function BeneficiaireTable() {
         setFiltreBeneficiaire={setFiltreBeneficiaire}
       />
       <Flex justify="space-between" align="center">
-        <span className="legende">{getCountLibelle(count, "bénéficiaire")}</span>
+        <span className="text-legende">{getCountLibelle(count, "bénéficiaire")}</span>
         <div>
           {JSON.stringify(FILTRE_BENEFICIAIRE_DEFAULT) !== JSON.stringify(filtreBeneficiaire) && (
             <Space.Compact>
@@ -214,52 +221,54 @@ export default function BeneficiaireTable() {
           )}
         </div>
       </Flex>
-      <Table<IBeneficiaire>
-        loading={isFetchingBeneficiaires}
-        dataSource={dataBeneficiaires?.items || []}
-        className="table-responsive table-thead-sticky mt-2"
-        rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-xlight" : "")}
-        rowHoverable={false}
-        pagination={{
-          pageSize: filtreBeneficiaire.itemsPerPage || 50,
-          total: dataBeneficiaires?.totalItems,
-          current: filtreBeneficiaire.page || 1,
-          showTotal: (total, range) => (
-            <div className="text-legende mr-1">
-              {range[0]} à {range[1]} / {total}
-            </div>
-          ),
-          showSizeChanger: true,
-          pageSizeOptions: [25, 50, 100, 200],
-        }}
-        columns={beneficiaireTableColumns({
-          user: auth.user,
-          filter: filtreBeneficiaire,
-          setFilter: setFiltreBeneficiaire,
-          onBeneficiaireSelected: (beneficiaire) => {
-            onClick(beneficiaire);
-          },
-          onImpersonate: (uid) => {
-            navigate(`/impersonate/${uid}`);
-          },
-        })}
-        rowKey={(record) => record["@id"] as string}
-        onChange={(
-          pagination,
-          _filters,
-          sorter: SorterResult<IBeneficiaire> | SorterResult<IBeneficiaire>[],
-        ) => {
-          if (Array.isArray(sorter)) {
-            return;
-          }
-          setFiltreBeneficiaire({
-            ...filtreBeneficiaire,
-            page: pagination.current || filtreBeneficiaire.page || 1,
-            itemsPerPage: pagination.pageSize || filtreBeneficiaire.itemsPerPage || 50,
-            "order[nom]": ascendToAsc(sorter?.order),
-          });
-        }}
-      />
+      <div ref={tableRef}>
+        <Table<IBeneficiaire>
+          loading={isFetchingBeneficiaires}
+          dataSource={dataBeneficiaires?.items || []}
+          className="table-responsive table-thead-sticky mt-2"
+          rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
+          rowHoverable={false}
+          pagination={{
+            pageSize: filtreBeneficiaire.itemsPerPage || 50,
+            total: dataBeneficiaires?.totalItems,
+            current: filtreBeneficiaire.page || 1,
+            showTotal: (total, range) => (
+              <div className="text-legende mr-1">
+                {range[0]} à {range[1]} / {total}
+              </div>
+            ),
+            showSizeChanger: true,
+            pageSizeOptions: [25, 50, 100, 200],
+          }}
+          columns={beneficiaireTableColumns({
+            user: auth.user,
+            filter: filtreBeneficiaire,
+            setFilter: setFiltreBeneficiaire,
+            onBeneficiaireSelected: (beneficiaire) => {
+              onClick(beneficiaire);
+            },
+            onImpersonate: (uid) => {
+              navigate(`/impersonate/${uid}`);
+            },
+          })}
+          rowKey={(record) => record["@id"] as string}
+          onChange={(
+            pagination,
+            _filters,
+            sorter: SorterResult<IBeneficiaire> | SorterResult<IBeneficiaire>[],
+          ) => {
+            if (Array.isArray(sorter)) {
+              return;
+            }
+            setFiltreBeneficiaire({
+              ...filtreBeneficiaire,
+              page: pagination.current || filtreBeneficiaire.page || 1,
+              itemsPerPage: pagination.pageSize || filtreBeneficiaire.itemsPerPage || 50,
+              "order[nom]": ascendToAsc(sorter?.order),
+            });
+          }}
+        />
+      </div>
     </>
   );
 }
