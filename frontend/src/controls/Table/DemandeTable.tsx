@@ -8,7 +8,7 @@
  *
  */
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { IDemande, PREFETCH_ETAT_DEMANDE } from "@api";
 import { Button, Flex, Space, Table } from "antd";
 import { useApi } from "@context/api/ApiProvider";
@@ -154,6 +154,11 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
 
   const count = dataDemandes?.totalItems;
 
+  const hasActiveFilters = useMemo(
+    () => JSON.stringify(filtreDemande) !== JSON.stringify(FILTRE_DEMANDE_DEFAULT),
+    [filtreDemande],
+  );
+
   const handleImpersonate = useCallback(
     (uid: string) => {
       navigate(`/impersonate/${uid}`);
@@ -163,21 +168,62 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
 
   const handleDemandeSelected = useCallback(
     (demande: IDemande) => {
-      navigate(`/demandes/${demande.id}` as string);
+      if (demande.id == null) return;
+      navigate(`/demandes/${demande.id}`);
     },
     [navigate],
   );
 
+  const handleTableChange = useCallback(
+    (
+      pagination: Parameters<NonNullable<React.ComponentProps<typeof Table>["onChange"]>>[0],
+      _filters: Parameters<NonNullable<React.ComponentProps<typeof Table>["onChange"]>>[1],
+      sorter: SorterResult<IDemande> | SorterResult<IDemande>[],
+    ) => {
+      if (Array.isArray(sorter)) {
+        setFiltreDemande((prev) => ({
+          ...prev,
+          page: pagination.current ?? prev.page,
+          itemsPerPage: pagination.pageSize ?? prev.itemsPerPage,
+        }));
+      } else if (sorter.field === "demandeur.nom") {
+        setFiltreDemande((prev) => ({
+          ...prev,
+          "order[demandeur.nom]": ascendToAsc(sorter.order),
+          "order[dateDepot]": undefined,
+          page: pagination.current ?? prev.page,
+          itemsPerPage: pagination.pageSize ?? prev.itemsPerPage,
+        }));
+      } else if (sorter.field === "dateDepot") {
+        setFiltreDemande((prev) => ({
+          ...prev,
+          "order[dateDepot]": ascendToAsc(sorter.order),
+          "order[demandeur.nom]": undefined,
+          page: pagination.current ?? prev.page,
+          itemsPerPage: pagination.pageSize ?? prev.itemsPerPage,
+        }));
+      }
+    },
+    [],
+  );
+
   // Sticky header
   useEffect(() => {
+    let rafId: number;
     function handleScroll() {
-      const table = document.querySelector("table") as HTMLElement;
-      const tHead = document.querySelector(".ant-table-thead") as HTMLElement;
-      tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const container = props.refs.table.current;
+        const table = container?.querySelector("table");
+        const tHead = container?.querySelector<HTMLElement>(".ant-table-thead");
+        if (!table || !tHead) return;
+        tHead.style.top = `${document.documentElement.scrollTop - (table.getBoundingClientRect().top + window.scrollY - 80)}px`;
+      });
     }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -192,9 +238,9 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
         affichageTour={props.affichageTour}
       />
       <Flex justify="space-between" align="center">
-        <span className="legende">{getCountLibelle(count, "demande")}</span>
+        <span className="text-legende">{getCountLibelle(count, "demande")}</span>
         <div>
-          {JSON.stringify(FILTRE_DEMANDE_DEFAULT) !== JSON.stringify(filtreDemande) && (
+          {hasActiveFilters && (
             <Space.Compact>
               <FiltreDescription
                 filtre={filtreDemande}
@@ -213,12 +259,13 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
           <DemandeTableExport filtreDemande={filtreDemande} />
         </div>
       </Flex>
-      <div ref={props.refs.table}>
+      <div ref={props.refs.table} aria-live="polite" aria-busy={isFetchingDemandes}>
         <Table<IDemande>
           loading={isFetchingDemandes}
+          aria-label="Liste des demandes d'accompagnement"
           dataSource={dataDemandes?.items || []}
           className="table-responsive table-thead-sticky mt-2"
-          rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-xlight" : "")}
+          rowClassName={(_record, index) => (index % 2 === 1 ? "bg-grey-light" : "")}
           rowHoverable={false}
           style={props.affichageTour ? { maxHeight: 400, overflowY: "auto" } : undefined}
           pagination={{
@@ -242,36 +289,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
             onImpersonate: handleImpersonate,
             onDemandeSelected: handleDemandeSelected,
           })}
-          onChange={(
-            pagination,
-            _filters,
-            sorter: SorterResult<IDemande> | SorterResult<IDemande>[],
-          ) => {
-            if (Array.isArray(sorter)) {
-              // Ne devrait pas arriver
-              setFiltreDemande((prev) => ({
-                ...prev,
-                page: pagination.current ?? prev.page,
-                itemsPerPage: pagination.pageSize ?? prev.itemsPerPage,
-              }));
-            } else if (sorter.field && sorter.field === "demandeur.nom") {
-              setFiltreDemande((prev) => ({
-                ...prev,
-                "order[demandeur.nom]": ascendToAsc(sorter.order),
-                "order[dateDepot]": undefined,
-                page: pagination.current ?? prev.page,
-                itemsPerPage: pagination.pageSize ?? prev.itemsPerPage,
-              }));
-            } else if (sorter.field && sorter.field === "dateDepot") {
-              setFiltreDemande((prev) => ({
-                ...prev,
-                "order[dateDepot]": ascendToAsc(sorter.order),
-                "order[demandeur.nom]": undefined,
-                page: pagination.current ?? prev.page,
-                itemsPerPage: pagination.pageSize ?? prev.itemsPerPage,
-              }));
-            }
-          }}
+          onChange={handleTableChange}
         />
       </div>
     </>

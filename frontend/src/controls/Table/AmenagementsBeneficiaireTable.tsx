@@ -169,8 +169,8 @@ export function AmenagementsBeneficiaireTable(props: {
     const tableElement = tableWrapperRef.current?.querySelector(".ant-table") as HTMLElement;
     if (!tableElement) return;
 
-    tableElement.addEventListener("scroll", updateScrollInfo);
-    window.addEventListener("scroll", updateScrollInfo);
+    tableElement.addEventListener("scroll", updateScrollInfo, { passive: true });
+    window.addEventListener("scroll", updateScrollInfo, { passive: true });
     const observer = new ResizeObserver(updateScrollInfo);
     observer.observe(tableElement);
     const internalTable = tableElement.querySelector("table");
