@@ -45,7 +45,7 @@ export function UtilisateurTag(props: {
       <Tag
         key={props.tagId}
         icon={<TagOutlined />}
-        className={`mt-05 mb-05 tag-beneficiaire ${props.big ? "tag-beneficiaire-big" : ""} ${props.className}`}
+        className={`mt-05 mb-05 mr-05 tag-beneficiaire ${props.big ? "tag-beneficiaire-big" : ""} ${props.className}`}
         closable={!!props.utilisateurTagId}
         onClose={() => {
           if (!props.utilisateurTagId) return;
