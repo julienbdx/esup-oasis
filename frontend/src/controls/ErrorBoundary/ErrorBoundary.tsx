@@ -55,17 +55,13 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
             extra={
               <Space>
                 <Button
-                  style={{ color: "black", textDecoration: "underline" }}
+                  style={{ textDecoration: "underline" }}
                   type="link"
                   onClick={() => window.location.reload()}
                 >
                   Recharger la page
                 </Button>
-                <Button
-                  style={{ backgroundColor: "black" }}
-                  type="primary"
-                  onClick={() => (window.location.href = "/")}
-                >
+                <Button type="primary" onClick={() => (window.location.href = "/")}>
                   Aller à la page d'accueil
                 </Button>
               </Space>

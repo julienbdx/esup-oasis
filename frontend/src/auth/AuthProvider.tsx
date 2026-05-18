@@ -233,21 +233,23 @@ export function AuthProvider({
               return;
             }
 
-            response.json().then((apiData) => {
-              if (apiData.token) {
-                // Exposé uniquement en local pour faciliter le débogage via les devtools React Query
-                if (env.REACT_APP_ENVIRONMENT === "local") setToken(apiData.token);
+            return response.json();
+          })
+          .then((apiData) => {
+            if (!apiData) return;
+            if (apiData.token) {
+              // Exposé uniquement en local pour faciliter le débogage via les devtools React Query
+              if (env.REACT_APP_ENVIRONMENT === "local") setToken(apiData.token);
 
-                // Décodage du JWT pour extraire le login et la date d'expiration
-                const { username, exp } = jwtDecode<{
-                  username: string;
-                  exp: number;
-                }>(apiData.token as string);
+              // Décodage du JWT pour extraire le login et la date d'expiration
+              const { username, exp } = jwtDecode<{
+                username: string;
+                exp: number;
+              }>(apiData.token as string);
 
-                setLogin(username);
-                setExpiration(exp * 1000);
-              }
-            });
+              setLogin(username);
+              setExpiration(exp * 1000);
+            }
           })
           .catch((err) => {
             setErrorUser("Application non accessible");

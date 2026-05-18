@@ -110,7 +110,6 @@ export default function EventCopyButton({
         </Button>
       </>
     ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [evenement],
+    [evenement, onCopy, screens.lg, message],
   );
 }
