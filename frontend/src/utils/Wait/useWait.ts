@@ -25,7 +25,7 @@ export function useWait(delay: number): boolean {
     return () => {
       window.clearTimeout(timer);
     };
-  });
+  }, [delay]);
 
   return wait;
 }

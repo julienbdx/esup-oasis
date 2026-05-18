@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import React, { memo, ReactElement } from "react";
+import React, { memo, ReactElement, useEffect } from "react";
 import "@controls/Progress/Progress.scss";
 import "react-circular-progressbar/dist/styles.css";
 import { Tooltip } from "antd";
@@ -49,15 +49,18 @@ export default memo(
       return `linear-gradient(to right, var(${getColor()}-light), var(${getColor()}))`;
     };
 
-    setTimeout(() => {
-      const newStyle: React.CSSProperties = {
-        opacity: 1,
-        width: `${value}%`,
-        background: getGradient(),
-      };
-
-      setStyle(newStyle);
-    }, 200);
+    useEffect(() => {
+      const timer = window.setTimeout(() => {
+        setStyle({
+          opacity: 1,
+          width: `${value}%`,
+          background: getGradient(),
+        });
+      }, 200);
+      return () => window.clearTimeout(timer);
+      // getGradient dépend de value, pas besoin de la lister séparément
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value]);
 
     if (value === undefined) return <></>;
 

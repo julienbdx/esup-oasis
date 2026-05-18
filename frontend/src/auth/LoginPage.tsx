@@ -175,10 +175,11 @@ export default function LoginPage(): ReactElement {
       <footer className="bg-light-grey">
         <Row className="p-2">
           <Col span={24} className="text-center">
-            <p className="mb-0">
-              Des cookies sont utilisés afin de garantir le bon fonctionnement de l'application. En
-              continuant, vous acceptez l'utilisation de ces cookies. Pour en savoir plus, merci de
-              contacter{" "}
+            <p className="mb-0 mt-0">
+              Ce site utilise uniquement des cookies techniques strictement nécessaires à
+              l'authentification. Aucun cookie de traçage ou de publicité n'est utilisé.
+              <br />
+              Pour en savoir plus, merci de contacter{" "}
               <a style={{ whiteSpace: "nowrap" }} href={`mailto:${env.REACT_APP_EMAIL_SERVICE}`}>
                 le service {env.REACT_APP_SERVICE}
               </a>
