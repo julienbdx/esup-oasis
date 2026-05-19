@@ -16,11 +16,11 @@ export interface IUseUtilisateurSearchProps {
   roleUtilisateur?: RoleValues;
   intervenantArchive?: boolean;
   existeNumeroEtudiant?: boolean;
-  forcerRechercheEnBase?: boolean;
+  forcerRechercheGlobale?: boolean;
 }
 
-function getPath(forcerRechercheEnBase = false, roleUtilisateur?: string) {
-  if (forcerRechercheEnBase) {
+function getPath(forcerRechercheGlobale = false, roleUtilisateur?: string) {
+  if (forcerRechercheGlobale) {
     return "/utilisateurs";
   }
 
@@ -38,22 +38,22 @@ function getPath(forcerRechercheEnBase = false, roleUtilisateur?: string) {
 }
 
 function getFiltre(
-  forcerRechercheEnBase = false,
+  forcerRechercheGlobale = false,
   roleUtilisateur?: string,
   recherche?: string,
   intervenantArchive?: boolean,
   existeNumeroEtudiant?: boolean,
 ) {
-  if (forcerRechercheEnBase) {
+  if (forcerRechercheGlobale) {
     return {
-      // recherche LDAP
+      // recherche en base
       recherche: recherche,
       intervenantArchive,
       "exists[numeroEtudiant]": existeNumeroEtudiant,
     };
   }
 
-  if (getPath(forcerRechercheEnBase, roleUtilisateur) === "/utilisateurs") {
+  if (getPath(forcerRechercheGlobale, roleUtilisateur) === "/utilisateurs") {
     return {
       // recherche LDAP
       term: recherche,
@@ -75,7 +75,7 @@ export const useUtilisateurSearch = ({
   roleUtilisateur,
   intervenantArchive,
   existeNumeroEtudiant,
-  forcerRechercheEnBase,
+  forcerRechercheGlobale,
 }: IUseUtilisateurSearchProps) => {
   const [tappedSearch, setTappedSearch] = useState("");
   const [search, setSearch] = useState("");
@@ -89,10 +89,10 @@ export const useUtilisateurSearch = ({
 
   const { data: utilisateursTrouves, isFetching: isFetchingUtilisateursTrouves } =
     useApi().useGetFullCollection({
-      path: getPath(forcerRechercheEnBase, roleUtilisateur),
+      path: getPath(forcerRechercheGlobale, roleUtilisateur),
       enabled: search.length > 1,
       query: getFiltre(
-        forcerRechercheEnBase,
+        forcerRechercheGlobale,
         roleUtilisateur,
         search,
         intervenantArchive,

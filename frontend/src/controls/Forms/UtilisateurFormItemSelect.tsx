@@ -30,7 +30,7 @@ interface IUtilisateurFormItemSelect {
   placeholder?: string;
   intervenantArchive?: boolean;
   existeNumeroEtudiant?: boolean;
-  forcerRechercheEnBase?: boolean;
+  forcerRechercheGlobale?: boolean;
   roleUtilisateur?:
     | RoleValues.ROLE_INTERVENANT
     | RoleValues.ROLE_BENEFICIAIRE
@@ -43,7 +43,7 @@ function UtilisateurSelectEditing({
   utilisateursTrouves,
   isFetchingUtilisateursTrouves,
   itemsPerPage,
-  forcerRechercheEnBase,
+  forcerRechercheGlobale,
   roleUtilisateur,
   className,
   style,
@@ -59,7 +59,7 @@ function UtilisateurSelectEditing({
   utilisateursTrouves: { items: IUtilisateur[] } | undefined;
   isFetchingUtilisateursTrouves: boolean;
   itemsPerPage: number;
-  forcerRechercheEnBase?: boolean;
+  forcerRechercheGlobale?: boolean;
   roleUtilisateur?: string;
   className?: string;
   style?: React.CSSProperties;
@@ -76,10 +76,10 @@ function UtilisateurSelectEditing({
     <Select
       options={utilisateursTrouves?.items
         .filter((u: IUtilisateur) => {
-          if (forcerRechercheEnBase && utilisateursTrouves?.items.length === itemsPerPage) {
+          if (forcerRechercheGlobale && utilisateursTrouves?.items.length === itemsPerPage) {
             return true;
           }
-          if (forcerRechercheEnBase) {
+          if (forcerRechercheGlobale) {
             return u.roles?.includes(roleUtilisateur as RoleApi);
           }
           return true;
@@ -171,7 +171,7 @@ function UtilisateurFormItemSelect({
   roleUtilisateur,
   intervenantArchive,
   existeNumeroEtudiant,
-  forcerRechercheEnBase,
+  forcerRechercheGlobale,
 }: IUtilisateurFormItemSelect) {
   const utilisateurId = value === "" ? undefined : value;
   const [userWantsToEdit, setUserWantsToEdit] = useState(false);
@@ -194,7 +194,6 @@ function UtilisateurFormItemSelect({
     roleUtilisateur,
     intervenantArchive,
     existeNumeroEtudiant,
-    forcerRechercheEnBase,
   });
 
   function launchSearch() {
@@ -257,7 +256,7 @@ function UtilisateurFormItemSelect({
         utilisateursTrouves={utilisateursTrouves}
         isFetchingUtilisateursTrouves={isFetchingUtilisateursTrouves}
         itemsPerPage={itemsPerPage}
-        forcerRechercheEnBase={forcerRechercheEnBase}
+        forcerRechercheGlobale={forcerRechercheGlobale}
         roleUtilisateur={roleUtilisateur}
         className={className}
         style={style}

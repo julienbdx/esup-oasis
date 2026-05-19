@@ -97,7 +97,7 @@ export const BilanFilterForm: React.FC<BilanFilterFormProps> = ({
         <Form.Item name="utilisateur" label={capitalize(type)}>
           <UtilisateurFormItemSelect
             placeholder={`Tous les ${type}s`}
-            forcerRechercheEnBase
+            forcerRechercheGlobale={false}
             roleUtilisateur={
               type === "bénéficiaire" ? RoleValues.ROLE_BENEFICIAIRE : RoleValues.ROLE_INTERVENANT
             }

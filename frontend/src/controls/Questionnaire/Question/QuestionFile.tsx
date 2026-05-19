@@ -15,15 +15,12 @@ import { useEffect } from "react";
 import { QuestionFileItem } from "@controls/Questionnaire/Question/QuestionFileItem";
 import { RcFile } from "antd/es/upload";
 import { MAX_FILE_SIZE } from "@/constants";
-import Spinner from "@controls/Spinner/Spinner";
 import { env } from "@/env";
 import { useQuestionFileUpload } from "@controls/Questionnaire/Question/useQuestionFileUpload";
 
 export function QuestionFile(props: { question: QuestionnaireQuestion }) {
   const { mode, form } = useQuestionnaire();
-  const { fileList, setFileList, uploading, removeFile, uploadProps } = useQuestionFileUpload(
-    props.question,
-  );
+  const { fileList, setFileList, removeFile, uploadProps } = useQuestionFileUpload(props.question);
 
   useEffect(() => {
     if (form) {
@@ -118,45 +115,38 @@ export function QuestionFile(props: { question: QuestionnaireQuestion }) {
       name={props.question["@id"]}
       valuePropName="fileList"
     >
-      {uploading ? (
-        <Space>
-          <Spinner />
-          <span className="text-legende">Le fichier est en cours de chargement...</span>
-        </Space>
-      ) : (
-        <Upload.Dragger
-          {...uploadProps}
-          aria-label={`Déposer un fichier pour : ${props.question.libelle}`}
-          itemRender={(_originNode, file) => (
-            <QuestionFileItem
-              file={file}
-              onRemove={(pieceJustificativeId) => removeFile(pieceJustificativeId)}
-            />
-          )}
-        >
-          <div className="ant-upload-drag-icon mt-1 mb-2">
-            <UploadOutlined className="text-primary" style={{ fontSize: 40 }} aria-hidden />
-          </div>
-          <div className="ant-upload-text">
-            Cliquez ou déposez ici un fichier pour le charger ({MAX_FILE_SIZE} Mo maximum).
-          </div>
-          <div className="ant-upload-hint mt-2">
-            {props.question.aide ? (
-              <QuestionAide question={props.question} />
-            ) : (
-              <p>
-                Pour s'assurer du bon traitement de votre demande, merci de vérifier que le fichier
-                est conforme et bien lisible.
-              </p>
-            )}
-          </div>
-          {props.question.choixMultiple ? (
-            <div className="legende">Vous pouvez déposer plusieurs fichiers.</div>
+      <Upload.Dragger
+        {...uploadProps}
+        aria-label={`Déposer un fichier pour : ${props.question.libelle}`}
+        itemRender={(_originNode, file) => (
+          <QuestionFileItem
+            file={file}
+            onRemove={(pieceJustificativeId) => removeFile(pieceJustificativeId)}
+          />
+        )}
+      >
+        <div className="ant-upload-drag-icon mt-1 mb-2">
+          <UploadOutlined className="text-primary" style={{ fontSize: 40 }} aria-hidden />
+        </div>
+        <div className="ant-upload-text">
+          Cliquez ou déposez ici un fichier pour le charger ({MAX_FILE_SIZE} Mo maximum).
+        </div>
+        <div className="ant-upload-hint mt-2">
+          {props.question.aide ? (
+            <QuestionAide question={props.question} />
           ) : (
-            <div className="legende">Vous ne pouvez déposer qu'un seul fichier.</div>
+            <p>
+              Pour s'assurer du bon traitement de votre demande, merci de vérifier que le fichier
+              est conforme et bien lisible.
+            </p>
           )}
-        </Upload.Dragger>
-      )}
+        </div>
+        {props.question.choixMultiple ? (
+          <div className="legende">Vous pouvez déposer plusieurs fichiers.</div>
+        ) : (
+          <div className="legende">Vous ne pouvez déposer qu'un seul fichier.</div>
+        )}
+      </Upload.Dragger>
     </Form.Item>
   );
 }

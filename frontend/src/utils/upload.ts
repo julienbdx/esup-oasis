@@ -14,43 +14,54 @@ import { AuthContextType } from "@/auth/AuthProvider";
 import { env } from "@/env";
 import { logger } from "@utils/logger";
 
-export async function envoyerFichierFetch(
+export function envoyerFichierFetch(
   apiUrl: string,
   auth: AuthContextType,
   file: string | Blob | RcFile,
   onSuccess: (pj: ITelechargement) => void,
   onError?: (err: Error) => void,
-) {
+  onProgress?: (percent: number) => void,
+): Promise<void> {
   const fmData = new FormData();
   fmData.append("file", file);
 
-  const fetchOptions: RequestInit = {
-    method: "POST",
-    body: fmData,
-    credentials: "include",
-  };
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
 
-  if (auth.impersonate) {
-    fetchOptions.headers = {
-      ...fetchOptions.headers,
-      "X-Switch-User": auth.impersonate,
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) {
+        onProgress?.(Math.round((event.loaded / event.total) * 100));
+      }
     };
-  }
 
-  try {
-    const response = await fetch(
-      `${apiUrl}${env.REACT_APP_API_PREFIX}/telechargements`,
-      fetchOptions,
-    );
-    if (response.ok) {
-      const json = await response.json();
-      onSuccess(json);
-    } else {
-      logger.error("Error:", response);
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          onSuccess(JSON.parse(xhr.responseText));
+        } catch (err) {
+          logger.error("Parse error:", err);
+          onError?.(new Error("Upload error"));
+        }
+      } else {
+        logger.error("Error:", xhr.status);
+        onError?.(new Error("Upload error"));
+      }
+      resolve();
+    };
+
+    xhr.onerror = () => {
+      logger.error("Network error");
       onError?.(new Error("Upload error"));
+      resolve();
+    };
+
+    xhr.open("POST", `${apiUrl}${env.REACT_APP_API_PREFIX}/telechargements`);
+    xhr.withCredentials = true;
+
+    if (auth.impersonate) {
+      xhr.setRequestHeader("X-Switch-User", auth.impersonate);
     }
-  } catch (err) {
-    logger.error("Error:", err);
-    onError?.(new Error("Upload error"));
-  }
+
+    xhr.send(fmData);
+  });
 }
