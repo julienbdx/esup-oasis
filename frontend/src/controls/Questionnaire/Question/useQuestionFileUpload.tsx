@@ -7,7 +7,7 @@
  * @author Julien Lemonnier <julien.lemonnier@u-bordeaux.fr>
  */
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { App, UploadFile, UploadProps } from "antd";
 import { RcFile } from "antd/es/upload";
 import { MAX_FILE_SIZE } from "@/constants";
@@ -29,39 +29,46 @@ export function useQuestionFileUpload(question: QuestionnaireQuestion) {
       url: pj,
     })) || [],
   );
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [uploadingCount, setUploadingCount] = useState<number>(0);
+  // Authoritative list of saved PJ IDs — updated synchronously to avoid race conditions
+  const savedPjIdsRef = useRef<string[]>(question.reponse?.piecesJustificatives ?? []);
+  // Queue to serialize PUT calls — prevents concurrent requests sending the same PJ IDs
+  // and triggering a duplicate key constraint on the backend.
+  const responseQueueRef = useRef<Promise<void>>(Promise.resolve());
 
   function envoyerReponse(
     reponse: string[],
     onSuccess: ((body: string) => void) | undefined,
     setNewFileList: () => void,
   ) {
-    questUtils?.envoyerReponse(question["@id"] as string, "file", reponse, () => {
-      onSuccess?.("ok");
-      setNewFileList();
-    });
+    responseQueueRef.current = responseQueueRef.current.then(
+      () =>
+        new Promise<void>((resolve) => {
+          questUtils?.envoyerReponse(question["@id"] as string, "file", reponse, () => {
+            onSuccess?.("ok");
+            setNewFileList();
+            resolve();
+          });
+        }),
+    );
   }
 
   function removeFile(pieceJustificativeId: string) {
+    savedPjIdsRef.current = savedPjIdsRef.current.filter((id) => id !== pieceJustificativeId);
     envoyerReponse(
-      question.reponse?.piecesJustificatives?.filter((pj) => pj !== pieceJustificativeId) || [],
+      savedPjIdsRef.current,
       () => {
-        setFileList((prev) => {
-          return prev.filter((f) => f.uid !== pieceJustificativeId);
-        });
+        setFileList((prev) => prev.filter((f) => f.uid !== pieceJustificativeId));
         form?.resetFields([question["@id"] as string]);
       },
-      () =>
-        setFileList((prev) => {
-          return prev.filter((f) => f.uid !== pieceJustificativeId);
-        }),
+      () => setFileList((prev) => prev.filter((f) => f.uid !== pieceJustificativeId)),
     );
   }
 
   const uploadProps: UploadProps = {
     name: "file",
     fileList: fileList,
-    multiple: false,
+    multiple: question.choixMultiple ?? false,
     disabled: mode === "preview",
     customRequest: async (options) => {
       const { onSuccess, onError, file } = options;
@@ -78,81 +85,73 @@ export function useQuestionFileUpload(question: QuestionnaireQuestion) {
         return;
       }
 
-      // envoi du fichier
-      setUploading(true);
+      setUploadingCount((c) => c + 1);
       setSubmitting(true);
       await envoyerFichierFetch(
         env.REACT_APP_API as string,
         auth,
         file,
         (pj) => {
-          // envoi de la réponse avec l'ID du fichier
-          envoyerReponse(
-            question.choixMultiple
-              ? [...(question.reponse?.piecesJustificatives || []), pj["@id"] as string]
-              : [pj["@id"] as string],
-            onSuccess,
-            () =>
-              setFileList((prev) => {
-                setUploading(false);
-                setSubmitting(false);
-
-                notification.success({
-                  title: `Le fichier a été chargé.`,
-                  icon: <UploadOutlined className="text-success" aria-hidden />,
-                });
-
-                // mise à jour du statut du fichier
-                return prev.map((f) => {
-                  if (f.uid === (options.file as RcFile).uid) {
-                    return {
-                      uid: pj["@id"] as string,
-                      name: f.name,
-                      status: "done",
-                      url: pj["@id"] as string,
-                    };
-                  }
-                  return f;
-                });
-              }),
+          const pjId = pj["@id"] as string;
+          // Accumulate synchronously — avoids the race condition where concurrent uploads
+          // each read stale "done" IDs and overwrite each other's response.
+          if (question.choixMultiple) {
+            savedPjIdsRef.current = [...savedPjIdsRef.current, pjId];
+          } else {
+            savedPjIdsRef.current = [pjId];
+          }
+          envoyerReponse([...savedPjIdsRef.current], onSuccess, () =>
+            setFileList((prev) => {
+              setUploadingCount((c) => c - 1);
+              setSubmitting(false);
+              notification.success({
+                title: `Le fichier a été chargé.`,
+                icon: <UploadOutlined className="text-success" aria-hidden />,
+              });
+              return prev.map((f) => {
+                if (f.uid === (options.file as RcFile).uid) {
+                  return { uid: pjId, name: f.name, status: "done", url: pjId };
+                }
+                return f;
+              });
+            }),
           );
         },
         (error) => {
+          setUploadingCount((c) => c - 1);
+          setSubmitting(false);
           setFileList((prev) => {
             notification.error({
               title: `Erreur lors du chargement du fichier.`,
               icon: <UploadOutlined className="text-danger" aria-hidden />,
             });
-
-            // mise à jour de l'état du fichier
             return prev.map((f) => {
-              setUploading(false);
-              setSubmitting(false);
               if (f.uid === (options.file as RcFile).uid) {
-                return {
-                  uid: f.uid,
-                  name: f.name,
-                  status: "error",
-                  percent: undefined,
-                };
+                return { uid: f.uid, name: f.name, status: "error", percent: undefined };
               }
               return f;
             });
           });
           onError?.(error);
         },
+        (percent) => {
+          setFileList((prev) =>
+            prev.map((f) =>
+              f.uid === (options.file as RcFile).uid
+                ? { ...f, percent, status: "uploading" as const }
+                : f,
+            ),
+          );
+        },
       );
     },
 
     onChange(info) {
-      const { status, originFileObj } = info.file;
-      if (status === "uploading") {
-        if (originFileObj) {
-          if (!fileList.some((f) => f.uid === originFileObj.uid)) {
-            // ajout du fichier à la liste
-            setFileList((prev) => [...prev, originFileObj]);
-          }
-        }
+      if (info.file.status === "uploading") {
+        setFileList((prev) => {
+          if (prev.some((f) => f.uid === info.file.uid)) return prev;
+          return [...prev, { ...info.file }];
+        });
       }
     },
   };
@@ -160,7 +159,7 @@ export function useQuestionFileUpload(question: QuestionnaireQuestion) {
   return {
     fileList,
     setFileList,
-    uploading,
+    uploading: uploadingCount > 0,
     removeFile,
     uploadProps,
   };
