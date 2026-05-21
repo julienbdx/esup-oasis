@@ -37,13 +37,26 @@ lors du redémarrage du conteneur, évitant ainsi les problèmes de cache.
 | `REACT_APP_PHOTO`  ¬        | Afficher les photos des étudiants dans l'application | true                                                | Non             |
 | `REACT_APP_PHOTO_DEMO`      | Remplacer les photos par un avatar                   | false                                               | Non             |
 | `REACT_APP_DARKMODE`        | Activer le dark mode pour les utilisateurs *         | false                                               | Non             |
-| `REACT_APP_GERER_DEMANDES`  | Gestion des demandes dans l'application              | true                                                | Non             |
+| `REACT_APP_GERER_DEMANDES`  | Activer la gestion des demandes dans l'application   | true                                                | Non             |
 
-> **\* REACT_APP_DARKMODE :** en version beta, le dark-mode est désactivé par défaut, mais peut être activé en modifiant la variable
+> **\* REACT_APP_DARKMODE :** en version beta, le dark-mode est désactivé par défaut, mais peut être activé en modifiant
+> la variable
 > d'environnement `REACT_APP_DARKMODE` à `true`.
 > L'activation du mode Contraste (menu Accessibilité) désactive automatiquement le dark-mode.
 > Les préférences de mode, comme celles d'accessibilité, sont stockées en backend pour être récupérées lors de la
 > connexion de l'utilisateur.
+
+## Focus sur la gestion des demandes
+
+La variable `REACT_APP_GERER_DEMANDES` permet de désactiver entièrement le module de gestion des demandes pour les
+établissements qui n'en ont pas l'usage. Lorsqu'elle est définie à `false` :
+
+- Les entrées de menu **Demandes** et **Demandeurs** sont masquées pour tous les profils.
+- Pour les **administrateurs**, les référentiels liés aux demandes sont également masqués (types de demandes, campagnes,
+  etc.).
+
+> **Par défaut**, la gestion des demandes est activée (`true`). Il n'est pas nécessaire de définir cette variable si le
+> module est utilisé.
 
 ## Focus sur l'affichage des photos des étudiants
 
