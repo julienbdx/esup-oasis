@@ -10,6 +10,8 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
+ARG REACT_APP_VERSION=dev
+ENV REACT_APP_VERSION=$REACT_APP_VERSION
 RUN yarn build
 
 # --- Étape 2 : Production ---

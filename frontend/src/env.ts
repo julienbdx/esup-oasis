@@ -93,6 +93,9 @@ export const env: EnvType = {
   ...{ REACT_APP_API_PREFIX: "" },
   ...(import.meta.env as unknown as EnvType),
   ...(window.env as unknown as EnvType),
+  // A partir de la 2.4, la version de l'application est récupérée depuis le build.
+  // On empêche que la variable soit écrasée par une précédente configuration.
+  REACT_APP_VERSION: (import.meta.env as unknown as EnvType).REACT_APP_VERSION,
   REACT_APP_GERER_DEMANDES: toFeatureEnabled(
     window.env.REACT_APP_GERER_DEMANDES,
     import.meta.env.REACT_APP_GERER_DEMANDES,
