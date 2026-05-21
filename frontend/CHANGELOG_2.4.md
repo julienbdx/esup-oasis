@@ -1,18 +1,18 @@
-# Changelog — Frontend
+# Changelog - Frontend
 
 ## [2.4.0]
 
 ### En résumé
 
-Cette version constitue une refonte technique majeure du frontend. La stack de build migre de Create React App vers **Vite**, Redux est supprimé au profit des **contextes natifs React**, et le reverse proxy passe de Nginx à **Caddy**. Plusieurs dépendances obsolètes sont supprimées (`moment.js`, `react-big-calendar`, `react-inject-env`, `Lottie`) au profit d'alternatives maintenues. L'accessibilité est renforcée sur l'ensemble de l'application, un environnement de tests unitaires est mis en place, et une pré-version du **dark mode** est intégrée. Côté fonctionnel : upload multi-fichiers, persistence des filtres exports CSV découpés en plusieurs requêtes pour éviter les timeouts, et possibilité d'ajouter une demande directement depuis le profil bénéficiaire.
+Cette version constitue une refonte technique majeure du frontend. La stack de build migre de Create React App vers **Vite**, Redux est supprimé au profit des **contextes natifs React** et le reverse proxy passe de Nginx à **Caddy**. Plusieurs dépendances obsolètes sont supprimées (`moment.js`, `react-big-calendar`, `react-inject-env`, `Lottie`) au profit d'alternatives maintenues. L'accessibilité est renforcée sur l'ensemble de l'application, un environnement de tests unitaires est mis en place, et une pré-version du **dark mode** est intégrée. Côté fonctionnel : upload multi-fichiers, persistence des filtres exports CSV découpés en plusieurs requêtes pour éviter les timeouts, et possibilité d'ajouter une demande directement depuis le profil bénéficiaire.
 
 ### Refactoring architectural
 
-- **Suppression de Redux** — l'état UI (drawers, modals, filtres, accessibilité) migre vers des contextes natifs React (`AccessibiliteContext`, `DrawersContext`, `ModalsContext`, `AffichageFiltresContext`).
+- **Suppression de Redux** : l'état UI (drawers, modals, filtres, accessibilité) migre vers des contextes natifs React (`AccessibiliteContext`, `DrawersContext`, `ModalsContext`, `AffichageFiltresContext`).
 - **Suppression de `react-scripts` / CRA** au profit de **Vite**, avec alias TypeScript configurés et chunking optimisé (chunks séparés pour React et le lazy-loading de `HtmlEditor`).
-- **Suppression de `react-inject-env`** — les variables d'environnement sont désormais validées au démarrage de l'application (`AppProviders`).
+- **Suppression de `react-inject-env`** : les variables d'environnement sont désormais validées au démarrage de l'application (`AppProviders`).
 - **Barrelisation** des modules pour simplifier les imports.
-- **Décomposition des gros composants** en sous-composants atomiques : `EvenementModal`, `UtilisateurDrawer`, `QuestionnaireProvider`, `CommissionsEdition`, `CalendarEvent`, `AvancementDemandeGestion`, `Toolbar`, et bien d'autres.
+- **Décomposition des gros composants** en sous-composants atomiques : `EvenementModal`, `UtilisateurDrawer`, `QuestionnaireProvider`, `CommissionsEdition`, `CalendarEvent`, `AvancementDemandeGestion`, `Toolbar` et bien d'autres.
 - **`AppRoutes` réorganisé par feature** pour une meilleure colocalisation.
 - **Isolation du `queryClient`** et correction des query keys d'invalidation de cache.
 
@@ -31,8 +31,7 @@ Cette version constitue une refonte technique majeure du frontend. La stack de b
 - Corrections WCAG multiples sur l'ensemble de l'application.
 - Ajout de **vitest-axe** pour les tests d'accessibilité automatisés.
 - Ajustements des marges, paddings et styles pour le respect des contrastes et la navigation clavier.
-- **Dark mode (bêta)** — mode sombre disponible en version préliminaire, à destination des personnes sujettes à l'inconfort visuel.
-
+- **Dark mode (bêta)** : mode sombre disponible en version préliminaire, destiné aux personnes sujettes à la fatigue oculaire ou à l'inconfort visuel.
 ### Darkmode (bêta)
 
 - Pré-version du **dark mode** intégrée (désactivé par défaut) via un `themeBuilder` dédié.
@@ -55,15 +54,15 @@ Cette version constitue une refonte technique majeure du frontend. La stack de b
 ### Tests
 
 - Mise en place de l'**environnement de tests unitaires** (Vitest + MSW).
-- Tests unitaires couvrant : modules `utils`, `lib`, `api`, `auth`, et hooks d'authentification.
+- Tests unitaires couvrant : modules `utils`, `lib`, `api`, `auth` et hooks d'authentification.
 
 ### Déploiement
 
-- **`REACT_APP_VERSION` supprimée** — la version est désormais injectée automatiquement lors de l'étape de build.
-- **`REACT_APP_GERER_DEMANDES`** — nouvelle variable permettant de désactiver la gestion des demandes pour les établissements qui n'en ont pas l'usage.
+- **`REACT_APP_VERSION` supprimée** : la version est désormais injectée automatiquement lors de l'étape de build.
+- **`REACT_APP_GERER_DEMANDES`** : nouvelle variable permettant de désactiver la gestion des demandes pour les établissements qui n'en ont pas l'usage.
 - **Remplacement de Nginx par Caddy** pour la configuration du reverse proxy.
 - Compression **zstd** (prioritaire) et **gzip** (fallback) activées.
 - Cache granulaire : assets JS/CSS/fonts immuables (1 an), images (30 jours), `index.html` sans cache.
 - Ajout d'un header **Content-Security-Policy**.
-- **Sanitisation du HTML** (`sanitizeHtml`) pour se prémunir des injections.
+- **Sanitisation du HTML** (`DOMPurify`) pour se prémunir des injections.
 - Extraction des SVG en assets statiques.
