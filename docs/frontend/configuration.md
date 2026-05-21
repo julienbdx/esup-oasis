@@ -51,7 +51,6 @@ Si elle est renseignée, une nouvelle section est affichée dans le menu "Mon co
 | **Variable**              | **Description**                                                                   | **Exemple**           | **Obligatoire** |
 |---------------------------|-----------------------------------------------------------------------------------|-----------------------|-----------------|
 | `REACT_APP_VISITE_GUIDEE` | Détermine si la visite guidée est affichée sur les écrans de gestion des demandes | false                 | Non             |
-| `REACT_APP_VERSION`       | Version de l'application                                                          | 2.1.0                 | Oui             |
 | `REACT_APP_MSG_ACCUEIL`   | Message d'accueil affiché sur la page d'accueil                                   | Université ESUP;oasis | Non             |
 
 - `REACT_APP_VISITE_GUIDEE` : à destination des membres de commission, une aide contextuelle présente l'interface et les

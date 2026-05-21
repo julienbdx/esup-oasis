@@ -11,6 +11,15 @@ Pour construire l'image Docker de l'application, exécutez la commande suivante 
 docker build -t oasis-frontend .
 ```
 
+La version de l'application est injectée au moment du build via le `build-arg` `REACT_APP_VERSION`. Dans le workflow CI,
+cette valeur est automatiquement renseignée depuis le tag git. Pour un build manuel :
+
+```bash
+docker build --build-arg REACT_APP_VERSION=v2.3.0 -t oasis-frontend .
+```
+
+La valeur par défaut est `dev` si le `build-arg` n'est pas fourni.
+
 ## Démarrage
 
 Pour exécuter l'image Docker et vérifier que le service fonctionne correctement, vous pouvez utiliser la commande
