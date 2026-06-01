@@ -163,9 +163,13 @@ export function buildTheme(mode: "light" | "dark", accessibilite: IAccessibilite
           colorBorderSecondary: "rgba(255, 255, 255, 0.3)",
           fontWeightStrong: 600,
         }),
-      // Descriptions/légendes du darkAlgorithm (sans contrast)
+      // Dark mode (sans contrast) : fonds levés depuis le pur noir vers des gris sombres doux
       ...(isDark &&
         !contrast && {
+          colorBgLayout: "#1a1c22",
+          colorBgContainer: "#242830",
+          colorBgElevated: "#2e3038",
+          colorBgSpotlight: "#424650",
           colorTextDescription: "rgba(255, 255, 255, 0.6)",
         }),
       borderRadius: 7,
@@ -181,7 +185,11 @@ export function buildTheme(mode: "light" | "dark", accessibilite: IAccessibilite
     components: {
       ...(isDark && {
         Button: { defaultColor: contrast ? "#ffffff" : "rgba(255, 255, 255, 0.9)" },
-        Menu: { itemColor: contrast ? "#ffffff" : "rgba(255, 255, 255, 0.85)" },
+        Menu: {
+          itemColor: contrast ? "#ffffff" : "rgba(255, 255, 255, 0.85)",
+          itemSelectedColor: "#ffffff",
+          horizontalItemSelectedColor: "#ffffff",
+        },
       }),
     },
   };

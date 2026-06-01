@@ -25,11 +25,11 @@ body.dark-mode {
   // Texte
   .text-legende,
   .legende {
-    color: rgba(255, 255, 255, 0.45) !important;
+    color: rgba(255, 255, 255, 0.55) !important;
   }
 
   .text-light {
-    color: rgba(255, 255, 255, 0.45) !important;
+    color: rgba(255, 255, 255, 0.55) !important;
   }
 
   // Ombres adaptées au dark mode
@@ -111,11 +111,11 @@ body.dark-mode {
   }
 
   .fc-day-today {
-    background-color: rgba(255, 255, 255, 0.04) !important;
+    background-color: rgba(255, 255, 255, 0.06) !important;
   }
 
   .fc-col-header-cell.fc-day-today {
-    background-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.10) !important;
   }
 
   // Not affecté
@@ -156,7 +156,7 @@ body.dark-mode {
 
   // Hover sur les lignes de tableau
   .table-responsive .ant-table tbody tr:hover td {
-    background-color: #3D3D3D !important;
+    background-color: #484848 !important;
     border-top-color: var(--ant-color-border) !important;
     border-bottom-color: var(--ant-color-border) !important;
   }
@@ -173,7 +173,7 @@ body.dark-mode {
 
   // Header / menu principal
   .header {
-    background-color: rgba(20, 20, 30, 0.9);
+    background-color: rgba(28, 30, 40, 0.95);
     border-bottom-color: var(--ant-color-border);
 
     // Pilules d'icône dans le menu
@@ -190,6 +190,12 @@ body.dark-mode {
     .recherche.recherche-en-cours .ant-menu-title-content,
     .recherche.recherche-en-cours .anticon.anticon-search {
       background-color: var(--ant-color-primary-bg);
+      color: var(--blanc);
+    }
+
+    .ant-menu-submenu-selected .ant-menu-title-content button,
+    .recherche.recherche-en-cours .ant-menu-title-content button {
+      color: var(--blanc);
     }
   }
 

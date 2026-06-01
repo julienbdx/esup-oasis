@@ -57,7 +57,7 @@ export default function Demande(): ReactElement {
         {env.REACT_APP_VISITE_GUIDEE !== "false" && screens.lg && (
           <Button
             icon={<QuestionCircleFilled />}
-            className="mb-0 border-primary text-primary"
+            className="mb-0"
             onClick={() => setAfficherTour(true)}
           >
             Visite guidée
