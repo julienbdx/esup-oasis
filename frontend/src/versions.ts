@@ -48,8 +48,38 @@ export const VERSIONS: IVersion[] = [
         type: "fix",
       },
       {
+        description: "Mémorisation des filtres durant la navigation",
+        roles: [RoleValues.ROLE_GESTIONNAIRE],
+        type: "add",
+      },
+      {
+        description: "Dépôt de plusieurs fichiers simultanément lors d'une demande",
+        roles: [RoleValues.ROLE_DEMANDEUR, RoleValues.ROLE_GESTIONNAIRE],
+        type: "add",
+      },
+      {
+        description: "Consultation des campagnes passées pour les types de demande",
+        roles: [RoleValues.ROLE_ADMIN],
+        type: "add",
+      },
+      {
+        description: "Exportations par lots pour éviter les erreurs de chargement",
+        roles: [RoleValues.ROLE_ADMIN, RoleValues.ROLE_GESTIONNAIRE],
+        type: "add",
+      },
+      {
         description:
-          "Les filtres Demandeurs, Bénéficiaires, Aménagements et Intervenants sont maintenant conservés durant la navigation",
+          "Modification des informations personnelles d'un bénéficiaire (mail, téléphone)",
+        roles: [RoleValues.ROLE_GESTIONNAIRE],
+        type: "fix",
+      },
+      {
+        description: "Ajout d'une demande depuis le profil d'un bénéficiaire",
+        roles: [RoleValues.ROLE_GESTIONNAIRE],
+        type: "add",
+      },
+      {
+        description: "Filtre sur la date de validité dans le profil bénéficiaire",
         roles: [RoleValues.ROLE_GESTIONNAIRE],
         type: "add",
       },
