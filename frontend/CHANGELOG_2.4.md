@@ -4,7 +4,7 @@
 
 ### En résumé
 
-Cette version constitue une refonte technique majeure du frontend. La stack de build migre de Create React App vers **Vite**, Redux est supprimé au profit des **contextes natifs React** et le reverse proxy passe de Nginx à **Caddy**. Plusieurs dépendances obsolètes sont supprimées (`moment.js`, `react-big-calendar`, `react-inject-env`, `Lottie`) au profit d'alternatives maintenues. L'accessibilité est renforcée sur l'ensemble de l'application, un environnement de tests unitaires est mis en place, et une pré-version du **dark mode** est intégrée. Côté fonctionnel : upload multi-fichiers, persistence des filtres exports CSV découpés en plusieurs requêtes pour éviter les timeouts, et possibilité d'ajouter une demande directement depuis le profil bénéficiaire.
+Cette version constitue une refonte technique majeure du frontend. La stack de build migre de Create React App vers **Vite**, Redux est supprimé au profit des **contextes natifs React** et le reverse proxy passe de Nginx à **Caddy**. Plusieurs dépendances obsolètes sont supprimées (`moment.js`, `react-big-calendar`, `react-inject-env`, `Lottie`) au profit d'alternatives maintenues. L'accessibilité est renforcée sur l'ensemble de l'application, un environnement de tests unitaires est mis en place, et une pré-version du **dark mode** est intégrée. Côté fonctionnel : upload multi-fichiers, persistence des filtres exports CSV découpés en plusieurs requêtes pour éviter les timeouts, nouveau filtre sur la date de validité du profil Bénéficiaire et possibilité d'ajouter une demande directement depuis le profil bénéficiaire.
 
 ### Refactoring architectural
 
@@ -35,7 +35,7 @@ Cette version constitue une refonte technique majeure du frontend. La stack de b
 
 ### Darkmode (bêta)
 
-- Pré-version du **dark mode** intégrée (désactivé par défaut) via un `themeBuilder` dédié.
+- Pré-version du **dark mode** intégrée (le mode est désactivé par défaut) via un `themeBuilder` dédié.
 - Ajustements de la page de connexion pour les deux thèmes.
 - Hook `useEffectiveTheme` pour la détection et l'application du thème courant.
 
