@@ -33,7 +33,7 @@ describe("apiDownloader", () => {
   });
 
   it("téléchargement réussi → createObjectURL → click → revokeObjectURL → onSuccess", async () => {
-    server.use(http.get(FILE_URL, () => new HttpResponse(new Blob(["content"]), { status: 200 })));
+    server.use(http.get(FILE_URL, () => new HttpResponse("file content", { status: 200 })));
     const onSuccess = vi.fn();
 
     apiDownloader(FILE_URL, NO_IMPERSONATE, {}, "test.pdf", onSuccess);
@@ -59,7 +59,7 @@ describe("apiDownloader", () => {
     server.use(
       http.get(FILE_URL, ({ request }) => {
         capturedHeaders = request.headers;
-        return new HttpResponse(new Blob(["content"]), { status: 200 });
+        return new HttpResponse("file content", { status: 200 });
       }),
     );
 
