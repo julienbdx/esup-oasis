@@ -53,7 +53,7 @@ const apiDownloader = async (
       return response.blob();
     })
     .then((blob) => {
-      const privateUrl = window.URL.createObjectURL(blob);
+      const privateUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.style.display = "none";
       a.href = privateUrl;
@@ -61,7 +61,7 @@ const apiDownloader = async (
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      window.URL.revokeObjectURL(privateUrl);
+      URL.revokeObjectURL(privateUrl);
 
       if (onSuccess) {
         onSuccess();
