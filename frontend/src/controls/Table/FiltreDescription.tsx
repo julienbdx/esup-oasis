@@ -32,6 +32,7 @@ import { CategorieAmenagementTag } from "@controls/Avatars/CategorieAmenagementT
 import { TypeAmenagementTag } from "@controls/Avatars/TypeAmenagementTag";
 import { DOMAINES_AMENAGEMENTS_INFOS } from "@lib";
 import { env } from "@/env";
+import dayjs from "dayjs";
 
 export type FiltreDecrivable =
   | FiltreBeneficiaire
@@ -42,10 +43,15 @@ export type FiltreDecrivable =
 type FiltreDescriptionType = {
   key: string;
   label: string;
+  render?: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value: any,
+    filtre?: FiltreDecrivable,
+  ) => React.ReactElement | React.ReactElement[] | string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  render?: (value: any) => React.ReactElement | React.ReactElement[] | string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ignore?: (value: any) => boolean;
+  ignore?: (value: any, filtre?: FiltreDecrivable) => boolean;
+  /** Si définie, l'entrée est virtuelle (non liée à une clé du filtre) et s'affiche quand condition est vraie */
+  condition?: (filtre: FiltreDecrivable) => boolean;
 };
 
 const filtreDescriptionItem: FiltreDescriptionType[] = [
@@ -155,6 +161,50 @@ const filtreDescriptionItem: FiltreDescriptionType[] = [
       return <Tag className="mb-1">Actif</Tag>;
     },
   },
+  {
+    key: "filtreBeneficiaire[date]",
+    label: "Validité du profil",
+    render: (value: string) => (
+      <Tag className="mb-1">Valide à la date du {dayjs(value).format("DD/MM/YYYY")}</Tag>
+    ),
+  },
+  {
+    key: "filtreBeneficiaire[apres]",
+    label: "Validité du profil à partir du",
+    render: (value: string) => <Tag className="mb-1">{dayjs(value).format("DD/MM/YYYY")}</Tag>,
+  },
+  {
+    key: "filtreBeneficiaire[avant]",
+    label: "Validité du profil jusqu'au",
+    ignore: (_value, filtre) => {
+      const f = filtre as FiltreBeneficiaire;
+      return (
+        f?.["filtreBeneficiaire[apres]"] === undefined &&
+        f?.["filtreBeneficiaire[date]"] === undefined
+      );
+    },
+    render: (value: string) => <Tag className="mb-1">{dayjs(value).format("DD/MM/YYYY")}</Tag>,
+  },
+  {
+    key: "filtreBeneficiaire[nimportequand]",
+    label: "Validité du profil",
+    condition: (filtre) => {
+      const f = filtre as FiltreBeneficiaire;
+      return (
+        f["filtreBeneficiaire[avant]"] !== undefined &&
+        f["filtreBeneficiaire[apres]"] === undefined &&
+        f["filtreBeneficiaire[date]"] === undefined
+      );
+    },
+    render: () => <Tag className="mb-1">Sans restriction de date</Tag>,
+  },
+  {
+    key: "beneficiaires.avecAccompagnement",
+    label: "Accompagnement",
+    render: (value: boolean) => (
+      <Tag className="mb-1">{value ? "Avec accompagnement" : "Sans accompagnement"}</Tag>
+    ),
+  },
   { key: "nom", label: "Nom", render: (value: string) => <Tag>{value}</Tag> },
   {
     key: "profil",
@@ -192,11 +242,13 @@ const filtreDescriptionItem: FiltreDescriptionType[] = [
   },
 ];
 
+const filtreDescriptionItemByKey = new Map(filtreDescriptionItem.map((item) => [item.key, item]));
+
 function FiltreDescriptionContenu(props: { filtre: FiltreDecrivable }) {
   const filtresToExplain = Object.entries(props.filtre)
     // filtres vides
     .filter(
-      ([value]) =>
+      ([, value]) =>
         value !== undefined &&
         value !== "undefined" &&
         value !== null &&
@@ -205,28 +257,42 @@ function FiltreDescriptionContenu(props: { filtre: FiltreDecrivable }) {
     )
     // filtres à expliquer
     .filter(([key, value]) => {
-      const filtreExplainer = filtreDescriptionItem.find((item) => item.key === key);
-      return (
-        filtreExplainer &&
-        filtreExplainer.render &&
-        (!filtreExplainer.ignore || !filtreExplainer.ignore(value))
-      );
+      const item = filtreDescriptionItemByKey.get(key);
+      return item?.render && (!item.ignore || !item.ignore(value, props.filtre));
     });
+
+  const virtualsToExplain = filtreDescriptionItem.filter(
+    (item) =>
+      item.condition &&
+      !Object.prototype.hasOwnProperty.call(props.filtre, item.key) &&
+      item.condition(props.filtre),
+  );
+
+  const allEntries: { key: string; label: string; element: React.ReactNode }[] = [
+    ...filtresToExplain.map(([key, value]) => {
+      const item = filtreDescriptionItemByKey.get(key)!;
+      return {
+        key,
+        label: item.label,
+        element: item.render ? item.render(value, props.filtre) : value,
+      };
+    }),
+    ...virtualsToExplain.map((item) => ({
+      key: item.key,
+      label: item.label,
+      element: item.render?.(undefined, props.filtre),
+    })),
+  ];
 
   return (
     <div>
       <List className="bg-white" size="small" bordered>
-        {filtresToExplain.map(([key, value]) => {
-          const filtreExplainer = filtreDescriptionItem.find((item) => item.key === key);
-
-          return (
-            <List.Item key={key}>
-              <span className="semi-bold">{filtreExplainer?.label}</span> :{" "}
-              {filtreExplainer?.render ? filtreExplainer.render(value) : value}
-            </List.Item>
-          );
-        })}
-        {filtresToExplain.length === 0 && <List.Item>Aucun filtre</List.Item>}
+        {allEntries.map(({ key, label, element }) => (
+          <List.Item key={key}>
+            <span className="semi-bold">{label}</span> : {element}
+          </List.Item>
+        ))}
+        {allEntries.length === 0 && <List.Item>Aucun filtre</List.Item>}
       </List>
     </div>
   );

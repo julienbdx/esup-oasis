@@ -21,6 +21,7 @@ import { FilterFieldDecisionEtablissement } from "@controls/Table/filters/Filter
 import { FilterFieldComposantesBeneficiaire } from "@controls/Table/filters/FilterFieldComposantesBeneficiaire";
 import { FilterFieldFormationsBeneficiaire } from "@controls/Table/filters/FilterFieldFormationsBeneficiaire";
 import { FilterPanel } from "@controls/Table/FilterPanel";
+import { FilterFieldProfilsValidite } from "@controls/Table/filters/FilterFieldProfilsValidite";
 
 export function BeneficiaireTableFilter(props: {
   filtreBeneficiaire: FiltreBeneficiaire;
@@ -43,6 +44,9 @@ export function BeneficiaireTableFilter(props: {
       setFiltre={props.setFiltreBeneficiaire}
       filtreType="filtresBeneficiaire"
       defaultFilter={FILTRE_BENEFICIAIRE_DEFAULT}
+      groupedKeys={[
+        ["filtreBeneficiaire[date]", "filtreBeneficiaire[avant]", "filtreBeneficiaire[apres]"],
+      ]}
       extraLabel={
         user?.isGestionnaire &&
         stats?.nbBeneficiairesIncomplets &&
@@ -72,6 +76,11 @@ export function BeneficiaireTableFilter(props: {
         setFiltreBeneficiaire={props.setFiltreBeneficiaire}
         profils={profils}
         nbBeneficiairesIncomplets={stats?.nbBeneficiairesIncomplets}
+        user={user}
+      />
+      <FilterFieldProfilsValidite
+        filtreBeneficiaire={props.filtreBeneficiaire}
+        setFiltreBeneficiaire={props.setFiltreBeneficiaire}
         user={user}
       />
       <FilterFieldTagsBeneficiaire

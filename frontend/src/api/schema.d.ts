@@ -4785,6 +4785,14 @@ export interface operations {
           "text/html": components["schemas"]["Reponse.html-reponse.out"];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
       /** @description Not found */
       404: {
         content: {
@@ -6633,6 +6641,14 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
       /** @description An error occurred */
       422: {
         content: {
@@ -6688,6 +6704,14 @@ export interface operations {
       204: {
         content: never;
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
       /** @description Not found */
       404: {
         content: {
@@ -6725,6 +6749,14 @@ export interface operations {
       };
       /** @description Invalid input */
       400: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
         content: {
           "application/ld+json": components["schemas"]["Error.jsonld"];
           "application/problem+json": components["schemas"]["Error"];
@@ -7880,6 +7912,14 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
       /** @description An error occurred */
       422: {
         content: {
@@ -7950,6 +7990,14 @@ export interface operations {
       };
       /** @description Invalid input */
       400: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
         content: {
           "application/ld+json": components["schemas"]["Error.jsonld"];
           "application/problem+json": components["schemas"]["Error"];
@@ -8797,6 +8845,14 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
       /** @description An error occurred */
       422: {
         content: {
@@ -8863,6 +8919,14 @@ export interface operations {
       };
       /** @description Invalid input */
       400: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
         content: {
           "application/ld+json": components["schemas"]["Error.jsonld"];
           "application/problem+json": components["schemas"]["Error"];
@@ -10713,6 +10777,14 @@ export interface operations {
         /** @description aideHumaine */
         aideHumaine?: boolean;
         term?: string;
+        /** @description date pour laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[date]"?: string;
+        /** @description date avant laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[avant]"?: string;
+        /** @description date après laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[apres]"?: string;
+        /** @description profil pour lequel on veut les bénéficiaires valides */
+        "filtreBeneficiaire[profil]"?: string;
         /** @description IRI utilisateur du beneficiaire concerné */
         beneficiaire?: string;
         /** @description début du créneau */
@@ -10731,8 +10803,6 @@ export interface operations {
         "intervenant.campuses[]"?: string[];
         "intervenant.competences"?: string;
         "intervenant.competences[]"?: string[];
-        /** @description Recherche sur le profil bénéficiaire */
-        profil?: string;
         /** @description Recherche sur le libelle de campus de l'intervenant */
         libelleCampus?: string;
         /** @description Recherche sur le libelle de composante d'inscription */
@@ -10794,6 +10864,14 @@ export interface operations {
         /** @description The number of items per page */
         itemsPerPage?: number;
         term?: string;
+        /** @description date pour laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[date]"?: string;
+        /** @description date avant laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[avant]"?: string;
+        /** @description date après laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[apres]"?: string;
+        /** @description profil pour lequel on veut les bénéficiaires valides */
+        "filtreBeneficiaire[profil]"?: string;
         /** @description IRI utilisateur du beneficiaire concerné */
         beneficiaire?: string;
         /** @description début du créneau */
@@ -10812,8 +10890,6 @@ export interface operations {
         "intervenant.campuses[]"?: string[];
         "intervenant.competences"?: string;
         "intervenant.competences[]"?: string[];
-        /** @description Recherche sur le profil bénéficiaire */
-        profil?: string;
         /** @description Recherche sur le libelle de campus de l'intervenant */
         libelleCampus?: string;
         /** @description Recherche sur le libelle de composante d'inscription */
@@ -10851,6 +10927,14 @@ export interface operations {
             "hydra:member": components["schemas"]["Utilisateur.jsonld-utilisateur.out"][];
           };
           "text/html": components["schemas"]["Utilisateur.html-utilisateur.out"][];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
         };
       };
     };
@@ -11031,6 +11115,14 @@ export interface operations {
         /** @description The number of items per page */
         itemsPerPage?: number;
         term?: string;
+        /** @description date pour laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[date]"?: string;
+        /** @description date avant laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[avant]"?: string;
+        /** @description date après laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[apres]"?: string;
+        /** @description profil pour lequel on veut les bénéficiaires valides */
+        "filtreBeneficiaire[profil]"?: string;
         /** @description IRI utilisateur du beneficiaire concerné */
         beneficiaire?: string;
         /** @description début du créneau */
@@ -11049,8 +11141,6 @@ export interface operations {
         "intervenant.campuses[]"?: string[];
         "intervenant.competences"?: string;
         "intervenant.competences[]"?: string[];
-        /** @description Recherche sur le profil bénéficiaire */
-        profil?: string;
         /** @description Recherche sur le libelle de campus de l'intervenant */
         libelleCampus?: string;
         /** @description Recherche sur le libelle de composante d'inscription */
@@ -11088,6 +11178,14 @@ export interface operations {
             "hydra:member": components["schemas"]["Utilisateur.jsonld-utilisateur.out"][];
           };
           "text/html": components["schemas"]["Utilisateur.html-utilisateur.out"][];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
         };
       };
     };
@@ -11104,6 +11202,14 @@ export interface operations {
         /** @description The number of items per page */
         itemsPerPage?: number;
         term?: string;
+        /** @description date pour laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[date]"?: string;
+        /** @description date avant laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[avant]"?: string;
+        /** @description date après laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[apres]"?: string;
+        /** @description profil pour lequel on veut les bénéficiaires valides */
+        "filtreBeneficiaire[profil]"?: string;
         /** @description IRI utilisateur du beneficiaire concerné */
         beneficiaire?: string;
         /** @description début du créneau */
@@ -11122,8 +11228,6 @@ export interface operations {
         "intervenant.campuses[]"?: string[];
         "intervenant.competences"?: string;
         "intervenant.competences[]"?: string[];
-        /** @description Recherche sur le profil bénéficiaire */
-        profil?: string;
         /** @description Recherche sur le libelle de campus de l'intervenant */
         libelleCampus?: string;
         /** @description Recherche sur le libelle de composante d'inscription */
@@ -11163,6 +11267,14 @@ export interface operations {
           "text/html": components["schemas"]["Utilisateur.html-utilisateur.out"][];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
     };
   };
   /**
@@ -11177,6 +11289,14 @@ export interface operations {
         /** @description The number of items per page */
         itemsPerPage?: number;
         term?: string;
+        /** @description date pour laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[date]"?: string;
+        /** @description date avant laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[avant]"?: string;
+        /** @description date après laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[apres]"?: string;
+        /** @description profil pour lequel on veut les bénéficiaires valides */
+        "filtreBeneficiaire[profil]"?: string;
         /** @description IRI utilisateur du beneficiaire concerné */
         beneficiaire?: string;
         /** @description début du créneau */
@@ -11195,8 +11315,6 @@ export interface operations {
         "intervenant.campuses[]"?: string[];
         "intervenant.competences"?: string;
         "intervenant.competences[]"?: string[];
-        /** @description Recherche sur le profil bénéficiaire */
-        profil?: string;
         /** @description Recherche sur le libelle de campus de l'intervenant */
         libelleCampus?: string;
         /** @description Recherche sur le libelle de composante d'inscription */
@@ -11262,6 +11380,14 @@ export interface operations {
         /** @description The number of items per page */
         itemsPerPage?: number;
         term?: string;
+        /** @description date pour laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[date]"?: string;
+        /** @description date avant laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[avant]"?: string;
+        /** @description date après laquelle on veut les bénéficiaires valides */
+        "filtreBeneficiaire[apres]"?: string;
+        /** @description profil pour lequel on veut les bénéficiaires valides */
+        "filtreBeneficiaire[profil]"?: string;
         /** @description IRI utilisateur du beneficiaire concerné */
         beneficiaire?: string;
         /** @description début du créneau */
@@ -11280,8 +11406,6 @@ export interface operations {
         "intervenant.campuses[]"?: string[];
         "intervenant.competences"?: string;
         "intervenant.competences[]"?: string[];
-        /** @description Recherche sur le profil bénéficiaire */
-        profil?: string;
         /** @description Recherche sur le libelle de campus de l'intervenant */
         libelleCampus?: string;
         /** @description Recherche sur le libelle de composante d'inscription */
@@ -11321,6 +11445,14 @@ export interface operations {
           "text/html": components["schemas"]["Utilisateur.html-utilisateur.out"][];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
     };
   };
   /**
@@ -11340,6 +11472,14 @@ export interface operations {
         content: {
           "application/ld+json": components["schemas"]["Utilisateur.jsonld-utilisateur.out"];
           "text/html": components["schemas"]["Utilisateur.html-utilisateur.out"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
         };
       };
       /** @description Not found */
@@ -11498,6 +11638,14 @@ export interface operations {
       };
       /** @description Invalid input */
       400: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
         content: {
           "application/ld+json": components["schemas"]["Error.jsonld"];
           "application/problem+json": components["schemas"]["Error"];
@@ -11677,6 +11825,14 @@ export interface operations {
           "text/html": components["schemas"]["CharteUtilisateur.html"][];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
     };
   };
   /**
@@ -11698,6 +11854,14 @@ export interface operations {
         content: {
           "application/ld+json": components["schemas"]["CharteUtilisateur.jsonld"];
           "text/html": components["schemas"]["CharteUtilisateur.html"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
         };
       };
       /** @description Not found */
@@ -12182,6 +12346,14 @@ export interface operations {
           "text/html": components["schemas"]["TagUtilisateur.html-tag_utilisateur.out"][];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
     };
   };
   /**
@@ -12212,6 +12384,14 @@ export interface operations {
       };
       /** @description Invalid input */
       400: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
         content: {
           "application/ld+json": components["schemas"]["Error.jsonld"];
           "application/problem+json": components["schemas"]["Error"];
@@ -12249,6 +12429,14 @@ export interface operations {
           "text/html": components["schemas"]["TagUtilisateur.html-tag_utilisateur.out"];
         };
       };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
+      };
       /** @description Not found */
       404: {
         content: {
@@ -12276,6 +12464,14 @@ export interface operations {
       /** @description TagUtilisateur resource deleted */
       204: {
         content: never;
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/ld+json": components["schemas"]["Error.jsonld"];
+          "application/problem+json": components["schemas"]["Error"];
+          "application/json": components["schemas"]["Error"];
+        };
       };
       /** @description Not found */
       404: {
