@@ -49,7 +49,7 @@ export function FilterFieldProfils({
           allowClear
           className="w-100"
           placeholder="Tous les profils"
-          value={filtreBeneficiaire.profil}
+          value={filtreBeneficiaire["filtreBeneficiaire[profil]"]}
           onChange={(value) => {
             setFiltreBeneficiaire((prev) => ({
               ...prev,

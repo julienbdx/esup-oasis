@@ -27,6 +27,8 @@ interface FilterPanelProps<T extends FiltreDecrivable> {
   refDetails?: React.RefObject<HTMLDivElement>;
   refFavoris?: React.RefObject<HTMLDivElement>;
   refFiltres?: React.RefObject<HTMLDivElement>;
+  /** Groupes de clés qui comptent collectivement pour 1 filtre au lieu d'une clé chacune. */
+  groupedKeys?: string[][];
 }
 
 /**
@@ -44,11 +46,14 @@ export function FilterPanel<T extends FiltreDecrivable>({
   refDetails,
   refFavoris,
   refFiltres,
+  groupedKeys = [],
 }: FilterPanelProps<T>) {
   function calculerNombreFiltresPoses(): number {
-    // le nombre de filtres posés est le nombre de valeurs de filtre qui sont différentes du filtre par défaut defaultFilter
+    const excludedKeys = new Set(groupedKeys.flat());
+
     const filtresPose = Object.entries(filtre).filter(([key, value]) => {
       if (key === "page" || key === "itemsPerPage" || key.startsWith("order[")) return false;
+      if (excludedKeys.has(key)) return false;
       const defaultValue = defaultFilter[key as keyof T];
       if (Array.isArray(value) || Array.isArray(defaultValue)) {
         const a = Array.isArray(value) ? value : [];
@@ -57,7 +62,12 @@ export function FilterPanel<T extends FiltreDecrivable>({
       }
       return value !== defaultValue;
     });
-    return filtresPose.length;
+
+    const groupsCount = groupedKeys.filter((group) =>
+      group.some((key) => filtre[key as keyof T] !== defaultFilter[key as keyof T]),
+    ).length;
+
+    return filtresPose.length + groupsCount;
   }
 
   return (

@@ -25,16 +25,25 @@ import { ascendToAsc } from "@utils/array";
 import FiltreDescription from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
 import { getCountLibelle } from "@utils/table";
+import dayjs from "dayjs";
 
 export const FILTRE_BENEFICIAIRE_DEFAULT: FiltreBeneficiaire = {
   "order[nom]": "asc" as "asc" | "desc" | undefined,
   "beneficiaires.avecAccompagnement": true,
+  "filtreBeneficiaire[date]": dayjs().format("YYYY-MM-DD"),
   page: 1,
   itemsPerPage: 25,
 };
 
 export interface FiltreBeneficiaire {
-  profil?: string;
+  /** @description profil pour lequel on veut les bénéficiaires valides */
+  "filtreBeneficiaire[profil]"?: string;
+  /** @description date pour laquelle on veut les bénéficiaires valides */
+  "filtreBeneficiaire[date]"?: string;
+  /** @description date avant laquelle on veut les bénéficiaires valides */
+  "filtreBeneficiaire[avant]"?: string;
+  /** @description date après laquelle on veut les bénéficiaires valides */
+  "filtreBeneficiaire[apres]"?: string;
   nom?: string;
   prenom?: string;
   nomGestionnaire?: string;
@@ -68,7 +77,7 @@ function filtreBeneficiaireDefault(
     case "profil":
       return {
         ...FILTRE_BENEFICIAIRE_DEFAULT,
-        profil: filtreValeur as string,
+        "filtreBeneficiaire[profil]": filtreValeur as string,
       };
     default:
       return FILTRE_BENEFICIAIRE_DEFAULT;

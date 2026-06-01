@@ -32,6 +32,7 @@ Cette version constitue une refonte technique majeure du frontend. La stack de b
 - Ajout de **vitest-axe** pour les tests d'accessibilité automatisés.
 - Ajustements des marges, paddings et styles pour le respect des contrastes et la navigation clavier.
 - **Dark mode (bêta)** : mode sombre disponible en version préliminaire, destiné aux personnes sujettes à la fatigue oculaire ou à l'inconfort visuel.
+
 ### Darkmode (bêta)
 
 - Pré-version du **dark mode** intégrée (désactivé par défaut) via un `themeBuilder` dédié.
@@ -50,6 +51,7 @@ Cette version constitue une refonte technique majeure du frontend. La stack de b
 - **Gestion des erreurs 404** et ajout d'un `ErrorBoundary` applicatif.
 - Gestion améliorée des **mentions légales** (page dédiée + fix Caddy) ; voir [personnalisation-ui.md](../docs/frontend/personnalisation-ui.md).
 - Retrait des `prompt()` natifs JS.
+- Nouveau filtre pour les bénéficiaires : selon la date de validité du profil
 
 ### Tests
 
