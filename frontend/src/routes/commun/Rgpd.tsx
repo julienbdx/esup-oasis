@@ -11,14 +11,23 @@ import { Card, Layout } from "antd";
 import PageTitle from "@utils/PageTitle/PageTitle";
 import { env } from "@/env";
 import { sanitizeHtml } from "@utils/sanitize";
+import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
 export default function Rgpd() {
+  const isDark = useEffectiveTheme() === "dark";
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <PageTitle />
       <Layout.Content style={{ padding: 50 }}>
         <Card title={<h1>Traitement des données personnelles</h1>} className="mb-3">
-          {env.REACT_APP_LOGO && <img src={env.REACT_APP_LOGO} alt="Logo" style={{ width: 200 }} />}
+          {env.REACT_APP_LOGO && (
+            <img
+              src={isDark && env.REACT_APP_LOGO_DARK ? env.REACT_APP_LOGO_DARK : env.REACT_APP_LOGO}
+              alt="Logo"
+              style={{ width: 200 }}
+            />
+          )}
 
           <h2>Service {env.REACT_APP_SERVICE}</h2>
           <p>
