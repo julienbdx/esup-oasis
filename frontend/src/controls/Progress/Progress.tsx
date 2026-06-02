@@ -85,7 +85,7 @@ export default memo(
     return (
       <Tooltip title={tooltip}>
         <div className="progress">
-          <div className="progress-done" style={style}>
+          <div className="progress-done text-black" style={style}>
             {value}%{value === 100 && <LikeOutlined className="ml-1" />}
           </div>
         </div>
