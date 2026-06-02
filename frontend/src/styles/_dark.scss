@@ -18,7 +18,8 @@ body.dark-mode {
   }
 
   // Utilitaires de fond
-  .bg-white {
+  .bg-white,
+  .bg-white .ant-table-cell {
     background-color: var(--ant-color-bg-container) !important;
   }
 
