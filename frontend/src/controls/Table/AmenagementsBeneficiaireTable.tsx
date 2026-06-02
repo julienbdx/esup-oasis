@@ -197,6 +197,7 @@ export function AmenagementsBeneficiaireTable(props: {
         loading={isFetching}
         className="table-responsive table-thead-sticky mt-2"
         rowKey={(record: IAmenagementsBeneficiaireTableDataSource) => record.key}
+        rowClassName={(_record, index) => (index % 2 === 1 ? "row-odd" : "")}
         rowHoverable={false}
         dataSource={dataSource}
         pagination={{
