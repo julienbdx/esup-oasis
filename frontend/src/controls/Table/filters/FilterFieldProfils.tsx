@@ -53,7 +53,7 @@ export function FilterFieldProfils({
           onChange={(value) => {
             setFiltreBeneficiaire((prev) => ({
               ...prev,
-              profil: value === "undefined" ? undefined : value,
+              "filtreBeneficiaire[profil]": value === "undefined" ? undefined : value,
               page: 1,
             }));
           }}
