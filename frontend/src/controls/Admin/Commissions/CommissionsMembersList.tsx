@@ -119,10 +119,14 @@ function CommissionsEditionMembreRole(props: { membre: ICommissionMembre }) {
       }}
     >
       {props.membre.roles?.includes(RoleValues.ROLE_VALIDER_CONFORMITE_DEMANDE) && (
-        <Tag color="purple">Valider conformité</Tag>
+        <Tag color="purple" className="mr-1">
+          Valider conformité
+        </Tag>
       )}
       {props.membre.roles?.includes(RoleValues.ROLE_ATTRIBUER_PROFIL) && (
-        <Tag color="purple">Attribuer profil</Tag>
+        <Tag color="purple" className="mr-1">
+          Attribuer profil
+        </Tag>
       )}
       {!props.membre.roles?.includes(RoleValues.ROLE_VALIDER_CONFORMITE_DEMANDE) &&
         !props.membre.roles?.includes(RoleValues.ROLE_ATTRIBUER_PROFIL) &&
