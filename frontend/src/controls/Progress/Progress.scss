@@ -25,7 +25,8 @@
 
 .CircularProgressbar .CircularProgressbar-text {
   font-size: 36px !important;
-  color: var(--ant-color-text) !important;
-  fill: var(--ant-color-text) !important;
+  color: var(--noir) !important;
+  fill: var(--noir) !important;
   font-weight: 500;
+  transform: translateY(4px);
 }

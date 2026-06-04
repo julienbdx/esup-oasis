@@ -29,6 +29,8 @@ import AmenagementsBeneficiaireTableExport from "@controls/Table/AmenagementsBen
 import FiltreDescription from "@controls/Table/FiltreDescription";
 import { getCountLibelle } from "@utils/table";
 import { useAmenagementFilter } from "@controls/Table/hooks/useAmenagementFilter";
+import { useFiltreSessionStorage } from "@controls/Table/hooks/useFiltreSessionStorage";
+import { FiltreSessionSwitch } from "@controls/Table/FiltreSessionSwitch";
 
 export interface FiltreAmenagement {
   "tags[]"?: string[];
@@ -123,7 +125,11 @@ export function filtreAmenagementToApi(
 export default function AmenagementTableLayout(props: { modeAffichage: ModeAffichageAmenagement }) {
   const auth = useAuth();
   const [count, setCount] = React.useState<number>();
-  const [filtreAmenagement, setFiltreAmenagement] = useAmenagementFilter(props.modeAffichage);
+  const { enabled: sessionEnabled, toggle: toggleSession } = useFiltreSessionStorage();
+  const [filtreAmenagement, setFiltreAmenagement] = useAmenagementFilter(
+    props.modeAffichage,
+    sessionEnabled,
+  );
 
   const { data: categoriesAmenagements } = useApi().useGetFullCollection(
     PREFETCH_CATEGORIES_AMENAGEMENTS,
@@ -147,38 +153,45 @@ export default function AmenagementTableLayout(props: { modeAffichage: ModeAffic
           )}
         </span>
 
-        <div className="d-block">
-          {JSON.stringify(getFiltreAmenagementDefault(auth.user as Utilisateur)) !==
-            JSON.stringify(filtreAmenagement) && (
-            <Space.Compact>
-              <FiltreDescription
-                filtre={filtreAmenagement}
-                as="modal"
-                tooltip="Décrire le filtre en cours"
-              />
-              <Button
-                className="d-flex-inline-center mr-1"
-                icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
-                onClick={() =>
-                  setFiltreAmenagement(getFiltreAmenagementDefault(auth.user as Utilisateur))
-                }
-              >
-                Retirer les filtres
-              </Button>
-            </Space.Compact>
-          )}
-          {auth.user?.isGestionnaire &&
-            props.modeAffichage === ModeAffichageAmenagement.ParAmenagement && (
-              <AmenagementTableExport filtreAmenagement={filtreAmenagement} />
+        <Space size="large">
+          <FiltreSessionSwitch
+            id="conserver-filtres-amenagement"
+            enabled={sessionEnabled}
+            toggle={toggleSession}
+          />
+          <div className="d-block">
+            {JSON.stringify(getFiltreAmenagementDefault(auth.user as Utilisateur)) !==
+              JSON.stringify(filtreAmenagement) && (
+              <Space.Compact>
+                <FiltreDescription
+                  filtre={filtreAmenagement}
+                  as="modal"
+                  tooltip="Décrire le filtre en cours"
+                />
+                <Button
+                  className="d-flex-inline-center mr-1"
+                  icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
+                  onClick={() =>
+                    setFiltreAmenagement(getFiltreAmenagementDefault(auth.user as Utilisateur))
+                  }
+                >
+                  Retirer les filtres
+                </Button>
+              </Space.Compact>
             )}
-          {(auth.user?.isGestionnaire || auth.user?.isReferentComposante) &&
-            props.modeAffichage === ModeAffichageAmenagement.ParBeneficiaire && (
-              <AmenagementsBeneficiaireTableExport
-                filtreAmenagement={filtreAmenagement}
-                typesAmenagements={typesAmenagements?.items || []}
-              />
-            )}
-        </div>
+            {auth.user?.isGestionnaire &&
+              props.modeAffichage === ModeAffichageAmenagement.ParAmenagement && (
+                <AmenagementTableExport filtreAmenagement={filtreAmenagement} />
+              )}
+            {(auth.user?.isGestionnaire || auth.user?.isReferentComposante) &&
+              props.modeAffichage === ModeAffichageAmenagement.ParBeneficiaire && (
+                <AmenagementsBeneficiaireTableExport
+                  filtreAmenagement={filtreAmenagement}
+                  typesAmenagements={typesAmenagements?.items || []}
+                />
+              )}
+          </div>
+        </Space>
       </Flex>
       {props.modeAffichage === ModeAffichageAmenagement.ParAmenagement ? (
         <AmenagementTable

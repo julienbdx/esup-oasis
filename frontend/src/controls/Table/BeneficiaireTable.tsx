@@ -24,6 +24,8 @@ import { BeneficiaireTableFilter } from "@controls/Table/BeneficiaireTableFilter
 import { ascendToAsc } from "@utils/array";
 import FiltreDescription from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { useFiltreSessionStorage } from "@controls/Table/hooks/useFiltreSessionStorage";
+import { FiltreSessionSwitch } from "@controls/Table/FiltreSessionSwitch";
 import { getCountLibelle } from "@utils/table";
 import dayjs from "dayjs";
 
@@ -92,7 +94,10 @@ export default function BeneficiaireTable() {
   const navigate = useNavigate();
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
+  const { enabled: sessionEnabled, toggle: toggleSession } = useFiltreSessionStorage();
 
+  // Capture si sessionStorage avait des données au montage (indépendamment de sessionEnabled,
+  // car sessionEnabled peut être faux avant que les préférences ne chargent)
   const hadSessionFilter = useRef(
     searchParams.get("filtreType") === null &&
       !!sessionStorage.getItem(SESSION_KEY_FILTRE_BENEFICIAIRE),
@@ -107,12 +112,14 @@ export default function BeneficiaireTable() {
         searchParams.get("filtreValeur"),
       );
     }
-    // Priorité 2 : filtre de session
-    try {
-      const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_BENEFICIAIRE);
-      if (stored) return JSON.parse(stored) as FiltreBeneficiaire;
-    } catch {
-      /* ignore */
+    // Priorité 2 : filtre de session (seulement si activé)
+    if (sessionEnabled) {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_BENEFICIAIRE);
+        if (stored) return JSON.parse(stored) as FiltreBeneficiaire;
+      } catch {
+        /* ignore */
+      }
     }
     // Priorité 3 : filtre favori des préférences
     return {
@@ -133,24 +140,35 @@ export default function BeneficiaireTable() {
       },
     });
 
-  // Persiste le filtre en session à chaque changement
+  // Persiste le filtre en session à chaque changement (seulement si activé)
   useEffect(() => {
-    sessionStorage.setItem(SESSION_KEY_FILTRE_BENEFICIAIRE, JSON.stringify(filtreBeneficiaire));
-  }, [filtreBeneficiaire]);
+    if (sessionEnabled) {
+      sessionStorage.setItem(SESSION_KEY_FILTRE_BENEFICIAIRE, JSON.stringify(filtreBeneficiaire));
+    }
+  }, [filtreBeneficiaire, sessionEnabled]);
 
+  // Synchronisation une fois les préférences chargées : point de vérité pour session + favori
   useEffect(() => {
-    if (
-      preferencesChargees &&
-      !hadSessionFilter.current &&
-      getPreferenceArray("filtresBeneficiaire")?.filter((f) => f.favori).length > 0
-    ) {
+    if (!preferencesChargees) return;
+
+    if (sessionEnabled && hadSessionFilter.current && searchParams.get("filtreType") === null) {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_BENEFICIAIRE);
+        if (stored) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setFiltreBeneficiaire(JSON.parse(stored) as FiltreBeneficiaire);
+          return;
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+
+    const favorites = getPreferenceArray("filtresBeneficiaire")?.filter((f) => f.favori);
+    if (favorites?.length > 0) {
       setFiltreBeneficiaire({
         ...FILTRE_BENEFICIAIRE_DEFAULT,
-        // on applique le filtre favori des préférences de l'utilisateur s'il existe
-        ...{
-          ...getPreferenceArray("filtresBeneficiaire")?.filter((f) => f.favori)[0]?.filtre,
-          page: 1,
-        },
+        ...{ ...favorites[0].filtre, page: 1 },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -207,29 +225,36 @@ export default function BeneficiaireTable() {
       />
       <Flex justify="space-between" align="center">
         <span className="text-legende">{getCountLibelle(count, "bénéficiaire")}</span>
-        <div>
-          {JSON.stringify(FILTRE_BENEFICIAIRE_DEFAULT) !== JSON.stringify(filtreBeneficiaire) && (
-            <Space.Compact>
-              <FiltreDescription
-                filtre={filtreBeneficiaire}
-                as="modal"
-                tooltip="Décrire le filtre en cours"
-              />
-              <Button
-                className="d-flex-inline-center mr-1"
-                icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
-                onClick={() => setFiltreBeneficiaire(FILTRE_BENEFICIAIRE_DEFAULT)}
-              >
-                Retirer les filtres
-              </Button>
-            </Space.Compact>
-          )}
-          {auth.user?.isGestionnaire && (
-            <>
-              <BeneficiaireTableExport filtreBeneficiaire={filtreBeneficiaire} />
-            </>
-          )}
-        </div>
+        <Space size="large">
+          <FiltreSessionSwitch
+            id="conserver-filtres-beneficiaire"
+            enabled={sessionEnabled}
+            toggle={toggleSession}
+          />
+          <div>
+            {JSON.stringify(FILTRE_BENEFICIAIRE_DEFAULT) !== JSON.stringify(filtreBeneficiaire) && (
+              <Space.Compact>
+                <FiltreDescription
+                  filtre={filtreBeneficiaire}
+                  as="modal"
+                  tooltip="Décrire le filtre en cours"
+                />
+                <Button
+                  className="d-flex-inline-center mr-1"
+                  icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
+                  onClick={() => setFiltreBeneficiaire(FILTRE_BENEFICIAIRE_DEFAULT)}
+                >
+                  Retirer les filtres
+                </Button>
+              </Space.Compact>
+            )}
+            {auth.user?.isGestionnaire && (
+              <>
+                <BeneficiaireTableExport filtreBeneficiaire={filtreBeneficiaire} />
+              </>
+            )}
+          </div>
+        </Space>
       </Flex>
       <div ref={tableRef}>
         <Table<IBeneficiaire>
