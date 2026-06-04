@@ -23,6 +23,8 @@ import Unfilter from "@/assets/images/unfilter.svg?react";
 import { ascendToAsc } from "@utils/array";
 import FiltreDescription from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { useFiltreSessionStorage } from "@controls/Table/hooks/useFiltreSessionStorage";
+import { FiltreSessionSwitch } from "@controls/Table/FiltreSessionSwitch";
 import { useNavigate } from "react-router-dom";
 import { getCountLibelle } from "@utils/table";
 
@@ -53,17 +55,22 @@ export default function IntervenantTable() {
   const navigate = useNavigate();
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
+  const { enabled: sessionEnabled, toggle: toggleSession } = useFiltreSessionStorage();
 
+  // Capture si sessionStorage avait des données au montage (indépendamment de sessionEnabled,
+  // car sessionEnabled peut être faux avant que les préférences ne chargent)
   const hadSessionFilter = useRef(!!sessionStorage.getItem(SESSION_KEY_FILTRE_INTERVENANT));
   const tableRef = useRef<HTMLDivElement>(null);
 
   const [filtreIntervenant, setFiltreIntervenant] = useState<FiltreIntervenant>(() => {
-    // Priorité 1 : filtre de session
-    try {
-      const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_INTERVENANT);
-      if (stored) return JSON.parse(stored) as FiltreIntervenant;
-    } catch {
-      /* ignore */
+    // Priorité 1 : filtre de session (seulement si activé)
+    if (sessionEnabled) {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_INTERVENANT);
+        if (stored) return JSON.parse(stored) as FiltreIntervenant;
+      } catch {
+        /* ignore */
+      }
     }
     // Priorité 2 : filtre favori des préférences
     return {
@@ -88,19 +95,34 @@ export default function IntervenantTable() {
       },
     });
 
-  // Persiste le filtre en session à chaque changement
+  // Persiste le filtre en session à chaque changement (seulement si activé)
   useEffect(() => {
-    sessionStorage.setItem(SESSION_KEY_FILTRE_INTERVENANT, JSON.stringify(filtreIntervenant));
-  }, [filtreIntervenant]);
-
-  useEffect(() => {
-    if (preferencesChargees && !hadSessionFilter.current) {
-      setFiltreIntervenant({
-        ...FILTRE_INTERVENANT_DEFAULT,
-        // on applique le filtre favori des préférences de l'utilisateur s'il existe
-        ...getPreferenceArray("filtresIntervenant")?.filter((f) => f.favori)[0]?.filtre,
-      });
+    if (sessionEnabled) {
+      sessionStorage.setItem(SESSION_KEY_FILTRE_INTERVENANT, JSON.stringify(filtreIntervenant));
     }
+  }, [filtreIntervenant, sessionEnabled]);
+
+  // Synchronisation une fois les préférences chargées : point de vérité pour session + favori
+  useEffect(() => {
+    if (!preferencesChargees) return;
+
+    if (sessionEnabled && hadSessionFilter.current) {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_INTERVENANT);
+        if (stored) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setFiltreIntervenant(JSON.parse(stored) as FiltreIntervenant);
+          return;
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+
+    setFiltreIntervenant({
+      ...FILTRE_INTERVENANT_DEFAULT,
+      ...getPreferenceArray("filtresIntervenant")?.filter((f) => f.favori)[0]?.filtre,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferencesChargees]);
 
@@ -135,25 +157,32 @@ export default function IntervenantTable() {
       />
       <Flex justify="space-between" align="center">
         <span className="text-legende">{getCountLibelle(count, "intervenant")}</span>
-        <div>
-          {JSON.stringify(FILTRE_INTERVENANT_DEFAULT) !== JSON.stringify(filtreIntervenant) && (
-            <Space.Compact>
-              <FiltreDescription
-                filtre={filtreIntervenant}
-                as="modal"
-                tooltip="Décrire le filtre en cours"
-              />
-              <Button
-                className="d-flex-inline-center mr-1"
-                icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
-                onClick={() => setFiltreIntervenant(FILTRE_INTERVENANT_DEFAULT)}
-              >
-                Retirer les filtres
-              </Button>
-            </Space.Compact>
-          )}
-          <IntervenantTableExport filtreIntervenant={filtreIntervenant} />
-        </div>
+        <Space size="large">
+          <FiltreSessionSwitch
+            id="conserver-filtres-intervenant"
+            enabled={sessionEnabled}
+            toggle={toggleSession}
+          />
+          <div>
+            {JSON.stringify(FILTRE_INTERVENANT_DEFAULT) !== JSON.stringify(filtreIntervenant) && (
+              <Space.Compact>
+                <FiltreDescription
+                  filtre={filtreIntervenant}
+                  as="modal"
+                  tooltip="Décrire le filtre en cours"
+                />
+                <Button
+                  className="d-flex-inline-center mr-1"
+                  icon={<Icon component={Unfilter} aria-label="Retirer les filtres" />}
+                  onClick={() => setFiltreIntervenant(FILTRE_INTERVENANT_DEFAULT)}
+                >
+                  Retirer les filtres
+                </Button>
+              </Space.Compact>
+            )}
+            <IntervenantTableExport filtreIntervenant={filtreIntervenant} />
+          </div>
+        </Space>
       </Flex>
       <div ref={tableRef}>
         <Table<IIntervenant>

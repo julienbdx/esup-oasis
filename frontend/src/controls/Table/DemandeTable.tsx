@@ -24,6 +24,8 @@ import { ascendToAsc } from "@utils/array";
 import { RefsTourDemandes } from "@routes/gestionnaire/demandeurs/Demandeurs";
 import FiltreDescription from "@controls/Table/FiltreDescription";
 import { usePreferences } from "@context/utilisateurPreferences/UtilisateurPreferencesProvider";
+import { useFiltreSessionStorage } from "@controls/Table/hooks/useFiltreSessionStorage";
+import { FiltreSessionSwitch } from "@controls/Table/FiltreSessionSwitch";
 import { getCountLibelle } from "@utils/table";
 
 export const FILTRE_DEMANDE_DEFAULT: FiltreDemande = {
@@ -78,8 +80,10 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
+  const { enabled: sessionEnabled, toggle: toggleSession } = useFiltreSessionStorage();
 
-  // Capture à l'initialisation si un filtre de session existait (avant tout useEffect qui écrirait en session)
+  // Capture si sessionStorage avait des données au montage (indépendamment de sessionEnabled,
+  // car sessionEnabled peut être faux avant que les préférences ne chargent)
   const hadSessionFilter = useRef(
     searchParams.get("filtreType") === null && !!sessionStorage.getItem(SESSION_KEY_FILTRE_DEMANDE),
   );
@@ -89,12 +93,14 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
     if (searchParams.get("filtreType") !== null) {
       return filtreDemandeDefault(searchParams.get("filtreType"), searchParams.get("filtreValeur"));
     }
-    // Priorité 2 : filtre de session (navigation intra-session)
-    try {
-      const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_DEMANDE);
-      if (stored) return JSON.parse(stored) as FiltreDemande;
-    } catch {
-      /* ignore */
+    // Priorité 2 : filtre de session (navigation intra-session, seulement si activé)
+    if (sessionEnabled) {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_DEMANDE);
+        if (stored) return JSON.parse(stored) as FiltreDemande;
+      } catch {
+        /* ignore */
+      }
     }
     // Priorité 3 : filtre favori des préférences
     return {
@@ -106,10 +112,12 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
     };
   });
 
-  // Persiste le filtre en session à chaque changement
+  // Persiste le filtre en session à chaque changement (seulement si activé)
   useEffect(() => {
-    sessionStorage.setItem(SESSION_KEY_FILTRE_DEMANDE, JSON.stringify(filtreDemande));
-  }, [filtreDemande]);
+    if (sessionEnabled) {
+      sessionStorage.setItem(SESSION_KEY_FILTRE_DEMANDE, JSON.stringify(filtreDemande));
+    }
+  }, [filtreDemande, sessionEnabled]);
 
   const { data: dataDemandes, isFetching: isFetchingDemandes } = useApi().useGetCollectionPaginated(
     {
@@ -124,20 +132,30 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
   );
   const { data: etats } = useApi().useGetFullCollection(PREFETCH_ETAT_DEMANDE);
 
+  // Synchronisation une fois les préférences chargées : point de vérité pour session + favori
   useEffect(() => {
-    // N'applique le filtre favori des préférences que s'il n'y avait pas de filtre de session
-    if (
-      preferencesChargees &&
-      !hadSessionFilter.current &&
-      getPreferenceArray("filtresDemande")?.filter((f) => f.favori).length > 0
-    ) {
+    if (!preferencesChargees) return;
+
+    // sessionEnabled est maintenant fiable : si activé et sessionStorage avait des données, les appliquer
+    if (sessionEnabled && hadSessionFilter.current && searchParams.get("filtreType") === null) {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_FILTRE_DEMANDE);
+        if (stored) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setFiltreDemande(JSON.parse(stored) as FiltreDemande);
+          return;
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+
+    // Session désactivée ou vide : appliquer le favori s'il existe
+    const favorites = getPreferenceArray("filtresDemande")?.filter((f) => f.favori);
+    if (favorites?.length > 0) {
       setFiltreDemande({
         ...FILTRE_DEMANDE_DEFAULT,
-        // on applique le filtre favori des préférences de l'utilisateur s'il existe
-        ...{
-          ...getPreferenceArray("filtresDemande")?.filter((f) => f.favori)[0]?.filtre,
-          page: 1,
-        },
+        ...{ ...favorites[0].filtre, page: 1 },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -239,7 +257,12 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
       />
       <Flex justify="space-between" align="center">
         <span className="text-legende">{getCountLibelle(count, "demande")}</span>
-        <div>
+        <Space size="large">
+          <FiltreSessionSwitch
+            id="conserver-filtres-demande"
+            enabled={sessionEnabled}
+            toggle={toggleSession}
+          />
           {hasActiveFilters && (
             <Space.Compact>
               <FiltreDescription
@@ -257,7 +280,7 @@ export default function DemandeTable(props: { refs: RefsTourDemandes; affichageT
             </Space.Compact>
           )}
           <DemandeTableExport filtreDemande={filtreDemande} />
-        </div>
+        </Space>
       </Flex>
       <div ref={props.refs.table} aria-live="polite" aria-busy={isFetchingDemandes}>
         <Table<IDemande>

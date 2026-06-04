@@ -42,7 +42,10 @@ function readSessionFilter(mode: ModeAffichageAmenagement): FiltreAmenagement | 
  * Hook custom pour gérer l'état du filtre d'aménagements
  * Gère le chargement initial via les préférences et la synchronisation lors du changement de mode
  */
-export function useAmenagementFilter(modeAffichage: ModeAffichageAmenagement) {
+export function useAmenagementFilter(
+  modeAffichage: ModeAffichageAmenagement,
+  sessionEnabled: boolean,
+) {
   const auth = useAuth();
   const { getPreferenceArray, preferencesChargees } = usePreferences();
 
@@ -50,13 +53,16 @@ export function useAmenagementFilter(modeAffichage: ModeAffichageAmenagement) {
   const modeRef = useRef(modeAffichage);
   modeRef.current = modeAffichage;
 
-  // Capture à l'initialisation si un filtre de session existait pour le mode initial
+  // Capture si sessionStorage avait des données au montage (indépendamment de sessionEnabled,
+  // car sessionEnabled peut être faux avant que les préférences ne chargent)
   const hadSessionFilter = useRef(!!readSessionFilter(modeAffichage));
 
   const [filtreAmenagement, setFiltreAmenagement] = useState<FiltreAmenagement>(() => {
-    // Priorité 1 : filtre de session
-    const session = readSessionFilter(modeAffichage);
-    if (session) return session;
+    // Priorité 1 : filtre de session (seulement si activé)
+    if (sessionEnabled) {
+      const session = readSessionFilter(modeAffichage);
+      if (session) return session;
+    }
     // Priorité 2 : filtre favori des préférences / défaut
     return {
       ...getFiltreAmenagementDefault(auth.user as Utilisateur),
@@ -67,18 +73,23 @@ export function useAmenagementFilter(modeAffichage: ModeAffichageAmenagement) {
     };
   });
 
-  // Persiste le filtre en session à chaque changement (clé = mode courant via ref)
+  // Persiste le filtre en session à chaque changement (clé = mode courant via ref, seulement si activé)
   useEffect(() => {
-    sessionStorage.setItem(getSessionKey(modeRef.current), JSON.stringify(filtreAmenagement));
-  }, [filtreAmenagement]);
+    if (sessionEnabled) {
+      sessionStorage.setItem(getSessionKey(modeRef.current), JSON.stringify(filtreAmenagement));
+    }
+  }, [filtreAmenagement, sessionEnabled]);
 
   // Synchronisation lors du changement de mode d'affichage ou d'utilisateur
+  // sessionEnabled n'est pas dans les deps : son changement est géré par l'effet preferencesChargees
   useEffect(() => {
-    const session = readSessionFilter(modeAffichage);
-    if (session) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setFiltreAmenagement(session);
-      return;
+    if (sessionEnabled) {
+      const session = readSessionFilter(modeAffichage);
+      if (session) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setFiltreAmenagement(session);
+        return;
+      }
     }
 
     setFiltreAmenagement({
@@ -88,16 +99,27 @@ export function useAmenagementFilter(modeAffichage: ModeAffichageAmenagement) {
         page: 1,
       },
     });
-  }, [modeAffichage, auth.user, getPreferenceArray]);
+  }, [modeAffichage, auth.user, getPreferenceArray]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Synchronisation une fois les préférences chargées (uniquement si pas de session à l'initialisation)
+  // Synchronisation une fois les préférences chargées : point de vérité pour session + favori
   useEffect(() => {
-    if (preferencesChargees && !hadSessionFilter.current) {
-      setFiltreAmenagement({
-        ...getFiltreAmenagementDefault(auth.user as Utilisateur),
-        ...getPreferenceArray(getPrefKey(modeAffichage))?.filter((f) => f.favori)[0]?.filtre,
-      });
+    if (!preferencesChargees) return;
+
+    // sessionEnabled est maintenant fiable : si activé et sessionStorage avait des données, les appliquer
+    if (sessionEnabled && hadSessionFilter.current) {
+      const session = readSessionFilter(modeAffichage);
+      if (session) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setFiltreAmenagement(session);
+        return;
+      }
     }
+
+    // Session désactivée ou vide : appliquer le favori/défaut
+    setFiltreAmenagement({
+      ...getFiltreAmenagementDefault(auth.user as Utilisateur),
+      ...getPreferenceArray(getPrefKey(modeAffichage))?.filter((f) => f.favori)[0]?.filtre,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferencesChargees]);
 

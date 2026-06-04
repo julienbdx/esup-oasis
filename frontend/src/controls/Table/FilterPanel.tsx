@@ -8,7 +8,7 @@
  */
 
 import React, { ReactNode } from "react";
-import { Badge, Collapse, Row, Space } from "antd";
+import { Badge, Collapse, Row, Space, Flex } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { FiltreFavoriDropDown } from "@controls/Table/FiltreFavoriDropDown";
 import { FiltresFavoris } from "@controls/Table/FiltresFavoris";
@@ -81,14 +81,14 @@ export function FilterPanel<T extends FiltreDecrivable>({
           key: "filter_save",
           ref: refFavoris,
           label: (
-            <>
+            <Flex justify="space-between" align="center" gap={3} style={{ width: "100%" }}>
+              <span>Filtres sauvegardés</span>
               <FiltreFavoriDropDown<T>
-                className="float-right mt-05"
+                className="mt-05"
                 setFiltre={setFiltre}
                 filtreType={filtreType}
               />
-              Filtres sauvegardés
-            </>
+            </Flex>
           ),
           children: (
             <FiltresFavoris
