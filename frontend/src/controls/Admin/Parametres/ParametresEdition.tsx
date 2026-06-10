@@ -87,6 +87,7 @@ export default function ParametresEdition({
                         onCancel={() => {
                           remove(field.name);
                         }}
+                        onSuccess={onClose}
                       />
                     </Form.Item>
                   </Form.Item>
