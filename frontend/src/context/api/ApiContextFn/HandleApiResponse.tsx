@@ -30,6 +30,10 @@ export interface IErreurNotification {
 // simultanées différentes d'être toutes les deux affichées sans s'écraser.
 const activeErrors = new Set<string>();
 
+// Garde contre les rafales de 401 : une seule déconnexion doit être déclenchée
+// même si plusieurs requêtes échouent simultanément.
+let signOutEnCours = false;
+
 function getErrorKey(notif: IErreurNotification): string {
   return `${notif.title}|${notif.statusText ?? ""}`;
 }
@@ -38,7 +42,7 @@ function getErrorKey(notif: IErreurNotification): string {
  * Traite la réponse brute d'un `fetch` API Platform et lève une erreur React Query si le statut HTTP ≥ 400.
  *
  * Comportements non évidents :
- * - **401** : déconnecte automatiquement l'utilisateur (`auth.signOut`) et vide le cache React Query après 1 s.
+ * - **401** : déconnecte immédiatement l'utilisateur (`auth.signOut`) et vide le cache React Query (une seule fois en cas de rafale).
  * - **204** : retourne `undefined` (DELETE réussi).
  * - Erreurs dupliquées (même titre + statusText dans la fenêtre de 1,5 s) : affichées une seule fois.
  * - Si `onError` est fourni, il reçoit la notification et supprime l'affichage global (`notification.error`).
@@ -88,10 +92,17 @@ export async function handleApiResponse(
 
       const data = await response.json();
       if (response.status === 401) {
-        window.setTimeout(() => {
+        // Déconnexion immédiate : l'UI ne doit pas continuer à afficher des données
+        // alors que la session est invalide. La notification (portail Ant Design)
+        // reste visible après la navigation.
+        if (!signOutEnCours) {
+          signOutEnCours = true;
           queryClient.clear();
-          auth.signOut(() => navigate("/"));
-        }, 1000);
+          auth.signOut(() => {
+            navigate("/");
+            signOutEnCours = false;
+          });
+        }
         // Erreur d'authentification
         notif = {
           title: "Erreur d'authentification",
