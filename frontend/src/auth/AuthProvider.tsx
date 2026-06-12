@@ -181,13 +181,9 @@ export function AuthProvider({
   }, [impersonate, login, env.REACT_APP_API]);
 
   function removeImpersonate() {
-    setImpersonate(() => {
-      queryClient.clear();
-      window.setTimeout(() => {
-        navigate("/");
-      }, 1000);
-      return undefined;
-    });
+    setImpersonate(undefined);
+    queryClient.clear();
+    window.setTimeout(() => navigate("/"), 1000);
   }
 
   const { loading, error, getAuth } = useOAuth2({
