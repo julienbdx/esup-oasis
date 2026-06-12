@@ -8,7 +8,16 @@
  */
 
 import { QueryClient } from "@tanstack/react-query";
+import { vi } from "vitest";
 import { handleInvalidation } from "./HandleInvalidation";
+
+const mockEnv = { REACT_APP_API_PREFIX: "" };
+
+vi.mock("@/env", () => ({
+  get env() {
+    return mockEnv;
+  },
+}));
 
 const makeQuery = (key: unknown) => ({ queryKey: key }) as never;
 
@@ -188,5 +197,50 @@ describe("handleInvalidation — prédicat : matching multi-éléments", () => {
     const { client, invalidateQueries } = makeClient();
     handleInvalidation(client, ["/demandes"]);
     expect(getPredicate(invalidateQueries)(makeQuery(["/demandes_export"]))).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// handleInvalidation — prédicat : normalisation REACT_APP_API_PREFIX
+// ---------------------------------------------------------------------------
+
+describe("handleInvalidation — prédicat : normalisation REACT_APP_API_PREFIX", () => {
+  beforeEach(() => {
+    mockEnv.REACT_APP_API_PREFIX = "";
+  });
+
+  it("matche sans préfixe configuré (comportement par défaut)", () => {
+    mockEnv.REACT_APP_API_PREFIX = "";
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/evenements"]);
+    expect(getPredicate(invalidateQueries)(makeQuery(["/evenements/42"]))).toBe(true);
+  });
+
+  it("matche une clé avec préfixe si la queryKey est sans préfixe", () => {
+    mockEnv.REACT_APP_API_PREFIX = "/api";
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/evenements"]);
+    expect(getPredicate(invalidateQueries)(makeQuery(["/api/evenements/42"]))).toBe(true);
+  });
+
+  it("matche une clé sans préfixe si la queryKey est sans préfixe et le préfixe est absent de la clé", () => {
+    mockEnv.REACT_APP_API_PREFIX = "/api";
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/evenements"]);
+    expect(getPredicate(invalidateQueries)(makeQuery(["/evenements/42"]))).toBe(true);
+  });
+
+  it("ne matche pas une clé avec préfixe différent", () => {
+    mockEnv.REACT_APP_API_PREFIX = "/api";
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/evenements"]);
+    expect(getPredicate(invalidateQueries)(makeQuery(["/api/utilisateurs"]))).toBe(false);
+  });
+
+  it("gère un préfixe avec slash final", () => {
+    mockEnv.REACT_APP_API_PREFIX = "/api/";
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/evenements"]);
+    expect(getPredicate(invalidateQueries)(makeQuery(["/api/evenements/42"]))).toBe(false);
   });
 });
