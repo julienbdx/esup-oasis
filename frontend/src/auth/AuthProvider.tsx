@@ -75,7 +75,6 @@ export function AuthProvider({
     setUser(undefined);
     setImpersonate(undefined);
     // Suppression ciblée des clés de session : ne pas effacer les préférences
-    // utilisateur ni les données d'autres applications servies sur la même origine.
     removeLocalStorageLogin();
     removeLocalStorageImpersonate();
     Object.keys(sessionStorage)
