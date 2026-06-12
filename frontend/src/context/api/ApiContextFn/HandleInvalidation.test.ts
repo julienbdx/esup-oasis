@@ -112,3 +112,81 @@ describe("handleInvalidation — prédicat : cas limites sur queryKey", () => {
     expect(getPredicate(invalidateQueries)(makeQuery(undefined))).toBe(false);
   });
 });
+
+// ---------------------------------------------------------------------------
+// handleInvalidation — prédicat : matching multi-éléments
+// ---------------------------------------------------------------------------
+
+describe("handleInvalidation — prédicat : matching multi-éléments", () => {
+  // Clé item telle que produite par useGetItem : [IRI, URL, uid, template].
+  const AVIS_ESE_TEMPLATE = "/utilisateurs/{uid}/avis_ese/{id}";
+
+  it("une constante à placeholder matche le template en fin de clé item", () => {
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, [AVIS_ESE_TEMPLATE]);
+    const itemKey = [
+      "/utilisateurs/123/avis_ese/45",
+      new URL("https://host/api/utilisateurs/123/avis_ese/45"),
+      "uid-1",
+      AVIS_ESE_TEMPLATE,
+    ];
+    expect(getPredicate(invalidateQueries)(makeQuery(itemKey))).toBe(true);
+  });
+
+  it("matche un item via son template quand queryKey[0] est undefined (chargé sans IRI)", () => {
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, [AVIS_ESE_TEMPLATE]);
+    const itemKey = [
+      undefined,
+      new URL("https://host/api/utilisateurs/123/avis_ese/45"),
+      "uid-1",
+      AVIS_ESE_TEMPLATE,
+    ];
+    expect(getPredicate(invalidateQueries)(makeQuery(itemKey))).toBe(true);
+  });
+
+  it("une constante sans placeholder matche l'IRI concrète en position 0", () => {
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/utilisateurs"]);
+    const itemKey = [
+      "/utilisateurs/123/avis_ese/45",
+      new URL("https://host/api/utilisateurs/123/avis_ese/45"),
+      "uid-1",
+      AVIS_ESE_TEMPLATE,
+    ];
+    expect(getPredicate(invalidateQueries)(makeQuery(itemKey))).toBe(true);
+  });
+
+  it("n'utilise jamais l'uid comme cible (élément string sans `/`)", () => {
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["uid-1"]);
+    const itemKey = ["/utilisateurs/123", new URL("https://host/api/utilisateurs/123"), "uid-1"];
+    expect(getPredicate(invalidateQueries)(makeQuery(itemKey))).toBe(false);
+  });
+
+  it("ignore l'objet URL des collections sans lever d'exception", () => {
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/evenements"]);
+    const collectionKey = ["/evenements", new URL("https://host/api/evenements"), "uid-1"];
+    expect(() => getPredicate(invalidateQueries)(makeQuery(collectionKey))).not.toThrow();
+    expect(getPredicate(invalidateQueries)(makeQuery(collectionKey))).toBe(true);
+  });
+
+  it("ne matche pas une IRI vivant dans le href de l'objet URL (https, pas `/`)", () => {
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/utilisateurs"]);
+    // La collection /evenements filtrée par demandeur : l'IRI utilisateur n'est que dans le href URL.
+    const collectionKey = [
+      "/evenements",
+      new URL("https://host/api/evenements?demandeur=/utilisateurs/123"),
+      "uid-1",
+    ];
+    expect(getPredicate(invalidateQueries)(makeQuery(collectionKey))).toBe(false);
+  });
+
+  it("limite assumée : le startsWith par préfixe matche aussi un path frère (/demandes → /demandes_export)", () => {
+    const { client, invalidateQueries } = makeClient();
+    handleInvalidation(client, ["/demandes"]);
+    expect(getPredicate(invalidateQueries)(makeQuery(["/demandes_export"]))).toBe(true);
+  });
+});
