@@ -43,6 +43,16 @@ const nodeAbortController = transferableAbortController();
 globalThis.AbortController = Object.getPrototypeOf(nodeAbortController).constructor;
 globalThis.AbortSignal = Object.getPrototypeOf(nodeAbortController.signal).constructor;
 
+// Ant Design Table (et @rc-component/resize-observer) utilisent ResizeObserver,
+// absent de JSDOM — polyfill minimal pour les tests.
+if (typeof globalThis.ResizeObserver === "undefined") {
+  globalThis.ResizeObserver = class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
 // Node.js 22+ définit localStorage comme undefined sans --localstorage-file.
 // Ce polyfill rétablit l'implémentation jsdom sur globalThis pour tous les tests.
 if (typeof globalThis.localStorage === "undefined") {
