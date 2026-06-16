@@ -161,6 +161,71 @@ describe("useQuestionFileUpload", () => {
     );
   });
 
+  it("upload réussi : onSuccess du composant Ant Design appelé avec 'ok'", async () => {
+    mockEnvoyerFichierFetch.mockImplementation(async (_url, _auth, _file, onSuccess) => {
+      onSuccess?.({ "@id": "/pieces_justificatives/42" } as never);
+    });
+    const { result } = renderHook(() => useQuestionFileUpload(question));
+    const onSuccess = vi.fn();
+    await act(() =>
+      result.current.uploadProps.customRequest!(
+        {
+          file: makeFile(),
+          onSuccess,
+          onError: vi.fn(),
+        } as never,
+        {} as never,
+      ),
+    );
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith("ok"));
+  });
+
+  it("erreur réseau : notification.error affichée en plus du callback onError", async () => {
+    const err = new Error("Network error");
+    mockEnvoyerFichierFetch.mockImplementation(async (_url, _auth, _file, _onSuccess, onError) => {
+      onError?.(err);
+    });
+    const { result } = renderHook(() => useQuestionFileUpload(question));
+    await act(() =>
+      result.current.uploadProps.customRequest!(
+        {
+          file: makeFile(),
+          onSuccess: vi.fn(),
+          onError: vi.fn(),
+        } as never,
+        {} as never,
+      ),
+    );
+    expect(mockNotifError).toHaveBeenCalledOnce();
+  });
+
+  it("état uploading : true pendant l'upload, false une fois terminé", async () => {
+    let resolveWithSuccess!: () => void;
+    mockEnvoyerFichierFetch.mockImplementation(
+      (_url, _auth, _file, onSuccess) =>
+        new Promise<void>((r) => {
+          resolveWithSuccess = () => {
+            onSuccess?.({ "@id": "/pieces_justificatives/99" } as never);
+            r();
+          };
+        }),
+    );
+    const { result } = renderHook(() => useQuestionFileUpload(question));
+
+    act(() => {
+      result.current.uploadProps.customRequest!(
+        { file: makeFile(), onSuccess: vi.fn(), onError: vi.fn() } as never,
+        {} as never,
+      );
+    });
+
+    await waitFor(() => expect(result.current.uploading).toBe(true));
+
+    await act(async () => resolveWithSuccess());
+
+    await waitFor(() => expect(result.current.uploading).toBe(false));
+  });
+
   it("progression : fileList du fichier en cours est mis à jour avec le pourcentage", async () => {
     mockEnvoyerFichierFetch.mockImplementation(
       async (_url, _auth, _file, _onS, _onE, onProgress) => {
