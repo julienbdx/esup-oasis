@@ -26,7 +26,5 @@ yarn-error.log*
 /.idea
 /.scannerwork
 
-compose.overrides.yml
-
 /src/api/OpenApi.yml
 /.env
