@@ -43,6 +43,10 @@ vi.mock("@/auth/AuthProvider", () => ({
 
 vi.mock("@utils/logger", () => ({ logger: { error: vi.fn() } }));
 
+vi.mock("@/env", () => ({
+  env: { REACT_APP_API: "https://api.test" },
+}));
+
 import { envoyerFichierFetch } from "@utils/upload";
 import { validerFichier } from "@utils/fichierValidation";
 import { useQuestionFileUpload } from "./useQuestionFileUpload";
@@ -108,8 +112,8 @@ describe("useQuestionFileUpload", () => {
     );
     expect(mockEnvoyerFichierFetch).toHaveBeenCalledOnce();
     expect(mockEnvoyerFichierFetch).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.anything(),
+      "https://api.test",
+      expect.objectContaining({ token: "tok" }),
       file,
       expect.any(Function),
       expect.any(Function),
