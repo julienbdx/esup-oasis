@@ -1,8 +1,6 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { MemoryRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { renderWithProviders } from "@/test";
 import DemandeTable from "./DemandeTable";
 import { ETAT_DEMANDE_EN_COURS, ETAT_DEMANDE_RECEPTIONNEE, ETAT_DEMANDE_CONFORME } from "@lib";
 
@@ -64,32 +62,12 @@ vi.mock("@controls/Table/FiltreSessionSwitch", () => ({
 
 vi.mock("@utils/logger", () => ({ logger: { error: vi.fn() } }));
 
-vi.mock("@/env", () => ({
-  env: {
-    REACT_APP_API_PREFIX: "",
-    REACT_APP_SERVICE: "Service test",
-    REACT_APP_ENVIRONMENT: "test",
-  },
-}));
-
 const testRefs = {
   table: { current: null },
   filtres: { current: null },
   filtresDetails: { current: null },
   favoris: { current: null },
 };
-
-function makeClient() {
-  return new QueryClient({ defaultOptions: { queries: { retry: false } } });
-}
-
-function Wrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <QueryClientProvider client={makeClient()}>
-      <MemoryRouter>{children}</MemoryRouter>
-    </QueryClientProvider>
-  );
-}
 
 describe("DemandeTable", () => {
   beforeEach(() => {
@@ -98,20 +76,12 @@ describe("DemandeTable", () => {
   });
 
   it("rendu sans données : le tableau s'affiche sans erreur", () => {
-    render(
-      <Wrapper>
-        <DemandeTable refs={testRefs as never} />
-      </Wrapper>,
-    );
+    renderWithProviders(<DemandeTable refs={testRefs as never} />);
     expect(screen.getByRole("table", { name: /liste des demandes/i })).toBeInTheDocument();
   });
 
   it("rendu sans données : aucune ligne de données n'est affichée", () => {
-    render(
-      <Wrapper>
-        <DemandeTable refs={testRefs as never} />
-      </Wrapper>,
-    );
+    renderWithProviders(<DemandeTable refs={testRefs as never} />);
     // 1 header + 1 placeholder row (Ant Design renders an empty <tr> when dataSource is empty)
     const rows = screen.getAllByRole("row");
     expect(rows).toHaveLength(2);
@@ -129,11 +99,7 @@ describe("DemandeTable", () => {
       } as never,
       isFetching: false,
     });
-    render(
-      <Wrapper>
-        <DemandeTable refs={testRefs as never} />
-      </Wrapper>,
-    );
+    renderWithProviders(<DemandeTable refs={testRefs as never} />);
     // 1 header row + 3 data rows
     expect(screen.getAllByRole("row")).toHaveLength(4);
   });
@@ -150,11 +116,7 @@ describe("DemandeTable", () => {
       } as never,
       isFetching: false,
     });
-    render(
-      <Wrapper>
-        <DemandeTable refs={testRefs as never} />
-      </Wrapper>,
-    );
+    renderWithProviders(<DemandeTable refs={testRefs as never} />);
     expect(screen.getByText("En cours")).toBeInTheDocument();
     expect(screen.getByText("Réceptionnée")).toBeInTheDocument();
     expect(screen.getByText("Conforme")).toBeInTheDocument();

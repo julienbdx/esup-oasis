@@ -18,6 +18,15 @@ expect.extend({ toHaveNoViolations });
 // window.env est injecté au runtime via public/env.js — on le mock pour les tests
 (window as unknown as Record<string, unknown>).env = {};
 
+// Mock global de la config runtime : évite les `REACT_APP_*` undefined et la
+// répétition d'un `vi.mock("@/env", …)` dans chaque test (cf. src/test/env.ts).
+// Un test qui a besoin de valeurs spécifiques surcharge localement via son
+// propre `vi.mock("@/env", () => ({ env: makeTestEnv({ … }) }))`.
+vi.mock("@/env", async () => {
+  const { TEST_ENV } = await import("@/test/env");
+  return { env: TEST_ENV, validateEnv: () => undefined };
+});
+
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());

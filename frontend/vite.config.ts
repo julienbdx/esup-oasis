@@ -74,7 +74,26 @@ export default defineConfig(({ mode }) => {
         provider: "v8",
         reporter: ["text", "lcov"],
         include: ["src/**/*.{ts,tsx}"],
-        exclude: ["src/**/*.d.ts", "src/api/schema.d.ts", "src/main.tsx"],
+        exclude: [
+          "src/**/*.d.ts",
+          "src/api/schema.d.ts",
+          "src/main.tsx",
+          "src/test/**",
+          "src/mocks/**",
+        ],
+        // Seuils anti-régression (fail le build si la couverture baisse).
+        // Globaux volontairement bas : la couverture des composants `controls/`
+        // et des `routes/` reste à construire. À relever au
+        // fur et à mesure. Les zones « cœur » déjà couvertes sont verrouillées haut.
+        thresholds: {
+          statements: 12,
+          branches: 75,
+          functions: 75,
+          lines: 12,
+          "src/lib/**": { statements: 95, branches: 90, functions: 95, lines: 95 },
+          "src/utils/**": { statements: 78, branches: 70, functions: 60, lines: 78 },
+          "src/context/api/**": { statements: 78, branches: 90, functions: 55, lines: 78 },
+        },
       },
     },
     build: {

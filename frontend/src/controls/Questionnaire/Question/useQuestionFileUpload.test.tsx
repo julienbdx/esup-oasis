@@ -43,9 +43,10 @@ vi.mock("@/auth/AuthProvider", () => ({
 
 vi.mock("@utils/logger", () => ({ logger: { error: vi.fn() } }));
 
-vi.mock("@/env", () => ({
-  env: { REACT_APP_API: "https://api.test" },
-}));
+vi.mock("@/env", async () => {
+  const { makeTestEnv } = await import("@/test/env");
+  return { env: makeTestEnv({ REACT_APP_API: "https://api.test" }) };
+});
 
 import { envoyerFichierFetch } from "@utils/upload";
 import { validerFichier } from "@utils/fichierValidation";

@@ -18,10 +18,6 @@ vi.mock("@/auth/AuthProvider", () => ({
   }),
 }));
 
-vi.mock("@/env", () => ({
-  env: { REACT_APP_SERVICE: "Test", REACT_APP_API_PREFIX: "" },
-}));
-
 describe("EvenementDrawer — accessibilité", () => {
   it("expose role='dialog' avec aria-modal='true'", async () => {
     render(<EvenementDrawer />);

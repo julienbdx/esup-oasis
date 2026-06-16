@@ -1,7 +1,6 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+import { renderWithProviders } from "@/test";
 import { Utilisateur } from "@lib";
 
 // -- Mocks de dépendances lourdes --
@@ -12,9 +11,17 @@ vi.mock("@/auth/AuthProvider", () => ({
 
 vi.mock("@/auth/LoginPage", () => ({ default: () => <div data-testid="login-page" /> }));
 vi.mock("@/auth/OAuthCallback", () => ({ default: () => <div data-testid="oauth-callback" /> }));
-vi.mock("@controls/AppLayout/AppLayout", () => ({
-  default: () => <div data-testid="app-layout" />,
-}));
+// AppLayout rend un <Outlet/> pour que les routes enfants (filtrées par rôle) s'affichent.
+vi.mock("@controls/AppLayout/AppLayout", async () => {
+  const { Outlet } = await import("react-router-dom");
+  return {
+    default: () => (
+      <div data-testid="app-layout">
+        <Outlet />
+      </div>
+    ),
+  };
+});
 vi.mock("@controls/Spinner/Spinner", () => ({ default: () => <div data-testid="spinner" /> }));
 
 // Pages référencées dans les routes publiques (roles: null)
@@ -138,11 +145,7 @@ function makeUser(roles: string[]) {
 
 function renderAt(path: string, user: Utilisateur | undefined) {
   vi.mocked(useAuth).mockReturnValue(makeAuth(user));
-  return render(
-    <MemoryRouter initialEntries={[path]}>
-      <AppRouter />
-    </MemoryRouter>,
-  );
+  return renderWithProviders(<AppRouter />, { route: path });
 }
 
 // -- Tests --
@@ -188,5 +191,35 @@ describe("AppRouter — flux authentifié", () => {
   it("ne rend pas LoginPage pour un utilisateur connecté", () => {
     renderAt("/beneficiaires", makeUser(["ROLE_USER", "ROLE_GESTIONNAIRE", "ROLE_PLANIFICATEUR"]));
     expect(screen.queryByTestId("login-page")).not.toBeInTheDocument();
+  });
+});
+
+describe("AppRouter — contrôle d'accès par rôle (guards)", () => {
+  it("rôle autorisé : rend la page (planificateur → /beneficiaires)", async () => {
+    renderAt("/beneficiaires", makeUser(["ROLE_USER", "ROLE_PLANIFICATEUR"]));
+    expect(await screen.findByTestId("page-beneficiaires")).toBeInTheDocument();
+    expect(screen.queryByTestId("page-not-found")).not.toBeInTheDocument();
+  });
+
+  it("rôle non autorisé : la route gestionnaire tombe sur NotFound (demandeur → /beneficiaires)", async () => {
+    renderAt("/beneficiaires", makeUser(["ROLE_USER", "ROLE_DEMANDEUR"]));
+    expect(await screen.findByTestId("page-not-found")).toBeInTheDocument();
+    expect(screen.queryByTestId("page-beneficiaires")).not.toBeInTheDocument();
+  });
+
+  it("autre rôle, autre périmètre : demandeur → /demandes rend bien sa page", async () => {
+    renderAt("/demandes", makeUser(["ROLE_USER", "ROLE_DEMANDEUR"]));
+    expect(await screen.findByTestId("page-demandes")).toBeInTheDocument();
+  });
+
+  it("route admin protégée : un gestionnaire non-admin est renvoyé sur NotFound (/impersonate/:uid)", async () => {
+    renderAt("/impersonate/cible@test.fr", makeUser(["ROLE_USER", "ROLE_GESTIONNAIRE"]));
+    expect(await screen.findByTestId("page-not-found")).toBeInTheDocument();
+    expect(screen.queryByTestId("page-impersonate")).not.toBeInTheDocument();
+  });
+
+  it("route admin protégée : un admin y accède (/impersonate/:uid)", async () => {
+    renderAt("/impersonate/cible@test.fr", makeUser(["ROLE_USER", "ROLE_ADMIN"]));
+    expect(await screen.findByTestId("page-impersonate")).toBeInTheDocument();
   });
 });

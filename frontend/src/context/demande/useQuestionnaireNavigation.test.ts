@@ -133,4 +133,64 @@ describe("useQuestionnaireNavigation", () => {
     });
     expect(result.current.etapeCourante).toBe(2);
   });
+
+  // --- Compléments : état transitoire, rejet sur précédente, étapes absentes ---
+
+  it("etapeSuivante() : changementEtape vaut 'next' pendant la validation en attente", () => {
+    mockValidateFields.mockReturnValue(new Promise(() => {})); // jamais résolue
+    const { result } = renderHook(() =>
+      useQuestionnaireNavigation({ questionnaire: QUESTIONNAIRE_3_ETAPES, form }),
+    );
+    act(() => {
+      result.current.etapeSuivante();
+    });
+    expect(result.current.changementEtape).toBe("next");
+    expect(result.current.etapeCourante).toBe(0);
+  });
+
+  it("etapePrecedente() : changementEtape vaut 'previous' pendant la validation en attente", () => {
+    mockValidateFields.mockReturnValue(new Promise(() => {}));
+    const { result } = renderHook(() =>
+      useQuestionnaireNavigation({ questionnaire: QUESTIONNAIRE_3_ETAPES, form }),
+    );
+    act(() => {
+      result.current.setEtapeCourante(2);
+    });
+    act(() => {
+      result.current.etapePrecedente();
+    });
+    expect(result.current.changementEtape).toBe("previous");
+  });
+
+  it("etapePrecedente() avec validateFields rejeté → onError, étape inchangée", async () => {
+    const validationError = new Error("champs invalides");
+    mockValidateFields.mockRejectedValue(validationError);
+    const onError = vi.fn();
+    const { result } = renderHook(() =>
+      useQuestionnaireNavigation({ questionnaire: QUESTIONNAIRE_3_ETAPES, form, onError }),
+    );
+
+    act(() => {
+      result.current.setEtapeCourante(2);
+    });
+    act(() => {
+      result.current.etapePrecedente();
+    });
+
+    await waitFor(() => expect(onError).toHaveBeenCalledWith(validationError));
+    expect(result.current.etapeCourante).toBe(2);
+    expect(result.current.changementEtape).toBeUndefined();
+  });
+
+  it("etapeSuivante() : questionnaire sans tableau d'étapes → no-op sans erreur", () => {
+    const sansEtapes = { ...QUESTIONNAIRE_3_ETAPES, etapes: undefined } as unknown as Questionnaire;
+    const { result } = renderHook(() =>
+      useQuestionnaireNavigation({ questionnaire: sansEtapes, form }),
+    );
+    act(() => {
+      result.current.etapeSuivante();
+    });
+    expect(result.current.etapeCourante).toBe(0);
+    expect(mockValidateFields).not.toHaveBeenCalled();
+  });
 });

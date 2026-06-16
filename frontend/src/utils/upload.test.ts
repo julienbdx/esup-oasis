@@ -6,9 +6,10 @@ vi.mock("@utils/logger", () => ({
   logger: { log: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },
 }));
 
-vi.mock("@/env", () => ({
-  env: { REACT_APP_API_PREFIX: "/api" },
-}));
+vi.mock("@/env", async () => {
+  const { makeTestEnv } = await import("@/test/env");
+  return { env: makeTestEnv({ REACT_APP_API_PREFIX: "/api" }) };
+});
 
 // ---------------------------------------------------------------------------
 // Helpers
