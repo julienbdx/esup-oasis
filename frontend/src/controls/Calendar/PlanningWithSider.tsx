@@ -123,7 +123,7 @@ export default function PlanningWithSider({
               zIndex: 100,
               width: "100%",
               height: "calc(100vh - 80px)",
-              backgroundColor: "#FFFFFFAA",
+              backgroundColor: "var(--background-color)",
             }}
           >
             <Spinner size={100} />

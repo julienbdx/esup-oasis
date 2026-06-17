@@ -6,6 +6,7 @@
 @use "variables";
 
 body.dark-mode {
+  --background-color: var(--noir);
   background-color: var(--noir);
 
   // Le fond principal (Ant Design gère le background global via darkAlgorithm)

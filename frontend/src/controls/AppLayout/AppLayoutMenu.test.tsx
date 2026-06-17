@@ -149,14 +149,16 @@ describe("AppLayoutMenu — visibilité des entrées par rôle", () => {
   it("membre de commission (non planificateur) : voit l'entrée des demandes de commission", () => {
     const { container } = renderMenu(["ROLE_USER", "ROLE_MEMBRE_COMMISSION"]);
     const keys = menuKeys(container);
-    expect(keys).toContain("demandeurs");
+    expect(keys).toContain("demandeurs-commission");
+    expect(keys).not.toContain("demandeurs");
     expect(keys).not.toContain("rechercher");
   });
 
   it("référent de composante (non planificateur) : voit l'entrée des aménagements", () => {
     const { container } = renderMenu(["ROLE_USER", "ROLE_REFERENT_COMPOSANTE"]);
     const keys = menuKeys(container);
-    expect(keys).toContain("beneficiaires");
+    expect(keys).toContain("beneficiaires-referent");
+    expect(keys).not.toContain("beneficiaires");
     expect(keys).not.toContain("rechercher");
   });
 

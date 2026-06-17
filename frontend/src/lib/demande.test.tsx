@@ -90,8 +90,8 @@ describe("getEtatDemandeOrdre", () => {
     expect(getEtatDemandeOrdre(ETAT_DEMANDE_EN_COURS)).toBe(0);
   });
 
-  it("retourne 0 par défaut pour un état inconnu", () => {
-    expect(getEtatDemandeOrdre("inconnu")).toBe(0);
+  it("retourne -1 pour un état inconnu (sentinelle, tous les ordres valides sont ≥ 0)", () => {
+    expect(getEtatDemandeOrdre("inconnu")).toBe(-1);
   });
 });
 
