@@ -74,4 +74,42 @@ describe("validerFichier", () => {
   it("file.size absent (undefined) → pas de vérification taille, null si extension OK", () => {
     expect(validerFichier({ name: "fichier.pdf" })).toBeNull();
   });
+
+  it("taille exactement 0 octet → null (fichier vide accepté côté client)", () => {
+    expect(validerFichier({ name: "fichier.pdf", size: 0 })).toBeNull();
+  });
+
+  // ---------------------------------------------------------------------------
+  // Noms exotiques
+  // ---------------------------------------------------------------------------
+
+  it("nom avec plusieurs points (archive.backup.pdf) → extension = 'pdf' → null", () => {
+    expect(validerFichier({ name: "archive.backup.pdf" })).toBeNull();
+  });
+
+  it("nom sans extension (fichier) → erreur", () => {
+    expect(validerFichier({ name: "fichier" })).not.toBeNull();
+  });
+
+  it("nom de fichier caché (.hidden.pdf) → extension = 'pdf' → null", () => {
+    expect(validerFichier({ name: ".hidden.pdf" })).toBeNull();
+  });
+
+  it("nom commençant par un point sans extension après (.gitignore) → erreur", () => {
+    expect(validerFichier({ name: ".gitignore" })).not.toBeNull();
+  });
+
+  // ---------------------------------------------------------------------------
+  // MIME spoofing (contournement client documenté)
+  // ---------------------------------------------------------------------------
+
+  it("MIME spoofing : extension .pdf avec MIME image/png → accepté côté client (backend fait la vérif autoritaire)", () => {
+    // Les deux types sont individuellement autorisés : le contrôle client ne
+    // détecte pas la discordance extension/MIME — seul le backend est autoritaire.
+    expect(validerFichier({ name: "malveillant.pdf", type: "image/png" })).toBeNull();
+  });
+
+  it("MIME spoofing : extension .jpg avec MIME application/pdf → accepté côté client", () => {
+    expect(validerFichier({ name: "photo.jpg", type: "application/pdf" })).toBeNull();
+  });
 });

@@ -109,9 +109,9 @@ export default function PlanningWithSider({
 
   return (
     <Layout>
-      <h1 className="sr-only">Planning</h1>
       <CalendarSider saisieEvtRenfort={saisieEvtRenfort} />
       <Layout.Content className="calendar-table-content">
+        <h1 className="sr-only">Planning</h1>
         <Toolbar saisieEvtRenfort={saisieEvtRenfort} evenements={events} />
         <TimezoneAlert />
         {isFetching && (

@@ -170,4 +170,73 @@ describe("envoyerFichierFetch", () => {
 
     expect(fakeXhr.open).toHaveBeenCalledWith("POST", `${API_URL}/api/telechargements`);
   });
+
+  // --- Progression ----------------------------------------------------------
+
+  it("onProgress non appelé si lengthComputable est false", async () => {
+    const onProgress = vi.fn();
+
+    const promise = envoyerFichierFetch(
+      API_URL,
+      NO_IMPERSONATE,
+      new Blob(),
+      vi.fn(),
+      undefined,
+      onProgress,
+    );
+
+    fakeXhr.upload.onprogress?.({
+      lengthComputable: false,
+      loaded: 50,
+      total: 100,
+    } as ProgressEvent);
+
+    fakeXhr.responseText = "{}";
+    fakeXhr.onload?.();
+    await promise;
+
+    expect(onProgress).not.toHaveBeenCalled();
+  });
+
+  it("onProgress arrondit le pourcentage (Math.round)", async () => {
+    const onProgress = vi.fn();
+
+    const promise = envoyerFichierFetch(
+      API_URL,
+      NO_IMPERSONATE,
+      new Blob(),
+      vi.fn(),
+      undefined,
+      onProgress,
+    );
+
+    // 1/3 ≈ 33.33 → Math.round → 33
+    fakeXhr.upload.onprogress?.({ lengthComputable: true, loaded: 1, total: 3 } as ProgressEvent);
+    // 2/3 ≈ 66.67 → Math.round → 67
+    fakeXhr.upload.onprogress?.({ lengthComputable: true, loaded: 2, total: 3 } as ProgressEvent);
+
+    fakeXhr.responseText = "{}";
+    fakeXhr.onload?.();
+    await promise;
+
+    expect(onProgress).toHaveBeenNthCalledWith(1, 33);
+    expect(onProgress).toHaveBeenNthCalledWith(2, 67);
+  });
+
+  it("onProgress absent → aucune erreur lors de l'événement de progression", async () => {
+    const promise = envoyerFichierFetch(API_URL, NO_IMPERSONATE, new Blob(), vi.fn());
+
+    // Pas de onProgress fourni : le callback optionnel doit être ignoré silencieusement.
+    expect(() => {
+      fakeXhr.upload.onprogress?.({
+        lengthComputable: true,
+        loaded: 50,
+        total: 100,
+      } as ProgressEvent);
+    }).not.toThrow();
+
+    fakeXhr.responseText = "{}";
+    fakeXhr.onload?.();
+    await promise;
+  });
 });
