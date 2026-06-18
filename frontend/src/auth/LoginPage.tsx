@@ -155,7 +155,11 @@ export default function LoginPage(): ReactElement {
                   aria-label={`Visiter le site de ${env.REACT_APP_ETABLISSEMENT}`}
                 >
                   <img
-                    src={env.REACT_APP_LOGO}
+                    src={
+                      isDark && env.REACT_APP_LOGO_DARK
+                        ? env.REACT_APP_LOGO_DARK
+                        : env.REACT_APP_LOGO
+                    }
                     alt=""
                     style={{
                       maxWidth: "50vw",
