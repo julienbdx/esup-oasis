@@ -32,4 +32,9 @@ readonly class ParametreService
 
         return $param?->getValeurCourante()?->getValeur();
     }
+
+    public function getAppEnv(): array
+    {
+        return $this->appEnv;
+    }
 }

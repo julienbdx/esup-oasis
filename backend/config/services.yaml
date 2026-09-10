@@ -128,6 +128,10 @@ services:
         APP_EMAIL_SERVICE: '%env(resolve:APP_EMAIL_SERVICE)%'
         APP_URL_SERVICE: '%env(resolve:APP_URL_SERVICE)%'
         APP_LOGO: '%env(resolve:APP_LOGO)%'
+        APP_LOGO_FOOTER_MAILS: '%env(resolve:APP_LOGO_FOOTER_MAILS)%'
+        APP_SERVICE_SPORTIFS_DENOMINATION: '%env(resolve:APP_SERVICE_SPORTIFS_DENOMINATION)%'
+        APP_SERVICE_SPORTIFS_ARTICLE: '%env(resolve:APP_SERVICE_SPORTIFS_ARTICLE)%'
+        APP_SERVICE_SPORTIFS_EMAIL: '%env(resolve:APP_SERVICE_SPORTIFS_EMAIL)%'
 
 when@test:
   services:

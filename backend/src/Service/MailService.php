@@ -99,7 +99,7 @@ readonly class MailService
                 $destinataires,
             ))
             ->htmlTemplate('mail/rapportMajInscriptions.html.twig')
-            ->context(['traites' => $traites, 'nonTraites' => $nonTraites]);
+            ->context(['traites' => $traites, 'nonTraites' => $nonTraites, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -146,7 +146,7 @@ readonly class MailService
             ->subject($subject)
             ->bcc(...$destinataires, ...$destinatairesTechniques)
             ->htmlTemplate('mail/rappelEnvoiRH.html.twig')
-            ->context(['periode' => $periodeRH]);
+            ->context(['periode' => $periodeRH, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -189,7 +189,7 @@ readonly class MailService
             ->subject($subject)
             ->bcc(...$destinataires, ...$destinatairesTechniques)
             ->htmlTemplate('mail/rappelValidationInterventionsRenforts.html.twig')
-            ->context(['periode' => $periodeRH]);
+            ->context(['periode' => $periodeRH, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -259,7 +259,7 @@ readonly class MailService
             ->subject($subject)
             ->to(new Address($utilisateurConcerne->getEmail(), $nomAffichage))
             ->htmlTemplate($template)
-            ->context($context);
+            ->context([...$context, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -314,7 +314,7 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/bienvenueIntervenant.html.twig')
-            ->context(['intervenant' => $intervenant]);
+            ->context(['intervenant' => $intervenant, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -341,7 +341,7 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/confirmationDemandeReceptionnee.html.twig')
-            ->context(['typeDemande' => $typeDemande]);
+            ->context(['typeDemande' => $typeDemande, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -368,7 +368,7 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/demandeIncomplete.html.twig')
-            ->context(['typeDemande' => $typeDemande, 'commentaire' => $commentaire]);
+            ->context(['typeDemande' => $typeDemande, 'commentaire' => $commentaire, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -392,7 +392,7 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/demandeValidee.html.twig')
-            ->context(['typeDemande' => $typeDemande]);
+            ->context(['typeDemande' => $typeDemande, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -419,7 +419,7 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/demandeRefusee.html.twig')
-            ->context(['typeDemande' => $typeDemande, 'commentaire' => $commentaire]);
+            ->context(['typeDemande' => $typeDemande, 'commentaire' => $commentaire, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -447,7 +447,12 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/demandeStatutValide.html.twig')
-            ->context(['typeDemande' => $typeDemande, 'profil' => $profil, 'accompagnement' => $avecAccompagnement]);
+            ->context([
+                'typeDemande' => $typeDemande,
+                'profil' => $profil,
+                'accompagnement' => $avecAccompagnement,
+                ...$this->appEnvs(),
+            ]);
 
         try {
             $this->mailer->send($email);
@@ -471,7 +476,7 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/demandeCharteAValider.html.twig')
-            ->context(['typeDemande' => $typeDemande]);
+            ->context(['typeDemande' => $typeDemande, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -498,7 +503,7 @@ readonly class MailService
             ->subject($subject)
             ->to($destinataire)
             ->htmlTemplate('mail/demandePrendreContact.html.twig')
-            ->context(['typeDemande' => $typeDemande]);
+            ->context(['typeDemande' => $typeDemande, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -531,6 +536,7 @@ readonly class MailService
                 'message' => $message->getMessage(),
                 'exceptionMessage' => $message->getExceptionMessage(),
                 'trace' => $message->getTrace(),
+                ...$this->appEnvs(),
             ]);
 
         try {
@@ -559,7 +565,7 @@ readonly class MailService
             ->bcc(...$destBcc)
             ->htmlTemplate('mail/decisionAmenagement.html.twig')
             ->addPart(new DataPart($pdf, 'decision.pdf', 'application/pdf'))
-            ->context(['decision' => $decision]);
+            ->context(['decision' => $decision, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -586,7 +592,7 @@ readonly class MailService
                 $destinataires,
             ))
             ->htmlTemplate('mail/rapportNettoyage.html.twig')
-            ->context(['nb' => $count, 'removed' => $removed, 'errors' => $errors]);
+            ->context(['nb' => $count, 'removed' => $removed, 'errors' => $errors, ...$this->appEnvs()]);
 
         try {
             $this->mailer->send($email);
@@ -595,5 +601,10 @@ readonly class MailService
             $this->logger->error($e->getMessage());
             $this->logger->debug($e->getTraceAsString());
         }
+    }
+
+    private function appEnvs(): array
+    {
+        return $this->parametreService->getAppEnv();
     }
 }
