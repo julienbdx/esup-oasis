@@ -10,7 +10,7 @@
 import { Card, Layout } from "antd";
 import PageTitle from "@utils/PageTitle/PageTitle";
 import { env } from "@/env";
-import { service } from "@lib";
+import { etablissement, service } from "@lib";
 import { mailtoHref } from "@utils/url";
 import { useEffectiveTheme } from "@utils/theme/useEffectiveTheme";
 
@@ -32,8 +32,8 @@ export default function Rgpd() {
 
           <h2>{service.DenominationLongue}</h2>
           <p>
-            {service.Defini} de {env.REACT_APP_ETABLISSEMENT_ARTICLE} est responsable du traitement
-            des données à caractère personnel vous concernant et collectées dans le cadre{" "}
+            {service.Defini} {etablissement.nom.de} est responsable du traitement des données à
+            caractère personnel vous concernant et collectées dans le cadre{" "}
             <b>
               du suivi et de l’accompagnement des étudiantes et des étudiants à besoins spécifiques
               pour la mise en place du plan d’accompagnement individuel et personnalisé
@@ -85,7 +85,7 @@ export default function Rgpd() {
           </p>
           <h3>Exercer ses droits</h3>
           <p>
-            Le délégué à la protection des données (DPD) de l'université est votre interlocuteur
+            Le délégué à la protection des données (DPD) de l'établissement est votre interlocuteur
             pour toute demande d'exercice de vos droits sur ce traitement.
             {env.REACT_APP_ADRESSE_DPD && (
               <>

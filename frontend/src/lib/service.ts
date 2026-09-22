@@ -9,6 +9,7 @@
  */
 
 import { env } from "@/env";
+import { construireFormesGrammaticales, resoudreArticle } from "./denomination";
 
 /**
  * Dénominations grammaticales du service d'accompagnement des étudiants.
@@ -30,21 +31,6 @@ import { env } from "@/env";
  * `service <REACT_APP_SERVICE>` avec l'article `le`, soit les textes historiques.
  */
 
-type Article = "le" | "la" | "l'";
-
-/** Préfixes (article défini + prépositions contractées) pour chaque article. */
-const PREFIXES: Record<Article, { defini: string; de: string; a: string }> = {
-  le: { defini: "le ", de: "du ", a: "au " },
-  la: { defini: "la ", de: "de la ", a: "à la " },
-  // Élision : pas d'espace après l'apostrophe.
-  "l'": { defini: "l'", de: "de l'", a: "à l'" },
-};
-
-function resoudreArticle(): Article {
-  const brut = env.REACT_APP_SERVICE_ARTICLE?.trim().toLowerCase();
-  return brut === "la" || brut === "l'" ? brut : "le";
-}
-
 function resoudreDenomination(): string {
   return env.REACT_APP_SERVICE_DENOMINATION?.trim() || `service ${env.REACT_APP_SERVICE}`;
 }
@@ -53,46 +39,27 @@ function resoudreDenominationLongue(denomination: string): string {
   return env.REACT_APP_SERVICE_DENOMINATION_LONGUE?.trim() || denomination;
 }
 
-/** Passe la première lettre en majuscule (pour un début de phrase). */
-function capitaliser(valeur: string): string {
-  return valeur.charAt(0).toUpperCase() + valeur.slice(1);
-}
-
 function construireService() {
   const denomination = resoudreDenomination();
   const denominationLongue = resoudreDenominationLongue(denomination);
-  const prefixe = PREFIXES[resoudreArticle()];
+  const article = resoudreArticle(env.REACT_APP_SERVICE_ARTICLE);
 
-  const defini = prefixe.defini + denomination;
-  const definiLong = prefixe.defini + denominationLongue;
-  const de = prefixe.de + denomination;
-  const a = prefixe.a + denomination;
+  const formes = construireFormesGrammaticales(denomination, article);
+  const formesLongues = construireFormesGrammaticales(denominationLongue, article);
 
   return {
     /** Sigle / nom court, pour les intitulés composés : `Accompagnement ${service.sigle}`. */
     sigle: env.REACT_APP_SERVICE,
-    /** Groupe nominal nu : « service PHASE » / « Cellule d'aide aux étudiants » / « SARE ». */
-    denomination,
+    ...formes,
     /**
      * Dénomination développée, réservée à la première mention dans un document formel
-     * (page RGPD). Égale à {@link denomination} si non configurée.
+     * (page RGPD). Égale à {@link formes.denomination} si non configurée.
      */
-    denominationLongue,
-    /** Forme définie : « le service PHASE » / « la Cellule… » / « l'ADEP ». */
-    defini,
+    denominationLongue: formesLongues.denomination,
     /** Forme définie sur la dénomination développée (première mention d'un document formel). */
-    definiLong,
-    /** Préposition « de » contractée : « du service PHASE » / « de la Cellule… ». */
-    de,
-    /** Préposition « à » contractée : « au service PHASE » / « à la Cellule… ». */
-    a,
-    /** Variantes à employer uniquement en début de phrase (ou comme titre). */
-    Denomination: capitaliser(denomination),
-    DenominationLongue: capitaliser(denominationLongue),
-    Defini: capitaliser(defini),
-    DefiniLong: capitaliser(definiLong),
-    De: capitaliser(de),
-    A: capitaliser(a),
+    definiLong: formesLongues.defini,
+    DenominationLongue: formesLongues.Denomination,
+    DefiniLong: formesLongues.Defini,
   } as const;
 }
 
