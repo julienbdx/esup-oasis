@@ -15,7 +15,6 @@ import { PREFETCH_CATEGORIES_AMENAGEMENTS, PREFETCH_TYPES_AMENAGEMENTS } from "@
 import { CardAmenagement } from "../Card/CardAmenagement";
 import { Empty, Flex, Row, Typography } from "antd";
 
-import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { BoutonDecisionEtab } from "./BoutonDecisionEtab";
 import { decisionEtab } from "@lib";
 
@@ -46,7 +45,6 @@ function ListeAmenagementsDecision(props: {
 }
 
 export function TabDecisionEtab(props: { utilisateurId: string }) {
-  const screens = useBreakpoint();
   const { data: typesAmenagements } = useApi().useGetFullCollection(PREFETCH_TYPES_AMENAGEMENTS);
   const { data: categoriesAmenagements } = useApi().useGetFullCollection(
     PREFETCH_CATEGORIES_AMENAGEMENTS,
