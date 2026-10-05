@@ -112,6 +112,16 @@ describe("HtmlEditor — contenu initial", () => {
     expect(getEditable(container).querySelector("strong")).not.toBeNull();
   });
 
+  it("n'ajoute pas de paragraphe parasite en fin de document", async () => {
+    // Garde-fou sur `trailingNode: false` : cette extension, incluse par défaut
+    // dans le StarterKit v3, ajoute un paragraphe vide après un document terminé
+    // par un titre ou une liste, qui se retrouverait dans le contenu enregistré.
+    const { container } = renderEditor({ value: "<h2>Titre</h2><ul><li><p>un</p></li></ul>" });
+
+    await waitFor(() => expect(getEditable(container).querySelector("ul")).not.toBeNull());
+    expect(getEditable(container).lastElementChild?.tagName.toLowerCase()).toBe("ul");
+  });
+
   it("accepte l'absence de value", async () => {
     const { container } = renderEditor();
 
