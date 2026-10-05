@@ -150,12 +150,28 @@ function MenuBar() {
   );
 }
 
-export default function HtmlEditor(props: { value?: string; onChange?: (value: string) => void }) {
+/** Nom accessible par défaut de la zone d'édition, à défaut de libellé fourni. */
+const ARIA_LABEL_DEFAUT = "Éditeur de contenu";
+
+export default function HtmlEditor(props: {
+  value?: string;
+  onChange?: (value: string) => void;
+  /**
+   * Nom accessible de la zone d'édition (rôle `textbox`). À renseigner avec
+   * l'intitulé visible qui précède l'éditeur, pour que nom accessible et
+   * libellé visuel concordent (WCAG 2.5.3).
+   */
+  ariaLabel?: string;
+}) {
   return (
     <EditorProvider
       slotBefore={<MenuBar />}
       extensions={EXTENSIONS}
       content={props.value}
+      editorProps={{
+        // ProseMirror ne pose aucun nom accessible sur son `contenteditable`.
+        attributes: { "aria-label": props.ariaLabel ?? ARIA_LABEL_DEFAUT },
+      }}
       onUpdate={(content) => {
         props.onChange?.(content.editor.getHTML());
       }}
